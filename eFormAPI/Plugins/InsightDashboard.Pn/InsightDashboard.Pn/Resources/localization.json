@@ -1,0 +1,30 @@
+﻿[
+  {
+    "Key": "Settings",
+    "LocalizedValue": {
+      "da": "Indstillinger",
+      "en-US": "Settings"
+    }
+  },
+  {
+    "Key": "SettingsHaveBeenUpdatedSuccessfully",
+    "LocalizedValue": {
+      "da": "Indstillinger er blevet opdateret med succes",
+      "en-US": "Settings have been updated successfully"
+    }
+  },
+  {
+    "Key": "ErrorWhileUpdatingSettings",
+    "LocalizedValue": {
+      "da": "Fejl under opdatering af indstillinger",
+      "en-US": "Error while updating settings"
+    }
+  },
+  {
+    "Key": "ErrorWhileObtainingDashboardSettings",
+    "LocalizedValue": {
+      "da": "Fejl under hentning af dashboardindstillinger",
+      "en-US": "Error while obtaining dashboard settings"
+    }
+  }
+]
