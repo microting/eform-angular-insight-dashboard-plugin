@@ -23,3 +23,5 @@ export const InsightDashboardPnLocalSettings = [
     }
   )
 ];
+
+export const insightDashboardPnSettings = 'insightDashboardPnSettings';

@@ -13,18 +13,18 @@ import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.mo
 import {CasesModule} from '../../../modules';
 import {InsightDashboardPnDashboards, InsightDashboardPnSettingsService, InsightDashboardPnSurveyConfigs} from './services';
 import {
+  DashboardCopyComponent,
+  DashboardDeleteComponent,
   DashboardEditComponent,
   DashboardNewComponent,
   DashboardsPageComponent,
   DashboardViewComponent,
-  InsightDashboardSettingsComponent,
+  InsightDashboardSettingsComponent, SurveyConfigurationDeleteComponent,
   SurveyConfigurationEditComponent,
   SurveyConfigurationNewComponent,
-  SurveyConfigurationsPageComponent
+  SurveyConfigurationsPageComponent, SurveyConfigurationStatusComponent
 } from './components';
-import { SurveyConfigurationStatusComponent } from './components/surveys/survey-configuration-activate/survey-configuration-status.component';
-import { DashboardEditConfigurationComponent } from './components/dashboards/dashboard-edit-configuration/dashboard-edit-configuration.component';
-import { SurveyConfigurationDeleteComponent } from './components/surveys/survey-configuration-delete/survey-configuration-delete.component';
+import {DashboardEditConfigurationComponent} from './components/dashboards/dashboard-edit-configuration/dashboard-edit-configuration.component';
 
 @NgModule({
   imports: [
@@ -51,7 +51,9 @@ import { SurveyConfigurationDeleteComponent } from './components/surveys/survey-
     DashboardViewComponent,
     SurveyConfigurationStatusComponent,
     DashboardEditConfigurationComponent,
-    SurveyConfigurationDeleteComponent
+    SurveyConfigurationDeleteComponent,
+    DashboardDeleteComponent,
+    DashboardCopyComponent
   ],
   providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboards, InsightDashboardPnSurveyConfigs]
 })

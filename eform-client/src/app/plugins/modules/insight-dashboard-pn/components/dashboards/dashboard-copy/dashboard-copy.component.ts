@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 @Component({
-  selector: 'app-dashboard-edit',
-  templateUrl: './dashboard-edit.component.html',
-  styleUrls: ['./dashboard-edit.component.scss']
+  selector: 'app-dashboard-copy',
+  templateUrl: './dashboard-copy.component.html',
+  styleUrls: ['./dashboard-copy.component.scss']
 })
-export class DashboardEditComponent implements OnInit {
+export class DashboardCopyComponent implements OnInit {
   @ViewChild('frame') frame;
   spinnerStatus = false;
 

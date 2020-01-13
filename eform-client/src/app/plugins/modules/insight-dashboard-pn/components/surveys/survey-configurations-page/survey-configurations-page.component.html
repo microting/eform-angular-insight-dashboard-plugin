@@ -1,7 +1,7 @@
 <subheader-pn [title]="'Surveys' | translate">
   <div class="p-3">
     <button
-      id="createSurveyConfigButton"
+      id="createSurveyConfigBtn"
       class="btn btn-success"
       (click)="openCreateModal()">{{ 'New Survey Config' | translate }}
     </button>
@@ -76,7 +76,7 @@
               </div>
               <button id="surveyConfigDeleteBtn"
                       class="btn btn-danger btn-icon mb-2 "
-                      mdbTooltip="{{'Delete Worker' | translate}}"
+                      mdbTooltip="{{'Delete Survey' | translate}}"
                       (click)="openDeleteModal(surveyConfig)">
                 <fa-icon icon="trash-alt" [fixedWidth]="true" size="lg"></fa-icon>
               </button>

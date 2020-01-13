@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SurveyConfigsListModel} from '../../../models';
-import {InstallationTypeEnum, SurveyConfigsSortColumns} from '../../../const';
+import {insightDashboardPnSettings, InstallationTypeEnum, SurveyConfigsSortColumns} from '../../../const';
 import {SurveyConfigModel} from '../../../models/survey-config.model';
 import {SurveyConfigsRequestModel} from '../../../models/survey-configs-request.model';
 import {PageSettingsModel} from '../../../../../../common/models/settings';
@@ -68,7 +68,7 @@ export class SurveyConfigurationsPageComponent implements OnInit {
 
   getLocalPageSettings() {
     this.localPageSettings = this.sharedPnService
-      .getLocalPageSettings('insightDashboardPnSettings', 'SurveyConfigs')
+      .getLocalPageSettings(insightDashboardPnSettings, 'SurveyConfigs')
       .settings;
     this.getSurveyConfigsList();
   }
@@ -120,7 +120,7 @@ export class SurveyConfigurationsPageComponent implements OnInit {
 
   updateLocalPageSettings() {
     this.sharedPnService.updateLocalPageSettings(
-      'insightDashboardPnSettings',
+      insightDashboardPnSettings,
       this.localPageSettings,
       'SurveyConfigs'
     );

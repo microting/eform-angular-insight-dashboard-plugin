@@ -1,3 +1,151 @@
-<p>
-  insight-dashboard-dashboards works!
-</p>
+<subheader-pn [title]="'Dashboards' | translate">
+  <div class="p-3">
+    <button
+      id="createDashboardBtn"
+      class="btn btn-success"
+      (click)="openCreateModal()">{{ 'New Dashboard' | translate }}
+    </button>
+  </div>
+</subheader-pn>
+
+<div class="container-fluid">
+  <div class="row pl-1">
+    <div class="col-md-2">
+      <div class="md-form">
+        <input mdbInputDirective [mdbValidate]="false"
+               type="text" (input)="onSearchInputChanged($event)"
+               class="form-control input-sm" id="searchInput">
+        <label for="searchInput">{{'Search' | translate}}</label>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row p-1 mt-4 table-responsive no-gutters" *ngIf="dashboardsListModel.total !== 0">
+      <table class="table table-sm table-striped text-center z-depth-1">
+        <thead>
+        <tr>
+          <th scope="col" class="table-header-sortable" id="idTableHeader" (click)="sortTable(sortCols.id)">
+            <div class="d-flex align-items-center justify-content-center">
+              ID
+              <i class="material-icons text-black-50">{{getSortIcon(sortCols.id)}}</i>
+            </div>
+          </th>
+          <th scope="col" class="table-header-sortable" id="dashboardNameTableHeader"
+              (click)="sortTable(sortCols.dashboardName)">
+            <div class="d-flex align-items-center justify-content-center">
+              {{ 'Dashboard name' | translate }}
+              <i class="material-icons text-black-50">{{getSortIcon(sortCols.dashboardName)}}</i>
+            </div>
+          </th>
+          <th scope="col" class="table-header-sortable" id="surveyNameTableHeader"
+              (click)="sortTable(sortCols.surveyName)">
+            <div class="d-flex align-items-center justify-content-center">
+              {{ 'Survey name' | translate }}
+              <i class="material-icons text-black-50">{{getSortIcon(sortCols.surveyName)}}</i>
+            </div>
+          </th>
+          <th scope="col" class="table-header-sortable" id="locationNameTableHeader"
+              (click)="sortTable(sortCols.locationName)">
+            <div class="d-flex align-items-center justify-content-center">
+              {{ 'Location name' | translate }}
+              <i class="material-icons text-black-50">{{getSortIcon(sortCols.locationName)}}</i>
+            </div>
+          </th>
+          <th scope="col">
+            {{ 'Actions' | translate }}
+          </th>
+        </tr>
+        </thead>
+        <tbody id="tableBody">
+        <tr *ngFor="let dashboard of dashboardsListModel?.dashboardList; let i = index">
+          <td id="dashboardId">
+            {{dashboard.id}}
+          </td>
+          <td id="dashboardName">
+            {{dashboard.dashboardName}}
+          </td>
+          <td id="dashboardSurveyName">
+            {{dashboard.dashboardName}}
+          </td>
+          <td id="dashboardLocationName">
+            {{dashboard.locationName}}
+          </td>
+          <td>
+            <div class="d-flex flex-row justify-content-center">
+              <button class="btn btn-success text-black-50 btn-icon mb-2 " id="viewDashboardBtn"
+                      mdbTooltip="{{'View Dashboard' | translate}}" mdbWavesEffect
+                      (click)="openViewPage(dashboard)">
+                <fa-icon icon="eye" [fixedWidth]="true" size="lg"></fa-icon>
+              </button>
+              <button class="btn btn-accent text-black-50 btn-icon mb-2 " id="editDashboardBtn"
+                      mdbTooltip="{{'Edit Dashboard' | translate}}" mdbWavesEffect
+                      (click)="openEditPage(dashboard)">
+                <fa-icon icon="pen" [fixedWidth]="true" size="lg"></fa-icon>
+              </button>
+              <div id="surveyConfigStatus">
+                <button (click)="openCopyModal()"
+                        mdbTooltip="{{'Copy Dashboard' | translate}}"
+                        class="btn btn-accent text-black-50 btn-icon mb-2">
+                  <fa-icon icon="copy" [fixedWidth]="true" size="lg"></fa-icon>
+                </button>
+              </div>
+              <button id="surveyConfigDeleteBtn"
+                      class="btn btn-danger btn-icon mb-2 "
+                      mdbTooltip="{{'Delete Dashboard' | translate}}"
+                      (click)="openDeleteModal(dashboard)">
+                <fa-icon icon="trash-alt" [fixedWidth]="true" size="lg"></fa-icon>
+              </button>
+            </div>
+
+            <!--            <div [ngStyle]="{'color': plugin.status == statusEnum.Enabled ? '#06ba06' : '#ba3f4e'}" id="plugin-status">-->
+            <!--              <button *ngIf="plugin.status == statusEnum.Disabled"-->
+            <!--                      mdbTooltip="{{'Activate plugin' | translate}}"-->
+            <!--                      class="btn btn-accent text-black-50 btn-icon mb-2"-->
+            <!--                      (click)="openPluginModal(plugin, statusEnum.Enabled)">-->
+            <!--                <fa-icon icon="toggle-on"></fa-icon>-->
+            <!--              </button>-->
+            <!--              <button *ngIf="plugin.status == statusEnum.Enabled"-->
+            <!--                      mdbTooltip="{{'Deactivate plugin' | translate}}"-->
+            <!--                      class="btn btn-success text-black-50 btn-icon mb-2"-->
+            <!--                      (click)="openPluginModal(plugin, statusEnum.Disabled)">-->
+            <!--                <fa-icon icon="toggle-off"></fa-icon>-->
+            <!--              </button>-->
+            <!--            </div>-->
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row p-1 my-4 mx-2" *ngIf="dashboardsListModel.total === 0">
+    <span>{{'No dashboards found' | translate}}</span>
+  </div>
+  <div class="row justify-content-between mr-2 ml-2">
+    <div class="col-md-1">
+      <page-size-pn
+        [pageSize]="localPageSettings.pageSize"
+        (onPageSizeChanged)="localPageSettings.pageSize = $event; dashboardsRequestModel.offset = 0;
+        updateLocalPageSettings()"
+      ></page-size-pn>
+    </div>
+    <pagination-pn
+      *ngIf="dashboardsListModel?.total > dashboardsRequestModel.pageSize"
+      [limit]="dashboardsRequestModel.pageSize"
+      [size]="dashboardsListModel.total"
+      [offset]="dashboardsRequestModel.offset"
+      (onPageChanged)="changePage($event)"
+    ></pagination-pn>
+  </div>
+</div>
+
+<spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>
+
+<app-dashboard-copy #copyDashboardModal></app-dashboard-copy>
+<app-dashboard-new #newDashboardModal></app-dashboard-new>
+<app-dashboard-delete #deleteDashboardModal></app-dashboard-delete>
+<!--<app-installation-assign-->
+<!--  #assignInstallationModal (installationAssigned)="getInstallationsList()"-->
+<!--&gt;</app-installation-assign>-->
+<!--<app-installation-retract-->
+<!--  #retractInstallationModal (installationRetracted)="getInstallationsList()"-->
+<!--&gt;</app-installation-retract>-->
