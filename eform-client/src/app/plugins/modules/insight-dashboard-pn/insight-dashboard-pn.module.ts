@@ -1,25 +1,30 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { MDBBootstrapModule } from 'port/angular-bootstrap-md';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { SharedPnModule } from '../shared/shared-pn.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { EformSharedModule } from '../../../common/modules/eform-shared/eform-shared.module';
+import {FormsModule} from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
+import {MDBBootstrapModule} from 'port/angular-bootstrap-md';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {SharedPnModule} from '../shared/shared-pn.module';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {EformSharedModule} from '../../../common/modules/eform-shared/eform-shared.module';
 import {InsightDashboardPnLayoutComponent} from './layouts';
 
 import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.module';
 import {CasesModule} from '../../../modules';
-import {InsightDashboardPnSettingsService, InsightDashboardService} from './services';
+import {InsightDashboardPnDashboards, InsightDashboardPnSettingsService, InsightDashboardPnSurveyConfigs} from './services';
 import {
-  InstallationAssignComponent,
-  InstallationCheckingSettingsComponent,
-  InstallationNewComponent,
-  InstallationRetractComponent,
-  InstallationsPageComponent,
-  RemovalPageComponent
+  DashboardEditComponent,
+  DashboardNewComponent,
+  DashboardsPageComponent,
+  DashboardViewComponent,
+  InsightDashboardSettingsComponent,
+  SurveyConfigurationEditComponent,
+  SurveyConfigurationNewComponent,
+  SurveyConfigurationsPageComponent
 } from './components';
+import { SurveyConfigurationStatusComponent } from './components/surveys/survey-configuration-activate/survey-configuration-status.component';
+import { DashboardEditConfigurationComponent } from './components/dashboards/dashboard-edit-configuration/dashboard-edit-configuration.component';
+import { SurveyConfigurationDeleteComponent } from './components/surveys/survey-configuration-delete/survey-configuration-delete.component';
 
 @NgModule({
   imports: [
@@ -36,14 +41,20 @@ import {
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
-    InstallationCheckingSettingsComponent,
-    InstallationAssignComponent,
-    InstallationNewComponent,
-    InstallationRetractComponent,
-    InstallationsPageComponent,
-    RemovalPageComponent
+    InsightDashboardSettingsComponent,
+    SurveyConfigurationsPageComponent,
+    DashboardsPageComponent,
+    DashboardNewComponent,
+    SurveyConfigurationNewComponent,
+    SurveyConfigurationEditComponent,
+    DashboardEditComponent,
+    DashboardViewComponent,
+    SurveyConfigurationStatusComponent,
+    DashboardEditConfigurationComponent,
+    SurveyConfigurationDeleteComponent
   ],
-  providers: [InsightDashboardPnSettingsService, InsightDashboardService]
+  providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboards, InsightDashboardPnSurveyConfigs]
 })
 
-export class InsightDashboardPnModule { }
+export class InsightDashboardPnModule {
+}

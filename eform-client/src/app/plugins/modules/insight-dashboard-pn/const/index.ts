@@ -1,5 +1,5 @@
-export * from './installationchecking-pn-claims.const';
-export * from './installationchecking-pn-local-settings.const';
-export * from './installations-sort-columns.const';
+export * from './insight-dashboard-pn-claims.const';
+export * from './insight-dashboard-pn-local-settings.const';
+export * from './survey-config-sort-columns.const';
 export * from './enums/index';
 
