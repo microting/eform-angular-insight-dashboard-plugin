@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {LocaleService} from '../../../../common/services/auth';
 import {TranslateService} from '@ngx-translate/core';
 import {SharedPnService} from '../../shared/services';
-import {InstallationCheckingPnLocalSettings} from '../const';
+import {InsightDashboardPnLocalSettings} from '../const';
 declare var require: any;
 
 @Component({
@@ -16,7 +16,7 @@ export class InsightDashboardPnLayoutComponent implements  AfterViewInit, OnInit
   }
 
   ngOnInit(): void {
-    this.sharedPnService.initLocalPageSettings('installationCheckingPnSettings', InstallationCheckingPnLocalSettings);
+    this.sharedPnService.initLocalPageSettings('insightDashboardPnSettings', InsightDashboardPnLocalSettings);
   }
 
   ngAfterViewInit() {

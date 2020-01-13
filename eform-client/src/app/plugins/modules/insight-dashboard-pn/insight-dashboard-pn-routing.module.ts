@@ -2,30 +2,31 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {InsightDashboardPnLayoutComponent} from './layouts';
 import {AdminGuard, AuthGuard, PermissionGuard} from '../../../common/guards';
-import {InstallationCheckingSettingsComponent, InstallationsPageComponent, RemovalPageComponent} from './components';
-import {InstallationCheckingPnClaims} from './const';
+import {DashboardsPageComponent, InsightDashboardSettingsComponent, SurveyConfigurationsPageComponent} from './components';
+import {InsightDashboardPnClaims} from './const';
 
 export const routes: Routes = [
   {
     path: '',
     component: InsightDashboardPnLayoutComponent,
-    canActivate: [PermissionGuard],
-    data: {requiredPermission: InstallationCheckingPnClaims.accessInstallationCheckingPlugin},
+    // TODO: Add permissions
+    // canActivate: [PermissionGuard],
+    // data: {requiredPermission: InsightDashboardPnClaims.accessInsightDashboardPlugin},
     children: [
       {
-        path: 'installation',
+        path: 'dashboards',
         canActivate: [AuthGuard],
-        component: InstallationsPageComponent
+        component: DashboardsPageComponent
       },
       {
-        path: 'removal',
+        path: 'surveys',
         canActivate: [AuthGuard],
-        component: RemovalPageComponent
+        component: SurveyConfigurationsPageComponent
       },
       {
         path: 'settings',
         canActivate: [AdminGuard],
-        component: InstallationCheckingSettingsComponent
+        component: InsightDashboardSettingsComponent
       }
     ]
   }

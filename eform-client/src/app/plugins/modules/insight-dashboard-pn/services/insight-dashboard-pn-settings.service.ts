@@ -7,9 +7,10 @@ import {Observable} from 'rxjs';
 import {OperationDataResult, OperationResult} from '../../../../common/models';
 import {InsightDashboardBaseSettingsModel} from '../models';
 
-export let InstallationCheckingSettingsMethods = {
-  InstallationCheckingSettings: 'api/installationchecking-pn/settings'
+export const InsightDashboardSettingsMethods = {
+  Settings: 'api/insight-dashboard-pn/settings'
 };
+
 @Injectable()
 export class InsightDashboardPnSettingsService extends BaseService {
   constructor(private _http: HttpClient, router: Router, toastrService: ToastrService) {
@@ -17,10 +18,10 @@ export class InsightDashboardPnSettingsService extends BaseService {
   }
 
   getAllSettings(): Observable<OperationDataResult<any>> {
-    return this.get(InstallationCheckingSettingsMethods.InstallationCheckingSettings);
+    return this.get(InsightDashboardSettingsMethods.Settings);
   }
 
   updateSettings(model: InsightDashboardBaseSettingsModel): Observable<OperationResult> {
-    return this.post(InstallationCheckingSettingsMethods.InstallationCheckingSettings, model);
+    return this.post(InsightDashboardSettingsMethods.Settings, model);
   }
 }
