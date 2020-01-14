@@ -4,19 +4,20 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {Observable} from 'rxjs';
-import {OperationDataResult, OperationResult} from '../../../../common/models';
-import {SurveyConfigsListModel} from '../models';
-import {SurveyConfigsRequestModel} from '../models/survey-configs-request.model';
+import {CommonDictionaryModel, OperationDataResult, OperationResult} from '../../../../common/models';
+import {SurveyConfigCreateModel, SurveyConfigUpdateModel, SurveyConfigsListModel, SurveyConfigUpdateStatusModel} from '../models';
+import {SurveyConfigsRequestModel} from '../models/survey/survey-configs-request.model';
 
 export let SurveyConfigsMethods = {
   Get: 'api/insight-dashboard-pn/survey-configs',
+  GetSurveys: 'api/insight-dashboard-pn/survey-configs/surveys',
   Create: 'api/insight-dashboard-pn/survey-configs/create',
   Update: 'api/insight-dashboard-pn/survey-configs/update',
-  Activate: 'api/insight-dashboard-pn/survey-configs/activate',
-  Deactivate: 'api/insight-dashboard-pn/survey-configs/deactivate'
+  Status: 'api/insight-dashboard-pn/survey-configs/status',
+  Delete: 'api/insight-dashboard-pn/survey-configs/delete'
 };
 @Injectable()
-export class InsightDashboardPnSurveyConfigs extends BaseService {
+export class InsightDashboardPnSurveyConfigsService extends BaseService {
   constructor(private _http: HttpClient, router: Router, toastrService: ToastrService) {
     super(_http, router, toastrService);
   }
@@ -25,23 +26,27 @@ export class InsightDashboardPnSurveyConfigs extends BaseService {
     return this.post(SurveyConfigsMethods.Get, model);
   }
 
+  getAvailableSurveys(searchString: string): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {
+    return this.get(SurveyConfigsMethods.Get, searchString);
+  }
+
   getSingle(id: number): Observable<OperationDataResult<SurveyConfigsListModel>> {
     return this.get(SurveyConfigsMethods.Get + '/' + id);
   }
 
-  activate(id: number): Observable<OperationResult> {
-    return this.post(SurveyConfigsMethods.Activate + '/' + id, {});
+  changeStatus(model: SurveyConfigUpdateStatusModel): Observable<OperationResult> {
+    return this.post(SurveyConfigsMethods.Status, model);
   }
 
-  deactivate(id: number): Observable<OperationResult> {
-    return this.post(SurveyConfigsMethods.Deactivate + '/' , {});
-  }
-
-  create(model: any): Observable<OperationResult> {
+  create(model: SurveyConfigCreateModel): Observable<OperationResult> {
     return this.post(SurveyConfigsMethods.Create, model);
   }
 
-  update(model: any): Observable<OperationResult> {
+  update(model: SurveyConfigUpdateModel): Observable<OperationResult> {
     return this.post(SurveyConfigsMethods.Create, model);
+  }
+
+  remove(id: number): Observable<OperationResult> {
+    return this.post(SurveyConfigsMethods.Delete + '/' + id, {});
   }
 }

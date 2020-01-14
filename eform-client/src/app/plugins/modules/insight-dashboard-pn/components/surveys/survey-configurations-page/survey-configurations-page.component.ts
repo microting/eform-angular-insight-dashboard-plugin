@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SurveyConfigsListModel} from '../../../models';
-import {insightDashboardPnSettings, InstallationTypeEnum, SurveyConfigsSortColumns} from '../../../const';
-import {SurveyConfigModel} from '../../../models/survey-config.model';
-import {SurveyConfigsRequestModel} from '../../../models/survey-configs-request.model';
+import {insightDashboardPnSettings, SurveyConfigsSortColumns} from '../../../const';
+import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
+import {SurveyConfigsRequestModel} from '../../../models/survey/survey-configs-request.model';
 import {PageSettingsModel} from '../../../../../../common/models/settings';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
@@ -10,6 +10,8 @@ import {SharedPnService} from '../../../../shared/services';
 import {SurveyConfigurationEditComponent, SurveyConfigurationNewComponent} from '../..';
 import {SurveyConfigurationStatusComponent} from '../survey-configuration-activate/survey-configuration-status.component';
 import {SurveyConfigurationDeleteComponent} from '../survey-configuration-delete/survey-configuration-delete.component';
+import {InsightDashboardPnLocationsService, InsightDashboardPnSurveyConfigsService} from '../../../services';
+import {CommonDictionaryModel} from '../../../../../../common/models/common';
 
 @Component({
   selector: 'app-insight-dashboard-surveys',
@@ -25,52 +27,65 @@ export class SurveyConfigurationsPageComponent implements OnInit {
   localPageSettings: PageSettingsModel = new PageSettingsModel();
   surveyConfigurationsRequestModel: SurveyConfigsRequestModel = new SurveyConfigsRequestModel();
   spinnerStatus = false;
+  locations: CommonDictionaryModel[] = [];
   searchSubject = new Subject();
 
   get sortCols() {
     return SurveyConfigsSortColumns;
   }
 
-  constructor(private sharedPnService: SharedPnService) {
+  constructor(private sharedPnService: SharedPnService,
+              private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
+              private locationsService: InsightDashboardPnLocationsService) {
     this.searchSubject.pipe(
       debounceTime(500)
-    ). subscribe(val => {
-      this.surveyConfigurationsRequestModel.searchString =  val.toString();
+    ).subscribe(val => {
+      this.surveyConfigurationsRequestModel.searchString = val.toString();
       this.getSurveyConfigsList();
     });
   }
 
   ngOnInit() {
     this.getLocalPageSettings();
+    // TODO: Uncomment
+    // this.getLocations();
 
     this.surveyConfigurationsListModel = {
       total: 1,
       surveyList: [
-        {id: 1, locationName: 'My funny location', name: 'My funny survey'}
+        {id: 1, locationName: 'My funny location', name: 'My funny survey', isActive: false}
       ]
     };
   }
 
   getSurveyConfigsList() {
-    // this.spinnerStatus = true;
-    // this.installationsRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
-    // this.installationsRequestModel.sort = this.localPageSettings.sort;
-    // this.installationsRequestModel.pageSize = this.localPageSettings.pageSize;
-    // this.installationsRequestModel.type = InstallationTypeEnum.Installation;
-    //
-    // this.installationsService.getList(this.installationsRequestModel).subscribe((data) => {
-    //   if (data && data.success) {
-    //     this.installationsListModel = data.model;
-    //   }
-    //   this.spinnerStatus = false;
-    // });
+    this.spinnerStatus = true;
+    this.surveyConfigurationsRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
+    this.surveyConfigurationsRequestModel.sort = this.localPageSettings.sort;
+    this.surveyConfigurationsRequestModel.pageSize = this.localPageSettings.pageSize;
+
+    this.surveyConfigsService.getAll(this.surveyConfigurationsRequestModel).subscribe((data) => {
+      if (data && data.success) {
+        this.surveyConfigurationsListModel = data.model;
+      }
+      this.spinnerStatus = false;
+    });
+  }
+
+  getLocations() {
+    this.locationsService.getAll().subscribe((data) => {
+      if (data && data.success) {
+        this.locations = data.model;
+      }
+    });
   }
 
   getLocalPageSettings() {
     this.localPageSettings = this.sharedPnService
       .getLocalPageSettings(insightDashboardPnSettings, 'SurveyConfigs')
       .settings;
-    this.getSurveyConfigsList();
+    // TODO: UNCOMMENT
+    // this.getSurveyConfigsList();
   }
 
   sortTable(sort: string) {
@@ -114,8 +129,8 @@ export class SurveyConfigurationsPageComponent implements OnInit {
     this.newSurveyConfigModal.show();
   }
 
-  openStatusModal() {
-    this.statusSurveyConfigModal.show();
+  openStatusModal(surveyConfig: SurveyConfigModel) {
+    this.statusSurveyConfigModal.show(surveyConfig);
   }
 
   updateLocalPageSettings() {
@@ -125,9 +140,5 @@ export class SurveyConfigurationsPageComponent implements OnInit {
       'SurveyConfigs'
     );
     this.getSurveyConfigsList();
-  }
-
-  onSurveyConfigStatusChanged($event: boolean) {
-
   }
 }

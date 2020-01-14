@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {PageSettingsModel} from '../../../../../../common/models/settings';
 import {SharedPnService} from '../../../../shared/services';
 import {DashboardModel, DashboardsListModel} from '../../../models';
-import {DashboardsRequestModel} from '../../../models/dashboards-request.model';
+import {DashboardsRequestModel} from '../../../models/dashboard/dashboards-request.model';
 import {Subject} from 'rxjs';
 import {DashboardSortColumns, insightDashboardPnSettings, SurveyConfigsSortColumns} from '../../../const';
 import {DashboardCopyComponent, DashboardDeleteComponent, DashboardEditComponent, DashboardNewComponent} from '../..';

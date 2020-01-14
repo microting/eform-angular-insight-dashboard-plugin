@@ -11,7 +11,12 @@ import {InsightDashboardPnLayoutComponent} from './layouts';
 
 import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.module';
 import {CasesModule} from '../../../modules';
-import {InsightDashboardPnDashboards, InsightDashboardPnSettingsService, InsightDashboardPnSurveyConfigs} from './services';
+import {
+  InsightDashboardPnDashboards,
+  InsightDashboardPnLocationsService,
+  InsightDashboardPnSettingsService,
+  InsightDashboardPnSurveyConfigsService
+} from './services';
 import {
   DashboardCopyComponent,
   DashboardDeleteComponent,
@@ -19,10 +24,12 @@ import {
   DashboardNewComponent,
   DashboardsPageComponent,
   DashboardViewComponent,
-  InsightDashboardSettingsComponent, SurveyConfigurationDeleteComponent,
+  InsightDashboardSettingsComponent,
+  SurveyConfigurationDeleteComponent,
   SurveyConfigurationEditComponent,
   SurveyConfigurationNewComponent,
-  SurveyConfigurationsPageComponent, SurveyConfigurationStatusComponent
+  SurveyConfigurationsPageComponent,
+  SurveyConfigurationStatusComponent
 } from './components';
 import {DashboardEditConfigurationComponent} from './components/dashboards/dashboard-edit-configuration/dashboard-edit-configuration.component';
 
@@ -55,7 +62,8 @@ import {DashboardEditConfigurationComponent} from './components/dashboards/dashb
     DashboardDeleteComponent,
     DashboardCopyComponent
   ],
-  providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboards, InsightDashboardPnSurveyConfigs]
+  providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboards,
+    InsightDashboardPnSurveyConfigsService, InsightDashboardPnLocationsService]
 })
 
 export class InsightDashboardPnModule {

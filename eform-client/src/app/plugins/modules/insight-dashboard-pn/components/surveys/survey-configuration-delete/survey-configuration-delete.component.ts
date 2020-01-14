@@ -1,5 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {SurveyConfigModel} from '../../../models/survey-config.model';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
+import {InsightDashboardPnSurveyConfigsService} from '../../../services';
 
 @Component({
   selector: 'app-survey-configuration-delete',
@@ -7,16 +8,30 @@ import {SurveyConfigModel} from '../../../models/survey-config.model';
   styleUrls: ['./survey-configuration-delete.component.scss']
 })
 export class SurveyConfigurationDeleteComponent implements OnInit {
+  @Output() surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
+  surveyConfig: SurveyConfigModel = new SurveyConfigModel();
   @ViewChild('frame') frame;
   spinnerStatus = false;
 
-  constructor() { }
+  constructor(private surveyConfigsService: InsightDashboardPnSurveyConfigsService) { }
 
   show(surveyConfig: SurveyConfigModel) {
+    this.surveyConfig = surveyConfig;
     this.frame.show();
   }
 
   ngOnInit() {
   }
 
+  deleteSurveyConfig() {
+    this.spinnerStatus = true;
+    this.surveyConfigsService.remove(this.surveyConfig.id)
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.frame.hide();
+          this.surveyConfigDeleted.emit();
+        }
+        this.spinnerStatus = false;
+      });
+  }
 }

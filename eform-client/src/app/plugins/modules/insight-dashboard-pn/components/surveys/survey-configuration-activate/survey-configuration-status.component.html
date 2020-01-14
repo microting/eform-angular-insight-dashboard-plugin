@@ -2,14 +2,17 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>{{ 'Are you sure you want to activate this survey configuration?' | translate }}</h3>
+        <h3>{{ 'Survey config status' | translate }}</h3>
+      </div>
+      <div class="modal-body">
+        <p>{{'Are you sure you want to change status to this survey configuration?' | translate}}</p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" *ngIf="!isSurveyConfigActivated" (click)="changeSurveyConfigStatus()"
+        <button class="btn btn-success" *ngIf="!selectedSurveyConfig.isActive" (click)="changeSurveyConfigStatus()"
                 id="surveyConfigActivateBtn">
           {{ 'Activate' | translate }}
         </button>
-        <button class="btn btn-danger" *ngIf="isSurveyConfigActivated" (click)="changeSurveyConfigStatus()"
+        <button class="btn btn-danger" *ngIf="selectedSurveyConfig.isActive" (click)="changeSurveyConfigStatus()"
                 id="surveyConfigDeactivateBtn">
           {{ 'Deactivate' | translate }}
         </button>

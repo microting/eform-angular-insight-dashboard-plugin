@@ -4,18 +4,39 @@
       <div class="modal-header">
         <h3>{{ 'New survey config' | translate }}</h3>
       </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <ng-select [items]="surveys"
+                       bindLabel="label"
+                       [placeholder]="'Select survey' | translate"
+                       bindValue="id"
+                       [typeahead]="typeahead"
+                       [(ngModel)]="selectedSurveyId"
+                       id="selectSurvey">
+            </ng-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+<!--            <ng-container *ngFor="let checkboxModel of deployViewModel.deployCheckboxes">-->
+<!--              <div class="mat-checkbox" *ngIf="checkboxModel.id == siteDto.siteUId">-->
+<!--                <input id="checkbox{{checkboxModel.id}}" (change)="addToArray($event, checkboxModel.id)"-->
+<!--                       [checked]="checkboxModel.isChecked" [value]="checkboxModel.isChecked" color="primary" type="checkbox">-->
+<!--                <label for="checkbox{{checkboxModel.id}}"></label>-->
+<!--              </div>-->
+<!--            </ng-container>-->
+          </div>
+        </div>
+      </div>
       <div class="modal-footer">
-<!--        <button class="btn btn-success" *ngIf="!isSurveyConfigActivated" (click)="changeSurveyConfigStatus()"-->
-<!--                id="surveyConfigActivateBtn">-->
-<!--          {{ 'Activate' | translate }}-->
-<!--        </button>-->
-<!--        <button class="btn btn-danger" *ngIf="isSurveyConfigActivated" (click)="changeSurveyConfigStatus()"-->
-<!--                id="surveyConfigDeactivateBtn">-->
-<!--          {{ 'Deactivate' | translate }}-->
-<!--        </button>-->
-<!--        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="surveyConfigActivateCancelBtn">-->
-<!--          {{ 'Cancel' | translate }}-->
-<!--        </button>-->
+        <button class="btn btn-success" (click)="createConfig()"
+                id="surveyConfigCreateSaveBtn">
+          {{ 'Save' | translate }}
+        </button>
+        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="surveyConfigCreateSaveCancelBtn">
+          {{ 'Cancel' | translate }}
+        </button>
       </div>
     </div>
   </div>

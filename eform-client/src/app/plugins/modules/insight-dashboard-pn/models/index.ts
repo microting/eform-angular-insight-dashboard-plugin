@@ -1,7 +1,8 @@
 export * from './insight-dashboard-base-settings.model';
-export * from './installation.model';
-export * from './installations-request.model';
-export * from './survey-configs-list.model';
-export * from './installations-assign.model';
-export * from './dashboard.model';
-export * from './dashboards-list.model';
+export * from './survey/survey-configs-list.model';
+export * from './dashboard/dashboard.model';
+export * from './dashboard/dashboards-list.model';
+export * from './survey/survey-config-update.model';
+export * from './survey/survey-config-create.model';
+export * from './survey/survey-config-update-status.model';
+

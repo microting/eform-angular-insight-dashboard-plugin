@@ -6,8 +6,8 @@ import {ToastrService} from 'ngx-toastr';
 import {Observable} from 'rxjs';
 import {OperationDataResult, OperationResult} from '../../../../common/models';
 import {DashboardsListModel, SurveyConfigsListModel} from '../models';
-import {DashboardsRequestModel} from '../models/dashboards-request.model';
-import {DashboardUpdateModel} from '../models/dashboard-update.model';
+import {DashboardsRequestModel} from '../models/dashboard/dashboards-request.model';
+import {DashboardUpdateModel} from '../models/dashboard/dashboard-update.model';
 
 export let DashboardMethods = {
   Get: 'api/insight-dashboard-pn/dashboard',

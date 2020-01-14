@@ -1,4 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {InsightDashboardPnSurveyConfigsService} from '../../../services';
+import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
 
 @Component({
   selector: 'app-survey-configuration-status',
@@ -6,22 +8,31 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
   styleUrls: ['./survey-configuration-status.component.scss']
 })
 export class SurveyConfigurationStatusComponent implements OnInit {
-  @Input() isSurveyConfigActivated: boolean;
   @ViewChild('frame') frame;
-  @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() configStatusChanged: EventEmitter<SurveyConfigModel> = new EventEmitter<SurveyConfigModel>();
+  selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel();
   spinnerStatus = false;
 
-  constructor() { }
+  constructor(private surveyConfigsService: InsightDashboardPnSurveyConfigsService) {
+  }
 
   ngOnInit() {
   }
 
-  show() {
+  show(model: SurveyConfigModel) {
+    this.selectedSurveyConfig = model;
     this.frame.show();
   }
 
   changeSurveyConfigStatus() {
-    // TODO: Enter real status
-    this.statusChanged.emit(!this.isSurveyConfigActivated);
+    this.spinnerStatus = true;
+    this.surveyConfigsService.changeStatus({surveyId: this.selectedSurveyConfig.id, isActive: !this.selectedSurveyConfig.isActive})
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.frame.hide();
+          this.configStatusChanged.emit();
+        }
+        this.spinnerStatus = false;
+      });
   }
 }
