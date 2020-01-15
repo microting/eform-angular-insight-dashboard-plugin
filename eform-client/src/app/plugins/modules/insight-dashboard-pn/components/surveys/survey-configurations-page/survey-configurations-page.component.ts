@@ -1,24 +1,29 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SurveyConfigsListModel} from '../../../models';
 import {insightDashboardPnSettings, SurveyConfigsSortColumns} from '../../../const';
 import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
 import {SurveyConfigsRequestModel} from '../../../models/survey/survey-configs-request.model';
 import {PageSettingsModel} from '../../../../../../common/models/settings';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {SharedPnService} from '../../../../shared/services';
-import {SurveyConfigurationEditComponent, SurveyConfigurationNewComponent} from '../..';
-import {SurveyConfigurationStatusComponent} from '../survey-configuration-activate/survey-configuration-status.component';
-import {SurveyConfigurationDeleteComponent} from '../survey-configuration-delete/survey-configuration-delete.component';
+import {
+  SurveyConfigurationDeleteComponent,
+  SurveyConfigurationEditComponent,
+  SurveyConfigurationNewComponent,
+  SurveyConfigurationStatusComponent
+} from '../..';
 import {InsightDashboardPnLocationsService, InsightDashboardPnSurveyConfigsService} from '../../../services';
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-insight-dashboard-surveys',
   templateUrl: './survey-configurations-page.component.html',
   styleUrls: ['./survey-configurations-page.component.scss']
 })
-export class SurveyConfigurationsPageComponent implements OnInit {
+export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   @ViewChild('newSurveyConfigModal') newSurveyConfigModal: SurveyConfigurationNewComponent;
   @ViewChild('editSurveyConfigModal') editSurveyConfigModal: SurveyConfigurationEditComponent;
   @ViewChild('statusSurveyConfigModal') statusSurveyConfigModal: SurveyConfigurationStatusComponent;
@@ -26,9 +31,13 @@ export class SurveyConfigurationsPageComponent implements OnInit {
   surveyConfigurationsListModel: SurveyConfigsListModel = new SurveyConfigsListModel();
   localPageSettings: PageSettingsModel = new PageSettingsModel();
   surveyConfigurationsRequestModel: SurveyConfigsRequestModel = new SurveyConfigsRequestModel();
+  availableSurveys: CommonDictionaryModel[] = [];
   spinnerStatus = false;
   locations: CommonDictionaryModel[] = [];
   searchSubject = new Subject();
+  getSurveyConfigsSub$: Subscription;
+  getSurveysSub$: Subscription;
+  getLocationsSub$: Subscription;
 
   get sortCols() {
     return SurveyConfigsSortColumns;
@@ -49,6 +58,7 @@ export class SurveyConfigurationsPageComponent implements OnInit {
     this.getLocalPageSettings();
     // TODO: Uncomment
     // this.getLocations();
+    // this.getSurveys();
 
     this.surveyConfigurationsListModel = {
       total: 1,
@@ -64,16 +74,28 @@ export class SurveyConfigurationsPageComponent implements OnInit {
     this.surveyConfigurationsRequestModel.sort = this.localPageSettings.sort;
     this.surveyConfigurationsRequestModel.pageSize = this.localPageSettings.pageSize;
 
-    this.surveyConfigsService.getAll(this.surveyConfigurationsRequestModel).subscribe((data) => {
-      if (data && data.success) {
-        this.surveyConfigurationsListModel = data.model;
-      }
-      this.spinnerStatus = false;
-    });
+    this.getSurveyConfigsSub$ = this.surveyConfigsService.getAll(this.surveyConfigurationsRequestModel)
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.surveyConfigurationsListModel = data.model;
+        }
+        this.spinnerStatus = false;
+      });
+  }
+
+  getSurveys() {
+    this.spinnerStatus = true;
+    this.getSurveysSub$ = this.surveyConfigsService.getAvailableSurveys()
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.availableSurveys = data.model;
+        }
+        this.spinnerStatus = false;
+      });
   }
 
   getLocations() {
-    this.locationsService.getAll().subscribe((data) => {
+    this.getLocationsSub$ = this.locationsService.getAll().subscribe((data) => {
       if (data && data.success) {
         this.locations = data.model;
       }
@@ -140,5 +162,8 @@ export class SurveyConfigurationsPageComponent implements OnInit {
       'SurveyConfigs'
     );
     this.getSurveyConfigsList();
+  }
+
+  ngOnDestroy(): void {
   }
 }

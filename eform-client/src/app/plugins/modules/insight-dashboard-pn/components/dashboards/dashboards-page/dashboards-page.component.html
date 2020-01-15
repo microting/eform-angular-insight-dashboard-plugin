@@ -140,12 +140,7 @@
 
 <spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>
 
-<app-dashboard-copy #copyDashboardModal></app-dashboard-copy>
-<app-dashboard-new #newDashboardModal></app-dashboard-new>
-<app-dashboard-delete #deleteDashboardModal></app-dashboard-delete>
-<!--<app-installation-assign-->
-<!--  #assignInstallationModal (installationAssigned)="getInstallationsList()"-->
-<!--&gt;</app-installation-assign>-->
-<!--<app-installation-retract-->
-<!--  #retractInstallationModal (installationRetracted)="getInstallationsList()"-->
-<!--&gt;</app-installation-retract>-->
+<app-dashboard-copy #copyDashboardModal (dashboardCopied)="getDashboardsList()"></app-dashboard-copy>
+<app-dashboard-new [surveys]="availableSurveys" (surveySelected)="getLocationTags($event)" (dashboardCreated)="getDashboardsList()"
+                   #newDashboardModal></app-dashboard-new>
+<app-dashboard-delete #deleteDashboardModal (dashboardDeleted)="getDashboardsList()"></app-dashboard-delete>

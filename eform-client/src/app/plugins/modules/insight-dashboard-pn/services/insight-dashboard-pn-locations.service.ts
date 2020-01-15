@@ -16,7 +16,7 @@ export class InsightDashboardPnLocationsService extends BaseService {
     super(_http, router, toastrService);
   }
 
-  getAll(): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {
-    return this.get(LocationMethods.Get);
+  getAll(surveyId?: number): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {
+    return this.get(LocationMethods.Get, {surveyId: surveyId});
   }
 }

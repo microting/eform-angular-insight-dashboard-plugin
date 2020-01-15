@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
 import {InsightDashboardPnSurveyConfigsService} from '../../../services';
-import {debounceTime, switchMap} from 'rxjs/operators';
 import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
 
 @Component({
@@ -12,27 +11,18 @@ import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
 export class SurveyConfigurationEditComponent implements OnInit {
   @ViewChild('frame') frame;
   @Input() locations: CommonDictionaryModel[] = [];
+  @Input() surveys: CommonDictionaryModel[] = [];
   @Output() configUpdated: EventEmitter<void> = new EventEmitter<void>();
   spinnerStatus = false;
   selectedSurveyId: number;
   selectedLocations: number[];
   typeahead = new EventEmitter<string>();
-  surveys: CommonDictionaryModel[] = [];
+
 
   constructor(
     private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
     private cd: ChangeDetectorRef
-  ) {
-    this.typeahead.pipe(
-      debounceTime(200),
-      switchMap(term => {
-        return this.surveyConfigsService.getAvailableSurveys(term);
-      })
-    ).subscribe(items => {
-      this.surveys = items.model;
-      this.cd.markForCheck();
-    });
-  }
+  ) {}
 
   show(surveyConfig: SurveyConfigModel) {
     // TODO: Add logic to checkboxes

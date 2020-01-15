@@ -1,18 +1,26 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PageSettingsModel} from '../../../../../../common/models/settings';
 import {SharedPnService} from '../../../../shared/services';
 import {DashboardModel, DashboardsListModel} from '../../../models';
 import {DashboardsRequestModel} from '../../../models/dashboard/dashboards-request.model';
-import {Subject} from 'rxjs';
-import {DashboardSortColumns, insightDashboardPnSettings, SurveyConfigsSortColumns} from '../../../const';
+import {Subject, Subscription} from 'rxjs';
+import {DashboardSortColumns, insightDashboardPnSettings} from '../../../const';
 import {DashboardCopyComponent, DashboardDeleteComponent, DashboardEditComponent, DashboardNewComponent} from '../..';
+import {
+  InsightDashboardPnDashboardsService,
+  InsightDashboardPnLocationsService,
+  InsightDashboardPnSurveyConfigsService
+} from '../../../services';
+import {CommonDictionaryModel} from '../../../../../../common/models/common';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-insight-dashboard-dashboards',
   templateUrl: './dashboards-page.component.html',
   styleUrls: ['./dashboards-page.component.scss']
 })
-export class DashboardsPageComponent implements OnInit {
+export class DashboardsPageComponent implements OnInit, OnDestroy {
   @ViewChild('newDashboardModal') newDashboardModal: DashboardNewComponent;
   @ViewChild('copyDashboardModal') copyDashboardModal: DashboardCopyComponent;
   @ViewChild('editDashboardModal') editDashboardModal: DashboardEditComponent;
@@ -22,16 +30,25 @@ export class DashboardsPageComponent implements OnInit {
   localPageSettings: PageSettingsModel = new PageSettingsModel();
   spinnerStatus = false;
   searchSubject = new Subject();
+  availableSurveys: CommonDictionaryModel[] = [];
+  availableTags: CommonDictionaryModel[] = [];
+  getAllSub$: Subscription;
+  getSurveysSub$: Subscription;
+  getTagsSub$: Subscription;
 
   get sortCols() {
     return DashboardSortColumns;
   }
 
-  constructor(private sharedPnService: SharedPnService) { }
+  constructor(private sharedPnService: SharedPnService,
+              private dashboardService: InsightDashboardPnDashboardsService,
+              private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
+              private locationsService: InsightDashboardPnLocationsService) {
+  }
 
   ngOnInit() {
     this.getLocalPageSettings();
-
+    // this.getSurveys();
     this.dashboardsListModel = {
       total: 1,
       dashboardList: [
@@ -41,7 +58,27 @@ export class DashboardsPageComponent implements OnInit {
   }
 
   getDashboardsList() {
+    this.spinnerStatus = true;
+    this.dashboardsRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
+    this.dashboardsRequestModel.sort = this.localPageSettings.sort;
+    this.dashboardsRequestModel.pageSize = this.localPageSettings.pageSize;
 
+    this.getAllSub$ = this.dashboardService.getAll(this.dashboardsRequestModel).subscribe((data) => {
+      if (data && data.success) {
+        this.dashboardsListModel = data.model;
+      }
+      this.spinnerStatus = false;
+    });
+  }
+
+  getSurveys() {
+    this.spinnerStatus = true;
+    this.getSurveysSub$ = this.surveyConfigsService.getAvailableSurveys().subscribe((data) => {
+      if (data && data.success) {
+        this.availableSurveys = data.model;
+      }
+      this.spinnerStatus = false;
+    });
   }
 
 
@@ -78,7 +115,8 @@ export class DashboardsPageComponent implements OnInit {
     this.localPageSettings = this.sharedPnService
       .getLocalPageSettings(insightDashboardPnSettings, 'Dashboards')
       .settings;
-    this.getDashboardsList();
+    // TODO: UNCOMMENT
+    // this.getDashboardsList();
   }
 
   updateLocalPageSettings() {
@@ -103,11 +141,24 @@ export class DashboardsPageComponent implements OnInit {
 
   }
 
-  openCopyModal() {
-    this.copyDashboardModal.show();
+  openCopyModal(model: DashboardModel) {
+    this.copyDashboardModal.show(model);
   }
 
-  openDeleteModal(dashboard: DashboardModel) {
-    this.deleteDashboardModal.show();
+  openDeleteModal(model: DashboardModel) {
+    this.deleteDashboardModal.show(model);
+  }
+
+  getLocationTags(surveyId: number) {
+    this.spinnerStatus = true;
+    this.getTagsSub$ = this.locationsService.getAll(surveyId).subscribe((data) => {
+      if (data && data.success) {
+        this.availableTags = data.model;
+      }
+      this.spinnerStatus = false;
+    });
+  }
+
+  ngOnDestroy(): void {
   }
 }

@@ -11,27 +11,17 @@ import {CommonDictionaryModel} from '../../../../../../common/models/common';
 export class SurveyConfigurationNewComponent implements OnInit {
   @ViewChild('frame') frame;
   @Input() locations: CommonDictionaryModel[] = [];
+  @Input() surveys: CommonDictionaryModel[] = [];
   @Output() configCreated: EventEmitter<void> = new EventEmitter<void>();
   spinnerStatus = false;
   selectedSurveyId: number;
   selectedLocations: number[];
-  typeahead = new EventEmitter<string>();
-  surveys: CommonDictionaryModel[] = [];
+
 
   constructor(
     private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
     private cd: ChangeDetectorRef
-  ) {
-    this.typeahead.pipe(
-      debounceTime(200),
-      switchMap(term => {
-        return this.surveyConfigsService.getAvailableSurveys(term);
-      })
-    ).subscribe(items => {
-      this.surveys = items.model;
-      this.cd.markForCheck();
-    });
-  }
+  ) {}
 
   show() {
     // TODO: Add logic to checkboxes

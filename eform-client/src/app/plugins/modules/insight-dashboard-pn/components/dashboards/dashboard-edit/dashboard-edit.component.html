@@ -1,24 +1,33 @@
-<div mdbModal class="modal fade" #frame="mdbModal">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>{{ 'Edit Dashboard' | translate }}</h3>
-      </div>
-      <div class="modal-footer">
-        <!--        <button class="btn btn-success" *ngIf="!isSurveyConfigActivated" (click)="changeSurveyConfigStatus()"-->
-        <!--                id="surveyConfigActivateBtn">-->
-        <!--          {{ 'Activate' | translate }}-->
-        <!--        </button>-->
-        <!--        <button class="btn btn-danger" *ngIf="isSurveyConfigActivated" (click)="changeSurveyConfigStatus()"-->
-        <!--                id="surveyConfigDeactivateBtn">-->
-        <!--          {{ 'Deactivate' | translate }}-->
-        <!--        </button>-->
-        <!--        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="surveyConfigActivateCancelBtn">-->
-        <!--          {{ 'Cancel' | translate }}-->
-        <!--        </button>-->
+<subheader-pn [title]="'Edit Dashboard' | translate">
+  <div class="p-3">
+    <button
+      id="saveDashboardBtn"
+      class="btn btn-success"
+      (click)="updateDashboard()">{{ 'Save' | translate }}
+    </button>
+    <button
+      id="saveCancelDashboardBtn"
+      class="btn btn-accent text-black-50"
+      (click)="cancelUpdateDashboard()">{{ 'Cancel' | translate }}
+    </button>
+  </div>
+</subheader-pn>
+
+<div class="container-fluid">
+    <div class="card z-depth-3 mt-4" style="width: 100%">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <div class="md-form">
+              <input mdbInputDirective [mdbValidate]="false"
+                     type="text"
+                     class="form-control input-sm" id="dashboardNameInput">
+              <label for="dashboardNameInput">{{'Dashboard name' | translate}}</label>
+            </div>
+          </div>
+        </div>
+        <app-dashboard-block></app-dashboard-block>
+        <app-dashboard-block></app-dashboard-block>
       </div>
     </div>
-  </div>
 </div>
-
-<spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>

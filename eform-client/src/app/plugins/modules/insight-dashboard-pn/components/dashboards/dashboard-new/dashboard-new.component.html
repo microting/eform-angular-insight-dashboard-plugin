@@ -4,18 +4,41 @@
       <div class="modal-header">
         <h3>{{ 'New Dashboard' | translate }}</h3>
       </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <ng-select [items]="surveys"
+                         bindLabel="label"
+                         [placeholder]="'Select survey' | translate"
+                         bindValue="id"
+                         (ngModelChange)="onSurveySelected($event)"
+                         [(ngModel)]="selectedSurveyId"
+                         id="selectSurvey">
+              </ng-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <ng-select [items]="locationsTags"
+                         bindLabel="label"
+                         [placeholder]="'Select location/report tag' | translate"
+                         bindValue="id"
+                         [(ngModel)]="selectedLocationTagId"
+                         id="selectLocationTagId">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="modal-footer">
-        <!--        <button class="btn btn-success" *ngIf="!isSurveyConfigActivated" (click)="changeSurveyConfigStatus()"-->
-        <!--                id="surveyConfigActivateBtn">-->
-        <!--          {{ 'Activate' | translate }}-->
-        <!--        </button>-->
-        <!--        <button class="btn btn-danger" *ngIf="isSurveyConfigActivated" (click)="changeSurveyConfigStatus()"-->
-        <!--                id="surveyConfigDeactivateBtn">-->
-        <!--          {{ 'Deactivate' | translate }}-->
-        <!--        </button>-->
-        <!--        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="surveyConfigActivateCancelBtn">-->
-        <!--          {{ 'Cancel' | translate }}-->
-        <!--        </button>-->
+        <button class="btn btn-success" (click)="createDashboard()"
+                id="dashboardNewSaveBtn">
+          {{ 'Save' | translate }}
+        </button>
+        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="dashboardNewSaveCancelBtn">
+          {{ 'Cancel' | translate }}
+        </button>
       </div>
     </div>
   </div>

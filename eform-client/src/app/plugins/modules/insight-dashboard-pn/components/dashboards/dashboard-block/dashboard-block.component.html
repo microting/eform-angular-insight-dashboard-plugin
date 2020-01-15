@@ -1,0 +1,43 @@
+<section dragula="ITEMS">
+  <div class="card z-depth-3 mb-4 mt-4" style="width: 100%">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-1">
+          <div>
+            <a>
+              <fa-icon icon="grip-lines" size="lg" [fixedWidth]="true"></fa-icon>
+            </a>
+          </div>
+        </div>
+        <div class="col-8">
+          <div>Block name</div>
+        </div>
+        <div class="col-3">
+          <div class="ml-auto" (click)="collapse.toggle(); isCollapsed = !isCollapsed">
+            <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="isCollapsed"></fa-icon>
+            <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!isCollapsed"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div mdbCollapse #collapse="bs-collapse">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1">
+          </div>
+          <div class="col">
+
+          </div>
+        </div>
+        <div class="card z-depth-2 mb-3 hoverable" style="width: 100%">
+          <div class="card-header">
+            <div class="row align-items-center">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

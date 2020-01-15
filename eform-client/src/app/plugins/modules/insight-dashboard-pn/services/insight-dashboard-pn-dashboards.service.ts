@@ -12,10 +12,12 @@ import {DashboardUpdateModel} from '../models/dashboard/dashboard-update.model';
 export let DashboardMethods = {
   Get: 'api/insight-dashboard-pn/dashboard',
   Create: 'api/insight-dashboard-pn/dashboard/create',
-  Update: 'api/insight-dashboard-pn/dashboard/update'
+  Update: 'api/insight-dashboard-pn/dashboard/update',
+  Copy: 'api/insight-dashboard-pn/dashboard/copy',
+  Delete: 'api/insight-dashboard-pn/dashboard/delete',
 };
 @Injectable()
-export class InsightDashboardPnDashboards extends BaseService {
+export class InsightDashboardPnDashboardsService extends BaseService {
   constructor(private _http: HttpClient, router: Router, toastrService: ToastrService) {
     super(_http, router, toastrService);
   }
@@ -32,7 +34,15 @@ export class InsightDashboardPnDashboards extends BaseService {
     return this.post(DashboardMethods.Create, model);
   }
 
+  copy(dashboardId: number): Observable<OperationResult> {
+    return this.post(DashboardMethods.Copy + '/' + dashboardId, {});
+  }
+
   update(model: DashboardUpdateModel): Observable<OperationResult> {
     return this.post(DashboardMethods.Update, model);
+  }
+
+  remove(dashboardId: number): Observable<OperationResult> {
+    return this.post(DashboardMethods.Delete + '/' + dashboardId, {});
   }
 }

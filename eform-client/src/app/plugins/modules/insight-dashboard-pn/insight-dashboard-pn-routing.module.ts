@@ -1,15 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {InsightDashboardPnLayoutComponent} from './layouts';
-import {AdminGuard, AuthGuard, PermissionGuard} from '../../../common/guards';
+import {AdminGuard, AuthGuard} from '../../../common/guards';
 import {
+  DashboardEditComponent,
   DashboardsPageComponent,
   DashboardViewComponent,
   InsightDashboardSettingsComponent,
   SurveyConfigurationsPageComponent
 } from './components';
-import {InsightDashboardPnClaims} from './const';
-import {DashboardEditConfigurationComponent} from './components/dashboards/dashboard-edit-configuration/dashboard-edit-configuration.component';
 
 export const routes: Routes = [
   {
@@ -32,7 +31,7 @@ export const routes: Routes = [
       {
         path: 'dashboard/edit/:id',
         canActivate: [AuthGuard],
-        component: DashboardEditConfigurationComponent
+        component: DashboardEditComponent
       },
       {
         path: 'surveys',
