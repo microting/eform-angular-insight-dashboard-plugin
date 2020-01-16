@@ -33,6 +33,9 @@ import {
 } from './components';
 import { DashboardBlockComponent } from './components/dashboards/dashboard-block/dashboard-block.component';
 import {DragulaModule} from 'ng2-dragula';
+import { DashboardChartPreviewComponent } from './components/dashboards/dashboard-chart-preview/dashboard-chart-preview.component';
+import { DashboardChartComponent } from './components/dashboards/dashboard-chart/dashboard-chart.component';
+import {NgxChartsModule} from '@microting/ngx-charts';
 
 @NgModule({
   imports: [
@@ -47,7 +50,8 @@ import {DragulaModule} from 'ng2-dragula';
     FontAwesomeModule,
     CasesModule,
     DragulaModule,
-    CollapseModule
+    CollapseModule,
+    NgxChartsModule
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
@@ -63,7 +67,9 @@ import {DragulaModule} from 'ng2-dragula';
     SurveyConfigurationDeleteComponent,
     DashboardDeleteComponent,
     DashboardCopyComponent,
-    DashboardBlockComponent
+    DashboardBlockComponent,
+    DashboardChartPreviewComponent,
+    DashboardChartComponent
   ],
   providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboardsService,
     InsightDashboardPnSurveyConfigsService, InsightDashboardPnLocationsService]

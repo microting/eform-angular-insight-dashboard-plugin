@@ -1,5 +1,5 @@
 <section dragula="ITEMS">
-  <div class="card z-depth-3 mb-4 mt-4" style="width: 100%">
+  <div class="card z-depth-3 mb-4" style="width: 100%">
     <div class="card-header">
       <div class="row">
         <div class="col-1">
@@ -13,7 +13,7 @@
           <div>Block name</div>
         </div>
         <div class="col-3">
-          <div class="ml-auto" (click)="collapse.toggle(); isCollapsed = !isCollapsed">
+          <div class="text-right" (click)="collapse.toggle(); isCollapsed = !isCollapsed" style="cursor: pointer">
             <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="isCollapsed"></fa-icon>
             <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!isCollapsed"></fa-icon>
           </div>
@@ -29,11 +29,53 @@
 
           </div>
         </div>
-        <div class="card z-depth-2 mb-3 hoverable" style="width: 100%">
-          <div class="card-header">
-            <div class="row align-items-center">
-
-            </div>
+        <div class="card z-depth-2 mb-3" style="width: 100%">
+          <div class="card-body">
+            <ng-select
+              bindValue="id"
+              bindLabel="value"
+              [placeholder]="'1. Hvad synes du om ...? (type)'"
+              [items]="[{id: 1, value: 'Test'}]"></ng-select>
+            <ng-select
+              bindValue="id"
+              bindLabel="value"
+              [placeholder]="'Select Filter Question'"
+              [items]="[{id: 1, value: 'Test'}]"></ng-select>
+            <ng-select
+              bindValue="id"
+              bindLabel="value"
+              [placeholder]="'Select Filter Answer'"
+              [items]="[{id: 1, value: 'Test'}]"></ng-select>
+            <ng-select
+              bindValue="id"
+              bindLabel="value"
+              [placeholder]="'Select Period Unit'"
+              [items]="[{id: 1, value: 'Test'}]"></ng-select>
+          </div>
+        </div>
+        <div class="card z-depth-2 mb-3" style="width: 100%">
+          <div class="card-body">
+            <ng-select
+              bindValue="id"
+              bindLabel="value"
+              [placeholder]="'Select Compare Chart'"
+              [items]="chartSelectValues"></ng-select>
+            <ng-select
+              bindValue="id"
+              bindLabel="value"
+              [placeholder]="'Select Compare Chart'"
+              [items]="chartSelectValues"></ng-select>
+          </div>
+        </div>
+        <div class="card z-depth-2 mb-3" style="width: 100%">
+          <div class="card-body">
+            <ng-select
+              bindValue="id"
+              bindLabel="value"
+              [(ngModel)]="selectedChartType"
+              [placeholder]="'Select Chart'"
+              [items]="chartSelectValues"></ng-select>
+            <app-dashboard-chart-preview [chartType]="selectedChartType"></app-dashboard-chart-preview>
           </div>
         </div>
       </div>

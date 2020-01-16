@@ -13,6 +13,7 @@ import {
 } from '../../../services';
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {Router} from '@angular/router';
 
 @AutoUnsubscribe()
 @Component({
@@ -43,7 +44,8 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   constructor(private sharedPnService: SharedPnService,
               private dashboardService: InsightDashboardPnDashboardsService,
               private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-              private locationsService: InsightDashboardPnLocationsService) {
+              private locationsService: InsightDashboardPnLocationsService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -134,11 +136,11 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   openEditPage(dashboard: DashboardModel) {
-
+    this.router.navigate(['/plugins/insight-dashboard-pn/dashboard/edit/', dashboard.id]).then();
   }
 
   openViewPage(dashboard: DashboardModel) {
-
+    this.router.navigate(['/plugins/insight-dashboard-pn/dashboard/', dashboard.id]).then();
   }
 
   openCopyModal(model: DashboardModel) {
