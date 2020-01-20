@@ -18,6 +18,10 @@ import {
   InsightDashboardPnSurveyConfigsService
 } from './services';
 import {
+  DashboardBlockEditComponent,
+  DashboardChartEditComponent,
+  DashboardChartViewComponent,
+  DashboardBlockViewComponent,
   DashboardCopyComponent,
   DashboardDeleteComponent,
   DashboardEditComponent,
@@ -31,10 +35,7 @@ import {
   SurveyConfigurationsPageComponent,
   SurveyConfigurationStatusComponent
 } from './components';
-import { DashboardBlockComponent } from './components/dashboards/dashboard-block/dashboard-block.component';
 import {DragulaModule} from 'ng2-dragula';
-import { DashboardChartPreviewComponent } from './components/dashboards/dashboard-chart-preview/dashboard-chart-preview.component';
-import { DashboardChartComponent } from './components/dashboards/dashboard-chart/dashboard-chart.component';
 import {NgxChartsModule} from '@microting/ngx-charts';
 
 @NgModule({
@@ -67,9 +68,10 @@ import {NgxChartsModule} from '@microting/ngx-charts';
     SurveyConfigurationDeleteComponent,
     DashboardDeleteComponent,
     DashboardCopyComponent,
-    DashboardBlockComponent,
-    DashboardChartPreviewComponent,
-    DashboardChartComponent
+    DashboardBlockEditComponent,
+    DashboardChartEditComponent,
+    DashboardChartViewComponent,
+    DashboardBlockViewComponent
   ],
   providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboardsService,
     InsightDashboardPnSurveyConfigsService, InsightDashboardPnLocationsService]

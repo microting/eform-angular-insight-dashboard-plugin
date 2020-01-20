@@ -1,15 +1,15 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {InsightDashboardPnDashboardsService} from '../../../services';
-import {DashboardModel} from '../../../models';
+import {DashboardModel} from '../../../../models';
+import {InsightDashboardPnDashboardsService} from '../../../../services';
 
 @Component({
-  selector: 'app-dashboard-copy',
-  templateUrl: './dashboard-copy.component.html',
-  styleUrls: ['./dashboard-copy.component.scss']
+  selector: 'app-dashboard-delete',
+  templateUrl: './dashboard-delete.component.html',
+  styleUrls: ['./dashboard-delete.component.scss']
 })
-export class DashboardCopyComponent implements OnInit {
+export class DashboardDeleteComponent implements OnInit {
   @ViewChild('frame') frame;
-  @Output() dashboardCopied: EventEmitter<void> = new EventEmitter<void>()
+  @Output() dashboardDeleted: EventEmitter<void> = new EventEmitter<void>();
   spinnerStatus = false;
   dashboard: DashboardModel = new DashboardModel();
 
@@ -23,13 +23,13 @@ export class DashboardCopyComponent implements OnInit {
   ngOnInit() {
   }
 
-  copyDashboard() {
+  deleteDashboard() {
     this.spinnerStatus = true;
     this.dashboardService.remove(this.dashboard.id)
       .subscribe((data) => {
         if (data && data.success) {
           this.frame.hide();
-          this.dashboardCopied.emit();
+          this.dashboardDeleted.emit();
         }
         this.spinnerStatus = false;
       });

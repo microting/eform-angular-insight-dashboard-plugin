@@ -1,0 +1,23 @@
+<subheader-pn [title]="'Dashboard name'">
+  <div class="p-3">
+    <button
+      id="returnToPrevious"
+      class="btn btn-success"
+      mdbTooltip="{{'Return to dashboards list' | translate}}"
+      [routerLink]="['../../dashboards']">{{ 'Return' | translate }}
+    </button>
+  </div>
+</subheader-pn>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-9 col-xl-9 col-md-12">
+      <div class="card z-depth-3 mt-4 mb-4" style="width: 100%">
+        <div class="card-body">
+          <app-dashboard-block-view></app-dashboard-block-view>
+          <app-dashboard-block-view></app-dashboard-block-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

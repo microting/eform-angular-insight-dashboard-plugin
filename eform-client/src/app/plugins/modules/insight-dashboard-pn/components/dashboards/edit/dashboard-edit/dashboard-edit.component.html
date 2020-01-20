@@ -8,7 +8,7 @@
     <button
       id="saveCancelDashboardBtn"
       class="btn btn-accent text-black-50"
-      (click)="cancelUpdateDashboard()">{{ 'Cancel' | translate }}
+      [routerLink]="['../../dashboards']">{{ 'Cancel' | translate }}
     </button>
   </div>
 </subheader-pn>
@@ -28,9 +28,9 @@
         </div>
       </div>
       <div class="card-body">
-
-        <app-dashboard-block></app-dashboard-block>
-        <app-dashboard-block></app-dashboard-block>
+        <app-dashboard-block-edit (addNewBlock)="onAddNewBlock()"
+                                  (copyBlock)="onCopyBlock()"
+                                  (deleteBlock)="onDeleteBlock()"></app-dashboard-block-edit>
       </div>
     </div>
 </div>

@@ -24,12 +24,12 @@ export const routes: Routes = [
         component: DashboardsPageComponent
       },
       {
-        path: 'dashboard/:id',
+        path: 'dashboard/:dashboardId',
         canActivate: [AuthGuard],
         component: DashboardViewComponent
       },
       {
-        path: 'dashboard/edit/:id',
+        path: 'dashboard/edit/:dashboardId',
         canActivate: [AuthGuard],
         component: DashboardEditComponent
       },

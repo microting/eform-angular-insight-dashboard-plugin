@@ -5,9 +5,9 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {Observable} from 'rxjs';
 import {OperationDataResult, OperationResult} from '../../../../common/models';
-import {DashboardsListModel, SurveyConfigsListModel} from '../models';
+import {DashboardCreateModel, DashboardsListModel, DashboardViewModel, SurveyConfigsListModel} from '../models';
 import {DashboardsRequestModel} from '../models/dashboard/dashboards-request.model';
-import {DashboardUpdateModel} from '../models/dashboard/dashboard-update.model';
+import {DashboardEditModel} from '../models/dashboard/dashboard-edit.model';
 
 export let DashboardMethods = {
   Get: 'api/insight-dashboard-pn/dashboard',
@@ -26,11 +26,15 @@ export class InsightDashboardPnDashboardsService extends BaseService {
     return this.post(DashboardMethods.Get, model);
   }
 
-  getSingle(id: number): Observable<OperationDataResult<DashboardsListModel>> {
+  getSingleForView(id: number): Observable<OperationDataResult<DashboardViewModel>> {
     return this.get(DashboardMethods.Get + '/' + id);
   }
 
-  create(model: DashboardUpdateModel): Observable<OperationResult> {
+  getSingleForEdit(id: number): Observable<OperationDataResult<DashboardEditModel>> {
+    return this.get(DashboardMethods.Get + '/' + id);
+  }
+
+  create(model: DashboardCreateModel): Observable<OperationResult> {
     return this.post(DashboardMethods.Create, model);
   }
 
@@ -38,7 +42,7 @@ export class InsightDashboardPnDashboardsService extends BaseService {
     return this.post(DashboardMethods.Copy + '/' + dashboardId, {});
   }
 
-  update(model: DashboardUpdateModel): Observable<OperationResult> {
+  update(model: DashboardEditModel): Observable<OperationResult> {
     return this.post(DashboardMethods.Update, model);
   }
 

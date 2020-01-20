@@ -1,12 +1,14 @@
 import {Component, Input} from '@angular/core';
-import {DashboardChartTypes} from '../../../const/enums';
+import {DashboardChartTypes} from '../../../../const/enums';
+import html2canvas from 'html2canvas';
+import {convertInlineStyleSVG} from '../../../../helpers/chart-svg.helper';
 
 @Component({
-  selector: 'app-dashboard-chart-preview',
-  templateUrl: './dashboard-chart-preview.component.html',
-  styleUrls: ['./dashboard-chart-preview.component.scss']
+  selector: 'app-dashboard-chart-edit',
+  templateUrl: './dashboard-chart-edit.component.html',
+  styleUrls: ['./dashboard-chart-edit.component.scss']
 })
-export class DashboardChartPreviewComponent {
+export class DashboardChartEditComponent {
   @Input() chartType: DashboardChartTypes;
 
   get chartTypes() {
@@ -36,10 +38,6 @@ export class DashboardChartPreviewComponent {
 
   onDeactivate(data): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
-
-  printDiv() {
-
   }
 }
 

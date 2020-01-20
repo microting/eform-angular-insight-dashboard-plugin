@@ -1,0 +1,95 @@
+<section dragula="ITEMS">
+  <div class="card z-depth-3 mb-4" style="width: 100%">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-1">
+          <div>
+            <a>
+              <fa-icon icon="grip-lines" size="lg" [fixedWidth]="true"></fa-icon>
+            </a>
+          </div>
+        </div>
+        <div class="col-8">
+          <div>Block name</div>
+        </div>
+        <div class="col-3">
+          <div class="text-right" (click)="collapse.toggle(); isCollapsed = !isCollapsed" style="cursor: pointer">
+            <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="isCollapsed"></fa-icon>
+            <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!isCollapsed"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div mdbCollapse #collapse="bs-collapse">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-custom-1 d-flex align-items-center justify-content-center">
+            <div class="d-flex flex-column text-black-50">
+              <fa-icon icon="plus-circle" [className]="'mb-3'"
+                       mdbTooltip="{{ 'Add block' | translate }}"
+                       size="2x" style="cursor: pointer" (click)="addNew()"></fa-icon>
+              <fa-icon icon="copy" [className]="'mb-3'"
+                       mdbTooltip="{{ 'Copy block' | translate }}"
+                       size="2x" style="cursor: pointer" (click)="copy()"></fa-icon>
+              <fa-icon icon="trash" [className]="'mb-3'"
+                       mdbTooltip="{{ 'Delete block' | translate }}"
+                       size="2x" style="cursor: pointer" (click)="delete()"></fa-icon>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card z-depth-2 mb-3" style="width: 100%">
+              <div class="card-body">
+                <ng-select
+                  bindValue="id"
+                  bindLabel="value"
+                  [placeholder]="'1. Hvad synes du om ...? (type)'"
+                  [items]="[{id: 1, value: 'Test'}]"></ng-select>
+                <ng-select
+                  bindValue="id"
+                  bindLabel="value"
+                  [placeholder]="'Select Filter Question'"
+                  [items]="[{id: 1, value: 'Test'}]"></ng-select>
+                <ng-select
+                  bindValue="id"
+                  bindLabel="value"
+                  [placeholder]="'Select Filter Answer'"
+                  [items]="[{id: 1, value: 'Test'}]"></ng-select>
+                <ng-select
+                  bindValue="id"
+                  bindLabel="value"
+                  [placeholder]="'Select Period Unit'"
+                  [items]="[{id: 1, value: 'Test'}]"></ng-select>
+              </div>
+            </div>
+            <div class="card z-depth-2 mb-3" style="width: 100%">
+              <div class="card-body">
+                <ng-select
+                  bindValue="id"
+                  bindLabel="value"
+                  [placeholder]="'Select Compare Chart'"
+                  [items]="chartSelectValues"></ng-select>
+                <ng-select
+                  bindValue="id"
+                  bindLabel="value"
+                  [placeholder]="'Select Compare Chart'"
+                  [items]="chartSelectValues"></ng-select>
+              </div>
+            </div>
+            <div class="card z-depth-2 mb-3" style="width: 100%">
+              <div class="card-body">
+                <ng-select
+                  bindValue="id"
+                  bindLabel="value"
+                  [(ngModel)]="selectedChartType"
+                  [placeholder]="'Select Chart'"
+                  [items]="chartSelectValues"></ng-select>
+                <app-dashboard-chart-edit [chartType]="selectedChartType"></app-dashboard-chart-edit>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
