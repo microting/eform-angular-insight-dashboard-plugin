@@ -22,30 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Data.Seed.Data
+namespace InsightDashboard.Pn.Services.Common.InsightDashboardLocalizationService
 {
-    using Microting.eFormApi.BasePn.Abstractions;
-    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
-
-    public class InsightDashboardConfigurationSeedData : IPluginConfigurationSeedData
+    public interface IInsightDashboardLocalizationService
     {
-        public PluginConfigurationValue[] Data => new[]
-        {
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:MaxNumberOfWorkers",
-                Value = "4"
-            },
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:MaxParallelism",
-                Value = "25000"
-            },
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:SdkConnectionString",
-                Value = "..."
-            }
-        };
+        string GetString(string key);
+        string GetString(string format, params object[] args);
     }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2019 Microting A/S
@@ -22,30 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Data.Seed.Data
+namespace InsightDashboard.Pn.Infrastructure.Models.Surveys
 {
-    using Microting.eFormApi.BasePn.Abstractions;
-    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
+    using System.Collections.Generic;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
 
-    public class InsightDashboardConfigurationSeedData : IPluginConfigurationSeedData
+    public class SurveyConfigModel
     {
-        public PluginConfigurationValue[] Data => new[]
-        {
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:MaxNumberOfWorkers",
-                Value = "4"
-            },
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:MaxParallelism",
-                Value = "25000"
-            },
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:SdkConnectionString",
-                Value = "..."
-            }
-        };
+        public int Id { get; set; }
+        public string SurveyName { get; set; }
+        public bool IsActive { get; set; }
+
+        public List<CommonDictionaryModel> Locations { get; set; }
+            = new List<CommonDictionaryModel>();
     }
 }

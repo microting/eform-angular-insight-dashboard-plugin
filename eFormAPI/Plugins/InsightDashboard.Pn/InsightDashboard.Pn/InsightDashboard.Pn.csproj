@@ -17,8 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.7" />
-    <PackageReference Include="Microting.eForm" Version="3.1.30" />
-    <PackageReference Include="Microting.eFormApi.BasePn" Version="1.2.28" />
+    <PackageReference Include="Microting.eForm" Version="3.1.44" />
+    <PackageReference Include="Microting.eFormApi.BasePn" Version="1.2.36" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,10 +29,6 @@
     <Reference Include="Microting.InsightDashboardBase">
       <HintPath>..\..\..\..\..\eform-insight-dashboard-base\Microting.InsightDashboardBase\bin\Debug\netcoreapp2.2\Microting.InsightDashboardBase.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infrastructure\Models\" />
   </ItemGroup>
 
 </Project>

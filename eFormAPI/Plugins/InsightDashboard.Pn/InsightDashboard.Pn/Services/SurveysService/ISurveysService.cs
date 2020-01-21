@@ -1,4 +1,4 @@
-/*
+﻿/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2019 Microting A/S
@@ -22,30 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Data.Seed.Data
+namespace InsightDashboard.Pn.Services.SurveysService
 {
-    using Microting.eFormApi.BasePn.Abstractions;
-    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Infrastructure.Models.Surveys;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
 
-    public class InsightDashboardConfigurationSeedData : IPluginConfigurationSeedData
+    public interface ISurveysService
     {
-        public PluginConfigurationValue[] Data => new[]
-        {
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:MaxNumberOfWorkers",
-                Value = "4"
-            },
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:MaxParallelism",
-                Value = "25000"
-            },
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:SdkConnectionString",
-                Value = "..."
-            }
-        };
+        Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyListRequestModel requestModel);
+        Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys();
+        Task<OperationResult> Create(SurveyConfigCreateModel createModel);
+        Task<OperationResult> Update(SurveyConfigUpdateModel updateModel);
+        Task<OperationResult> ChangeStatus(SurveyConfigUpdateStatusModel configUpdateStatusModel);
+        Task<OperationResult> Delete(int id);
     }
 }

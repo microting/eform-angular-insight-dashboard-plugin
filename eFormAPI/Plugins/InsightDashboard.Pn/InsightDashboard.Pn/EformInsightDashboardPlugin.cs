@@ -27,7 +27,6 @@ namespace InsightDashboard.Pn
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Abstractions;
     using Infrastructure.Data.Seed;
     using Infrastructure.Data.Seed.Data;
     using Microsoft.AspNetCore.Builder;
@@ -42,7 +41,9 @@ namespace InsightDashboard.Pn
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Factories;
     using Microting.InsightDashboardBase.Infrastructure.Models;
-    using Services;
+    using Services.Common.InsightDashboardLocalizationService;
+    using Services.Common.InsightDashboardPnSettingsService;
+    using Services.SurveysService;
 
     public class EformInsightDashboardPlugin : IEformPlugin
     {
@@ -65,6 +66,8 @@ namespace InsightDashboard.Pn
         {
             services.AddSingleton<IInsightDashboardLocalizationService, InsightDashboardLocalizationService>();
             services.AddTransient<IInsightDashboardPnSettingsService, InsightDashboardPnSettingsService>();
+            services.AddScoped<ISurveysService, SurveysService>();
+
         }
 
         public void ConfigureOptionsServices(IServiceCollection services, IConfiguration configuration)

@@ -22,30 +22,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Data.Seed.Data
+namespace InsightDashboard.Pn.Services.Common.InsightDashboardLocalizationService
 {
-    using Microting.eFormApi.BasePn.Abstractions;
-    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
+    using Microsoft.Extensions.Localization;
+    using Microting.eFormApi.BasePn.Localization.Abstractions;
+    using Pn;
 
-    public class InsightDashboardConfigurationSeedData : IPluginConfigurationSeedData
+    public class InsightDashboardLocalizationService : IInsightDashboardLocalizationService
     {
-        public PluginConfigurationValue[] Data => new[]
+        private readonly IStringLocalizer _localizer;
+        
+        // ReSharper disable once SuggestBaseTypeForParameter
+        public InsightDashboardLocalizationService(IEformLocalizerFactory factory)
         {
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:MaxNumberOfWorkers",
-                Value = "4"
-            },
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:MaxParallelism",
-                Value = "25000"
-            },
-            new PluginConfigurationValue()
-            {
-                Name = "InsightDashboardBaseSettings:SdkConnectionString",
-                Value = "..."
-            }
-        };
+            _localizer = factory.Create(typeof(EformInsightDashboardPlugin));
+        }
+        
+        public string GetString(string key)
+        {
+            var str = _localizer[key];
+            return str.Value;
+        }
+
+        public string GetString(string format, params object[] args)
+        {
+            var message = _localizer[format];
+
+            return message?.Value == null ? null : string.Format(message.Value, args);
+        }
     }
 }
