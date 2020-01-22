@@ -102,34 +102,6 @@ namespace InsightDashboard.Pn.Services.SurveysService
             }
         }
 
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys()
-        {
-            try
-            {
-                Debugger.Break();
-                var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
-                {
-                    var surveys = await sdkContext.question_sets
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Select(x => new CommonDictionaryModel()
-                        {
-                            Id = x.Id,
-                            Name = x.Name,
-                        }).ToListAsync();
-
-                    return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
-                }
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-                _logger.LogError(e.Message);
-                return new OperationDataResult<List<CommonDictionaryModel>>(false,
-                    _localizationService.GetString(""));
-            }
-        }
-
         public async Task<OperationResult> Create(SurveyConfigCreateModel createModel)
         {
             try

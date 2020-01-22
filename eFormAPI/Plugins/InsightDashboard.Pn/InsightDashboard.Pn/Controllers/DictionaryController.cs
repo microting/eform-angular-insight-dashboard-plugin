@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2019 Microting A/S
@@ -22,20 +22,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.SurveysService
+namespace InsightDashboard.Pn.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Infrastructure.Models.Surveys;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+    using Services.DictionaryService;
 
-    public interface ISurveysService
+    [Authorize]
+    public class DictionaryController : Controller
     {
-        Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyListRequestModel requestModel);
-        Task<OperationResult> Create(SurveyConfigCreateModel createModel);
-        Task<OperationResult> Update(SurveyConfigUpdateModel updateModel);
-        Task<OperationResult> ChangeStatus(SurveyConfigUpdateStatusModel configUpdateStatusModel);
-        Task<OperationResult> Delete(int id);
+        private readonly IDictionaryService _dictionaryService;
+
+        public DictionaryController(IDictionaryService dictionaryService)
+        {
+            _dictionaryService = dictionaryService;
+        }
+
+        [HttpGet]
+        [Route("api/insight-dashboard-pn/dictionary/surveys")]
+        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys()
+        {
+            return await _dictionaryService.GetSurveys();
+        }
+
+        [HttpGet]
+        [Route("api/insight-dashboard-pn/dictionary/locations-by-survey/{id}")]
+        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int id)
+        {
+            return await _dictionaryService.GetLocationsBySurveyId(id);
+        }
     }
 }

@@ -51,13 +51,6 @@ namespace InsightDashboard.Pn.Controllers
             return await _surveysService.Get(requestModel);
         }
 
-        [HttpGet]
-        [Route("api/insight-dashboard-pn/survey-configs/surveys")]
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys()
-        {
-            return await _surveysService.GetSurveys();
-        }
-
         [HttpPost]
         [Route("api/insight-dashboard-pn/survey-configs/create")]
         public async Task<OperationResult> Create([FromBody] SurveyConfigCreateModel createModel)

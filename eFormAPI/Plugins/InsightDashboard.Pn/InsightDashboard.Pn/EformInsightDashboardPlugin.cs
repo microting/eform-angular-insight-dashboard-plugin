@@ -44,6 +44,8 @@ namespace InsightDashboard.Pn
     using Microting.InsightDashboardBase.Infrastructure.Models;
     using Services.Common.InsightDashboardLocalizationService;
     using Services.Common.InsightDashboardPnSettingsService;
+    using Services.DashboardService;
+    using Services.DictionaryService;
     using Services.SurveysService;
 
     public class EformInsightDashboardPlugin : IEformPlugin
@@ -68,7 +70,8 @@ namespace InsightDashboard.Pn
             services.AddSingleton<IInsightDashboardLocalizationService, InsightDashboardLocalizationService>();
             services.AddTransient<IInsightDashboardPnSettingsService, InsightDashboardPnSettingsService>();
             services.AddScoped<ISurveysService, SurveysService>();
-
+            services.AddScoped<IDashboardService, DashboardService>();
+            services.AddScoped<IDictionaryService, DictionaryService>();
         }
 
         public void ConfigureOptionsServices(IServiceCollection services, IConfiguration configuration)
