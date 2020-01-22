@@ -38,6 +38,7 @@ namespace InsightDashboard.Pn
     using Microting.eFormApi.BasePn.Infrastructure.Helpers;
     using Microting.eFormApi.BasePn.Infrastructure.Models.Application;
     using Microting.eFormApi.BasePn.Infrastructure.Settings;
+    using Microting.InsightDashboardBase.Infrastructure.Consts;
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Factories;
     using Microting.InsightDashboardBase.Infrastructure.Models;
@@ -109,9 +110,23 @@ namespace InsightDashboard.Pn
                 Name = localizationService.GetString("Insight Dashboard"),
                 E2EId = "",
                 Link = "",
-                // Guards = new List<string>() { MonitoringClaims.AccessMonitoringPlugin },
+                Guards = new List<string>() { InsightDashboardClaims.AccessInsightDashboardPlugin },
                 MenuItems = new List<MenuItemModel>()
                 {
+                    new MenuItemModel()
+                    {
+                        Name = localizationService.GetString("Surveys Configs"),
+                        E2EId = "insight-dashboard-pn-surveys-configs",
+                        Link = "/surveys-configs",
+                        Position = 0
+                    },
+                    new MenuItemModel()
+                    {
+                        Name = localizationService.GetString("Dashboards"),
+                        E2EId = "insight-dashboard-pn-dashboards",
+                        Link = "/dashboards",
+                        Position = 1
+                    },
                 }
             });
             return result;
