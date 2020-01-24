@@ -1,7 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import html2canvas from 'html2canvas';
-import {convertInlineStyleSVG} from '../../../../helpers/chart-svg.helper';
-import {DashboardChartTypesEnum} from '../../../../const/enums';
 import {InsightDashboardPnDashboardsService} from '../../../../services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';

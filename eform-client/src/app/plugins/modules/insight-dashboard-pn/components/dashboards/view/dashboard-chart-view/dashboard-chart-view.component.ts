@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
-import html2canvas from 'html2canvas';
-import {convertInlineStyleSVG} from '../../../../helpers/chart-svg.helper';
+import domtoimage from 'dom-to-image';
 
 @Component({
   selector: 'app-dashboard-chart-view',
@@ -41,16 +40,35 @@ export class DashboardChartViewComponent {
   }
 
   printDiv() {
-    html2canvas(document.getElementById('copyableChart'), {
-      logging: false,
-      scale: 3,
-      onclone: clonedDoc => {
-        convertInlineStyleSVG(clonedDoc, 0, this.chartType);
+    const scale = 2;
+    const node = document.getElementById('copyableChart');
+    setTimeout(() => domtoimage.toBlob(node, {
+      height: node.offsetHeight * scale,
+      width: node.offsetWidth * scale,
+      style: {
+        transform: 'scale(' + scale + ')',
+        transformOrigin: 'top left',
+        width: node.offsetWidth + 'px',
+        height: node.offsetHeight + 'px'
       }
-    }).then(canvas => {
-      const myImage = canvas.toDataURL('image/png', 1.0);
-      this.downloadURI(myImage, 'MaSimulation.png');
-    });
+    })
+      .then(async function (data) {
+        const navi = navigator as any;
+        try {
+          const blob = data;
+          await navi.clipboard.write([
+            // @ts-ignore
+            new ClipboardItem({
+              [blob.type]: blob
+            })
+          ]);
+        } catch (e) {
+          console.error(e, e.message);
+        }
+      })
+      .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+      }), 100);
   }
 
   downloadURI(uri, name) {

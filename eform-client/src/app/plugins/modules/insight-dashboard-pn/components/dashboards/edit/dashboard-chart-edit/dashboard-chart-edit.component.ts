@@ -1,7 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
-import html2canvas from 'html2canvas';
-import {convertInlineStyleSVG} from '../../../../helpers/chart-svg.helper';
 
 @Component({
   selector: 'app-dashboard-chart-edit',

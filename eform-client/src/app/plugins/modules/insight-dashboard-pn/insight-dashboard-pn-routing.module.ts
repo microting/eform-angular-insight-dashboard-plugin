@@ -34,7 +34,7 @@ export const routes: Routes = [
         component: DashboardEditComponent
       },
       {
-        path: 'surveys',
+        path: 'surveys-configs',
         canActivate: [AuthGuard],
         component: SurveyConfigurationsPageComponent
       },

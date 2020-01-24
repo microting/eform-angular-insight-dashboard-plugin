@@ -7,7 +7,7 @@ import {DashboardChartTypesEnum} from '../../../../const/enums';
   styleUrls: ['./dashboard-block-view.component.scss']
 })
 export class DashboardBlockViewComponent implements OnInit {
-  selectedChartType = DashboardChartTypesEnum.HorizontalBar;
+  selectedChartType = DashboardChartTypesEnum.VerticalBarGrouped;
   constructor() { }
 
   ngOnInit() {

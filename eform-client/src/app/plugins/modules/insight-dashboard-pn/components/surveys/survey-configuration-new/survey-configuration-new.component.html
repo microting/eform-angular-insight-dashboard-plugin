@@ -37,6 +37,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-success" (click)="createConfig()"
+                [disabled]="!selectedSurveyId && selectedLocations.length < 1"
                 id="surveyConfigCreateSaveBtn">
           {{ 'Save' | translate }}
         </button>
