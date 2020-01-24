@@ -8,10 +8,21 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col">
+              <div class="md-form">
+                <input mdbInputDirective [mdbValidate]="false"
+                       type="text" [(ngModel)]="dashboardName"
+                       class="form-control input-sm" id="searchInput">
+                <label for="searchInput">{{'Name' | translate}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
               <ng-select [items]="surveys"
-                         bindLabel="label"
+                         bindLabel="name"
                          [placeholder]="'Select survey' | translate"
                          bindValue="id"
+                         [clearable]="false"
                          (ngModelChange)="onSurveySelected($event)"
                          [(ngModel)]="selectedSurveyId"
                          id="selectSurvey">
@@ -20,11 +31,13 @@
           </div>
           <div class="row">
             <div class="col">
-              <ng-select [items]="locationsTags"
-                         bindLabel="label"
+              <ng-select [items]="availableLocationsTags"
+                         bindLabel="name"
                          [placeholder]="'Select location/report tag' | translate"
                          bindValue="id"
+                         [clearable]="false"
                          [(ngModel)]="selectedLocationTagId"
+                         (change)="onLocationTagSelected($event)"
                          id="selectLocationTagId">
               </ng-select>
             </div>
@@ -33,6 +46,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-success" (click)="createDashboard()"
+                [disabled]="!dashboardName && !selectedSurveyId && (!selectedLocationId || !reportTagId) "
                 id="dashboardNewSaveBtn">
           {{ 'Save' | translate }}
         </button>

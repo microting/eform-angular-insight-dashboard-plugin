@@ -6,7 +6,7 @@
 <!--VerticalBar,-->
 <!--VerticalBarStacked,-->
 <!--VerticalBarGrouped-->
-<div [ngStyle]="{'width': '100%', 'height': view[1] + 'px' }" id="copyableChart">
+<div [ngStyle]="{'width': view[0] + 'px', 'height': view[1] + 'px' }" id="copyableChart">
   <ngx-charts-line-chart *ngIf="chartType === chartTypes.Line"
                          [view]="view"
                          [scheme]="colorScheme"

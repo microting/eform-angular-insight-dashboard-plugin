@@ -33,14 +33,14 @@
           <th scope="col" class="table-header-sortable" id="surveyNameTableHeader"
               (click)="sortTable(sortCols.surveyName)">
             <div class="d-flex align-items-center justify-content-center">
-              {{ 'Survey name' | translate }}
+              {{ 'Survey Name' | translate }}
               <i class="material-icons text-black-50">{{getSortIcon(sortCols.surveyName)}}</i>
             </div>
           </th>
           <th scope="col" class="table-header-sortable" id="locationNameTableHeader"
               (click)="sortTable(sortCols.locationName)">
             <div class="d-flex align-items-center justify-content-center">
-              {{ 'Location name' | translate }}
+              {{ 'Location Name' | translate }}
               <i class="material-icons text-black-50">{{getSortIcon(sortCols.locationName)}}</i>
             </div>
           </th>
@@ -55,10 +55,10 @@
             {{surveyConfig.id}}
           </td>
           <td id="surveyConfigName">
-            {{surveyConfig.name}}
+            {{surveyConfig.surveyName}}
           </td>
           <td id="surveyConfigLocation">
-            {{surveyConfig.locationName}}
+            {{surveyConfig.locations}}
           </td>
           <td>
             <div class="d-flex flex-row justify-content-center">
@@ -67,11 +67,18 @@
                       (click)="openEditModal(surveyConfig)">
                 <fa-icon icon="pen" [fixedWidth]="true" size="lg"></fa-icon>
               </button>
-              <div id="surveyConfigStatus">
-                <button (click)="openStatusModal(surveyConfig)"
-                        mdbTooltip="{{'Activate Survey' | translate}}"
-                        class="btn btn-accent text-black-50 btn-icon mb-2">
-                  <fa-icon icon="toggle-on" [fixedWidth]="true" size="lg"></fa-icon>
+              <div id="surveyConfigStatus" [ngStyle]="{'color': surveyConfig.isActive ? '#06ba06' : '#ba3f4e'}">
+                <button *ngIf="!surveyConfig.isActive"
+                        mdbTooltip="{{'Activate Survey config' | translate}}"
+                        class="btn btn-accent text-black-50 btn-icon mb-2"
+                        (click)="openStatusModal(surveyConfig)">
+                  <fa-icon icon="toggle-on"></fa-icon>
+                </button>
+                <button *ngIf="surveyConfig.isActive"
+                        mdbTooltip="{{'Deactivate Survey config' | translate}}"
+                        class="btn btn-success text-black-50 btn-icon mb-2"
+                        (click)="openStatusModal(surveyConfig)">
+                  <fa-icon icon="toggle-off"></fa-icon>
                 </button>
               </div>
               <button id="surveyConfigDeleteBtn"
@@ -81,21 +88,6 @@
                 <fa-icon icon="trash-alt" [fixedWidth]="true" size="lg"></fa-icon>
               </button>
             </div>
-
-            <!--            <div [ngStyle]="{'color': plugin.status == statusEnum.Enabled ? '#06ba06' : '#ba3f4e'}" id="plugin-status">-->
-            <!--              <button *ngIf="plugin.status == statusEnum.Disabled"-->
-            <!--                      mdbTooltip="{{'Activate plugin' | translate}}"-->
-            <!--                      class="btn btn-accent text-black-50 btn-icon mb-2"-->
-            <!--                      (click)="openPluginModal(plugin, statusEnum.Enabled)">-->
-            <!--                <fa-icon icon="toggle-on"></fa-icon>-->
-            <!--              </button>-->
-            <!--              <button *ngIf="plugin.status == statusEnum.Enabled"-->
-            <!--                      mdbTooltip="{{'Deactivate plugin' | translate}}"-->
-            <!--                      class="btn btn-success text-black-50 btn-icon mb-2"-->
-            <!--                      (click)="openPluginModal(plugin, statusEnum.Disabled)">-->
-            <!--                <fa-icon icon="toggle-off"></fa-icon>-->
-            <!--              </button>-->
-            <!--            </div>-->
           </td>
         </tr>
         </tbody>
@@ -128,12 +120,14 @@
 <app-survey-configuration-status
   #statusSurveyConfigModal (configStatusChanged)="getSurveyConfigsList()"
 ></app-survey-configuration-status>
-<app-survey-configuration-edit [surveys]="availableSurveys" [locations]="locations" (configUpdated)="getSurveyConfigsList()"
+<app-survey-configuration-edit [surveys]="availableSurveys" [locations]="locations"
+                               (configUpdated)="getSurveyConfigsList()"
                                #editSurveyConfigModal></app-survey-configuration-edit>
-<app-survey-configuration-new [surveys]="availableSurveys" [locations]="locations" (configCreated)="getSurveyConfigsList()"
+<app-survey-configuration-new [surveys]="availableSurveys" [locations]="locations"
+                              (configCreated)="getSurveyConfigsList()"
                               #newSurveyConfigModal></app-survey-configuration-new>
 <app-survey-configuration-delete (surveyConfigDeleted)="getSurveyConfigsList()"
-  #deleteSurveyConfigModal></app-survey-configuration-delete>
+                                 #deleteSurveyConfigModal></app-survey-configuration-delete>
 <!--<app-installation-assign-->
 <!--  #assignInstallationModal (installationAssigned)="getInstallationsList()"-->
 <!--&gt;</app-installation-assign>-->

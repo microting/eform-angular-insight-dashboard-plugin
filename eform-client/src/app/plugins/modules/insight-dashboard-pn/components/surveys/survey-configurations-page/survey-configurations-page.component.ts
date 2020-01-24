@@ -16,6 +16,7 @@ import {
 import {InsightDashboardPnLocationsService, InsightDashboardPnSurveyConfigsService} from '../../../services';
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {SitesService} from '../../../../../../common/services/advanced';
 
 @AutoUnsubscribe()
 @Component({
@@ -45,7 +46,8 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
 
   constructor(private sharedPnService: SharedPnService,
               private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-              private locationsService: InsightDashboardPnLocationsService) {
+              private locationsService: InsightDashboardPnLocationsService,
+              private sitesService: SitesService) {
     this.searchSubject.pipe(
       debounceTime(500)
     ).subscribe(val => {
@@ -56,16 +58,8 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getLocalPageSettings();
-    // TODO: Uncomment
-    // this.getLocations();
-    // this.getSurveys();
-
-    this.surveyConfigurationsListModel = {
-      total: 1,
-      surveyList: [
-        {id: 1, locationName: 'My funny location', name: 'My funny survey', isActive: false}
-      ]
-    };
+    this.getLocations();
+    this.getSurveys();
   }
 
   getSurveyConfigsList() {
@@ -95,7 +89,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   getLocations() {
-    this.getLocationsSub$ = this.locationsService.getAll().subscribe((data) => {
+    this.getLocationsSub$ = this.sitesService.getAllSitesDictionary().subscribe((data) => {
       if (data && data.success) {
         this.locations = data.model;
       }
@@ -106,8 +100,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
     this.localPageSettings = this.sharedPnService
       .getLocalPageSettings(insightDashboardPnSettings, 'SurveyConfigs')
       .settings;
-    // TODO: UNCOMMENT
-    // this.getSurveyConfigsList();
+    this.getSurveyConfigsList();
   }
 
   sortTable(sort: string) {

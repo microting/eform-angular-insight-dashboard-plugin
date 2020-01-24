@@ -1,6 +1,5 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {InsightDashboardPnSurveyConfigsService} from '../../../services';
-import {debounceTime, switchMap} from 'rxjs/operators';
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
 
 @Component({
@@ -15,16 +14,15 @@ export class SurveyConfigurationNewComponent implements OnInit {
   @Output() configCreated: EventEmitter<void> = new EventEmitter<void>();
   spinnerStatus = false;
   selectedSurveyId: number;
-  selectedLocations: number[];
+  selectedLocations: number[] = [];
 
 
   constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-    private cd: ChangeDetectorRef
-  ) {}
+    private surveyConfigsService: InsightDashboardPnSurveyConfigsService
+  ) {
+  }
 
   show() {
-    // TODO: Add logic to checkboxes
     this.frame.show();
   }
 
@@ -35,11 +33,20 @@ export class SurveyConfigurationNewComponent implements OnInit {
     this.spinnerStatus = true;
     this.surveyConfigsService.create({locationsIds: this.selectedLocations, surveyId: this.selectedSurveyId})
       .subscribe((data) => {
-      if (data && data.success) {
-        this.frame.hide();
-        this.configCreated.emit();
-      }
-      this.spinnerStatus = false;
-    });
+        if (data && data.success) {
+          this.frame.hide();
+          this.configCreated.emit();
+          this.selectedLocations = [];
+        }
+        this.spinnerStatus = false;
+      });
+  }
+
+  addToArray(e: any, locationId: number) {
+    if (e.target.checked) {
+      this.selectedLocations.push(locationId);
+    } else {
+      this.selectedLocations = this.selectedLocations.filter(x => x !== locationId);
+    }
   }
 }

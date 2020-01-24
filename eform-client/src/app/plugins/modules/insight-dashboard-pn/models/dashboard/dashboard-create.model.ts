@@ -1,3 +1,6 @@
 export class DashboardCreateModel {
-  id: number;
+  name: string;
+  surveyId: number;
+  locationId: number | null;
+  reportTagId: number | null;
 }

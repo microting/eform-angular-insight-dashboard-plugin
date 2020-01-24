@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DashboardChartTypes} from '../../../../const/enums';
+import {DashboardChartTypesEnum} from '../../../../const/enums';
 
 @Component({
   selector: 'app-dashboard-block-view',
@@ -7,7 +7,7 @@ import {DashboardChartTypes} from '../../../../const/enums';
   styleUrls: ['./dashboard-block-view.component.scss']
 })
 export class DashboardBlockViewComponent implements OnInit {
-  selectedChartType = DashboardChartTypes.HorizontalBar;
+  selectedChartType = DashboardChartTypesEnum.HorizontalBar;
   constructor() { }
 
   ngOnInit() {

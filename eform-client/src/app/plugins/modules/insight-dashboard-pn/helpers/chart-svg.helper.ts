@@ -1,7 +1,7 @@
-import {DashboardChartTypes} from '../const/enums';
+import {DashboardChartTypesEnum} from '../const/enums';
 import * as SvgSaver from 'svgsaver';
 
-export function convertInlineStyleSVG(svgDocument: any, nodeIndex: number, chartType: DashboardChartTypes) {
+export function convertInlineStyleSVG(svgDocument: any, nodeIndex: number, chartType: DashboardChartTypesEnum) {
   const svg = svgDocument.getElementsByClassName('ngx-charts')[nodeIndex]
     .childNodes[0].childNodes[0].firstChild;
 

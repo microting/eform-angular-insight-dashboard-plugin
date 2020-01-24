@@ -1,4 +1,4 @@
-export enum DashboardChartTypes {
+export enum DashboardChartTypesEnum {
   Line = 1,
   Pie,
   HorizontalBar,

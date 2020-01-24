@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
 import {InsightDashboardPnSurveyConfigsService} from '../../../services';
 import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
@@ -15,17 +15,22 @@ export class SurveyConfigurationEditComponent implements OnInit {
   @Output() configUpdated: EventEmitter<void> = new EventEmitter<void>();
   spinnerStatus = false;
   selectedSurveyId: number;
-  selectedLocations: number[];
-  typeahead = new EventEmitter<string>();
+  extendedLocations: { id: number, name: string, isChecked: boolean }[] = [];
+  selectedLocations: number[] = [];
+  selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel();
 
 
   constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-    private cd: ChangeDetectorRef
-  ) {}
+    private surveyConfigsService: InsightDashboardPnSurveyConfigsService
+  ) {
+  }
 
   show(surveyConfig: SurveyConfigModel) {
-    // TODO: Add logic to checkboxes
+    this.selectedSurveyConfig = surveyConfig;
+    this.extendedLocations = surveyConfig.locations.map(x => {
+      return {id: x.id, name: x.name, isChecked: this.locations.findIndex(y => y.id === x.id) > -1};
+    });
+    this.selectedLocations = surveyConfig.locations.map(x => x.id);
     this.frame.show();
   }
 
@@ -34,7 +39,11 @@ export class SurveyConfigurationEditComponent implements OnInit {
 
   updateConfig() {
     this.spinnerStatus = true;
-    this.surveyConfigsService.update({locationsIds: this.selectedLocations, surveyId: this.selectedSurveyId})
+    this.surveyConfigsService.update({
+      locationsIds: this.selectedLocations,
+      surveyId: this.selectedSurveyId,
+      id: this.selectedSurveyConfig.id
+    })
       .subscribe((data) => {
         if (data && data.success) {
           this.frame.hide();
@@ -42,5 +51,13 @@ export class SurveyConfigurationEditComponent implements OnInit {
         }
         this.spinnerStatus = false;
       });
+  }
+
+  addToArray(e: any, locationId: number) {
+    if (e.target.checked) {
+      this.selectedLocations.push(locationId);
+    } else {
+      this.selectedLocations = this.selectedLocations.filter(x => x !== locationId);
+    }
   }
 }

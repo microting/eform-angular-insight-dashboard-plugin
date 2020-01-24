@@ -27,11 +27,7 @@ export class InsightDashboardPnSurveyConfigsService extends BaseService {
   }
 
   getAvailableSurveys(): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {
-    return this.get(SurveyConfigsMethods.Get);
-  }
-
-  getSingle(id: number): Observable<OperationDataResult<SurveyConfigsListModel>> {
-    return this.get(SurveyConfigsMethods.Get + '/' + id);
+    return this.get(SurveyConfigsMethods.GetSurveys);
   }
 
   changeStatus(model: SurveyConfigUpdateStatusModel): Observable<OperationResult> {

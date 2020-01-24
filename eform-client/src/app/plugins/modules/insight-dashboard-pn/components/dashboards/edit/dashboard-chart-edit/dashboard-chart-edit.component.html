@@ -19,8 +19,7 @@
                          [showYAxisLabel]="true"
                          [xAxisLabel]="'Country'"
                          [yAxisLabel]="'Population'"
-                         [autoScale]="true"
-                         (select)="onSelect($event)">
+                         [autoScale]="true">
   </ngx-charts-line-chart>
   <ngx-charts-pie-chart *ngIf="chartType === chartTypes.Pie"
                         [view]="view"
@@ -30,8 +29,7 @@
                         [explodeSlices]="false"
                         [labels]="true"
                         [doughnut]="false"
-                        [gradient]="false"
-                        (select)="onSelect($event)">
+                        [gradient]="false">
   </ngx-charts-pie-chart>
   <ngx-charts-bar-horizontal *ngIf="chartType === chartTypes.HorizontalBar"
                              [view]="view"
@@ -44,8 +42,7 @@
                              [showXAxisLabel]="true"
                              [showYAxisLabel]="true"
                              [xAxisLabel]="'Country'"
-                             [yAxisLabel]="'Population'"
-                             (select)="onSelect($event)">
+                             [yAxisLabel]="'Population'">
   </ngx-charts-bar-horizontal>
   <ngx-charts-bar-horizontal-stacked *ngIf="chartType === chartTypes.HorizontalBarStacked"
                                      [view]="view"
@@ -58,8 +55,7 @@
                                      [showXAxisLabel]="true"
                                      [showYAxisLabel]="true"
                                      [xAxisLabel]="'Country'"
-                                     [yAxisLabel]="'Population'"
-                                     (select)="onSelect($event)">
+                                     [yAxisLabel]="'Population'">
   </ngx-charts-bar-horizontal-stacked>
   <ngx-charts-bar-horizontal-2d *ngIf="chartType === chartTypes.HorizontalBarGrouped"
                                 [view]="view"
@@ -72,8 +68,7 @@
                                 [showXAxisLabel]="true"
                                 [showYAxisLabel]="true"
                                 [xAxisLabel]="'Country'"
-                                [yAxisLabel]="'Population'"
-                                (select)="onSelect($event)">
+                                [yAxisLabel]="'Population'">
   </ngx-charts-bar-horizontal-2d>
   <ngx-charts-bar-vertical *ngIf="chartType === chartTypes.VerticalBar"
                            [view]="view"
@@ -86,8 +81,7 @@
                            [showXAxisLabel]="true"
                            [showYAxisLabel]="true"
                            [xAxisLabel]="'Country'"
-                           [yAxisLabel]="'Population'"
-                           (select)="onSelect($event)">
+                           [yAxisLabel]="'Population'">
   </ngx-charts-bar-vertical>
   <ngx-charts-bar-vertical-stacked *ngIf="chartType === chartTypes.VerticalBarStacked"
                                    [view]="view"
@@ -100,8 +94,7 @@
                                    [showXAxisLabel]="true"
                                    [showYAxisLabel]="true"
                                    [xAxisLabel]="'Country'"
-                                   [yAxisLabel]="'Population'"
-                                   (select)="onSelect($event)">
+                                   [yAxisLabel]="'Population'">
   </ngx-charts-bar-vertical-stacked>
   <ngx-charts-bar-vertical-2d *ngIf="chartType === chartTypes.VerticalBarGrouped"
                               [view]="view"
@@ -114,10 +107,6 @@
                               [showXAxisLabel]="true"
                               [showYAxisLabel]="true"
                               [xAxisLabel]="'Country'"
-                              [yAxisLabel]="'Population'"
-                              (select)="onSelect($event)">
+                              [yAxisLabel]="'Population'">
   </ngx-charts-bar-vertical-2d>
 </div>
-
-
-<button (click)="printDiv()">Hey copy me</button>

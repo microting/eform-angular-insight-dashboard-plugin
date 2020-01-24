@@ -26,7 +26,7 @@ export class SurveyConfigurationStatusComponent implements OnInit {
 
   changeSurveyConfigStatus() {
     this.spinnerStatus = true;
-    this.surveyConfigsService.changeStatus({surveyId: this.selectedSurveyConfig.id, isActive: !this.selectedSurveyConfig.isActive})
+    this.surveyConfigsService.changeStatus({id: this.selectedSurveyConfig.id, isActive: !this.selectedSurveyConfig.isActive})
       .subscribe((data) => {
         if (data && data.success) {
           this.frame.hide();

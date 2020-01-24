@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {DashboardChartTypes} from '../../../../const/enums';
+import {DashboardChartTypesEnum} from '../../../../const/enums';
 import html2canvas from 'html2canvas';
 import {convertInlineStyleSVG} from '../../../../helpers/chart-svg.helper';
 
@@ -9,10 +9,10 @@ import {convertInlineStyleSVG} from '../../../../helpers/chart-svg.helper';
   styleUrls: ['./dashboard-chart-edit.component.scss']
 })
 export class DashboardChartEditComponent {
-  @Input() chartType: DashboardChartTypes;
+  @Input() chartType: DashboardChartTypesEnum;
 
   get chartTypes() {
-    return DashboardChartTypes;
+    return DashboardChartTypesEnum;
   }
 
   single: any[];
@@ -26,18 +26,6 @@ export class DashboardChartEditComponent {
   constructor() {
     Object.assign(this, {single});
     Object.assign(this, {multi});
-  }
-
-  onSelect(data): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 }
 
