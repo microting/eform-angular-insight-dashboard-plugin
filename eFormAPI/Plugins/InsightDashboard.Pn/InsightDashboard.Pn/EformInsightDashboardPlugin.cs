@@ -120,14 +120,14 @@ namespace InsightDashboard.Pn
                     {
                         Name = localizationService.GetString("Surveys Configs"),
                         E2EId = "insight-dashboard-pn-surveys-configs",
-                        Link = "/surveys-configs",
+                        Link = "/plugins/insight-dashboard-pn/surveys-configs",
                         Position = 0
                     },
                     new MenuItemModel()
                     {
                         Name = localizationService.GetString("Dashboards"),
                         E2EId = "insight-dashboard-pn-dashboards",
-                        Link = "/dashboards",
+                        Link = "/plugins/insight-dashboard-pn/dashboards",
                         Position = 1
                     },
                 }
