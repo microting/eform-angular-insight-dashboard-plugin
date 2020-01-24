@@ -6,10 +6,12 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
+    using Infrastructure.Models.Dashboards;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using Microting.eForm.Infrastructure.Constants;
     using Microting.eFormApi.BasePn.Abstractions;
+    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
     using Microting.InsightDashboardBase.Infrastructure.Data;
@@ -93,12 +95,14 @@
             }
         }
 
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetFirstQuestions(int surveyId)
+        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetQuestions(int surveyId)
         {
             try
             {
                 Debugger.Break();
                 var core = await _coreHelper.GetCore();
+                var ss = new EformUser();
+
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var surveys = await sdkContext.questions
@@ -108,6 +112,11 @@
                         .Select(x => new CommonDictionaryModel()
                         {
                             Id = x.Id,
+                            Name = x.QuestionTranslationses
+                                .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
+                                .Where(qt => qt.LanguageId == 1) // TODO Lang Id
+                                .Select(qt=>qt.Name)
+                                .FirstOrDefault(),
                         }).ToListAsync();
 
                     return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
@@ -123,5 +132,45 @@
         }
 
 
+        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(DashboardItemAnswerRequestModel requestModel)
+        {
+            try
+            {
+                Debugger.Break();
+                var core = await _coreHelper.GetCore();
+                
+                // Validation
+                int questionId = 0;
+                if (requestModel.FilterQuestion != null)
+                {
+                    questionId = (int)requestModel.FilterQuestion;
+                }
+                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                {
+                    var surveys = await sdkContext.answer_values
+                        .AsNoTracking()
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.QuestionId == questionId)
+                        .Select(x => new CommonDictionaryModel()
+                        {
+                            Id = x.Id,
+                            Name = x.Option.OptionTranslationses
+                                .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
+                                .Where(qt => qt.LanguageId == 1) // TODO Lang Id
+                                .Select(qt => qt.Name)
+                                .FirstOrDefault(),
+                        }).ToListAsync();
+
+                    return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.Message);
+                _logger.LogError(e.Message);
+                return new OperationDataResult<List<CommonDictionaryModel>>(false,
+                    _localizationService.GetString(""));
+            }
+        }
     }
 }

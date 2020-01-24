@@ -26,6 +26,7 @@ namespace InsightDashboard.Pn.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
@@ -54,6 +55,20 @@ namespace InsightDashboard.Pn.Controllers
         public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int id)
         {
             return await _dictionaryService.GetLocationsBySurveyId(id);
+        }
+
+        [HttpGet]
+        [Route("api/insight-dashboard-pn/dashboard-items/questions/{surveyId}")]
+        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetQuestions(int surveyId)
+        {
+            return await _dictionaryService.GetQuestions(surveyId);
+        }
+
+        [HttpGet]
+        [Route("api/insight-dashboard-pn/dashboard-items/filter-answers")]
+        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(DashboardItemAnswerRequestModel requestModel)
+        {
+            return await _dictionaryService.GetFilterAnswers(requestModel);
         }
     }
 }
