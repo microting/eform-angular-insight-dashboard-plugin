@@ -8,29 +8,37 @@
     <button
       id="saveCancelDashboardBtn"
       class="btn btn-accent text-black-50"
-      [routerLink]="['../../dashboards']">{{ 'Cancel' | translate }}
+      [routerLink]="['../../../dashboards']">{{ 'Cancel' | translate }}
     </button>
   </div>
 </subheader-pn>
 
 <div class="container-fluid">
-    <div class="card z-depth-3 mt-4" style="width: 100%">
-      <div class="card-header">
-        <div class="row">
-          <div class="col">
-            <div class="md-form">
-              <input mdbInputDirective [mdbValidate]="false"
-                     type="text"
-                     class="form-control input-sm" id="dashboardNameInput">
-              <label for="dashboardNameInput">{{'Dashboard name' | translate}}</label>
-            </div>
+  <div class="card z-depth-3 mt-4" style="width: 100%">
+    <div class="card-header">
+      <div class="row">
+        <div class="col">
+          <div class="md-form">
+            <input mdbInputDirective [mdbValidate]="false"
+                   [(ngModel)]="dashboardEditModel.dashboardName"
+                   type="text"
+                   class="form-control input-sm" id="dashboardNameInput">
+            <label for="dashboardNameInput">{{'Dashboard name' | translate}}</label>
           </div>
         </div>
       </div>
-      <div class="card-body">
-        <app-dashboard-block-edit (addNewBlock)="onAddNewBlock()"
-                                  (copyBlock)="onCopyBlock()"
-                                  (deleteBlock)="onDeleteBlock()"></app-dashboard-block-edit>
-      </div>
     </div>
+    <div class="card-body">
+      <section dragula="ITEMS" *ngFor="let dashboardItem of dashboardEditModel.items"
+               (dragulaModelChange)="dragulaPositionChanged()"
+               [(dragulaModel)]="dashboardEditModel.items">
+        <app-dashboard-item-edit [dashboardItem]="dashboardItem"
+                                 [questions]="questions"
+                                 (addNewItem)="onAddNewBlock($event)"
+                                 (copyItem)="onCopyBlock($event)"
+                                 (deleteItem)="onDeleteBlock($event)"
+                                 (dashboardItemChanged)="onDashboardItemChanged($event)"></app-dashboard-item-edit>
+      </section>
+    </div>
+  </div>
 </div>

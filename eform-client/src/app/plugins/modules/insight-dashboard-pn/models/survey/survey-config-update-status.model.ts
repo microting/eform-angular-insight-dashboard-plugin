@@ -1,4 +1,4 @@
 export class SurveyConfigUpdateStatusModel {
-  surveyId: number;
+  id: number;
   isActive: boolean;
 }

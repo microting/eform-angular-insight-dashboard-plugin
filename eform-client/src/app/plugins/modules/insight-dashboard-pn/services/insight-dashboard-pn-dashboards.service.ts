@@ -10,11 +10,13 @@ import {DashboardsRequestModel} from '../models/dashboard/dashboards-request.mod
 import {DashboardEditModel} from '../models/dashboard/dashboard-edit.model';
 
 export let DashboardMethods = {
-  Get: 'api/insight-dashboard-pn/dashboard',
-  Create: 'api/insight-dashboard-pn/dashboard/create',
-  Update: 'api/insight-dashboard-pn/dashboard/update',
-  Copy: 'api/insight-dashboard-pn/dashboard/copy',
-  Delete: 'api/insight-dashboard-pn/dashboard/delete',
+  Get: 'api/insight-dashboard-pn/dashboards',
+  GetForEdit: 'api/insight-dashboard-pn/dashboards/edit',
+  GetForView: 'api/insight-dashboard-pn/dashboards/view',
+  Create: 'api/insight-dashboard-pn/dashboards/create',
+  Update: 'api/insight-dashboard-pn/dashboards/update',
+  Copy: 'api/insight-dashboard-pn/dashboards/copy',
+  Delete: 'api/insight-dashboard-pn/dashboards/delete',
 };
 @Injectable()
 export class InsightDashboardPnDashboardsService extends BaseService {
@@ -27,11 +29,11 @@ export class InsightDashboardPnDashboardsService extends BaseService {
   }
 
   getSingleForView(id: number): Observable<OperationDataResult<DashboardViewModel>> {
-    return this.get(DashboardMethods.Get + '/' + id);
+    return this.get(DashboardMethods.GetForView + '/' + id);
   }
 
   getSingleForEdit(id: number): Observable<OperationDataResult<DashboardEditModel>> {
-    return this.get(DashboardMethods.Get + '/' + id);
+    return this.get(DashboardMethods.GetForEdit + '/' + id);
   }
 
   create(model: DashboardCreateModel): Observable<OperationResult> {

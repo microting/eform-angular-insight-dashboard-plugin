@@ -12,13 +12,14 @@ import {InsightDashboardPnLayoutComponent} from './layouts';
 import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.module';
 import {CasesModule} from '../../../modules';
 import {
+  InsightDashboardPnDashboardItemsService,
   InsightDashboardPnDashboardsService,
   InsightDashboardPnLocationsService,
   InsightDashboardPnSettingsService,
   InsightDashboardPnSurveyConfigsService
 } from './services';
 import {
-  DashboardBlockEditComponent,
+  DashboardItemEditComponent,
   DashboardChartEditComponent,
   DashboardChartViewComponent,
   DashboardBlockViewComponent,
@@ -68,13 +69,13 @@ import {NgxChartsModule} from '@microting/ngx-charts';
     SurveyConfigurationDeleteComponent,
     DashboardDeleteComponent,
     DashboardCopyComponent,
-    DashboardBlockEditComponent,
+    DashboardItemEditComponent,
     DashboardChartEditComponent,
     DashboardChartViewComponent,
     DashboardBlockViewComponent
   ],
   providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboardsService,
-    InsightDashboardPnSurveyConfigsService, InsightDashboardPnLocationsService]
+    InsightDashboardPnSurveyConfigsService, InsightDashboardPnLocationsService, InsightDashboardPnDashboardItemsService]
 })
 
 export class InsightDashboardPnModule {

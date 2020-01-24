@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col">
             <ng-select [items]="surveys"
-                       bindLabel="label"
+                       bindLabel="name"
                        [placeholder]="'Select survey' | translate"
                        bindValue="id"
                        [(ngModel)]="selectedSurveyId"
@@ -18,13 +18,21 @@
         </div>
         <div class="row">
           <div class="col">
-            <!--            <ng-container *ngFor="let checkboxModel of deployViewModel.deployCheckboxes">-->
-            <!--              <div class="mat-checkbox" *ngIf="checkboxModel.id == siteDto.siteUId">-->
-            <!--                <input id="checkbox{{checkboxModel.id}}" (change)="addToArray($event, checkboxModel.id)"-->
-            <!--                       [checked]="checkboxModel.isChecked" [value]="checkboxModel.isChecked" color="primary" type="checkbox">-->
-            <!--                <label for="checkbox{{checkboxModel.id}}"></label>-->
-            <!--              </div>-->
-            <!--            </ng-container>-->
+            <p>{{'Select locations' | translate}}</p>
+            <div class="mb-3 locations-block">
+              <ng-container *ngFor="let location of extendedLocations">
+                <div class="row">
+                  <div class="col">
+                    <div class="mat-checkbox">
+                      <input id="checkbox{{location.id}}" (change)="addToArray($event, location.id)"
+                             [checked]="location.isChecked" [value]="location.isChecked" color="primary"
+                             type="checkbox">
+                      <label for="checkbox{{location.id}}">{{location.name}}</label>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
           </div>
         </div>
       </div>

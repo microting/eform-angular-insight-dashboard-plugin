@@ -65,10 +65,10 @@
             {{dashboard.dashboardName}}
           </td>
           <td id="dashboardSurveyName">
-            {{dashboard.dashboardName}}
+            {{dashboard.surveyName}}
           </td>
           <td id="dashboardLocationName">
-            {{dashboard.locationName}}
+            {{dashboard.locationName ? dashboard.locationName : dashboard.surveyName}}
           </td>
           <td>
             <div class="d-flex flex-row justify-content-center">
@@ -83,7 +83,7 @@
                 <fa-icon icon="pen" [fixedWidth]="true" size="lg"></fa-icon>
               </button>
               <div id="surveyConfigStatus">
-                <button (click)="openCopyModal()"
+                <button (click)="openCopyModal(dashboard)"
                         mdbTooltip="{{'Copy Dashboard' | translate}}"
                         class="btn btn-accent text-black-50 btn-icon mb-2">
                   <fa-icon icon="copy" [fixedWidth]="true" size="lg"></fa-icon>
@@ -141,6 +141,7 @@
 <spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>
 
 <app-dashboard-copy #copyDashboardModal (dashboardCopied)="getDashboardsList()"></app-dashboard-copy>
-<app-dashboard-new [surveys]="availableSurveys" (surveySelected)="getLocationTags($event)" (dashboardCreated)="getDashboardsList()"
+<app-dashboard-new [surveys]="availableSurveys" [availableLocationsTags]="availableLocationsTags"
+                   (surveySelected)="getLocationTags($event)" (dashboardCreated)="getDashboardsList()"
                    #newDashboardModal></app-dashboard-new>
 <app-dashboard-delete #deleteDashboardModal (dashboardDeleted)="getDashboardsList()"></app-dashboard-delete>

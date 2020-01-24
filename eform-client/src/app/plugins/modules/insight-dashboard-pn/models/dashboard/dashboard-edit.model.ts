@@ -1,4 +1,13 @@
+import {DashboardItemModel} from './dashboard-item.model';
+
 export class DashboardEditModel {
   id: number;
-  name: string;
+  dashboardName: string;
+  surveyId: number;
+  surveyName: string;
+  locationName: string;
+  locationId: number;
+  tagName: string;
+  tagId: number;
+  items: DashboardItemModel[] = [];
 }

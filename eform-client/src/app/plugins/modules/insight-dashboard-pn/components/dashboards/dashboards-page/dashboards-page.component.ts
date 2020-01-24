@@ -14,6 +14,8 @@ import {
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Router} from '@angular/router';
+import {SitesService} from '../../../../../../common/services/advanced';
+import {CommonDictionaryExtendedModel} from '../../../models/common-dictionary-extended.model';
 
 @AutoUnsubscribe()
 @Component({
@@ -32,10 +34,11 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   spinnerStatus = false;
   searchSubject = new Subject();
   availableSurveys: CommonDictionaryModel[] = [];
-  availableTags: CommonDictionaryModel[] = [];
+  availableLocationsTags: CommonDictionaryExtendedModel[] = [];
   getAllSub$: Subscription;
   getSurveysSub$: Subscription;
   getTagsSub$: Subscription;
+  getLocationsSub$: Subscription;
 
   get sortCols() {
     return DashboardSortColumns;
@@ -45,18 +48,13 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
               private dashboardService: InsightDashboardPnDashboardsService,
               private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
               private locationsService: InsightDashboardPnLocationsService,
+              private sitesService: SitesService,
               private router: Router) {
   }
 
   ngOnInit() {
     this.getLocalPageSettings();
-    // this.getSurveys();
-    this.dashboardsListModel = {
-      total: 1,
-      dashboardList: [
-        {id: 1, locationName: 'My funny location', surveyName: 'My funny survey', dashboardName: 'Top dashboard'}
-      ]
-    };
+    this.getSurveys();
   }
 
   getDashboardsList() {
@@ -117,8 +115,7 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     this.localPageSettings = this.sharedPnService
       .getLocalPageSettings(insightDashboardPnSettings, 'Dashboards')
       .settings;
-    // TODO: UNCOMMENT
-    // this.getDashboardsList();
+    this.getDashboardsList();
   }
 
   updateLocalPageSettings() {
@@ -152,12 +149,19 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   getLocationTags(surveyId: number) {
-    this.spinnerStatus = true;
-    this.getTagsSub$ = this.locationsService.getAll(surveyId).subscribe((data) => {
+    this.getLocationsSub$ = this.sitesService.getAllSitesDictionary().subscribe((data) => {
       if (data && data.success) {
-        this.availableTags = data.model;
+        this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
+          return {id: x.id, name: x.name, isTag: true, description: x.description};
+        })];
       }
-      this.spinnerStatus = false;
+    });
+    this.getTagsSub$ = this.locationsService.getBySurveyId(surveyId).subscribe((data) => {
+      if (data && data.success) {
+        this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
+          return {id: x.id, name: x.name, isTag: true, description: x.description};
+        })];
+      }
     });
   }
 
