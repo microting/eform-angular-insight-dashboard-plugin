@@ -22,20 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.DictionaryService
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Dashboards;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
 
-    public interface IDictionaryService
+    public class DashboardViewChartDataModel
     {
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys();
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetQuestions(int surveyId);
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(
-            DashboardItemAnswerRequestModel requestModel);
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int surveyId);
+        public List<DashboardViewChartDataSingleModel> Single { get; set; }
+            = new List<DashboardViewChartDataSingleModel>();
+
+        public List<DashboardViewChartDataMultiModel> Multi { get; set; }
+            = new List<DashboardViewChartDataMultiModel>();
     }
 }

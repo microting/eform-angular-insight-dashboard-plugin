@@ -1,12 +1,37 @@
-﻿namespace InsightDashboard.Pn.Services.DashboardService
+﻿/*
+The MIT License (MIT)
+
+Copyright (c) 2007 - 2019 Microting A/S
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+namespace InsightDashboard.Pn.Services.DashboardService
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
     using Infrastructure.Models.Dashboards;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using Microting.eForm.Infrastructure.Constants;
@@ -15,116 +40,6 @@
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
-    using Microting.InsightDashboardBase.Infrastructure.Enums;
-
-    public class DashboardsListModel
-    {
-        public int Total { get; set; }
-
-        public List<DashboardModel> DashboardList { get; set; }
-            = new List<DashboardModel>();
-    }
-
-    public class DashboardViewModel
-    {
-        public int Id { get; set; }
-        public string DashboardName { get; set; }
-        public string SurveyName { get; set; }
-        public string LocationName { get; set; }
-        public string TagName { get; set; }
-        public List<DashboardItemViewModel> Items { get; set; }
-            = new List<DashboardItemViewModel>();
-    }
-
-
-
-    public class DashboardEditModel
-    {
-        public int Id { get; set; }
-        public string DashboardName { get; set; }
-        public int SurveyId { get; set; }
-        public string SurveyName { get; set; }
-        public string LocationName { get; set; }
-        public int? LocationId { get; set; }
-        public string TagName { get; set; }
-        public int? TagId { get; set; }
-
-        public List<DashboardItemModel> Items { get; set; }
-            = new List<DashboardItemModel>();
-    }
-
-    public class DashboardItemModel
-    {
-        public int Id { get; set; }
-        public int FirstQuestionName { get; set; }
-        public int FilterQuestionName { get; set; }
-        public int FilterAnswerName { get; set; }
-        public DashboardPeriodUnits Period { get; set; }
-        public DashboardChartTypes ChartType { get; set; }
-        public int Position { get; set; }
-    }
-
-    public class DashboardItemViewModel
-    {
-        public int Id { get; set; }
-        public int FirstQuestionName { get; set; }
-        public int FilterQuestionName { get; set; }
-        public int FilterAnswerName { get; set; }
-        public DashboardPeriodUnits Period { get; set; }
-        public DashboardChartTypes ChartType { get; set; }
-        public int Position { get; set; }
-        public DashboardViewChartDataModel ChartData { get; set; }
-            = new DashboardViewChartDataModel();
-    }
-
-    public class DashboardViewChartDataModel
-    {
-        public List<DashboardViewChartDataSingleModel> Single { get; set; }
-            = new List<DashboardViewChartDataSingleModel>();
-
-        public List<DashboardViewChartDataMultiModel> Multi { get; set; }
-            = new List<DashboardViewChartDataMultiModel>();
-    }
-
-    public class DashboardViewChartDataSingleModel
-    {
-        public string Name { get; set; }
-        public int Value { get; set; }
-    }
-
-    public class DashboardViewChartDataMultiModel
-    {
-        public string Name { get; set; }
-
-        public List<DashboardViewChartDataSingleModel> Series { get; set; }
-            = new List<DashboardViewChartDataSingleModel>();
-    }
-
-
-    public class DashboardModel
-    {
-        public int Id { get; set; }
-        public string DashboardName { get; set; }
-        public int SurveyId { get; set; }
-        public string SurveyName { get; set; }
-        public string LocationName { get; set; }
-        public int? LocationId { get; set; }
-        public string TagName { get; set; }
-        public int? TagId { get; set; }
-    }
-
-
-    public class DashboardCreateModel
-    {
-        public string Name { get; set; }
-        public int SurveyId { get; set; }
-        public int? LocationId { get; set; }
-        public int? ReportTagId { get; set; }
-    }
-
-
-
-
 
     public class DashboardService : IDashboardService
     {
@@ -132,17 +47,20 @@
         private readonly IInsightDashboardLocalizationService _localizationService;
         private readonly IEFormCoreService _coreHelper;
         private readonly InsightDashboardPnDbContext _dbContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public DashboardService(
             ILogger<DashboardService> logger,
             IInsightDashboardLocalizationService localizationService,
             IEFormCoreService coreHelper,
-            InsightDashboardPnDbContext dbContext)
+            InsightDashboardPnDbContext dbContext,
+            IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _localizationService = localizationService;
             _coreHelper = coreHelper;
             _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<OperationDataResult<DashboardsListModel>> GetAll(DashboardsRequestModel requestModel)
@@ -152,8 +70,6 @@
                 Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 var result = new DashboardsListModel();
-
-
                 var dashboardsQueryable = _dbContext.Dashboards
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .AsNoTracking()
@@ -206,7 +122,8 @@
                     })
                     .ToListAsync();
 
-                Parallel.ForEach(dashboards, async dashboardModel =>
+                // TODO tasks here
+                foreach (var dashboardModel in dashboards)
                 {
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
                     {
@@ -234,7 +151,7 @@
                                 .FirstOrDefaultAsync();
                         }
                     }
-                });
+                }
 
                 result.DashboardList = dashboards;
                 return new OperationDataResult<DashboardsListModel>(true, result);
@@ -244,7 +161,7 @@
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationDataResult<DashboardsListModel>(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileObtainingDashboardList"));
             }
         }
 
@@ -260,14 +177,14 @@
                 {
                     return new OperationResult(
                         false,
-                        _localizationService.GetString(""));
+                        _localizationService.GetString("IncorrectLocationIdOrTagId"));
                 }
 
                 if (createModel.LocationId != null && createModel.ReportTagId != null)
                 {
                     return new OperationResult(
                         false,
-                        _localizationService.GetString(""));
+                        _localizationService.GetString("IncorrectLocationIdOrTagId"));
                 }
 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
@@ -280,7 +197,7 @@
                     {
                         return new OperationResult(
                             false,
-                            _localizationService.GetString(""));
+                            _localizationService.GetString("SurveyNotFound"));
                     }
 
                     if (createModel.LocationId != null)
@@ -292,7 +209,7 @@
                         {
                             return new OperationResult(
                                 false,
-                                _localizationService.GetString(""));
+                                _localizationService.GetString("LocationNotFound"));
                         }
                     }
 
@@ -305,13 +222,15 @@
                         {
                             return new OperationResult(
                                 false,
-                                _localizationService.GetString(""));
+                                _localizationService.GetString("TagNotFound"));
                         }
                     }
                 }
 
                 var dashboard = new Dashboard
                 {
+                    CreatedByUserId = UserId,
+                    UpdatedByUserId = UserId,
                     Name = createModel.Name,
                     SurveyId = createModel.SurveyId,
                     LocationId = createModel.LocationId,
@@ -321,14 +240,14 @@
                 await dashboard.Create(_dbContext);
                 return new OperationResult(
                     true,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("DashboardCreatedSuccessfully"));
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationDataResult<DashboardsListModel>(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileCreatingNewDashboard"));
             }
         }
 
@@ -338,40 +257,71 @@
             {
                 Debugger.Break();
 
-                var dashboard = await _dbContext.Dashboards
-                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .FirstOrDefaultAsync(x => x.Id == dashboardId);
-
-                if (dashboard == null)
+                using (var transaction = await _dbContext.Database.BeginTransactionAsync())
                 {
-                    return new OperationResult(
-                        false,
-                        _localizationService.GetString(""));
+                    try
+                    {
+                        var dashboard = await _dbContext.Dashboards
+                            .Include(x => x.DashboardItems)
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
+                            .FirstOrDefaultAsync(x => x.Id == dashboardId);
+
+                        if (dashboard == null)
+                        {
+                            return new OperationResult(
+                                false,
+                                _localizationService.GetString("DashboardNotFound"));
+                        }
+
+                        var newDashboard = new Dashboard
+                        {
+                            Name = dashboard.Name,
+                            SurveyId = dashboard.SurveyId,
+                            LocationId = dashboard.LocationId,
+                            TagId = dashboard.TagId,
+                            CreatedByUserId = UserId,
+                            UpdatedByUserId = UserId,
+                        };
+
+                        await newDashboard.Create(_dbContext);
+
+                        foreach (var dashboardItem in dashboard.DashboardItems)
+                        {
+                            var newDashboardItem = new DashboardItem
+                            {
+                                DashboardId = newDashboard.Id,
+                                CreatedByUserId = UserId,
+                                UpdatedByUserId = UserId,
+                                ChartType = dashboardItem.ChartType,
+                                FilterAnswerId = dashboardItem.FilterAnswerId,
+                                FilterQuestionId = dashboardItem.FilterQuestionId,
+                                FirstQuestionId = dashboardItem.FirstQuestionId,
+                                Period = dashboardItem.Period,
+                                Position = dashboardItem.Position,
+                            };
+
+                            await newDashboardItem.Save(_dbContext);
+                        }
+
+                        transaction.Commit();
+                        return new OperationResult(
+                            true,
+                            _localizationService.GetString("DashboardCopiedSuccessfully"));
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
-
-                await dashboard.Clone(_dbContext);
-
-                var newDashboard = await _dbContext.Dashboards
-                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .FirstOrDefaultAsync(x => x.Id == dashboard.Id);
-
-                if (newDashboard == null)
-                {
-                    return new OperationResult(
-                        false,
-                        _localizationService.GetString(""));
-                }
-
-                return new OperationResult(
-                    true,
-                    _localizationService.GetString(""));
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationResult(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileCopyingDashboard"));
             }
         }
 
@@ -381,27 +331,109 @@
             {
                 Debugger.Break();
 
-                var dashboard = await _dbContext.Dashboards
-                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .FirstOrDefaultAsync(x => x.Id == editModel.Id);
-
-                if (dashboard == null)
+                using (var transactions = await _dbContext.Database.BeginTransactionAsync())
                 {
-                    return new OperationResult(
-                        false,
-                        _localizationService.GetString(""));
-                }
+                    try
+                    {
+                        var dashboard = await _dbContext.Dashboards
+                            .Include(x => x.DashboardItems)
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
+                            .FirstOrDefaultAsync(x => x.Id == editModel.Id);
 
-                return new OperationResult(
-                    true,
-                    _localizationService.GetString(""));
+                        if (dashboard == null)
+                        {
+                            return new OperationResult(
+                                false,
+                                _localizationService.GetString("DashboardNotFound"));
+                        }
+
+                        dashboard.UpdatedAt = DateTime.UtcNow;
+                        dashboard.UpdatedByUserId = UserId;
+
+                        await dashboard.Update(_dbContext);
+
+                        var editItemsIds = editModel.Items
+                            .Where(x => x.Id != null)
+                            .Select(x => x.Id)
+                            .ToArray();
+
+                        var forDelete = dashboard.DashboardItems
+                            .Where(x => !editItemsIds.Contains(x.Id))
+                            .ToList();
+
+                        var forUpdate = dashboard.DashboardItems
+                            .Where(x => editItemsIds.Contains(x.Id))
+                            .ToList();
+
+                        var forCreate = editModel.Items
+                            .Where(x => x.Id == null)
+                            .ToList();
+
+                        // Remove
+                        foreach (var dashboardItem in forDelete)
+                        {
+                            await dashboardItem.Delete(_dbContext);
+                        }
+
+                        // Update
+                        foreach (var dashboardItem in forUpdate)
+                        {
+                            var dashboardItemModel = editModel.Items
+                                .FirstOrDefault(x => x.Id == dashboardItem.Id);
+
+                            if (dashboardItemModel != null)
+                            {
+                                dashboardItem.UpdatedAt = DateTime.UtcNow;
+                                dashboardItem.UpdatedByUserId = UserId;
+                                dashboardItem.ChartType = dashboardItemModel.ChartType;
+                                dashboardItem.FilterAnswerId = dashboardItemModel.FilterAnswerId;
+                                dashboardItem.FilterQuestionId = dashboardItemModel.FilterQuestionId;
+                                dashboardItem.FirstQuestionId = dashboardItemModel.FirstQuestionId;
+                                dashboardItem.Period = dashboardItemModel.Period;
+                                dashboardItem.Position = dashboardItemModel.Position;
+
+                                await dashboardItem.Update(_dbContext);
+                            }
+                        }
+
+                        // Create
+                        foreach (var dashboardItemModel in forCreate)
+                        {
+                            var dashboardItem = new DashboardItem
+                            {
+                                DashboardId = dashboard.Id,
+                                CreatedByUserId = UserId,
+                                ChartType = dashboardItemModel.ChartType,
+                                FilterAnswerId = dashboardItemModel.FilterAnswerId,
+                                FilterQuestionId = dashboardItemModel.FilterQuestionId,
+                                FirstQuestionId = dashboardItemModel.FirstQuestionId,
+                                Period = dashboardItemModel.Period,
+                                Position = dashboardItemModel.Position,
+                            };
+
+                            await dashboardItem.Save(_dbContext);
+                        }
+
+
+                        transactions.Commit();
+                        return new OperationResult(
+                            true,
+                            _localizationService.GetString("DashboardUpdatedSuccessfully"));
+                    }
+                    catch
+                    {
+                        transactions.Rollback();
+                        throw;
+                    }
+                }
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationResult(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileUpdatingDashboard"));
             }
         }
 
@@ -410,29 +442,47 @@
             try
             {
                 Debugger.Break();
-                var dashboard = await _dbContext.Dashboards
-                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .FirstOrDefaultAsync(x => x.Id == dashboardId);
-
-                if (dashboard == null)
+                using (var transaction = await _dbContext.Database.BeginTransactionAsync())
                 {
-                    return new OperationResult(
-                        false,
-                        _localizationService.GetString(""));
-                }
+                    try
+                    {
+                        var dashboard = await _dbContext.Dashboards
+                            .Include(x => x.DashboardItems)
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .FirstOrDefaultAsync(x => x.Id == dashboardId);
 
-                await dashboard.Delete(_dbContext);
+                        if (dashboard == null)
+                        {
+                            return new OperationResult(
+                                false,
+                                _localizationService.GetString("DashboardNotFound"));
+                        }
+
+                        foreach (var dashboardItem in dashboard.DashboardItems)
+                        {
+                            await dashboardItem.Delete(_dbContext);
+                        }
+
+                        await dashboard.Delete(_dbContext);
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
 
                 return new OperationResult(
                     true,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("DashboardRemovedSuccessfully"));
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationResult(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileRemovingDashboard"));
             }
         }
 
@@ -441,16 +491,75 @@
             try
             {
                 Debugger.Break();
-                var result = new DashboardViewModel();
+                var core = await _coreHelper.GetCore();
                 var dashboard = await _dbContext.Dashboards
+                    .Include(x => x.DashboardItems)
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
                     .FirstOrDefaultAsync(x => x.Id == dashboardId);
 
                 if (dashboard == null)
                 {
                     return new OperationDataResult<DashboardViewModel>(
                         false,
-                        _localizationService.GetString(""));
+                        _localizationService.GetString("DashboardNotFound"));
+                }
+
+                // Dashboard
+                var result = new DashboardViewModel
+                {
+                    Id = dashboard.Id,
+                    DashboardName = dashboard.Name,
+                };
+
+                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                {
+                    result.SurveyName = await sdkContext.question_sets
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.Id == dashboard.SurveyId)
+                        .Select(x => x.Name)
+                        .FirstOrDefaultAsync();
+
+                    if (dashboard.LocationId != null)
+                    {
+                        result.LocationName = await sdkContext.sites
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.Id == dashboard.LocationId)
+                            .Select(x => x.Name)
+                            .FirstOrDefaultAsync();
+                    }
+
+                    if (dashboard.TagId != null)
+                    {
+                        result.TagName = await sdkContext.tags
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.Id == dashboard.TagId)
+                            .Select(x => x.Name)
+                            .FirstOrDefaultAsync();
+                    }
+                }
+
+                // Dashboard items
+                foreach (var dashboardItem in dashboard.DashboardItems)
+                {
+                    var dashboardItemModel = new DashboardItemViewModel()
+                    {
+                        Id = dashboardItem.Id,
+                        Position = dashboardItem.Position,
+                        Period = dashboardItem.Period,
+                        ChartType = dashboardItem.ChartType,
+                        FilterAnswerId = dashboardItem.FilterAnswerId,
+                        FirstQuestionId = dashboardItem.FirstQuestionId,
+                        FilterQuestionId = dashboardItem.FilterQuestionId,
+                    };
+
+                    // Chart data
+                    
+                    // TODO Chart data 
+
+
+                    // Add Item
+                    result.Items.Add(dashboardItemModel);
                 }
 
                 return new OperationDataResult<DashboardViewModel>(
@@ -462,7 +571,7 @@
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationDataResult<DashboardViewModel>(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileObtainingDashboardInfo"));
             }
         }
 
@@ -472,17 +581,63 @@
             {
                 Debugger.Break();
                 var result = new DashboardEditModel();
+                var core = await _coreHelper.GetCore();
                 var dashboard = await _dbContext.Dashboards
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Select(x=>new DashboardEditModel
+                    {
+                        Id = x.Id,
+                        LocationId = x.LocationId,
+                        TagId = x.TagId,
+                        SurveyId = x.SurveyId,
+                        DashboardName = x.Name,
+                        Items = x.DashboardItems
+                            .Select(i=> new DashboardItemModel
+                            {
+                                Id = i.Id,
+                                ChartType = i.ChartType,
+                                FilterAnswerId = i.FilterAnswerId,
+                                FilterQuestionId = i.FilterQuestionId,
+                                FirstQuestionId = i.FirstQuestionId,
+                                Period = i.Period,
+                                Position = i.Position,
+                            }).ToList(),
+                    })
                     .FirstOrDefaultAsync(x => x.Id == dashboardId);
 
                 if (dashboard == null)
                 {
                     return new OperationDataResult<DashboardEditModel>(
                         false,
-                        _localizationService.GetString(""));
+                        _localizationService.GetString("DashboardNotFound"));
                 }
 
+                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                {
+                    dashboard.SurveyName = await sdkContext.question_sets
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.Id == dashboard.SurveyId)
+                        .Select(x => x.Name)
+                        .FirstOrDefaultAsync();
+
+                    if (dashboard.LocationId != null)
+                    {
+                        dashboard.LocationName = await sdkContext.sites
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.Id == dashboard.LocationId)
+                            .Select(x => x.Name)
+                            .FirstOrDefaultAsync();
+                    }
+
+                    if (dashboard.TagId != null)
+                    {
+                        dashboard.TagName = await sdkContext.tags
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.Id == dashboard.TagId)
+                            .Select(x => x.Name)
+                            .FirstOrDefaultAsync();
+                    }
+                }
                 return new OperationDataResult<DashboardEditModel>(
                     true,
                     result);
@@ -492,7 +647,15 @@
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationDataResult<DashboardEditModel>(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileObtainingDashboardInfo"));
+            }
+        }
+        private int UserId
+        {
+            get
+            {
+                var value = _httpContextAccessor?.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+                return value == null ? 0 : int.Parse(value);
             }
         }
     }

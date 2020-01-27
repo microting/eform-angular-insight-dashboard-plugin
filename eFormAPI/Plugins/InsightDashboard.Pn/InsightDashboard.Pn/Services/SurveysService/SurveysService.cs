@@ -25,7 +25,6 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Services.SurveysService
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
@@ -129,7 +128,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationDataResult<SurveyConfigsListModel>(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileObtainingSurveyConfigurations"));
             }
         }
 
@@ -166,7 +165,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                             transaction.Commit();
                             return new OperationResult(
                                 true,
-                                _localizationService.GetString(""));
+                                _localizationService.GetString("SurveyConfigurationCreatedSuccessfully"));
                         }
                         catch (Exception)
                         {
@@ -182,7 +181,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 _logger.LogError(e.Message);
                 return new OperationResult(
                     false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileCreatingSurveyConfiguration"));
             }
         }
 
@@ -210,7 +209,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                                 transaction.Commit();
                                 return new OperationResult(
                                     false,
-                                    _localizationService.GetString(""));
+                                    _localizationService.GetString("SurveyConfigurationNotFound"));
                             }
 
                             surveyConfiguration.QuestionSetId = updateModel.SurveyId;
@@ -230,6 +229,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                             {
                                 var siteSurveyConfigurations = await sdkContext
                                     .site_survey_configurations
+                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                     .FirstOrDefaultAsync(
                                         x => x.SurveyConfigurationId == surveyConfiguration.Id
                                              && x.SiteId == siteIdForRemove);
@@ -259,7 +259,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                             transaction.Commit();
                             return new OperationResult(
                                 true,
-                                _localizationService.GetString(""));
+                                _localizationService.GetString("SurveyConfigurationUpdatedSuccessfully"));
                         }
                         catch (Exception)
                         {
@@ -275,7 +275,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 _logger.LogError(e.Message);
                 return new OperationResult(
                     false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileUpdatingSurveyConfiguration"));
             }
         }
 
@@ -296,13 +296,17 @@ namespace InsightDashboard.Pn.Services.SurveysService
                     {
                         return new OperationResult(
                             false,
-                            _localizationService.GetString(""));
+                            _localizationService.GetString("SurveyConfigurationNotFound"));
                     }
 
                     // TODO Change status
+                    var message = configUpdateStatusModel.IsActive
+                        ? "SurveyConfigurationHasBeenActivated"
+                        : "SurveyConfigurationHasBeenDeactivated";
+
                     return new OperationResult(
                         true,
-                        _localizationService.GetString(""));
+                        _localizationService.GetString(message));
                 }
             }
             catch (Exception e)
@@ -311,7 +315,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 _logger.LogError(e.Message);
                 return new OperationResult(
                     false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileChangingSurveyConfigurationStatus"));
             }
         }
 
@@ -332,14 +336,14 @@ namespace InsightDashboard.Pn.Services.SurveysService
                     {
                         return new OperationResult(
                             false,
-                            _localizationService.GetString(""));
+                            _localizationService.GetString("SurveyConfigurationNotFound"));
                     }
 
                     await surveyConfiguration.Delete(sdkContext);
 
                     return new OperationResult(
                         true,
-                        _localizationService.GetString(""));
+                        _localizationService.GetString("SurveyConfigurationHasBeenRemoved"));
                 }
             }
             catch (Exception e)
@@ -348,7 +352,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 _logger.LogError(e.Message);
                 return new OperationResult(
                     false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileRemovingSurveyConfiguration"));
             }
         }
     }
