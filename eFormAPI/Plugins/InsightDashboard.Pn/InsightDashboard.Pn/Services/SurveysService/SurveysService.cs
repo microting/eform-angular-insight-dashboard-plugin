@@ -36,6 +36,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
     using Microting.eForm.Infrastructure.Constants;
     using Microting.eForm.Infrastructure.Data.Entities;
     using Microting.eFormApi.BasePn.Abstractions;
+    using Microting.eFormApi.BasePn.Infrastructure.Extensions;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
 
@@ -64,10 +65,47 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 var result = new SurveyConfigsListModel();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveys = await sdkContext.survey_configurations
+                    var surveysQueryable = sdkContext.survey_configurations
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .AsNoTracking()
+                        .AsQueryable();
+
+                    if (!string.IsNullOrEmpty(requestModel.SearchString))
+                    {
+                        surveysQueryable = surveysQueryable
+                            .Where(x => x.Name.Contains(
+                                requestModel.SearchString,
+                                StringComparison.CurrentCultureIgnoreCase));
+                    }
+
+                    if (!string.IsNullOrEmpty(requestModel.Sort))
+                    {
+                        if (requestModel.IsSortDsc)
+                        {
+                            surveysQueryable = surveysQueryable
+                                .CustomOrderByDescending(requestModel.Sort);
+                        }
+                        else
+                        {
+                            surveysQueryable = surveysQueryable
+                                .CustomOrderBy(requestModel.Sort);
+                        }
+                    }
+                    else
+                    {
+                        surveysQueryable = surveysQueryable
+                            .OrderBy(x => x.Id);
+                    }
+
+                    result.Total = await surveysQueryable
+                        .Select(x => x.Id)
+                        .CountAsync();
+
+                    surveysQueryable = surveysQueryable
                         .Skip(requestModel.Offset)
-                        .Take(requestModel.PageSize)
+                        .Take(requestModel.PageSize);
+
+                    result.Entities = await surveysQueryable
                         .Select(x => new SurveyConfigModel()
                         {
                             Id = x.Id,
@@ -80,15 +118,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                                     Id = l.Site.Id,
                                     Name = l.Site.Name,
                                 }).ToList()
-
                         }).ToListAsync();
-
-                    result.Entities = surveys;
-
-                    result.Total = await sdkContext.survey_configurations
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Select(x => x.Id)
-                        .CountAsync();
                 }
 
                 return new OperationDataResult<SurveyConfigsListModel>(true, result);

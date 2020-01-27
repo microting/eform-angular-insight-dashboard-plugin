@@ -11,6 +11,7 @@
     using Microsoft.Extensions.Logging;
     using Microting.eForm.Infrastructure.Constants;
     using Microting.eFormApi.BasePn.Abstractions;
+    using Microting.eFormApi.BasePn.Infrastructure.Extensions;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
@@ -27,7 +28,15 @@
     public class DashboardViewModel
     {
         public int Id { get; set; }
+        public string DashboardName { get; set; }
+        public string SurveyName { get; set; }
+        public string LocationName { get; set; }
+        public string TagName { get; set; }
+        public List<DashboardItemViewModel> Items { get; set; }
+            = new List<DashboardItemViewModel>();
     }
+
+
 
     public class DashboardEditModel
     {
@@ -47,15 +56,48 @@
     public class DashboardItemModel
     {
         public int Id { get; set; }
-        public int FirstQuestionId { get; set; }
         public int FirstQuestionName { get; set; }
-        public int FilterQuestionId { get; set; }
         public int FilterQuestionName { get; set; }
-        public int FilterAnswerId { get; set; }
         public int FilterAnswerName { get; set; }
         public DashboardPeriodUnits Period { get; set; }
         public DashboardChartTypes ChartType { get; set; }
         public int Position { get; set; }
+    }
+
+    public class DashboardItemViewModel
+    {
+        public int Id { get; set; }
+        public int FirstQuestionName { get; set; }
+        public int FilterQuestionName { get; set; }
+        public int FilterAnswerName { get; set; }
+        public DashboardPeriodUnits Period { get; set; }
+        public DashboardChartTypes ChartType { get; set; }
+        public int Position { get; set; }
+        public DashboardViewChartDataModel ChartData { get; set; }
+            = new DashboardViewChartDataModel();
+    }
+
+    public class DashboardViewChartDataModel
+    {
+        public List<DashboardViewChartDataSingleModel> Single { get; set; }
+            = new List<DashboardViewChartDataSingleModel>();
+
+        public List<DashboardViewChartDataMultiModel> Multi { get; set; }
+            = new List<DashboardViewChartDataMultiModel>();
+    }
+
+    public class DashboardViewChartDataSingleModel
+    {
+        public string Name { get; set; }
+        public int Value { get; set; }
+    }
+
+    public class DashboardViewChartDataMultiModel
+    {
+        public string Name { get; set; }
+
+        public List<DashboardViewChartDataSingleModel> Series { get; set; }
+            = new List<DashboardViewChartDataSingleModel>();
     }
 
 
@@ -111,6 +153,7 @@
                 var core = await _coreHelper.GetCore();
                 var result = new DashboardsListModel();
 
+
                 var dashboardsQueryable = _dbContext.Dashboards
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .AsNoTracking()
@@ -124,7 +167,24 @@
                             StringComparison.CurrentCultureIgnoreCase));
                 }
 
-                // TODO Add Sort
+                if (!string.IsNullOrEmpty(requestModel.Sort))
+                {
+                    if (requestModel.IsSortDsc)
+                    {
+                        dashboardsQueryable = dashboardsQueryable
+                            .CustomOrderByDescending(requestModel.Sort);
+                    }
+                    else
+                    {
+                        dashboardsQueryable = dashboardsQueryable
+                            .CustomOrderBy(requestModel.Sort);
+                    }
+                }
+                else
+                {
+                    dashboardsQueryable = dashboardsQueryable
+                        .OrderBy(x => x.Id);
+                }
 
                 result.Total = await dashboardsQueryable
                     .Select(x => x.Id)
