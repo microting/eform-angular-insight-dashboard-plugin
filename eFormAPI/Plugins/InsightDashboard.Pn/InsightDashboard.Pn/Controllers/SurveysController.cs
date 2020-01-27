@@ -46,7 +46,7 @@ namespace InsightDashboard.Pn.Controllers
         [HttpPost]
         [Route("api/insight-dashboard-pn/survey-configs")]
         public async Task<OperationDataResult<SurveyConfigsListModel>> GetSettings(
-            [FromBody] SurveyListRequestModel requestModel)
+            [FromBody] SurveyConfigsRequestModel requestModel)
         {
             return await _surveysService.Get(requestModel);
         }

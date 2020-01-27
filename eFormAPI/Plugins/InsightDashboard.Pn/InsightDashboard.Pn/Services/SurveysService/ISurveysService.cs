@@ -32,7 +32,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
 
     public interface ISurveysService
     {
-        Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyListRequestModel requestModel);
+        Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyConfigsRequestModel requestModel);
         Task<OperationResult> Create(SurveyConfigCreateModel createModel);
         Task<OperationResult> Update(SurveyConfigUpdateModel updateModel);
         Task<OperationResult> ChangeStatus(SurveyConfigUpdateStatusModel configUpdateStatusModel);

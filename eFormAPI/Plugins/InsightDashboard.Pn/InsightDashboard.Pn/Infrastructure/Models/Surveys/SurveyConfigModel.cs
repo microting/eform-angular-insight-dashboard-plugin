@@ -31,6 +31,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Surveys
     {
         public int Id { get; set; }
         public string SurveyName { get; set; }
+        public int SurveyId { get; set; }
         public bool IsActive { get; set; }
 
         public List<CommonDictionaryModel> Locations { get; set; }

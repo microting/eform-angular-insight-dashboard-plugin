@@ -55,7 +55,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
             _coreHelper = coreHelper;
         }
 
-        public async Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyListRequestModel requestModel)
+        public async Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyConfigsRequestModel requestModel)
         {
             try
             {
@@ -72,6 +72,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                         {
                             Id = x.Id,
                             SurveyName = x.QuestionSet.Name,
+                            SurveyId = x.QuestionSet.Id,
                             Locations = x.SiteSurveyConfigurations
                                 .Where(l => l.Site.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Select(l => new CommonDictionaryModel

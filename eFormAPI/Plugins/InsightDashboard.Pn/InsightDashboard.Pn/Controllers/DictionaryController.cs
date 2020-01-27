@@ -58,14 +58,14 @@ namespace InsightDashboard.Pn.Controllers
         }
 
         [HttpGet]
-        [Route("api/insight-dashboard-pn/dashboard-items/questions/{surveyId}")]
+        [Route("api/insight-dashboard-pn/dictionary/questions/{surveyId}")]
         public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetQuestions(int surveyId)
         {
             return await _dictionaryService.GetQuestions(surveyId);
         }
 
         [HttpGet]
-        [Route("api/insight-dashboard-pn/dashboard-items/filter-answers")]
+        [Route("api/insight-dashboard-pn/dictionary/filter-answers")]
         public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(DashboardItemAnswerRequestModel requestModel)
         {
             return await _dictionaryService.GetFilterAnswers(requestModel);

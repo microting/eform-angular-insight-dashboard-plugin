@@ -39,7 +39,6 @@
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
