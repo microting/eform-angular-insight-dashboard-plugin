@@ -165,7 +165,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
             }
         }
 
-        public async Task<OperationResult> Create(DashboardCreateModel createModel)
+        public async Task<OperationDataResult<int>> Create(DashboardCreateModel createModel)
         {
             try
             {
@@ -174,14 +174,14 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 // Validation
                 if (createModel.LocationId == null && createModel.ReportTagId == null)
                 {
-                    return new OperationResult(
+                    return new OperationDataResult<int>(
                         false,
                         _localizationService.GetString("IncorrectLocationIdOrTagId"));
                 }
 
                 if (createModel.LocationId != null && createModel.ReportTagId != null)
                 {
-                    return new OperationResult(
+                    return new OperationDataResult<int>(
                         false,
                         _localizationService.GetString("IncorrectLocationIdOrTagId"));
                 }
@@ -194,7 +194,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .AnyAsync(x=>x.Id == createModel.SurveyId))
                     {
-                        return new OperationResult(
+                        return new OperationDataResult<int>(
                             false,
                             _localizationService.GetString("SurveyNotFound"));
                     }
@@ -206,7 +206,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .AnyAsync(x => x.Id == createModel.LocationId))
                         {
-                            return new OperationResult(
+                            return new OperationDataResult<int>(
                                 false,
                                 _localizationService.GetString("LocationNotFound"));
                         }
@@ -219,7 +219,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .AnyAsync(x => x.Id == createModel.ReportTagId))
                         {
-                            return new OperationResult(
+                            return new OperationDataResult<int>(
                                 false,
                                 _localizationService.GetString("TagNotFound"));
                         }
@@ -237,15 +237,16 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 };
 
                 await dashboard.Create(_dbContext);
-                return new OperationResult(
+                return new OperationDataResult<int>(
                     true,
-                    _localizationService.GetString("DashboardCreatedSuccessfully"));
+                    _localizationService.GetString("DashboardCreatedSuccessfully"),
+                    dashboard.Id);
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
-                return new OperationDataResult<DashboardsListModel>(false,
+                return new OperationDataResult<int>(false,
                     _localizationService.GetString("ErrorWhileCreatingNewDashboard"));
             }
         }

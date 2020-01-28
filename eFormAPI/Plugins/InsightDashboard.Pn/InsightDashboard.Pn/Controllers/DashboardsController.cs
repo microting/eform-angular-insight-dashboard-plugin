@@ -40,7 +40,7 @@
 
         [HttpPost]
         [Route("api/insight-dashboard-pn/dashboards/create")]
-        public async Task<OperationResult> Create([FromBody] DashboardCreateModel requestModel)
+        public async Task<OperationDataResult<int>> Create([FromBody] DashboardCreateModel requestModel)
         {
             return await _dashboardService.Create(requestModel);
         }

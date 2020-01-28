@@ -31,7 +31,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
     public interface IDashboardService
     {
         Task<OperationDataResult<DashboardsListModel>> GetAll(DashboardsRequestModel requestModel);
-        Task<OperationResult> Create(DashboardCreateModel createModel);
+        Task<OperationDataResult<int>> Create(DashboardCreateModel createModel);
         Task<OperationResult> Copy(int dashboardId);
         Task<OperationResult> Update(DashboardEditModel editModel);
         Task<OperationResult> Remove(int dashboardId);
