@@ -575,7 +575,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                var result = new DashboardEditModel();
                 var core = await _coreHelper.GetCore();
                 var dashboard = await _dbContext.Dashboards
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
@@ -587,7 +586,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         SurveyId = x.SurveyId,
                         DashboardName = x.Name,
                         Items = x.DashboardItems
-                            .Select(i=> new DashboardItemModel
+                            .Select(i => new DashboardItemModel
                             {
                                 Id = i.Id,
                                 ChartType = i.ChartType,
@@ -596,7 +595,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 FirstQuestionId = i.FirstQuestionId,
                                 Period = i.Period,
                                 Position = i.Position,
-                            }).ToList(),
+                            })
+                            .OrderBy(i => i.Position)
+                            .ToList(),
                     })
                     .FirstOrDefaultAsync(x => x.Id == dashboardId);
 
@@ -634,10 +635,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     }
                 }
 
-                result = dashboard;
                 return new OperationDataResult<DashboardEditModel>(
                     true,
-                    result);
+                    dashboard);
             }
             catch (Exception e)
             {
