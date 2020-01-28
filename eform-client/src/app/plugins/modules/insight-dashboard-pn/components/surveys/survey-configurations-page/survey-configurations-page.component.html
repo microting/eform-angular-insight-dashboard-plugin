@@ -1,4 +1,4 @@
-<subheader-pn [title]="'Surveys' | translate">
+<subheader-pn [title]="'Surveys Configs' | translate">
   <div class="p-3">
     <button
       id="createSurveyConfigBtn"
@@ -37,11 +37,9 @@
               <i class="material-icons text-black-50">{{getSortIcon(sortCols.surveyName)}}</i>
             </div>
           </th>
-          <th scope="col" class="table-header-sortable" id="locationNameTableHeader"
-              (click)="sortTable(sortCols.locationName)">
+          <th scope="col" id="locationNameTableHeader">
             <div class="d-flex align-items-center justify-content-center">
               {{ 'Location Name' | translate }}
-              <i class="material-icons text-black-50">{{getSortIcon(sortCols.locationName)}}</i>
             </div>
           </th>
           <th scope="col">
@@ -50,7 +48,7 @@
         </tr>
         </thead>
         <tbody id="tableBody">
-        <tr *ngFor="let surveyConfig of surveyConfigurationsListModel?.surveyList; let i = index">
+        <tr *ngFor="let surveyConfig of surveyConfigurationsListModel?.entities; let i = index">
           <td id="surveyConfigId">
             {{surveyConfig.id}}
           </td>
@@ -58,7 +56,11 @@
             {{surveyConfig.surveyName}}
           </td>
           <td id="surveyConfigLocation">
-            {{surveyConfig.locations}}
+            <ng-container *ngFor="let location of surveyConfig.locations">
+              <p class="m-1">
+                {{location.name}}
+              </p>
+            </ng-container>
           </td>
           <td>
             <div class="d-flex flex-row justify-content-center">
@@ -72,13 +74,13 @@
                         mdbTooltip="{{'Activate Survey config' | translate}}"
                         class="btn btn-accent text-black-50 btn-icon mb-2"
                         (click)="openStatusModal(surveyConfig)">
-                  <fa-icon icon="toggle-on"></fa-icon>
+                  <fa-icon icon="toggle-on" [fixedWidth]="true"></fa-icon>
                 </button>
                 <button *ngIf="surveyConfig.isActive"
                         mdbTooltip="{{'Deactivate Survey config' | translate}}"
                         class="btn btn-success text-black-50 btn-icon mb-2"
                         (click)="openStatusModal(surveyConfig)">
-                  <fa-icon icon="toggle-off"></fa-icon>
+                  <fa-icon icon="toggle-off" [fixedWidth]="true"></fa-icon>
                 </button>
               </div>
               <button id="surveyConfigDeleteBtn"

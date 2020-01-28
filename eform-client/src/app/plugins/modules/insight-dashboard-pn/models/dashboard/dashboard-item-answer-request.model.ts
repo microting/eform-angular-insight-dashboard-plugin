@@ -1,4 +1,4 @@
 export class DashboardItemAnswerRequestModel {
-  firstQuestion: number | null;
+  firstQuestion: number;
   filterQuestion: number | null;
 }

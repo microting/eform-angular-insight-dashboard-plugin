@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {DashboardChartTypesEnum} from '../../../../const/enums';
+import {Component, Input, OnInit} from '@angular/core';
+import {DashboardChartTypesEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
+import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view-item.model';
 
 @Component({
   selector: 'app-dashboard-block-view',
@@ -7,7 +8,12 @@ import {DashboardChartTypesEnum} from '../../../../const/enums';
   styleUrls: ['./dashboard-block-view.component.scss']
 })
 export class DashboardBlockViewComponent implements OnInit {
-  selectedChartType = DashboardChartTypesEnum.VerticalBarGrouped;
+  @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
+
+  get chartTypes() { return DashboardChartTypesEnum; }
+  get periodUnits() { return DashboardPeriodUnitsEnum; }
+
+
   constructor() { }
 
   ngOnInit() {

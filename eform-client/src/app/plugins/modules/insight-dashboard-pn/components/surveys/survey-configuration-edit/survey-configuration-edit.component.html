@@ -11,7 +11,8 @@
                        bindLabel="name"
                        [placeholder]="'Select survey' | translate"
                        bindValue="id"
-                       [(ngModel)]="selectedSurveyId"
+                       [clearable]="false"
+                       [(ngModel)]="selectedSurveyConfig.surveyId"
                        id="selectSurvey">
             </ng-select>
           </div>
@@ -38,7 +39,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-success" (click)="updateConfig()"
-                [disabled]="!selectedSurveyId && selectedLocations.length < 1"
+                [disabled]="!selectedSurveyConfig.surveyId && selectedLocations.length < 1"
                 id="surveyConfigEditSaveBtn">
           {{ 'Save' | translate }}
         </button>

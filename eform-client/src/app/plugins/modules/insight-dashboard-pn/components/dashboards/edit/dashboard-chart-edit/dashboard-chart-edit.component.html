@@ -6,25 +6,28 @@
 <!--VerticalBar,-->
 <!--VerticalBarStacked,-->
 <!--VerticalBarGrouped-->
-<div style="width: 700px; height: 400px;" id="copyableChart">
+<div [ngStyle]="{'width': view[0] + 10 + 'px', 'height': view[1] + 40 + 'px' }"
+     id="copyableChart"
+     style="background-color: #FFFFFF !important;"
+>
   <ngx-charts-line-chart *ngIf="chartType === chartTypes.Line"
                          [view]="view"
                          [scheme]="colorScheme"
-                         [results]="multi"
+                         [results]="single"
                          [gradient]="false"
                          [xAxis]="true"
                          [yAxis]="true"
                          [legend]="true"
                          [showXAxisLabel]="true"
                          [showYAxisLabel]="true"
-                         [xAxisLabel]="'Country'"
-                         [yAxisLabel]="'Population'"
-                         [autoScale]="true">
+                         [xAxisLabel]="'Dates'"
+                         [yAxisLabel]="'%'"
+                         [autoScale]="true" [yScaleMax]="100">
   </ngx-charts-line-chart>
   <ngx-charts-pie-chart *ngIf="chartType === chartTypes.Pie"
                         [view]="view"
                         [scheme]="colorScheme"
-                        [results]="single"
+                        [results]="pie"
                         [legend]="true"
                         [explodeSlices]="false"
                         [labels]="true"
@@ -34,15 +37,15 @@
   <ngx-charts-bar-horizontal *ngIf="chartType === chartTypes.HorizontalBar"
                              [view]="view"
                              [scheme]="colorScheme"
-                             [results]="single"
+                             [results]="pie"
                              [gradient]="false"
                              [xAxis]="true"
                              [yAxis]="true"
                              [legend]="true"
                              [showXAxisLabel]="true"
                              [showYAxisLabel]="true"
-                             [xAxisLabel]="'Country'"
-                             [yAxisLabel]="'Population'">
+                             [xAxisLabel]="'Dates'"
+                             [yAxisLabel]="'%'" [xScaleMax]="100">
   </ngx-charts-bar-horizontal>
   <ngx-charts-bar-horizontal-stacked *ngIf="chartType === chartTypes.HorizontalBarStacked"
                                      [view]="view"
@@ -54,8 +57,8 @@
                                      [legend]="true"
                                      [showXAxisLabel]="true"
                                      [showYAxisLabel]="true"
-                                     [xAxisLabel]="'Country'"
-                                     [yAxisLabel]="'Population'">
+                                     [xAxisLabel]="'Dates'"
+                                     [yAxisLabel]="'%'" [xScaleMax]="100">
   </ngx-charts-bar-horizontal-stacked>
   <ngx-charts-bar-horizontal-2d *ngIf="chartType === chartTypes.HorizontalBarGrouped"
                                 [view]="view"
@@ -67,21 +70,21 @@
                                 [legend]="true"
                                 [showXAxisLabel]="true"
                                 [showYAxisLabel]="true"
-                                [xAxisLabel]="'Country'"
-                                [yAxisLabel]="'Population'">
+                                [xAxisLabel]="'Dates'"
+                                [yAxisLabel]="'%'" [xScaleMax]="100">
   </ngx-charts-bar-horizontal-2d>
   <ngx-charts-bar-vertical *ngIf="chartType === chartTypes.VerticalBar"
                            [view]="view"
                            [scheme]="colorScheme"
-                           [results]="single"
+                           [results]="pie"
                            [gradient]="false"
                            [xAxis]="true"
                            [yAxis]="true"
                            [legend]="true"
                            [showXAxisLabel]="true"
                            [showYAxisLabel]="true"
-                           [xAxisLabel]="'Country'"
-                           [yAxisLabel]="'Population'">
+                           [xAxisLabel]="'Dates'"
+                           [yAxisLabel]="'%'" [yScaleMax]="100">
   </ngx-charts-bar-vertical>
   <ngx-charts-bar-vertical-stacked *ngIf="chartType === chartTypes.VerticalBarStacked"
                                    [view]="view"
@@ -93,8 +96,8 @@
                                    [legend]="true"
                                    [showXAxisLabel]="true"
                                    [showYAxisLabel]="true"
-                                   [xAxisLabel]="'Country'"
-                                   [yAxisLabel]="'Population'">
+                                   [xAxisLabel]="'Dates'"
+                                   [yAxisLabel]="'%'" [yScaleMax]="100">
   </ngx-charts-bar-vertical-stacked>
   <ngx-charts-bar-vertical-2d *ngIf="chartType === chartTypes.VerticalBarGrouped"
                               [view]="view"
@@ -106,7 +109,7 @@
                               [legend]="true"
                               [showXAxisLabel]="true"
                               [showYAxisLabel]="true"
-                              [xAxisLabel]="'Country'"
-                              [yAxisLabel]="'Population'">
+                              [xAxisLabel]="'Dates'"
+                              [yAxisLabel]="'%'" [yScaleMax]="100">
   </ngx-charts-bar-vertical-2d>
 </div>

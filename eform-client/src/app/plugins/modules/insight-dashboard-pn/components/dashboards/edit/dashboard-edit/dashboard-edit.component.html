@@ -29,14 +29,21 @@
       </div>
     </div>
     <div class="card-body">
+      <button
+        id="addNewDashboardItemBtn"
+        class="btn btn-success mb-1 mt-1" *ngIf="dashboardEditModel.items.length === 0"
+        (click)="onAddNewBlock(1)">{{ 'Add new item' | translate }}
+      </button>
       <section dragula="ITEMS" *ngFor="let dashboardItem of dashboardEditModel.items"
                (dragulaModelChange)="dragulaPositionChanged()"
                [(dragulaModel)]="dashboardEditModel.items">
         <app-dashboard-item-edit [dashboardItem]="dashboardItem"
                                  [questions]="questions"
+                                 [surveyId]="dashboardEditModel.surveyId"
                                  (addNewItem)="onAddNewBlock($event)"
                                  (copyItem)="onCopyBlock($event)"
                                  (deleteItem)="onDeleteBlock($event)"
+                                 [ngClass]="{'no-drag' : !dashboardItem.collapsed}"
                                  (dashboardItemChanged)="onDashboardItemChanged($event)"></app-dashboard-item-edit>
       </section>
     </div>

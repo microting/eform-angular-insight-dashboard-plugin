@@ -13,7 +13,7 @@ import {
   SurveyConfigurationNewComponent,
   SurveyConfigurationStatusComponent
 } from '../..';
-import {InsightDashboardPnLocationsService, InsightDashboardPnSurveyConfigsService} from '../../../services';
+import {InsightDashboardPnDashboardDictionariesService, InsightDashboardPnSurveyConfigsService} from '../../../services';
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {SitesService} from '../../../../../../common/services/advanced';
@@ -46,7 +46,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
 
   constructor(private sharedPnService: SharedPnService,
               private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-              private locationsService: InsightDashboardPnLocationsService,
+              private dictionariesService: InsightDashboardPnDashboardDictionariesService,
               private sitesService: SitesService) {
     this.searchSubject.pipe(
       debounceTime(500)
@@ -79,7 +79,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
 
   getSurveys() {
     this.spinnerStatus = true;
-    this.getSurveysSub$ = this.surveyConfigsService.getAvailableSurveys()
+    this.getSurveysSub$ = this.dictionariesService.getSurveys()
       .subscribe((data) => {
         if (data && data.success) {
           this.availableSurveys = data.model;

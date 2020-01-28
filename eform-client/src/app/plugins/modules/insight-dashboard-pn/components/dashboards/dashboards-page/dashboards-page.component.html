@@ -37,18 +37,14 @@
               <i class="material-icons text-black-50">{{getSortIcon(sortCols.dashboardName)}}</i>
             </div>
           </th>
-          <th scope="col" class="table-header-sortable" id="surveyNameTableHeader"
-              (click)="sortTable(sortCols.surveyName)">
+          <th scope="col" id="surveyNameTableHeader">
             <div class="d-flex align-items-center justify-content-center">
               {{ 'Survey name' | translate }}
-              <i class="material-icons text-black-50">{{getSortIcon(sortCols.surveyName)}}</i>
             </div>
           </th>
-          <th scope="col" class="table-header-sortable" id="locationNameTableHeader"
-              (click)="sortTable(sortCols.locationName)">
+          <th scope="col" id="locationNameTableHeader">
             <div class="d-flex align-items-center justify-content-center">
-              {{ 'Location name' | translate }}
-              <i class="material-icons text-black-50">{{getSortIcon(sortCols.locationName)}}</i>
+              {{ 'Location/Tag name' | translate }}
             </div>
           </th>
           <th scope="col">
@@ -68,7 +64,7 @@
             {{dashboard.surveyName}}
           </td>
           <td id="dashboardLocationName">
-            {{dashboard.locationName ? dashboard.locationName : dashboard.surveyName}}
+            {{dashboard.locationName ? dashboard.locationName : dashboard.tagName}}
           </td>
           <td>
             <div class="d-flex flex-row justify-content-center">
@@ -142,6 +138,6 @@
 
 <app-dashboard-copy #copyDashboardModal (dashboardCopied)="getDashboardsList()"></app-dashboard-copy>
 <app-dashboard-new [surveys]="availableSurveys" [availableLocationsTags]="availableLocationsTags"
-                   (surveySelected)="getLocationTags($event)" (dashboardCreated)="getDashboardsList()"
+                   (surveySelected)="getLocationTags($event)" (dashboardCreated)="navigateToNewDashboard($event)"
                    #newDashboardModal></app-dashboard-new>
 <app-dashboard-delete #deleteDashboardModal (dashboardDeleted)="getDashboardsList()"></app-dashboard-delete>

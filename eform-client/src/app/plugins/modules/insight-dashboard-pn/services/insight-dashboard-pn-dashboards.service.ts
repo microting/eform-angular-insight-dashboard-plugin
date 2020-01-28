@@ -36,7 +36,7 @@ export class InsightDashboardPnDashboardsService extends BaseService {
     return this.get(DashboardMethods.GetForEdit + '/' + id);
   }
 
-  create(model: DashboardCreateModel): Observable<OperationResult> {
+  create(model: DashboardCreateModel): Observable<OperationDataResult<number>> {
     return this.post(DashboardMethods.Create, model);
   }
 

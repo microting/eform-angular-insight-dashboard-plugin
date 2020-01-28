@@ -15,7 +15,7 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
   @ViewChild('frame') frame;
   @Input() surveys: CommonDictionaryModel[] = [];
   @Input() availableLocationsTags: CommonDictionaryExtendedModel[] = [];
-  @Output() dashboardCreated: EventEmitter<void> = new EventEmitter<void>();
+  @Output() dashboardCreated: EventEmitter<number> = new EventEmitter<number>();
   @Output() surveySelected: EventEmitter<number> = new EventEmitter<number>();
   selectedSurveyId: number;
   spinnerStatus = false;
@@ -46,7 +46,7 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
     }).subscribe((data) => {
       if (data && data.success) {
         this.frame.hide();
-        this.dashboardCreated.emit();
+        this.dashboardCreated.emit(data.model);
       }
       this.spinnerStatus = false;
     });
