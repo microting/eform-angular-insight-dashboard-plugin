@@ -41,6 +41,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
+    using Microting.InsightDashboardBase.Infrastructure.Enums;
 
     public class DashboardService : IDashboardService
     {
@@ -586,12 +587,90 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 .Select(x => x.Name)
                                 .FirstOrDefaultAsync();
                         }
+
+
+                        // Chart data
+                        var singleData = false;
+                        switch (dashboardItem.ChartType)
+                        {
+                            case DashboardChartTypes.Line:
+                                singleData = false;
+                                break;
+                            case DashboardChartTypes.Pie:
+                                singleData = true;
+                                break;
+                            case DashboardChartTypes.HorizontalBar:
+                                singleData = true;
+                                break;
+                            case DashboardChartTypes.HorizontalBarStacked:
+                                singleData = false;
+                                break;
+                            case DashboardChartTypes.HorizontalBarGrouped:
+                                singleData = false;
+                                break;
+                            case DashboardChartTypes.VerticalBar:
+                                singleData = true;
+                                break;
+                            case DashboardChartTypes.VerticalBarStacked:
+                                singleData = false;
+                                break;
+                            case DashboardChartTypes.VerticalBarGrouped:
+                                singleData = false;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+
+
+
+                        if (singleData)
+                        {
+                            var answerQueryable = sdkContext.answer_values
+                                .AsNoTracking()
+                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                .AsQueryable();
+
+
+                            answerQueryable = answerQueryable
+                                .Where(x => x.Answer.QuestionSetId == dashboard.SurveyId);
+
+                            if (dashboard.LocationId != null)
+                            {
+                                answerQueryable = answerQueryable
+                                    .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                            }
+
+                            if (dashboard.TagId != null) // DELETE 
+                            {
+                                // TODO check it for tags
+                            }
+
+                            if (dashboardItem.FilterQuestionId != null)
+                            {
+                                answerQueryable = answerQueryable
+                                    .Where(x => x.QuestionId == dashboardItem.FilterQuestionId);
+                            }
+
+                            if (dashboardItem.FilterAnswerId != null)
+                            {
+                                answerQueryable = answerQueryable
+                                    .Where(x => x.OptionsId == dashboardItem.FilterAnswerId);
+                            }
+
+                            var dat = answerQueryable
+                                .Select(x => new DashboardViewChartDataSingleModel()
+                                {
+                                    Name = x.Option.OptionTranslationses
+                                        .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Where(qt => qt.Language.Name == locale)
+                                        .Select(qt => qt.Name)
+                                        .FirstOrDefault(),
+                                }).ToList();
+                        }
+
+                        // TODO Chart data 
                     }
-
-                    // Chart data
-
-                    // TODO Chart data 
-
 
                     // Add Item
                     result.Items.Add(dashboardItemModel);

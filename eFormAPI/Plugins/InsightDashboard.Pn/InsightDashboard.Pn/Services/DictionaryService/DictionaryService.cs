@@ -167,7 +167,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveys = await sdkContext.options
+                    var answers = await sdkContext.options
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => questions.Contains(x.QuestionId))
@@ -181,7 +181,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                                 .FirstOrDefault(),
                         }).ToListAsync();
 
-                    return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
+                    return new OperationDataResult<List<CommonDictionaryModel>>(true, answers);
                 }
             }
             catch (Exception e)
