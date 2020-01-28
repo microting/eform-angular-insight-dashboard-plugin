@@ -81,13 +81,31 @@ namespace InsightDashboard.Pn.Services.SurveysService
                     {
                         if (requestModel.IsSortDsc)
                         {
-                            surveysQueryable = surveysQueryable
-                                .CustomOrderByDescending(requestModel.Sort);
+                            switch (requestModel.Sort)
+                            {
+                                case nameof(SurveyConfigModel.SurveyName):
+                                    surveysQueryable = surveysQueryable
+                                        .OrderByDescending(x => x.QuestionSet.Name);
+                                    break;
+                                default:
+                                    surveysQueryable = surveysQueryable
+                                        .CustomOrderByDescending(requestModel.Sort);
+                                    break;
+                            }
                         }
                         else
                         {
-                            surveysQueryable = surveysQueryable
-                                .CustomOrderBy(requestModel.Sort);
+                            switch (requestModel.Sort)
+                            {
+                                case nameof(SurveyConfigModel.SurveyName):
+                                    surveysQueryable = surveysQueryable
+                                        .OrderBy(x => x.QuestionSet.Name);
+                                    break;
+                                default:
+                                    surveysQueryable = surveysQueryable
+                                        .CustomOrderBy(requestModel.Sort);
+                                    break;
+                            }
                         }
                     }
                     else
