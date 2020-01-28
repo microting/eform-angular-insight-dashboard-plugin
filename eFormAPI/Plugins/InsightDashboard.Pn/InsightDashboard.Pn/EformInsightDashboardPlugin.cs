@@ -110,7 +110,7 @@ namespace InsightDashboard.Pn
             var result = new MenuModel();
             result.LeftMenu.Add(new MenuItemModel()
             {
-                Name = localizationService.GetString("Insight Dashboard"),
+                Name = localizationService.GetString("InsightDashboard"),
                 E2EId = "",
                 Link = "",
                 Guards = new List<string>() { InsightDashboardClaims.AccessInsightDashboardPlugin },
@@ -118,7 +118,7 @@ namespace InsightDashboard.Pn
                 {
                     new MenuItemModel()
                     {
-                        Name = localizationService.GetString("Surveys Configs"),
+                        Name = localizationService.GetString("SurveysConfigs"),
                         E2EId = "insight-dashboard-pn-surveys-configs",
                         Link = "/plugins/insight-dashboard-pn/surveys-configs",
                         Position = 0

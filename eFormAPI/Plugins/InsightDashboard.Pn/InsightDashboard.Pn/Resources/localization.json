@@ -222,5 +222,33 @@
       "da": "Dashboard kopieret med succes",
       "en-US": "Dashboard copied successfully"
     }
+  },
+  {
+    "Key": "IncorrectFirstQuestionOrFilterQuestion",
+    "LocalizedValue": {
+      "da": "Forkert første spørgsmål eller filter spørgsmål",
+      "en-US": "Incorrect first question or filter question"
+    }
+  },
+  {
+    "Key": "Dashboards",
+    "LocalizedValue": {
+      "da": "Dashboards",
+      "en-US": "Dashboards"
+    }
+  },
+  {
+    "Key": "InsightDashboard",
+    "LocalizedValue": {
+      "da": "Insight Dashboard",
+      "en-US": "Insight Dashboard"
+    }
+  },
+  {
+    "Key": "SurveysConfigs",
+    "LocalizedValue": {
+      "da": "Undersøger Configs",
+      "en-US": "Surveys Configs"
+    }
   }
 ]

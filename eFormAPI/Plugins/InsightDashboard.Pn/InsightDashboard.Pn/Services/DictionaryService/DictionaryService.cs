@@ -159,22 +159,42 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 var locale = CultureInfo.CurrentCulture.Name;
                 // Validation
                 int questionId = 0;
+                if (requestModel.FilterQuestion == null && requestModel.FirstQuestion == null)
+                {
+                    return new OperationDataResult<List<CommonDictionaryModel>>(
+                        false,
+                        _localizationService.GetString("IncorrectFirstQuestionOrFilterQuestion"));
+                }
+
+                if (requestModel.FilterQuestion != null && requestModel.FirstQuestion != null)
+                {
+                    return new OperationDataResult<List<CommonDictionaryModel>>(
+                        false,
+                        _localizationService.GetString("IncorrectFirstQuestionOrFilterQuestion"));
+                }
+
+                if (requestModel.FirstQuestion != null)
+                {
+                    questionId = (int)requestModel.FirstQuestion;
+                }
+
                 if (requestModel.FilterQuestion != null)
                 {
                     questionId = (int)requestModel.FilterQuestion;
                 }
+
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveys = await sdkContext.answer_values // TODO correct table
+                    var surveys = await sdkContext.options // TODO correct table
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.QuestionId == questionId)
                         .Select(x => new CommonDictionaryModel()
                         {
                             Id = x.Id,
-                            Name = x.Option.OptionTranslationses
+                            Name = x.OptionTranslationses
                                 .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-           // TODO Lang filter                     .Where(qt => qt.Name == locale)
+                                .Where(qt => qt.Name == locale)
                                 .Select(qt => qt.Name)
                                 .FirstOrDefault(),
                         }).ToListAsync();
