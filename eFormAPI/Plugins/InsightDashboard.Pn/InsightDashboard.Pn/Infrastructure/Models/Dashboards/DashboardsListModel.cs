@@ -29,7 +29,6 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
     public class DashboardsListModel
     {
         public int Total { get; set; }
-
         public List<DashboardModel> DashboardList { get; set; }
             = new List<DashboardModel>();
     }
