@@ -59,7 +59,6 @@ namespace InsightDashboard.Pn.Services.SurveysService
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 var result = new SurveyConfigsListModel();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
@@ -129,6 +128,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                             SurveyName = x.QuestionSet.Name,
                             SurveyId = x.QuestionSet.Id,
                             Locations = x.SiteSurveyConfigurations
+                                .Where(l => l.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(l => l.Site.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Select(l => new CommonDictionaryModel
                                 {
@@ -154,7 +154,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
         {
             try
             {
-                Debugger.Break();
+
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
@@ -208,7 +208,6 @@ namespace InsightDashboard.Pn.Services.SurveysService
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
@@ -235,6 +234,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
 
                             // Locations
                             var siteIds = surveyConfiguration.SiteSurveyConfigurations
+                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Select(x => x.SiteId)
                                 .ToList();
@@ -341,7 +341,6 @@ namespace InsightDashboard.Pn.Services.SurveysService
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {

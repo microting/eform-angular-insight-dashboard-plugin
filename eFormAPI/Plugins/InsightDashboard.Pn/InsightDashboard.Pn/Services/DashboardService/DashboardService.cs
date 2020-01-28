@@ -67,7 +67,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 var result = new DashboardsListModel();
                 var dashboardsQueryable = _dbContext.Dashboards
@@ -169,7 +168,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
 
                 // Validation
@@ -329,8 +327,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                Debugger.Break();
-
                 using (var transactions = await _dbContext.Database.BeginTransactionAsync())
                 {
                     try
@@ -338,7 +334,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         var dashboard = await _dbContext.Dashboards
                             .Include(x => x.DashboardItems)
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
                             .FirstOrDefaultAsync(x => x.Id == editModel.Id);
 
                         if (dashboard == null)
@@ -360,10 +355,12 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                         var forDelete = dashboard.DashboardItems
                             .Where(x => !editItemsIds.Contains(x.Id))
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .ToList();
 
                         var forUpdate = dashboard.DashboardItems
                             .Where(x => editItemsIds.Contains(x.Id))
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .ToList();
 
                         var forCreate = editModel.Items
@@ -441,7 +438,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                Debugger.Break();
                 using (var transaction = await _dbContext.Database.BeginTransactionAsync())
                 {
                     try
@@ -579,7 +575,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                Debugger.Break();
                 var result = new DashboardEditModel();
                 var core = await _coreHelper.GetCore();
                 var dashboard = await _dbContext.Dashboards
@@ -638,6 +633,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             .FirstOrDefaultAsync();
                     }
                 }
+
+                result = dashboard;
                 return new OperationDataResult<DashboardEditModel>(
                     true,
                     result);
