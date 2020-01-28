@@ -132,7 +132,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             Id = x.Id,
                             Name = x.QuestionTranslationses
                                 .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(qt => qt.Name == locale)
+                                .Where(qt => qt.Language.Name == locale)
                                 .Select(qt=>qt.Name)
                                 .FirstOrDefault(),
                         }).ToListAsync();
@@ -158,43 +158,25 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 var core = await _coreHelper.GetCore();
                 var locale = CultureInfo.CurrentCulture.Name;
                 // Validation
-                int questionId = 0;
-                if (requestModel.FilterQuestion == null && requestModel.FirstQuestion == null)
-                {
-                    return new OperationDataResult<List<CommonDictionaryModel>>(
-                        false,
-                        _localizationService.GetString("IncorrectFirstQuestionOrFilterQuestion"));
-                }
-
-                if (requestModel.FilterQuestion != null && requestModel.FirstQuestion != null)
-                {
-                    return new OperationDataResult<List<CommonDictionaryModel>>(
-                        false,
-                        _localizationService.GetString("IncorrectFirstQuestionOrFilterQuestion"));
-                }
-
-                if (requestModel.FirstQuestion != null)
-                {
-                    questionId = (int)requestModel.FirstQuestion;
-                }
+                var questions = new List<int>() { requestModel.FirstQuestion };
 
                 if (requestModel.FilterQuestion != null)
                 {
-                    questionId = (int)requestModel.FilterQuestion;
+                    questions.Add((int)requestModel.FilterQuestion);
                 }
 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveys = await sdkContext.options // TODO correct table
+                    var surveys = await sdkContext.options
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.QuestionId == questionId)
+                        .Where(x => questions.Contains(x.QuestionId))
                         .Select(x => new CommonDictionaryModel()
                         {
                             Id = x.Id,
                             Name = x.OptionTranslationses
                                 .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(qt => qt.Name == locale)
+                                .Where(qt => qt.Language.Name == locale)
                                 .Select(qt => qt.Name)
                                 .FirstOrDefault(),
                         }).ToListAsync();

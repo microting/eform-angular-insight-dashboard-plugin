@@ -224,13 +224,6 @@
     }
   },
   {
-    "Key": "IncorrectFirstQuestionOrFilterQuestion",
-    "LocalizedValue": {
-      "da": "Forkert første spørgsmål eller filter spørgsmål",
-      "en-US": "Incorrect first question or filter question"
-    }
-  },
-  {
     "Key": "Dashboards",
     "LocalizedValue": {
       "da": "Dashboards",
