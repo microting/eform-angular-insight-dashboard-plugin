@@ -21,8 +21,7 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.selectedDashboardId = params['dashboardId'];
-      // TODO: Uncomment
-      // this.getDashboardForView(this.selectedDashboardId);
+      this.getDashboardForView(this.selectedDashboardId);
     });
   }
 

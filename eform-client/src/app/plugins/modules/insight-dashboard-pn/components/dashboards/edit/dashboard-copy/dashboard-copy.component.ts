@@ -25,7 +25,7 @@ export class DashboardCopyComponent implements OnInit {
 
   copyDashboard() {
     this.spinnerStatus = true;
-    this.dashboardService.remove(this.dashboard.id)
+    this.dashboardService.copy(this.dashboard.id)
       .subscribe((data) => {
         if (data && data.success) {
           this.frame.hide();

@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2019 Microting A/S
@@ -347,6 +347,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                         dashboard.UpdatedAt = DateTime.UtcNow;
                         dashboard.UpdatedByUserId = UserId;
+                        dashboard.Name = editModel.DashboardName;
 
                         await dashboard.Update(_dbContext);
 

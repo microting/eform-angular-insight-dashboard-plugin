@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
-import {InsightDashboardPnDashboardItemsService, InsightDashboardPnDashboardsService} from '../../../../services';
+import {InsightDashboardPnDashboardDictionariesService, InsightDashboardPnDashboardsService} from '../../../../services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DashboardEditModel, DashboardItemModel} from '../../../../models';
 import {CommonDictionaryModel} from '../../../../../../../common/models/common';
+import {DashboardChartTypesEnum} from '../../../../const/enums';
+import {DragulaService} from 'ng2-dragula';
 
 @AutoUnsubscribe()
 @Component({
@@ -22,7 +24,10 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   spinnerStatus = false;
 
   constructor(private dashboardsService: InsightDashboardPnDashboardsService, private router: Router, private route: ActivatedRoute,
-              private dashboardItemsService: InsightDashboardPnDashboardItemsService) {
+              private dashboardItemsService: InsightDashboardPnDashboardDictionariesService, private dragulaService: DragulaService) {
+    // dragulaService.createGroup('ITEMS', {
+    //   moves: (el, source, handle, sibling) => !el.classList.contains('no-drag')
+    // });
   }
 
   ngOnInit() {
@@ -30,7 +35,6 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
       this.selectedDashboardId = params['dashboardId'];
       this.getDashboardForEdit(this.selectedDashboardId);
     });
-    this.getFilterQuestions();
   }
 
   updateDashboard() {
@@ -38,7 +42,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
     this.updateDashboardSub$ = this.dashboardsService.update(this.dashboardEditModel)
       .subscribe((data) => {
         if (data && data.success) {
-          this.router.navigate(['../../', this.dashboardEditModel.id]).then();
+          this.router.navigate(['../../', this.dashboardEditModel.id], {relativeTo: this.route}).then();
         }
         this.spinnerStatus = false;
       });
@@ -50,12 +54,13 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
         if (data && data.success) {
           this.dashboardEditModel = data.model;
         }
+        this.getFilterQuestions(data.model.surveyId);
         this.spinnerStatus = false;
       });
   }
 
-  getFilterQuestions() {
-    this.filterQuestionsSub$ = this.dashboardItemsService.getQuestions()
+  getFilterQuestions(surveyId: number) {
+    this.filterQuestionsSub$ = this.dashboardItemsService.getQuestions(surveyId)
       .subscribe((data) => {
         if (data && data.success) {
           this.questions = data.model;
@@ -64,12 +69,16 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   onAddNewBlock(position: number) {
-    this.dashboardEditModel.items.splice(position, 0, new DashboardItemModel());
+    const newItem = new DashboardItemModel();
+    newItem.chartType = DashboardChartTypesEnum.Line;
+    this.dashboardEditModel.items.splice(position, 0, newItem);
     this.actualizeBlockPositions();
   }
 
   onCopyBlock(model: DashboardItemModel) {
-    this.dashboardEditModel.items.splice(model.position, 0, model);
+    const modelCopy = {...model};
+    delete modelCopy.id;
+    this.dashboardEditModel.items.splice(model.position, 0, modelCopy);
     this.actualizeBlockPositions();
   }
 
@@ -87,7 +96,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   actualizeBlockPositions() {
     // Actualize position after any actions
     for (let i = 0; i < this.dashboardEditModel.items.length; i++) {
-      this.dashboardEditModel.items[i].position = i;
+      this.dashboardEditModel.items[i].position = i + 1;
     }
   }
 

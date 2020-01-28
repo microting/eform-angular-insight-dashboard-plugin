@@ -7,13 +7,13 @@ import {Subject, Subscription} from 'rxjs';
 import {DashboardSortColumns, insightDashboardPnSettings} from '../../../const';
 import {DashboardCopyComponent, DashboardDeleteComponent, DashboardEditComponent, DashboardNewComponent} from '../..';
 import {
+  InsightDashboardPnDashboardDictionariesService,
   InsightDashboardPnDashboardsService,
-  InsightDashboardPnLocationsService,
   InsightDashboardPnSurveyConfigsService
 } from '../../../services';
 import {CommonDictionaryModel} from '../../../../../../common/models/common';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SitesService} from '../../../../../../common/services/advanced';
 import {CommonDictionaryExtendedModel} from '../../../models/common-dictionary-extended.model';
 
@@ -47,9 +47,10 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   constructor(private sharedPnService: SharedPnService,
               private dashboardService: InsightDashboardPnDashboardsService,
               private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-              private locationsService: InsightDashboardPnLocationsService,
+              private dictionariesService: InsightDashboardPnDashboardDictionariesService,
               private sitesService: SitesService,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -73,7 +74,7 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
 
   getSurveys() {
     this.spinnerStatus = true;
-    this.getSurveysSub$ = this.surveyConfigsService.getAvailableSurveys().subscribe((data) => {
+    this.getSurveysSub$ = this.dictionariesService.getSurveys().subscribe((data) => {
       if (data && data.success) {
         this.availableSurveys = data.model;
       }
@@ -149,22 +150,26 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   getLocationTags(surveyId: number) {
-    this.getLocationsSub$ = this.sitesService.getAllSitesDictionary().subscribe((data) => {
+    // this.getLocationsSub$ = this.sitesService.getAllSitesDictionary().subscribe((data) => {
+    //   if (data && data.success) {
+    //     this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
+    //       return {id: x.id, name: x.name, isTag: true, description: x.description};
+    //     })];
+    //   }
+    // });
+    this.getTagsSub$ = this.dictionariesService.getLocationBySurveyId(surveyId).subscribe((data) => {
       if (data && data.success) {
         this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-          return {id: x.id, name: x.name, isTag: true, description: x.description};
-        })];
-      }
-    });
-    this.getTagsSub$ = this.locationsService.getBySurveyId(surveyId).subscribe((data) => {
-      if (data && data.success) {
-        this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-          return {id: x.id, name: x.name, isTag: true, description: x.description};
+          return {id: x.id, name: x.name, isTag: false, description: x.description};
         })];
       }
     });
   }
 
   ngOnDestroy(): void {
+  }
+
+  navigateToNewDashboard(newDashboardId: number) {
+    this.router.navigate(['../../dashboard', newDashboardId], {relativeTo: this.route}).then();
   }
 }

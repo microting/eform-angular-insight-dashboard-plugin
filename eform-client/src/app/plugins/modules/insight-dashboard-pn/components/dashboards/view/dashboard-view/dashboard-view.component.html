@@ -1,4 +1,4 @@
-<subheader-pn [title]="'Dashboard name'">
+<subheader-pn [title]="dashboardViewModel.dashboardName">
   <div class="p-3">
     <button
       id="returnToPrevious"
@@ -14,8 +14,9 @@
     <div class="col-lg-9 col-xl-9 col-md-12">
       <div class="card z-depth-3 mt-4 mb-4" style="width: 100%">
         <div class="card-body">
-          <app-dashboard-block-view></app-dashboard-block-view>
-          <app-dashboard-block-view></app-dashboard-block-view>
+          <ng-container *ngFor="let dashboardViewItemModel of dashboardViewModel.items">
+            <app-dashboard-block-view [itemModel]="dashboardViewItemModel"></app-dashboard-block-view>
+          </ng-container>
         </div>
       </div>
     </div>

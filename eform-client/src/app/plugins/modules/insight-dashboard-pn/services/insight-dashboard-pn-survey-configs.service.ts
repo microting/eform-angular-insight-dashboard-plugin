@@ -26,10 +26,6 @@ export class InsightDashboardPnSurveyConfigsService extends BaseService {
     return this.post(SurveyConfigsMethods.Get, model);
   }
 
-  getAvailableSurveys(): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {
-    return this.get(SurveyConfigsMethods.GetSurveys);
-  }
-
   changeStatus(model: SurveyConfigUpdateStatusModel): Observable<OperationResult> {
     return this.post(SurveyConfigsMethods.Status, model);
   }
@@ -39,10 +35,10 @@ export class InsightDashboardPnSurveyConfigsService extends BaseService {
   }
 
   update(model: SurveyConfigUpdateModel): Observable<OperationResult> {
-    return this.post(SurveyConfigsMethods.Create, model);
+    return this.post(SurveyConfigsMethods.Update, model);
   }
 
   remove(id: number): Observable<OperationResult> {
-    return this.post(SurveyConfigsMethods.Delete + '/' + id, {});
+    return this.post(SurveyConfigsMethods.Delete + '?id=' + id, {});
   }
 }

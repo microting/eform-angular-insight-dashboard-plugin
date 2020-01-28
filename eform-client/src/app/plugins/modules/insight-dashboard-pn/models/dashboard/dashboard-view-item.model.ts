@@ -1,15 +1,12 @@
 import {DashboardChartTypesEnum, DashboardPeriodUnitsEnum} from '../../const/enums';
+import {DashboardViewChartDataModel} from './dashboard-view-chart-data.model';
 
-export class DashboardItemModel {
+export class DashboardViewItemModel {
   id: number;
-  firstQuestionId: number;
   firstQuestionName: string;
-  filterQuestionId: number;
   filterQuestionName: string;
-  filterAnswerId: number;
-  collapsed: boolean;
   filterAnswerName: string;
   period: DashboardPeriodUnitsEnum;
   chartType: DashboardChartTypesEnum;
-  position: number;
+  chartData: DashboardViewChartDataModel;
 }

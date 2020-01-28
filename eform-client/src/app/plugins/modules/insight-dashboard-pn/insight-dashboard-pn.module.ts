@@ -12,9 +12,8 @@ import {InsightDashboardPnLayoutComponent} from './layouts';
 import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.module';
 import {CasesModule} from '../../../modules';
 import {
-  InsightDashboardPnDashboardItemsService,
+  InsightDashboardPnDashboardDictionariesService,
   InsightDashboardPnDashboardsService,
-  InsightDashboardPnLocationsService,
   InsightDashboardPnSettingsService,
   InsightDashboardPnSurveyConfigsService
 } from './services';
@@ -75,7 +74,7 @@ import {NgxChartsModule} from '@microting/ngx-charts';
     DashboardBlockViewComponent
   ],
   providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboardsService,
-    InsightDashboardPnSurveyConfigsService, InsightDashboardPnLocationsService, InsightDashboardPnDashboardItemsService]
+    InsightDashboardPnSurveyConfigsService, InsightDashboardPnDashboardDictionariesService]
 })
 
 export class InsightDashboardPnModule {
