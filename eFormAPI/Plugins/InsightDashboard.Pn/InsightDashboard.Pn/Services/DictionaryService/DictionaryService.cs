@@ -27,6 +27,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
@@ -35,7 +36,6 @@ namespace InsightDashboard.Pn.Services.DictionaryService
     using Microsoft.Extensions.Logging;
     using Microting.eForm.Infrastructure.Constants;
     using Microting.eFormApi.BasePn.Abstractions;
-    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
 
@@ -120,8 +120,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             {
                 Debugger.Break();
                 var core = await _coreHelper.GetCore();
-                var ss = new EformUser();
-
+                var locale = CultureInfo.CurrentCulture.Name;
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var surveys = await sdkContext.questions
@@ -133,7 +132,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             Id = x.Id,
                             Name = x.QuestionTranslationses
                                 .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(qt => qt.LanguageId == 1) // TODO Lang Id
+                                .Where(qt => qt.Name == locale)
                                 .Select(qt=>qt.Name)
                                 .FirstOrDefault(),
                         }).ToListAsync();
@@ -157,7 +156,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             {
                 Debugger.Break();
                 var core = await _coreHelper.GetCore();
-                
+                var locale = CultureInfo.CurrentCulture.Name;
                 // Validation
                 int questionId = 0;
                 if (requestModel.FilterQuestion != null)
@@ -175,7 +174,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             Id = x.Id,
                             Name = x.Option.OptionTranslationses
                                 .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(qt => qt.LanguageId == 1) // TODO Lang Id
+           // TODO Lang filter                     .Where(qt => qt.Name == locale)
                                 .Select(qt => qt.Name)
                                 .FirstOrDefault(),
                         }).ToListAsync();
