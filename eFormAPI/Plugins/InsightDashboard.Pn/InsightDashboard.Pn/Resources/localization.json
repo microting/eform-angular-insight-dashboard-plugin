@@ -226,14 +226,14 @@
   {
     "Key": "Dashboards",
     "LocalizedValue": {
-      "da": "Dashboards",
+      "da": "Instrumentbræt",
       "en-US": "Dashboards"
     }
   },
   {
     "Key": "InsightDashboard",
     "LocalizedValue": {
-      "da": "Insight Dashboard",
+      "da": "Insight Instrumentbræt",
       "en-US": "Insight Dashboard"
     }
   },

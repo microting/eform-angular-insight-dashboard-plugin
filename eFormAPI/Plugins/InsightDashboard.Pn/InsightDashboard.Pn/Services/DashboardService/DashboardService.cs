@@ -686,7 +686,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             foreach (var language in languages)
                             {
                                 var dat = answerQueryable
-                                    .Select(x => new DashboardViewChartDataSingleModel()
+                                    .Select(x => new 
                                     {
                                         Name = x.Option.OptionTranslationses
                                             .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
