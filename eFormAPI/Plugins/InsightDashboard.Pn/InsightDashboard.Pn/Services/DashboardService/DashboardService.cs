@@ -646,48 +646,47 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 throw new ArgumentOutOfRangeException();
                         }
 
+                        var answerQueryable = sdkContext.answer_values
+                            .AsNoTracking()
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                            .AsQueryable();
+
+                        answerQueryable = answerQueryable
+                            .Where(x => x.Answer.QuestionSetId == dashboard.SurveyId);
+
+                        if (dashboard.LocationId != null)
+                        {
+                            answerQueryable = answerQueryable
+                                .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                        }
+
+                        if (dashboard.TagId != null)
+                        {
+                            // TODO check it for tags
+                        }
+
+                        if (dashboardItem.FilterQuestionId != null) // TODO Rewrite filter question
+                        {
+                            answerQueryable = answerQueryable
+                                .Where(x => x.QuestionId == dashboardItem.FilterQuestionId);
+                        }
+
+                        if (dashboardItem.FilterAnswerId != null)
+                        {
+                            answerQueryable = answerQueryable
+                                .Where(x => x.OptionId == dashboardItem.FilterAnswerId);
+                        }
+
+                        var data = answerQueryable
+                            .Select(x => new
+                            {
+                                Name = x.Value,
+                                Finished = x.Answer.FinishedAt,
+                            }).ToList();
+
                         if (singleData)
                         {
-                            var answerQueryable = sdkContext.answer_values
-                                .AsNoTracking()
-                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
-                                .AsQueryable();
-
-
-                            answerQueryable = answerQueryable
-                                .Where(x => x.Answer.QuestionSetId == dashboard.SurveyId);
-
-                            if (dashboard.LocationId != null)
-                            {
-                                answerQueryable = answerQueryable
-                                    .Where(x => x.Answer.SiteId == dashboard.LocationId);
-                            }
-
-                            if (dashboard.TagId != null)
-                            {
-                                // TODO check it for tags
-                            }
-
-                            if (dashboardItem.FilterQuestionId != null)
-                            {
-                                answerQueryable = answerQueryable
-                                    .Where(x => x.QuestionId == dashboardItem.FilterQuestionId);
-                            }
-
-                            if (dashboardItem.FilterAnswerId != null)
-                            {
-                                answerQueryable = answerQueryable
-                                    .Where(x => x.OptionId == dashboardItem.FilterAnswerId);
-                            }
-
-                            var data = answerQueryable
-                                .Select(x => new
-                                {
-                                    Name = x.Value,
-                                    Finished = x.Answer.FinishedAt,
-                                }).ToList();
-
                             decimal count = data.Count;
 
                             var groupedData = data
@@ -700,6 +699,53 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                             dashboardItemModel.ChartData.Single.AddRange(groupedData);
                         }
+                        else
+                        {
+
+                            switch (dashboardItemModel.Period)
+                            {
+                                case DashboardPeriodUnits.Week:
+                                    break;
+                                case DashboardPeriodUnits.Month:
+                                    break;
+                                case DashboardPeriodUnits.Quarter:
+                                    break;
+                                case DashboardPeriodUnits.SixMonth:
+                                    break;
+                                case DashboardPeriodUnits.Year:
+                                    break;
+                                case DashboardPeriodUnits.Total:
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+
+                            Func<DateTime, int> weekProjector =
+                                d => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                                    d,
+                                    CalendarWeekRule.FirstFourDayWeek,
+                                    DayOfWeek.Sunday);
+
+
+                            var consignmentsByWeek = from con in data
+                                                     group con by weekProjector(con.Finished);
+
+                            var multiData = consignmentsByWeek
+                                .Select(x => new DashboardViewChartDataMultiModel
+                                {
+                                    Name = x.Key.ToString(),
+                                    Series = x.GroupBy(y => y.Name)
+                                        .Select(y => new DashboardViewChartDataSingleModel
+                                        {
+                                            Name = y.Key,
+                                            Value = ((decimal) y.Count() * 100) / (decimal)x.Count(),
+                                        }).ToList(),
+                                }).ToList();
+
+                           // multiData = new List<DashboardViewChartDataMultiModel>();
+                            dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                        }
+
 
                         // TODO Chart data 
                     }
