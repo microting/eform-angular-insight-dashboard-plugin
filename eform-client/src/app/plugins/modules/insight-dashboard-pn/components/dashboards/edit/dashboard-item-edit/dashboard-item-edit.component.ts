@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChildren} from '@angular/core';
 import {DashboardChartTypesEnum, DashboardItemFieldsEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
 import {DashboardItemModel} from '../../../../models';
 import {CommonDictionaryModel} from '../../../../../../../common/models/common';
@@ -12,7 +12,7 @@ import {InsightDashboardPnDashboardDictionariesService} from '../../../../servic
   templateUrl: './dashboard-item-edit.component.html',
   styleUrls: ['./dashboard-item-edit.component.scss']
 })
-export class DashboardItemEditComponent implements OnInit, OnDestroy {
+export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('collapse') collapse: any;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: CommonDictionaryModel[] = [];
@@ -67,6 +67,16 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes && changes.dashboardItem) {
+      const currentValue = changes.dashboardItem.currentValue as DashboardItemModel;
+
+      this.dashboardItem[DashboardItemFieldsEnum.firstQuestionId] = currentValue.firstQuestionId;
+      this.dashboardItem[DashboardItemFieldsEnum.filterQuestionId] = currentValue.filterQuestionId;
+      this.loadAnswers();
+    }
   }
 
   fieldChanged(value: any, fieldName: string) {

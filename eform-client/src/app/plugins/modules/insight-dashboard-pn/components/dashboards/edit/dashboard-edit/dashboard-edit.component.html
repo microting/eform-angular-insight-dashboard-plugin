@@ -35,7 +35,7 @@
         (click)="onAddNewBlock(1)">{{ 'Add new item' | translate }}
       </button>
       <section dragula="ITEMS" *ngFor="let dashboardItem of dashboardEditModel.items"
-               (dragulaModelChange)="dragulaPositionChanged()"
+               (dragulaModelChange)="dragulaPositionChanged($event)"
                [(dragulaModel)]="dashboardEditModel.items">
         <app-dashboard-item-edit [dashboardItem]="dashboardItem"
                                  [questions]="questions"

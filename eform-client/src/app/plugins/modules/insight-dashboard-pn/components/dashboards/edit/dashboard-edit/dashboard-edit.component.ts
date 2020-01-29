@@ -100,7 +100,8 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  dragulaPositionChanged() {
+  dragulaPositionChanged(e: any) {
+    // this.dashboardEditModel.items = e;
     this.actualizeBlockPositions();
   }
 

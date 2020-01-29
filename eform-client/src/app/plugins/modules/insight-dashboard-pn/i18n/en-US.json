@@ -30,10 +30,23 @@
   "Filter answer": "Filter answer",
   "Period Unit": "Period Unit",
   "Interviews": "Interviews",
+  "Select First Question": "Select First Question",
   "Select Filter Question": "Select Filter Question",
   "Select Filter Answer": "Select Filter Answer",
   "Select Period Unit": "Select Period Unit",
   "Select Compare Chart": "Select Compare Chart",
   "Select Chart": "Select Chart",
-  "Return to dashboards list": "Return to dashboards list"
+  "Return to dashboards list": "Return to dashboards list",
+
+  "Location/Tag name": "Location/Tag name",
+  "Existing Item": "Existing Item",
+  "New Item": "New Item",
+  "Line":  "Line",
+  "Pie": "Pie",
+  "HorizontalBar":  "Horizontal Bar",
+  "HorizontalBarStacked": "Horizontal Bar Stacked",
+  "HorizontalBarGrouped":  "Horizontal Bar Grouped",
+  "VerticalBar": "Vertical Bar",
+  "VerticalBarStacked":  "Vertical Bar Stacked",
+  "VerticalBarGrouped": "Vertical Bar Grouped"
 }
