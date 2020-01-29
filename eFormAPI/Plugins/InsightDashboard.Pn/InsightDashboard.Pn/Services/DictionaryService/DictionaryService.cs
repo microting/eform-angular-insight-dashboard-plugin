@@ -27,7 +27,6 @@ namespace InsightDashboard.Pn.Services.DictionaryService
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
@@ -120,24 +119,37 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             {
                 Debugger.Break();
                 var core = await _coreHelper.GetCore();
-                var locale = CultureInfo.CurrentCulture.Name;
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveys = await sdkContext.questions
-                        .AsNoTracking()
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.QuestionSetId == surveyId)
-                        .Select(x => new CommonDictionaryModel()
-                        {
-                            Id = x.Id,
-                            Name = x.QuestionTranslationses
-                                .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(qt => qt.Language.Name == locale)
-                                .Select(qt=>qt.Name)
-                                .FirstOrDefault(),
-                        }).ToListAsync();
+                    var languages = await sdkContext.languages.ToListAsync();
+                    var questionsResult = new List<CommonDictionaryModel>();
+                    foreach (var language in languages)
+                    {
+                        // TODO take by language
+                        var questions = await sdkContext.questions
+                            .AsNoTracking()
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.QuestionSetId == surveyId)
+                            .Select(x => new CommonDictionaryModel()
+                            {
+                                Id = x.Id,
+                                Name = x.QuestionTranslationses
+                                    .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(qt => qt.Language.Id == language.Id)
+                                    .Select(qt => qt.Name)
+                                    .FirstOrDefault(),
+                            }).ToListAsync();
 
-                    return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
+                        if (questions.Any())
+                        {
+                            questionsResult.AddRange(questions);
+                            break;
+                        }
+                    }
+
+                    return new OperationDataResult<List<CommonDictionaryModel>>(
+                        true,
+                        questionsResult);
                 }
             }
             catch (Exception e)
@@ -156,10 +168,8 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             {
                 Debugger.Break();
                 var core = await _coreHelper.GetCore();
-                var locale = CultureInfo.CurrentCulture.Name;
                 // Validation
                 var questions = new List<int>() { requestModel.FirstQuestion };
-
                 if (requestModel.FilterQuestion != null)
                 {
                     questions.Add((int)requestModel.FilterQuestion);
@@ -167,21 +177,35 @@ namespace InsightDashboard.Pn.Services.DictionaryService
 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var answers = await sdkContext.options
-                        .AsNoTracking()
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => questions.Contains(x.QuestionId))
-                        .Select(x => new CommonDictionaryModel()
-                        {
-                            Id = x.Id,
-                            Name = x.OptionTranslationses
-                                .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(qt => qt.Language.Name == locale)
-                                .Select(qt => qt.Name)
-                                .FirstOrDefault(),
-                        }).ToListAsync();
+                    var languages = await sdkContext.languages.ToListAsync();
+                    var answersResult = new List<CommonDictionaryModel>();
+                    foreach (var language in languages)
+                    {
+                        // TODO take by language
+                        var answers = await sdkContext.options
+                            .AsNoTracking()
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => questions.Contains(x.QuestionId))
+                            .Select(x => new CommonDictionaryModel()
+                            {
+                                Id = x.Id,
+                                Name = x.OptionTranslationses
+                                    .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(qt => qt.Language.Id == language.Id)
+                                    .Select(qt => qt.Name)
+                                    .FirstOrDefault(),
+                            }).ToListAsync();
 
-                    return new OperationDataResult<List<CommonDictionaryModel>>(true, answers);
+                        if (answers.Any())
+                        {
+                            answersResult.AddRange(answers);
+                            break;
+                        }
+                    }
+
+                    return new OperationDataResult<List<CommonDictionaryModel>>(
+                        true,
+                        answersResult);
                 }
             }
             catch (Exception e)
