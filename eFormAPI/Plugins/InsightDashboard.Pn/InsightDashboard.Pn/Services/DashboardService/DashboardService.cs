@@ -666,7 +666,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     .Where(x => x.Answer.SiteId == dashboard.LocationId);
                             }
 
-                            if (dashboard.TagId != null) // DELETE 
+                            if (dashboard.TagId != null)
                             {
                                 // TODO check it for tags
                             }
@@ -693,6 +693,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                             .Where(qt => qt.Language.Id == language.Id)
                                             .Select(qt => qt.Name)
                                             .FirstOrDefault(),
+                                        Value = x.Value,
                                     }).ToList();
                             }
 
