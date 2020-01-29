@@ -680,7 +680,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             if (dashboardItem.FilterAnswerId != null)
                             {
                                 answerQueryable = answerQueryable
-                                    .Where(x => x.OptionsId == dashboardItem.FilterAnswerId);
+                                    .Where(x => x.OptionId == dashboardItem.FilterAnswerId);
                             }
 
                             foreach (var language in languages)
