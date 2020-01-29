@@ -25,6 +25,7 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Services.DashboardService
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
@@ -39,6 +40,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using Microting.eFormApi.BasePn.Abstractions;
     using Microting.eFormApi.BasePn.Infrastructure.Extensions;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Enums;
@@ -491,7 +493,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
             try
             {
                 Debugger.Break();
-                var locale = CultureInfo.CurrentCulture.Name;
                 var core = await _coreHelper.GetCore();
                 var dashboard = await _dbContext.Dashboards
                     .Include(x => x.DashboardItems)
@@ -553,40 +554,65 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
                     {
-                        dashboardItemModel.FirstQuestionName = await sdkContext.QuestionTranslations
-                            .AsNoTracking()
-                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
-                            .Where(x => x.Language.Name == locale)
-                            .Select(x => x.Name)
-                            .FirstOrDefaultAsync();
-
-                        if (dashboardItem.FilterQuestionId != null)
+                        var languages = await sdkContext.languages.ToListAsync();
+                        foreach (var language in languages)
                         {
-                            dashboardItemModel.FilterQuestionName = await sdkContext.QuestionTranslations
+                            dashboardItemModel.FirstQuestionName = await sdkContext.QuestionTranslations
                                 .AsNoTracking()
                                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(x => x.QuestionId == dashboardItem.FilterQuestionId)
-                                .Where(x => x.Language.Name == locale)
+                                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                .Where(x => x.Language.Id == language.Id)
                                 .Select(x => x.Name)
                                 .FirstOrDefaultAsync();
+
+                            if (dashboardItemModel.FirstQuestionName != null)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (dashboardItem.FilterQuestionId != null)
+                        {
+                            foreach (var language in languages)
+                            {
+                                dashboardItemModel.FilterQuestionName = await sdkContext.QuestionTranslations
+                                    .AsNoTracking()
+                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.QuestionId == dashboardItem.FilterQuestionId)
+                                    .Where(x => x.Language.Id == language.Id)
+                                    .Select(x => x.Name)
+                                    .FirstOrDefaultAsync();
+
+                                if (dashboardItemModel.FilterQuestionName != null)
+                                {
+                                    break;
+                                }
+                            }
                         }
 
                         if (dashboardItem.FilterAnswerId != null)
                         {
-                            dashboardItemModel.FilterAnswerName = await sdkContext.OptionTranslations
-                                .AsNoTracking()
-                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(x => x.option.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(x => x.OptionId == dashboardItem.FilterAnswerId)
-                                .Where(x => x.Language.Name == locale)
-                                .Select(x => x.Name)
-                                .FirstOrDefaultAsync();
+                            foreach (var language in languages)
+                            {
+                                dashboardItemModel.FilterAnswerName = await sdkContext.OptionTranslations
+                                    .AsNoTracking()
+                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.option.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.OptionId == dashboardItem.FilterAnswerId)
+                                    .Where(x => x.Language.Id == language.Id)
+                                    .Select(x => x.Name)
+                                    .FirstOrDefaultAsync();
+
+                                if (dashboardItemModel.FilterAnswerName != null)
+                                {
+                                    break;
+                                }
+                            }
                         }
 
 
@@ -621,8 +647,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }
-
-
 
                         if (singleData)
                         {
@@ -659,15 +683,21 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     .Where(x => x.OptionsId == dashboardItem.FilterAnswerId);
                             }
 
-                            var dat = answerQueryable
-                                .Select(x => new DashboardViewChartDataSingleModel()
-                                {
-                                    Name = x.Option.OptionTranslationses
-                                        .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                        .Where(qt => qt.Language.Name == locale)
-                                        .Select(qt => qt.Name)
-                                        .FirstOrDefault(),
-                                }).ToList();
+                            foreach (var language in languages)
+                            {
+                                var dat = answerQueryable
+                                    .Select(x => new DashboardViewChartDataSingleModel()
+                                    {
+                                        Name = x.Option.OptionTranslationses
+                                            .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Where(qt => qt.Language.Id == language.Id)
+                                            .Select(qt => qt.Name)
+                                            .FirstOrDefault(),
+                                    }).ToList();
+                            }
+
+
+
                         }
 
                         // TODO Chart data 
