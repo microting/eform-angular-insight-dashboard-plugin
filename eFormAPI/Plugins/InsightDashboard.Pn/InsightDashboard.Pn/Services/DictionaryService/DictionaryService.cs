@@ -117,7 +117,6 @@ namespace InsightDashboard.Pn.Services.DictionaryService
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
@@ -166,7 +165,6 @@ namespace InsightDashboard.Pn.Services.DictionaryService
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 // Validation
                 var questions = new List<int>() { requestModel.FirstQuestion };

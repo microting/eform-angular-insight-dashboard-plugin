@@ -258,8 +258,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                Debugger.Break();
-
                 using (var transaction = await _dbContext.Database.BeginTransactionAsync())
                 {
                     try
@@ -690,14 +688,14 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     Finished = x.Answer.FinishedAt,
                                 }).ToList();
 
-                            var count = data.Count;
+                            decimal count = data.Count;
 
                             var groupedData = data
                                 .GroupBy(x => x.Name)
                                 .Select(x => new DashboardViewChartDataSingleModel
                                 {
                                     Name = x.Key,
-                                    Value = count / 100 * x.Count(),
+                                    Value = ((decimal)x.Count() * 100) / count,
                                 }).ToList();
 
                             dashboardItemModel.ChartData.Single.AddRange(groupedData);
