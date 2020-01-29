@@ -683,22 +683,24 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     .Where(x => x.OptionId == dashboardItem.FilterAnswerId);
                             }
 
-                            foreach (var language in languages)
-                            {
-                                var dat = answerQueryable
-                                    .Select(x => new 
-                                    {
-                                        Name = x.Option.OptionTranslationses
-                                            .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                            .Where(qt => qt.Language.Id == language.Id)
-                                            .Select(qt => qt.Name)
-                                            .FirstOrDefault(),
-                                        Value = x.Value,
-                                    }).ToList();
-                            }
+                            var data = answerQueryable
+                                .Select(x => new
+                                {
+                                    Name = x.Value,
+                                    Finished = x.Answer.FinishedAt,
+                                }).ToList();
 
+                            var count = data.Count;
 
+                            var groupedData = data
+                                .GroupBy(x => x.Name)
+                                .Select(x => new DashboardViewChartDataSingleModel
+                                {
+                                    Name = x.Key,
+                                    Value = count / 100 * x.Count(),
+                                }).ToList();
 
+                            dashboardItemModel.ChartData.Single.AddRange(groupedData);
                         }
 
                         // TODO Chart data 

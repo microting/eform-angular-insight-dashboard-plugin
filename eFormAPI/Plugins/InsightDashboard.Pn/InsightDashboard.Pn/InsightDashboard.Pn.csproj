@@ -19,16 +19,17 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.7" />
     <PackageReference Include="Microting.eForm" Version="3.1.45" />
     <PackageReference Include="Microting.eFormApi.BasePn" Version="1.2.37" />
+    <PackageReference Include="Microting.InsightDashboardBase" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\localization.json" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Reference Include="Microting.InsightDashboardBase">
       <HintPath>..\..\..\..\..\eform-insight-dashboard-base\Microting.InsightDashboardBase\bin\Debug\netcoreapp2.2\Microting.InsightDashboardBase.dll</HintPath>
     </Reference>
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
