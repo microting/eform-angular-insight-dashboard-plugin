@@ -40,7 +40,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using Microting.eFormApi.BasePn.Abstractions;
     using Microting.eFormApi.BasePn.Infrastructure.Extensions;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Enums;
@@ -125,7 +124,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     })
                     .ToListAsync();
 
-                // TODO tasks here
                 foreach (var dashboardModel in dashboards)
                 {
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
@@ -613,9 +611,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             }
                         }
 
-
                         // Chart data
-                        var singleData = false;
+                        bool singleData;
                         switch (dashboardItem.ChartType)
                         {
                             case DashboardChartTypes.Line:
@@ -695,59 +692,123 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 {
                                     Name = x.Key,
                                     Value = Math.Round(((decimal)x.Count() * 100) / count, 2),
-                                }).OrderBy(x => x.Name).ToList();
+                                })
+                                .OrderBy(x => x.Name)
+                                .ToList();
 
                             dashboardItemModel.ChartData.Single.AddRange(groupedData);
                         }
                         else
                         {
-
+                            var multiData = new List<DashboardViewChartDataMultiModel>();
                             switch (dashboardItemModel.Period)
                             {
                                 case DashboardPeriodUnits.Week:
+                                    var consignmentsByWeek = from con in data
+                                        group con by GetWeekString(con.Finished);
+
+                                    multiData = consignmentsByWeek
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key.ToString(),
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                })
+                                                .OrderBy(y => y.Name)
+                                                .ToList(),
+                                        }).ToList();
                                     break;
                                 case DashboardPeriodUnits.Month:
+                                    multiData = data
+                                        .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key.ToString(),
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                })
+                                                .OrderBy(y => y.Name)
+                                                .ToList(),
+                                        }).ToList();
+
                                     break;
                                 case DashboardPeriodUnits.Quarter:
+                                    var groupedByQuarter1 = from date in data
+                                        group date by (date.Finished.Month - 1) / 3
+                                        into groupedDates
+                                        orderby groupedDates.Key
+                                        select groupedDates;
+
+                                    var groupedByQuarter = data
+                                        .GroupBy(item => ((item.Finished.Month - 1) / 3))
+                                        .ToArray();
+
+                                    multiData = groupedByQuarter
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = $"Q{x.Key + 1}",
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                })
+                                                .OrderBy(y => y.Name)
+                                                .ToList(),
+                                        }).ToList();
                                     break;
                                 case DashboardPeriodUnits.SixMonth:
+
+
                                     break;
                                 case DashboardPeriodUnits.Year:
+                                    multiData = data
+                                        .GroupBy(ms => $"{ms.Finished:yyyy}")
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key.ToString(),
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                })
+                                                .OrderBy(y => y.Name)
+                                                .ToList(),
+                                        }).ToList();
                                     break;
                                 case DashboardPeriodUnits.Total:
+
+                                    decimal count = data.Count;
+                                    var totalPeriod = new DashboardViewChartDataMultiModel
+                                    {
+                                        Name = _localizationService.GetString("TotalPeriod"),
+                                        Series = data
+                                            .GroupBy(x => x.Name)
+                                            .Select(x => new DashboardViewChartDataSingleModel
+                                            {
+                                                Name = x.Key,
+                                                Value = Math.Round(((decimal) x.Count() * 100) / count, 2),
+                                            })
+                                            .OrderBy(x => x.Name)
+                                            .ToList(),
+                                    };
+
+                                    multiData.Add(totalPeriod);
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
                             }
 
-                            Func<DateTime, int> weekProjector =
-                                d => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                                    d,
-                                    CalendarWeekRule.FirstFourDayWeek,
-                                    DayOfWeek.Sunday);
-
-
-                            var consignmentsByWeek = from con in data
-                                                     group con by weekProjector(con.Finished);
-
-                            var multiData = consignmentsByWeek
-                                .Select(x => new DashboardViewChartDataMultiModel
-                                {
-                                    Name = x.Key.ToString(),
-                                    Series = x.GroupBy(y => y.Name)
-                                        .Select(y => new DashboardViewChartDataSingleModel
-                                        {
-                                            Name = y.Key,
-                                            Value = ((decimal) y.Count() * 100) / (decimal)x.Count(),
-                                        }).ToList(),
-                                }).ToList();
-
-                           // multiData = new List<DashboardViewChartDataMultiModel>();
+                            // 
                             dashboardItemModel.ChartData.Multi.AddRange(multiData);
                         }
-
-
-                        // TODO Chart data 
                     }
 
                     // Add Item
@@ -843,6 +904,17 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     _localizationService.GetString("ErrorWhileObtainingDashboardInfo"));
             }
         }
+
+        public static string GetWeekString(DateTime dateTime)
+        {
+            var weekNumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                dateTime,
+                CalendarWeekRule.FirstFourDayWeek,
+                DayOfWeek.Monday);
+
+            return $"{dateTime:yy}-{weekNumber}";
+        }
+
         private int UserId
         {
             get

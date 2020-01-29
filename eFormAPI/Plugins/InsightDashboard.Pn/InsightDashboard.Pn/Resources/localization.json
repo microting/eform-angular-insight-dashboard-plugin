@@ -243,5 +243,12 @@
       "da": "Undersøger Configs",
       "en-US": "Surveys Configs"
     }
+  },
+  {
+    "Key": "TotalPeriod",
+    "LocalizedValue": {
+      "da": "Samlet periode",
+      "en-US": "Total Period"
+    }
   }
 ]
