@@ -34,10 +34,11 @@
         class="btn btn-success mb-1 mt-1" *ngIf="dashboardEditModel.items.length === 0"
         (click)="onAddNewBlock(1)">{{ 'Add new item' | translate }}
       </button>
-      <section dragula="ITEMS" *ngFor="let dashboardItem of dashboardEditModel.items"
+      <section dragula="ITEMS"
                (dragulaModelChange)="dragulaPositionChanged($event)"
-               [(dragulaModel)]="dashboardEditModel.items">
-        <app-dashboard-item-edit [dashboardItem]="dashboardItem"
+               [dragulaModel]="dashboardEditModel.items">
+        <app-dashboard-item-edit *ngFor="let dashboardItem of dashboardEditModel.items"
+                                 [dashboardItem]="dashboardItem"
                                  [questions]="questions"
                                  [surveyId]="dashboardEditModel.surveyId"
                                  (addNewItem)="onAddNewBlock($event)"
@@ -49,3 +50,5 @@
     </div>
   </div>
 </div>
+
+<spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>

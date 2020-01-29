@@ -26,6 +26,7 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
   }
 
   getDashboardForView(dashboardId: number) {
+    this.spinnerStatus = true;
     this.getDashboardSub$ = this.dashboardsService.getSingleForView(dashboardId)
       .subscribe((data) => {
         if (data && data.success) {

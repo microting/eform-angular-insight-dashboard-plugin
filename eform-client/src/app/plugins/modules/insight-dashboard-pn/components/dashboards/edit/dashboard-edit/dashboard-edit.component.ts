@@ -22,18 +22,21 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   questions: CommonDictionaryModel[] = [];
   selectedDashboardId: number;
   spinnerStatus = false;
+  dragulaGroupName = 'ITEMS';
 
   constructor(private dashboardsService: InsightDashboardPnDashboardsService, private router: Router, private route: ActivatedRoute,
               private dashboardItemsService: InsightDashboardPnDashboardDictionariesService, private dragulaService: DragulaService) {
-    // dragulaService.createGroup('ITEMS', {
-    //   moves: (el, source, handle, sibling) => !el.classList.contains('no-drag')
-    // });
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.selectedDashboardId = params['dashboardId'];
       this.getDashboardForEdit(this.selectedDashboardId);
+    });
+
+    // create rule to disable dragula dnd if items is not collapsed
+    this.dragulaService.createGroup(this.dragulaGroupName, {
+      moves: (el, source, handle, sibling) => !el.classList.contains('no-drag')
     });
   }
 
@@ -49,6 +52,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   getDashboardForEdit(dashboardId: number) {
+    this.spinnerStatus = true;
     this.getDashboardSub$ = this.dashboardsService.getSingleForEdit(dashboardId)
       .subscribe((data) => {
         if (data && data.success) {
@@ -91,6 +95,8 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // destroy dragula container
+    this.dragulaService.destroy(this.dragulaGroupName);
   }
 
   actualizeBlockPositions() {
@@ -100,8 +106,8 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  dragulaPositionChanged(e: any) {
-    // this.dashboardEditModel.items = e;
+  dragulaPositionChanged(newItemsArray: DashboardItemModel[]) {
+    this.dashboardEditModel.items = [...newItemsArray];
     this.actualizeBlockPositions();
   }
 

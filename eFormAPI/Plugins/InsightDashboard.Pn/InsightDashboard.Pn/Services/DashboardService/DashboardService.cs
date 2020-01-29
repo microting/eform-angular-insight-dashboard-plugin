@@ -694,8 +694,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 .Select(x => new DashboardViewChartDataSingleModel
                                 {
                                     Name = x.Key,
-                                    Value = ((decimal)x.Count() * 100) / count,
-                                }).ToList();
+                                    Value = Math.Round(((decimal)x.Count() * 100) / count, 2),
+                                }).OrderBy(x => x.Name).ToList();
 
                             dashboardItemModel.ChartData.Single.AddRange(groupedData);
                         }

@@ -23,6 +23,18 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   @Output() deleteItem: EventEmitter<number> = new EventEmitter<number>();
   filterAnswers: CommonDictionaryModel[] = [];
   loadAnswersSub$: Subscription;
+  filteredQuestions: CommonDictionaryModel[] = [];
+  allCharts = [
+    {id: DashboardChartTypesEnum.Pie, name: DashboardChartTypesEnum[DashboardChartTypesEnum.Pie]},
+    {id: DashboardChartTypesEnum.HorizontalBar, name: DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBar]},
+    {id: DashboardChartTypesEnum.VerticalBar, name: DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBar]},
+    {id: DashboardChartTypesEnum.Line, name: DashboardChartTypesEnum[DashboardChartTypesEnum.Line]},
+    {id: DashboardChartTypesEnum.HorizontalBarStacked, name: DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStacked]},
+    {id: DashboardChartTypesEnum.HorizontalBarGrouped, name: DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarGrouped]},
+    {id: DashboardChartTypesEnum.VerticalBarStacked, name: DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarStacked]},
+    {id: DashboardChartTypesEnum.VerticalBarGrouped, name: DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarGrouped]}
+  ];
+  availableCharts = [];
 
   get periodUnits() {
     return DashboardPeriodUnitsEnum;
@@ -40,6 +52,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   ngOnInit() {
+    this.availableCharts = [...this.allCharts];
   }
 
   addNew(position: number) {
@@ -77,6 +90,9 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       this.dashboardItem[DashboardItemFieldsEnum.filterQuestionId] = currentValue.filterQuestionId;
       this.loadAnswers();
     }
+    if (changes && changes.questions) {
+      this.filteredQuestions = [...this.questions];
+    }
   }
 
   fieldChanged(value: any, fieldName: string) {
@@ -88,11 +104,26 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       if (fieldName === DashboardItemFieldsEnum.firstQuestionId) {
         this.dashboardItem[DashboardItemFieldsEnum.filterQuestionId] = null;
         this.dashboardItem[DashboardItemFieldsEnum.filterAnswerId] = null;
+
+        // immutable remove element on position to trigger change detection
+        const index = this.questions.findIndex(data => data.id === value);
+        this.filteredQuestions = [...this.questions.slice(0, index), ...this.questions.slice(index + 1)];
         this.loadAnswers();
       }
+
       if (fieldName === DashboardItemFieldsEnum.filterQuestionId) {
         this.dashboardItem[DashboardItemFieldsEnum.filterAnswerId] = null;
         this.loadAnswers();
+      }
+      // change available chart types depends on period
+      if (fieldName === DashboardItemFieldsEnum.period) {
+        this.dashboardItem[DashboardItemFieldsEnum.chartType] = null;
+
+        if (value !== DashboardPeriodUnitsEnum.Total) {
+          this.availableCharts = [...this.allCharts.slice(0, 0), ...this.allCharts.slice(3)];
+        } else {
+          this.availableCharts = [...this.allCharts];
+        }
       }
     }
   }

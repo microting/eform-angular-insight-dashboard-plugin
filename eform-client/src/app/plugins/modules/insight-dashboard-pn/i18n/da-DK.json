@@ -36,5 +36,17 @@
   "Select Period Unit": "Vælg periodeenhed",
   "Select Compare Chart": "Vælg Sammenlign diagram",
   "Select Chart": "Vælg diagram",
-  "Return to dashboards list": "Vend tilbage til oversigten over oversigter"
+  "Return to dashboards list": "Vend tilbage til oversigten over oversigter",
+
+  "Location/Tag name": "Placering /Tag navn",
+  "Existing Item": "Eksisterende Vare",
+  "New Item": "Ny Vare",
+  "Line":  "Linje",
+  "Pie": "Lagkagediagram",
+  "HorizontalBar":  "Vandret Søjlediagram",
+  "HorizontalBarStacked": "Vandret Stablet Søjlediagram",
+  "HorizontalBarGrouped":  "Vandret Grupperet Søjlediagram",
+  "VerticalBar": "Lodret Søjlediagram",
+  "VerticalBarStacked":  "Vandret Stablet Søjlediagram",
+  "VerticalBarGrouped": "Vertical Bar Grouped"
 }

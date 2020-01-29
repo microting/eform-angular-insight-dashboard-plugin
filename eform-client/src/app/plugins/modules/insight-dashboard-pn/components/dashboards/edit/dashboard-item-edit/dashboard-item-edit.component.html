@@ -58,13 +58,13 @@
                 [ngModel]="dashboardItem.filterQuestionId"
                 [disabled]="!dashboardItem.firstQuestionId"
                 (ngModelChange)="fieldChanged($event, itemFields.filterQuestionId)"
-                [items]="questions"></ng-select>
+                [items]="filteredQuestions"></ng-select>
               <ng-select
                 bindValue="id"
                 bindLabel="name"
                 [ngModel]="dashboardItem.filterAnswerId"
                 (ngModelChange)="fieldChanged($event, itemFields.filterAnswerId)"
-                [disabled]="!dashboardItem.firstQuestionId"
+                [disabled]="!dashboardItem.filterQuestionId"
                 [placeholder]="dashboardItem.filterAnswerName || ('Select Filter Answer' | translate)"
                 [items]="filterAnswers"></ng-select>
               <ng-select
@@ -72,6 +72,7 @@
                 bindLabel="name"
                 [ngModel]="dashboardItem.period"
                 [clearable]="false"
+                [disabled]="!dashboardItem.firstQuestionId"
                 (ngModelChange)="fieldChanged($event, itemFields.period)"
                 [placeholder]="'Select Period Unit' | translate"
                 [items]="[
@@ -93,16 +94,7 @@
                 bindValue="id"
                 bindLabel="name"
                 [placeholder]="'Select Compare Chart'"
-                [items]="[
-                          {id: chartTypes.Line, name:   (chartTypes[chartTypes.Line] | translate)},
-                          {id: chartTypes.Pie, name: (chartTypes[chartTypes.Pie] | translate)},
-                          {id: chartTypes.HorizontalBar, name:  (chartTypes[chartTypes.HorizontalBar] | translate)},
-                          {id: chartTypes.HorizontalBarStacked, name:  (chartTypes[chartTypes.HorizontalBarStacked] | translate)},
-                          {id: chartTypes.HorizontalBarGrouped, name:  (chartTypes[chartTypes.HorizontalBarGrouped] | translate)},
-                          {id: chartTypes.VerticalBar, name:  (chartTypes[chartTypes.VerticalBar] | translate)},
-                          {id: chartTypes.VerticalBarStacked, name:  (chartTypes[chartTypes.VerticalBarStacked] | translate)},
-                          {id: chartTypes.VerticalBarGrouped, name:  (chartTypes[chartTypes.VerticalBarGrouped] | translate)}
-                          ]"></ng-select>
+                [items]="availableCharts"></ng-select>
             </div>
           </div>
           <div class="card z-depth-2 mb-3" style="width: 100%">
@@ -112,19 +104,12 @@
                 bindLabel="name"
                 [clearable]="false"
                 [ngModel]="dashboardItem.chartType"
+                [disabled]="!dashboardItem.firstQuestionId"
                 (ngModelChange)="fieldChanged($event, itemFields.chartType)"
                 [placeholder]="'Select Chart' | translate"
-                [items]="[
-                          {id: chartTypes.Line, name:   (chartTypes[chartTypes.Line] | translate)},
-                          {id: chartTypes.Pie, name: (chartTypes[chartTypes.Pie] | translate)},
-                          {id: chartTypes.HorizontalBar, name:  (chartTypes[chartTypes.HorizontalBar] | translate)},
-                          {id: chartTypes.HorizontalBarStacked, name:  (chartTypes[chartTypes.HorizontalBarStacked] | translate)},
-                          {id: chartTypes.HorizontalBarGrouped, name:  (chartTypes[chartTypes.HorizontalBarGrouped] | translate)},
-                          {id: chartTypes.VerticalBar, name:  (chartTypes[chartTypes.VerticalBar] | translate)},
-                          {id: chartTypes.VerticalBarStacked, name:  (chartTypes[chartTypes.VerticalBarStacked] | translate)},
-                          {id: chartTypes.VerticalBarGrouped, name:  (chartTypes[chartTypes.VerticalBarGrouped] | translate)}
-                          ]"></ng-select>
-              <app-dashboard-chart-edit [chartType]="dashboardItem.chartType"></app-dashboard-chart-edit>
+                [items]="availableCharts"></ng-select>
+              <app-dashboard-chart-edit [chartType]="dashboardItem.chartType" *ngIf="dashboardItem.chartType">
+              </app-dashboard-chart-edit>
             </div>
           </div>
         </div>
