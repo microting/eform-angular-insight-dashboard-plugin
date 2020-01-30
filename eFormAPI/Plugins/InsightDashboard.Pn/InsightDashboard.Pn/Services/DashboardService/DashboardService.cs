@@ -725,20 +725,52 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 case DashboardPeriodUnits.Month:
                                     if (dashboardItem.ChartType == DashboardChartTypes.Line)
                                     {
-                                        multiData = data
-                                            .GroupBy(y => y.Name) 
-                                            .Select(x => new DashboardViewChartDataMultiModel
+                                        var lines = data
+                                            .GroupBy(x => x.Name)
+                                            .OrderBy(x => x.Key)
+                                            .Select(x => x.Key)
+                                            .ToList();
+
+                                        var groupedData = data
+                                            .GroupBy(x => $"{x.Finished:yy-MMM}")
+                                            .Select(x => new
                                             {
-                                                Name = x.Key.ToString(),
-                                                Series = x.GroupBy(ms => $"{ms.Finished:yy-MMM}")
-                                                    .Select(y => new DashboardViewChartDataSingleModel
+                                                Name = x.Key,
+                                                Total = x.Count(),
+                                                Items = x
+                                                    .GroupBy(y => y.Name)
+                                                    .Select(y => new
                                                     {
                                                         Name = y.Key,
-                                                        Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
-                                                    })
-                                                    .OrderBy(y => y.Name)
-                                                    .ToList(),
-                                            }).ToList();
+                                                        Value = Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    }).ToList()
+                                            })
+                                            .ToList();
+
+                                        foreach (var line in lines)
+                                        {
+                                            var multiItem = new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = line
+                                            };
+
+                                            foreach (var groupedItem in groupedData)
+                                            {
+                                                foreach (var item in groupedItem.Items)
+                                                {
+                                                    if (item.Name == line)
+                                                    {
+                                                        var singleItem = new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = groupedItem.Name,
+                                                            Value = item.Value,
+                                                        };
+                                                        multiItem.Series.Add(singleItem);
+                                                    }
+                                                }
+                                            }
+                                            multiData.Add(multiItem);
+                                        }
                                     }
                                     else
                                     {
