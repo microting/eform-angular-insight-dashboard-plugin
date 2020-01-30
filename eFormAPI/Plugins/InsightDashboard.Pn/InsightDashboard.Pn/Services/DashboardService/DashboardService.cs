@@ -912,7 +912,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 CalendarWeekRule.FirstFourDayWeek,
                 DayOfWeek.Monday);
 
-            return $"{dateTime:yy}-{weekNumber}";
+            return $"{dateTime:yy}-{weekNumber:D2}";
         }
 
         private int UserId
