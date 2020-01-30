@@ -739,20 +739,14 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                                     break;
                                 case DashboardPeriodUnits.Quarter:
-                                    var groupedByQuarter1 = from date in data
-                                        group date by (date.Finished.Month - 1) / 3
-                                        into groupedDates
-                                        orderby groupedDates.Key
-                                        select groupedDates;
-
                                     var groupedByQuarter = data
-                                        .GroupBy(item => ((item.Finished.Month - 1) / 3))
+                                        .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
                                         .ToArray();
 
                                     multiData = groupedByQuarter
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
-                                            Name = $"Q{x.Key + 1}",
+                                            Name = x.Key,
                                             Series = x.GroupBy(y => y.Name)
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
