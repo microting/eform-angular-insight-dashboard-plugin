@@ -24,13 +24,11 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Infrastructure.Models.Surveys;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
     using Services.SurveysService;
 
     [Authorize]

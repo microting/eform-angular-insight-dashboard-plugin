@@ -25,14 +25,13 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Services.DashboardService
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Globalization;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
+    using Infrastructure.Helpers;
     using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
@@ -677,7 +676,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         }
 
                         var data = answerQueryable
-                            .Select(x => new DashboardChartDataItem
+                            .Select(x => new
                             {
                                 Name = x.Value,
                                 Finished = x.Answer.FinishedAt,
@@ -712,7 +711,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             {
                                 case DashboardPeriodUnits.Week:
                                     var consignmentsByWeek = from con in data
-                                        group con by GetWeekString(con.Finished);
+                                        group con by ChartDateHelpers.GetWeekString(con.Finished);
 
                                     multiData = consignmentsByWeek
                                         .Select(x => new DashboardViewChartDataMultiModel
@@ -765,7 +764,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     break;
                                 case DashboardPeriodUnits.SixMonth:
                                     var groupedByHalfYear = data
-                                        .GroupBy(item => $"{item.Finished:yy}-{GetHalfOfYear(item.Finished)}H")
+                                        .GroupBy(item => $"{item.Finished:yy}-{ChartDateHelpers.GetHalfOfYear(item.Finished)}H")
                                         .ToArray();
 
                                     multiData = groupedByHalfYear
@@ -952,32 +951,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
             }
         }
 
-        public static string GetWeekString(DateTime dateTime)
-        {
-            var weekNumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                dateTime,
-                CalendarWeekRule.FirstFourDayWeek,
-                DayOfWeek.Monday);
-
-            return $"{dateTime:yy}-{weekNumber:D2}";
-        }
-
-        public int GetHalfOfYear(DateTime dateTime)
-        {
-            var month = dateTime.Month;
-            if (month > 0 && month <= 6)
-            {
-                return 1;
-            }
-
-            if (month > 6 && month <= 12)
-            {
-                return 2;
-            }
-
-            throw new ArgumentException($"Invalid month {month}");
-        }
-
         private int UserId
         {
             get
@@ -986,11 +959,5 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 return value == null ? 0 : int.Parse(value);
             }
         }
-    }
-
-    public class DashboardChartDataItem
-    {
-        public string Name { get; set; }
-        public DateTime Finished { get; set; }
     }
 }
