@@ -683,6 +683,12 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 Finished = x.Answer.FinishedAt,
                             }).ToList();
 
+                        var lines = data
+                            .GroupBy(x => x.Name)
+                            .OrderBy(x => x.Key)
+                            .Select(x => x.Key)
+                            .ToList();
+
                         if (singleData)
                         {
                             decimal count = data.Count;
@@ -723,126 +729,20 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         }).ToList();
                                     break;
                                 case DashboardPeriodUnits.Month:
-                                    if (dashboardItem.ChartType == DashboardChartTypes.Line)
-                                    {
-                                       var  multiData1 = data
-                                            .GroupBy(x => x.Name)
-                                            .Select(x => new 
-                                            {
-                                                Name = x.Key,
-                                                Total = x.Count(),
-                                                Items = x
-                                                    .GroupBy(y => $"{y.Finished:yy-MMM}")
-                                                    .Select(y => new
-                                                    {
-                                                        Name = y.Key,
-                                                        Value = Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
-                                                    }).ToList()
-                                            })
-                                            .Select(x => new DashboardViewChartDataMultiModel
-                                            {
-                                                Name = x.Name,
-                                                Series = x.Items
-                                                    .Select(y => new DashboardViewChartDataSingleModel
-                                                    {
-                                                        Name = y.Name,
-                                                        Value = y.Value,
-                                                    }).ToList(),
-                                            })
-                                            .ToList();
-
-                                            multiData = data
-                                                .GroupBy(x => x.Name)
-                                                .Select(x => new
+                                    multiData = data
+                                        .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key.ToString(),
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
                                                 {
-                                                    Name = x.Key,
-                                                    Total = x.Count(),
-                                                    Items = x
-                                                        .GroupBy(y => $"{y.Finished:yy-MMM}")
-                                                        .Select(y => new
-                                                        {
-                                                            Name = y.Key,
-                                                            Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
-                                                        }).ToList()
+                                                    Name = y.Key,
+                                                    Value = Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                                 })
-                                                .Select(x => new DashboardViewChartDataMultiModel
-                                                {
-                                                    Name = x.Name,
-                                                    Series = x.Items
-                                                        .Select(y => new DashboardViewChartDataSingleModel
-                                                        {
-                                                            Name = y.Name,
-                                                            Value = y.Value,
-                                                        }).ToList(),
-                                                })
-                                                .ToList();
-
-
-                                            var lines = data
-                                            .GroupBy(x => x.Name)
-                                            .OrderBy(x => x.Key)
-                                            .Select(x => x.Key)
-                                            .ToList();
-
-                                        var groupedData = data
-                                            .GroupBy(x => $"{x.Finished:yy-MMM}")
-                                            .Select(x => new
-                                            {
-                                                Name = x.Key,
-                                                Total = x.Count(),
-                                                Items = x
-                                                    .GroupBy(y => y.Name)
-                                                    .Select(y => new
-                                                    {
-                                                        Name = y.Key,
-                                                        Value = Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
-                                                    }).ToList()
-                                            })
-                                            .ToList();
-
-                                        //foreach (var line in lines)
-                                        //{
-                                        //    var multiItem = new DashboardViewChartDataMultiModel
-                                        //    {
-                                        //        Name = line
-                                        //    };
-
-                                        //    foreach (var groupedItem in groupedData)
-                                        //    {
-                                        //        foreach (var item in groupedItem.Items)
-                                        //        {
-                                        //            if (item.Name == line)
-                                        //            {
-                                        //                var singleItem = new DashboardViewChartDataSingleModel
-                                        //                {
-                                        //                    Name = groupedItem.Name,
-                                        //                    Value = item.Value,
-                                        //                };
-                                        //                multiItem.Series.Add(singleItem);
-                                        //            }
-                                        //        }
-                                        //    }
-                                        ////    multiData.Add(multiItem);
-                                        //}
-                                    }
-                                    else
-                                    {
-                                        multiData = data
-                                            .GroupBy(ms => $"{ms.Finished:yy-MMM}")
-                                            .Select(x => new DashboardViewChartDataMultiModel
-                                            {
-                                                Name = x.Key.ToString(),
-                                                Series = x.GroupBy(y => y.Name)
-                                                    .Select(y => new DashboardViewChartDataSingleModel
-                                                    {
-                                                        Name = y.Key,
-                                                        Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
-                                                    })
-                                                    .OrderBy(y => y.Name)
-                                                    .ToList(),
-                                            }).ToList();
-                                    }
-
+                                                .OrderBy(y => y.Name)
+                                                .ToList(),
+                                        }).ToList();
                                     break;
                                 case DashboardPeriodUnits.Quarter:
                                     var groupedByQuarter = data
@@ -868,9 +768,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                                     break;
                                 case DashboardPeriodUnits.Year:
-                                    //IEnumerable<
-                                    //    IGrouping<string, List<int> >> ss = 
-
                                     multiData = data
                                         .GroupBy(ms => $"{ms.Finished:yyyy}")
                                         .Select(x => new DashboardViewChartDataMultiModel
@@ -908,8 +805,39 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     throw new ArgumentOutOfRangeException();
                             }
 
-                            // 
-                            dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                            if (dashboardItem.ChartType == DashboardChartTypes.Line)
+                            {
+                                var lineData = new List<DashboardViewChartDataMultiModel>();
+                                foreach (var line in lines)
+                                {
+                                    var multiItem = new DashboardViewChartDataMultiModel
+                                    {
+                                        Name = line
+                                    };
+
+                                    foreach (var groupedItem in multiData)
+                                    {
+                                        foreach (var item in groupedItem.Series)
+                                        {
+                                            if (item.Name == line)
+                                            {
+                                                var singleItem = new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = groupedItem.Name,
+                                                    Value = item.Value,
+                                                };
+                                                multiItem.Series.Add(singleItem);
+                                            }
+                                        }
+                                    }
+                                    lineData.Add(multiItem);
+                                }
+                                dashboardItemModel.ChartData.Multi.AddRange(lineData);
+                            }
+                            else
+                            {
+                                dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                            }
                         }
                     }
 
