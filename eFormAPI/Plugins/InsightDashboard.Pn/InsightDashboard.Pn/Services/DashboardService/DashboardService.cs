@@ -725,6 +725,33 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 case DashboardPeriodUnits.Month:
                                     if (dashboardItem.ChartType == DashboardChartTypes.Line)
                                     {
+                                        multiData = data
+                                            .GroupBy(x => x.Name)
+                                            .Select(x => new
+                                            {
+                                                Name = x.Key,
+                                                Total = x.Count(),
+                                                Items = x
+                                                    .GroupBy(y => $"{y.Finished:yy-MMM}")
+                                                    .Select(y => new
+                                                    {
+                                                        Name = y.Key,
+                                                        Value = Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    }).ToList()
+                                            })
+                                            .Select(x => new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = x.Name,
+                                                Series = x.Items
+                                                    .Select(y => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = y.Name,
+                                                        Value = y.Value,
+                                                    }).ToList(),
+                                            })
+                                            .ToList();
+
+
                                         var lines = data
                                             .GroupBy(x => x.Name)
                                             .OrderBy(x => x.Key)
@@ -769,7 +796,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                     }
                                                 }
                                             }
-                                            multiData.Add(multiItem);
+                                        //    multiData.Add(multiItem);
                                         }
                                     }
                                     else
