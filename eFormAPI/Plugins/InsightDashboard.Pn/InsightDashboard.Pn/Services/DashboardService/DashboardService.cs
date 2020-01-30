@@ -25,6 +25,7 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Services.DashboardService
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Globalization;
@@ -676,7 +677,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         }
 
                         var data = answerQueryable
-                            .Select(x => new
+                            .Select(x => new DashboardChartDataItem
                             {
                                 Name = x.Value,
                                 Finished = x.Answer.FinishedAt,
@@ -722,20 +723,40 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         }).ToList();
                                     break;
                                 case DashboardPeriodUnits.Month:
-                                    multiData = data
-                                        .GroupBy(ms => $"{ms.Finished:yy-MMM}")
-                                        .Select(x => new DashboardViewChartDataMultiModel
-                                        {
-                                            Name = x.Key.ToString(),
-                                            Series = x.GroupBy(y => y.Name)
-                                                .Select(y => new DashboardViewChartDataSingleModel
-                                                {
-                                                    Name = y.Key,
-                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
-                                                })
-                                                .OrderBy(y => y.Name)
-                                                .ToList(),
-                                        }).ToList();
+                                    if (dashboardItem.ChartType == DashboardChartTypes.Line)
+                                    {
+                                        multiData = data
+                                            .GroupBy(y => y.Name) 
+                                            .Select(x => new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = x.Key.ToString(),
+                                                Series = x.GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                                    .Select(y => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = y.Key,
+                                                        Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                    })
+                                                    .OrderBy(y => y.Name)
+                                                    .ToList(),
+                                            }).ToList();
+                                    }
+                                    else
+                                    {
+                                        multiData = data
+                                            .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                            .Select(x => new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = x.Key.ToString(),
+                                                Series = x.GroupBy(y => y.Name)
+                                                    .Select(y => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = y.Key,
+                                                        Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                    })
+                                                    .OrderBy(y => y.Name)
+                                                    .ToList(),
+                                            }).ToList();
+                                    }
 
                                     break;
                                 case DashboardPeriodUnits.Quarter:
@@ -758,10 +779,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         }).ToList();
                                     break;
                                 case DashboardPeriodUnits.SixMonth:
-
+                                    // TODO six month
 
                                     break;
                                 case DashboardPeriodUnits.Year:
+                                    IEnumerable<
+                                        IGrouping<string, List<int> >> ss = 
+
                                     multiData = data
                                         .GroupBy(ms => $"{ms.Finished:yyyy}")
                                         .Select(x => new DashboardViewChartDataMultiModel
@@ -778,7 +802,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         }).ToList();
                                     break;
                                 case DashboardPeriodUnits.Total:
-
                                     decimal count = data.Count;
                                     var totalPeriod = new DashboardViewChartDataMultiModel
                                     {
@@ -917,5 +940,11 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 return value == null ? 0 : int.Parse(value);
             }
         }
+    }
+
+    public class DashboardChartDataItem
+    {
+        public string Name { get; set; }
+        public DateTime Finished { get; set; }
     }
 }
