@@ -725,7 +725,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 case DashboardPeriodUnits.Month:
                                     if (dashboardItem.ChartType == DashboardChartTypes.Line)
                                     {
-                                        multiData = data
+                                       var  multiData1 = data
                                             .GroupBy(x => x.Name)
                                             .Select(x => new 
                                             {
@@ -751,8 +751,34 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                             })
                                             .ToList();
 
+                                            multiData = data
+                                                .GroupBy(x => x.Name)
+                                                .Select(x => new
+                                                {
+                                                    Name = x.Key,
+                                                    Total = x.Count(),
+                                                    Items = x
+                                                        .GroupBy(y => $"{y.Finished:yy-MMM}")
+                                                        .Select(y => new
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        }).ToList()
+                                                })
+                                                .Select(x => new DashboardViewChartDataMultiModel
+                                                {
+                                                    Name = x.Name,
+                                                    Series = x.Items
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Name,
+                                                            Value = y.Value,
+                                                        }).ToList(),
+                                                })
+                                                .ToList();
 
-                                        var lines = data
+
+                                            var lines = data
                                             .GroupBy(x => x.Name)
                                             .OrderBy(x => x.Key)
                                             .Select(x => x.Key)
@@ -774,30 +800,30 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                             })
                                             .ToList();
 
-                                        foreach (var line in lines)
-                                        {
-                                            var multiItem = new DashboardViewChartDataMultiModel
-                                            {
-                                                Name = line
-                                            };
+                                        //foreach (var line in lines)
+                                        //{
+                                        //    var multiItem = new DashboardViewChartDataMultiModel
+                                        //    {
+                                        //        Name = line
+                                        //    };
 
-                                            foreach (var groupedItem in groupedData)
-                                            {
-                                                foreach (var item in groupedItem.Items)
-                                                {
-                                                    if (item.Name == line)
-                                                    {
-                                                        var singleItem = new DashboardViewChartDataSingleModel
-                                                        {
-                                                            Name = groupedItem.Name,
-                                                            Value = item.Value,
-                                                        };
-                                                        multiItem.Series.Add(singleItem);
-                                                    }
-                                                }
-                                            }
-                                        //    multiData.Add(multiItem);
-                                        }
+                                        //    foreach (var groupedItem in groupedData)
+                                        //    {
+                                        //        foreach (var item in groupedItem.Items)
+                                        //        {
+                                        //            if (item.Name == line)
+                                        //            {
+                                        //                var singleItem = new DashboardViewChartDataSingleModel
+                                        //                {
+                                        //                    Name = groupedItem.Name,
+                                        //                    Value = item.Value,
+                                        //                };
+                                        //                multiItem.Series.Add(singleItem);
+                                        //            }
+                                        //        }
+                                        //    }
+                                        ////    multiData.Add(multiItem);
+                                        //}
                                     }
                                     else
                                     {
