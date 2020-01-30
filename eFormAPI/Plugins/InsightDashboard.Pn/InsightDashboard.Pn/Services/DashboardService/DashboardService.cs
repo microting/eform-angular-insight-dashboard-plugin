@@ -783,8 +783,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                                     break;
                                 case DashboardPeriodUnits.Year:
-                                    IEnumerable<
-                                        IGrouping<string, List<int> >> ss = 
+                                    //IEnumerable<
+                                    //    IGrouping<string, List<int> >> ss = 
 
                                     multiData = data
                                         .GroupBy(ms => $"{ms.Finished:yyyy}")
