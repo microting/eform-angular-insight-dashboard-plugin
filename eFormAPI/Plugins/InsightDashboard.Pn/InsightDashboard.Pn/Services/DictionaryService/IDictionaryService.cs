@@ -1,6 +1,7 @@
-MIT License
+﻿/*
+The MIT License (MIT)
 
-Copyright (c) 2019 Microting A/S
+Copyright (c) 2007 - 2019 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +20,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+
+namespace InsightDashboard.Pn.Services.DictionaryService
+{
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Infrastructure.Models.Dashboards;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+
+    public interface IDictionaryService
+    {
+        Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys();
+        Task<OperationDataResult<List<CommonDictionaryModel>>> GetQuestions(int surveyId);
+        Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(
+            DashboardItemAnswerRequestModel requestModel);
+        Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int surveyId);
+    }
+}

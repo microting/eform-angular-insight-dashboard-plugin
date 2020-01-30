@@ -1,0 +1,29 @@
+<section>
+  <div class="card z-depth-3 mb-4" style="width: 100%">
+    <div class="card-body">
+      <p>
+        <strong>{{'Question' | translate}}: </strong>
+        {{itemModel.firstQuestionName}}
+      </p>
+      <p>
+        <strong>{{'Filter Question' | translate}}: </strong>
+        {{itemModel.filterQuestionName ? itemModel.filterQuestionName : '--'}}
+      </p>
+      <p>
+        <strong>{{'Filter answer' | translate}}: </strong>
+        {{itemModel.filterAnswerName ? itemModel.filterAnswerName : '--'}}
+      </p>
+      <p>
+        <strong>{{'Period Unit' | translate}}: </strong> {{periodUnits[itemModel.period] | translate}}
+      </p>
+      <p>
+        <strong>{{'Chart Type' | translate}}: </strong> {{chartTypes[itemModel.chartType] | translate}}
+      </p>
+      <div class="d-flex justify-content-center flex-column">
+        <app-dashboard-chart-view [chartType]="itemModel.chartType" [chartData]="itemModel.chartData">
+        </app-dashboard-chart-view>
+      </div>
+    </div>
+
+  </div>
+</section>

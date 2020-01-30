@@ -1,6 +1,7 @@
-MIT License
+/*
+The MIT License (MIT)
 
-Copyright (c) 2019 Microting A/S
+Copyright (c) 2007 - 2019 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +20,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+
+namespace InsightDashboard.Pn.Infrastructure.Data.Seed.Data
+{
+    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
+    using Microting.InsightDashboardBase.Infrastructure.Consts;
+
+    public static class InsightDashboardPermissionsSeedData
+    {
+        public static PluginPermission[] Data => new []
+        {
+            new PluginPermission()
+            {
+                PermissionName = "Access Insight Dashboard Plugin",
+                ClaimName = InsightDashboardClaims.AccessInsightDashboardPlugin,
+            },
+        };
+    }
+}

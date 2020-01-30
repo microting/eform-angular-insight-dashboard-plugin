@@ -1,0 +1,61 @@
+<div mdbModal class="modal fade" #frame="mdbModal">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>{{ 'New Dashboard' | translate }}</h3>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="md-form">
+                <input mdbInputDirective [mdbValidate]="false"
+                       type="text" [(ngModel)]="dashboardName"
+                       class="form-control input-sm" id="searchInput">
+                <label for="searchInput">{{'Name' | translate}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <ng-select [items]="surveys"
+                         bindLabel="name"
+                         [placeholder]="'Select survey' | translate"
+                         bindValue="id"
+                         [clearable]="false"
+                         (ngModelChange)="onSurveySelected($event)"
+                         [(ngModel)]="selectedSurveyId"
+                         id="selectSurvey">
+              </ng-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <ng-select [items]="availableLocationsTags"
+                         bindLabel="name"
+                         [placeholder]="'Select location/report tag' | translate"
+                         bindValue="id"
+                         [clearable]="false"
+                         [(ngModel)]="selectedLocationTagId"
+                         (change)="onLocationTagSelected($event)"
+                         id="selectLocationTagId">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="createDashboard()"
+                [disabled]="!dashboardName && !selectedSurveyId && (!selectedLocationId || !reportTagId) "
+                id="dashboardNewSaveBtn">
+          {{ 'Save' | translate }}
+        </button>
+        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="dashboardNewSaveCancelBtn">
+          {{ 'Cancel' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>

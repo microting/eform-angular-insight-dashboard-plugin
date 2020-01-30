@@ -1,0 +1,119 @@
+<div class="card z-depth-3 mb-4" style="width: 100%">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-1">
+        <div *ngIf="dashboardItem.collapsed">
+          <a>
+            <fa-icon icon="grip-lines" size="lg" [fixedWidth]="true"></fa-icon>
+          </a>
+        </div>
+      </div>
+      <div class="col-8">
+        <div>{{dashboardItem.id
+          ? (('Existing Item' | translate) + ' ' + dashboardItem.id)
+          : (('New Item' | translate) + ' ' + dashboardItem.position)}}
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="text-right"
+             (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed)"
+             style="cursor: pointer">
+          <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="dashboardItem.collapsed"></fa-icon>
+          <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!dashboardItem.collapsed"></fa-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mdbCollapse #collapse="bs-collapse" [collapse]="!dashboardItem.collapsed">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-custom-1 d-flex align-items-center justify-content-center">
+          <div class="d-flex flex-column text-black-50">
+            <fa-icon icon="plus-circle" [className]="'mb-3'"
+                     mdbTooltip="{{ 'Add block' | translate }}"
+                     size="2x" style="cursor: pointer" (click)="addNew(dashboardItem.position)"></fa-icon>
+            <fa-icon icon="copy" [className]="'mb-3'"
+                     mdbTooltip="{{ 'Copy block' | translate }}"
+                     size="2x" style="cursor: pointer" (click)="copy(dashboardItem)"></fa-icon>
+            <fa-icon icon="trash" [className]="'mb-3'"
+                     mdbTooltip="{{ 'Delete block' | translate }}"
+                     size="2x" style="cursor: pointer" (click)="delete(dashboardItem.position)"></fa-icon>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card z-depth-2 mb-3" style="width: 100%">
+            <div class="card-body">
+              <ng-select
+                bindValue="id"
+                bindLabel="name"
+                [placeholder]="'Select First Question' | translate"
+                [ngModel]="dashboardItem.firstQuestionId"
+                [clearable]="false"
+                (ngModelChange)="fieldChanged($event, itemFields.firstQuestionId)"
+                [items]="questions"></ng-select>
+              <ng-select
+                bindValue="id"
+                bindLabel="name"
+                [placeholder]="'Select Filter Question' | translate"
+                [ngModel]="dashboardItem.filterQuestionId"
+                [disabled]="!dashboardItem.firstQuestionId"
+                (ngModelChange)="fieldChanged($event, itemFields.filterQuestionId)"
+                [items]="filteredQuestions"></ng-select>
+              <ng-select
+                bindValue="id"
+                bindLabel="name"
+                [ngModel]="dashboardItem.filterAnswerId"
+                (ngModelChange)="fieldChanged($event, itemFields.filterAnswerId)"
+                [disabled]="!dashboardItem.filterQuestionId"
+                [placeholder]="dashboardItem.filterAnswerName || ('Select Filter Answer' | translate)"
+                [items]="filterAnswers"></ng-select>
+              <ng-select
+                bindValue="id"
+                bindLabel="name"
+                [ngModel]="dashboardItem.period"
+                [clearable]="false"
+                [disabled]="!dashboardItem.firstQuestionId"
+                (ngModelChange)="fieldChanged($event, itemFields.period)"
+                [placeholder]="'Select Period Unit' | translate"
+                [items]="[
+                  {id: periodUnits.Week, name: periodUnits[periodUnits.Week] | translate},
+                  {id: periodUnits.Month, name: periodUnits[periodUnits.Month] | translate},
+                  {id: periodUnits.Quarter, name: periodUnits[periodUnits.Quarter] | translate},
+                  {id: periodUnits.SixMonth, name: periodUnits[periodUnits.SixMonth] | translate},
+                  {id: periodUnits.Year, name: periodUnits[periodUnits.Year] | translate},
+                  {id: periodUnits.Total, name: periodUnits[periodUnits.Total] | translate}
+                ]"></ng-select>
+            </div>
+          </div>
+          <div class="card z-depth-2 mb-3" style="width: 100%">
+            <div class="card-body">
+              <div>
+                Placeholder for locations list
+              </div>
+              <ng-select
+                bindValue="id"
+                bindLabel="name"
+                [placeholder]="'Select Compare Chart'"
+                [items]="availableCharts"></ng-select>
+            </div>
+          </div>
+          <div class="card z-depth-2 mb-3" style="width: 100%">
+            <div class="card-body">
+              <ng-select
+                bindValue="id"
+                bindLabel="name"
+                [clearable]="false"
+                [ngModel]="dashboardItem.chartType"
+                [disabled]="!dashboardItem.firstQuestionId"
+                (ngModelChange)="fieldChanged($event, itemFields.chartType)"
+                [placeholder]="'Select Chart' | translate"
+                [items]="availableCharts"></ng-select>
+              <app-dashboard-chart-edit [chartType]="dashboardItem.chartType" *ngIf="dashboardItem.chartType">
+              </app-dashboard-chart-edit>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
