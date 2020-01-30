@@ -727,27 +727,16 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     {
                                         multiData = data
                                             .GroupBy(x => x.Name)
-                                            .Select(x => new
+                                            .Select(x => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = x.Key,
-                                                Total = x.Count(),
-                                                Items = x
+                                                Series = x
                                                     .GroupBy(y => $"{y.Finished:yy-MMM}")
-                                                    .Select(y => new
+                                                    .Select(y => new DashboardViewChartDataSingleModel
                                                     {
                                                         Name = y.Key,
                                                         Value = Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                                     }).ToList()
-                                            })
-                                            .Select(x => new DashboardViewChartDataMultiModel
-                                            {
-                                                Name = x.Name,
-                                                Series = x.Items
-                                                    .Select(y => new DashboardViewChartDataSingleModel
-                                                    {
-                                                        Name = y.Name,
-                                                        Value = y.Value,
-                                                    }).ToList(),
                                             })
                                             .ToList();
 
