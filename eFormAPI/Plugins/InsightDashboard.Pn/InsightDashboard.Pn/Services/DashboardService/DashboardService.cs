@@ -764,7 +764,23 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         }).ToList();
                                     break;
                                 case DashboardPeriodUnits.SixMonth:
-                                    // TODO six month
+                                    var groupedByHalfYear = data
+                                        .GroupBy(item => $"{item.Finished:yy}-{GetHalfOfYear(item.Finished)}H")
+                                        .ToArray();
+
+                                    multiData = groupedByHalfYear
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key,
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                })
+                                                .OrderBy(y => y.Name)
+                                                .ToList(),
+                                        }).ToList();
 
                                     break;
                                 case DashboardPeriodUnits.Year:
@@ -944,6 +960,22 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 DayOfWeek.Monday);
 
             return $"{dateTime:yy}-{weekNumber:D2}";
+        }
+
+        public int GetHalfOfYear(DateTime dateTime)
+        {
+            var month = dateTime.Month;
+            if (month > 0 && month <= 6)
+            {
+                return 1;
+            }
+
+            if (month > 6 && month <= 12)
+            {
+                return 2;
+            }
+
+            throw new ArgumentException($"Invalid month {month}");
         }
 
         private int UserId
