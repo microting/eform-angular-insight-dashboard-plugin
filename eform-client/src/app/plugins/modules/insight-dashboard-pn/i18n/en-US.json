@@ -37,7 +37,6 @@
   "Select Compare Chart": "Select Compare Chart",
   "Select Chart": "Select Chart",
   "Return to dashboards list": "Return to dashboards list",
-
   "Location/Tag name": "Location/Tag name",
   "Existing Item": "Existing Item",
   "New Item": "New Item",
@@ -48,5 +47,12 @@
   "HorizontalBarGrouped":  "Horizontal Bar Grouped",
   "VerticalBar": "Vertical Bar",
   "VerticalBarStacked":  "Vertical Bar Stacked",
-  "VerticalBarGrouped": "Vertical Bar Grouped"
+  "VerticalBarGrouped": "Vertical Bar Grouped",
+
+  "Week": "Week",
+  "Month": "Month",
+  "Quarter": "Quarter",
+  "SixMonth": "Six month",
+  "Year": "Year",
+  "Total": "Total"
 }

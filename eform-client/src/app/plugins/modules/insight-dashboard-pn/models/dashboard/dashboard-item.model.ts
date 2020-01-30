@@ -12,4 +12,7 @@ export class DashboardItemModel {
   period: DashboardPeriodUnitsEnum;
   chartType: DashboardChartTypesEnum;
   position: number;
+
+  compareEnabled: boolean;
+  compareChartType: number;
 }

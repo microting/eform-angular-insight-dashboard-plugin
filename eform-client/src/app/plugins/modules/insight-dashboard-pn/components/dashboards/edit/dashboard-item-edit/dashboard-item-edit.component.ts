@@ -5,6 +5,7 @@ import {CommonDictionaryModel} from '../../../../../../../common/models/common';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
 import {InsightDashboardPnDashboardDictionariesService} from '../../../../services';
+import {TranslateService} from '@ngx-translate/core';
 
 @AutoUnsubscribe()
 @Component({
@@ -24,17 +25,10 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   filterAnswers: CommonDictionaryModel[] = [];
   loadAnswersSub$: Subscription;
   filteredQuestions: CommonDictionaryModel[] = [];
-  allCharts = [
-    {id: DashboardChartTypesEnum.Pie, name: DashboardChartTypesEnum[DashboardChartTypesEnum.Pie]},
-    {id: DashboardChartTypesEnum.HorizontalBar, name: DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBar]},
-    {id: DashboardChartTypesEnum.VerticalBar, name: DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBar]},
-    {id: DashboardChartTypesEnum.Line, name: DashboardChartTypesEnum[DashboardChartTypesEnum.Line]},
-    {id: DashboardChartTypesEnum.HorizontalBarStacked, name: DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStacked]},
-    {id: DashboardChartTypesEnum.HorizontalBarGrouped, name: DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarGrouped]},
-    {id: DashboardChartTypesEnum.VerticalBarStacked, name: DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarStacked]},
-    {id: DashboardChartTypesEnum.VerticalBarGrouped, name: DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarGrouped]}
-  ];
+  allCharts = [];
   availableCharts = [];
+
+  compareTemp = ['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5'];
 
   get periodUnits() {
     return DashboardPeriodUnitsEnum;
@@ -48,11 +42,11 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     return DashboardChartTypesEnum;
   }
 
-  constructor(private dictionariesService: InsightDashboardPnDashboardDictionariesService) {
+  constructor(private dictionariesService: InsightDashboardPnDashboardDictionariesService, private translateService: TranslateService) {
   }
 
   ngOnInit() {
-    this.availableCharts = [...this.allCharts];
+
   }
 
   addNew(position: number) {
@@ -84,11 +78,16 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.dashboardItem) {
+      debugger;
       const currentValue = changes.dashboardItem.currentValue as DashboardItemModel;
 
+      // load answers on change fields
       this.dashboardItem[DashboardItemFieldsEnum.firstQuestionId] = currentValue.firstQuestionId;
       this.dashboardItem[DashboardItemFieldsEnum.filterQuestionId] = currentValue.filterQuestionId;
       this.loadAnswers();
+
+      // change available chart types depends on period
+      this.fillChartsOptions(currentValue.period);
     }
     if (changes && changes.questions) {
       this.filteredQuestions = [...this.questions];
@@ -126,5 +125,45 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         }
       }
     }
+  }
+
+  private fillChartsOptions(period: DashboardPeriodUnitsEnum) {
+    setTimeout(() => {
+      const charts = [{
+        id: DashboardChartTypesEnum.Pie,
+        name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.Pie])
+      },
+        {
+          id: DashboardChartTypesEnum.HorizontalBar,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBar])
+        },
+        {
+          id: DashboardChartTypesEnum.VerticalBar,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBar])
+        },
+        {id: DashboardChartTypesEnum.Line, name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.Line])},
+        {
+          id: DashboardChartTypesEnum.HorizontalBarStacked,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStacked])
+        },
+        {
+          id: DashboardChartTypesEnum.HorizontalBarGrouped,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarGrouped])
+        },
+        {
+          id: DashboardChartTypesEnum.VerticalBarStacked,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarStacked])
+        },
+        {
+          id: DashboardChartTypesEnum.VerticalBarGrouped,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarGrouped])
+        }];
+      this.allCharts = [...charts];
+      if (period !== DashboardPeriodUnitsEnum.Total) {
+        this.availableCharts = [...charts.slice(0, 0), ...charts.slice(3)];
+      } else {
+        this.availableCharts = [...charts];
+      }
+    }, 1000);
   }
 }

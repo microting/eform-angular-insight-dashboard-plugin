@@ -539,7 +539,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 }
 
                 // Dashboard items
-                foreach (var dashboardItem in dashboard.DashboardItems)
+                foreach (var dashboardItem in dashboard.DashboardItems.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed))
                 {
                     var dashboardItemModel = new DashboardItemViewModel()
                     {
@@ -860,6 +860,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         SurveyId = x.SurveyId,
                         DashboardName = x.Name,
                         Items = x.DashboardItems
+                            .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
                             .Select(i => new DashboardItemModel
                             {
                                 Id = i.Id,

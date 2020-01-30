@@ -37,7 +37,6 @@
   "Select Compare Chart": "Vælg Sammenlign diagram",
   "Select Chart": "Vælg diagram",
   "Return to dashboards list": "Vend tilbage til oversigten over oversigter",
-
   "Location/Tag name": "Placering /Tag navn",
   "Existing Item": "Eksisterende Vare",
   "New Item": "Ny Vare",
@@ -48,5 +47,12 @@
   "HorizontalBarGrouped":  "Vandret Grupperet Søjlediagram",
   "VerticalBar": "Lodret Søjlediagram",
   "VerticalBarStacked":  "Vandret Stablet Søjlediagram",
-  "VerticalBarGrouped": "Vertical Bar Grouped"
+  "VerticalBarGrouped": "Vandret Grupperet Søjlediagram",
+
+  "Week": "Uge",
+  "Month": "Måned",
+  "Quarter": "Kvarter",
+  "SixMonth": "Seks måned",
+  "Year": "År",
+  "Total": "Total"
 }
