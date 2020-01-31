@@ -488,7 +488,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                Debugger.Break();
                 var core = await _coreHelper.GetCore();
                 var dashboard = await _dbContext.Dashboards
                     .Include(x => x.DashboardItems)
