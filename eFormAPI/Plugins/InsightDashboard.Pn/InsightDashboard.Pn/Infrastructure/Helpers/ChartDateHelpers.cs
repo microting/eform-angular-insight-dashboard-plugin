@@ -22,18 +22,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.SurveysService
+namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Surveys;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+    using System;
+    using System.Globalization;
 
-    public interface ISurveysService
+    public static class ChartDateHelpers
     {
-        Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyConfigsRequestModel requestModel);
-        Task<OperationResult> Create(SurveyConfigCreateModel createModel);
-        Task<OperationResult> Update(SurveyConfigUpdateModel updateModel);
-        Task<OperationResult> ChangeStatus(SurveyConfigUpdateStatusModel configUpdateStatusModel);
-        Task<OperationResult> Delete(int id);
+        public static string GetWeekString(DateTime dateTime)
+        {
+            var weekNumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                dateTime,
+                CalendarWeekRule.FirstFourDayWeek,
+                DayOfWeek.Monday);
+
+            return $"{dateTime:yy}-{weekNumber:D2}";
+        }
+
+        public static int GetHalfOfYear(DateTime dateTime)
+        {
+            var month = dateTime.Month;
+            if (month > 0 && month <= 6)
+            {
+                return 1;
+            }
+
+            if (month > 6 && month <= 12)
+            {
+                return 2;
+            }
+
+            throw new ArgumentException($"Invalid month {month}");
+        }
     }
 }

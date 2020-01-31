@@ -74,7 +74,6 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
 
   onAddNewBlock(position: number) {
     const newItem = new DashboardItemModel();
-    newItem.chartType = DashboardChartTypesEnum.Line;
     this.dashboardEditModel.items.splice(position, 0, newItem);
     this.actualizeBlockPositions();
   }

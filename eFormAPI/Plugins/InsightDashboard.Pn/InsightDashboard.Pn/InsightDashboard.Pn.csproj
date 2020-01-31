@@ -25,11 +25,4 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\localization.json" />
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <Reference Include="Microting.InsightDashboardBase">
-      <HintPath>..\..\..\..\..\eform-insight-dashboard-base\Microting.InsightDashboardBase\bin\Debug\netcoreapp2.2\Microting.InsightDashboardBase.dll</HintPath>
-    </Reference>
-  </ItemGroup>-->
-
 </Project>

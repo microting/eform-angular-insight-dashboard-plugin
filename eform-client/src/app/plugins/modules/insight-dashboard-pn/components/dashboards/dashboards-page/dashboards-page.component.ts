@@ -170,6 +170,6 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   navigateToNewDashboard(newDashboardId: number) {
-    this.router.navigate(['../../dashboard', newDashboardId], {relativeTo: this.route}).then();
+    this.router.navigate(['../dashboard/edit', newDashboardId], {relativeTo: this.route}).then();
   }
 }

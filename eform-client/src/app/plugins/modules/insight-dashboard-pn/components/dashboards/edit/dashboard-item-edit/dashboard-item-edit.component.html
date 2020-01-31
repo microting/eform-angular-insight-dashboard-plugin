@@ -1,7 +1,7 @@
 <div class="card z-depth-3 mb-4" style="width: 100%">
   <div class="card-header">
     <div class="row">
-      <div class="col-1">
+      <div class="col-1" style="cursor: pointer">
         <div *ngIf="dashboardItem.collapsed">
           <a>
             <fa-icon icon="grip-lines" size="lg" [fixedWidth]="true"></fa-icon>
@@ -87,12 +87,34 @@
           </div>
           <div class="card z-depth-2 mb-3" style="width: 100%">
             <div class="card-body">
-              <div>
-                Placeholder for locations list
+              <div class="row ml-1">
+                <div class="mat-checkbox mb-1">
+                  <input id="enableCompare" type="checkbox" [checked]="dashboardItem.compareEnabled"
+                         [(ngModel)]="dashboardItem.compareEnabled"
+                         [disabled]="!dashboardItem.firstQuestionId"
+                         [value]="dashboardItem.compareEnabled">
+                  <label for="enableCompare">
+                    {{'Compare Location/Report tag' | translate}}
+                  </label>
+                </div>
+              </div>
+              <div class="locations-block">
+                <div class="row m-0 ml-2" *ngFor="let compareLocation of compareTemp">
+                  <div class="col-2">
+                    <div class="md-form">
+                      <input mdbInputDirective [mdbValidate]="false"
+                             type="number" [disabled]="!dashboardItem.compareEnabled"
+                             class="form-control input-sm" id="{{compareLocation}}">
+                      <label for="{{compareLocation}}">{{compareLocation}}</label>
+                    </div>
+                  </div>
+                </div>
               </div>
               <ng-select
                 bindValue="id"
                 bindLabel="name"
+                [disabled]="!dashboardItem.compareEnabled"
+                [ngModel]="dashboardItem.compareChartType"
                 [placeholder]="'Select Compare Chart'"
                 [items]="availableCharts"></ng-select>
             </div>
