@@ -663,12 +663,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
                         }
 
-                        if (dashboardItem.FilterAnswerId != null)
-                        {
-                            answerQueryable = answerQueryable
-                                .Where(x => x.OptionId == dashboardItem.FilterAnswerId);
-                        }
-
                         if (dashboard.LocationId != null)
                         {
                             answerQueryable = answerQueryable
