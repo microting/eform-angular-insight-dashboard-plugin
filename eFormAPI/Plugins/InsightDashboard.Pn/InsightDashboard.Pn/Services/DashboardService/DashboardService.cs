@@ -650,12 +650,23 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         answerQueryable = answerQueryable
                             .Where(x => x.Answer.QuestionSetId == dashboard.SurveyId);
 
-                        if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
+                        if (dashboard.LocationId != null)
                         {
                             answerQueryable = answerQueryable
-                                .Where(x => (x.QuestionId == dashboardItem.FirstQuestionId) ||
-                                            (x.QuestionId == dashboardItem.FilterQuestionId &&
-                                             x.OptionId == dashboardItem.FilterAnswerId));
+                                .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                        }
+
+                        if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
+                        {
+                            var answerIds = answerQueryable
+                                .Where(y => y.QuestionId == dashboardItem.FilterQuestionId && y.OptionId == dashboardItem.FilterAnswerId)
+                                .Select(y => y.AnswerId)
+                                .ToList();
+
+                            answerQueryable = answerQueryable
+                                .Where(x => answerIds
+                                .Contains(x.AnswerId))
+                                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
                         }
                         else
                         {
@@ -663,11 +674,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
                         }
 
-                        if (dashboard.LocationId != null)
-                        {
-                            answerQueryable = answerQueryable
-                                .Where(x => x.Answer.SiteId == dashboard.LocationId);
-                        }
+
 
                         var data = answerQueryable
                             .Select(x => new
