@@ -645,33 +645,34 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         var answerQueryable = sdkContext.answer_values
                             .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
                             .AsQueryable();
 
                         answerQueryable = answerQueryable
                             .Where(x => x.Answer.QuestionSetId == dashboard.SurveyId);
 
-                        if (dashboard.LocationId != null)
+                        if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
                         {
                             answerQueryable = answerQueryable
-                                .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                                .Where(x => (x.QuestionId == dashboardItem.FirstQuestionId) ||
+                                            (x.QuestionId == dashboardItem.FilterQuestionId &&
+                                             x.OptionId == dashboardItem.FilterAnswerId));
                         }
-
-                        if (dashboard.TagId != null)
-                        {
-                            // TODO check it for tags
-                        }
-
-                        if (dashboardItem.FilterQuestionId != null) // TODO Rewrite filter question
+                        else
                         {
                             answerQueryable = answerQueryable
-                                .Where(x => x.QuestionId == dashboardItem.FilterQuestionId);
+                                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
                         }
 
                         if (dashboardItem.FilterAnswerId != null)
                         {
                             answerQueryable = answerQueryable
                                 .Where(x => x.OptionId == dashboardItem.FilterAnswerId);
+                        }
+
+                        if (dashboard.LocationId != null)
+                        {
+                            answerQueryable = answerQueryable
+                                .Where(x => x.Answer.SiteId == dashboard.LocationId);
                         }
 
                         var data = answerQueryable
