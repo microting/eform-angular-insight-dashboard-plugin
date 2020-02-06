@@ -63,8 +63,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
   loadAnswers() {
     this.loadAnswersSub$ = this.dictionariesService.getFilterAnswers({
-      filterQuestion: this.dashboardItem.filterQuestionId,
-      firstQuestion: this.dashboardItem.firstQuestionId
+      filterQuestionId: this.dashboardItem.filterQuestionId
     })
       .subscribe((data) => {
         if (data && data.success) {
@@ -78,7 +77,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.dashboardItem) {
-      debugger;
       const currentValue = changes.dashboardItem.currentValue as DashboardItemModel;
 
       // load answers on change fields
@@ -124,6 +122,10 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
           this.availableCharts = [...this.allCharts];
         }
       }
+
+      if (fieldName === DashboardItemFieldsEnum.calculateAverage) {
+
+      }
     }
   }
 
@@ -165,5 +167,18 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         this.availableCharts = [...charts];
       }
     }, 1000);
+  }
+
+  addToArray(e: any, answerId: number) {
+    if (e.target.checked) {
+      this.dashboardItem.ignoredAnswerValues.push(answerId);
+    } else {
+      this.dashboardItem.ignoredAnswerValues = this.dashboardItem.ignoredAnswerValues.filter(x => x !== answerId);
+    }
+    this.fieldChanged(this.dashboardItem.ignoredAnswerValues, DashboardItemFieldsEnum.ignoredAnswerValues);
+  }
+
+  isAnswerIgnored(id: number) {
+    return this.dashboardItem.ignoredAnswerValues && this.dashboardItem.ignoredAnswerValues.findIndex(x => x === id) > -1;
   }
 }

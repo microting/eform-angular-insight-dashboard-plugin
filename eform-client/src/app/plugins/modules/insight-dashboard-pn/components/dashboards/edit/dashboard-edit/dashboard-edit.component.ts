@@ -5,8 +5,8 @@ import {InsightDashboardPnDashboardDictionariesService, InsightDashboardPnDashbo
 import {ActivatedRoute, Router} from '@angular/router';
 import {DashboardEditModel, DashboardItemModel} from '../../../../models';
 import {CommonDictionaryModel} from '../../../../../../../common/models/common';
-import {DashboardChartTypesEnum} from '../../../../const/enums';
 import {DragulaService} from 'ng2-dragula';
+import {ToastrService} from 'ngx-toastr';
 
 @AutoUnsubscribe()
 @Component({
@@ -24,8 +24,12 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   spinnerStatus = false;
   dragulaGroupName = 'ITEMS';
 
-  constructor(private dashboardsService: InsightDashboardPnDashboardsService, private router: Router, private route: ActivatedRoute,
-              private dashboardItemsService: InsightDashboardPnDashboardDictionariesService, private dragulaService: DragulaService) {
+  constructor(private dashboardsService: InsightDashboardPnDashboardsService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private dashboardItemsService: InsightDashboardPnDashboardDictionariesService,
+              private dragulaService: DragulaService,
+              private toastrService: ToastrService) {
   }
 
   ngOnInit() {
@@ -41,14 +45,18 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   updateDashboard() {
-    this.spinnerStatus = true;
-    this.updateDashboardSub$ = this.dashboardsService.update(this.dashboardEditModel)
-      .subscribe((data) => {
-        if (data && data.success) {
-          this.router.navigate(['../../', this.dashboardEditModel.id], {relativeTo: this.route}).then();
-        }
-        this.spinnerStatus = false;
-      });
+    if (this.dashboardEditModel.items.find(x => x.firstQuestionId === null || x.period == null || x.chartType === null)) {
+      this.toastrService.error('First question, period and chart type in item could not be empty!', 'Error', {timeOut: 10000});
+    } else {
+      this.spinnerStatus = true;
+      this.updateDashboardSub$ = this.dashboardsService.update(this.dashboardEditModel)
+        .subscribe((data) => {
+          if (data && data.success) {
+            this.router.navigate(['../../', this.dashboardEditModel.id], {relativeTo: this.route}).then();
+          }
+          this.spinnerStatus = false;
+        });
+    }
   }
 
   getDashboardForEdit(dashboardId: number) {

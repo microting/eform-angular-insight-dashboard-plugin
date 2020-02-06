@@ -1,4 +1,5 @@
 import {DashboardChartTypesEnum, DashboardPeriodUnitsEnum} from '../../const/enums';
+import {DashboardItemCompareModel} from './dashboard-item-compare.model';
 
 export class DashboardItemModel {
   id: number;
@@ -9,10 +10,14 @@ export class DashboardItemModel {
   filterAnswerId: number;
   collapsed: boolean;
   filterAnswerName: string;
+  ignoredAnswerValues: number[];
   period: DashboardPeriodUnitsEnum;
   chartType: DashboardChartTypesEnum;
-  position: number;
 
   compareEnabled: boolean;
-  compareChartType: number;
+  compareLocationsTags: DashboardItemCompareModel[];
+
+  calculateAverage: boolean;
+
+  position: number;
 }
