@@ -664,6 +664,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 var core = await _coreHelper.GetCore();
                 var dashboard = await _dbContext.Dashboards
                     .Include(x => x.DashboardItems)
+                    .ThenInclude(x => x.IgnoredAnswerValues)
+                    .Include(x => x.DashboardItems)
+                    .ThenInclude(x => x.CompareLocationsTags)
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
                     .FirstOrDefaultAsync(x => x.Id == dashboardId);
@@ -718,6 +721,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         Position = dashboardItem.Position,
                         Period = dashboardItem.Period,
                         ChartType = dashboardItem.ChartType,
+                        CalculateAverage = dashboardItem.CalculateAverage,
+                        CompareEnabled = dashboardItem.CompareEnabled,
                     };
 
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
@@ -827,6 +832,17 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         {
                             answerQueryable = answerQueryable
                                 .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                        }
+
+                        if (dashboardItem.IgnoredAnswerValues
+                            .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                        {
+                            var optionIds = dashboardItem.IgnoredAnswerValues
+                                .Select(x => x.AnswerId)
+                                .ToArray();
+
+                            answerQueryable = answerQueryable
+                                .Where(x => !optionIds.Contains(x.OptionId));
                         }
 
                         if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
