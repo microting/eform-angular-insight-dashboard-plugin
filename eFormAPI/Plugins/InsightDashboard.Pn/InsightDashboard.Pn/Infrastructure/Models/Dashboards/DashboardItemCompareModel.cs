@@ -27,8 +27,8 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
     public class DashboardItemCompareModel
     {
         public int? Id { get; set; }
-        public int LocationId { get; set; }
-        public int TagId { get; set; }
+        public int? LocationId { get; set; }
+        public int? TagId { get; set; }
         public int Position { get; set; }
     }
 }
