@@ -4,5 +4,7 @@ export enum DashboardItemFieldsEnum {
   filterAnswerId = 'filterAnswerId',
   period = 'period',
   collapsed = 'collapsed',
-  chartType = 'chartType'
+  chartType = 'chartType',
+  calculateAverage = 'calculateAverage',
+  ignoredAnswerValues = 'ignoredAnswerValues'
 }

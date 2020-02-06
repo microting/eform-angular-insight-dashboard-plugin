@@ -166,13 +166,6 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             try
             {
                 var core = await _coreHelper.GetCore();
-                // Validation
-                var questions = new List<int>() { requestModel.FirstQuestion };
-                if (requestModel.FilterQuestion != null)
-                {
-                    questions.Add((int)requestModel.FilterQuestion);
-                }
-
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var languages = await sdkContext.languages.ToListAsync();
@@ -183,7 +176,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                         var answers = await sdkContext.options
                             .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => questions.Contains(x.QuestionId))
+                            .Where(x => x.QuestionId == requestModel.FilterQuestionId)
                             .Select(x => new CommonDictionaryModel()
                             {
                                 Id = x.Id,
