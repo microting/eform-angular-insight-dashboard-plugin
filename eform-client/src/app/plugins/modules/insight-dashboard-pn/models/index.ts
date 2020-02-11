@@ -7,6 +7,7 @@ export * from './dashboard/dashboard-view.model';
 export * from './dashboard/dashboard-edit.model';
 export * from './dashboard/dashboard-item.model';
 export * from './dashboard/dashboard-item-answer-request.model';
+export * from './dashboard/dashboard-item-question.model';
 export * from './survey/survey-config-update.model';
 export * from './survey/survey-config-create.model';
 export * from './survey/survey-config-update-status.model';

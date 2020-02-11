@@ -84,44 +84,45 @@
                   {id: periodUnits.Year, name: periodUnits[periodUnits.Year] | translate},
                   {id: periodUnits.Total, name: periodUnits[periodUnits.Total] | translate}
                 ]"></ng-select>
-              <div class="row ml-1 mb-2">
-                <div class="mat-checkbox mb-1">
-                  <input id="calcAverageCheckbox" type="checkbox" [checked]="dashboardItem.calculateAverage"
-                         [value]="dashboardItem.calculateAverage">
-                  <label for="calcAverageCheckbox">
-                    {{'Calculate average' | translate}}
-                  </label>
-                </div>
-              </div>
+<!--              <div class="row ml-1 mb-2">-->
+<!--                <div class="mat-checkbox mb-1">-->
+<!--                  <input id="calcAverageCheckbox" type="checkbox" [checked]="dashboardItem.calculateAverage"-->
+<!--                         (click)="fieldChanged($event.target.checked, itemFields.calculateAverage)"-->
+<!--                         [value]="dashboardItem.calculateAverage">-->
+<!--                  <label for="calcAverageCheckbox">-->
+<!--                    {{'Calculate average' | translate}}-->
+<!--                  </label>-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
           </div>
-<!--          <div class="card z-depth-2 mb-3" style="width: 100%">-->
-<!--            <div class="card-body">-->
-<!--              <ng-container *ngIf="!filterAnswers.length">-->
-<!--                <div class="row ml-1">-->
-<!--                  {{'No answers found to ignore'  | translate}}-->
-<!--                </div>-->
-<!--              </ng-container>-->
-<!--              <ng-container *ngIf="filterAnswers.length > 0">-->
-<!--                <div class="row ml-1 mb-3">-->
-<!--                  {{'Select answer values to ignore in calculation'  | translate}}-->
-<!--                </div>-->
-<!--                <div class="scrollable-block">-->
-<!--                  <div class="row ml-2 mb-2" *ngFor="let answer of filterAnswers">-->
-<!--                    <div class="mat-checkbox mb-1">-->
-<!--                      <input id="answerIgnoreCheckbox{{answer.id}}" type="checkbox" [checked]="isAnswerIgnored(answer.id)"-->
-<!--                             (change)="addToArray($event, answer.id)"-->
-<!--                             [value]="isAnswerIgnored(answer.id)">-->
-<!--                      <label for="answerIgnoreCheckbox{{answer.id}}">-->
-<!--                        {{answer.name}}-->
-<!--                      </label>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </ng-container>-->
+          <div class="card z-depth-2 mb-3" style="width: 100%">
+            <div class="card-body">
+              <ng-container *ngIf="!questionAnswers.length">
+                <div class="row ml-1">
+                  {{'No answers found to ignore'  | translate}}
+                </div>
+              </ng-container>
+              <ng-container *ngIf="questionAnswers.length > 0">
+                <div class="row ml-1 mb-3">
+                  {{'Select answer values to ignore in calculation'  | translate}}
+                </div>
+                <div class="scrollable-block">
+                  <div class="row ml-2 mb-2" *ngFor="let answer of questionAnswers">
+                    <div class="mat-checkbox mb-1">
+                      <input id="answerIgnoreCheckbox{{answer.id}}" type="checkbox" [checked]="isAnswerIgnored(answer.id)"
+                             (change)="addToArray($event, answer.id)"
+                             [value]="isAnswerIgnored(answer.id)">
+                      <label for="answerIgnoreCheckbox{{answer.id}}">
+                        {{answer.name}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
 
-<!--            </div>-->
-<!--          </div>-->
+            </div>
+          </div>
 <!--          <div class="card z-depth-2 mb-3" style="width: 100%">-->
 <!--            <div class="card-body">-->
 <!--              <div class="row ml-1">-->

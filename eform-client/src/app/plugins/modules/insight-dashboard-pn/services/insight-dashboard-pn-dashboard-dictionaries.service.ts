@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {Observable} from 'rxjs';
 import {CommonDictionaryModel, OperationDataResult} from '../../../../common/models';
-import {DashboardItemAnswerRequestModel} from '../models';
+import {DashboardItemAnswerRequestModel, DashboardItemQuestionModel} from '../models';
 
 const DictionariesMethods = {
   GetSurveys: 'api/insight-dashboard-pn/dictionary/surveys',
@@ -20,7 +20,7 @@ export class InsightDashboardPnDashboardDictionariesService extends BaseService 
     super(_http, router, toastrService);
   }
 
-  getQuestions(surveyId: number): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {
+  getQuestions(surveyId: number): Observable<OperationDataResult<Array<DashboardItemQuestionModel>>> {
     return this.get(DictionariesMethods.GetQuestions + '/' + surveyId);
   }
 

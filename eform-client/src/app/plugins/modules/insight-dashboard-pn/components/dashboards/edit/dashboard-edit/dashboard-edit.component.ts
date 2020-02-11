@@ -3,8 +3,7 @@ import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
 import {InsightDashboardPnDashboardDictionariesService, InsightDashboardPnDashboardsService} from '../../../../services';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DashboardEditModel, DashboardItemModel} from '../../../../models';
-import {CommonDictionaryModel} from '../../../../../../../common/models/common';
+import {DashboardEditModel, DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
 import {DragulaService} from 'ng2-dragula';
 import {ToastrService} from 'ngx-toastr';
 
@@ -19,7 +18,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   filterQuestionsSub$: Subscription;
   getDashboardSub$: Subscription;
   dashboardEditModel: DashboardEditModel = new DashboardEditModel();
-  questions: CommonDictionaryModel[] = [];
+  questions: DashboardItemQuestionModel[] = [];
   selectedDashboardId: number;
   spinnerStatus = false;
   dragulaGroupName = 'ITEMS';

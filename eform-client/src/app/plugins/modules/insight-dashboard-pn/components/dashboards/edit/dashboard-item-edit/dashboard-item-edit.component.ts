@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChildren} from '@angular/core';
 import {DashboardChartTypesEnum, DashboardItemFieldsEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
-import {DashboardItemModel} from '../../../../models';
+import {DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
 import {CommonDictionaryModel} from '../../../../../../../common/models/common';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
@@ -16,13 +16,14 @@ import {TranslateService} from '@ngx-translate/core';
 export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('collapse') collapse: any;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
-  @Input() questions: CommonDictionaryModel[] = [];
+  @Input() questions: DashboardItemQuestionModel[] = [];
   @Input() surveyId = 1;
   @Output() addNewItem: EventEmitter<number> = new EventEmitter<number>();
   @Output() copyItem: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() dashboardItemChanged: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() deleteItem: EventEmitter<number> = new EventEmitter<number>();
   filterAnswers: CommonDictionaryModel[] = [];
+  questionAnswers: CommonDictionaryModel[] = [];
   loadAnswersSub$: Subscription;
   filteredQuestions: CommonDictionaryModel[] = [];
   allCharts = [];
@@ -61,13 +62,17 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     this.deleteItem.emit(position);
   }
 
-  loadAnswers() {
+  loadAnswers(isFilter: boolean) {
     this.loadAnswersSub$ = this.dictionariesService.getFilterAnswers({
-      filterQuestionId: this.dashboardItem.filterQuestionId
+      filterQuestionId: isFilter ? this.dashboardItem.filterQuestionId : this.dashboardItem.firstQuestionId
     })
       .subscribe((data) => {
         if (data && data.success) {
-          this.filterAnswers = data.model;
+          if (isFilter) {
+            this.filterAnswers = data.model;
+          } else {
+            this.questionAnswers = data.model;
+          }
         }
       });
   }
@@ -82,7 +87,8 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       // load answers on change fields
       this.dashboardItem[DashboardItemFieldsEnum.firstQuestionId] = currentValue.firstQuestionId;
       this.dashboardItem[DashboardItemFieldsEnum.filterQuestionId] = currentValue.filterQuestionId;
-      this.loadAnswers();
+      this.loadAnswers(true);
+      this.loadAnswers(false);
 
       // change available chart types depends on period
       this.fillChartsOptions(currentValue.period);
@@ -105,26 +111,27 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         // immutable remove element on position to trigger change detection
         const index = this.questions.findIndex(data => data.id === value);
         this.filteredQuestions = [...this.questions.slice(0, index), ...this.questions.slice(index + 1)];
-        this.loadAnswers();
+        this.loadAnswers(true);
+
+        // Load answers to ignore
+        this.loadAnswers(false);
+        this.dashboardItem.ignoredAnswerValues = [];
       }
 
       if (fieldName === DashboardItemFieldsEnum.filterQuestionId) {
         this.dashboardItem[DashboardItemFieldsEnum.filterAnswerId] = null;
-        this.loadAnswers();
+        this.loadAnswers(true);
       }
       // change available chart types depends on period
       if (fieldName === DashboardItemFieldsEnum.period) {
         this.dashboardItem[DashboardItemFieldsEnum.chartType] = null;
 
+        // If total is changed - show only particular charts
         if (value !== DashboardPeriodUnitsEnum.Total) {
           this.availableCharts = [...this.allCharts.slice(0, 0), ...this.allCharts.slice(3)];
         } else {
           this.availableCharts = [...this.allCharts];
         }
-      }
-
-      if (fieldName === DashboardItemFieldsEnum.calculateAverage) {
-
       }
     }
   }
@@ -170,15 +177,16 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   addToArray(e: any, answerId: number) {
+    const foundAnswer = this.dashboardItem.ignoredAnswerValues.find(x => x.answerId === answerId);
     if (e.target.checked) {
-      this.dashboardItem.ignoredAnswerValues.push(answerId);
+      this.dashboardItem.ignoredAnswerValues.push({answerId: answerId, id: foundAnswer ? foundAnswer.id : null});
     } else {
-      this.dashboardItem.ignoredAnswerValues = this.dashboardItem.ignoredAnswerValues.filter(x => x !== answerId);
+      this.dashboardItem.ignoredAnswerValues = this.dashboardItem.ignoredAnswerValues.filter(x => x.answerId !== answerId);
     }
     this.fieldChanged(this.dashboardItem.ignoredAnswerValues, DashboardItemFieldsEnum.ignoredAnswerValues);
   }
 
   isAnswerIgnored(id: number) {
-    return this.dashboardItem.ignoredAnswerValues && this.dashboardItem.ignoredAnswerValues.findIndex(x => x === id) > -1;
+    return this.dashboardItem.ignoredAnswerValues && this.dashboardItem.ignoredAnswerValues.findIndex(x => x.answerId === id) > -1;
   }
 }
