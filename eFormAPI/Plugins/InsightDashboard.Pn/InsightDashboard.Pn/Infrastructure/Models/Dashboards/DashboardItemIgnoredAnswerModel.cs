@@ -24,24 +24,9 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 {
-    using System.Collections.Generic;
-    using Microting.InsightDashboardBase.Infrastructure.Enums;
-
-    public class DashboardItemModel
+    public class DashboardItemIgnoredAnswerModel
     {
         public int? Id { get; set; }
-        public int FirstQuestionId { get; set; }
-        public int? FilterQuestionId { get; set; }
-        public int? FilterAnswerId { get; set; }
-        public DashboardPeriodUnits Period { get; set; }
-        public DashboardChartTypes ChartType { get; set; }
-        public bool CompareEnabled { get; set; }
-        public bool CalculateAverage { get; set; }
-        public int Position { get; set; }
-
-        public List<DashboardItemCompareModel> CompareLocationsTags { get; set; }
-            = new List<DashboardItemCompareModel>();
-        public List<DashboardItemIgnoredAnswerModel> IgnoredAnswerValues { get; set; }
-            = new List<DashboardItemIgnoredAnswerModel>();
+        public int AnswerId { get; set; }
     }
 }

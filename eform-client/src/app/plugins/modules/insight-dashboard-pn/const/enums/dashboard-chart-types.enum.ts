@@ -6,5 +6,6 @@ export enum DashboardChartTypesEnum {
   HorizontalBarGrouped,
   VerticalBar,
   VerticalBarStacked,
-  VerticalBarGrouped
+  VerticalBarGrouped,
+  HorizontalBarStackedGrouped
 }

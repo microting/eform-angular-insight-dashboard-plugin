@@ -15,6 +15,7 @@ export class DashboardChartEditComponent {
 
   single: any[];
   multi: any[];
+  multiStacked: any[];
   pie: any[];
   view: any[] = [700, 400];
 
@@ -26,6 +27,7 @@ export class DashboardChartEditComponent {
     Object.assign(this, {single: line});
     Object.assign(this, {multi});
     Object.assign(this, {pie: single});
+    Object.assign(this, {multiStacked});
   }
 }
 
@@ -296,4 +298,148 @@ const multi = [
       }
     ]
   },
+];
+
+const multiStacked = [
+  {
+    'name': 'October',
+    'series': [
+      {
+        'name': '18',
+        'series': [
+          {
+            'name': 'France',
+            'value': 400,
+            'extra': {
+              'code': 'fr'
+            },
+            'series': '18'
+          },
+          {
+            'name': 'Japan',
+            'value': 600,
+            'extra': {
+              'code': 'jp'
+            },
+            'series': '18'
+          }
+        ]
+      },
+      {
+        'name': '19',
+        'series': [
+          {
+            'name': 'France',
+            'value': 500,
+            'extra': {
+              'code': 'fr'
+            },
+            'series': '19'
+          },
+          {
+            'name': 'Japan',
+            'value': 300,
+            'extra': {
+              'code': 'jp'
+            },
+            'series': '19'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    'name': 'November',
+    'series': [
+      {
+        'name': '18',
+        'series': [
+          {
+            'name': 'France',
+            'value': 300,
+            'extra': {
+              'code': 'fr'
+            },
+            'series': '18'
+          },
+          {
+            'name': 'Japan',
+            'value': 100,
+            'extra': {
+              'code': 'jp'
+            },
+            'series': '18'
+          }
+        ]
+      },
+      {
+        'name': '19',
+        'series': [
+          {
+            'name': 'France',
+            'value': 100,
+            'extra': {
+              'code': 'fr'
+            },
+            'series': '19'
+          },
+          {
+            'name': 'Japan',
+            'value': 50,
+            'extra': {
+              'code': 'jp'
+            },
+            'series': '19'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    'name': 'Dezember',
+    'series': [
+      {
+        'name': '18',
+        'series': [
+          {
+            'name': 'France',
+            'value': 800,
+            'extra': {
+              'code': 'fr'
+            },
+            'series': '18'
+          },
+          {
+            'name': 'Japan',
+            'value': 1300,
+            'extra': {
+              'code': 'jp'
+            },
+            'series': '18'
+          }
+        ]
+      },
+      {
+        'name': '19',
+        'series': [
+          {
+            'name': 'France',
+            'value': 110,
+            'extra': {
+              'code': 'fr'
+            },
+            'series': '19'
+          },
+          {
+            'name': 'Japan',
+            'value': 490,
+            'extra': {
+              'code': 'jp'
+            },
+            'series': '19'
+          }
+        ]
+      }
+    ]
+  }
 ];

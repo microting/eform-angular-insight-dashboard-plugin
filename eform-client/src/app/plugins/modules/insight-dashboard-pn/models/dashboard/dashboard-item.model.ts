@@ -4,13 +4,11 @@ import {DashboardItemCompareModel} from './dashboard-item-compare.model';
 export class DashboardItemModel {
   id: number;
   firstQuestionId: number;
-  firstQuestionName: string;
   filterQuestionId: number;
-  filterQuestionName: string;
   filterAnswerId: number;
   collapsed: boolean;
   filterAnswerName: string;
-  ignoredAnswerValues: number[];
+  ignoredAnswerValues: DashboardItemIgnoredAnswerModel[];
   period: DashboardPeriodUnitsEnum;
   chartType: DashboardChartTypesEnum;
 
@@ -20,4 +18,9 @@ export class DashboardItemModel {
   calculateAverage: boolean;
 
   position: number;
+}
+
+export class DashboardItemIgnoredAnswerModel {
+  id: number | null;
+  answerId: number;
 }

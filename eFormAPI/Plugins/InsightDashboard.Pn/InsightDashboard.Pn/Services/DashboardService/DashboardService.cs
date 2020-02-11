@@ -262,8 +262,10 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     {
                         var dashboard = await _dbContext.Dashboards
                             .Include(x => x.DashboardItems)
+                            .ThenInclude(x => x.CompareLocationsTags)
+                            .Include(x => x.DashboardItems)
+                            .ThenInclude(x => x.IgnoredAnswerValues)
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
                             .FirstOrDefaultAsync(x => x.Id == dashboardId);
 
                         if (dashboard == null)
@@ -285,7 +287,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                         await newDashboard.Create(_dbContext);
 
-                        foreach (var dashboardItem in dashboard.DashboardItems)
+                        foreach (var dashboardItem in dashboard
+                            .DashboardItems
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed))
                         {
                             var newDashboardItem = new DashboardItem
                             {
@@ -298,9 +302,45 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 FirstQuestionId = dashboardItem.FirstQuestionId,
                                 Period = dashboardItem.Period,
                                 Position = dashboardItem.Position,
+                                CalculateAverage = dashboardItem.CalculateAverage,
+                                CompareEnabled = dashboardItem.CompareEnabled,
                             };
 
                             await newDashboardItem.Save(_dbContext);
+
+                            // Compare
+                            foreach (var dashboardItemCompare in dashboardItem.CompareLocationsTags.Where(x =>
+                                x.WorkflowState != Constants.WorkflowStates.Removed))
+                            {
+                                var newDashboardItemCompare = new DashboardItemCompare
+                                {
+                                    CreatedByUserId = UserId,
+                                    UpdatedByUserId = UserId,
+                                    DashboardItemId = newDashboardItem.Id,
+                                    LocationId = dashboardItemCompare.LocationId,
+                                    Position = dashboardItemCompare.Position,
+                                    TagId = dashboardItemCompare.TagId,
+                                };
+
+                                await newDashboardItemCompare.Save(_dbContext);
+                            }
+
+                            // Ignore
+                            foreach (var dashboardItemIgnoredAnswer in dashboardItem
+                                .IgnoredAnswerValues
+                                .Where(x =>
+                                    x.WorkflowState != Constants.WorkflowStates.Removed))
+                            {
+                                var newDashboardItemIgnoredAnswer = new DashboardItemIgnoredAnswer
+                                {
+                                    CreatedByUserId = UserId,
+                                    UpdatedByUserId = UserId,
+                                    DashboardItemId = newDashboardItem.Id,
+                                    AnswerId = dashboardItemIgnoredAnswer.AnswerId,
+                                };
+
+                                await newDashboardItemIgnoredAnswer.Save(_dbContext);
+                            }
                         }
 
                         transaction.Commit();
@@ -334,6 +374,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     {
                         var dashboard = await _dbContext.Dashboards
                             .Include(x => x.DashboardItems)
+                            .ThenInclude(x => x.CompareLocationsTags)
+                            .Include(x => x.DashboardItems)
+                            .ThenInclude(x => x.IgnoredAnswerValues)
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .FirstOrDefaultAsync(x => x.Id == editModel.Id);
 
@@ -372,6 +415,18 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         // Remove
                         foreach (var dashboardItem in forDelete)
                         {
+                            foreach (var dashboardItemCompareLocationsTag in dashboardItem.CompareLocationsTags.Where(
+                                x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                            {
+                                await dashboardItemCompareLocationsTag.Delete(_dbContext);
+                            }
+
+                            foreach (var dashboardItemIgnoredAnswerValue in dashboardItem.IgnoredAnswerValues.Where(x =>
+                                x.WorkflowState != Constants.WorkflowStates.Removed))
+                            {
+                                await dashboardItemIgnoredAnswerValue.Delete(_dbContext);
+                            }
+
                             await dashboardItem.Delete(_dbContext);
                         }
 
@@ -391,8 +446,78 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 dashboardItem.FirstQuestionId = dashboardItemModel.FirstQuestionId;
                                 dashboardItem.Period = dashboardItemModel.Period;
                                 dashboardItem.Position = dashboardItemModel.Position;
+                                dashboardItem.CalculateAverage = dashboardItemModel.CalculateAverage;
+                                dashboardItem.CompareEnabled = dashboardItemModel.CompareEnabled;
 
                                 await dashboardItem.Update(_dbContext);
+
+                                // Compare
+                                var compareItemsIds = dashboardItemModel.CompareLocationsTags
+                                    .Where(x => x.Id != null)
+                                    .Select(x => x.Id)
+                                    .ToArray();
+
+                                var compareForDelete = dashboardItem.CompareLocationsTags
+                                    .Where(x => !compareItemsIds.Contains(x.Id))
+                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .ToList();
+
+                                var compareForCreate = dashboardItemModel.CompareLocationsTags
+                                    .Where(x => x.Id == null)
+                                    .ToList();
+
+                                foreach (var dashboardItemCompare in compareForDelete)
+                                {
+                                    await dashboardItemCompare.Delete(_dbContext);
+                                }
+
+                                foreach (var dashboardItemCompareModel in compareForCreate)
+                                {
+                                    var dashboardItemCompare = new DashboardItemCompare
+                                    {
+                                        CreatedByUserId = UserId,
+                                        UpdatedByUserId = UserId,
+                                        DashboardItemId = dashboardItem.Id,
+                                        Position = dashboardItemCompareModel.Position,
+                                        LocationId = dashboardItemCompareModel.LocationId,
+                                        TagId = dashboardItemCompareModel.TagId,
+                                    };
+
+                                    await dashboardItemCompare.Save(_dbContext);
+                                }
+
+                                // Ignore
+                                var ignoreItemsIds = dashboardItemModel.IgnoredAnswerValues
+                                    .Where(x => x.Id != null)
+                                    .Select(x => x.Id)
+                                    .ToArray();
+
+                                var ignoreForDelete = dashboardItem.IgnoredAnswerValues
+                                    .Where(x => !ignoreItemsIds.Contains(x.Id))
+                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .ToList();
+
+                                var ignoreForCreate = dashboardItemModel.IgnoredAnswerValues
+                                    .Where(x => x.Id == null)
+                                    .ToList();
+
+                                foreach (var dashboardItemIgnoredAnswer in ignoreForDelete)
+                                {
+                                    await dashboardItemIgnoredAnswer.Delete(_dbContext);
+                                }
+
+                                foreach (var dashboardItemIgnoredAnswerModel in ignoreForCreate)
+                                {
+                                    var dashboardItemIgnoredAnswer = new DashboardItemIgnoredAnswer
+                                    {
+                                        CreatedByUserId = UserId,
+                                        UpdatedByUserId = UserId,
+                                        DashboardItemId = dashboardItem.Id,
+                                        AnswerId = dashboardItemIgnoredAnswerModel.AnswerId,
+                                    };
+
+                                    await dashboardItemIgnoredAnswer.Save(_dbContext);
+                                }
                             }
                         }
 
@@ -409,9 +534,41 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 FirstQuestionId = dashboardItemModel.FirstQuestionId,
                                 Period = dashboardItemModel.Period,
                                 Position = dashboardItemModel.Position,
+                                CalculateAverage = dashboardItemModel.CalculateAverage,
+                                CompareEnabled = dashboardItemModel.CompareEnabled,
                             };
 
                             await dashboardItem.Save(_dbContext);
+
+                            // Compare
+                            foreach (var dashboardItemCompareModel in dashboardItemModel.CompareLocationsTags)
+                            {
+                                var dashboardItemCompare = new DashboardItemCompare
+                                {
+                                    CreatedByUserId = UserId,
+                                    UpdatedByUserId = UserId,
+                                    DashboardItemId = dashboardItem.Id,
+                                    LocationId = dashboardItemCompareModel.LocationId,
+                                    Position = dashboardItemCompareModel.Position,
+                                    TagId = dashboardItemCompareModel.TagId,
+                                };
+
+                                await dashboardItemCompare.Save(_dbContext);
+                            }
+
+                            // Ignore
+                            foreach (var dashboardItemIgnoredAnswerModel in dashboardItemModel.IgnoredAnswerValues)
+                            {
+                                var dashboardItemIgnoredAnswer = new DashboardItemIgnoredAnswer
+                                {
+                                    CreatedByUserId = UserId,
+                                    UpdatedByUserId = UserId,
+                                    DashboardItemId = dashboardItem.Id,
+                                    AnswerId = dashboardItemIgnoredAnswerModel.AnswerId,
+                                };
+
+                                await dashboardItemIgnoredAnswer.Save(_dbContext);
+                            }
                         }
 
 
@@ -446,6 +603,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     {
                         var dashboard = await _dbContext.Dashboards
                             .Include(x => x.DashboardItems)
+                            .ThenInclude(x => x.CompareLocationsTags)
+                            .Include(x => x.DashboardItems)
+                            .ThenInclude(x => x.IgnoredAnswerValues)
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .FirstOrDefaultAsync(x => x.Id == dashboardId);
 
@@ -456,8 +616,21 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 _localizationService.GetString("DashboardNotFound"));
                         }
 
-                        foreach (var dashboardItem in dashboard.DashboardItems)
+                        foreach (var dashboardItem in dashboard.DashboardItems.Where(x =>
+                            x.WorkflowState != Constants.WorkflowStates.Removed))
                         {
+                            foreach (var dashboardItemCompareLocationsTag in dashboardItem.CompareLocationsTags.Where(
+                                x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                            {
+                                await dashboardItemCompareLocationsTag.Delete(_dbContext);
+                            }
+
+                            foreach (var dashboardItemIgnoredAnswerValue in dashboardItem.IgnoredAnswerValues.Where(x =>
+                                x.WorkflowState != Constants.WorkflowStates.Removed))
+                            {
+                                await dashboardItemIgnoredAnswerValue.Delete(_dbContext);
+                            }
+
                             await dashboardItem.Delete(_dbContext);
                         }
 
@@ -491,6 +664,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 var core = await _coreHelper.GetCore();
                 var dashboard = await _dbContext.Dashboards
                     .Include(x => x.DashboardItems)
+                    .ThenInclude(x => x.IgnoredAnswerValues)
+                    .Include(x => x.DashboardItems)
+                    .ThenInclude(x => x.CompareLocationsTags)
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
                     .FirstOrDefaultAsync(x => x.Id == dashboardId);
@@ -545,6 +721,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         Position = dashboardItem.Position,
                         Period = dashboardItem.Period,
                         ChartType = dashboardItem.ChartType,
+                        CalculateAverage = dashboardItem.CalculateAverage,
+                        CompareEnabled = dashboardItem.CompareEnabled,
                     };
 
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
@@ -654,6 +832,17 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         {
                             answerQueryable = answerQueryable
                                 .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                        }
+
+                        if (dashboardItem.IgnoredAnswerValues
+                            .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                        {
+                            var optionIds = dashboardItem.IgnoredAnswerValues
+                                .Select(x => x.AnswerId)
+                                .ToArray();
+
+                            answerQueryable = answerQueryable
+                                .Where(x => !optionIds.Contains(x.OptionId));
                         }
 
                         if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
@@ -899,6 +1088,26 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 FirstQuestionId = i.FirstQuestionId,
                                 Period = i.Period,
                                 Position = i.Position,
+                                CalculateAverage = i.CalculateAverage,
+                                CompareEnabled = i.CompareEnabled,
+                                CompareLocationsTags = i.CompareLocationsTags
+                                    .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Select(l => new DashboardItemCompareModel
+                                    {
+                                        Id = l.Id,
+                                        LocationId = l.LocationId,
+                                        TagId = l.TagId,
+                                        Position = l.Position,
+                                    })
+                                    .OrderBy(l => l.Position)
+                                    .ToList(),
+                                IgnoredAnswerValues = i.IgnoredAnswerValues
+                                    .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Select(l => new DashboardItemIgnoredAnswerModel
+                                    {
+                                        Id = l.Id,
+                                        AnswerId = l.AnswerId,
+                                    }).ToList(),
                             })
                             .OrderBy(i => i.Position)
                             .ToList(),
