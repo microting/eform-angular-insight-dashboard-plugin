@@ -1,47 +1,47 @@
 #!/bin/bash
 
-if [ ! -d "/var/www/microting/eform-angular-monitoring-plugin" ]; then
+if [ ! -d "/var/www/microting/eform-angular-insight-dashboard-plugin" ]; then
   cd /var/www/microting
   su ubuntu -c \
-  "git clone https://github.com/microting/eform-angular-monitoring-plugin.git -b stable"
+  "git clone https://github.com/microting/eform-angular-insight-dashboard-plugin.git -b stable"
 fi
 
-cd /var/www/microting/eform-angular-monitoring-plugin
+cd /var/www/microting/eform-angular-insight-dashboard-plugin
 su ubuntu -c \
-"dotnet restore eFormAPI/Plugins/Monitoring.Pn/Monitoring.Pn.sln"
+"dotnet restore eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln"
 
 echo "################## START GITVERSION ##################"
 export GITVERSION=`git describe --abbrev=0 --tags | cut -d "v" -f 2`
 echo $GITVERSION
 echo "################## END GITVERSION ##################"
 su ubuntu -c \
-"dotnet publish eFormAPI/Plugins/Monitoring.Pn/Monitoring.Pn.sln -o out /p:Version=$GITVERSION --runtime linux-x64 --configuration Release"
+"dotnet publish eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln -o out /p:Version=$GITVERSION --runtime linux-x64 --configuration Release"
 
-if [ -d "/var/www/microting/eform-angular-frontend/eform-client/src/app/plugins/modules/monitoring-pn" ]; then
+if [ -d "/var/www/microting/eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn" ]; then
 	su ubuntu -c \
-	"rm -fR /var/www/microting/eform-angular-frontend/eform-client/src/app/plugins/modules/monitoring-pn"
+	"rm -fR /var/www/microting/eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn"
 fi
 
 su ubuntu -c \
-"cp -av /var/www/microting/eform-angular-monitoring-plugin/eform-client/src/app/plugins/modules/monitoring-pn /var/www/microting/eform-angular-frontend/eform-client/src/app/plugins/modules/monitoring-pn"
+"cp -av /var/www/microting/eform-angular-insight-dashboard-plugin/eform-client/src/app/plugins/modules/insight-dashboard-pn /var/www/microting/eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn"
 su ubuntu -c \
 "mkdir -p /var/www/microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/out/Plugins/"
 
-if [ -d "/var/www/microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/out/Plugins/Monitoring" ]; then
+if [ -d "/var/www/microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/out/Plugins/InsightDashboard" ]; then
 	su ubuntu -c \
-	"rm -fR /var/www/microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/out/Plugins/Monitoring"
+	"rm -fR /var/www/microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/out/Plugins/InsightDashboard"
 fi
 
 su ubuntu -c \
-"cp -av /var/www/microting/eform-angular-monitoring-plugin/eFormAPI/Plugins/Monitoring.Pn/Monitoring.Pn/out /var/www/microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/out/Plugins/Monitoring"
+"cp -av /var/www/microting/eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/out /var/www/microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/out/Plugins/InsightDashboard"
 
 
 echo "Recompile angular"
 cd /var/www/microting/eform-angular-frontend/eform-client
 su ubuntu -c \
-"/var/www/microting/eform-angular-monitoring-plugin/testinginstallpn.sh"
+"/var/www/microting/eform-angular-insight-dashboard-plugin/testinginstallpn.sh"
 su ubuntu -c \
-"npm run build"
+"GENERATE_SOURCEMAP=false npm run build"
 echo "Recompiling angular done"
 
 
