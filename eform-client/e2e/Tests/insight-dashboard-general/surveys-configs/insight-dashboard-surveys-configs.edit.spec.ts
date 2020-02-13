@@ -14,18 +14,20 @@ describe('Insight Dashboard - Survey Configs - Edit', function () {
   });
   it('Should not update survey config', function () {
     const surveyConfig = surveyConfigsPage.getSurveyConfig(surveyConfigsPage.rowNum);
-    const locationsBeforeUpdate = surveyConfig.locations.length;
+    const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
     browser.pause(8000);
     browser.waitForVisible('#createSurveyConfigBtn', 30000);
     surveyConfigsPage.updateSurveyConfig_Cancels(surveyConfig);
-    expect(surveyConfig.locations.length).equal(locationsBeforeUpdate);
+    const locationsAfterUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
+    expect(locationsAfterUpdate).equal(locationsBeforeUpdate);
   });
   it('Should update survey config', function () {
     const surveyConfig = surveyConfigsPage.getSurveyConfig(surveyConfigsPage.rowNum);
-    const locationsBeforeUpdate = surveyConfig.locations.length;
+    const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
     browser.pause(8000);
     browser.waitForVisible('#createSurveyConfigBtn', 30000);
     surveyConfigsPage.updateSurveyConfig(surveyConfig);
-    expect(surveyConfig.locations.length).equal(locationsBeforeUpdate);
+    const locationsAfterUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
+    expect(locationsAfterUpdate).equal(locationsBeforeUpdate);
   });
 });
