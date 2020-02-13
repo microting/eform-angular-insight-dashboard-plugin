@@ -46,8 +46,9 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
-                [placeholder]="'Select First Question' | translate"
+                [placeholder]="('Select First Question' | translate) + ' *'"
                 [ngModel]="dashboardItem.firstQuestionId"
+                [required]="true"
                 [clearable]="false"
                 (ngModelChange)="fieldChanged($event, itemFields.firstQuestionId)"
                 [items]="questions"></ng-select>
@@ -75,7 +76,7 @@
                 [clearable]="false"
                 [disabled]="!dashboardItem.firstQuestionId"
                 (ngModelChange)="fieldChanged($event, itemFields.period)"
-                [placeholder]="'Select Period Unit' | translate"
+                [placeholder]="('Select Period Unit' | translate) + ' *'"
                 [items]="[
                   {id: periodUnits.Week, name: periodUnits[periodUnits.Week] | translate},
                   {id: periodUnits.Month, name: periodUnits[periodUnits.Month] | translate},
@@ -159,7 +160,8 @@
                 [ngModel]="dashboardItem.chartType"
                 [disabled]="!dashboardItem.firstQuestionId"
                 (ngModelChange)="fieldChanged($event, itemFields.chartType)"
-                [placeholder]="'Select Chart' | translate"
+                [placeholder]="('Select Chart' | translate) + ' *'"
+                [required]="true"
                 [items]="availableCharts"></ng-select>
               <app-dashboard-chart-edit [chartType]="dashboardItem.chartType" *ngIf="dashboardItem.chartType">
               </app-dashboard-chart-edit>

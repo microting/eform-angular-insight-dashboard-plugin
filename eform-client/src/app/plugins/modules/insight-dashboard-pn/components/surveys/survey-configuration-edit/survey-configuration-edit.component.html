@@ -13,7 +13,7 @@
                        bindValue="id"
                        [clearable]="false"
                        [(ngModel)]="selectedSurveyConfig.surveyId"
-                       id="selectSurvey">
+                       id="selectSurveyEdit">
             </ng-select>
           </div>
         </div>
@@ -28,7 +28,7 @@
                       <input id="checkbox{{location.id}}" (change)="addToArray($event, location.id)"
                              [checked]="location.isChecked" [value]="location.isChecked" color="primary"
                              type="checkbox">
-                      <label for="checkbox{{location.id}}">{{location.name}}</label>
+                      <label for="checkbox{{location.id}}" id="checkboxEdit{{location.id}}">{{location.name}}</label>
                     </div>
                   </div>
                 </div>

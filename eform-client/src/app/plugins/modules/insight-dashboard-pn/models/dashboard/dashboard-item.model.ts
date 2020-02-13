@@ -4,9 +4,9 @@ import {DashboardItemCompareModel} from './dashboard-item-compare.model';
 export class DashboardItemModel {
   id: number;
   firstQuestionId: number;
+  isFirstQuestionSmiley: boolean;
   filterQuestionId: number;
   filterAnswerId: number;
-  collapsed: boolean;
   filterAnswerName: string;
   ignoredAnswerValues: DashboardItemIgnoredAnswerModel[];
   period: DashboardPeriodUnitsEnum;
@@ -18,6 +18,10 @@ export class DashboardItemModel {
   calculateAverage: boolean;
 
   position: number;
+
+  // Helper fields
+  collapsed: boolean;
+
 }
 
 export class DashboardItemIgnoredAnswerModel {
