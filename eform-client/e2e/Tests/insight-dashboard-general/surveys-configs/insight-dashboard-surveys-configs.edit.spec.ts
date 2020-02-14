@@ -1,9 +1,7 @@
 import {expect} from 'chai';
 import loginPage from '../../../Page objects/Login.page';
 import insightDashboardPage from '../../../Page objects/InsightDashboard/InsightDashboard.page';
-import surveyConfigsPage from '../../../Page objects/InsightDashboard/InsightDashboard-SurveysConfigs.page';
-
-const configName = 'Test-Set';
+import surveyConfigsPage, {configName} from '../../../Page objects/InsightDashboard/InsightDashboard-SurveysConfigs.page';
 
 describe('Insight Dashboard - Survey Configs - Edit', function () {
   before(function () {
