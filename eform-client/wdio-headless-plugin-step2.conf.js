@@ -13,7 +13,10 @@ exports.config = {
     'e2e/Tests/insight-dashboard-settings/application-settings.plugins-page.spec.ts',
     'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.add.spec.ts',
     'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.edit.spec.ts',
-    'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.delete.spec.ts'
+    'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.delete.spec.ts',
+    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.add.spec.ts',
+    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.delete.spec.ts',
+    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.copy.spec.ts'
   ],
   suites: {
     settings: [
