@@ -896,6 +896,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 Finished = x.Answer.FinishedAt,
                                 LocationName = x.Answer.Site.Name,
                                 LocationId = x.Answer.SiteId,
+                                Weight = x.Option.WeightValue,
                             }).ToList();
 
                         List<string> lines;
@@ -960,8 +961,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                             .Select(i => new DashboardViewChartDataSingleModel
                                                             {
                                                                 Name = i.Key,
-                                                                Value = Math.Round(
-                                                                    ((decimal) i.Count() * 100) / y.Count(), 2),
+                                                                Value = dashboardItem.CalculateAverage
+                                                                    ? (decimal) y.Average(k => k.Weight)
+                                                                    : Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
                                                             }).ToList(),
                                                        
                                                     })
@@ -979,7 +981,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                     .Select(y => new DashboardViewChartDataSingleModel
                                                     {
                                                         Name = y.Key,
-                                                        Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        Value = dashboardItem.CalculateAverage
+                                                            ? (decimal)y.Average(k => k.Weight)
+                                                            : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
                                                     })
                                                     .OrderBy(y => y.Name)
                                                     .ToList(),
@@ -1107,14 +1111,18 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     lineData.Add(multiItem);
                                 }
                                 multiStackedData =
-                                    ChartDateHelpers.SortLocationPosition(multiStackedData, dashboardItem);
+                                    ChartDateHelpers.SortLocationPosition(
+                                        multiStackedData,
+                                        dashboardItem);
                                 dashboardItemModel.ChartData.Multi.AddRange(lineData);
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }
                             else
                             {
                                 multiStackedData =
-                                    ChartDateHelpers.SortLocationPosition(multiStackedData, dashboardItem);
+                                    ChartDateHelpers.SortLocationPosition(
+                                        multiStackedData,
+                                        dashboardItem);
                                 dashboardItemModel.ChartData.Multi.AddRange(multiData);
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }
