@@ -940,9 +940,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             switch (dashboardItemModel.Period)
                             {
                                 case DashboardPeriodUnits.Week:
-                                    var consignmentsByWeek = from con in data
-                                        group con by ChartDateHelpers.GetWeekString(con.Finished);
-
                                     if (isStackedData)
                                     {
                                         multiStackedData = data
@@ -950,12 +947,12 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                             .Select(x => new DashboardViewChartDataMultiStackedModel
                                             {
                                                 Id = x.Select(i => i.LocationId).FirstOrDefault(),
-                                                Name = x.Key.ToString(),
+                                                Name = x.Key.ToString(), // Location name
                                                 Series = x
                                                     .GroupBy(y => ChartDateHelpers.GetWeekString(y.Finished))
                                                     .Select(y => new DashboardViewChartDataMultiModel
                                                     {
-                                                        Name = y.Key,
+                                                        Name = y.Key, // Week name
                                                         Series = y
                                                             .GroupBy(g => g.Name)
                                                             .Select(i => new DashboardViewChartDataSingleModel
@@ -973,7 +970,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     }
                                     else
                                     {
-                                        multiData = consignmentsByWeek
+                                        multiData = data
+                                            .GroupBy(x => ChartDateHelpers.GetWeekString(x.Finished))
                                             .Select(x => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = x.Key.ToString(),
