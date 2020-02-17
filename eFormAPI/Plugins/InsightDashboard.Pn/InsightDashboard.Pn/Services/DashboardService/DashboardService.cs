@@ -816,8 +816,21 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             case DashboardChartTypes.VerticalBarGrouped:
                                 singleData = false;
                                 break;
+                            case DashboardChartTypes.GroupedStackedBarChart:
+                                singleData = false;
+                                break;
                             default:
                                 throw new ArgumentOutOfRangeException();
+                        }
+
+                        bool isStackedData;
+                        if (dashboardItem.ChartType == DashboardChartTypes.Line || dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)
+                        {
+                            isStackedData = true;
+                        }
+                        else
+                        {
+                            isStackedData = false;
                         }
 
                         var answerQueryable = sdkContext.answer_values
@@ -828,10 +841,23 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         answerQueryable = answerQueryable
                             .Where(x => x.Answer.QuestionSetId == dashboard.SurveyId);
 
-                        if (dashboard.LocationId != null)
+                        if (dashboardItem.CompareEnabled)
                         {
+                            var siteIds = dashboardItem.CompareLocationsTags
+                                .Where(x => x.LocationId != null)
+                                .Select(x => (int)x.LocationId)
+                                .ToList();
+
                             answerQueryable = answerQueryable
-                                .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                                .Where(x => siteIds.Contains(x.Answer.SiteId));
+                        }
+                        else
+                        {
+                            if (dashboard.LocationId != null)
+                            {
+                                answerQueryable = answerQueryable
+                                    .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                            }
                         }
 
                         if (dashboardItem.IgnoredAnswerValues
@@ -863,20 +889,31 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
                         }
 
-
-
                         var data = answerQueryable
                             .Select(x => new
                             {
                                 Name = x.Value,
                                 Finished = x.Answer.FinishedAt,
+                                LocationName = x.Answer.Site.Name,
                             }).ToList();
 
-                        var lines = data
-                            .GroupBy(x => x.Name)
-                            .OrderBy(x => x.Key)
-                            .Select(x => x.Key)
-                            .ToList();
+                        List<string> lines;
+                        if (dashboardItem.CompareEnabled)
+                        {
+                            lines = data
+                                .GroupBy(x => x.LocationName)
+                                .OrderBy(x => x.Key)
+                                .Select(x => x.Key)
+                                .ToList();
+                        }
+                        else
+                        {
+                            lines = data
+                                .GroupBy(x => x.Name)
+                                .OrderBy(x => x.Key)
+                                .Select(x => x.Key)
+                                .ToList();
+                        }
 
                         if (singleData)
                         {
@@ -897,25 +934,57 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         else
                         {
                             var multiData = new List<DashboardViewChartDataMultiModel>();
+                            var multiStackedData = new List<DashboardViewChartDataMultiStackedModel>();
                             switch (dashboardItemModel.Period)
                             {
                                 case DashboardPeriodUnits.Week:
                                     var consignmentsByWeek = from con in data
                                         group con by ChartDateHelpers.GetWeekString(con.Finished);
 
-                                    multiData = consignmentsByWeek
-                                        .Select(x => new DashboardViewChartDataMultiModel
-                                        {
-                                            Name = x.Key.ToString(),
-                                            Series = x.GroupBy(y => y.Name)
-                                                .Select(y => new DashboardViewChartDataSingleModel
-                                                {
-                                                    Name = y.Key,
-                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
-                                                })
-                                                .OrderBy(y => y.Name)
-                                                .ToList(),
-                                        }).ToList();
+                                    var consignmentsByWeekStacked = from con in data
+                                        group con by ChartDateHelpers.GetWeekString(con.Finished);
+
+                                    if (isStackedData)
+                                    {
+                                        multiStackedData = data
+                                            .GroupBy(x => x.LocationName)
+                                            .Select(x => new DashboardViewChartDataMultiStackedModel
+                                            {
+                                                Name = x.Key.ToString(),
+                                                Series = x
+                                                    .GroupBy(y => ChartDateHelpers.GetWeekString(y.Finished))
+                                                    .Select(y => new DashboardViewChartDataMultiModel
+                                                    {
+                                                        Name = y.Key,
+                                                        Series = y
+                                                            .GroupBy(g => g.Name)
+                                                            .Select(i => new DashboardViewChartDataSingleModel
+                                                            {
+                                                                Value = Math.Round(
+                                                                    ((decimal) i.Count() * 100) / y.Count(), 2),
+                                                            }).ToList(),
+                                                       
+                                                    })
+                                                    .OrderBy(y => y.Name)
+                                                    .ToList(),
+                                            }).ToList();
+                                    }
+                                    else
+                                    {
+                                        multiData = consignmentsByWeek
+                                            .Select(x => new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = x.Key.ToString(),
+                                                Series = x.GroupBy(y => y.Name)
+                                                    .Select(y => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = y.Key,
+                                                        Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                    })
+                                                    .OrderBy(y => y.Name)
+                                                    .ToList(),
+                                            }).ToList();
+                                    }
                                     break;
                                 case DashboardPeriodUnits.Month:
                                     multiData = data
@@ -1042,6 +1111,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             else
                             {
                                 dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                                dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }
                         }
                     }
