@@ -30,6 +30,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
     using System.Linq;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
+    using Infrastructure.Models;
     using Infrastructure.Models.Dashboards;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
@@ -113,7 +114,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             }
         }
 
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetQuestions(int surveyId)
+        public async Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId)
         {
             try
             {
@@ -121,7 +122,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var languages = await sdkContext.languages.ToListAsync();
-                    var questionsResult = new List<CommonDictionaryModel>();
+                    var questionsResult = new List<QuestionDictionaryModel>();
                     foreach (var language in languages)
                     {
                         // TODO take by language
@@ -129,9 +130,10 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.QuestionSetId == surveyId)
-                            .Select(x => new CommonDictionaryModel()
+                            .Select(x => new QuestionDictionaryModel()
                             {
                                 Id = x.Id,
+                                IsSmiley = x.IsSmiley(),
                                 Name = x.QuestionTranslationses
                                     .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
                                     .Where(qt => qt.Language.Id == language.Id)
@@ -146,7 +148,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                         }
                     }
 
-                    return new OperationDataResult<List<CommonDictionaryModel>>(
+                    return new OperationDataResult<List<QuestionDictionaryModel>>(
                         true,
                         questionsResult);
                 }
@@ -155,7 +157,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
-                return new OperationDataResult<List<CommonDictionaryModel>>(false,
+                return new OperationDataResult<List<QuestionDictionaryModel>>(false,
                     _localizationService.GetString("ErrorWhileObtainingQuestions"));
             }
         }

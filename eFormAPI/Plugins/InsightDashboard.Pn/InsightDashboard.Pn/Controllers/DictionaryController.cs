@@ -26,6 +26,7 @@ namespace InsightDashboard.Pn.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Infrastructure.Models;
     using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -59,7 +60,7 @@ namespace InsightDashboard.Pn.Controllers
 
         [HttpGet]
         [Route("api/insight-dashboard-pn/dictionary/questions/{surveyId}")]
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetQuestions(int surveyId)
+        public async Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId)
         {
             return await _dictionaryService.GetQuestions(surveyId);
         }

@@ -12,7 +12,7 @@
                        [placeholder]="'Select survey' | translate"
                        bindValue="id"
                        [(ngModel)]="selectedSurveyId"
-                       id="selectSurvey">
+                       id="selectSurveyCreate">
             </ng-select>
           </div>
         </div>
@@ -23,10 +23,10 @@
               <ng-container *ngFor="let location of locations">
                 <div class="row">
                   <div class="col">
-                    <div class="mat-checkbox">
-                      <input id="checkbox-new{{location.id}}" (change)="addToArray($event, location.id)"
+                    <div class="mat-checkbox" id="checkboxCreate{{location.id}}">
+                      <input id="checkbox{{location.id}}" (change)="addToArray($event, location.id)"
                              color="primary" type="checkbox">
-                      <label for="checkbox-new{{location.id}}">{{location.name}}</label>
+                      <label for="checkbox{{location.id}}">{{location.name}}</label>
                     </div>
                   </div>
                 </div>

@@ -10,7 +10,10 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-      'e2e/Tests/insight-dashboard-settings/application-settings.plugins-page.spec.ts'
+      'e2e/Tests/insight-dashboard-settings/application-settings.plugins-page.spec.ts',
+      'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.add.spec.ts',
+      'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.edit.spec.ts',
+      'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.delete.spec.ts'
     ],
     suites: {
         settings: [

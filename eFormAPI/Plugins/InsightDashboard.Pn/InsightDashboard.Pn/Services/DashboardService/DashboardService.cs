@@ -1146,6 +1146,19 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             .Select(x => x.Name)
                             .FirstOrDefaultAsync();
                     }
+
+                    foreach (var dashboardItemModel in dashboard.Items)
+                    {
+                        var question = await sdkContext.questions
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.Id == dashboardItemModel.FirstQuestionId)
+                            .FirstOrDefaultAsync();
+
+                        if (question != null)
+                        {
+                            dashboardItemModel.IsFirstQuestionSmiley = question.IsSmiley();
+                        }
+                    }
                 }
 
                 return new OperationDataResult<DashboardEditModel>(
