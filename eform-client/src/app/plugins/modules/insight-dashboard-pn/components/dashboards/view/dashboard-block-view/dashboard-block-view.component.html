@@ -25,17 +25,18 @@
           </p>
           <p>
             <strong>{{'Ignored values' | translate}}: </strong>
-<!--            {{itemModel.filterAnswerName ? itemModel.filterAnswerName : '&#45;&#45;'}}-->
+            <!--            {{itemModel.filterAnswerName ? itemModel.filterAnswerName : '&#45;&#45;'}}-->
           </p>
           <p>
             <strong>{{'Compared locations/tags' | translate}}: </strong>
-<!--            {{itemModel.filterAnswerName ? itemModel.filterAnswerName : '&#45;&#45;'}}-->
+            <!--            {{itemModel.filterAnswerName ? itemModel.filterAnswerName : '&#45;&#45;'}}-->
           </p>
         </div>
       </div>
 
       <div class="d-flex justify-content-center flex-column">
-        <app-dashboard-chart-view [chartType]="itemModel.chartType" [chartData]="itemModel.chartData">
+        <app-dashboard-chart-view [chartPosition]="position" [chartType]="itemModel.chartType"
+                                  [chartData]="itemModel.chartData">
         </app-dashboard-chart-view>
       </div>
     </div>

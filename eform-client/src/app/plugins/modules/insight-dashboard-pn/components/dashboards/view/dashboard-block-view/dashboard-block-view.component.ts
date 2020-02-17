@@ -8,6 +8,7 @@ import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-vie
   styleUrls: ['./dashboard-block-view.component.scss']
 })
 export class DashboardBlockViewComponent implements OnInit {
+  @Input() position: number;
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
 
   get chartTypes() { return DashboardChartTypesEnum; }

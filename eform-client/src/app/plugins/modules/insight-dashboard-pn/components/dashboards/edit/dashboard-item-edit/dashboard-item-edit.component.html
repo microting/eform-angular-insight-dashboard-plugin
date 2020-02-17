@@ -118,7 +118,8 @@
                 <div class="scrollable-block">
                   <div class="row ml-2 mb-2" *ngFor="let answer of questionAnswers">
                     <div class="mat-checkbox mb-1">
-                      <input id="answerIgnoreCheckbox{{answer.id}}_{{dashboardItem.position}}" type="checkbox" [checked]="isAnswerIgnored(answer.id)"
+                      <input id="answerIgnoreCheckbox{{answer.id}}_{{dashboardItem.position}}" type="checkbox"
+                             [checked]="isAnswerIgnored(answer.id)"
                              (change)="addToArray($event, answer.id)"
                              [value]="isAnswerIgnored(answer.id)">
                       <label for="answerIgnoreCheckbox{{answer.id}}_{{dashboardItem.position}}">
@@ -161,6 +162,7 @@
           <div class="card z-depth-2 mb-3" style="width: 100%">
             <div class="card-body">
               <ng-select
+                id="editChartType"
                 bindValue="id"
                 bindLabel="name"
                 [clearable]="false"
@@ -170,7 +172,8 @@
                 [placeholder]="('Select Chart' | translate) + ' *'"
                 [required]="true"
                 [items]="availableCharts"></ng-select>
-              <app-dashboard-chart-edit [chartType]="dashboardItem.chartType" *ngIf="dashboardItem.chartType">
+              <app-dashboard-chart-edit [chartType]="dashboardItem.chartType"
+                                        *ngIf="dashboardItem.chartType">
               </app-dashboard-chart-edit>
             </div>
           </div>
