@@ -97,10 +97,15 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                         .Where(x => x.SurveyConfiguration.QuestionSet.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.SurveyConfiguration.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.SurveyConfiguration.QuestionSetId == surveyId)
-                        .Select(x => new CommonDictionaryModel
+                        .GroupBy(x => new
                         {
                             Id = x.SiteId,
-                            Name = x.Site.Name,
+                            x.Site.Name,
+                        })
+                        .Select(x => new CommonDictionaryModel
+                        {
+                            Id = x.Key.Id,
+                            Name = x.Key.Name,
                         }).ToListAsync();
 
                     return new OperationDataResult<List<CommonDictionaryModel>>(true, sites);
