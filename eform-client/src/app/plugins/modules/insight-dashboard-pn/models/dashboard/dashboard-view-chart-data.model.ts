@@ -1,6 +1,7 @@
 export class DashboardViewChartDataModel {
   single: DashboardViewChartDataSingleModel[];
   multi: DashboardViewChartDataMultiModel[];
+  multiStacked: DashboardViewChartDataMultiStackedModel[];
 }
 
 export class DashboardViewChartDataSingleModel {
@@ -11,4 +12,9 @@ export class DashboardViewChartDataSingleModel {
 export class DashboardViewChartDataMultiModel {
   name: string;
   series: DashboardViewChartDataSingleModel[];
+}
+
+export class DashboardViewChartDataMultiStackedModel {
+  name: string;
+  series: DashboardViewChartDataMultiModel[];
 }

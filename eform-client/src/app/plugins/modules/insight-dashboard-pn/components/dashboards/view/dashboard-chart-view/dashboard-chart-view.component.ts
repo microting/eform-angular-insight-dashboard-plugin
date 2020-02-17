@@ -9,6 +9,7 @@ import {DashboardViewChartDataModel} from '../../../../models/dashboard/dashboar
   styleUrls: ['./dashboard-chart-view.component.scss']
 })
 export class DashboardChartViewComponent {
+  @Input() chartPosition: number;
   @Input() chartType: DashboardChartTypesEnum;
   @Input() chartData: DashboardViewChartDataModel = new DashboardViewChartDataModel();
 
@@ -22,8 +23,35 @@ export class DashboardChartViewComponent {
   view: any[] = [1000, 500];
 
   colorScheme = {
-    domain: ['#6fabff', '#78cf72', '#e5ae24', '#AAAAAA', '#f2e02b', ]
+    domain: ['#9c27b0', '#3f51b5', '#2196f3', '#00bcd4', '#009688', '#8bc34a', '#cddc39', '#ffc107', '#ff9800', '#9e9e9e']
   };
+
+  customColors = [
+    {
+      name: '100',
+      value: '#007E33'
+    },
+    {
+      name: '75',
+      value: '#00C851'
+    },
+    {
+      name: '50',
+      value: '#ffbb33'
+    },
+    {
+      name: '25',
+      value: '#ff4444'
+    },
+    {
+      name: '0',
+      value: '#CC0000'
+    },
+    {
+      name: '999',
+      value: '#0099CC '
+    }
+  ];
 
   constructor() {
     Object.assign(this, {line});
@@ -33,7 +61,7 @@ export class DashboardChartViewComponent {
 
   copyChart() {
     const scale = 2;
-    const node = document.getElementById('copyableChart');
+    const node = document.getElementById(`copyableChart${this.chartPosition}`);
     setTimeout(() => domtoimage.toBlob(node, {
       // add greater scaling
       height: node.offsetHeight * scale,

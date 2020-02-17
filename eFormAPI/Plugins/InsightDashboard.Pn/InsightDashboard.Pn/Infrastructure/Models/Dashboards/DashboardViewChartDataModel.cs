@@ -33,5 +33,8 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 
         public List<DashboardViewChartDataMultiModel> Multi { get; set; }
             = new List<DashboardViewChartDataMultiModel>();
+
+        public List<DashboardViewChartDataMultiStackedModel> MultiStacked { get; set; }
+            = new List<DashboardViewChartDataMultiStackedModel>();
     }
 }
