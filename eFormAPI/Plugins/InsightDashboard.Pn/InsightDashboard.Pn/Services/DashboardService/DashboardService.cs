@@ -895,6 +895,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 Name = x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationName = x.Answer.Site.Name,
+                                LocationId = x.Answer.SiteId,
                             }).ToList();
 
                         List<string> lines;
@@ -941,15 +942,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     var consignmentsByWeek = from con in data
                                         group con by ChartDateHelpers.GetWeekString(con.Finished);
 
-                                    var consignmentsByWeekStacked = from con in data
-                                        group con by ChartDateHelpers.GetWeekString(con.Finished);
-
                                     if (isStackedData)
                                     {
                                         multiStackedData = data
                                             .GroupBy(x => x.LocationName)
                                             .Select(x => new DashboardViewChartDataMultiStackedModel
                                             {
+                                                Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                                 Name = x.Key.ToString(),
                                                 Series = x
                                                     .GroupBy(y => ChartDateHelpers.GetWeekString(y.Finished))
@@ -1107,10 +1106,15 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     }
                                     lineData.Add(multiItem);
                                 }
+                                multiStackedData =
+                                    ChartDateHelpers.SortLocationPosition(multiStackedData, dashboardItem);
                                 dashboardItemModel.ChartData.Multi.AddRange(lineData);
+                                dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }
                             else
                             {
+                                multiStackedData =
+                                    ChartDateHelpers.SortLocationPosition(multiStackedData, dashboardItem);
                                 dashboardItemModel.ChartData.Multi.AddRange(multiData);
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }

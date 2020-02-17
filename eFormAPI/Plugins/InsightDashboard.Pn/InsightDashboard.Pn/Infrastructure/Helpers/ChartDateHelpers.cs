@@ -25,10 +25,37 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
+    using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
+    using Models.Dashboards;
 
     public static class ChartDateHelpers
     {
+        public static List<DashboardViewChartDataMultiStackedModel> SortLocationPosition(
+            List<DashboardViewChartDataMultiStackedModel> multiStackedData,
+            DashboardItem dashboardItem)
+        {
+            var result = new List<DashboardViewChartDataMultiStackedModel>();
+            var locations = dashboardItem.CompareLocationsTags
+                .Select(x => new {x.LocationId, x.Position})
+                .OrderBy(x => x.Position)
+                .ToArray();
+
+            foreach (var location in locations)
+            {
+                var data = multiStackedData.FirstOrDefault(x => x.Id == location.LocationId);
+
+                if (data != null)
+                {
+                    result.Add(data);
+                }
+            }
+
+            return result;
+        }
+
         public static string GetWeekString(DateTime dateTime)
         {
             var weekNumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
