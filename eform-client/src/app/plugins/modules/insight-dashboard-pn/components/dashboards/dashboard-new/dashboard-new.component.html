@@ -11,8 +11,8 @@
               <div class="md-form">
                 <input mdbInputDirective [mdbValidate]="false"
                        type="text" [(ngModel)]="dashboardName"
-                       class="form-control input-sm" id="searchInput">
-                <label for="searchInput">{{'Name' | translate}}</label>
+                       class="form-control input-sm" id="dashboardNameCreate">
+                <label for="dashboardNameCreate">{{'Name' | translate}}</label>
               </div>
             </div>
           </div>
@@ -25,7 +25,7 @@
                          [clearable]="false"
                          (ngModelChange)="onSurveySelected($event)"
                          [(ngModel)]="selectedSurveyId"
-                         id="selectSurvey">
+                         id="selectSurveyCreate">
               </ng-select>
             </div>
           </div>
@@ -38,7 +38,7 @@
                          [clearable]="false"
                          [(ngModel)]="selectedLocationTagId"
                          (change)="onLocationTagSelected($event)"
-                         id="selectLocationTagId">
+                         id="selectLocationTag">
               </ng-select>
             </div>
           </div>
@@ -47,10 +47,10 @@
       <div class="modal-footer">
         <button class="btn btn-success" (click)="createDashboard()"
                 [disabled]="!dashboardName && !selectedSurveyId && (!selectedLocationId || !reportTagId) "
-                id="dashboardNewSaveBtn">
+                id="dashboardCreateSaveBtn">
           {{ 'Save' | translate }}
         </button>
-        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="dashboardNewSaveCancelBtn">
+        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="dashboardCreateSaveCancelBtn">
           {{ 'Cancel' | translate }}
         </button>
       </div>

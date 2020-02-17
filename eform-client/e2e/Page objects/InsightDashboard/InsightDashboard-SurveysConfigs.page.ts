@@ -1,6 +1,8 @@
 import Page from '../Page';
 import installationPage from '../InstallationChecking/InstallationChecking-Installation.page';
 
+export const configName = 'Test-Set';
+
 export class InsightDashboardSurveysConfigsPage extends Page {
   constructor() {
     super();
@@ -125,10 +127,6 @@ export class InsightDashboardSurveysConfigsPage extends Page {
 
   public getSurveyListOfChoices() {
     return browser.$$('#selectSurveyCreate .ng-option');
-  }
-
-  public selectedListField() {
-    return browser.$('#selectSurveyCreate .ng-value .ng-value-label');
   }
 
   getFirstRowObject(): SurveysConfigPageRowObject {

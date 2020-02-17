@@ -30,12 +30,15 @@
         <div class="col-custom-1 d-flex align-items-center justify-content-center">
           <div class="d-flex flex-column text-black-50">
             <fa-icon icon="plus-circle" [className]="'mb-3'"
+                     id="createItemBtn"
                      mdbTooltip="{{ 'Add block' | translate }}"
                      size="2x" style="cursor: pointer" (click)="addNew(dashboardItem.position)"></fa-icon>
             <fa-icon icon="copy" [className]="'mb-3'"
+                     id="copyItemBtn"
                      mdbTooltip="{{ 'Copy block' | translate }}"
                      size="2x" style="cursor: pointer" (click)="copy(dashboardItem)"></fa-icon>
             <fa-icon icon="trash" [className]="'mb-3'"
+                     id="deleteItemBtn"
                      mdbTooltip="{{ 'Delete block' | translate }}"
                      size="2x" style="cursor: pointer" (click)="delete(dashboardItem.position)"></fa-icon>
           </div>
@@ -46,6 +49,7 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
+                id="editFirstQuestion"
                 [placeholder]="('Select First Question' | translate) + ' *'"
                 [ngModel]="dashboardItem.firstQuestionId"
                 [required]="true"
@@ -55,6 +59,7 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
+                id="editFilterQuestion"
                 [placeholder]="'Select Filter Question' | translate"
                 [ngModel]="dashboardItem.filterQuestionId"
                 [disabled]="!dashboardItem.firstQuestionId"
@@ -63,6 +68,7 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
+                id="editFilterAnswer"
                 [ngModel]="dashboardItem.filterAnswerId"
                 (ngModelChange)="fieldChanged($event, itemFields.filterAnswerId)"
                 [disabled]="!dashboardItem.filterQuestionId"
@@ -71,6 +77,7 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
+                id="editPeriod"
                 [ngModel]="dashboardItem.period"
                 [required]="true"
                 [clearable]="false"
