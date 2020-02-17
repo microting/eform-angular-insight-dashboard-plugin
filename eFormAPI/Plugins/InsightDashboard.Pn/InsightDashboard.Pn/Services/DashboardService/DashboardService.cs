@@ -960,6 +960,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                             .GroupBy(g => g.Name)
                                                             .Select(i => new DashboardViewChartDataSingleModel
                                                             {
+                                                                Name = i.Key,
                                                                 Value = Math.Round(
                                                                     ((decimal) i.Count() * 100) / y.Count(), 2),
                                                             }).ToList(),
