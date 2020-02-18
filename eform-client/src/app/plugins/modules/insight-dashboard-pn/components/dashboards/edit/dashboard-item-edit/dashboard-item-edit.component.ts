@@ -6,6 +6,7 @@ import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
 import {InsightDashboardPnDashboardDictionariesService} from '../../../../services';
 import {TranslateService} from '@ngx-translate/core';
+import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
 
 @AutoUnsubscribe()
 @Component({
@@ -18,6 +19,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: DashboardItemQuestionModel[] = [];
   @Input() surveyId = 1;
+  @Input() locationsTags: CommonDictionaryExtendedModel[] = [];
   @Output() addNewItem: EventEmitter<number> = new EventEmitter<number>();
   @Output() copyItem: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() dashboardItemChanged: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
@@ -28,8 +30,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   filteredQuestions: CommonDictionaryModel[] = [];
   allCharts = [];
   availableCharts = [];
-
-  compareTemp = ['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5'];
 
   get periodUnits() {
     return DashboardPeriodUnitsEnum;
@@ -107,6 +107,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       if (fieldName === DashboardItemFieldsEnum.firstQuestionId) {
         this.dashboardItem[DashboardItemFieldsEnum.filterQuestionId] = null;
         this.dashboardItem[DashboardItemFieldsEnum.filterAnswerId] = null;
+        this.dashboardItem[DashboardItemFieldsEnum.calculateAverage] = false;
 
         // immutable remove element on position to trigger change detection
         const index = this.questions.findIndex(data => data.id === value);
@@ -116,6 +117,11 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         // Load answers to ignore
         this.loadAnswers(false);
         this.dashboardItem.ignoredAnswerValues = [];
+
+        // Set is smiley for model
+        this.dashboardItem.isFirstQuestionSmiley = this.questions.find(x => x.id === value).isSmiley;
+
+        this.fillChartsOptions(this.dashboardItem.period);
       }
 
       if (fieldName === DashboardItemFieldsEnum.filterQuestionId) {
@@ -127,18 +133,48 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         this.dashboardItem[DashboardItemFieldsEnum.chartType] = null;
 
         // If total is changed - show only particular charts
-        if (value !== DashboardPeriodUnitsEnum.Total) {
-          this.availableCharts = [...this.allCharts.slice(0, 0), ...this.allCharts.slice(3)];
+        this.setCharts(value, this.dashboardItem.calculateAverage);
+      }
+      if (fieldName === DashboardItemFieldsEnum.calculateAverage) {
+        if (value) {
+          // depends on period set related charts
+          if (this.dashboardItem.period !== DashboardPeriodUnitsEnum.Total) {
+            this.availableCharts = [this.allCharts[DashboardChartTypesEnum.Line - 1],
+              this.allCharts[DashboardChartTypesEnum.HorizontalBarStackedGrouped - 1]];
+          } else {
+            this.availableCharts = [this.allCharts[DashboardChartTypesEnum.HorizontalBarStackedGrouped - 1]];
+          }
+
         } else {
-          this.availableCharts = [...this.allCharts];
+          this.setCharts(this.dashboardItem.period, this.dashboardItem.calculateAverage);
         }
+        this.dashboardItem.chartType = null;
       }
     }
   }
 
-  private fillChartsOptions(period: DashboardPeriodUnitsEnum) {
+  setCharts(period: DashboardPeriodUnitsEnum, calculateAverage: boolean) {
+    if (calculateAverage) {
+      this.availableCharts = [
+        this.allCharts[DashboardChartTypesEnum.HorizontalBarStackedGrouped - 1]];
+      if (period !== DashboardPeriodUnitsEnum.Total) {
+        this.availableCharts = [...this.availableCharts, ...this.allCharts[DashboardChartTypesEnum.Line - 1]];
+      }
+    } else {
+      if (period === DashboardPeriodUnitsEnum.Total) {
+        this.availableCharts = [...this.allCharts.slice(0, 0), ...this.allCharts.slice(DashboardChartTypesEnum.HorizontalBar)];
+      } else {
+        this.availableCharts = [...this.allCharts];
+      }
+    }
+  }
+
+  private fillChartsOptions(period: DashboardPeriodUnitsEnum | null) {
     setTimeout(() => {
       const charts = [{
+        id: DashboardChartTypesEnum.Line,
+        name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.Line])
+      }, {
         id: DashboardChartTypesEnum.Pie,
         name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.Pie])
       },
@@ -150,7 +186,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
           id: DashboardChartTypesEnum.VerticalBar,
           name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBar])
         },
-        {id: DashboardChartTypesEnum.Line, name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.Line])},
+
         {
           id: DashboardChartTypesEnum.HorizontalBarStacked,
           name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStacked])
@@ -166,17 +202,21 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         {
           id: DashboardChartTypesEnum.VerticalBarGrouped,
           name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarGrouped])
+        },
+        {
+          id: DashboardChartTypesEnum.HorizontalBarStackedGrouped,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStackedGrouped])
         }];
       this.allCharts = [...charts];
-      if (period !== DashboardPeriodUnitsEnum.Total) {
-        this.availableCharts = [...charts.slice(0, 0), ...charts.slice(3)];
+      if (period === null) {
+        this.availableCharts = [...this.allCharts];
       } else {
-        this.availableCharts = [...charts];
+        this.setCharts(period, this.dashboardItem.calculateAverage);
       }
     }, 1000);
   }
 
-  addToArray(e: any, answerId: number) {
+  addToArrayIgnoredValues(e: any, answerId: number) {
     const foundAnswer = this.dashboardItem.ignoredAnswerValues.find(x => x.answerId === answerId);
     if (e.target.checked) {
       this.dashboardItem.ignoredAnswerValues.push({answerId: answerId, id: foundAnswer ? foundAnswer.id : null});
@@ -188,5 +228,34 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
   isAnswerIgnored(id: number) {
     return this.dashboardItem.ignoredAnswerValues && this.dashboardItem.ignoredAnswerValues.findIndex(x => x.answerId === id) > -1;
+  }
+
+  onLocationPositionChanged(e: any, locationTag: CommonDictionaryExtendedModel) {
+    debugger;
+    const newValue = +e.target.value;
+    if (locationTag.isTag) {
+      const foundTagIndex = this.dashboardItem.compareLocationsTags.findIndex(x => x.tagId === locationTag.id);
+      if (foundTagIndex > 0) {
+        this.dashboardItem.compareLocationsTags[foundTagIndex] = {tagId: locationTag.id, position: newValue, locationId: null};
+      } else {
+        this.dashboardItem.compareLocationsTags.push({tagId: locationTag.id, position: newValue, locationId: null});
+      }
+    } else {
+      const foundLocationIndex = this.dashboardItem.compareLocationsTags.findIndex(x => x.locationId === locationTag.id);
+      if (foundLocationIndex > 0) {
+        this.dashboardItem.compareLocationsTags[foundLocationIndex] = {locationId: locationTag.id, position: newValue, tagId: null};
+      } else {
+        this.dashboardItem.compareLocationsTags.push({locationId: locationTag.id, position: newValue, tagId: null});
+      }
+    }
+    this.fieldChanged(this.dashboardItem.compareLocationsTags, DashboardItemFieldsEnum.compareLocationsTags);
+  }
+
+  getCurrentLocationValue(locationTag: CommonDictionaryExtendedModel) {
+    if (this.dashboardItem && this.dashboardItem.compareLocationsTags) {
+      const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.locationId === locationTag.id);
+      return foundCurrentValue ? foundCurrentValue.position : null;
+    } return null;
+
   }
 }

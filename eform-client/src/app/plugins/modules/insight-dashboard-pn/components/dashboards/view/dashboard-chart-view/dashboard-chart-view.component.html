@@ -106,12 +106,13 @@
                                    [xAxisLabel]="'Dates'"
                                    [yAxisLabel]="'%'" [yScaleMax]="100">
   </ngx-charts-bar-vertical-stacked>
-  <ngx-charts-bar-vertical-2d *ngIf="chartType === chartTypes.VerticalBarGrouped"
+  <ngx-charts-bar-vertical-2d-stacked *ngIf="chartType === chartTypes.HorizontalBarStackedGrouped"
                               [view]="view"
                               [scheme]="colorScheme"
-                              [results]="chartData.multi"
+                              [results]="chartData.multiStacked"
                               [customColors]="customColors"
                               [gradient]="false"
+
                               [xAxis]="true"
                               [yAxis]="true"
                               [legend]="true"
@@ -119,7 +120,7 @@
                               [showYAxisLabel]="true"
                               [xAxisLabel]="'Dates'"
                               [yAxisLabel]="'%'" [yScaleMax]="100">
-  </ngx-charts-bar-vertical-2d>
+  </ngx-charts-bar-vertical-2d-stacked>
 </div>
 
 
