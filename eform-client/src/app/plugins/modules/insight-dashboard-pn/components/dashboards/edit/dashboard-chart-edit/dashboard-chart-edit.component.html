@@ -125,13 +125,31 @@
                                       [scheme]="colorScheme"
                                       [customColors]="customColors"
                                       [results]="multiStacked"
-                                      [gradient]="false"
-                                      [xAxis]="true"
-                                      [yAxis]="true"
-                                      [legend]="true"
-                                      [showXAxisLabel]="true"
-                                      [showYAxisLabel]="true"
-                                      [xAxisLabel]="'Dates'"
-                                      [yAxisLabel]="'%'" [yScaleMax]="100">
+                                      [animations]="animations"
+                                      [gradient]="gradient"
+                                      [barWidth]="barWidth"
+                                      [tooltipDisabled]="tooltipDisabled"
+                                      [xAxis]="showXAxis"
+                                      [yAxis]="showYAxis"
+                                      [showXAxisLineTop]=false
+                                      [showYAxisLineLeft]=true
+                                      [showYAxisLineRight]=false
+                                      [legend]="showLegend"
+                                      [legendTitle]="legendTitle"
+                                      [legendPosition]="legendPosition"
+                                      [showXAxisLabel]="showXAxisLabel"
+                                      [showYAxisLabel]="showYAxisLabel"
+                                      [xAxisLabel]="xAxisLabel"
+                                      [yAxisLabel]="yAxisLabel"
+                                      [showGridLines]="showGridLines"
+                                      [barPadding]="barPadding"
+                                      [roundDomains]="roundDomains"
+                                      [showDataLabel]="showDataLabel"
+                                      [noBarWhenZero]="noBarWhenZero"
+                                      [trimXAxisTicks]="trimXAxisTicks"
+                                      [trimYAxisTicks]="trimYAxisTicks"
+                                      [rotateXAxisTicks]="rotateXAxisTicks"
+                                      [maxXAxisTickLength]="maxXAxisTickLength"
+                                      [maxYAxisTickLength]="maxYAxisTickLength">
   </ngx-charts-bar-vertical-2d-stacked>
 </div>

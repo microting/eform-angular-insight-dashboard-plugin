@@ -138,6 +138,7 @@
                 <div class="mat-checkbox mb-1">
                   <input id="enableCompare" type="checkbox" [checked]="dashboardItem.compareEnabled"
                          [(ngModel)]="dashboardItem.compareEnabled"
+                         (ngModelChange)="fieldChanged($event, itemFields.compareEnabled)"
                          [disabled]="!dashboardItem.firstQuestionId"
                          [value]="dashboardItem.compareEnabled">
                   <label for="enableCompare">
