@@ -155,31 +155,29 @@ export default dashboardsEditPage;
 
 export class DashboardsEditItemObject {
   constructor(rowNum) {
-    if ($$('#editFirstQuestion')[rowNum - 1]) {
-      this.firstQuestion = $$('#editFirstQuestion')[rowNum - 1];
-      this.firstQuestionSearchField = $$('#editFirstQuestion .ng-input > input')[rowNum - 1];
-      this.firstQuestionListOfOptions = $$('#editFirstQuestion .ng-option')[rowNum - 1];
+    this.firstQuestion = $$('#editFirstQuestion')[rowNum - 1];
+    this.firstQuestionSearchField = $$('#editFirstQuestion .ng-input > input')[rowNum - 1];
+    this.firstQuestionListOfOptions = $$('#editFirstQuestion .ng-option')[rowNum - 1];
 
-      this.filterQuestion = $$('#editFilterQuestion')[rowNum - 1];
-      this.filterQuestionSearchField = $$('#editFilterQuestion .ng-input > input')[rowNum - 1];
-      this.filterQuestionListOfOptions = $$('#editFilterQuestion .ng-option')[rowNum - 1];
+    this.filterQuestion = $$('#editFilterQuestion')[rowNum - 1];
+    this.filterQuestionSearchField = $$('#editFilterQuestion .ng-input > input')[rowNum - 1];
+    this.filterQuestionListOfOptions = $$('#editFilterQuestion .ng-option')[rowNum - 1];
 
-      this.filterAnswer = $$('#editFilterAnswer')[rowNum - 1];
-      this.filterAnswerSearchField = $$('#editFilterAnswer .ng-input > input')[rowNum - 1];
-      this.filterAnswerListOfOptions = $$('#editFilterAnswer .ng-option')[rowNum - 1];
+    this.filterAnswer = $$('#editFilterAnswer')[rowNum - 1];
+    this.filterAnswerSearchField = $$('#editFilterAnswer .ng-input > input')[rowNum - 1];
+    this.filterAnswerListOfOptions = $$('#editFilterAnswer .ng-option')[rowNum - 1];
 
-      this.period = $$('#editPeriod')[rowNum - 1];
-      this.periodSearchField = $$('#editPeriod .ng-input > input')[rowNum - 1];
-      this.periodListOfOptions = $$('#editPeriod .ng-option')[rowNum - 1];
+    this.period = $$('#editPeriod')[rowNum - 1];
+    this.periodSearchField = $$('#editPeriod .ng-input > input')[rowNum - 1];
+    this.periodListOfOptions = $$('#editPeriod .ng-option')[rowNum - 1];
 
-      this.chartType = $$('#editChartType')[rowNum - 1];
-      this.chartTypeSearchField = $$('#editChartType .ng-input > input')[rowNum - 1];
-      this.chartTypeListOfOptions = $$('#editChartType .ng-option')[rowNum - 1];
-      // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
-      this.itemCreateBtn = $$('#createItemBtn')[rowNum - 1];
-      this.itemDeleteBtn = $$('#deleteItemBtn')[rowNum - 1];
-      this.itemCopyBtn = $$('#copyItemBtn')[rowNum - 1];
-    }
+    this.chartType = $$('#editChartType')[rowNum - 1];
+    this.chartTypeSearchField = $$('#editChartType .ng-input > input')[rowNum - 1];
+    this.chartTypeListOfOptions = $$('#editChartType .ng-option')[rowNum - 1];
+    // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
+    this.itemCreateBtn = $$('#createItemBtn')[rowNum - 1];
+    this.itemDeleteBtn = $$('#deleteItemBtn')[rowNum - 1];
+    this.itemCopyBtn = $$('#copyItemBtn')[rowNum - 1];
   }
 
   public firstQuestion;
