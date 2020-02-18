@@ -1,8 +1,11 @@
 import Page from '../Page';
+import dashboardsPage, {configName} from './InsightDashboard-Dashboards.page';
 
-export const configName = 'Test-Set';
-export const dashboardName = 'NewDashboard';
-export const locationName = 'Location 1';
+export const firstQuestion = 'Q2';
+export const filterQuestion = 'Q3';
+export const filterAnswer = 'smiley1';
+export const period = 'Måned';
+export const chartType = 'Linje';
 
 export class InsightDashboardDashboardEditPage extends Page {
   constructor() {
@@ -29,6 +32,62 @@ export class InsightDashboardDashboardEditPage extends Page {
     return browser.element('#dashboardNameCreate');
   }
 
+  public firstQuestionSearchField(rowNum: number) {
+    return browser.element(`#editFirstQuestion${rowNum} .ng-input > input`);
+  }
+
+  public firstQuestionListOfOptions(rowNum: number) {
+    return browser.$$(`#editFirstQuestion${rowNum} .ng-option`);
+  }
+
+  public filterQuestion(rowNum: number) {
+    return browser.element(`#editFilterQuestion${rowNum}`);
+  }
+
+  public filterQuestionSearchField(rowNum: number) {
+    return browser.element(`#editFilterQuestion${rowNum} .ng-input > input`);
+  }
+
+  public filterQuestionListOfOptions(rowNum: number) {
+    return browser.$$(`#editFilterQuestion${rowNum} .ng-option`);
+  }
+
+  public filterAnswer(rowNum: number) {
+    return browser.element(`#editFilterAnswer${rowNum}`);
+  }
+
+  public filterAnswerSearchField(rowNum: number) {
+    return browser.element(`#editFilterAnswer${rowNum} .ng-input > input`);
+  }
+
+  public filterAnswerListOfOptions(rowNum: number) {
+    return browser.$$(`#editFilterAnswer${rowNum} .ng-option`);
+  }
+
+  public period(rowNum: number) {
+    return browser.element(`#editPeriod${rowNum}`);
+  }
+
+  public periodSearchField(rowNum: number) {
+    return browser.element(`#editPeriod${rowNum} .ng-input > input`);
+  }
+
+  public periodListOfOptions(rowNum: number) {
+    return browser.$$(`#editPeriod${rowNum} .ng-option`);
+  }
+
+  public chartType(rowNum: number) {
+    return browser.element(`#editChartType${rowNum}`);
+  }
+
+  public chartTypeSearchField(rowNum: number) {
+    return browser.element(`#editChartType${rowNum} .ng-input > input`);
+  }
+
+  public chartTypeListOfOptions(rowNum: number) {
+    return browser.$$(`#editChartType${rowNum} .ng-option`);
+  }
+
   createFirstItem() {
     this.initialItemCreateBtn.click();
     browser.pause(4000);
@@ -46,6 +105,39 @@ export class InsightDashboardDashboardEditPage extends Page {
 
   copyItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemCopyBtn.click();
+    browser.pause(4000);
+  }
+
+  fillItem(rowNum: number) {
+    // Select first question
+    this.firstQuestionSearchField(rowNum).addValue(firstQuestion);
+    const firstQuestionChoice = this.firstQuestionListOfOptions(rowNum)[0];
+    browser.pause(2000);
+    firstQuestionChoice.click();
+    browser.pause(2000);
+    // Select filter question
+    this.filterQuestionSearchField(rowNum).addValue(filterQuestion);
+    const filterQuestionChoice = this.filterQuestionListOfOptions(rowNum)[0];
+    browser.pause(2000);
+    filterQuestionChoice.click();
+    browser.pause(2000);
+    // Select filter answer
+    this.filterAnswerSearchField(rowNum).addValue(filterAnswer);
+    const filterAnswerChoice = this.filterAnswerListOfOptions(rowNum)[0];
+    browser.pause(2000);
+    filterAnswerChoice.click();
+    browser.pause(2000);
+    // Select period
+    this.periodSearchField(rowNum).addValue(period);
+    const periodChoice = this.periodListOfOptions(rowNum)[0];
+    browser.pause(2000);
+    periodChoice.click();
+    browser.pause(2000);
+    // Select chart type
+    this.chartTypeSearchField(rowNum).addValue(chartType);
+    const chartTypeChoice = this.chartTypeListOfOptions(rowNum)[0];
+    browser.pause(2000);
+    chartTypeChoice.click();
     browser.pause(4000);
   }
 

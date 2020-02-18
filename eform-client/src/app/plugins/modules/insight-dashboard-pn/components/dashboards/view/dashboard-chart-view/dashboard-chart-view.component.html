@@ -21,9 +21,8 @@
                          [legend]="true"
                          [showXAxisLabel]="true"
                          [showYAxisLabel]="true"
-                         [xAxisLabel]="'Dates'"
                          [yAxisLabel]="'%'"
-                         [autoScale]="true">
+                         [xScaleMin]="0">
   </ngx-charts-line-chart>
   <ngx-charts-pie-chart *ngIf="chartType === chartTypes.Pie"
                         [view]="view"
@@ -47,8 +46,7 @@
                              [legend]="true"
                              [showXAxisLabel]="true"
                              [showYAxisLabel]="true"
-                             [xAxisLabel]="'Dates'"
-                             [yAxisLabel]="'%'" [xScaleMax]="100">
+                             [yAxisLabel]="'%'" [xScaleMin]="0">
   </ngx-charts-bar-horizontal>
   <ngx-charts-bar-horizontal-stacked *ngIf="chartType === chartTypes.HorizontalBarStacked"
                                      [view]="view"
@@ -61,8 +59,7 @@
                                      [legend]="true"
                                      [showXAxisLabel]="true"
                                      [showYAxisLabel]="true"
-                                     [xAxisLabel]="'Dates'"
-                                     [yAxisLabel]="'%'" [xScaleMax]="100">
+                                     [yAxisLabel]="'%'">
   </ngx-charts-bar-horizontal-stacked>
   <ngx-charts-bar-horizontal-2d *ngIf="chartType === chartTypes.HorizontalBarGrouped"
                                 [view]="view"
@@ -75,8 +72,7 @@
                                 [legend]="true"
                                 [showXAxisLabel]="true"
                                 [showYAxisLabel]="true"
-                                [xAxisLabel]="'Dates'"
-                                [yAxisLabel]="'%'" [xScaleMax]="100">
+                                [yAxisLabel]="'%'">
   </ngx-charts-bar-horizontal-2d>
   <ngx-charts-bar-vertical *ngIf="chartType === chartTypes.VerticalBar"
                            [view]="view"
@@ -89,8 +85,7 @@
                            [legend]="true"
                            [showXAxisLabel]="true"
                            [showYAxisLabel]="true"
-                           [xAxisLabel]="'Dates'"
-                           [yAxisLabel]="'%'" [yScaleMax]="100">
+                           [yAxisLabel]="'%'" [yScaleMin]="0">
   </ngx-charts-bar-vertical>
   <ngx-charts-bar-vertical-stacked *ngIf="chartType === chartTypes.VerticalBarStacked"
                                    [view]="view"
@@ -103,8 +98,7 @@
                                    [legend]="true"
                                    [showXAxisLabel]="true"
                                    [showYAxisLabel]="true"
-                                   [xAxisLabel]="'Dates'"
-                                   [yAxisLabel]="'%'" [yScaleMax]="100">
+                                   [yAxisLabel]="'%'">
   </ngx-charts-bar-vertical-stacked>
   <ngx-charts-bar-vertical-2d *ngIf="chartType === chartTypes.VerticalBarGrouped"
                                    [view]="view"
@@ -117,7 +111,6 @@
                                    [legend]="true"
                                    [showXAxisLabel]="true"
                                    [showYAxisLabel]="true"
-                                   [xAxisLabel]="'Dates'"
                                    [yAxisLabel]="'%'" [yScaleMax]="100">
   </ngx-charts-bar-vertical-2d>
   <ngx-charts-bar-vertical-2d-stacked *ngIf="chartType === chartTypes.HorizontalBarStackedGrouped"
