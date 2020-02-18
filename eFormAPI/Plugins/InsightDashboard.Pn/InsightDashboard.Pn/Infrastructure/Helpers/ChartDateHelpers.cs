@@ -31,7 +31,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Models.Dashboards;
 
-    public static class ChartDateHelpers
+    public static class ChartHelpers
     {
         public static List<DashboardViewChartDataMultiStackedModel> SortLocationPosition(
             List<DashboardViewChartDataMultiStackedModel> multiStackedData,

@@ -40,6 +40,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using Microting.eFormApi.BasePn.Abstractions;
     using Microting.eFormApi.BasePn.Infrastructure.Extensions;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Enums;
@@ -685,9 +686,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     DashboardName = dashboard.Name,
                 };
 
+                List<CommonDictionaryModel> sites;
+                List<CommonDictionaryModel> options;
+
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     result.SurveyName = await sdkContext.question_sets
+                        .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.Id == dashboard.SurveyId)
                         .Select(x => x.Name)
@@ -696,6 +701,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     if (dashboard.LocationId != null)
                     {
                         result.LocationName = await sdkContext.sites
+                            .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboard.LocationId)
                             .Select(x => x.Name)
@@ -705,11 +711,30 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     if (dashboard.TagId != null)
                     {
                         result.TagName = await sdkContext.tags
+                            .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboard.TagId)
                             .Select(x => x.Name)
                             .FirstOrDefaultAsync();
                     }
+
+                    sites = await sdkContext.sites
+                        .AsNoTracking()
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Select(x => new CommonDictionaryModel
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                        }).ToListAsync();
+
+                    options = await sdkContext.options
+                        .AsNoTracking()
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Select(x => new CommonDictionaryModel
+                        {
+                            Id = x.Id,
+                            Name = x.OptionTranslationses.Select(y=>y.Name).FirstOrDefault(),
+                        }).ToListAsync();
                 }
 
                 // Dashboard items
@@ -724,6 +749,33 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         CalculateAverage = dashboardItem.CalculateAverage,
                         CompareEnabled = dashboardItem.CompareEnabled,
                     };
+
+                    foreach (var dashboardItemCompareLocationsTag in dashboardItem
+                        .CompareLocationsTags
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .OrderBy(x => x.Position))
+                    {
+                        foreach (var site in sites)
+                        {
+                            if (site.Id == dashboardItemCompareLocationsTag.LocationId)
+                            {
+                                dashboardItemModel.CompareLocationsTags.Add(site.Name);
+                            }
+                        }
+                    }
+
+                    foreach (var dashboardItemIgnoredAnswer in dashboardItem
+                        .IgnoredAnswerValues
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                    {
+                        foreach (var option in options)
+                        {
+                            if (option.Id == dashboardItemIgnoredAnswer.AnswerId)
+                            {
+                                dashboardItemModel.IgnoredAnswerValues.Add(option.Name);
+                            }
+                        }
+                    }
 
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
                     {
@@ -969,7 +1021,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                 Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                                 Name = x.Key.ToString(), // Location name
                                                 Series = x
-                                                    .GroupBy(y => ChartDateHelpers.GetWeekString(y.Finished))
+                                                    .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
                                                     .Select(y => new DashboardViewChartDataMultiModel
                                                     {
                                                         Name = y.Key, // Week name
@@ -998,7 +1050,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                 {
                                                     Name = x.Key.ToString(),
                                                     Series = x
-                                                        .GroupBy(y => ChartDateHelpers.GetWeekString(y.Finished))
+                                                        .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
                                                         .Select(y => new DashboardViewChartDataSingleModel
                                                         {
                                                             Name = y.Key,
@@ -1013,7 +1065,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         else
                                         {
                                             multiData = data
-                                                .GroupBy(x => ChartDateHelpers.GetWeekString(x.Finished))
+                                                .GroupBy(x => ChartHelpers.GetWeekString(x.Finished))
                                                 .Select(x => new DashboardViewChartDataMultiModel
                                                 {
                                                     Name = x.Key.ToString(),
@@ -1184,7 +1236,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                 Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                                 Name = x.Key.ToString(), // Location name
                                                 Series = x
-                                                    .GroupBy(item => $"{item.Finished:yy}-{ChartDateHelpers.GetHalfOfYear(item.Finished)}H")
+                                                    .GroupBy(item => $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
                                                     .Select(y => new DashboardViewChartDataMultiModel
                                                     {
                                                         Name = y.Key, // SixMonth name
@@ -1213,7 +1265,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                 {
                                                     Name = x.Key,
                                                     Series = x
-                                                        .GroupBy(item => $"{item.Finished:yy}-{ChartDateHelpers.GetHalfOfYear(item.Finished)}H")
+                                                        .GroupBy(item => $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
                                                         .Select(y => new DashboardViewChartDataSingleModel
                                                         {
                                                             Name = y.Key,
@@ -1228,7 +1280,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         else
                                         {
                                             multiData = data
-                                                .GroupBy(item => $"{item.Finished:yy}-{ChartDateHelpers.GetHalfOfYear(item.Finished)}H")
+                                                .GroupBy(item => $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
                                                 .Select(x => new DashboardViewChartDataMultiModel
                                                 {
                                                     Name = x.Key,
@@ -1384,7 +1436,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             else
                             {
                                 multiStackedData =
-                                    ChartDateHelpers.SortLocationPosition(
+                                    ChartHelpers.SortLocationPosition(
                                         multiStackedData,
                                         dashboardItem);
                                 dashboardItemModel.ChartData.Multi.AddRange(multiData);
