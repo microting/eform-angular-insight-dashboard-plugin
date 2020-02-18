@@ -980,7 +980,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                                 Name = i.Key,
                                                                 Value = Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
                                                             })
-                                                            .OrderBy(t => t.Name)
+                                                            .OrderBy(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                                             .ToList(),
                                                        
                                                     })
@@ -1006,7 +1006,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                                 ? (decimal)y.Average(k => k.Weight)
                                                                 : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
                                                         })
-                                                        .OrderBy(y => y.Name)
+                                                        .OrderBy(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                                         .ToList(),
                                                 }).ToList();
                                         }
@@ -1025,7 +1025,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                                 ? (decimal)y.Average(k => k.Weight)
                                                                 : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
                                                         })
-                                                        .OrderBy(y => y.Name)
+                                                        .OrderBy(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                                         .ToList(),
                                                 }).ToList();
                                         }
