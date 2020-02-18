@@ -836,6 +836,20 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             isStackedData = false;
                         }
 
+                        bool isComparedData = false;
+                        if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+                            || dashboardItem.ChartType == DashboardChartTypes.Line)
+                        {
+                            if (dashboardItem.CompareEnabled)
+                            {
+                                isComparedData = true;
+                            }
+                        }
+                        else
+                        {
+                            isComparedData = false;
+                        }
+
                         var answerQueryable = sdkContext.answer_values
                             .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
@@ -903,13 +917,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             }).ToList();
 
                         List<string> lines;
-                        if (dashboardItem.CompareEnabled)
+                        if (isComparedData)
                         {
                             lines = data
                                 .GroupBy(x => x.LocationName)
                                 .OrderBy(x => x.Key)
                                 .Select(x => x.Key)
-                                .ToList(); // TODO
+                                .ToList();
                         }
                         else
                         {
@@ -971,7 +985,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     }
                                     else
                                     {
-                                        if (dashboardItem.CompareEnabled)
+                                        if (isComparedData)
                                         {
                                             multiData = data
                                                 .GroupBy(x => x.LocationName)
