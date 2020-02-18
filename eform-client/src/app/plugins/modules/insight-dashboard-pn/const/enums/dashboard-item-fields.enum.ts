@@ -7,5 +7,6 @@ export enum DashboardItemFieldsEnum {
   chartType = 'chartType',
   calculateAverage = 'calculateAverage',
   ignoredAnswerValues = 'ignoredAnswerValues',
-  compareLocationsTags = 'compareLocationsTags'
+  compareLocationsTags = 'compareLocationsTags',
+  compareEnabled = 'compareEnabled'
 }

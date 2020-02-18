@@ -91,7 +91,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       this.loadAnswers(false);
 
       // change available chart types depends on period
-      this.fillChartsOptions(currentValue.period);
+      this.fillInitialChartOptions(currentValue.period);
     }
     if (changes && changes.questions) {
       this.filteredQuestions = [...this.questions];
@@ -121,7 +121,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         // Set is smiley for model
         this.dashboardItem.isFirstQuestionSmiley = this.questions.find(x => x.id === value).isSmiley;
 
-        this.fillChartsOptions(this.dashboardItem.period);
+        this.fillInitialChartOptions(this.dashboardItem.period);
       }
 
       if (fieldName === DashboardItemFieldsEnum.filterQuestionId) {
@@ -129,47 +129,43 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         this.loadAnswers(true);
       }
       // change available chart types depends on period
-      if (fieldName === DashboardItemFieldsEnum.period) {
-        this.dashboardItem[DashboardItemFieldsEnum.chartType] = null;
-
-        // If total is changed - show only particular charts
-        this.setCharts(value, this.dashboardItem.calculateAverage);
-      }
-      if (fieldName === DashboardItemFieldsEnum.calculateAverage) {
-        if (value) {
-          // depends on period set related charts
-          if (this.dashboardItem.period !== DashboardPeriodUnitsEnum.Total) {
-            this.availableCharts = [this.allCharts[DashboardChartTypesEnum.Line - 1],
-              this.allCharts[DashboardChartTypesEnum.HorizontalBarStackedGrouped - 1]];
-          } else {
-            this.availableCharts = [this.allCharts[DashboardChartTypesEnum.HorizontalBarStackedGrouped - 1]];
-          }
-
-        } else {
-          this.setCharts(this.dashboardItem.period, this.dashboardItem.calculateAverage);
-        }
-        this.dashboardItem.chartType = null;
+      if (fieldName === DashboardItemFieldsEnum.period
+        || fieldName === DashboardItemFieldsEnum.calculateAverage
+        || fieldName === DashboardItemFieldsEnum.compareEnabled) {
+        this.setAvailableCharts(true);
       }
     }
   }
 
-  setCharts(period: DashboardPeriodUnitsEnum, calculateAverage: boolean) {
-    if (calculateAverage) {
-      this.availableCharts = [
-        this.allCharts[DashboardChartTypesEnum.HorizontalBarStackedGrouped - 1]];
-      if (period !== DashboardPeriodUnitsEnum.Total) {
-        this.availableCharts = [...this.availableCharts, ...this.allCharts[DashboardChartTypesEnum.Line - 1]];
-      }
-    } else {
-      if (period === DashboardPeriodUnitsEnum.Total) {
-        this.availableCharts = [...this.allCharts.slice(0, 0), ...this.allCharts.slice(DashboardChartTypesEnum.HorizontalBar)];
-      } else {
-        this.availableCharts = [...this.allCharts];
-      }
-    }
+  setAvailableCharts(forceNewChartSelection?: boolean) {
+    if (forceNewChartSelection) {
+      this.dashboardItem.chartType = null;
+    } this.availableCharts = [...this.allCharts];
+
+    // if (this.dashboardItem && this.dashboardItem.period) {
+    //   if (this.dashboardItem.period === DashboardPeriodUnitsEnum.Total) {
+    //
+    //   }
+    // } else {
+    //
+    // }
+
+    // if (this.dashboardItem.calculateAverage) {
+    //   if (this.dashboardItem.compareEnabled) {
+    //     this.availableCharts = [
+    //       this.allCharts[DashboardChartTypesEnum.Line - 1]];
+    //     if (this.dashboardItem.period === DashboardPeriodUnitsEnum.Total) {
+    //       this.availableCharts = [];
+    //     }
+    //   } else {
+    //     this.availableCharts = this.allCharts[DashboardChartTypesEnum.HorizontalBarStackedGrouped - 1];
+    //   }
+    // } else {
+    //
+    // }
   }
 
-  private fillChartsOptions(period: DashboardPeriodUnitsEnum | null) {
+  private fillInitialChartOptions(period: DashboardPeriodUnitsEnum | null) {
     setTimeout(() => {
       const charts = [{
         id: DashboardChartTypesEnum.Line,
@@ -208,11 +204,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
           name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStackedGrouped])
         }];
       this.allCharts = [...charts];
-      if (period === null) {
-        this.availableCharts = [...this.allCharts];
-      } else {
-        this.setCharts(period, this.dashboardItem.calculateAverage);
-      }
+      this.setAvailableCharts();
     }, 1000);
   }
 
@@ -252,10 +244,12 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   getCurrentLocationValue(locationTag: CommonDictionaryExtendedModel) {
+    debugger;
     if (this.dashboardItem && this.dashboardItem.compareLocationsTags) {
       const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.locationId === locationTag.id);
       return foundCurrentValue ? foundCurrentValue.position : null;
-    } return null;
+    }
+    return null;
 
   }
 }

@@ -40,6 +40,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using Microting.eFormApi.BasePn.Abstractions;
     using Microting.eFormApi.BasePn.Infrastructure.Extensions;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
     using Microting.InsightDashboardBase.Infrastructure.Data;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Enums;
@@ -685,9 +686,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     DashboardName = dashboard.Name,
                 };
 
+                List<CommonDictionaryModel> sites;
+                List<CommonDictionaryModel> options;
+
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     result.SurveyName = await sdkContext.question_sets
+                        .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.Id == dashboard.SurveyId)
                         .Select(x => x.Name)
@@ -696,6 +701,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     if (dashboard.LocationId != null)
                     {
                         result.LocationName = await sdkContext.sites
+                            .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboard.LocationId)
                             .Select(x => x.Name)
@@ -705,11 +711,30 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     if (dashboard.TagId != null)
                     {
                         result.TagName = await sdkContext.tags
+                            .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboard.TagId)
                             .Select(x => x.Name)
                             .FirstOrDefaultAsync();
                     }
+
+                    sites = await sdkContext.sites
+                        .AsNoTracking()
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Select(x => new CommonDictionaryModel
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                        }).ToListAsync();
+
+                    options = await sdkContext.options
+                        .AsNoTracking()
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Select(x => new CommonDictionaryModel
+                        {
+                            Id = x.Id,
+                            Name = x.OptionTranslationses.Select(y=>y.Name).FirstOrDefault(),
+                        }).ToListAsync();
                 }
 
                 // Dashboard items
@@ -724,6 +749,33 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         CalculateAverage = dashboardItem.CalculateAverage,
                         CompareEnabled = dashboardItem.CompareEnabled,
                     };
+
+                    foreach (var dashboardItemCompareLocationsTag in dashboardItem
+                        .CompareLocationsTags
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .OrderBy(x => x.Position))
+                    {
+                        foreach (var site in sites)
+                        {
+                            if (site.Id == dashboardItemCompareLocationsTag.LocationId)
+                            {
+                                dashboardItemModel.CompareLocationsTags.Add(site.Name);
+                            }
+                        }
+                    }
+
+                    foreach (var dashboardItemIgnoredAnswer in dashboardItem
+                        .IgnoredAnswerValues
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                    {
+                        foreach (var option in options)
+                        {
+                            if (option.Id == dashboardItemIgnoredAnswer.AnswerId)
+                            {
+                                dashboardItemModel.IgnoredAnswerValues.Add(option.Name);
+                            }
+                        }
+                    }
 
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
                     {
@@ -824,13 +876,33 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         }
 
                         bool isStackedData;
-                        if (dashboardItem.ChartType == DashboardChartTypes.Line || dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)
+                        if (
+                            dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+                            && dashboardItem.CompareEnabled
+                            && dashboardItem.CalculateAverage == false)
                         {
                             isStackedData = true;
                         }
                         else
                         {
                             isStackedData = false;
+                        }
+
+                        bool isComparedData = false;
+                        if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+                            || dashboardItem.ChartType == DashboardChartTypes.Line)
+                        {
+                            if (dashboardItem.CompareEnabled)
+                            {
+                                isComparedData = true;
+                            } else if (dashboardItem.ChartType == DashboardChartTypes.Line && dashboardItem.CalculateAverage)
+                            {
+                                isComparedData = true;
+                            }
+                        }
+                        else
+                        {
+                            isComparedData = false;
                         }
 
                         var answerQueryable = sdkContext.answer_values
@@ -900,7 +972,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             }).ToList();
 
                         List<string> lines;
-                        if (dashboardItem.CompareEnabled)
+                        if (dashboardItem.CalculateAverage)
                         {
                             lines = data
                                 .GroupBy(x => x.LocationName)
@@ -949,7 +1021,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                 Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                                 Name = x.Key.ToString(), // Location name
                                                 Series = x
-                                                    .GroupBy(y => ChartDateHelpers.GetWeekString(y.Finished))
+                                                    .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
                                                     .Select(y => new DashboardViewChartDataMultiModel
                                                     {
                                                         Name = y.Key, // Week name
@@ -958,10 +1030,10 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                             .Select(i => new DashboardViewChartDataSingleModel
                                                             {
                                                                 Name = i.Key,
-                                                                Value = dashboardItem.CalculateAverage
-                                                                    ? (decimal) y.Average(k => k.Weight)
-                                                                    : Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
-                                                            }).ToList(),
+                                                                Value = Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
+                                                            })
+                                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                            .ToList(),
                                                        
                                                     })
                                                     .OrderBy(y => y.Name)
@@ -970,110 +1042,352 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     }
                                     else
                                     {
-                                        multiData = data
-                                            .GroupBy(x => ChartDateHelpers.GetWeekString(x.Finished))
-                                            .Select(x => new DashboardViewChartDataMultiModel
+                                        if (isComparedData)
+                                        {
+                                            multiData = data
+                                                .GroupBy(x => x.LocationName)
+                                                .Select(x => new DashboardViewChartDataMultiModel
+                                                {
+                                                    Name = x.Key.ToString(),
+                                                    Series = x
+                                                        .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                        else
+                                        {
+                                            multiData = data
+                                                .GroupBy(x => ChartHelpers.GetWeekString(x.Finished))
+                                                .Select(x => new DashboardViewChartDataMultiModel
+                                                {
+                                                    Name = x.Key.ToString(),
+                                                    Series = x.GroupBy(y => y.Name)
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                    }
+                                    break;
+                                case DashboardPeriodUnits.Month:
+                                    if (isStackedData)
+                                    {
+                                        multiStackedData = data
+                                            .GroupBy(x => x.LocationName)
+                                            .Select(x => new DashboardViewChartDataMultiStackedModel
                                             {
-                                                Name = x.Key.ToString(),
-                                                Series = x.GroupBy(y => y.Name)
-                                                    .Select(y => new DashboardViewChartDataSingleModel
+                                                Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                                Name = x.Key.ToString(), // Location name
+                                                Series = x
+                                                    .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                                    .Select(y => new DashboardViewChartDataMultiModel
                                                     {
-                                                        Name = y.Key,
-                                                        Value = dashboardItem.CalculateAverage
-                                                            ? (decimal)y.Average(k => k.Weight)
-                                                            : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        Name = y.Key, // Month name
+                                                        Series = y
+                                                            .GroupBy(g => g.Name)
+                                                            .Select(i => new DashboardViewChartDataSingleModel
+                                                            {
+                                                                Name = i.Key,
+                                                                Value = Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
+                                                            })
+                                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                            .ToList(),
+
                                                     })
                                                     .OrderBy(y => y.Name)
                                                     .ToList(),
                                             }).ToList();
                                     }
-                                    break;
-                                case DashboardPeriodUnits.Month:
-                                    multiData = data
-                                        .GroupBy(ms => $"{ms.Finished:yy-MMM}")
-                                        .Select(x => new DashboardViewChartDataMultiModel
+                                    else
+                                    {
+                                        if (isComparedData)
                                         {
-                                            Name = x.Key.ToString(),
-                                            Series = x.GroupBy(y => y.Name)
-                                                .Select(y => new DashboardViewChartDataSingleModel
+                                            multiData = data
+                                                .GroupBy(x => x.LocationName)
+                                                .Select(x => new DashboardViewChartDataMultiModel
                                                 {
-                                                    Name = y.Key,
-                                                    Value = Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
-                                                })
-                                                .OrderBy(y => y.Name)
-                                                .ToList(),
-                                        }).ToList();
+                                                    Name = x.Key.ToString(),
+                                                    Series = x
+                                                        .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                        else
+                                        {
+                                            multiData = data
+                                                .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                                .Select(x => new DashboardViewChartDataMultiModel
+                                                {
+                                                    Name = x.Key.ToString(),
+                                                    Series = x.GroupBy(y => y.Name)
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                    }
                                     break;
                                 case DashboardPeriodUnits.Quarter:
-                                    var groupedByQuarter = data
-                                        .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
-                                        .ToArray();
+                                    if (isStackedData)
+                                    {
+                                        multiStackedData = data
+                                            .GroupBy(x => x.LocationName)
+                                            .Select(x => new DashboardViewChartDataMultiStackedModel
+                                            {
+                                                Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                                Name = x.Key.ToString(), // Location name
+                                                Series = x
+                                                    .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                                    .Select(y => new DashboardViewChartDataMultiModel
+                                                    {
+                                                        Name = y.Key, // Quarter name
+                                                        Series = y
+                                                            .GroupBy(g => g.Name)
+                                                            .Select(i => new DashboardViewChartDataSingleModel
+                                                            {
+                                                                Name = i.Key,
+                                                                Value = Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
+                                                            })
+                                                            .OrderBy(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                            .ToList(),
 
-                                    multiData = groupedByQuarter
-                                        .Select(x => new DashboardViewChartDataMultiModel
+                                                    })
+                                                    .OrderByDescending(y => y.Name)
+                                                    .ToList(),
+                                            }).ToList();
+                                    }
+                                    else
+                                    {
+                                        if (isComparedData)
                                         {
-                                            Name = x.Key,
-                                            Series = x.GroupBy(y => y.Name)
-                                                .Select(y => new DashboardViewChartDataSingleModel
+                                            multiData = data
+                                                .GroupBy(y => y.LocationName)
+                                                .Select(x => new DashboardViewChartDataMultiModel
                                                 {
-                                                    Name = y.Key,
-                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
-                                                })
-                                                .OrderBy(y => y.Name)
-                                                .ToList(),
-                                        }).ToList();
+                                                    Name = x.Key,
+                                                    Series = x.GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                        else
+                                        {
+                                            multiData = data
+                                                .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                                .Select(x => new DashboardViewChartDataMultiModel
+                                                {
+                                                    Name = x.Key,
+                                                    Series = x.GroupBy(y => y.Name)
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                    }
                                     break;
                                 case DashboardPeriodUnits.SixMonth:
-                                    var groupedByHalfYear = data
-                                        .GroupBy(item => $"{item.Finished:yy}-{ChartDateHelpers.GetHalfOfYear(item.Finished)}H")
-                                        .ToArray();
+                                    if (isStackedData)
+                                    {
+                                        multiStackedData = data
+                                            .GroupBy(x => x.LocationName)
+                                            .Select(x => new DashboardViewChartDataMultiStackedModel
+                                            {
+                                                Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                                Name = x.Key.ToString(), // Location name
+                                                Series = x
+                                                    .GroupBy(item => $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                                    .Select(y => new DashboardViewChartDataMultiModel
+                                                    {
+                                                        Name = y.Key, // SixMonth name
+                                                        Series = y
+                                                            .GroupBy(g => g.Name)
+                                                            .Select(i => new DashboardViewChartDataSingleModel
+                                                            {
+                                                                Name = i.Key,
+                                                                Value = Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
+                                                            })
+                                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                            .ToList(),
 
-                                    multiData = groupedByHalfYear
-                                        .Select(x => new DashboardViewChartDataMultiModel
+                                                    })
+                                                    .OrderBy(y => y.Name)
+                                                    .ToList(),
+                                            }).ToList();
+                                    }
+                                    else
+                                    {
+                                        if (isComparedData)
                                         {
-                                            Name = x.Key,
-                                            Series = x.GroupBy(y => y.Name)
-                                                .Select(y => new DashboardViewChartDataSingleModel
+                                            multiData = data
+                                                .GroupBy(y => y.LocationName)
+                                                .Select(x => new DashboardViewChartDataMultiModel
                                                 {
-                                                    Name = y.Key,
-                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
-                                                })
-                                                .OrderBy(y => y.Name)
-                                                .ToList(),
-                                        }).ToList();
-
+                                                    Name = x.Key,
+                                                    Series = x
+                                                        .GroupBy(item => $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                        else
+                                        {
+                                            multiData = data
+                                                .GroupBy(item => $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                                .Select(x => new DashboardViewChartDataMultiModel
+                                                {
+                                                    Name = x.Key,
+                                                    Series = x.GroupBy(y => y.Name)
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                    }
                                     break;
                                 case DashboardPeriodUnits.Year:
-                                    multiData = data
-                                        .GroupBy(ms => $"{ms.Finished:yyyy}")
-                                        .Select(x => new DashboardViewChartDataMultiModel
+                                    if (isStackedData)
+                                    {
+                                        multiStackedData = data
+                                            .GroupBy(x => x.LocationName)
+                                            .Select(x => new DashboardViewChartDataMultiStackedModel
+                                            {
+                                                Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                                Name = x.Key.ToString(), // Location name
+                                                Series = x
+                                                    .GroupBy(ms => $"{ms.Finished:yyyy}")
+                                                    .Select(y => new DashboardViewChartDataMultiModel
+                                                    {
+                                                        Name = y.Key, // Year name
+                                                        Series = y
+                                                            .GroupBy(g => g.Name)
+                                                            .Select(i => new DashboardViewChartDataSingleModel
+                                                            {
+                                                                Name = i.Key,
+                                                                Value = Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
+                                                            })
+                                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                            .ToList(),
+
+                                                    })
+                                                    .OrderBy(y => y.Name)
+                                                    .ToList(),
+                                            }).ToList();
+                                    }
+                                    else
+                                    {
+                                        if (isComparedData)
                                         {
-                                            Name = x.Key.ToString(),
-                                            Series = x.GroupBy(y => y.Name)
-                                                .Select(y => new DashboardViewChartDataSingleModel
+                                            multiData = data
+                                                .GroupBy(y => y.LocationName)
+                                                .Select(x => new DashboardViewChartDataMultiModel
                                                 {
-                                                    Name = y.Key,
-                                                    Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
-                                                })
-                                                .OrderBy(y => y.Name)
-                                                .ToList(),
-                                        }).ToList();
+                                                    Name = x.Key.ToString(),
+                                                    Series = x
+                                                        .GroupBy(ms => $"{ms.Finished:yyyy}")
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                        else
+                                        {
+                                            multiData = data
+                                                .GroupBy(ms => $"{ms.Finished:yyyy}")
+                                                .Select(x => new DashboardViewChartDataMultiModel
+                                                {
+                                                    Name = x.Key.ToString(),
+                                                    Series = x.GroupBy(y => y.Name)
+                                                        .Select(y => new DashboardViewChartDataSingleModel
+                                                        {
+                                                            Name = y.Key,
+                                                            Value = dashboardItem.CalculateAverage
+                                                                ? (decimal)y.Average(k => k.Weight)
+                                                                : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        })
+                                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                        .ToList(),
+                                                }).ToList();
+                                        }
+                                    }
                                     break;
                                 case DashboardPeriodUnits.Total:
-                                    decimal count = data.Count;
                                     var totalPeriod = new DashboardViewChartDataMultiModel
                                     {
-                                        Name = _localizationService.GetString("TotalPeriod"),
-                                        Series = data
-                                            .GroupBy(x => x.Name)
-                                            .Select(x => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = x.Key,
-                                                Value = Math.Round(((decimal) x.Count() * 100) / count, 2),
-                                            })
-                                            .OrderBy(x => x.Name)
-                                            .ToList(),
+                                        Name = _localizationService.GetString("TotalPeriod")
                                     };
+
+                                    totalPeriod.Series = data
+                                        .GroupBy(x => x.Name)
+                                        .Select(x => new DashboardViewChartDataSingleModel
+                                        {
+                                            Name = x.Key,
+                                            Value = dashboardItem.CalculateAverage
+                                                ? (decimal)x.Average(k => k.Weight)
+                                                : Math.Round(((decimal)x.Count() * 100) / data.Count, 2),
+                                        })
+                                        .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                        .ToList();
+
 
                                     multiData.Add(totalPeriod);
                                     break;
@@ -1083,42 +1397,46 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                             if (dashboardItem.ChartType == DashboardChartTypes.Line)
                             {
-                                var lineData = new List<DashboardViewChartDataMultiModel>();
-                                foreach (var line in lines)
+                                if (dashboardItem.CalculateAverage)
                                 {
-                                    var multiItem = new DashboardViewChartDataMultiModel
+                                    dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                                } else
+                                {
+                                    var lineData = new List<DashboardViewChartDataMultiModel>();
+                                    foreach (var line in lines)
                                     {
-                                        Name = line
-                                    };
-
-                                    foreach (var groupedItem in multiData)
-                                    {
-                                        foreach (var item in groupedItem.Series)
+                                        var multiItem = new DashboardViewChartDataMultiModel
                                         {
-                                            if (item.Name == line)
+                                            Name = line
+                                        };
+
+                                        foreach (var groupedItem in multiData)
+                                        {
+                                            foreach (var item in groupedItem.Series)
                                             {
-                                                var singleItem = new DashboardViewChartDataSingleModel
+                                                if (item.Name == line)
                                                 {
-                                                    Name = groupedItem.Name,
-                                                    Value = item.Value,
-                                                };
-                                                multiItem.Series.Add(singleItem);
+                                                    var singleItem = new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = groupedItem.Name,
+                                                        Value = item.Value,
+                                                    };
+                                                    multiItem.Series.Add(singleItem);
+                                                }
                                             }
                                         }
+
+                                        lineData.Add(multiItem);
                                     }
-                                    lineData.Add(multiItem);
+
+                                    dashboardItemModel.ChartData.Multi.AddRange(lineData);
                                 }
-                                multiStackedData =
-                                    ChartDateHelpers.SortLocationPosition(
-                                        multiStackedData,
-                                        dashboardItem);
-                                dashboardItemModel.ChartData.Multi.AddRange(lineData);
-                                dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
+                                
                             }
                             else
                             {
                                 multiStackedData =
-                                    ChartDateHelpers.SortLocationPosition(
+                                    ChartHelpers.SortLocationPosition(
                                         multiStackedData,
                                         dashboardItem);
                                 dashboardItemModel.ChartData.Multi.AddRange(multiData);

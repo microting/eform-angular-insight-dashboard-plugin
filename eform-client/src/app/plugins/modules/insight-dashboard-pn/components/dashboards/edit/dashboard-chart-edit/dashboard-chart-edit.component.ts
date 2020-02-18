@@ -24,6 +24,42 @@ export class DashboardChartEditComponent {
     domain: ['#9c27b0', '#3f51b5', '#2196f3', '#00bcd4', '#009688', '#8bc34a', '#cddc39', '#ffc107', '#ff9800', '#9e9e9e']
   };
 
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  legendTitle = 'Legend';
+  legendPosition = 'right';
+  legendAdvanced = false;
+  showXAxisLabel = true;
+  tooltipDisabled = false;
+  showText = true;
+  xAxisLabel = 'Country';
+  showYAxisLabel = true;
+  yAxisLabel = 'GDP Per Capita';
+  showGridLines = true;
+  innerPadding = '10%';
+  barPadding = 8;
+  groupPadding = 16;
+  roundDomains = false;
+  maxRadius = 10;
+  minRadius = 3;
+  showSeriesOnHover = true;
+  roundEdges: boolean = true;
+  animations: boolean = true;
+  xScaleMin: any;
+  xScaleMax: any;
+  yScaleMin: number;
+  yScaleMax: number;
+  showDataLabel = false;
+  noBarWhenZero = true;
+  barWidth = 7;
+  trimXAxisTicks = true;
+  trimYAxisTicks = true;
+  rotateXAxisTicks = true;
+  maxXAxisTickLength = 16;
+  maxYAxisTickLength = 16;
+
   customColors = [
     {
       name: '100',
@@ -330,144 +366,135 @@ const multi = [
 
 const multiStacked = [
   {
-    'name': 'October',
-    'series': [
-      {
-        'name': '18',
-        'series': [
-          {
-            'name': 'France',
-            'value': 400,
-            'extra': {
-              'code': 'fr'
+    name: 'October',
+    series:
+      [
+        {
+          name: '18',
+          series: [
+            {
+              name: 'France',
+              value: 400,
+              extra: {
+                code: 'fr'
+              }
             },
-            'series': '18'
-          },
-          {
-            'name': 'Japan',
-            'value': 600,
-            'extra': {
-              'code': 'jp'
+            {
+              name: 'Japan',
+              value: 600,
+              extra: {
+                code: 'jp'
+              }
+            }
+          ]
+        },
+        {
+          name: '19',
+          series: [
+            {
+              name: 'France',
+              value: 500,
+              extra: {
+                code: 'fr'
+              }
             },
-            'series': '18'
-          }
-        ]
-      },
-      {
-        'name': '19',
-        'series': [
-          {
-            'name': 'France',
-            'value': 500,
-            'extra': {
-              'code': 'fr'
-            },
-            'series': '19'
-          },
-          {
-            'name': 'Japan',
-            'value': 300,
-            'extra': {
-              'code': 'jp'
-            },
-            'series': '19'
-          }
-        ]
-      }
-    ]
+            {
+              name: 'Japan',
+              value: 300,
+              extra: {
+                code: 'jp'
+              }
+            }
+          ]
+        }
+      ]
   },
   {
-    'name': 'November',
-    'series': [
-      {
-        'name': '18',
-        'series': [
-          {
-            'name': 'France',
-            'value': 300,
-            'extra': {
-              'code': 'fr'
+    name: 'November',
+    series:
+      [
+        {
+          name: '18',
+          series: [
+            {
+              name: 'France',
+              value: 300,
+              extra: {
+                code: 'fr'
+              }
             },
-            'series': '18'
-          },
-          {
-            'name': 'Japan',
-            'value': 100,
-            'extra': {
-              'code': 'jp'
+            {
+              name: 'Japan',
+              value: 100,
+              extra: {
+                code: 'jp'
+              }
+            }
+          ]
+        },
+        {
+          name: '19',
+          series: [
+            {
+              name: 'France',
+              value: 100,
+              extra: {
+                code: 'fr'
+              }
             },
-            'series': '18'
-          }
-        ]
-      },
-      {
-        'name': '19',
-        'series': [
-          {
-            'name': 'France',
-            'value': 100,
-            'extra': {
-              'code': 'fr'
-            },
-            'series': '19'
-          },
-          {
-            'name': 'Japan',
-            'value': 50,
-            'extra': {
-              'code': 'jp'
-            },
-            'series': '19'
-          }
-        ]
-      }
-    ]
+            {
+              name: 'Japan',
+              value: 50,
+              extra: {
+                code: 'jp'
+              }
+            }
+          ]
+        }
+      ]
   },
   {
-    'name': 'Dezember',
-    'series': [
-      {
-        'name': '18',
-        'series': [
-          {
-            'name': 'France',
-            'value': 800,
-            'extra': {
-              'code': 'fr'
+    name: 'Dezember',
+    series:
+      [
+        {
+          name: '18',
+          series: [
+            {
+              name: 'France',
+              value: 800,
+              extra: {
+                code: 'fr'
+              }
             },
-            'series': '18'
-          },
-          {
-            'name': 'Japan',
-            'value': 1300,
-            'extra': {
-              'code': 'jp'
+            {
+              name: 'Japan',
+              value: 1300,
+              extra: {
+                code: 'jp'
+              }
+            }
+          ]
+        },
+        {
+          name: '19',
+          series: [
+            {
+              name: 'France',
+              value: 110,
+              extra: {
+                code: 'fr'
+              }
             },
-            'series': '18'
-          }
-        ]
-      },
-      {
-        'name': '19',
-        'series': [
-          {
-            'name': 'France',
-            'value': 110,
-            'extra': {
-              'code': 'fr'
-            },
-            'series': '19'
-          },
-          {
-            'name': 'Japan',
-            'value': 490,
-            'extra': {
-              'code': 'jp'
-            },
-            'series': '19'
-          }
-        ]
-      }
-    ]
+            {
+              name: 'Japan',
+              value: 490,
+              extra: {
+                code: 'jp'
+              }
+            }
+          ]
+        }
+      ]
   }
 ];
