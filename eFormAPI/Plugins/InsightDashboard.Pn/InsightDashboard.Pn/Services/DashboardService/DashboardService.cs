@@ -843,6 +843,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             if (dashboardItem.CompareEnabled)
                             {
                                 isComparedData = true;
+                            } else if (dashboardItem.ChartType == DashboardChartTypes.Line && dashboardItem.CalculateAverage == true)
+                            {
+                                isComparedData = true;
                             }
                         }
                         else
@@ -917,7 +920,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             }).ToList();
 
                         List<string> lines;
-                        if (isComparedData)
+                        if (dashboardItem.CalculateAverage)
                         {
                             lines = data
                                 .GroupBy(x => x.LocationName)
@@ -976,7 +979,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                             {
                                                                 Name = i.Key,
                                                                 Value = Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
-                                                            }).ToList(),
+                                                            })
+                                                            .OrderBy(t => t.Name)
+                                                            .ToList(),
                                                        
                                                     })
                                                     .OrderBy(y => y.Name)
@@ -1121,34 +1126,41 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                             if (dashboardItem.ChartType == DashboardChartTypes.Line)
                             {
-                                var lineData = new List<DashboardViewChartDataMultiModel>();
-                                foreach (var line in lines)
+                                if (dashboardItem.CalculateAverage)
                                 {
-                                    var multiItem = new DashboardViewChartDataMultiModel
+                                    dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                                } else
+                                {
+                                    var lineData = new List<DashboardViewChartDataMultiModel>();
+                                    foreach (var line in lines)
                                     {
-                                        Name = line
-                                    };
-
-                                    foreach (var groupedItem in multiData)
-                                    {
-                                        foreach (var item in groupedItem.Series)
+                                        var multiItem = new DashboardViewChartDataMultiModel
                                         {
-                                            if (item.Name == line)
+                                            Name = line
+                                        };
+
+                                        foreach (var groupedItem in multiData)
+                                        {
+                                            foreach (var item in groupedItem.Series)
                                             {
-                                                var singleItem = new DashboardViewChartDataSingleModel
+                                                if (item.Name == line)
                                                 {
-                                                    Name = groupedItem.Name,
-                                                    Value = item.Value,
-                                                };
-                                                multiItem.Series.Add(singleItem);
+                                                    var singleItem = new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = groupedItem.Name,
+                                                        Value = item.Value,
+                                                    };
+                                                    multiItem.Series.Add(singleItem);
+                                                }
                                             }
                                         }
+
+                                        lineData.Add(multiItem);
                                     }
 
-                                    lineData.Add(multiItem);
+                                    dashboardItemModel.ChartData.Multi.AddRange(lineData);
                                 }
-
-                                dashboardItemModel.ChartData.Multi.AddRange(lineData);
+                                
                             }
                             else
                             {
