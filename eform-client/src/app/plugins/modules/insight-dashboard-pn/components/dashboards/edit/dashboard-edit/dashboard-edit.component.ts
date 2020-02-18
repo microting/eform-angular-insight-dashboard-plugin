@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DashboardEditModel, DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
 import {DragulaService} from 'ng2-dragula';
 import {ToastrService} from 'ngx-toastr';
+import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
 
 @AutoUnsubscribe()
 @Component({
@@ -17,8 +18,10 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   updateDashboardSub$: Subscription;
   filterQuestionsSub$: Subscription;
   getDashboardSub$: Subscription;
+  getTagsSub$: Subscription;
   dashboardEditModel: DashboardEditModel = new DashboardEditModel();
   questions: DashboardItemQuestionModel[] = [];
+  availableLocationsTags: CommonDictionaryExtendedModel[] = [];
   selectedDashboardId: number;
   spinnerStatus = false;
   dragulaGroupName = 'ITEMS';
@@ -26,7 +29,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   constructor(private dashboardsService: InsightDashboardPnDashboardsService,
               private router: Router,
               private route: ActivatedRoute,
-              private dashboardItemsService: InsightDashboardPnDashboardDictionariesService,
+              private dictionaryService: InsightDashboardPnDashboardDictionariesService,
               private dragulaService: DragulaService,
               private toastrService: ToastrService) {
   }
@@ -66,17 +69,35 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
           this.dashboardEditModel = data.model;
         }
         this.getFilterQuestions(data.model.surveyId);
+        this.getLocationTags(data.model.surveyId);
         this.spinnerStatus = false;
       });
   }
 
   getFilterQuestions(surveyId: number) {
-    this.filterQuestionsSub$ = this.dashboardItemsService.getQuestions(surveyId)
+    this.filterQuestionsSub$ = this.dictionaryService.getQuestions(surveyId)
       .subscribe((data) => {
         if (data && data.success) {
           this.questions = data.model;
         }
       });
+  }
+
+  getLocationTags(surveyId: number) {
+    // this.getLocationsSub$ = this.sitesService.getAllSitesDictionary().subscribe((data) => {
+    //   if (data && data.success) {
+    //     this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
+    //       return {id: x.id, name: x.name, isTag: true, description: x.description};
+    //     })];
+    //   }
+    // });
+    this.getTagsSub$ = this.dictionaryService.getLocationBySurveyId(surveyId).subscribe((data) => {
+      if (data && data.success) {
+        this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
+          return {id: x.id, name: x.name, isTag: false, description: x.description} as CommonDictionaryExtendedModel;
+        })];
+      }
+    });
   }
 
   onAddNewBlock(position: number) {

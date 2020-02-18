@@ -895,6 +895,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 Name = x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationName = x.Answer.Site.Name,
+                                LocationId = x.Answer.SiteId,
+                                Weight = x.Option.WeightValue,
                             }).ToList();
 
                         List<string> lines;
@@ -938,30 +940,27 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             switch (dashboardItemModel.Period)
                             {
                                 case DashboardPeriodUnits.Week:
-                                    var consignmentsByWeek = from con in data
-                                        group con by ChartDateHelpers.GetWeekString(con.Finished);
-
-                                    var consignmentsByWeekStacked = from con in data
-                                        group con by ChartDateHelpers.GetWeekString(con.Finished);
-
                                     if (isStackedData)
                                     {
                                         multiStackedData = data
                                             .GroupBy(x => x.LocationName)
                                             .Select(x => new DashboardViewChartDataMultiStackedModel
                                             {
-                                                Name = x.Key.ToString(),
+                                                Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                                Name = x.Key.ToString(), // Location name
                                                 Series = x
                                                     .GroupBy(y => ChartDateHelpers.GetWeekString(y.Finished))
                                                     .Select(y => new DashboardViewChartDataMultiModel
                                                     {
-                                                        Name = y.Key,
+                                                        Name = y.Key, // Week name
                                                         Series = y
                                                             .GroupBy(g => g.Name)
                                                             .Select(i => new DashboardViewChartDataSingleModel
                                                             {
-                                                                Value = Math.Round(
-                                                                    ((decimal) i.Count() * 100) / y.Count(), 2),
+                                                                Name = i.Key,
+                                                                Value = dashboardItem.CalculateAverage
+                                                                    ? (decimal) y.Average(k => k.Weight)
+                                                                    : Math.Round(((decimal)i.Count() * 100) / y.Count(), 2),
                                                             }).ToList(),
                                                        
                                                     })
@@ -971,7 +970,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     }
                                     else
                                     {
-                                        multiData = consignmentsByWeek
+                                        multiData = data
+                                            .GroupBy(x => ChartDateHelpers.GetWeekString(x.Finished))
                                             .Select(x => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = x.Key.ToString(),
@@ -979,7 +979,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                                     .Select(y => new DashboardViewChartDataSingleModel
                                                     {
                                                         Name = y.Key,
-                                                        Value = Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
+                                                        Value = dashboardItem.CalculateAverage
+                                                            ? (decimal)y.Average(k => k.Weight)
+                                                            : Math.Round(((decimal)y.Count() * 100) / x.Count(), 2),
                                                     })
                                                     .OrderBy(y => y.Name)
                                                     .ToList(),
@@ -1106,10 +1108,19 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     }
                                     lineData.Add(multiItem);
                                 }
+                                multiStackedData =
+                                    ChartDateHelpers.SortLocationPosition(
+                                        multiStackedData,
+                                        dashboardItem);
                                 dashboardItemModel.ChartData.Multi.AddRange(lineData);
+                                dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }
                             else
                             {
+                                multiStackedData =
+                                    ChartDateHelpers.SortLocationPosition(
+                                        multiStackedData,
+                                        dashboardItem);
                                 dashboardItemModel.ChartData.Multi.AddRange(multiData);
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }

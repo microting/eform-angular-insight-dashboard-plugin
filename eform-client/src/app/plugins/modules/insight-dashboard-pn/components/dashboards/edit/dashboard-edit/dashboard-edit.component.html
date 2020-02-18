@@ -39,6 +39,7 @@
                [dragulaModel]="dashboardEditModel.items">
         <app-dashboard-item-edit *ngFor="let dashboardItem of dashboardEditModel.items"
                                  [dashboardItem]="dashboardItem"
+                                 [locationsTags]="availableLocationsTags"
                                  [questions]="questions"
                                  id="dashboardItem"
                                  [surveyId]="dashboardEditModel.surveyId"

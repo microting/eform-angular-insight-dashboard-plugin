@@ -4,6 +4,7 @@
 
     public class DashboardViewChartDataMultiStackedModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public List<DashboardViewChartDataMultiModel> Series { get; set; }

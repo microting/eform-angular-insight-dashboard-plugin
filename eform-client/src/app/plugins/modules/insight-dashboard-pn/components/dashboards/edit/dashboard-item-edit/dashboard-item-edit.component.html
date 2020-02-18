@@ -49,7 +49,7 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
-                id="editFirstQuestion"
+                id="editFirstQuestion{{dashboardItem.position}}"
                 [placeholder]="('Select First Question' | translate) + ' *'"
                 [ngModel]="dashboardItem.firstQuestionId"
                 [required]="true"
@@ -59,7 +59,7 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
-                id="editFilterQuestion"
+                id="editFilterQuestion{{dashboardItem.position}}"
                 [placeholder]="'Select Filter Question' | translate"
                 [ngModel]="dashboardItem.filterQuestionId"
                 [disabled]="!dashboardItem.firstQuestionId"
@@ -68,7 +68,7 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
-                id="editFilterAnswer"
+                id="editFilterAnswer{{dashboardItem.position}}"
                 [ngModel]="dashboardItem.filterAnswerId"
                 (ngModelChange)="fieldChanged($event, itemFields.filterAnswerId)"
                 [disabled]="!dashboardItem.filterQuestionId"
@@ -77,7 +77,7 @@
               <ng-select
                 bindValue="id"
                 bindLabel="name"
-                id="editPeriod"
+                id="editPeriod{{dashboardItem.position}}"
                 [ngModel]="dashboardItem.period"
                 [required]="true"
                 [clearable]="false"
@@ -92,16 +92,17 @@
                   {id: periodUnits.Year, name: periodUnits[periodUnits.Year] | translate},
                   {id: periodUnits.Total, name: periodUnits[periodUnits.Total] | translate}
                 ]"></ng-select>
-<!--              <div class="row ml-1 mb-2">-->
-<!--                <div class="mat-checkbox mb-1">-->
-<!--                  <input id="calcAverageCheckbox" type="checkbox" [checked]="dashboardItem.calculateAverage"-->
-<!--                         (click)="fieldChanged($event.target.checked, itemFields.calculateAverage)"-->
-<!--                         [value]="dashboardItem.calculateAverage">-->
-<!--                  <label for="calcAverageCheckbox">-->
-<!--                    {{'Calculate average' | translate}}-->
-<!--                  </label>-->
-<!--                </div>-->
-<!--              </div>-->
+              <div class="row ml-1 mb-2">
+                <div class="mat-checkbox mb-1">
+                  <input id="calcAverageCheckbox" type="checkbox" [disabled]="!dashboardItem.isFirstQuestionSmiley"
+                         [checked]="dashboardItem.calculateAverage"
+                         (click)="fieldChanged($event.target.checked, itemFields.calculateAverage)"
+                         [value]="dashboardItem.calculateAverage">
+                  <label for="calcAverageCheckbox">
+                    {{'Calculate average' | translate}}
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
           <div class="card z-depth-2 mb-3" style="width: 100%">
@@ -120,7 +121,7 @@
                     <div class="mat-checkbox mb-1">
                       <input id="answerIgnoreCheckbox{{answer.id}}_{{dashboardItem.position}}" type="checkbox"
                              [checked]="isAnswerIgnored(answer.id)"
-                             (change)="addToArray($event, answer.id)"
+                             (change)="addToArrayIgnoredValues($event, answer.id)"
                              [value]="isAnswerIgnored(answer.id)">
                       <label for="answerIgnoreCheckbox{{answer.id}}_{{dashboardItem.position}}">
                         {{answer.name}}
@@ -129,40 +130,42 @@
                   </div>
                 </div>
               </ng-container>
-
             </div>
           </div>
-<!--          <div class="card z-depth-2 mb-3" style="width: 100%">-->
-<!--            <div class="card-body">-->
-<!--              <div class="row ml-1">-->
-<!--                <div class="mat-checkbox mb-1">-->
-<!--                  <input id="enableCompare" type="checkbox" [checked]="dashboardItem.compareEnabled"-->
-<!--                         [(ngModel)]="dashboardItem.compareEnabled"-->
-<!--                         [disabled]="!dashboardItem.firstQuestionId"-->
-<!--                         [value]="dashboardItem.compareEnabled">-->
-<!--                  <label for="enableCompare">-->
-<!--                    {{'Compare Location/Report tag' | translate}}-->
-<!--                  </label>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="scrollable-block">-->
-<!--                <div class="row m-0 ml-2" *ngFor="let compareLocation of compareTemp">-->
-<!--                  <div class="col-2">-->
-<!--                    <div class="md-form">-->
-<!--                      <input mdbInputDirective [mdbValidate]="false"-->
-<!--                             type="number" [disabled]="!dashboardItem.compareEnabled"-->
-<!--                             class="form-control input-sm" id="{{compareLocation}}">-->
-<!--                      <label for="{{compareLocation}}">{{compareLocation}}</label>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
+          <div class="card z-depth-2 mb-3" style="width: 100%">
+            <div class="card-body">
+              <div class="row ml-1">
+                <div class="mat-checkbox mb-1">
+                  <input id="enableCompare" type="checkbox" [checked]="dashboardItem.compareEnabled"
+                         [(ngModel)]="dashboardItem.compareEnabled"
+                         [disabled]="!dashboardItem.firstQuestionId"
+                         [value]="dashboardItem.compareEnabled">
+                  <label for="enableCompare">
+                    {{'Compare Location/Report tag' | translate}}
+                  </label>
+                </div>
+              </div>
+              <div class="scrollable-block">
+                <div class="row m-0 ml-2" *ngFor="let locationTag of locationsTags">
+                  <div class="col-2">
+                    <div class="md-form">
+                      <input mdbInputDirective [mdbValidate]="false"
+                             (change)="onLocationPositionChanged($event, locationTag)"
+                             [value]="getCurrentLocationValue(locationTag)"
+                             min="1" max="50"
+                             type="number" [disabled]="!dashboardItem.compareEnabled"
+                             class="form-control input-sm" id="{{locationTag.id}}">
+                      <label for="{{locationTag.id}}">{{locationTag.name}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="card z-depth-2 mb-3" style="width: 100%">
             <div class="card-body">
               <ng-select
-                id="editChartType"
+                id="editChartType{{dashboardItem.position}}"
                 bindValue="id"
                 bindLabel="name"
                 [clearable]="false"
