@@ -230,25 +230,29 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     }
     if (locationTag.isTag) {
       const foundTagIndex = this.dashboardItem.compareLocationsTags.findIndex(x => x.tagId === locationTag.id);
-      if (foundTagIndex > 0) {
+      if (foundTagIndex > -1) {
         if (newValue > 0) {
           this.dashboardItem.compareLocationsTags[foundTagIndex] = {tagId: locationTag.id, position: newValue, locationId: null};
         } else {
           this.dashboardItem.compareLocationsTags.splice(foundTagIndex, 1);
         }
       } else {
-        this.dashboardItem.compareLocationsTags.push({tagId: locationTag.id, position: newValue, locationId: null});
+        if (newValue) {
+          this.dashboardItem.compareLocationsTags.push({tagId: locationTag.id, position: newValue, locationId: null});
+        }
       }
     } else {
       const foundLocationIndex = this.dashboardItem.compareLocationsTags.findIndex(x => x.locationId === locationTag.id);
-      if (foundLocationIndex > 0) {
+      if (foundLocationIndex > -1) {
         if (newValue > 0) {
           this.dashboardItem.compareLocationsTags[foundLocationIndex] = {locationId: locationTag.id, position: newValue, tagId: null};
         } else {
-          this.dashboardItem.compareLocationsTags.splice(foundLocationIndex, 1)
+          this.dashboardItem.compareLocationsTags.splice(foundLocationIndex, 1);
         }
       } else {
-        this.dashboardItem.compareLocationsTags.push({locationId: locationTag.id, position: newValue, tagId: null});
+        if (newValue) {
+          this.dashboardItem.compareLocationsTags.push({locationId: locationTag.id, position: newValue, tagId: null});
+        }
       }
     }
     this.fieldChanged(this.dashboardItem.compareLocationsTags, DashboardItemFieldsEnum.compareLocationsTags);
