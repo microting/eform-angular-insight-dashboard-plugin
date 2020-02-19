@@ -40,6 +40,8 @@ describe('Insight Dashboard - Dashboard - Edit', function () {
     const item = dashboardEditPage.getDashboardItem(itemNumsBeforeCopyItem);
     dashboardEditPage.copyItem(item);
     expect(itemNumsBeforeCopyItem).equal(dashboardEditPage.rowNum - 1);
+    browser.refresh();
+    browser.pause(8000);
   });
   it('should save filled item', function () {
     const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
