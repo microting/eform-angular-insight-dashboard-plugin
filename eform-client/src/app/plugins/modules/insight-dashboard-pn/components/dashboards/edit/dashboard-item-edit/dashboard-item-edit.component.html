@@ -153,7 +153,6 @@
                       <input mdbInputDirective [mdbValidate]="false"
                              (change)="onLocationPositionChanged($event, locationTag)"
                              [value]="getCurrentLocationValue(locationTag)"
-                             min="1" max="50"
                              type="number" [disabled]="!dashboardItem.compareEnabled"
                              class="form-control input-sm" id="{{locationTag.id}}">
                       <label for="{{locationTag.id}}">{{locationTag.name}}</label>
