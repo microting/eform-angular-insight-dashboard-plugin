@@ -25,7 +25,6 @@ export class SurveyConfigurationEditComponent implements OnInit {
   }
 
   show(surveyConfig: SurveyConfigModel) {
-    debugger;
     this.selectedSurveyConfig = surveyConfig;
     this.extendedLocations = this.locations.map(x => {
       return {id: x.id, name: x.name, isChecked: surveyConfig.locations.findIndex(y => y.id === x.id) > -1};
