@@ -17,7 +17,8 @@ exports.config = {
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.add.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.delete.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.copy.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.edit.spec.ts'
+    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.edit.spec.ts',
+    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.view.spec.ts'
   ],
   suites: {
     settings: [

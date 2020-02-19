@@ -161,7 +161,8 @@ export class DashboardsPageRowObject {
       } catch (e) {
       }
       // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
-      this.editDashboardBtn = $$('#editDashboardBtn')[rowNum - 1];
+      this.dashboardEditBtn = $$('#dashboardEditBtn')[rowNum - 1];
+      this.dashboardViewBtn = $$('#dashboardViewBtn')[rowNum - 1];
       this.dashboardDeleteBtn = $$('#dashboardDeleteBtn')[rowNum - 1];
       this.dashboardCopyBtn = $$('#dashboardCopyBtn')[rowNum - 1];
     }
@@ -170,7 +171,8 @@ export class DashboardsPageRowObject {
   public id;
   public dashboardName;
   public locations;
-  public editDashboardBtn;
+  public dashboardViewBtn;
+  public dashboardEditBtn;
   public dashboardDeleteBtn;
   public dashboardCopyBtn;
 }

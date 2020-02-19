@@ -5,31 +5,41 @@
         <div class="col">
           <p>
             <strong>{{'Question' | translate}}: </strong>
-            {{itemModel.firstQuestionName}}
+            <span id="firstQuestion{{position}}">{{itemModel.firstQuestionName}}</span>
           </p>
           <p>
             <strong>{{'Filter Question' | translate}}: </strong>
-            {{itemModel.filterQuestionName ? itemModel.filterQuestionName : '--'}}
+            <span id="filterQuestion{{position}}">{{itemModel.filterQuestionName ? itemModel.filterQuestionName : '--'}}</span>
           </p>
           <p>
             <strong>{{'Filter answer' | translate}}: </strong>
-            {{itemModel.filterAnswerName ? itemModel.filterAnswerName : '--'}}
+            <span id="filterAnswer{{position}}">{{itemModel.filterAnswerName ? itemModel.filterAnswerName : '--'}}</span>
           </p>
           <p>
-            <strong>{{'Period Unit' | translate}}: </strong> {{periodUnits[itemModel.period] | translate}}
+            <strong>{{'Period Unit' | translate}}: </strong>
+            <span id="period{{position}}">{{periodUnits[itemModel.period] | translate}}</span>
           </p>
         </div>
         <div class="col">
           <p>
-            <strong>{{'Chart Type' | translate}}: </strong> {{chartTypes[itemModel.chartType] | translate}}
+            <strong>{{'Chart Type' | translate}}: </strong>
+            <span id="chartType{{position}}">{{chartTypes[itemModel.chartType] | translate}}</span>
           </p>
           <p>
             <strong>{{'Ignored values' | translate}}: </strong>
-            <!--            {{itemModel.filterAnswerName ? itemModel.filterAnswerName : '&#45;&#45;'}}-->
+            <ng-container *ngFor="let ignoredValue of itemModel.ignoredAnswerValues">
+              {{ignoredValue}}
+            </ng-container>
+          </p>
+          <p>
+            <strong>{{'Calculate Average' | translate}}: </strong>
+            <span id="calculateAverage{{position}}">{{itemModel.calculateAverage ? ('Yes' | translate) : ('No' | translate)}}</span>
           </p>
           <p>
             <strong>{{'Compared locations/tags' | translate}}: </strong>
-            <!--            {{itemModel.filterAnswerName ? itemModel.filterAnswerName : '&#45;&#45;'}}-->
+            <ng-container *ngFor="let locationTag of itemModel.compareLocationsTags">
+              {{locationTag}}
+            </ng-container>
           </p>
         </div>
       </div>

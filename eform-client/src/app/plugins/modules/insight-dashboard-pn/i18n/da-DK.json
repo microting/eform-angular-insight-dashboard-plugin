@@ -48,11 +48,18 @@
   "VerticalBar": "Lodret Søjlediagram",
   "VerticalBarStacked":  "Vandret Stablet Søjlediagram",
   "VerticalBarGrouped": "Vandret Grupperet Søjlediagram",
-
   "Week": "Uge",
   "Month": "Måned",
   "Quarter": "Kvarter",
   "SixMonth": "Seks måned",
   "Year": "År",
-  "Total": "Total"
+  "Total": "Total",
+  "Chart Type": "Diagramtype",
+  "Ignored values": "Ignorerede værdier",
+  "Calculate Average": "Beregn gennemsnit",
+  "Compared locations/tags" : "Sammenlignede placeringer / tags",
+  "Return": "Vend tilbage",
+  "Yes" : "Ja",
+  "No" : "Nej",
+  "Copy to clipboard": "Kopier til udklipsholder"
 }

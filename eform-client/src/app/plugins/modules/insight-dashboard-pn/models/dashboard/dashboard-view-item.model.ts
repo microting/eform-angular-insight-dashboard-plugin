@@ -8,10 +8,10 @@ export class DashboardViewItemModel {
   filterQuestionName: string;
   filterAnswerName: string;
 
-  ignoredAnswerValues: any[];
+  ignoredAnswerValues: string[];
   calculateAverage: boolean;
   compareEnabled: boolean;
-  compareLocationsTags: DashboardItemCompareModel[];
+  compareLocationsTags: string[];
 
   period: DashboardPeriodUnitsEnum;
   chartType: DashboardChartTypesEnum;

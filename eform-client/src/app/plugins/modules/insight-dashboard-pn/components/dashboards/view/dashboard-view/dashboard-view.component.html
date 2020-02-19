@@ -15,7 +15,7 @@
       <div class="card z-depth-3 mt-4 mb-4" style="width: 100%">
         <div class="card-body">
           <ng-container *ngFor="let dashboardViewItemModel of dashboardViewModel.items; let pos = index">
-            <app-dashboard-block-view [itemModel]="dashboardViewItemModel" [position]="pos"></app-dashboard-block-view>
+            <app-dashboard-block-view id="dashboardViewItem" [itemModel]="dashboardViewItemModel" [position]="pos + 1"></app-dashboard-block-view>
           </ng-container>
         </div>
       </div>

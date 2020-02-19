@@ -48,11 +48,19 @@
   "VerticalBar": "Vertical Bar",
   "VerticalBarStacked":  "Vertical Bar Stacked",
   "VerticalBarGrouped": "Vertical Bar Grouped",
-
   "Week": "Week",
   "Month": "Month",
   "Quarter": "Quarter",
   "SixMonth": "Six month",
   "Year": "Year",
-  "Total": "Total"
+  "Total": "Total",
+
+  "Chart Type": "Chart Type",
+  "Ignored values": "Ignored values",
+  "Calculate Average": "Calculate Average",
+  "Compared locations/tags" : "Compared locations/tags",
+  "Return": "Return",
+  "Yes" : "Yes",
+  "No" : "No",
+  "Copy to clipboard": "Copy to clipboard"
 }
