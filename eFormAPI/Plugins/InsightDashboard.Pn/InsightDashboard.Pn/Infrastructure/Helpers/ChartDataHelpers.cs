@@ -1,4 +1,4 @@
-﻿namespace InsightDashboard.Pn.Infrastructure.Helpers
+namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
     using System.Collections.Generic;
@@ -245,13 +245,14 @@
                         Name = x.Key,
                         Value = Math.Round(((decimal) x.Count() * 100) / count, 2),
                     })
-                    .OrderBy(x => x.Name)
+                    .OrderBy(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                     .ToList();
 
                 dashboardItemModel.ChartData.Single.AddRange(groupedData);
             }
             else
             {
+ 
                 var multiData = new List<DashboardViewChartDataMultiModel>();
                 var multiStackedData = new List<DashboardViewChartDataMultiStackedModel>();
                 switch (dashboardItemModel.Period)
@@ -423,7 +424,7 @@
                                                     Name = i.Key,
                                                     Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
                                                 })
-                                                .OrderBy(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                                 .ToList(),
                                         })
                                         .OrderByDescending(y => y.Name)
