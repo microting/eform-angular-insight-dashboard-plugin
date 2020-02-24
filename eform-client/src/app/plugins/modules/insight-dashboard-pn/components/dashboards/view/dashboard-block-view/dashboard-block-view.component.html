@@ -35,7 +35,7 @@
             <strong>{{'Calculate Average' | translate}}: </strong>
             <span id="calculateAverage{{position}}">{{itemModel.calculateAverage ? ('Yes' | translate) : ('No' | translate)}}</span>
           </p>
-          <p>
+          <p *ngIf="itemModel.compareEnabled">
             <strong>{{'Compared locations/tags' | translate}}: </strong>
             <ng-container *ngFor="let locationTag of itemModel.compareLocationsTags">
               {{locationTag}}
