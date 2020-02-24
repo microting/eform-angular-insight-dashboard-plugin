@@ -214,7 +214,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     LocationName = x.Answer.Site.Name,
                     LocationId = x.Answer.SiteId,
                     Weight = x.Option.WeightValue,
-                }).ToList();
+                    OptionIndex = x.Option.OptionsIndex,
+                })
+                .OrderBy(t => t.OptionIndex)
+                .ToList();
 
             List<string> lines;
             if (dashboardItem.CalculateAverage)
@@ -245,7 +248,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         Name = x.Key,
                         Value = Math.Round(((decimal) x.Count() * 100) / count, 2),
                     })
-                    .OrderBy(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                     .ToList();
 
                 dashboardItemModel.ChartData.Single.AddRange(groupedData);
@@ -278,8 +280,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = i.Key,
                                                     Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
                                                 })
-                                                .OrderByDescending(
-                                                    t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                                 .ToList(),
                                         })
                                         .OrderBy(y => y.Name)
@@ -304,7 +304,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -323,7 +322,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -351,8 +349,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = i.Key,
                                                     Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
                                                 })
-                                                .OrderByDescending(
-                                                    t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                                 .ToList(),
                                         })
                                         .OrderBy(y => y.Name)
@@ -377,7 +373,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -396,7 +391,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -424,7 +418,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = i.Key,
                                                     Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
                                                 })
-                                                .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                                 .ToList(),
                                         })
                                         .OrderByDescending(y => y.Name)
@@ -449,7 +442,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -468,7 +460,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -524,7 +515,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -543,7 +533,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -597,7 +586,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -616,7 +604,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     ? (decimal) y.Average(k => k.Weight)
                                                     : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
                                             })
-                                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -638,7 +625,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     ? (decimal) x.Average(k => k.Weight)
                                     : Math.Round(((decimal) x.Count() * 100) / data.Count, 2),
                             })
-                            .OrderByDescending(t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
                             .ToList();
 
 
