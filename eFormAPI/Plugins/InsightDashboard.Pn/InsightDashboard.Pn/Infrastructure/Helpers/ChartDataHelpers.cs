@@ -686,7 +686,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static int GetDataPercentage(int subCount, int totalCount)
         {
-            var value = Math.Round(((decimal)subCount * 100) / totalCount, 2);
+            var value = Math.Round(((decimal)subCount * 100) / totalCount, 0);
             return decimal.ToInt32(value);
         }
     }
