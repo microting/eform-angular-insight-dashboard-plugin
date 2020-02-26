@@ -737,7 +737,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 }
 
                 // Dashboard items
-                foreach (var dashboardItem in dashboard.DashboardItems.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                foreach (var dashboardItem in dashboard.DashboardItems
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .OrderBy(x => x.Position))
                 {
                     var dashboardItemModel = new DashboardItemViewModel()
                     {
