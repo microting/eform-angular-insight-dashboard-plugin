@@ -301,7 +301,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -319,7 +319,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -370,7 +370,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -388,7 +388,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -439,7 +439,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -457,7 +457,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -512,7 +512,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -530,7 +530,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -583,7 +583,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -601,7 +601,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
@@ -622,7 +622,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             {
                                 Name = x.Key,
                                 Value = dashboardItem.CalculateAverage
-                                    ? (decimal) x.Average(k => k.Weight)
+                                    ? GetAverageDataPercentage(x.Average(k => k.Weight))
                                     : GetDataPercentage(x.Count(), data.Count),
                             })
                             .ToList();
@@ -682,6 +682,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                 }
             }
+        }
+
+        private static int GetAverageDataPercentage(double averageValue)
+        {
+            var value = Math.Round((decimal)averageValue);
+            return decimal.ToInt32(value);
         }
 
         public static int GetDataPercentage(int subCount, int totalCount)
