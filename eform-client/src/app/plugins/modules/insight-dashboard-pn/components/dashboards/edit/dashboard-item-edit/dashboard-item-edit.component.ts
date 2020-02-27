@@ -44,8 +44,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   allCharts = [];
   availableCharts = [];
 
-  dashboardFullNameArr = ['-', '-', '-'];
-
   get periodUnits() {
     return DashboardPeriodUnitsEnum;
   }
@@ -72,7 +70,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   constructor(private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-              private translateService: TranslateService, private cdRef: ChangeDetectorRef) {
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -176,6 +174,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     }
     this.availableCharts = [...this.allCharts];
 
+
     if (this.dashboardItem && this.dashboardItem.period) {
       if (this.dashboardItem.period === DashboardPeriodUnitsEnum.Total) {
         this.availableCharts = [
@@ -186,6 +185,14 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
           this.allCharts[DashboardChartTypesEnum.Line - 1],
           ...this.allCharts.slice(DashboardChartTypesEnum.HorizontalBarStacked, DashboardChartTypesEnum.HorizontalBarStackedGrouped)
         ];
+      }
+    }
+
+    if (this.dashboardItem.calculateAverage) {
+      if (this.dashboardItem.period !== DashboardPeriodUnitsEnum.Total) {
+        this.availableCharts = [this.allCharts[DashboardChartTypesEnum.Line - 1]];
+      } else {
+        this.availableCharts = [];
       }
     }
 

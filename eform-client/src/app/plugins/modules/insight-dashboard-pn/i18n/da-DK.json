@@ -61,5 +61,7 @@
   "Return": "Vend tilbage",
   "Yes" : "Ja",
   "No" : "Nej",
-  "Copy to clipboard": "Kopier til udklipsholder"
+  "Copy to clipboard": "Kopier til udklipsholder",
+  "Percents": "Procenter",
+  "Scores": "Score"
 }

@@ -13,7 +13,7 @@
                          [legend]="true"
                          [showXAxisLabel]="true"
                          [showYAxisLabel]="true"
-                         [yAxisLabel]="isFirstQuestionSmiley ? ('Score' | translate) : ('Percents' | translate)"
+                         [yAxisLabel]="dashboardItem.calculateAverage ? ('Score' | translate) : ('Percents' | translate)"
                          [autoScale]="true" [yScaleMax]="100">
   </ngx-charts-line-chart>
   <ngx-charts-pie-chart *ngIf="dashboardItem.chartType === chartTypes.Pie"
@@ -36,9 +36,9 @@
                              [xAxis]="true"
                              [yAxis]="true"
                              [legend]="true"
-                             [showXAxisLabel]="false"
-                             [showYAxisLabel]="true"
-                             [yAxisLabel]="isFirstQuestionSmiley ? ('Score' | translate) : ('Percents' | translate)" [xScaleMax]="100">
+                             [showXAxisLabel]="true"
+                             [showYAxisLabel]="false"
+                             [xAxisLabel]="'Percents' | translate" [xScaleMax]="100">
   </ngx-charts-bar-horizontal>
   <ngx-charts-bar-horizontal-stacked *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarStacked"
                                      [view]="view"
@@ -49,9 +49,9 @@
                                      [xAxis]="true"
                                      [yAxis]="true"
                                      [legend]="true"
-                                     [showXAxisLabel]="false"
-                                     [showYAxisLabel]="true"
-                                     [yAxisLabel]="isFirstQuestionSmiley ? ('Score' | translate) : ('Percents' | translate)"
+                                     [showXAxisLabel]="true"
+                                     [showYAxisLabel]="false"
+                                     [xAxisLabel]="'Percents' | translate"
                                      [xScaleMax]="100">
   </ngx-charts-bar-horizontal-stacked>
   <ngx-charts-bar-horizontal-2d *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarGrouped"
@@ -63,10 +63,9 @@
                                 [xAxis]="true"
                                 [yAxis]="true"
                                 [legend]="true"
-                                [showXAxisLabel]="false"
-                                [showYAxisLabel]="true"
-                                [xAxisLabel]="'Dates'"
-                                [yAxisLabel]="isFirstQuestionSmiley ? ('Score' | translate) : ('Percents' | translate)"
+                                [showXAxisLabel]="true"
+                                [showYAxisLabel]="false"
+                                [xAxisLabel]="'Percents' | translate"
                                 [xScaleMax]="100">
   </ngx-charts-bar-horizontal-2d>
   <ngx-charts-bar-vertical *ngIf="dashboardItem.chartType === chartTypes.VerticalBar"
@@ -81,7 +80,7 @@
                            [showXAxisLabel]="false"
                            [showYAxisLabel]="true"
                            [xAxisLabel]="'Dates'"
-                           [yAxisLabel]="isFirstQuestionSmiley ? ('Score' | translate) : ('Percents' | translate)"
+                           [yAxisLabel]="'Percents' | translate"
                            [yScaleMax]="100">
   </ngx-charts-bar-vertical>
   <ngx-charts-bar-vertical-stacked *ngIf="dashboardItem.chartType === chartTypes.VerticalBarStacked"
@@ -96,7 +95,7 @@
                                    [showXAxisLabel]="false"
                                    [showYAxisLabel]="true"
                                    [xAxisLabel]="'Dates'"
-                                   [yAxisLabel]="isFirstQuestionSmiley ? ('Score' | translate) : ('Percents' | translate)"
+                                   [yAxisLabel]="'Percents' | translate"
                                    [yScaleMax]="100">
   </ngx-charts-bar-vertical-stacked>
   <ngx-charts-bar-vertical-2d *ngIf="dashboardItem.chartType === chartTypes.VerticalBarGrouped"
@@ -111,7 +110,7 @@
                               [showXAxisLabel]="false"
                               [showYAxisLabel]="true"
                               [xAxisLabel]="'Dates'"
-                              [yAxisLabel]="isFirstQuestionSmiley ? ('Score' | translate) : ('Percents' | translate)"
+                              [yAxisLabel]="'Percents' | translate"
                               [yScaleMax]="100">
   </ngx-charts-bar-vertical-2d>
   <ngx-charts-bar-vertical-2d-stacked *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarStackedGrouped"
@@ -134,7 +133,7 @@
                                       [showXAxisLabel]="showXAxisLabel"
                                       [showYAxisLabel]="showYAxisLabel"
                                       [xAxisLabel]="xAxisLabel"
-                                      [yAxisLabel]="yAxisLabel"
+                                      [yAxisLabel]="'Percents' | translate"
                                       [showGridLines]="showGridLines"
                                       [barPadding]="barPadding"
                                       [roundDomains]="roundDomains"

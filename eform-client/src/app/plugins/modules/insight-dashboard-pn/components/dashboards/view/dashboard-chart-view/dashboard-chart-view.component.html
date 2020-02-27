@@ -10,74 +10,74 @@
      id="copyableChart{{chartPosition}}"
      style="background-color: #FFFFFF !important;"
 >
-  <ngx-charts-line-chart *ngIf="chartType === chartTypes.Line"
+  <ngx-charts-line-chart *ngIf="itemModel.chartType === chartTypes.Line"
                          [view]="view"
                          [scheme]="colorScheme"
                          [customColors]="customColors"
-                         [results]="chartData.multi"
+                         [results]="itemModel.chartData.multi"
                          [gradient]="false"
                          [xAxis]="true"
                          [yAxis]="true"
                          [legend]="true"
                          [showXAxisLabel]="true"
                          [showYAxisLabel]="true"
-                         [yAxisLabel]="'%'"
-                         [xScaleMin]="0">
+                         [yAxisLabel]="itemModel.calculateAverage ? ('Score' | translate) : ('Percents' | translate)"
+                         [yScaleMax]="100">
   </ngx-charts-line-chart>
-  <ngx-charts-pie-chart *ngIf="chartType === chartTypes.Pie"
+  <ngx-charts-pie-chart *ngIf="itemModel.chartType === chartTypes.Pie"
                         [view]="view"
                         [scheme]="colorScheme"
                         [customColors]="customColors"
-                        [results]="chartData.single"
+                        [results]="itemModel.chartData.single"
                         [legend]="true"
                         [explodeSlices]="false"
                         [labels]="true"
                         [doughnut]="false"
                         [gradient]="false">
   </ngx-charts-pie-chart>
-  <ngx-charts-bar-horizontal *ngIf="chartType === chartTypes.HorizontalBar"
+  <ngx-charts-bar-horizontal *ngIf="itemModel.chartType === chartTypes.HorizontalBar"
                              [view]="view"
                              [scheme]="colorScheme"
-                             [results]="chartData.single"
+                             [results]="itemModel.chartData.single"
                              [customColors]="customColors"
                              [gradient]="false"
                              [xAxis]="true"
                              [yAxis]="true"
                              [legend]="true"
                              [showXAxisLabel]="true"
-                             [showYAxisLabel]="true"
-                             [yAxisLabel]="'%'" [xScaleMin]="0">
+                             [showYAxisLabel]="false"
+                             [xAxisLabel]="'Percents' | translate" [xScaleMax]="100">
   </ngx-charts-bar-horizontal>
-  <ngx-charts-bar-horizontal-stacked *ngIf="chartType === chartTypes.HorizontalBarStacked"
+  <ngx-charts-bar-horizontal-stacked *ngIf="itemModel.chartType === chartTypes.HorizontalBarStacked"
                                      [view]="view"
                                      [scheme]="colorScheme"
-                                     [results]="chartData.multi"
+                                     [results]="itemModel.chartData.multi"
                                      [customColors]="customColors"
                                      [gradient]="false"
                                      [xAxis]="true"
                                      [yAxis]="true"
                                      [legend]="true"
                                      [showXAxisLabel]="true"
-                                     [showYAxisLabel]="true"
-                                     [yAxisLabel]="'%'">
+                                     [showYAxisLabel]="false"
+                                     [xAxisLabel]="'Percents' | translate" [xScaleMax]="100">
   </ngx-charts-bar-horizontal-stacked>
-  <ngx-charts-bar-horizontal-2d *ngIf="chartType === chartTypes.HorizontalBarGrouped"
+  <ngx-charts-bar-horizontal-2d *ngIf="itemModel.chartType === chartTypes.HorizontalBarGrouped"
                                 [view]="view"
                                 [scheme]="colorScheme"
-                                [results]="chartData.multi"
+                                [results]="itemModel.chartData.multi"
                                 [customColors]="customColors"
                                 [gradient]="false"
                                 [xAxis]="true"
                                 [yAxis]="true"
                                 [legend]="true"
                                 [showXAxisLabel]="true"
-                                [showYAxisLabel]="true"
-                                [yAxisLabel]="'%'">
+                                [showYAxisLabel]="false"
+                                [xAxisLabel]="'Percents' | translate" [xScaleMax]="100">
   </ngx-charts-bar-horizontal-2d>
-  <ngx-charts-bar-vertical *ngIf="chartType === chartTypes.VerticalBar"
+  <ngx-charts-bar-vertical *ngIf="itemModel.chartType === chartTypes.VerticalBar"
                            [view]="view"
                            [scheme]="colorScheme"
-                           [results]="chartData.single"
+                           [results]="itemModel.chartData.single"
                            [customColors]="customColors"
                            [gradient]="false"
                            [xAxis]="true"
@@ -85,12 +85,12 @@
                            [legend]="true"
                            [showXAxisLabel]="true"
                            [showYAxisLabel]="true"
-                           [yAxisLabel]="'%'" [yScaleMin]="0">
+                           [yAxisLabel]="'Percents' | translate" [yScaleMax]="100">
   </ngx-charts-bar-vertical>
-  <ngx-charts-bar-vertical-stacked *ngIf="chartType === chartTypes.VerticalBarStacked"
+  <ngx-charts-bar-vertical-stacked *ngIf="itemModel.chartType === chartTypes.VerticalBarStacked"
                                    [view]="view"
                                    [scheme]="colorScheme"
-                                   [results]="chartData.multi"
+                                   [results]="itemModel.chartData.multi"
                                    [customColors]="customColors"
                                    [gradient]="false"
                                    [xAxis]="true"
@@ -98,12 +98,12 @@
                                    [legend]="true"
                                    [showXAxisLabel]="true"
                                    [showYAxisLabel]="true"
-                                   [yAxisLabel]="'%'">
+                                   [yAxisLabel]="'Percents' | translate" [yScaleMax]="100">
   </ngx-charts-bar-vertical-stacked>
-  <ngx-charts-bar-vertical-2d *ngIf="chartType === chartTypes.VerticalBarGrouped"
+  <ngx-charts-bar-vertical-2d *ngIf="itemModel.chartType === chartTypes.VerticalBarGrouped"
                                    [view]="view"
                                    [scheme]="colorScheme"
-                                   [results]="chartData.multi"
+                                   [results]="itemModel.chartData.multi"
                                    [customColors]="customColors"
                                    [gradient]="false"
                                    [xAxis]="true"
@@ -111,12 +111,12 @@
                                    [legend]="true"
                                    [showXAxisLabel]="true"
                                    [showYAxisLabel]="true"
-                                   [yAxisLabel]="'%'" [yScaleMax]="100">
+                                   [yAxisLabel]="'Percents' | translate" [yScaleMax]="100">
   </ngx-charts-bar-vertical-2d>
-  <ngx-charts-bar-vertical-2d-stacked *ngIf="chartType === chartTypes.HorizontalBarStackedGrouped"
+  <ngx-charts-bar-vertical-2d-stacked *ngIf="itemModel.chartType === chartTypes.HorizontalBarStackedGrouped"
                               [view]="view"
                               [scheme]="colorScheme"
-                              [results]="chartData.multiStacked"
+                              [results]="itemModel.chartData.multiStacked"
                               [customColors]="customColors"
                                       [animations]="animations"
                                       [gradient]="gradient"

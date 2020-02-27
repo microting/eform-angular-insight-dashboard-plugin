@@ -98,7 +98,6 @@ export class DashboardChartEditComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.isFirstQuestionSmiley) {
       const currentValue = changes.isFirstQuestionSmiley.currentValue as boolean;
-      const previousValue = changes.isFirstQuestionSmiley.previousValue as boolean;
         if (currentValue) {
           Object.assign(this, {line: lineSmiley});
           Object.assign(this, {multi: multiSmiley});

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
 import domtoimage from 'dom-to-image';
-import {DashboardViewChartDataModel} from '../../../../models/dashboard/dashboard-view-chart-data.model';
+import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view-item.model';
 
 @Component({
   selector: 'app-dashboard-chart-view',
@@ -10,8 +10,7 @@ import {DashboardViewChartDataModel} from '../../../../models/dashboard/dashboar
 })
 export class DashboardChartViewComponent {
   @Input() chartPosition: number;
-  @Input() chartType: DashboardChartTypesEnum;
-  @Input() chartData: DashboardViewChartDataModel = new DashboardViewChartDataModel();
+  @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel;
 
   get chartTypes() {
     return DashboardChartTypesEnum;
@@ -36,9 +35,9 @@ export class DashboardChartViewComponent {
   showXAxisLabel = true;
   tooltipDisabled = false;
   showText = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = '';
   showYAxisLabel = true;
-  yAxisLabel = 'GDP Per Capita';
+  yAxisLabel = 'Percents';
   showGridLines = true;
   innerPadding = '10%';
   barPadding = 8;
