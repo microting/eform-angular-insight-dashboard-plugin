@@ -1,31 +1,22 @@
-<!--Line = 1,-->
-<!--Pie,-->
-<!--HorizontalBar,-->
-<!--HorizontalBarStacked,-->
-<!--HorizontalBarGrouped,-->
-<!--VerticalBar,-->
-<!--VerticalBarStacked,-->
-<!--VerticalBarGrouped-->
-<div [ngStyle]="{'width': view[0] + 10 + 'px', 'height': view[1] + 40 + 'px' }"
+<div [ngStyle]="{'width': view[0] + 50 + 'px', 'height': view[1] + 40 + 'px' }"
      id="copyableChart"
      style="background-color: #FFFFFF !important;"
 >
-  <ngx-charts-line-chart *ngIf="chartType === chartTypes.Line"
+  <ngx-charts-line-chart *ngIf="dashboardItem.chartType === chartTypes.Line"
                          [view]="view"
                          [customColors]="customColors"
                          [scheme]="colorScheme"
-                         [results]="single"
+                         [results]="line"
                          [gradient]="false"
                          [xAxis]="true"
                          [yAxis]="true"
                          [legend]="true"
                          [showXAxisLabel]="true"
                          [showYAxisLabel]="true"
-                         [xAxisLabel]="'Dates'"
-                         [yAxisLabel]="'%'"
+                         [yAxisLabel]="dashboardItem.calculateAverage ? ('Score' | translate) : ('Percents' | translate)"
                          [autoScale]="true" [yScaleMax]="100">
   </ngx-charts-line-chart>
-  <ngx-charts-pie-chart *ngIf="chartType === chartTypes.Pie"
+  <ngx-charts-pie-chart *ngIf="dashboardItem.chartType === chartTypes.Pie"
                         [view]="view"
                         [customColors]="customColors"
                         [scheme]="colorScheme"
@@ -36,7 +27,7 @@
                         [doughnut]="false"
                         [gradient]="false">
   </ngx-charts-pie-chart>
-  <ngx-charts-bar-horizontal *ngIf="chartType === chartTypes.HorizontalBar"
+  <ngx-charts-bar-horizontal *ngIf="dashboardItem.chartType === chartTypes.HorizontalBar"
                              [view]="view"
                              [scheme]="colorScheme"
                              [customColors]="customColors"
@@ -46,11 +37,10 @@
                              [yAxis]="true"
                              [legend]="true"
                              [showXAxisLabel]="true"
-                             [showYAxisLabel]="true"
-                             [xAxisLabel]="'Dates'"
-                             [yAxisLabel]="'%'" [xScaleMax]="100">
+                             [showYAxisLabel]="false"
+                             [xAxisLabel]="'Percents' | translate" [xScaleMax]="100">
   </ngx-charts-bar-horizontal>
-  <ngx-charts-bar-horizontal-stacked *ngIf="chartType === chartTypes.HorizontalBarStacked"
+  <ngx-charts-bar-horizontal-stacked *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarStacked"
                                      [view]="view"
                                      [scheme]="colorScheme"
                                      [customColors]="customColors"
@@ -60,11 +50,11 @@
                                      [yAxis]="true"
                                      [legend]="true"
                                      [showXAxisLabel]="true"
-                                     [showYAxisLabel]="true"
-                                     [xAxisLabel]="'Dates'"
-                                     [yAxisLabel]="'%'" [xScaleMax]="100">
+                                     [showYAxisLabel]="false"
+                                     [xAxisLabel]="'Percents' | translate"
+                                     [xScaleMax]="100">
   </ngx-charts-bar-horizontal-stacked>
-  <ngx-charts-bar-horizontal-2d *ngIf="chartType === chartTypes.HorizontalBarGrouped"
+  <ngx-charts-bar-horizontal-2d *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarGrouped"
                                 [view]="view"
                                 [scheme]="colorScheme"
                                 [customColors]="customColors"
@@ -74,11 +64,11 @@
                                 [yAxis]="true"
                                 [legend]="true"
                                 [showXAxisLabel]="true"
-                                [showYAxisLabel]="true"
-                                [xAxisLabel]="'Dates'"
-                                [yAxisLabel]="'%'" [xScaleMax]="100">
+                                [showYAxisLabel]="false"
+                                [xAxisLabel]="'Percents' | translate"
+                                [xScaleMax]="100">
   </ngx-charts-bar-horizontal-2d>
-  <ngx-charts-bar-vertical *ngIf="chartType === chartTypes.VerticalBar"
+  <ngx-charts-bar-vertical *ngIf="dashboardItem.chartType === chartTypes.VerticalBar"
                            [view]="view"
                            [scheme]="colorScheme"
                            [customColors]="customColors"
@@ -87,12 +77,13 @@
                            [xAxis]="true"
                            [yAxis]="true"
                            [legend]="true"
-                           [showXAxisLabel]="true"
+                           [showXAxisLabel]="false"
                            [showYAxisLabel]="true"
                            [xAxisLabel]="'Dates'"
-                           [yAxisLabel]="'%'" [yScaleMax]="100">
+                           [yAxisLabel]="'Percents' | translate"
+                           [yScaleMax]="100">
   </ngx-charts-bar-vertical>
-  <ngx-charts-bar-vertical-stacked *ngIf="chartType === chartTypes.VerticalBarStacked"
+  <ngx-charts-bar-vertical-stacked *ngIf="dashboardItem.chartType === chartTypes.VerticalBarStacked"
                                    [view]="view"
                                    [scheme]="colorScheme"
                                    [customColors]="customColors"
@@ -101,12 +92,13 @@
                                    [xAxis]="true"
                                    [yAxis]="true"
                                    [legend]="true"
-                                   [showXAxisLabel]="true"
+                                   [showXAxisLabel]="false"
                                    [showYAxisLabel]="true"
                                    [xAxisLabel]="'Dates'"
-                                   [yAxisLabel]="'%'" [yScaleMax]="100">
+                                   [yAxisLabel]="'Percents' | translate"
+                                   [yScaleMax]="100">
   </ngx-charts-bar-vertical-stacked>
-  <ngx-charts-bar-vertical-2d *ngIf="chartType === chartTypes.VerticalBarGrouped"
+  <ngx-charts-bar-vertical-2d *ngIf="dashboardItem.chartType === chartTypes.VerticalBarGrouped"
                               [view]="view"
                               [scheme]="colorScheme"
                               [customColors]="customColors"
@@ -115,12 +107,13 @@
                               [xAxis]="true"
                               [yAxis]="true"
                               [legend]="true"
-                              [showXAxisLabel]="true"
+                              [showXAxisLabel]="false"
                               [showYAxisLabel]="true"
                               [xAxisLabel]="'Dates'"
-                              [yAxisLabel]="'%'" [yScaleMax]="100">
+                              [yAxisLabel]="'Percents' | translate"
+                              [yScaleMax]="100">
   </ngx-charts-bar-vertical-2d>
-  <ngx-charts-bar-vertical-2d-stacked *ngIf="chartType === chartTypes.HorizontalBarStackedGrouped"
+  <ngx-charts-bar-vertical-2d-stacked *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarStackedGrouped"
                                       [view]="view"
                                       [scheme]="colorScheme"
                                       [customColors]="customColors"
@@ -140,7 +133,7 @@
                                       [showXAxisLabel]="showXAxisLabel"
                                       [showYAxisLabel]="showYAxisLabel"
                                       [xAxisLabel]="xAxisLabel"
-                                      [yAxisLabel]="yAxisLabel"
+                                      [yAxisLabel]="'Percents' | translate"
                                       [showGridLines]="showGridLines"
                                       [barPadding]="barPadding"
                                       [roundDomains]="roundDomains"

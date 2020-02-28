@@ -9,14 +9,13 @@
         </div>
       </div>
       <div class="col-8">
-        <div>{{dashboardItem.id
-          ? (('Existing Item' | translate) + ' ' + dashboardItem.id)
-          : (('New Item' | translate) + ' ' + dashboardItem.position)}}
+        <div>
+          {{dashboardItemFullName}}
         </div>
       </div>
       <div class="col-3">
         <div class="text-right"
-             (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed)"
+             (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed);"
              style="cursor: pointer">
           <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="dashboardItem.collapsed"></fa-icon>
           <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!dashboardItem.collapsed"></fa-icon>
@@ -24,7 +23,7 @@
       </div>
     </div>
   </div>
-  <div mdbCollapse #collapse="bs-collapse" [collapse]="!dashboardItem.collapsed">
+  <div mdbCollapse #collapse="bs-collapse" [collapse]="!dashboardItem.collapsed" (expanded)="onCollapseExpanded()">
     <div class="card-body">
       <div class="row">
         <div class="col-custom-1 d-flex align-items-center justify-content-center">
@@ -94,11 +93,13 @@
                 ]"></ng-select>
               <div class="row ml-1 mb-2">
                 <div class="mat-checkbox mb-1">
-                  <input id="calcAverageCheckbox" type="checkbox" [disabled]="!dashboardItem.isFirstQuestionSmiley"
+                  <input id="calcAverageCheckbox{{dashboardItem.position}}" type="checkbox"
+                         [disabled]="!dashboardItem.isFirstQuestionSmiley"
                          [checked]="dashboardItem.calculateAverage"
                          (click)="fieldChanged($event.target.checked, itemFields.calculateAverage)"
                          [value]="dashboardItem.calculateAverage">
-                  <label for="calcAverageCheckbox">
+                  <label for="calcAverageCheckbox{{dashboardItem.position}}"
+                         [ngClass]="{'text-muted' : !dashboardItem.isFirstQuestionSmiley}">
                     {{'Calculate average' | translate}}
                   </label>
                 </div>
@@ -136,12 +137,13 @@
             <div class="card-body">
               <div class="row ml-1">
                 <div class="mat-checkbox mb-1">
-                  <input id="enableCompare" type="checkbox" [checked]="dashboardItem.compareEnabled"
+                  <input id="enableCompare{{dashboardItem.position}}" type="checkbox"
+                         [checked]="dashboardItem.compareEnabled"
                          [(ngModel)]="dashboardItem.compareEnabled"
                          (ngModelChange)="fieldChanged($event, itemFields.compareEnabled)"
                          [disabled]="!dashboardItem.firstQuestionId"
                          [value]="dashboardItem.compareEnabled">
-                  <label for="enableCompare">
+                  <label for="enableCompare{{dashboardItem.position}}">
                     {{'Compare Location/Report tag' | translate}}
                   </label>
                 </div>
@@ -175,7 +177,9 @@
                 [placeholder]="('Select Chart' | translate) + ' *'"
                 [required]="true"
                 [items]="availableCharts"></ng-select>
-              <app-dashboard-chart-edit [chartType]="dashboardItem.chartType"
+              <app-dashboard-chart-edit [dashboardItem]="dashboardItem"
+                                        [isFirstQuestionSmiley]="isFirstQuestionSmiley"
+                                        [answers]="questionAnswers"
                                         *ngIf="dashboardItem.chartType">
               </app-dashboard-chart-edit>
             </div>

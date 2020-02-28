@@ -54,7 +54,6 @@
   "SixMonth": "Six month",
   "Year": "Year",
   "Total": "Total",
-
   "Chart Type": "Chart Type",
   "Ignored values": "Ignored values",
   "Calculate Average": "Calculate Average",
@@ -62,5 +61,7 @@
   "Return": "Return",
   "Yes" : "Yes",
   "No" : "No",
-  "Copy to clipboard": "Copy to clipboard"
+  "Copy to clipboard": "Copy to clipboard",
+  "Percents": "Percents",
+  "Scores": "Score"
 }

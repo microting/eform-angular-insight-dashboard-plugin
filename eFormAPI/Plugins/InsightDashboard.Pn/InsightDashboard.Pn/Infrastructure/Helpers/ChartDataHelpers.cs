@@ -239,14 +239,14 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
             if (singleData)
             {
-                decimal count = data.Count;
+                var count = data.Count;
 
                 var groupedData = data
                     .GroupBy(x => x.Name)
                     .Select(x => new DashboardViewChartDataSingleModel
                     {
                         Name = x.Key,
-                        Value = Math.Round(((decimal) x.Count() * 100) / count, 2),
+                        Value = GetDataPercentage(x.Count(), count),
                     })
                     .ToList();
 
@@ -278,7 +278,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = i.Key,
-                                                    Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
+                                                    Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .ToList(),
                                         })
@@ -301,8 +301,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -319,8 +319,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -347,7 +347,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = i.Key,
-                                                    Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
+                                                    Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .ToList(),
                                         })
@@ -370,8 +370,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -388,8 +388,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -416,7 +416,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = i.Key,
-                                                    Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
+                                                    Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .ToList(),
                                         })
@@ -439,8 +439,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -457,8 +457,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -486,7 +486,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = i.Key,
-                                                    Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
+                                                    Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .OrderByDescending(
                                                     t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
@@ -512,8 +512,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -530,8 +530,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -558,7 +558,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = i.Key,
-                                                    Value = Math.Round(((decimal) i.Count() * 100) / y.Count(), 2),
+                                                    Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .OrderByDescending(
                                                     t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
@@ -583,8 +583,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -601,8 +601,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
-                                                    ? (decimal) y.Average(k => k.Weight)
-                                                    : Math.Round(((decimal) y.Count() * 100) / x.Count(), 2),
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
                                             })
                                             .ToList(),
                                     }).ToList();
@@ -622,8 +622,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             {
                                 Name = x.Key,
                                 Value = dashboardItem.CalculateAverage
-                                    ? (decimal) x.Average(k => k.Weight)
-                                    : Math.Round(((decimal) x.Count() * 100) / data.Count, 2),
+                                    ? GetAverageDataPercentage(x.Average(k => k.Weight))
+                                    : GetDataPercentage(x.Count(), data.Count),
                             })
                             .ToList();
 
@@ -682,6 +682,18 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                 }
             }
+        }
+
+        private static int GetAverageDataPercentage(double averageValue)
+        {
+            var value = Math.Round((decimal)averageValue);
+            return decimal.ToInt32(value);
+        }
+
+        public static int GetDataPercentage(int subCount, int totalCount)
+        {
+            var value = Math.Round(((decimal)subCount * 100) / totalCount, 0);
+            return decimal.ToInt32(value);
         }
     }
 }

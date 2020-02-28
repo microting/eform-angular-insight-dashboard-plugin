@@ -1,24 +1,28 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
+import {DashboardItemModel} from '../../../../models';
+import {CommonDictionaryModel} from '../../../../../../../common/models/common';
 
 @Component({
   selector: 'app-dashboard-chart-edit',
   templateUrl: './dashboard-chart-edit.component.html',
   styleUrls: ['./dashboard-chart-edit.component.scss']
 })
-export class DashboardChartEditComponent {
+export class DashboardChartEditComponent implements OnChanges {
   @Input() chartPosition: number;
-  @Input() chartType: DashboardChartTypesEnum;
+  @Input() isFirstQuestionSmiley: boolean;
+  @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
+  @Input() answers: CommonDictionaryModel[] = [];
 
   get chartTypes() {
     return DashboardChartTypesEnum;
   }
 
-  single: any[];
+  line: any[];
   multi: any[];
   multiStacked: any[];
   pie: any[];
-  view: any[] = [700, 400];
+  view: any[] = [800, 400];
 
   colorScheme = {
     domain: ['#9c27b0', '#3f51b5', '#2196f3', '#00bcd4', '#009688', '#8bc34a', '#cddc39', '#ffc107', '#ff9800', '#9e9e9e']
@@ -45,8 +49,8 @@ export class DashboardChartEditComponent {
   maxRadius = 10;
   minRadius = 3;
   showSeriesOnHover = true;
-  roundEdges: boolean = true;
-  animations: boolean = true;
+  roundEdges = true;
+  animations = true;
   xScaleMin: any;
   xScaleMax: any;
   yScaleMin: number;
@@ -62,65 +66,89 @@ export class DashboardChartEditComponent {
 
   customColors = [
     {
-      name: '100',
+      name: 'smiley1',
       value: '#007E33'
     },
     {
-      name: '75',
+      name: 'smiley2',
       value: '#00C851'
     },
     {
-      name: '50',
+      name: 'smiley3',
       value: '#ffbb33'
     },
     {
-      name: '25',
+      name: 'smiley4',
       value: '#ff4444'
     },
     {
-      name: '0',
+      name: 'smiley5',
       value: '#CC0000'
     },
     {
-      name: '999',
-      value: '#0099CC '
+      name: 'smiley6',
+      value: '#0099CC'
     }
   ];
 
   constructor() {
-    Object.assign(this, {single: line});
-    Object.assign(this, {multi});
-    Object.assign(this, {pie: single});
-    Object.assign(this, {multiStacked});
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes && changes.isFirstQuestionSmiley) {
+      const currentValue = changes.isFirstQuestionSmiley.currentValue as boolean;
+        if (currentValue) {
+          Object.assign(this, {line: lineSmiley});
+          Object.assign(this, {multi: multiSmiley});
+          Object.assign(this, {pie: singleSmiley});
+          Object.assign(this, {multiStacked});
+        } else {
+          Object.assign(this, {line: line});
+          Object.assign(this, {multi});
+          Object.assign(this, {pie: single});
+          Object.assign(this, {multiStacked});
+        }
+    }
   }
 }
 
 
-const single = [
+const singleSmiley = [
   {
-    name: '0',
-    value: 1.19
-  },
-  {
-    name: '25',
-    value: 1.67
-  },
-  {
-    name: '50',
-    value: 3.34
-  },
-  {
-    name: '75',
-    value: 26.73
-  },
-  {
-    name: '100',
+    name: 'smiley1',
     value: 65.63
   },
   {
-    name: '999',
+    name: 'smiley2',
+    value: 1.67
+  },
+  {
+    name: 'smiley3',
+    value: 3.34
+  },
+  {
+    name: 'smiley4',
+    value: 26.73
+  },
+  {
+    name: 'smiley5',
+    value: 1.19
+  },
+  {
+    name: 'smiley6',
     value: 1.43
   },
+];
+const single = [
+  {
+    name: 'Ja',
+    value: 70
+  },
+  {
+    name: 'Nej',
+    value: 30
+  }
 ];
 
 const line = [
@@ -169,7 +197,7 @@ const line = [
         'name': '16-aug'
       },
       {
-        'value': 50,
+        'value': 25,
         'name': '16-sep'
       },
       {
@@ -190,6 +218,134 @@ const line = [
       }
     ]
   },
+];
+const lineSmiley = [
+  {
+    'name': 'smiley1',
+    'series': [
+      {
+        'name': '16-1H',
+        'value': 0
+      },
+      {
+        'name': '16-2H',
+        'value': 2
+      },
+      {
+        'name': '17-1H',
+        'value': 10
+      },
+      {
+        'name': '17-2H',
+        'value': 6
+      }
+    ]
+  },
+  {
+    'name': 'smiley2',
+    'series': [
+      {
+        'name': '16-1H',
+        'value': 35.0
+      },
+      {
+        'name': '16-2H',
+        'value': 65.0
+      },
+      {
+        'name': '17-1H',
+        'value': 66.0
+      },
+      {
+        'name': '17-2H',
+        'value': 68.0
+      }
+    ]
+  },
+  {
+    'name': 'smiley3',
+    'series': [
+      {
+        'name': '16-1H',
+        'value': 7.0
+      },
+      {
+        'name': '16-2H',
+        'value': 3.0
+      },
+      {
+        'name': '17-1H',
+        'value': 10
+      },
+      {
+        'name': '17-2H',
+        'value': 3.0
+      }
+    ]
+  },
+  {
+    'name': 'smiley4',
+    'series': [
+      {
+        'name': '16-1H',
+        'value': 14.0
+      },
+      {
+        'name': '16-2H',
+        'value': 3.0
+      },
+      {
+        'name': '17-1H',
+        'value': 4
+      },
+      {
+        'name': '17-2H',
+        'value': 6.0
+      }
+    ]
+  },
+  {
+    'name': 'smiley5',
+    'series': [
+      {
+        'name': '16-1H',
+        'value': 42.0
+      },
+      {
+        'name': '16-2H',
+        'value': 26.0
+      },
+      {
+        'name': '17-1H',
+        'value': 27.0
+      },
+      {
+        'name': '17-2H',
+        'value': 24.0
+      }
+    ]
+  },
+  {
+    'name': 'smiley6',
+    'series': [
+      {
+        'name': '16-1H',
+        'value': 30
+      },
+      {
+        'name': '16-2H',
+        'value': 22
+      },
+      {
+        'name': '17-1H',
+        'value': 16
+      },
+      {
+        'name': '17-2H',
+        'value': 12
+      }
+    ]
+  }
 ];
 
 const multi = [
@@ -224,11 +380,11 @@ const multi = [
     'series': [
       {
         'name': 'Ja',
-        'value': 50
+        'value': 70
       },
       {
         'name': 'Nej',
-        'value': 50
+        'value': 30
       }
     ]
   },
@@ -276,11 +432,11 @@ const multi = [
     'series': [
       {
         'name': 'Ja',
-        'value': 25
+        'value': 60
       },
       {
         'name': 'Nej',
-        'value': 75
+        'value': 40
       }
     ]
   },
@@ -363,138 +519,428 @@ const multi = [
     ]
   },
 ];
+const multiSmiley = [
+  {
+    'name': '16-1H',
+    'series': [
+      {
+        'name': 'smiley1',
+        'value': 35.0
+      },
+      {
+        'name': 'smiley2',
+        'value': 42.0
+      },
+      {
+        'name': 'smiley3',
+        'value': 14.0
+      },
+      {
+        'name': 'smiley4',
+        'value': 7.0
+      }
+    ]
+  },
+  {
+    'name': '16-2H',
+    'series': [
+      {
+        'name': 'smiley1',
+        'value': 65.0
+      },
+      {
+        'name': 'smiley2',
+        'value': 26.0
+      },
+      {
+        'name': 'smiley3',
+        'value': 3.0
+      },
+      {
+        'name': 'smiley4',
+        'value': 3.0
+      }
+    ]
+  },
+  {
+    'name': '17-1H',
+    'series': [
+      {
+        'name': 'smiley1',
+        'value': 66.0
+      },
+      {
+        'name': 'smiley2',
+        'value': 27.0
+      },
+      {
+        'name': 'smiley3',
+        'value': 2.0
+      },
+      {
+        'name': 'smiley5',
+        'value': 2.0
+      }
+    ]
+  },
+  {
+    'name': '17-2H',
+    'series': [
+      {
+        'name': 'smiley1',
+        'value': 68.0
+      },
+      {
+        'name': 'smiley2',
+        'value': 24.0
+      },
+      {
+        'name': 'smiley3',
+        'value': 6.0
+      }
+    ]
+  }
+];
 
 const multiStacked = [
   {
-    name: 'October',
-    series:
-      [
-        {
-          name: '18',
-          series: [
-            {
-              name: 'France',
-              value: 400,
-              extra: {
-                code: 'fr'
-              }
-            },
-            {
-              name: 'Japan',
-              value: 600,
-              extra: {
-                code: 'jp'
-              }
-            }
-          ]
-        },
-        {
-          name: '19',
-          series: [
-            {
-              name: 'France',
-              value: 500,
-              extra: {
-                code: 'fr'
-              }
-            },
-            {
-              name: 'Japan',
-              value: 300,
-              extra: {
-                code: 'jp'
-              }
-            }
-          ]
-        }
-      ]
+    'id': 1,
+    'name': 'Location 1',
+    'series': [
+      {
+        'name': '16-1H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 35.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 42.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 14.0
+          },
+          {
+            'name': 'smiley4',
+            'value': 7.0
+          }
+        ]
+      },
+      {
+        'name': '16-2H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 65.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 26.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 3.0
+          },
+          {
+            'name': 'smiley4',
+            'value': 3.0
+          }
+        ]
+      },
+      {
+        'name': '17-1H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 2.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 66.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 27.0
+          },
+          {
+            'name': 'smiley4',
+            'value': 2.0
+          }
+        ]
+      },
+      {
+        'name': '17-2H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 68.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 24.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 6.0
+          }
+        ]
+      }
+    ]
   },
   {
-    name: 'November',
-    series:
-      [
-        {
-          name: '18',
-          series: [
-            {
-              name: 'France',
-              value: 300,
-              extra: {
-                code: 'fr'
-              }
-            },
-            {
-              name: 'Japan',
-              value: 100,
-              extra: {
-                code: 'jp'
-              }
-            }
-          ]
-        },
-        {
-          name: '19',
-          series: [
-            {
-              name: 'France',
-              value: 100,
-              extra: {
-                code: 'fr'
-              }
-            },
-            {
-              name: 'Japan',
-              value: 50,
-              extra: {
-                code: 'jp'
-              }
-            }
-          ]
-        }
-      ]
+    'id': 2,
+    'name': 'Location 2',
+    'series': [
+      {
+        'name': '16-1H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 44.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 51
+          },
+          {
+            'name': '0',
+            'value': 5.0
+          }
+        ]
+      },
+      {
+        'name': '16-2H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 52.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 44.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 4.0
+          }
+        ]
+      },
+      {
+        'name': '17-1H',
+        'series': [
+          {
+            'name': 'smiley5',
+            'value': 5.0
+          },
+          {
+            'name': 'smiley1',
+            'value': 70.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 18.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 2.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 2.0
+          }
+        ]
+      },
+      {
+        'name': '17-2H',
+        'series': [
+          {
+            'name': 'smiley5',
+            'value': 3.0
+          },
+          {
+            'name': 'smiley1',
+            'value': 72.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 20.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 3.0
+          }
+        ]
+      }
+    ]
   },
   {
-    name: 'Dezember',
-    series:
-      [
-        {
-          name: '18',
-          series: [
-            {
-              name: 'France',
-              value: 800,
-              extra: {
-                code: 'fr'
-              }
-            },
-            {
-              name: 'Japan',
-              value: 1300,
-              extra: {
-                code: 'jp'
-              }
-            }
-          ]
-        },
-        {
-          name: '19',
-          series: [
-            {
-              name: 'France',
-              value: 110,
-              extra: {
-                code: 'fr'
-              }
-            },
-            {
-              name: 'Japan',
-              value: 490,
-              extra: {
-                code: 'jp'
-              }
-            }
-          ]
-        }
-      ]
+    'id': 3,
+    'name': 'Location 3',
+    'series': [
+      {
+        'name': '16-1H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 76.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 11.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 5.0
+          },
+          {
+            'name': '0',
+            'value': 5.0
+          }
+        ]
+      },
+      {
+        'name': '16-2H',
+        'series': [
+          {
+            'name': '999',
+            'value': 20
+          },
+          {
+            'name': 'smiley1',
+            'value': 66.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 4
+          },
+          {
+            'name': 'smiley3',
+            'value': 10
+          }
+        ]
+      },
+      {
+        'name': '17-1H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 80.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 16.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 3.0
+          }
+        ]
+      },
+      {
+        'name': '17-2H',
+        'series': [
+          {
+            'name': 'smiley5',
+            'value': 3.0
+          },
+          {
+            'name': 'smiley1',
+            'value': 62.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 31.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 3.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    'id': 4,
+    'name': 'Location 4',
+    'series': [
+      {
+        'name': '16-1H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 60.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 26.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 6.0
+          },
+          {
+            'name': 'smiley4',
+            'value': 6.0
+          }
+        ]
+      },
+      {
+        'name': '16-2H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 68.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 28.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 4.0
+          }
+        ]
+      },
+      {
+        'name': '17-1H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 65.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 24.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 6.0
+          },
+          {
+            'name': 'smiley4',
+            'value': 3.0
+          }
+        ]
+      },
+      {
+        'name': '17-2H',
+        'series': [
+          {
+            'name': 'smiley1',
+            'value': 70.0
+          },
+          {
+            'name': 'smiley2',
+            'value': 23.0
+          },
+          {
+            'name': 'smiley3',
+            'value': 6.0
+          }
+        ]
+      }
+    ]
   }
 ];

@@ -1,4 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChildren} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {DashboardChartTypesEnum, DashboardItemFieldsEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
 import {DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
 import {CommonDictionaryModel} from '../../../../../../../common/models/common';
@@ -7,6 +18,7 @@ import {Subscription} from 'rxjs';
 import {InsightDashboardPnDashboardDictionariesService} from '../../../../services';
 import {TranslateService} from '@ngx-translate/core';
 import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
+import {CollapseDirective} from '../../../../../../../../../port/angular-bootstrap-md/collapse';
 
 @AutoUnsubscribe()
 @Component({
@@ -15,7 +27,7 @@ import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionar
   styleUrls: ['./dashboard-item-edit.component.scss']
 })
 export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges {
-  @ViewChildren('collapse') collapse: any;
+  @ViewChild('collapse') collapse: CollapseDirective;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: DashboardItemQuestionModel[] = [];
   @Input() surveyId = 1;
@@ -24,6 +36,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   @Output() copyItem: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() dashboardItemChanged: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() deleteItem: EventEmitter<number> = new EventEmitter<number>();
+  isFirstQuestionSmiley = false;
   filterAnswers: CommonDictionaryModel[] = [];
   questionAnswers: CommonDictionaryModel[] = [];
   loadAnswersSub$: Subscription;
@@ -43,7 +56,21 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     return DashboardChartTypesEnum;
   }
 
-  constructor(private dictionariesService: InsightDashboardPnDashboardDictionariesService, private translateService: TranslateService) {
+  get dashboardItemFullName() {
+    let fullName = '';
+    if (this.dashboardItem.firstQuestionId && this.questions.length > 0) {
+      fullName = this.questions.find(x => x.id === this.dashboardItem.firstQuestionId).name;
+    }
+    if (this.dashboardItem.period) {
+      fullName += ' - ' + this.periodUnits[this.dashboardItem.period];
+    }
+    if (this.dashboardItem.chartType && this.allCharts.length > 0) {
+      fullName += ' - ' + this.allCharts.find(x => x.id === this.dashboardItem.chartType).name;
+    } return fullName;
+  }
+
+  constructor(private dictionariesService: InsightDashboardPnDashboardDictionariesService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -90,6 +117,9 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       this.loadAnswers(true);
       this.loadAnswers(false);
 
+      // set separate property for smiley
+      this.isFirstQuestionSmiley = currentValue.isFirstQuestionSmiley;
+
       // change available chart types depends on period
       this.fillInitialChartOptions(currentValue.period);
     }
@@ -120,6 +150,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
         // Set is smiley for model
         this.dashboardItem.isFirstQuestionSmiley = this.questions.find(x => x.id === value).isSmiley;
+        this.isFirstQuestionSmiley = this.dashboardItem.isFirstQuestionSmiley;
 
         this.fillInitialChartOptions(this.dashboardItem.period);
       }
@@ -140,15 +171,30 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   setAvailableCharts(forceNewChartSelection?: boolean) {
     if (forceNewChartSelection) {
       this.dashboardItem.chartType = null;
-    } this.availableCharts = [...this.allCharts];
+    }
+    this.availableCharts = [...this.allCharts];
 
-    // if (this.dashboardItem && this.dashboardItem.period) {
-    //   if (this.dashboardItem.period === DashboardPeriodUnitsEnum.Total) {
-    //
-    //   }
-    // } else {
-    //
-    // }
+
+    if (this.dashboardItem && this.dashboardItem.period) {
+      if (this.dashboardItem.period === DashboardPeriodUnitsEnum.Total) {
+        this.availableCharts = [
+          ...this.allCharts.slice(DashboardChartTypesEnum.Line, DashboardChartTypesEnum.VerticalBar - 2)
+        ];
+      } else {
+        this.availableCharts = [
+          this.allCharts[DashboardChartTypesEnum.Line - 1],
+          ...this.allCharts.slice(DashboardChartTypesEnum.HorizontalBarStacked, DashboardChartTypesEnum.HorizontalBarStackedGrouped)
+        ];
+      }
+    }
+
+    if (this.dashboardItem.calculateAverage) {
+      if (this.dashboardItem.period !== DashboardPeriodUnitsEnum.Total) {
+        this.availableCharts = [this.allCharts[DashboardChartTypesEnum.Line - 1]];
+      } else {
+        this.availableCharts = [];
+      }
+    }
 
     // if (this.dashboardItem.calculateAverage) {
     //   if (this.dashboardItem.compareEnabled) {
@@ -223,7 +269,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   onLocationPositionChanged(e: any, locationTag: CommonDictionaryExtendedModel) {
-    debugger;
     const newValue = +e.target.value;
     if (!this.dashboardItem.compareLocationsTags) {
       this.dashboardItem.compareLocationsTags = [];
@@ -265,5 +310,10 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     }
     return null;
 
+  }
+
+  onCollapseExpanded() {
+    // collapse resize trigger to recalculate size
+    this.collapse.resize();
   }
 }
