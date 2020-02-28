@@ -6,7 +6,20 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Data\multi-data.json" />
+      <None Remove="Data\multi-stacked-data.json" />
+      <None Remove="Data\single-data.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Data\multi-stacked-data.json" />
+      <EmbeddedResource Include="Data\multi-data.json" />
+      <EmbeddedResource Include="Data\single-data.json" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+      <PackageReference Include="Moq" Version="4.13.1" />
       <PackageReference Include="NUnit" Version="3.12.0" />
       <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     </ItemGroup>

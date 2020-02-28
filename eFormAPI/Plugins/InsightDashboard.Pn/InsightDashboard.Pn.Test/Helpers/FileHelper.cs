@@ -22,21 +22,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Test.Helpers
 {
-    using System.Collections.Generic;
+    using System;
+    using System.IO;
+    using System.Reflection;
 
-    public class DashboardViewModel
+    public static class FileHelper
     {
-        public int Id { get; set; }
-        public string DashboardName { get; set; }
-        public string SurveyName { get; set; }
-        public int SurveyId { get; set; }
-        public string LocationName { get; set; }
-        public int? LocationId { get; set; }
-        public string TagName { get; set; }
-        public int? TagId { get; set; }
-        public List<DashboardItemViewModel> Items { get; set; }
-            = new List<DashboardItemViewModel>();
+        public static string ReadFileFromResources(string fileName)
+        {
+            var resourceString = $"InsightDashboard.Pn.Test.Data.{fileName}.json";
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceStream = assembly.GetManifestResourceStream(resourceString);
+            string text;
+            using (var reader = new StreamReader(resourceStream ?? throw new InvalidOperationException($"{nameof(resourceStream)} is null")))
+            {
+                text = reader.ReadToEnd();
+            }
+
+            return text;
+        }
     }
 }

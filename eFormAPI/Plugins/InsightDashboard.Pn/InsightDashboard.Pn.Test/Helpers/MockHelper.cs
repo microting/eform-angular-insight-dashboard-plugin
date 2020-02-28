@@ -22,21 +22,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Test.Helpers
 {
-    using System.Collections.Generic;
+    using eFormCore;
+    using Microting.eForm.Infrastructure;
+    using Moq;
+    using Services.Common.InsightDashboardLocalizationService;
 
-    public class DashboardViewModel
+    public static class MockHelper
     {
-        public int Id { get; set; }
-        public string DashboardName { get; set; }
-        public string SurveyName { get; set; }
-        public int SurveyId { get; set; }
-        public string LocationName { get; set; }
-        public int? LocationId { get; set; }
-        public string TagName { get; set; }
-        public int? TagId { get; set; }
-        public List<DashboardItemViewModel> Items { get; set; }
-            = new List<DashboardItemViewModel>();
+        public static Core GetCore()
+        {
+            var coreMock = new Mock<Core>();
+
+            coreMock
+                .Setup(x => x.dbContextHelper.GetDbContext())
+                .Returns(new MicrotingDbContext());
+
+            return coreMock.Object;
+        }
+
+        public static MicrotingDbContext GetMicrotingDbContext()
+        {
+            var coreMock = new Mock<MicrotingDbContext>();
+
+            return coreMock.Object;
+        }
+
+        public static IInsightDashboardLocalizationService GetLocalizationService()
+        {
+            var localizationServiceMock = new Mock<IInsightDashboardLocalizationService>();
+
+            localizationServiceMock
+                .Setup(x => x.GetString("TotalPeriod"))
+                .Returns("Total Period");
+
+            return localizationServiceMock.Object;
+        }
     }
 }

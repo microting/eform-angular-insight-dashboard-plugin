@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2019 Microting A/S
@@ -22,21 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Test.Base
 {
-    using System.Collections.Generic;
+    using NUnit.Framework;
 
-    public class DashboardViewModel
+    [TestFixture]
+    public class CanaryInAColeMine
     {
-        public int Id { get; set; }
-        public string DashboardName { get; set; }
-        public string SurveyName { get; set; }
-        public int SurveyId { get; set; }
-        public string LocationName { get; set; }
-        public int? LocationId { get; set; }
-        public string TagName { get; set; }
-        public int? TagId { get; set; }
-        public List<DashboardItemViewModel> Items { get; set; }
-            = new List<DashboardItemViewModel>();
+        [Test]
+        public void CanPeep()
+        {
+            Assert.True(true);
+        }
     }
 }
