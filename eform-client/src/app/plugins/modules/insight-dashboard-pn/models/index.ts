@@ -11,4 +11,5 @@ export * from './dashboard/dashboard-item-question.model';
 export * from './survey/survey-config-update.model';
 export * from './survey/survey-config-create.model';
 export * from './survey/survey-config-update-status.model';
+export * from './dashboard/dashboard-item-ignored-answer.model';
 

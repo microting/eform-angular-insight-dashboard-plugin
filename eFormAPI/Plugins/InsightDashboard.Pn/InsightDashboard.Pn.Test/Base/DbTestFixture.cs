@@ -53,12 +53,12 @@ namespace InsightDashboard.Pn.Test.Base
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                //_connectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=insight-dashboard-base-tests;Integrated Security=true";
-                _connectionString = @"host= localhost;Database=420_SDK;Uid=root;Pwd=111111;port=3306;Convert Zero Datetime = true;SslMode=none;";
+                _connectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=420_SDK;Integrated Security=true";
+                // _connectionString = @"host= localhost;Database=420_SDK;Uid=root;Pwd=111111;port=3306;Convert Zero Datetime = true;SslMode=none;";
             }
             else
             {
-                _connectionString = @"Server = localhost; port = 3306; Database = insight-dashboard-base-tests; user = root; Convert Zero Datetime = true;";
+                _connectionString = @"Server = localhost; port = 3306; Database = 420_SDK; user = root; Convert Zero Datetime = true;";
             }
 
             GetContext(_connectionString);
