@@ -44,9 +44,9 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 
         public DashboardViewChartDataModel ChartData { get; set; }
             = new DashboardViewChartDataModel();
-        public List<string> CompareLocationsTags { get; set; }
-            = new List<string>();
-        public List<string> IgnoredAnswerValues { get; set; }
-            = new List<string>();
+        public List<DashboardItemCompareModel> CompareLocationsTags { get; set; }
+            = new List<DashboardItemCompareModel>();
+        public List<DashboardItemIgnoredAnswerModel> IgnoredAnswerValues { get; set; }
+            = new List<DashboardItemIgnoredAnswerModel>();
     }
 }

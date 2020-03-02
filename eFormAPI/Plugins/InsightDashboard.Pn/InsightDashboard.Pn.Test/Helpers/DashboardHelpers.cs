@@ -25,6 +25,7 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Test.Helpers
 {
     using System;
+    using System.Linq;
     using Infrastructure.Models.Dashboards;
     using Microting.eForm.Infrastructure.Constants;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
@@ -70,6 +71,20 @@ namespace InsightDashboard.Pn.Test.Helpers
                 FilterAnswerId = viewModel.FilterAnswerId,
                 FilterQuestionId = viewModel.FilterQuestionId,
                 FirstQuestionId = viewModel.FirstQuestionId,
+                CompareLocationsTags = viewModel.CompareLocationsTags
+                    .Select(x=> new DashboardItemCompare()
+                    {
+                        LocationId = x.LocationId,
+                        Position = x.Position,
+                        TagId = x.TagId
+                    })
+                    .ToList(),
+                IgnoredAnswerValues = viewModel.IgnoredAnswerValues
+                    .Select(x => new DashboardItemIgnoredAnswer()
+                    {
+                        AnswerId = x.AnswerId,
+                    })
+                    .ToList(),
             };
 
             return dashboardItem;
@@ -90,6 +105,8 @@ namespace InsightDashboard.Pn.Test.Helpers
                 FilterQuestionName = viewModel.FilterQuestionName,
                 Id = viewModel.Id,
                 FirstQuestionName = viewModel.FirstQuestionName,
+                CompareLocationsTags = viewModel.CompareLocationsTags,
+                IgnoredAnswerValues = viewModel.IgnoredAnswerValues,
             };
 
             return dashboardItem;

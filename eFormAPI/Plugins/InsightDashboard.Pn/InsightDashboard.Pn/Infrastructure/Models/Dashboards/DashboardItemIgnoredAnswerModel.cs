@@ -28,5 +28,6 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
     {
         public int? Id { get; set; }
         public int AnswerId { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -766,7 +766,15 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         {
                             if (site.Id == dashboardItemCompareLocationsTag.LocationId)
                             {
-                                dashboardItemModel.CompareLocationsTags.Add(site.Name);
+                                var itemCompare = new DashboardItemCompareModel
+                                {
+                                    Id = dashboardItemCompareLocationsTag.Id,
+                                    LocationId = dashboardItemCompareLocationsTag.LocationId,
+                                    Position = dashboardItemCompareLocationsTag.Position,
+                                    TagId = dashboardItemCompareLocationsTag.TagId,
+                                    Name = site.Name,
+                                };
+                                dashboardItemModel.CompareLocationsTags.Add(itemCompare);
                             }
                         }
                     }
@@ -779,7 +787,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         {
                             if (option.Id == dashboardItemIgnoredAnswer.AnswerId)
                             {
-                                dashboardItemModel.IgnoredAnswerValues.Add(option.Name);
+                                var ignoredAnswer = new DashboardItemIgnoredAnswerModel
+                                {
+                                    Id = dashboardItemIgnoredAnswer.Id,
+                                    AnswerId = dashboardItemIgnoredAnswer.AnswerId,
+                                    Name = option.Name
+                                };
+                                dashboardItemModel.IgnoredAnswerValues.Add(ignoredAnswer);
                             }
                         }
                     }
