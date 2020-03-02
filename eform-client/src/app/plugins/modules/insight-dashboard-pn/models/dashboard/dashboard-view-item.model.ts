@@ -2,6 +2,8 @@ import {DashboardChartTypesEnum, DashboardPeriodUnitsEnum} from '../../const/enu
 import {DashboardViewChartDataModel} from './dashboard-view-chart-data.model';
 import {DashboardItemCompareModel} from './dashboard-item-compare.model';
 import {DashboardItemIgnoredAnswerModel} from './dashboard-item-ignored-answer.model';
+import {DashboardItemCompareViewModel} from './dashboard-item-compare-view.model';
+import {DashboardItemIgnoredAnswerViewModel} from './dashboard-item-ignored-answer-view.model';
 
 export class DashboardViewItemModel {
   id: number;
@@ -12,10 +14,10 @@ export class DashboardViewItemModel {
   filterAnswerName: string;
   filterAnswerId: number | null;
 
-  ignoredAnswerValues: DashboardItemIgnoredAnswerModel[];
+  ignoredAnswerValues: DashboardItemIgnoredAnswerViewModel[];
   calculateAverage: boolean;
   compareEnabled: boolean;
-  compareLocationsTags: DashboardItemCompareModel[];
+  compareLocationsTags: DashboardItemCompareViewModel[];
 
   period: DashboardPeriodUnitsEnum;
   chartType: DashboardChartTypesEnum;
