@@ -1,56 +1,277 @@
 {
-  "id": 51,
-  "dashboardName": "Horizontal dashboard",
-  "surveyName": "Test-Set",
-  "locationName": "Location 1",
-  "tagName": null,
-  "items": [
-    {
-      "id": 73,
-      "firstQuestionName": "Q3",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "period": 6,
-      "chartType": 3,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 1,
-      "chartData": {
-        "single": [
+    "id": 54,
+    "dashboardName": "Multi stacked item",
+    "surveyName": "Test-Set",
+    "surveyId": 1,
+    "locationName": "Location 1",
+    "locationId": 1,
+    "tagName": null,
+    "tagId": null,
+    "items": [
+      {
+        "id": 64,
+        "firstQuestionName": "Q2",
+        "filterQuestionName": null,
+        "filterAnswerName": null,
+        "firstQuestionId": 2,
+        "filterQuestionId": null,
+        "filterAnswerId": null,
+        "period": 5,
+        "chartType": 9,
+        "compareEnabled": true,
+        "calculateAverage": false,
+        "position": 1,
+        "chartData": {
+          "single": [
+
+          ],
+          "multi": [
+
+          ],
+          "multiStacked": [
+            {
+              "id": 1,
+              "name": "Location 1",
+              "series": [
+                {
+                  "name": "2016",
+                  "series": [
+                    {
+                      "name": "100",
+                      "value": 55.0
+                    },
+                    {
+                      "name": "75",
+                      "value": 32.0
+                    },
+                    {
+                      "name": "50",
+                      "value": 8.0
+                    },
+                    {
+                      "name": "25",
+                      "value": 5.0
+                    }
+                  ]
+                },
+                {
+                  "name": "2017",
+                  "series": [
+                    {
+                      "name": "999",
+                      "value": 2.0
+                    },
+                    {
+                      "name": "100",
+                      "value": 68.0
+                    },
+                    {
+                      "name": "75",
+                      "value": 26.0
+                    },
+                    {
+                      "name": "50",
+                      "value": 3.0
+                    },
+                    {
+                      "name": "0",
+                      "value": 2.0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Location 2",
+              "series": [
+                {
+                  "name": "2016",
+                  "series": [
+                    {
+                      "name": "100",
+                      "value": 49.0
+                    },
+                    {
+                      "name": "75",
+                      "value": 47.0
+                    },
+                    {
+                      "name": "50",
+                      "value": 2.0
+                    },
+                    {
+                      "name": "0",
+                      "value": 2.0
+                    }
+                  ]
+                },
+                {
+                  "name": "2017",
+                  "series": [
+                    {
+                      "name": "999",
+                      "value": 5.0
+                    },
+                    {
+                      "name": "100",
+                      "value": 71.0
+                    },
+                    {
+                      "name": "75",
+                      "value": 20.0
+                    },
+                    {
+                      "name": "50",
+                      "value": 3.0
+                    },
+                    {
+                      "name": "25",
+                      "value": 2.0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Location 3",
+              "series": [
+                {
+                  "name": "2016",
+                  "series": [
+                    {
+                      "name": "999",
+                      "value": 2.0
+                    },
+                    {
+                      "name": "100",
+                      "value": 70.0
+                    },
+                    {
+                      "name": "75",
+                      "value": 20.0
+                    },
+                    {
+                      "name": "50",
+                      "value": 5.0
+                    },
+                    {
+                      "name": "0",
+                      "value": 2.0
+                    }
+                  ]
+                },
+                {
+                  "name": "2017",
+                  "series": [
+                    {
+                      "name": "999",
+                      "value": 2.0
+                    },
+                    {
+                      "name": "100",
+                      "value": 71.0
+                    },
+                    {
+                      "name": "75",
+                      "value": 24.0
+                    },
+                    {
+                      "name": "50",
+                      "value": 3.0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "Location 4",
+              "series": [
+                {
+                  "name": "2016",
+                  "series": [
+                    {
+                      "name": "100",
+                      "value": 65.0
+                    },
+                    {
+                      "name": "75",
+                      "value": 28.0
+                    },
+                    {
+                      "name": "25",
+                      "value": 5.0
+                    },
+                    {
+                      "name": "0",
+                      "value": 2.0
+                    }
+                  ]
+                },
+                {
+                  "name": "2017",
+                  "series": [
+                    {
+                      "name": "100",
+                      "value": 68.0
+                    },
+                    {
+                      "name": "75",
+                      "value": 24.0
+                    },
+                    {
+                      "name": "50",
+                      "value": 3.0
+                    },
+                    {
+                      "name": "25",
+                      "value": 3.0
+                    },
+                    {
+                      "name": "0",
+                      "value": 2.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareLocationsTags": [
           {
-            "name": "100",
-            "value": 42.0
+            "id": 86,
+            "locationId": 1,
+            "tagId": null,
+            "position": 1,
+            "name": "Location 1"
           },
           {
-            "name": "75",
-            "value": 35.0
+            "id": 87,
+            "locationId": 2,
+            "tagId": null,
+            "position": 2,
+            "name": "Location 2"
           },
           {
-            "name": "50",
-            "value": 11.0
+            "id": 88,
+            "locationId": 3,
+            "tagId": null,
+            "position": 3,
+            "name": "Location 3"
           },
           {
-            "name": "25",
-            "value": 3.0
-          },
-          {
-            "name": "0",
-            "value": 7.0
-          },
-          {
-            "name": "999",
-            "value": 2.0
+            "id": 89,
+            "locationId": 4,
+            "tagId": null,
+            "position": 4,
+            "name": "Location 4"
           }
         ],
-        "multi": [
-        ],
-        "multiStacked": [
+        "ignoredAnswerValues": [
+
         ]
-      },
-      "compareLocationsTags": [
-      ],
-      "ignoredAnswerValues": [
-      ]
-    }
-  ]
+      }
+    ]
 }

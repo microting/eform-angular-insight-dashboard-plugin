@@ -1,56 +1,66 @@
 {
-  "id": 51,
-  "dashboardName": "Horizontal dashboard",
-  "surveyName": "Test-Set",
-  "locationName": "Location 1",
-  "tagName": null,
-  "items": [
-    {
-      "id": 73,
-      "firstQuestionName": "Q3",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "period": 6,
-      "chartType": 3,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 1,
-      "chartData": {
-        "single": [
-          {
-            "name": "100",
-            "value": 42.0
-          },
-          {
-            "name": "75",
-            "value": 35.0
-          },
-          {
-            "name": "50",
-            "value": 11.0
-          },
-          {
-            "name": "25",
-            "value": 3.0
-          },
-          {
-            "name": "0",
-            "value": 7.0
-          },
-          {
-            "name": "999",
-            "value": 2.0
-          }
+    "id": 51,
+    "dashboardName": "Horizontal dashboard",
+    "surveyName": "Test-Set",
+    "surveyId": 1,
+    "locationName": "Location 1",
+    "locationId": 1,
+    "tagName": null,
+    "tagId": null,
+    "items": [
+      {
+        "id": 73,
+        "firstQuestionName": "Q3",
+        "filterQuestionName": null,
+        "filterAnswerName": null,
+        "firstQuestionId": 3,
+        "filterQuestionId": null,
+        "filterAnswerId": null,
+        "period": 6,
+        "chartType": 3,
+        "compareEnabled": false,
+        "calculateAverage": false,
+        "position": 1,
+        "chartData": {
+          "single": [
+            {
+              "name": "100",
+              "value": 42.0
+            },
+            {
+              "name": "75",
+              "value": 35.0
+            },
+            {
+              "name": "50",
+              "value": 11.0
+            },
+            {
+              "name": "25",
+              "value": 3.0
+            },
+            {
+              "name": "0",
+              "value": 7.0
+            },
+            {
+              "name": "999",
+              "value": 2.0
+            }
+          ],
+          "multi": [
+
+          ],
+          "multiStacked": [
+
+          ]
+        },
+        "compareLocationsTags": [
+
         ],
-        "multi": [
-        ],
-        "multiStacked": [
+        "ignoredAnswerValues": [
+
         ]
-      },
-      "compareLocationsTags": [
-      ],
-      "ignoredAnswerValues": [
-      ]
-    }
-  ]
-}
+      }
+    ]
+  }

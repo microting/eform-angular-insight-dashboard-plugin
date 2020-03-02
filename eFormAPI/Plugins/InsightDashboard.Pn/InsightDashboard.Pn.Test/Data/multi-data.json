@@ -1,950 +1,988 @@
 {
-  "id": 51,
-  "dashboardName": "Horizontal dashboard",
-  "surveyName": "Test-Set",
-  "locationName": "Location 1",
-  "tagName": null,
-  "items": [
-    {
-      "id": 67,
-      "firstQuestionName": "Q2",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "period": 1,
-      "chartType": 4,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 1,
-      "chartData": {
-        "single": [
+    "id": 53,
+    "dashboardName": "Stacked dashboard",
+    "surveyName": "Test-Set",
+    "surveyId": 1,
+    "locationName": "Location 1",
+    "locationId": 1,
+    "tagName": null,
+    "tagId": null,
+    "items": [
+      {
+        "id": 59,
+        "firstQuestionName": "Q2",
+        "filterQuestionName": null,
+        "filterAnswerName": null,
+        "firstQuestionId": 2,
+        "filterQuestionId": null,
+        "filterAnswerId": null,
+        "period": 1,
+        "chartType": 4,
+        "compareEnabled": false,
+        "calculateAverage": false,
+        "position": 1,
+        "chartData": {
+          "single": [
+
+          ],
+          "multi": [
+            {
+              "name": "16-05",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "16-09",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "16-13",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "16-18",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 33.0
+                },
+                {
+                  "name": "75",
+                  "value": 33.0
+                },
+                {
+                  "name": "50",
+                  "value": 33.0
+                }
+              ]
+            },
+            {
+              "name": "16-23",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "16-27",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "16-31",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "16-36",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 43.0
+                },
+                {
+                  "name": "75",
+                  "value": 57.0
+                }
+              ]
+            },
+            {
+              "name": "16-40",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 60.0
+                },
+                {
+                  "name": "75",
+                  "value": 20.0
+                },
+                {
+                  "name": "25",
+                  "value": 20.0
+                }
+              ]
+            },
+            {
+              "name": "16-45",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 33.0
+                },
+                {
+                  "name": "75",
+                  "value": 67.0
+                }
+              ]
+            },
+            {
+              "name": "16-50",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 80.0
+                },
+                {
+                  "name": "50",
+                  "value": 20.0
+                }
+              ]
+            },
+            {
+              "name": "17-02",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 40.0
+                },
+                {
+                  "name": "75",
+                  "value": 40.0
+                },
+                {
+                  "name": "0",
+                  "value": 20.0
+                }
+              ]
+            },
+            {
+              "name": "17-05",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 83.0
+                },
+                {
+                  "name": "999",
+                  "value": 17.0
+                }
+              ]
+            },
+            {
+              "name": "17-10",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "17-15",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "17-19",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "17-24",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 83.0
+                },
+                {
+                  "name": "75",
+                  "value": 17.0
+                }
+              ]
+            },
+            {
+              "name": "17-27",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "17-33",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 86.0
+                },
+                {
+                  "name": "75",
+                  "value": 14.0
+                }
+              ]
+            },
+            {
+              "name": "17-37",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 69.0
+                },
+                {
+                  "name": "75",
+                  "value": 15.0
+                },
+                {
+                  "name": "50",
+                  "value": 15.0
+                }
+              ]
+            },
+            {
+              "name": "17-38",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 60.0
+                },
+                {
+                  "name": "75",
+                  "value": 40.0
+                }
+              ]
+            },
+            {
+              "name": "16-01",
+              "series": [
+                {
+                  "name": "75",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "16-14",
+              "series": [
+                {
+                  "name": "75",
+                  "value": 33.0
+                },
+                {
+                  "name": "50",
+                  "value": 33.0
+                },
+                {
+                  "name": "25",
+                  "value": 33.0
+                }
+              ]
+            },
+            {
+              "name": "17-23",
+              "series": [
+                {
+                  "name": "75",
+                  "value": 100.0
+                }
+              ]
+            }
+          ],
+          "multiStacked": [
+
+          ]
+        },
+        "compareLocationsTags": [
+
         ],
-        "multi": [
-          {
-            "name": "16-05",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "16-09",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "16-13",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "16-18",
-            "series": [
-              {
-                "name": "100",
-                "value": 33.0
-              },
-              {
-                "name": "75",
-                "value": 33.0
-              },
-              {
-                "name": "50",
-                "value": 33.0
-              }
-            ]
-          },
-          {
-            "name": "16-23",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "16-27",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "16-31",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "16-36",
-            "series": [
-              {
-                "name": "100",
-                "value": 43.0
-              },
-              {
-                "name": "75",
-                "value": 57.0
-              }
-            ]
-          },
-          {
-            "name": "16-40",
-            "series": [
-              {
-                "name": "100",
-                "value": 60.0
-              },
-              {
-                "name": "75",
-                "value": 20.0
-              },
-              {
-                "name": "25",
-                "value": 20.0
-              }
-            ]
-          },
-          {
-            "name": "16-45",
-            "series": [
-              {
-                "name": "100",
-                "value": 33.0
-              },
-              {
-                "name": "75",
-                "value": 67.0
-              }
-            ]
-          },
-          {
-            "name": "16-50",
-            "series": [
-              {
-                "name": "100",
-                "value": 80.0
-              },
-              {
-                "name": "50",
-                "value": 20.0
-              }
-            ]
-          },
-          {
-            "name": "17-02",
-            "series": [
-              {
-                "name": "100",
-                "value": 40.0
-              },
-              {
-                "name": "75",
-                "value": 40.0
-              },
-              {
-                "name": "0",
-                "value": 20.0
-              }
-            ]
-          },
-          {
-            "name": "17-05",
-            "series": [
-              {
-                "name": "100",
-                "value": 83.0
-              },
-              {
-                "name": "999",
-                "value": 17.0
-              }
-            ]
-          },
-          {
-            "name": "17-10",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "17-15",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "17-19",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "17-24",
-            "series": [
-              {
-                "name": "100",
-                "value": 83.0
-              },
-              {
-                "name": "75",
-                "value": 17.0
-              }
-            ]
-          },
-          {
-            "name": "17-27",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "17-33",
-            "series": [
-              {
-                "name": "100",
-                "value": 86.0
-              },
-              {
-                "name": "75",
-                "value": 14.0
-              }
-            ]
-          },
-          {
-            "name": "17-37",
-            "series": [
-              {
-                "name": "100",
-                "value": 69.0
-              },
-              {
-                "name": "75",
-                "value": 15.0
-              },
-              {
-                "name": "50",
-                "value": 15.0
-              }
-            ]
-          },
-          {
-            "name": "17-38",
-            "series": [
-              {
-                "name": "100",
-                "value": 60.0
-              },
-              {
-                "name": "75",
-                "value": 40.0
-              }
-            ]
-          },
-          {
-            "name": "16-01",
-            "series": [
-              {
-                "name": "75",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "16-14",
-            "series": [
-              {
-                "name": "75",
-                "value": 33.0
-              },
-              {
-                "name": "50",
-                "value": 33.0
-              },
-              {
-                "name": "25",
-                "value": 33.0
-              }
-            ]
-          },
-          {
-            "name": "17-23",
-            "series": [
-              {
-                "name": "75",
-                "value": 100.0
-              }
-            ]
-          }
-        ],
-        "multiStacked": [
+        "ignoredAnswerValues": [
+
         ]
       },
-      "compareLocationsTags": [
-      ],
-      "ignoredAnswerValues": [
-      ]
-    },
-    {
-      "id": 68,
-      "firstQuestionName": "Q2",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "period": 2,
-      "chartType": 4,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 2,
-      "chartData": {
-        "single": [
+      {
+        "id": 60,
+        "firstQuestionName": "Q2",
+        "filterQuestionName": null,
+        "filterAnswerName": null,
+        "firstQuestionId": 2,
+        "filterQuestionId": null,
+        "filterAnswerId": null,
+        "period": 2,
+        "chartType": 4,
+        "compareEnabled": false,
+        "calculateAverage": false,
+        "position": 2,
+        "chartData": {
+          "single": [
+
+          ],
+          "multi": [
+            {
+              "name": "16-Feb",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "16-Mar",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "16-Apr",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 25.0
+                },
+                {
+                  "name": "75",
+                  "value": 25.0
+                },
+                {
+                  "name": "50",
+                  "value": 25.0
+                },
+                {
+                  "name": "25",
+                  "value": 25.0
+                }
+              ]
+            },
+            {
+              "name": "16-May",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 33.0
+                },
+                {
+                  "name": "75",
+                  "value": 33.0
+                },
+                {
+                  "name": "50",
+                  "value": 33.0
+                }
+              ]
+            },
+            {
+              "name": "16-Jun",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "16-Jul",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "16-Aug",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "16-Sep",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 43.0
+                },
+                {
+                  "name": "75",
+                  "value": 57.0
+                }
+              ]
+            },
+            {
+              "name": "16-Oct",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 60.0
+                },
+                {
+                  "name": "75",
+                  "value": 20.0
+                },
+                {
+                  "name": "25",
+                  "value": 20.0
+                }
+              ]
+            },
+            {
+              "name": "16-Nov",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 33.0
+                },
+                {
+                  "name": "75",
+                  "value": 67.0
+                }
+              ]
+            },
+            {
+              "name": "16-Dec",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 80.0
+                },
+                {
+                  "name": "50",
+                  "value": 20.0
+                }
+              ]
+            },
+            {
+              "name": "17-Jan",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 40.0
+                },
+                {
+                  "name": "75",
+                  "value": 40.0
+                },
+                {
+                  "name": "0",
+                  "value": 20.0
+                }
+              ]
+            },
+            {
+              "name": "17-Feb",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 83.0
+                },
+                {
+                  "name": "999",
+                  "value": 17.0
+                }
+              ]
+            },
+            {
+              "name": "17-Mar",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "17-Apr",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 100.0
+                }
+              ]
+            },
+            {
+              "name": "17-May",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "17-Jun",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 71.0
+                },
+                {
+                  "name": "75",
+                  "value": 29.0
+                }
+              ]
+            },
+            {
+              "name": "17-Jul",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 50.0
+                },
+                {
+                  "name": "75",
+                  "value": 50.0
+                }
+              ]
+            },
+            {
+              "name": "17-Aug",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 86.0
+                },
+                {
+                  "name": "75",
+                  "value": 14.0
+                }
+              ]
+            },
+            {
+              "name": "17-Sep",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 67.0
+                },
+                {
+                  "name": "75",
+                  "value": 22.0
+                },
+                {
+                  "name": "50",
+                  "value": 11.0
+                }
+              ]
+            },
+            {
+              "name": "16-Jan",
+              "series": [
+                {
+                  "name": "75",
+                  "value": 100.0
+                }
+              ]
+            }
+          ],
+          "multiStacked": [
+
+          ]
+        },
+        "compareLocationsTags": [
+
         ],
-        "multi": [
-          {
-            "name": "16-Feb",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "16-Mar",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "16-Apr",
-            "series": [
-              {
-                "name": "100",
-                "value": 25.0
-              },
-              {
-                "name": "75",
-                "value": 25.0
-              },
-              {
-                "name": "50",
-                "value": 25.0
-              },
-              {
-                "name": "25",
-                "value": 25.0
-              }
-            ]
-          },
-          {
-            "name": "16-May",
-            "series": [
-              {
-                "name": "100",
-                "value": 33.0
-              },
-              {
-                "name": "75",
-                "value": 33.0
-              },
-              {
-                "name": "50",
-                "value": 33.0
-              }
-            ]
-          },
-          {
-            "name": "16-Jun",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "16-Jul",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "16-Aug",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "16-Sep",
-            "series": [
-              {
-                "name": "100",
-                "value": 43.0
-              },
-              {
-                "name": "75",
-                "value": 57.0
-              }
-            ]
-          },
-          {
-            "name": "16-Oct",
-            "series": [
-              {
-                "name": "100",
-                "value": 60.0
-              },
-              {
-                "name": "75",
-                "value": 20.0
-              },
-              {
-                "name": "25",
-                "value": 20.0
-              }
-            ]
-          },
-          {
-            "name": "16-Nov",
-            "series": [
-              {
-                "name": "100",
-                "value": 33.0
-              },
-              {
-                "name": "75",
-                "value": 67.0
-              }
-            ]
-          },
-          {
-            "name": "16-Dec",
-            "series": [
-              {
-                "name": "100",
-                "value": 80.0
-              },
-              {
-                "name": "50",
-                "value": 20.0
-              }
-            ]
-          },
-          {
-            "name": "17-Jan",
-            "series": [
-              {
-                "name": "100",
-                "value": 40.0
-              },
-              {
-                "name": "75",
-                "value": 40.0
-              },
-              {
-                "name": "0",
-                "value": 20.0
-              }
-            ]
-          },
-          {
-            "name": "17-Feb",
-            "series": [
-              {
-                "name": "100",
-                "value": 83.0
-              },
-              {
-                "name": "999",
-                "value": 17.0
-              }
-            ]
-          },
-          {
-            "name": "17-Mar",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "17-Apr",
-            "series": [
-              {
-                "name": "100",
-                "value": 100.0
-              }
-            ]
-          },
-          {
-            "name": "17-May",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "17-Jun",
-            "series": [
-              {
-                "name": "100",
-                "value": 71.0
-              },
-              {
-                "name": "75",
-                "value": 29.0
-              }
-            ]
-          },
-          {
-            "name": "17-Jul",
-            "series": [
-              {
-                "name": "100",
-                "value": 50.0
-              },
-              {
-                "name": "75",
-                "value": 50.0
-              }
-            ]
-          },
-          {
-            "name": "17-Aug",
-            "series": [
-              {
-                "name": "100",
-                "value": 86.0
-              },
-              {
-                "name": "75",
-                "value": 14.0
-              }
-            ]
-          },
-          {
-            "name": "17-Sep",
-            "series": [
-              {
-                "name": "100",
-                "value": 67.0
-              },
-              {
-                "name": "75",
-                "value": 22.0
-              },
-              {
-                "name": "50",
-                "value": 11.0
-              }
-            ]
-          },
-          {
-            "name": "16-Jan",
-            "series": [
-              {
-                "name": "75",
-                "value": 100.0
-              }
-            ]
-          }
-        ],
-        "multiStacked": [
+        "ignoredAnswerValues": [
+
         ]
       },
-      "compareLocationsTags": [
-      ],
-      "ignoredAnswerValues": [
-      ]
-    },
-    {
-      "id": 69,
-      "firstQuestionName": "Q2",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "period": 3,
-      "chartType": 4,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 3,
-      "chartData": {
-        "single": [
+      {
+        "id": 61,
+        "firstQuestionName": "Q2",
+        "filterQuestionName": null,
+        "filterAnswerName": null,
+        "firstQuestionId": 2,
+        "filterQuestionId": null,
+        "filterAnswerId": null,
+        "period": 3,
+        "chartType": 4,
+        "compareEnabled": false,
+        "calculateAverage": false,
+        "position": 3,
+        "chartData": {
+          "single": [
+
+          ],
+          "multi": [
+            {
+              "name": "16-K1",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 40.0
+                },
+                {
+                  "name": "75",
+                  "value": 60.0
+                }
+              ]
+            },
+            {
+              "name": "16-K2",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 33.0
+                },
+                {
+                  "name": "75",
+                  "value": 33.0
+                },
+                {
+                  "name": "50",
+                  "value": 22.0
+                },
+                {
+                  "name": "25",
+                  "value": 11.0
+                }
+              ]
+            },
+            {
+              "name": "16-K3",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 69.0
+                },
+                {
+                  "name": "75",
+                  "value": 31.0
+                }
+              ]
+            },
+            {
+              "name": "16-K4",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 62.0
+                },
+                {
+                  "name": "75",
+                  "value": 23.0
+                },
+                {
+                  "name": "50",
+                  "value": 8.0
+                },
+                {
+                  "name": "25",
+                  "value": 8.0
+                }
+              ]
+            },
+            {
+              "name": "17-K1",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 59.0
+                },
+                {
+                  "name": "75",
+                  "value": 29.0
+                },
+                {
+                  "name": "0",
+                  "value": 6.0
+                },
+                {
+                  "name": "999",
+                  "value": 6.0
+                }
+              ]
+            },
+            {
+              "name": "17-K2",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 74.0
+                },
+                {
+                  "name": "75",
+                  "value": 26.0
+                }
+              ]
+            },
+            {
+              "name": "17-K3",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 69.0
+                },
+                {
+                  "name": "75",
+                  "value": 24.0
+                },
+                {
+                  "name": "50",
+                  "value": 7.0
+                }
+              ]
+            }
+          ],
+          "multiStacked": [
+
+          ]
+        },
+        "compareLocationsTags": [
+
         ],
-        "multi": [
-          {
-            "name": "16-K1",
-            "series": [
-              {
-                "name": "100",
-                "value": 40.0
-              },
-              {
-                "name": "75",
-                "value": 60.0
-              }
-            ]
-          },
-          {
-            "name": "16-K2",
-            "series": [
-              {
-                "name": "100",
-                "value": 33.0
-              },
-              {
-                "name": "75",
-                "value": 33.0
-              },
-              {
-                "name": "50",
-                "value": 22.0
-              },
-              {
-                "name": "25",
-                "value": 11.0
-              }
-            ]
-          },
-          {
-            "name": "16-K3",
-            "series": [
-              {
-                "name": "100",
-                "value": 69.0
-              },
-              {
-                "name": "75",
-                "value": 31.0
-              }
-            ]
-          },
-          {
-            "name": "16-K4",
-            "series": [
-              {
-                "name": "100",
-                "value": 62.0
-              },
-              {
-                "name": "75",
-                "value": 23.0
-              },
-              {
-                "name": "50",
-                "value": 8.0
-              },
-              {
-                "name": "25",
-                "value": 8.0
-              }
-            ]
-          },
-          {
-            "name": "17-K1",
-            "series": [
-              {
-                "name": "100",
-                "value": 59.0
-              },
-              {
-                "name": "75",
-                "value": 29.0
-              },
-              {
-                "name": "0",
-                "value": 6.0
-              },
-              {
-                "name": "999",
-                "value": 6.0
-              }
-            ]
-          },
-          {
-            "name": "17-K2",
-            "series": [
-              {
-                "name": "100",
-                "value": 74.0
-              },
-              {
-                "name": "75",
-                "value": 26.0
-              }
-            ]
-          },
-          {
-            "name": "17-K3",
-            "series": [
-              {
-                "name": "100",
-                "value": 69.0
-              },
-              {
-                "name": "75",
-                "value": 24.0
-              },
-              {
-                "name": "50",
-                "value": 7.0
-              }
-            ]
-          }
-        ],
-        "multiStacked": [
+        "ignoredAnswerValues": [
+
         ]
       },
-      "compareLocationsTags": [
-      ],
-      "ignoredAnswerValues": [
-      ]
-    },
-    {
-      "id": 70,
-      "firstQuestionName": "Q2",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "period": 4,
-      "chartType": 4,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 4,
-      "chartData": {
-        "single": [
+      {
+        "id": 62,
+        "firstQuestionName": "Q2",
+        "filterQuestionName": null,
+        "filterAnswerName": null,
+        "firstQuestionId": 2,
+        "filterQuestionId": null,
+        "filterAnswerId": null,
+        "period": 4,
+        "chartType": 4,
+        "compareEnabled": false,
+        "calculateAverage": false,
+        "position": 4,
+        "chartData": {
+          "single": [
+
+          ],
+          "multi": [
+            {
+              "name": "16-1H",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 36.0
+                },
+                {
+                  "name": "75",
+                  "value": 43.0
+                },
+                {
+                  "name": "50",
+                  "value": 14.0
+                },
+                {
+                  "name": "25",
+                  "value": 7.0
+                }
+              ]
+            },
+            {
+              "name": "16-2H",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 65.0
+                },
+                {
+                  "name": "75",
+                  "value": 27.0
+                },
+                {
+                  "name": "50",
+                  "value": 4.0
+                },
+                {
+                  "name": "25",
+                  "value": 4.0
+                }
+              ]
+            },
+            {
+              "name": "17-1H",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 67.0
+                },
+                {
+                  "name": "75",
+                  "value": 28.0
+                },
+                {
+                  "name": "0",
+                  "value": 3.0
+                },
+                {
+                  "name": "999",
+                  "value": 3.0
+                }
+              ]
+            },
+            {
+              "name": "17-2H",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 69.0
+                },
+                {
+                  "name": "75",
+                  "value": 24.0
+                },
+                {
+                  "name": "50",
+                  "value": 7.0
+                }
+              ]
+            }
+          ],
+          "multiStacked": [
+
+          ]
+        },
+        "compareLocationsTags": [
+
         ],
-        "multi": [
-          {
-            "name": "16-1H",
-            "series": [
-              {
-                "name": "100",
-                "value": 36.0
-              },
-              {
-                "name": "75",
-                "value": 43.0
-              },
-              {
-                "name": "50",
-                "value": 14.0
-              },
-              {
-                "name": "25",
-                "value": 7.0
-              }
-            ]
-          },
-          {
-            "name": "16-2H",
-            "series": [
-              {
-                "name": "100",
-                "value": 65.0
-              },
-              {
-                "name": "75",
-                "value": 27.0
-              },
-              {
-                "name": "50",
-                "value": 4.0
-              },
-              {
-                "name": "25",
-                "value": 4.0
-              }
-            ]
-          },
-          {
-            "name": "17-1H",
-            "series": [
-              {
-                "name": "100",
-                "value": 67.0
-              },
-              {
-                "name": "75",
-                "value": 28.0
-              },
-              {
-                "name": "0",
-                "value": 3.0
-              },
-              {
-                "name": "999",
-                "value": 3.0
-              }
-            ]
-          },
-          {
-            "name": "17-2H",
-            "series": [
-              {
-                "name": "100",
-                "value": 69.0
-              },
-              {
-                "name": "75",
-                "value": 24.0
-              },
-              {
-                "name": "50",
-                "value": 7.0
-              }
-            ]
-          }
-        ],
-        "multiStacked": [
+        "ignoredAnswerValues": [
+
         ]
       },
-      "compareLocationsTags": [
-      ],
-      "ignoredAnswerValues": [
-      ]
-    },
-    {
-      "id": 71,
-      "firstQuestionName": "Q2",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "period": 5,
-      "chartType": 4,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 5,
-      "chartData": {
-        "single": [
+      {
+        "id": 63,
+        "firstQuestionName": "Q2",
+        "filterQuestionName": null,
+        "filterAnswerName": null,
+        "firstQuestionId": 2,
+        "filterQuestionId": null,
+        "filterAnswerId": null,
+        "period": 5,
+        "chartType": 4,
+        "compareEnabled": false,
+        "calculateAverage": false,
+        "position": 5,
+        "chartData": {
+          "single": [
+
+          ],
+          "multi": [
+            {
+              "name": "2016",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 55.0
+                },
+                {
+                  "name": "75",
+                  "value": 32.0
+                },
+                {
+                  "name": "50",
+                  "value": 8.0
+                },
+                {
+                  "name": "25",
+                  "value": 5.0
+                }
+              ]
+            },
+            {
+              "name": "2017",
+              "series": [
+                {
+                  "name": "100",
+                  "value": 68.0
+                },
+                {
+                  "name": "75",
+                  "value": 26.0
+                },
+                {
+                  "name": "50",
+                  "value": 3.0
+                },
+                {
+                  "name": "0",
+                  "value": 2.0
+                },
+                {
+                  "name": "999",
+                  "value": 2.0
+                }
+              ]
+            }
+          ],
+          "multiStacked": [
+
+          ]
+        },
+        "compareLocationsTags": [
+
         ],
-        "multi": [
-          {
-            "name": "2016",
-            "series": [
-              {
-                "name": "100",
-                "value": 55.0
-              },
-              {
-                "name": "75",
-                "value": 32.0
-              },
-              {
-                "name": "50",
-                "value": 8.0
-              },
-              {
-                "name": "25",
-                "value": 5.0
-              }
-            ]
-          },
-          {
-            "name": "2017",
-            "series": [
-              {
-                "name": "100",
-                "value": 68.0
-              },
-              {
-                "name": "75",
-                "value": 26.0
-              },
-              {
-                "name": "50",
-                "value": 3.0
-              },
-              {
-                "name": "0",
-                "value": 2.0
-              },
-              {
-                "name": "999",
-                "value": 2.0
-              }
-            ]
-          }
-        ],
-        "multiStacked": [
+        "ignoredAnswerValues": [
+
         ]
-      },
-      "compareLocationsTags": [
-      ],
-      "ignoredAnswerValues": [
-      ]
-    }
-  ]
-}
+      }
+    ]
+  }
