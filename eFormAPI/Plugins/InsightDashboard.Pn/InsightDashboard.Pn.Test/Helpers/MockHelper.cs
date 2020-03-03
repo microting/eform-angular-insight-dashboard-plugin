@@ -22,12 +22,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Test.Helpers
 {
-    public class DashboardItemIgnoredAnswerModel
+    using eFormCore;
+    using Microting.eForm.Infrastructure;
+    using Moq;
+    using Services.Common.InsightDashboardLocalizationService;
+
+    public static class MockHelper
     {
-        public int? Id { get; set; }
-        public int AnswerId { get; set; }
-        public string Name { get; set; }
+        public static Core GetCore()
+        {
+            var coreMock = new Mock<Core>();
+
+            coreMock
+                .Setup(x => x.dbContextHelper.GetDbContext())
+                .Returns(new MicrotingDbContext());
+
+            return coreMock.Object;
+        }
+
+        public static MicrotingDbContext GetMicrotingDbContext()
+        {
+            var coreMock = new Mock<MicrotingDbContext>();
+
+            return coreMock.Object;
+        }
+
+        public static IInsightDashboardLocalizationService GetLocalizationService()
+        {
+            var localizationServiceMock = new Mock<IInsightDashboardLocalizationService>();
+
+            localizationServiceMock
+                .Setup(x => x.GetString("TotalPeriod"))
+                .Returns("Total Period");
+
+            return localizationServiceMock.Object;
+        }
     }
 }

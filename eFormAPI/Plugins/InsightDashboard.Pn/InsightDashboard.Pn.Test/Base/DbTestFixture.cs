@@ -1,23 +1,47 @@
-namespace InsightDashboard.Pn.Test
+/*
+The MIT License (MIT)
+
+Copyright (c) 2007 - 2019 Microting A/S
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+namespace InsightDashboard.Pn.Test.Base
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Runtime.InteropServices;
     using Microsoft.EntityFrameworkCore;
-    using Microting.InsightDashboardBase.Infrastructure.Data;
-    using Microting.InsightDashboardBase.Infrastructure.Data.Factories;
+    using Microting.eForm.Infrastructure;
     using NUnit.Framework;
 
     [TestFixture]
     public abstract class DbTestFixture
     {
-        protected InsightDashboardPnDbContext DbContext;
+        protected MicrotingDbContext DbContext;
         private string _connectionString;
+        private string _path;
 
         private void GetContext(string connectionStr)
         {
-            InsightDashboardPnDbContextFactory contextFactory = new InsightDashboardPnDbContextFactory();
+            var contextFactory = new MicrotingDbContextFactory();
             DbContext = contextFactory.CreateDbContext(new[] { connectionStr });
 
             DbContext.Database.Migrate();
@@ -29,11 +53,12 @@ namespace InsightDashboard.Pn.Test
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                _connectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=insight-dashboard-base-tests;Integrated Security=true";
+                _connectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=420_SDK;Integrated Security=true";
+                // _connectionString = @"host= localhost;Database=420_SDK;Uid=root;Pwd=111111;port=3306;Convert Zero Datetime = true;SslMode=none;";
             }
             else
             {
-                _connectionString = @"Server = localhost; port = 3306; Database = insight-dashboard-base-tests; user = root; Convert Zero Datetime = true;";
+                _connectionString = @"Server = localhost; port = 3306; Database = 420_SDK; user = root; Convert Zero Datetime = true;";
             }
 
             GetContext(_connectionString);
@@ -63,9 +88,7 @@ namespace InsightDashboard.Pn.Test
 
         private void ClearDb()
         {
-            List<string> modelNames = new List<string>();
-            modelNames.Add("PluginConfigurationValues");
-            modelNames.Add("PluginConfigurationValueVersions");
+            var modelNames = new List<string>();
 
             foreach (var modelName in modelNames)
             {
@@ -88,14 +111,14 @@ namespace InsightDashboard.Pn.Test
                 }
             }
         }
-        private string path;
+        
 
         private void ClearFile()
         {
-            path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-            path = Path.GetDirectoryName(path).Replace(@"file:\", "");
+            _path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            _path = Path.GetDirectoryName(_path).Replace(@"file:\", "");
 
-            string picturePath = path + @"\output\dataFolder\picture\Deleted";
+            string picturePath = _path + @"\output\dataFolder\picture\Deleted";
 
             DirectoryInfo diPic = new DirectoryInfo(picturePath);
 

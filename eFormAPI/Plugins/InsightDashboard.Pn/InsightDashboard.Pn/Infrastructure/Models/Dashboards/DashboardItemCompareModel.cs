@@ -30,5 +30,6 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
         public int? LocationId { get; set; }
         public int? TagId { get; set; }
         public int Position { get; set; }
+        public string Name { get; set; }
     }
 }

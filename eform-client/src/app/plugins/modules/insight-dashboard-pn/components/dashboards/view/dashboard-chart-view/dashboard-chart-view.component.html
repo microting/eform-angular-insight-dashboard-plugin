@@ -22,7 +22,8 @@
                          [showXAxisLabel]="true"
                          [showYAxisLabel]="true"
                          [yAxisLabel]="itemModel.calculateAverage ? ('Score' | translate) : ('Percents' | translate)"
-                         [yScaleMax]="100">
+                         [yScaleMin]="0"
+                         [yScaleMax]="itemModel.calculateAverage ? 100 : 100">
   </ngx-charts-line-chart>
   <ngx-charts-pie-chart *ngIf="itemModel.chartType === chartTypes.Pie"
                         [view]="view"
