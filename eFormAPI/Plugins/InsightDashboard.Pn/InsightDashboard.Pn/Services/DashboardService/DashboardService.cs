@@ -683,6 +683,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 {
                     Id = dashboard.Id,
                     DashboardName = dashboard.Name,
+                    SurveyId = dashboard.SurveyId,
+                    LocationId = dashboard.LocationId,
+                    TagId = dashboard.TagId,
                 };
 
                 List<CommonDictionaryModel> sites;
@@ -749,6 +752,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         ChartType = dashboardItem.ChartType,
                         CalculateAverage = dashboardItem.CalculateAverage,
                         CompareEnabled = dashboardItem.CompareEnabled,
+                        FilterQuestionId = dashboardItem.FilterQuestionId,
+                        FilterAnswerId = dashboardItem.FilterAnswerId,
+                        FirstQuestionId = dashboardItem.FirstQuestionId,
                     };
 
                     foreach (var dashboardItemCompareLocationsTag in dashboardItem
@@ -760,7 +766,15 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         {
                             if (site.Id == dashboardItemCompareLocationsTag.LocationId)
                             {
-                                dashboardItemModel.CompareLocationsTags.Add(site.Name);
+                                var itemCompare = new DashboardItemCompareModel
+                                {
+                                    Id = dashboardItemCompareLocationsTag.Id,
+                                    LocationId = dashboardItemCompareLocationsTag.LocationId,
+                                    Position = dashboardItemCompareLocationsTag.Position,
+                                    TagId = dashboardItemCompareLocationsTag.TagId,
+                                    Name = site.Name,
+                                };
+                                dashboardItemModel.CompareLocationsTags.Add(itemCompare);
                             }
                         }
                     }
@@ -773,20 +787,87 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         {
                             if (option.Id == dashboardItemIgnoredAnswer.AnswerId)
                             {
-                                dashboardItemModel.IgnoredAnswerValues.Add(option.Name);
+                                var ignoredAnswer = new DashboardItemIgnoredAnswerModel
+                                {
+                                    Id = dashboardItemIgnoredAnswer.Id,
+                                    AnswerId = dashboardItemIgnoredAnswer.AnswerId,
+                                    Name = option.Name
+                                };
+                                dashboardItemModel.IgnoredAnswerValues.Add(ignoredAnswer);
                             }
                         }
                     }
 
-
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
                     {
+                        var languages = await sdkContext.languages.ToListAsync();
+                        foreach (var language in languages)
+                        {
+                            dashboardItemModel.FirstQuestionName = await sdkContext.QuestionTranslations
+                                .AsNoTracking()
+                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
+                                .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
+                                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                .Where(x => x.Language.Id == language.Id)
+                                .Select(x => x.Name)
+                                .FirstOrDefaultAsync();
+
+                            if (dashboardItemModel.FirstQuestionName != null)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (dashboardItem.FilterQuestionId != null)
+                        {
+                            foreach (var language in languages)
+                            {
+                                dashboardItemModel.FilterQuestionName = await sdkContext.QuestionTranslations
+                                    .AsNoTracking()
+                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.QuestionId == dashboardItem.FilterQuestionId)
+                                    .Where(x => x.Language.Id == language.Id)
+                                    .Select(x => x.Name)
+                                    .FirstOrDefaultAsync();
+
+                                if (dashboardItemModel.FilterQuestionName != null)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (dashboardItem.FilterAnswerId != null)
+                        {
+                            foreach (var language in languages)
+                            {
+                                dashboardItemModel.FilterAnswerName = await sdkContext.OptionTranslations
+                                    .AsNoTracking()
+                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.option.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.OptionId == dashboardItem.FilterAnswerId)
+                                    .Where(x => x.Language.Id == language.Id)
+                                    .Select(x => x.Name)
+                                    .FirstOrDefaultAsync();
+
+                                if (dashboardItemModel.FilterAnswerName != null)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+
                         await ChartDataHelpers.CalculateDashboardItem(
                             dashboardItemModel,
                             sdkContext,
                             dashboardItem,
                             _localizationService,
-                            dashboard);
+                            dashboard.LocationId,
+                            dashboard.SurveyId);
                     }
 
                     // Add Item

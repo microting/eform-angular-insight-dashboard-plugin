@@ -1,5 +1,6 @@
 import {DashboardChartTypesEnum, DashboardPeriodUnitsEnum} from '../../const/enums';
 import {DashboardItemCompareModel} from './dashboard-item-compare.model';
+import {DashboardItemIgnoredAnswerModel} from './dashboard-item-ignored-answer.model';
 
 export class DashboardItemModel {
   id: number;
@@ -24,7 +25,3 @@ export class DashboardItemModel {
 
 }
 
-export class DashboardItemIgnoredAnswerModel {
-  id: number | null;
-  answerId: number;
-}

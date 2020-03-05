@@ -31,8 +31,11 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
         public int Id { get; set; }
         public string DashboardName { get; set; }
         public string SurveyName { get; set; }
+        public int SurveyId { get; set; }
         public string LocationName { get; set; }
+        public int? LocationId { get; set; }
         public string TagName { get; set; }
+        public int? TagId { get; set; }
         public List<DashboardItemViewModel> Items { get; set; }
             = new List<DashboardItemViewModel>();
     }

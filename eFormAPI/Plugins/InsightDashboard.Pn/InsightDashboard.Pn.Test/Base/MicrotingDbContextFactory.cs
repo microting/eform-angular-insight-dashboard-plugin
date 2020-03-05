@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2019 Microting A/S
@@ -22,12 +22,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Test.Base
 {
-    public class DashboardItemIgnoredAnswerModel
+    using System;
+    using System.Linq;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Design;
+    using Microting.eForm.Infrastructure;
+
+    public class MicrotingDbContextFactory : IDesignTimeDbContextFactory<MicrotingDbContext>
     {
-        public int? Id { get; set; }
-        public int AnswerId { get; set; }
-        public string Name { get; set; }
+        public MicrotingDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<MicrotingDbContext>();
+            if (args.Any())
+            {
+                if (args.FirstOrDefault().ToLower().Contains("convert zero datetime"))
+                {
+                    optionsBuilder.UseMySql(args.FirstOrDefault());
+                }
+                else
+                {
+                    optionsBuilder.UseSqlServer(args.FirstOrDefault());
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException("Connection string not present");
+            }
+
+            optionsBuilder.UseLazyLoadingProxies(true);
+            return new MicrotingDbContext(optionsBuilder.Options);
+        }
     }
 }

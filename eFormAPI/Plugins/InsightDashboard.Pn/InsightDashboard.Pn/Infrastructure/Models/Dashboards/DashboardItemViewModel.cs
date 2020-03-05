@@ -33,6 +33,9 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
         public string FirstQuestionName { get; set; }
         public string FilterQuestionName { get; set; }
         public string FilterAnswerName { get; set; }
+        public int FirstQuestionId { get; set; }
+        public int? FilterQuestionId { get; set; }
+        public int? FilterAnswerId { get; set; }
         public DashboardPeriodUnits Period { get; set; }
         public DashboardChartTypes ChartType { get; set; }
         public bool CompareEnabled { get; set; }
@@ -41,9 +44,9 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 
         public DashboardViewChartDataModel ChartData { get; set; }
             = new DashboardViewChartDataModel();
-        public List<string> CompareLocationsTags { get; set; }
-            = new List<string>();
-        public List<string> IgnoredAnswerValues { get; set; }
-            = new List<string>();
+        public List<DashboardItemCompareModel> CompareLocationsTags { get; set; }
+            = new List<DashboardItemCompareModel>();
+        public List<DashboardItemIgnoredAnswerModel> IgnoredAnswerValues { get; set; }
+            = new List<DashboardItemIgnoredAnswerModel>();
     }
 }

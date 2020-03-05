@@ -19,69 +19,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             MicrotingDbContext sdkContext,
             DashboardItem dashboardItem,
             IInsightDashboardLocalizationService localizationService,
-            Dashboard dashboard)
+            int? dashboardLocationId,
+            int dashboardSurveyId)
         {
-            var languages = await sdkContext.languages.ToListAsync();
-            foreach (var language in languages)
-            {
-                dashboardItemModel.FirstQuestionName = await sdkContext.QuestionTranslations
-                    .AsNoTracking()
-                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
-                    .Where(x => x.Language.Id == language.Id)
-                    .Select(x => x.Name)
-                    .FirstOrDefaultAsync();
-
-                if (dashboardItemModel.FirstQuestionName != null)
-                {
-                    break;
-                }
-            }
-
-            if (dashboardItem.FilterQuestionId != null)
-            {
-                foreach (var language in languages)
-                {
-                    dashboardItemModel.FilterQuestionName = await sdkContext.QuestionTranslations
-                        .AsNoTracking()
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.QuestionId == dashboardItem.FilterQuestionId)
-                        .Where(x => x.Language.Id == language.Id)
-                        .Select(x => x.Name)
-                        .FirstOrDefaultAsync();
-
-                    if (dashboardItemModel.FilterQuestionName != null)
-                    {
-                        break;
-                    }
-                }
-            }
-
-            if (dashboardItem.FilterAnswerId != null)
-            {
-                foreach (var language in languages)
-                {
-                    dashboardItemModel.FilterAnswerName = await sdkContext.OptionTranslations
-                        .AsNoTracking()
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.option.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.OptionId == dashboardItem.FilterAnswerId)
-                        .Where(x => x.Language.Id == language.Id)
-                        .Select(x => x.Name)
-                        .FirstOrDefaultAsync();
-
-                    if (dashboardItemModel.FilterAnswerName != null)
-                    {
-                        break;
-                    }
-                }
-            }
-
             // Chart data
             bool singleData;
             switch (dashboardItem.ChartType)
@@ -154,7 +94,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 .AsQueryable();
 
             answerQueryable = answerQueryable
-                .Where(x => x.Answer.QuestionSetId == dashboard.SurveyId);
+                .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);
 
             if (dashboardItem.CompareEnabled)
             {
@@ -169,10 +109,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             }
             else
             {
-                if (dashboard.LocationId != null)
+                if (dashboardLocationId != null)
                 {
                     answerQueryable = answerQueryable
-                        .Where(x => x.Answer.SiteId == dashboard.LocationId);
+                        .Where(x => x.Answer.SiteId == dashboardLocationId);
                 }
             }
 
@@ -206,7 +146,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
             }
 
-            var data = answerQueryable
+            var data = await answerQueryable
                 .Select(x => new
                 {
                     Name = x.Value,
@@ -217,7 +157,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     OptionIndex = x.Option.OptionsIndex,
                 })
                 .OrderBy(t => t.OptionIndex)
-                .ToList();
+                .ToListAsync();
 
             List<string> lines;
             if (dashboardItem.CalculateAverage)
@@ -257,7 +197,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
  
                 var multiData = new List<DashboardViewChartDataMultiModel>();
                 var multiStackedData = new List<DashboardViewChartDataMultiStackedModel>();
-                switch (dashboardItemModel.Period)
+                switch (dashboardItem.Period)
                 {
                     case DashboardPeriodUnits.Week:
                         if (isStackedData)
