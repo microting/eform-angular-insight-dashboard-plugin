@@ -19,6 +19,7 @@ import {InsightDashboardPnDashboardDictionariesService} from '../../../../servic
 import {TranslateService} from '@ngx-translate/core';
 import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
 import {CollapseDirective} from '../../../../../../../../../port/angular-bootstrap-md/collapse';
+import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
 
 @AutoUnsubscribe()
 @Component({
@@ -40,6 +41,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   filterAnswers: CommonDictionaryModel[] = [];
   questionAnswers: CommonDictionaryModel[] = [];
   loadAnswersSub$: Subscription;
+  collapseSub$: Subscription;
   filteredQuestions: CommonDictionaryModel[] = [];
   allCharts = [];
   availableCharts = [];
@@ -70,11 +72,17 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   constructor(private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService, private collapseService: InsightDashboardPnCollapseService) {
   }
 
   ngOnInit() {
-
+    this.collapseSub$ = this.collapseService.collapse.subscribe(collapsed => {
+      if (this.dashboardItem.collapsed) {
+        this.dashboardItem.collapsed = false;
+        this.collapse.toggle();
+        this.onCollapseExpanded();
+      }
+    });
   }
 
   addNew(position: number) {

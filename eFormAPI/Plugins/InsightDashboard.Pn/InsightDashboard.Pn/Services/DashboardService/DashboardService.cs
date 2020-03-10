@@ -689,7 +689,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     .Include(x => x.DashboardItems)
                     .ThenInclude(x => x.CompareLocationsTags)
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
                     .FirstOrDefaultAsync(x => x.Id == dashboardId);
 
                 if (dashboard == null)

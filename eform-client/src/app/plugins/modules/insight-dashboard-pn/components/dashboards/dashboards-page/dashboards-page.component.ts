@@ -149,23 +149,6 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     this.deleteDashboardModal.show(model);
   }
 
-  getLocationTags(surveyId: number) {
-    // this.getLocationsSub$ = this.sitesService.getAllSitesDictionary().subscribe((data) => {
-    //   if (data && data.success) {
-    //     this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-    //       return {id: x.id, name: x.name, isTag: true, description: x.description};
-    //     })];
-    //   }
-    // });
-    this.getTagsSub$ = this.dictionariesService.getLocationBySurveyId(surveyId).subscribe((data) => {
-      if (data && data.success) {
-        this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-          return {id: x.id, name: x.name, isTag: false, description: x.description};
-        })];
-      }
-    });
-  }
-
   ngOnDestroy(): void {
   }
 

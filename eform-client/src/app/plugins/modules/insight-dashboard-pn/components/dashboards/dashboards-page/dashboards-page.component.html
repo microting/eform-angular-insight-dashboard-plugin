@@ -137,7 +137,6 @@
 <spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>
 
 <app-dashboard-copy #copyDashboardModal (dashboardCopied)="getDashboardsList()"></app-dashboard-copy>
-<app-dashboard-new [surveys]="availableSurveys" [availableLocationsTags]="availableLocationsTags"
-                   (surveySelected)="getLocationTags($event)" (dashboardCreated)="navigateToNewDashboard($event)"
+<app-dashboard-new [surveys]="availableSurveys" (dashboardCreated)="navigateToNewDashboard($event)"
                    #newDashboardModal></app-dashboard-new>
 <app-dashboard-delete #deleteDashboardModal (dashboardDeleted)="getDashboardsList()"></app-dashboard-delete>

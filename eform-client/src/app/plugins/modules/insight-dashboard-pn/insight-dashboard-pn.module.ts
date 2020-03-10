@@ -18,13 +18,13 @@ import {
   InsightDashboardPnSurveyConfigsService
 } from './services';
 import {
-  DashboardItemEditComponent,
+  DashboardBlockViewComponent,
   DashboardChartEditComponent,
   DashboardChartViewComponent,
-  DashboardBlockViewComponent,
   DashboardCopyComponent,
   DashboardDeleteComponent,
   DashboardEditComponent,
+  DashboardItemEditComponent,
   DashboardNewComponent,
   DashboardsPageComponent,
   DashboardViewComponent,
@@ -33,27 +33,30 @@ import {
   SurveyConfigurationEditComponent,
   SurveyConfigurationNewComponent,
   SurveyConfigurationsPageComponent,
-  SurveyConfigurationStatusComponent
+  SurveyConfigurationStatusComponent,
+  DashboardEditHeaderComponent
 } from './components';
 import {DragulaModule} from 'ng2-dragula';
 import {NgxChartsModule} from '@microting/ngx-charts';
+import {OwlDateTimeModule} from 'ng-pick-datetime';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedPnModule,
-    MDBBootstrapModule,
-    InsightDashboardPnRoutingModule,
-    TranslateModule,
-    FormsModule,
-    NgSelectModule,
-    EformSharedModule,
-    FontAwesomeModule,
-    CasesModule,
-    DragulaModule,
-    CollapseModule,
-    NgxChartsModule
-  ],
+    imports: [
+        CommonModule,
+        SharedPnModule,
+        MDBBootstrapModule,
+        InsightDashboardPnRoutingModule,
+        TranslateModule,
+        FormsModule,
+        NgSelectModule,
+        EformSharedModule,
+        FontAwesomeModule,
+        CasesModule,
+        DragulaModule,
+        CollapseModule,
+        NgxChartsModule,
+        OwlDateTimeModule
+    ],
   declarations: [
     InsightDashboardPnLayoutComponent,
     InsightDashboardSettingsComponent,
@@ -71,7 +74,8 @@ import {NgxChartsModule} from '@microting/ngx-charts';
     DashboardItemEditComponent,
     DashboardChartEditComponent,
     DashboardChartViewComponent,
-    DashboardBlockViewComponent
+    DashboardBlockViewComponent,
+    DashboardEditHeaderComponent
   ],
   providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboardsService,
     InsightDashboardPnSurveyConfigsService, InsightDashboardPnDashboardDictionariesService]

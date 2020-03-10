@@ -15,4 +15,5 @@ export * from './dashboard/dashboard-item-ignored-answer.model';
 export * from './dashboard/dashboard-item-ignored-answer-view.model';
 export * from './dashboard/dashboard-item-compare.model';
 export * from './dashboard/dashboard-item-compare-view.model';
+export * from './dashboard/dashboard-answer-dates.model';
 
