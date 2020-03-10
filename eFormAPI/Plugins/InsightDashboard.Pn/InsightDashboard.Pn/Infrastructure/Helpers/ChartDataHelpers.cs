@@ -666,7 +666,97 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             lineData.Add(multiItem);
                         }
 
-                        dashboardItemModel.ChartData.Multi.AddRange(lineData);
+                        List<string> columnNames = new List<string>();
+                        List<string> lineNames = new List<string>();
+
+                        foreach (var model in lineData)
+                        {
+                            if (!lineNames.Contains(model.Name))
+                            {
+                                lineNames.Add(model.Name);
+                            }
+
+                            foreach (var dashboardViewChartDataSingleModel in model.Series)
+                            {
+                                if (!columnNames.Contains(dashboardViewChartDataSingleModel.Name))
+                                {
+                                    columnNames.Add(dashboardViewChartDataSingleModel.Name);
+                                }
+                            }
+                        }
+                        columnNames.Sort();
+                        lineNames.Sort();
+
+                        var newLineData = new List<DashboardViewChartDataMultiModel>();
+
+                        if (isSmiley)
+                        {
+                            // var tmpData = new List<DashboardViewChartDataSingleModel>();
+                            // var r = ;
+                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 100).Value});
+                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 75).Value});
+                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 50).Value});
+                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 25).Value});
+                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 0).Value});
+                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 999).Value});
+
+                            foreach (var model in newLineData)
+                            {
+                                foreach (string columnName in columnNames)
+                                {
+                                    var singleItem = new DashboardViewChartDataSingleModel
+                                    {
+                                        Name = columnName,
+                                        Value = 0,
+                                    };
+                                    model.Series.Add(singleItem);
+                                }
+                            }
+
+                            foreach (var model in newLineData)
+                            {
+                                foreach (var multiModel in lineData)
+                                {
+                                    if (model.Name == multiModel.Name)
+                                    {
+                                        foreach (var series in multiModel.Series)
+                                        {
+                                            foreach (var modelSeries in model.Series)
+                                            {
+                                                if (modelSeries.Name == series.Name)
+                                                {
+                                                    modelSeries.Value = series.Value;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (string lineName in lineNames)
+                            {
+                                var multiItem = new DashboardViewChartDataMultiModel
+                                {
+                                    Name = lineName
+                                };
+
+                                foreach (string columnName in columnNames)
+                                {
+                                    var singleItem = new DashboardViewChartDataSingleModel
+                                    {
+                                        Name = columnName,
+                                        Value = 0,
+                                    };
+                                    multiItem.Series.Add(singleItem);
+                                }
+
+                                newLineData.Add(multiItem);
+                            }
+                        }
+                        
+                        dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                     }
                 }
                 else

@@ -27,6 +27,6 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
     public class DashboardViewChartDataSingleModel
     {
         public string Name { get; set; }
-        public decimal Value { get; set; }
+        public decimal? Value { get; set; }
     }
 }
