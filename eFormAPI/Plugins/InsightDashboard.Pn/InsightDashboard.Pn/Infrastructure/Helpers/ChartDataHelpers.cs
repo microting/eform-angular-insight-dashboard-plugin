@@ -554,7 +554,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .GroupBy(g => g.Name)
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
-                                                    Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                    Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
                                                     Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .OrderByDescending(
@@ -761,12 +761,129 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 }
                 else
                 {
-                    multiStackedData =
-                        ChartHelpers.SortLocationPosition(
-                            multiStackedData,
-                            dashboardItem);
-                    dashboardItemModel.ChartData.Multi.AddRange(multiData);
-                    dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
+                    if (!isStackedData)
+                    {
+                        List<string> columnNames = new List<string>();
+                        List<string> lineNames = new List<string>();
+
+                        foreach (var model in multiData)
+                        {
+                            if (!columnNames.Contains(model.Name))
+                            {
+                                columnNames.Add(model.Name);
+                            }
+
+                            foreach (var dashboardViewChartDataSingleModel in model.Series)
+                            {
+                                if (!lineNames.Contains(dashboardViewChartDataSingleModel.Name))
+                                {
+                                    lineNames.Add(dashboardViewChartDataSingleModel.Name);
+                                }
+                            }
+                        }
+                        // columnNames.Sort();
+                        // lineNames.Sort();
+
+                        var newLineData = new List<DashboardViewChartDataMultiModel>();
+
+                        if (isSmiley)
+                        {
+                            foreach (string columnName in columnNames)
+                            {
+                                var model = new DashboardViewChartDataMultiModel {Name = columnName};
+                                model.Series.Add(new DashboardViewChartDataSingleModel
+                                    {Name = _smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                model.Series.Add(new DashboardViewChartDataSingleModel
+                                    {Name = _smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                model.Series.Add(new DashboardViewChartDataSingleModel
+                                    {Name = _smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                model.Series.Add(new DashboardViewChartDataSingleModel
+                                    {Name = _smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                model.Series.Add(new DashboardViewChartDataSingleModel
+                                    {Name = _smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                model.Series.Add(new DashboardViewChartDataSingleModel
+                                    {Name = _smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                newLineData.Add(model);
+                            }
+
+                            foreach (var model in newLineData)
+                            {
+                                foreach (var multiModel in multiData)
+                                {
+                                    if (model.Name == multiModel.Name)
+                                    {
+                                        foreach (var series in multiModel.Series)
+                                        {
+                                            foreach (var modelSeries in model.Series)
+                                            {
+                                                if (modelSeries.Name == series.Name)
+                                                {
+                                                    modelSeries.Value = series.Value;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        dashboardItemModel.ChartData.Multi.AddRange(newLineData);
+                    }
+                    else
+                    {
+                        multiStackedData =
+                            ChartHelpers.SortLocationPosition(
+                                multiStackedData,
+                                dashboardItem);
+                        if (isSmiley)
+                        {
+                            var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
+
+                            foreach (var stackedModel in multiStackedData)
+                            {
+                                var model = new DashboardViewChartDataMultiStackedModel() {Name = stackedModel.Name, Id = stackedModel.Id};
+
+                                foreach (var modelSeries in stackedModel.Series)
+                                {
+                                    var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};
+
+                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+
+                                    model.Series.Add(innerModel);
+
+                                    foreach (var innerSeries in modelSeries.Series)
+                                    {
+                                        foreach (var newInnerSeriesModel in innerModel.Series)
+                                        {
+                                            if (innerSeries.Name == newInnerSeriesModel.Name)
+                                            {
+                                                newInnerSeriesModel.Value = innerSeries.Value;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                newLineData.Add(model);
+                            }
+
+                            dashboardItemModel.ChartData.MultiStacked.AddRange(newLineData);
+                        }
+                        else
+                        {
+                            dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
+                        }
+                    }
+
                 }
             }
         }
