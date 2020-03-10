@@ -63,27 +63,27 @@ export class DashboardChartViewComponent {
 
   customColors = [
     {
-      name: '100',
+      name: 'Meget glad', // 100
       value: '#007E33'
     },
     {
-      name: '75',
+      name: 'Glad', // 75
       value: '#00C851'
     },
     {
-      name: '50',
+      name: 'Neutral', // 50
       value: '#ffbb33'
     },
     {
-      name: '25',
+      name: 'Sur', // 25
       value: '#ff4444'
     },
     {
-      name: '0',
+      name: 'Meget sur', // 0
       value: '#CC0000'
     },
     {
-      name: '999',
+      name: 'Ved ikke', // 999
       value: '#0099CC '
     }
   ];
