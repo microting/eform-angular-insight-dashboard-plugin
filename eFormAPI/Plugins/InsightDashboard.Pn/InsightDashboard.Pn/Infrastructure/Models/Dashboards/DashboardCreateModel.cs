@@ -28,7 +28,5 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
     {
         public string Name { get; set; }
         public int SurveyId { get; set; }
-        public int? LocationId { get; set; }
-        public int? ReportTagId { get; set; }
     }
 }

@@ -37,6 +37,9 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
         public string TagName { get; set; }
         public int? TagId { get; set; }
 
+        public DashboardEditAnswerDates AnswerDates { get; set; }
+            = new DashboardEditAnswerDates();
+
         public List<DashboardItemModel> Items { get; set; }
             = new List<DashboardItemModel>();
     }
