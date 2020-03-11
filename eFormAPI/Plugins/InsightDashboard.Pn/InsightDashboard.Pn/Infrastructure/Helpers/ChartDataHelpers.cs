@@ -151,6 +151,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
             {
                 var optionIds = dashboardItem.IgnoredAnswerValues
+                    .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
                     .Select(x => x.AnswerId)
                     .ToArray();
 

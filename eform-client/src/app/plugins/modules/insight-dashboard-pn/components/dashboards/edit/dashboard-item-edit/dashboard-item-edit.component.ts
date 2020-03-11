@@ -77,10 +77,14 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
   ngOnInit() {
     this.collapseSub$ = this.collapseService.collapse.subscribe(collapsed => {
-      if (this.dashboardItem.collapsed) {
+      if (!collapsed && this.dashboardItem.collapsed) {
         this.dashboardItem.collapsed = false;
         this.collapse.toggle();
         this.onCollapseExpanded();
+      }
+      if (collapsed && !this.dashboardItem.collapsed) {
+        this.dashboardItem.collapsed = true;
+        this.collapse.toggle();
       }
     });
   }

@@ -25,6 +25,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   questions: DashboardItemQuestionModel[] = [];
   availableLocationsTags: CommonDictionaryExtendedModel[] = [];
   selectedDateRange = [];
+  isItemsCollapsed = false;
   selectedDashboardId: number;
   spinnerStatus = false;
   dragulaGroupName = 'ITEMS';
@@ -47,6 +48,10 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
     // create rule to disable dragula dnd if items is not collapsed
     this.dragulaService.createGroup(this.dragulaGroupName, {
       moves: (el, source, handle, sibling) => !el.classList.contains('no-drag')
+    });
+
+    this.collapseSub$ = this.collapseService.collapse.subscribe((data) => {
+      this.isItemsCollapsed = data;
     });
   }
 
@@ -128,6 +133,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // destroy dragula container
     this.dragulaService.destroy(this.dragulaGroupName);
+    this.collapseService.collapse.next(false);
   }
 
   actualizeBlockPositions() {
@@ -152,6 +158,6 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   toggleCollapse() {
-    this.collapseService.updateState(false);
+    this.collapseService.updateState(!this.isItemsCollapsed);
   }
 }
