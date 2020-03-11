@@ -171,22 +171,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
             try
             {
                 var core = await _coreHelper.GetCore();
-
-                // Validation
-                if (createModel.LocationId == null && createModel.ReportTagId == null)
-                {
-                    return new OperationDataResult<int>(
-                        false,
-                        _localizationService.GetString("IncorrectLocationIdOrTagId"));
-                }
-
-                if (createModel.LocationId != null && createModel.ReportTagId != null)
-                {
-                    return new OperationDataResult<int>(
-                        false,
-                        _localizationService.GetString("IncorrectLocationIdOrTagId"));
-                }
-
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
 
@@ -199,32 +183,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             false,
                             _localizationService.GetString("SurveyNotFound"));
                     }
-
-                    if (createModel.LocationId != null)
-                    {
-                        if (!await sdkContext
-                            .sites
-                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .AnyAsync(x => x.Id == createModel.LocationId))
-                        {
-                            return new OperationDataResult<int>(
-                                false,
-                                _localizationService.GetString("LocationNotFound"));
-                        }
-                    }
-
-                    if (createModel.ReportTagId != null)
-                    {
-                        if (!await sdkContext
-                            .tags
-                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .AnyAsync(x => x.Id == createModel.ReportTagId))
-                        {
-                            return new OperationDataResult<int>(
-                                false,
-                                _localizationService.GetString("TagNotFound"));
-                        }
-                    }
                 }
 
                 var dashboard = new Dashboard
@@ -233,8 +191,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     UpdatedByUserId = UserId,
                     Name = createModel.Name,
                     SurveyId = createModel.SurveyId,
-                    LocationId = createModel.LocationId,
-                    TagId = createModel.ReportTagId,
                 };
 
                 await dashboard.Create(_dbContext);
@@ -283,6 +239,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             TagId = dashboard.TagId,
                             CreatedByUserId = UserId,
                             UpdatedByUserId = UserId,
+                            DateFrom = dashboard.DateFrom,
+                            DateTo = dashboard.DateTo,
+                            Today = dashboard.Today,
                         };
 
                         await newDashboard.Create(_dbContext);
@@ -368,6 +327,63 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
+                // Validation
+                if (editModel.LocationId == null && editModel.TagId == null)
+                {
+                    return new OperationDataResult<int>(
+                        false,
+                        _localizationService.GetString("IncorrectLocationIdOrTagId"));
+                }
+
+                if (editModel.LocationId != null && editModel.TagId != null)
+                {
+                    return new OperationDataResult<int>(
+                        false,
+                        _localizationService.GetString("IncorrectLocationIdOrTagId"));
+                }
+
+                if (editModel.AnswerDates.Today)
+                {
+                    var dateTimeNow = DateTime.Now;
+                    editModel.AnswerDates.DateTo = new DateTime(
+                        dateTimeNow.Year,
+                        dateTimeNow.Month,
+                        dateTimeNow.Day,
+                        23,
+                        59,
+                        59);
+                }
+
+                var core = await _coreHelper.GetCore();
+                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                {
+                    if (editModel.LocationId != null)
+                    {
+                        if (!await sdkContext
+                            .sites
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .AnyAsync(x => x.Id == editModel.LocationId))
+                        {
+                            return new OperationDataResult<int>(
+                                false,
+                                _localizationService.GetString("LocationNotFound"));
+                        }
+                    }
+
+                    if (editModel.TagId != null)
+                    {
+                        if (!await sdkContext
+                            .tags
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .AnyAsync(x => x.Id == editModel.TagId))
+                        {
+                            return new OperationDataResult<int>(
+                                false,
+                                _localizationService.GetString("TagNotFound"));
+                        }
+                    }
+                }
+
                 using (var transactions = await _dbContext.Database.BeginTransactionAsync())
                 {
                     try
@@ -390,6 +406,11 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         dashboard.UpdatedAt = DateTime.UtcNow;
                         dashboard.UpdatedByUserId = UserId;
                         dashboard.Name = editModel.DashboardName;
+                        dashboard.TagId = editModel.TagId;
+                        dashboard.LocationId = editModel.LocationId;
+                        dashboard.DateFrom = editModel.AnswerDates.DateFrom;
+                        dashboard.DateTo = editModel.AnswerDates.DateTo;
+                        dashboard.Today = editModel.AnswerDates.Today;
 
                         await dashboard.Update(_dbContext);
 
@@ -668,7 +689,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     .Include(x => x.DashboardItems)
                     .ThenInclude(x => x.CompareLocationsTags)
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Where(x => x.DashboardItems.Any(i => i.WorkflowState != Constants.WorkflowStates.Removed))
                     .FirstOrDefaultAsync(x => x.Id == dashboardId);
 
                 if (dashboard == null)
@@ -676,6 +696,18 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     return new OperationDataResult<DashboardViewModel>(
                         false,
                         _localizationService.GetString("DashboardNotFound"));
+                }
+
+                if (dashboard.Today)
+                {
+                    var dateTimeNow = DateTime.Now;
+                    dashboard.DateTo = new DateTime(
+                        dateTimeNow.Year,
+                        dateTimeNow.Month,
+                        dateTimeNow.Day,
+                        23,
+                        59,
+                        59);
                 }
 
                 // Dashboard
@@ -686,6 +718,12 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     SurveyId = dashboard.SurveyId,
                     LocationId = dashboard.LocationId,
                     TagId = dashboard.TagId,
+                    AnswerDates = new DashboardEditAnswerDates
+                    {
+                        Today = dashboard.Today,
+                        DateTo = dashboard.DateTo,
+                        DateFrom = dashboard.DateFrom,
+                    },
                 };
 
                 List<CommonDictionaryModel> sites;
@@ -867,7 +905,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             dashboardItem,
                             _localizationService,
                             dashboard.LocationId,
-                            dashboard.SurveyId);
+                            dashboard.SurveyId,
+                            new DashboardEditAnswerDates
+                            {
+                                Today = dashboard.Today,
+                                DateFrom = dashboard.DateFrom,
+                                DateTo = dashboard.DateTo,
+                            });
                     }
 
                     // Add Item
@@ -901,6 +945,12 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         TagId = x.TagId,
                         SurveyId = x.SurveyId,
                         DashboardName = x.Name,
+                        AnswerDates = new DashboardEditAnswerDates
+                        {
+                            DateFrom = x.DateFrom,
+                            DateTo = x.DateTo,
+                            Today = x.Today,
+                        },
                         Items = x.DashboardItems
                             .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
                             .Select(i => new DashboardItemModel

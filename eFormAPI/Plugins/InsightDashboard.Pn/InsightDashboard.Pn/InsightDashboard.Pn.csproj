@@ -25,4 +25,5 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\localization.json" />
   </ItemGroup>
+
 </Project>

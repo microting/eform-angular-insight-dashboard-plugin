@@ -29,24 +29,11 @@
               </ng-select>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              <ng-select [items]="availableLocationsTags"
-                         bindLabel="name"
-                         [placeholder]="'Select location/report tag' | translate"
-                         bindValue="id"
-                         [clearable]="false"
-                         [(ngModel)]="selectedLocationTagId"
-                         (change)="onLocationTagSelected($event)"
-                         id="selectLocationTag">
-              </ng-select>
-            </div>
-          </div>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-success" (click)="createDashboard()"
-                [disabled]="!dashboardName && !selectedSurveyId && (!selectedLocationId || !reportTagId) "
+                [disabled]="!dashboardName && !selectedSurveyId"
                 id="dashboardCreateSaveBtn">
           {{ 'Save' | translate }}
         </button>

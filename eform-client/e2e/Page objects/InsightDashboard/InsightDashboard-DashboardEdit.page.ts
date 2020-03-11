@@ -6,6 +6,7 @@ export const filterQuestion = 'Q3';
 export const filterAnswer = 'smiley1';
 export const period = 'Måned';
 export const chartType = 'Linje';
+export const locationName = 'Location 1';
 
 export class InsightDashboardDashboardEditPage extends Page {
   constructor() {
@@ -88,7 +89,28 @@ export class InsightDashboardDashboardEditPage extends Page {
     return browser.$$(`#editChartType${rowNum} .ng-option`);
   }
 
+
+  public getLocationTagSearchField() {
+    return browser.element('#selectLocationTag .ng-input > input');
+  }
+
+  public getLocationTagListOfChoices() {
+    return browser.$$('#selectLocationTag .ng-option');
+  }
+
+  selectFirstLocation() {
+    browser.pause(3000);
+    const locationSearchField = this.getLocationTagSearchField();
+    locationSearchField.addValue(locationName);
+    const locationListChoices = this.getLocationTagListOfChoices();
+    const locationChoice = locationListChoices[0];
+    browser.pause(8000);
+    locationChoice.click();
+    browser.pause(3000);
+  }
+
   createFirstItem() {
+    this.selectFirstLocation();
     this.initialItemCreateBtn.click();
     browser.pause(4000);
   }

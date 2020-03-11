@@ -7,6 +7,7 @@ import {DashboardEditModel, DashboardItemModel, DashboardItemQuestionModel} from
 import {DragulaService} from 'ng2-dragula';
 import {ToastrService} from 'ngx-toastr';
 import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
+import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
 
 @AutoUnsubscribe()
 @Component({
@@ -17,11 +18,13 @@ import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionar
 export class DashboardEditComponent implements OnInit, OnDestroy {
   updateDashboardSub$: Subscription;
   filterQuestionsSub$: Subscription;
+  collapseSub$: Subscription;
   getDashboardSub$: Subscription;
   getTagsSub$: Subscription;
   dashboardEditModel: DashboardEditModel = new DashboardEditModel();
   questions: DashboardItemQuestionModel[] = [];
   availableLocationsTags: CommonDictionaryExtendedModel[] = [];
+  selectedDateRange = [];
   selectedDashboardId: number;
   spinnerStatus = false;
   dragulaGroupName = 'ITEMS';
@@ -31,7 +34,8 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private dictionaryService: InsightDashboardPnDashboardDictionariesService,
               private dragulaService: DragulaService,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private collapseService: InsightDashboardPnCollapseService) {
   }
 
   ngOnInit() {
@@ -141,5 +145,13 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   onDashboardItemChanged(model: DashboardItemModel) {
     const foundDashboardItem = this.dashboardEditModel.items.findIndex(x => x.position === model.position);
     this.dashboardEditModel.items[foundDashboardItem] = model;
+  }
+
+  onDashboardChanged(model: DashboardEditModel) {
+    this.dashboardEditModel = model;
+  }
+
+  toggleCollapse() {
+    this.collapseService.updateState(false);
   }
 }

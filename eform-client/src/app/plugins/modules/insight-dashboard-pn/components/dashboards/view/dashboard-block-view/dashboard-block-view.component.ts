@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DashboardChartTypesEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
 import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view-item.model';
+import {DashboardViewModel} from '../../../../models';
 
 @Component({
   selector: 'app-dashboard-block-view',
@@ -10,6 +11,7 @@ import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-vie
 export class DashboardBlockViewComponent implements OnInit {
   @Input() position: number;
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
+  @Input() dashboardViewModel: DashboardViewModel = new DashboardViewModel();
 
   get chartTypes() { return DashboardChartTypesEnum; }
   get periodUnits() { return DashboardPeriodUnitsEnum; }

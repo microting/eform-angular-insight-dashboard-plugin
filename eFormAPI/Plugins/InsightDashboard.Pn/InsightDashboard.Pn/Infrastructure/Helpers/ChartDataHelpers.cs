@@ -30,7 +30,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             DashboardItem dashboardItem,
             IInsightDashboardLocalizationService localizationService,
             int? dashboardLocationId,
-            int dashboardSurveyId)
+            int dashboardSurveyId,
+            DashboardEditAnswerDates answerDates)
         {
             // Chart data
             bool singleData;
@@ -93,10 +94,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     isComparedData = true;
                 }
             }
-            else
-            {
-                isComparedData = false;
-            }
 
             var answerQueryable = sdkContext.answer_values
                 .AsNoTracking()
@@ -105,6 +102,30 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
             answerQueryable = answerQueryable
                 .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);
+
+            if (answerDates.Today)
+            {
+                var dateTimeNow = DateTime.Now;
+                answerDates.DateTo = new DateTime(
+                    dateTimeNow.Year,
+                    dateTimeNow.Month,
+                    dateTimeNow.Day,
+                    23,
+                    59,
+                    59);
+            }
+
+            if (answerDates.DateFrom != null)
+            {
+                answerQueryable = answerQueryable
+                    .Where(x => x.Answer.FinishedAt >= answerDates.DateFrom);
+            }
+
+            if (answerDates.DateTo != null)
+            {
+                answerQueryable = answerQueryable
+                    .Where(x => x.Answer.FinishedAt <= answerDates.DateTo);
+            }
 
             if (dashboardItem.CompareEnabled)
             {

@@ -6,7 +6,7 @@
 <!--VerticalBar,-->
 <!--VerticalBarStacked,-->
 <!--VerticalBarGrouped-->
-<div [ngStyle]="{'width': view[0] + 10 + 'px', 'height': view[1] + 40 + 'px' }"
+<div [ngStyle]="{'width': view[0] + 10 + 'px', 'height': view[1] + 100 + 'px' }"
      id="copyableChart{{chartPosition}}"
      style="background-color: #FFFFFF !important;"
 >
@@ -121,7 +121,7 @@
                               [customColors]="customColors"
                                       [animations]="animations"
                                       [gradient]="gradient"
-                                      [barWidth]="barWidth"
+                                      [barWidth]="12"
                                       [tooltipDisabled]="tooltipDisabled"
                                       [xAxis]="showXAxis"
                                       [yAxis]="showYAxis"

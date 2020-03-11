@@ -2,7 +2,6 @@ import Page from '../Page';
 
 export const configName = 'Test-Set';
 export const dashboardName = 'NewDashboard';
-export const locationName = 'Location 1';
 
 export class InsightDashboardDashboardsPage extends Page {
   constructor() {
@@ -70,13 +69,6 @@ export class InsightDashboardDashboardsPage extends Page {
     const surveyChoice = surveyListChoices[0];
     browser.pause(8000);
     surveyChoice.click();
-    // Select location
-    const locationSearchField = dashboardsPage.getLocationTagSearchField();
-    locationSearchField.addValue(locationName);
-    const locationListChoices = dashboardsPage.getLocationTagListOfChoices();
-    const locationChoice = locationListChoices[0];
-    browser.pause(8000);
-    locationChoice.click();
     browser.pause(1000);
     this.dashboardCreateSaveBtn.click();
     browser.pause(8000);
@@ -123,14 +115,6 @@ export class InsightDashboardDashboardsPage extends Page {
 
   public getSurveyListOfChoices() {
     return browser.$$('#selectSurveyCreate .ng-option');
-  }
-
-  public getLocationTagSearchField() {
-    return browser.element('#selectLocationTag .ng-input > input');
-  }
-
-  public getLocationTagListOfChoices() {
-    return browser.$$('#selectLocationTag .ng-option');
   }
 
   getFirstRowObject(): DashboardsPageRowObject {

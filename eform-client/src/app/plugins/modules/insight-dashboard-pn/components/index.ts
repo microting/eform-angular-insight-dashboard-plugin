@@ -3,6 +3,7 @@ export * from './dashboards/dashboard-new/dashboard-new.component';
 export * from './dashboards/dashboards-page/dashboards-page.component';
 
 export * from './dashboards/edit/dashboard-edit/dashboard-edit.component';
+export * from './dashboards/edit/dashboard-edit-header/dashboard-edit-header.component';
 export * from './dashboards/edit/dashboard-copy/dashboard-copy.component';
 export * from './dashboards/edit/dashboard-delete/dashboard-delete.component';
 export * from './dashboards/edit/dashboard-item-edit/dashboard-item-edit.component';

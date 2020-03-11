@@ -55,7 +55,8 @@ namespace InsightDashboard.Pn.Test
                     dashboardItem,
                     localizationService,
                     dashboardViewModel.LocationId,
-                    dashboardViewModel.SurveyId);
+                    dashboardViewModel.SurveyId,
+                    dashboardViewModel.AnswerDates);
 
                 DashboardHelpers.CheckData(itemViewModel, newItemViewModel);
             }

@@ -14,16 +14,12 @@ import {CommonDictionaryExtendedModel} from '../../../models/common-dictionary-e
 export class DashboardNewComponent implements OnInit, OnDestroy {
   @ViewChild('frame') frame;
   @Input() surveys: CommonDictionaryModel[] = [];
-  @Input() availableLocationsTags: CommonDictionaryExtendedModel[] = [];
   @Output() dashboardCreated: EventEmitter<number> = new EventEmitter<number>();
   @Output() surveySelected: EventEmitter<number> = new EventEmitter<number>();
   selectedSurveyId: number;
   spinnerStatus = false;
-  selectedLocationId: number | null;
-  reportTagId: number | null;
   createDashboard$: Subscription;
   dashboardName: string;
-  selectedLocationTagId: number;
 
 
   constructor(private dashboardsService: InsightDashboardPnDashboardsService) {
@@ -41,8 +37,6 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
     this.createDashboard$ = this.dashboardsService.create({
       name: this.dashboardName,
       surveyId: this.selectedSurveyId,
-      locationId: this.selectedLocationId,
-      reportTagId: this.reportTagId
     }).subscribe((data) => {
       if (data && data.success) {
         this.frame.hide();
@@ -54,23 +48,8 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
 
   onSurveySelected(surveyId: number) {
     this.surveySelected.emit(surveyId);
-
-    // Clear selectors on reselect
-    this.selectedLocationId = null;
-    this.reportTagId = null;
-    this.selectedLocationTagId = null;
   }
 
   ngOnDestroy(): void {
-  }
-
-  onLocationTagSelected(model: any) {
-    if (model.isTag) {
-      this.reportTagId = model.id;
-      this.selectedLocationId = null;
-    } else {
-      this.selectedLocationId = model.id;
-      this.reportTagId = null;
-    }
   }
 }
