@@ -37,20 +37,28 @@
                   "name": "2016",
                   "series": [
                     {
-                      "name": "100",
+                      "name": "Meget glad",
                       "value": 55.0
                     },
                     {
-                      "name": "75",
+                      "name": "Glad",
                       "value": 32.0
                     },
                     {
-                      "name": "50",
+                      "name": "Neutral",
                       "value": 8.0
                     },
                     {
-                      "name": "25",
+                      "name": "Sur",
                       "value": 5.0
+                    },
+                    {
+                      "name": "Meget sur",
+                      "value": 0
+                    },
+                    {
+                      "name": "Ved ikke",
+                      "value": 0
                     }
                   ]
                 },
@@ -58,23 +66,27 @@
                   "name": "2017",
                   "series": [
                     {
-                      "name": "999",
-                      "value": 2.0
-                    },
-                    {
-                      "name": "100",
+                      "name": "Meget glad",
                       "value": 68.0
                     },
                     {
-                      "name": "75",
+                      "name": "Glad",
                       "value": 26.0
                     },
                     {
-                      "name": "50",
+                      "name": "Neutral",
                       "value": 3.0
                     },
                     {
-                      "name": "0",
+                      "name": "Sur",
+                      "value": 0
+                    },
+                    {
+                      "name": "Meget sur",
+                      "value": 2.0
+                    },
+                    {
+                      "name": "Ved ikke",
                       "value": 2.0
                     }
                   ]
@@ -89,20 +101,28 @@
                   "name": "2016",
                   "series": [
                     {
-                      "name": "100",
+                      "name": "Meget glad",
                       "value": 49.0
                     },
                     {
-                      "name": "75",
+                      "name": "Glad",
                       "value": 47.0
                     },
                     {
-                      "name": "50",
+                      "name": "Neutral",
                       "value": 2.0
                     },
                     {
-                      "name": "0",
+                      "name": "Sur",
+                      "value": 0
+                    },
+                    {
+                      "name": "Meget sur",
                       "value": 2.0
+                    },
+                    {
+                      "name": "Ved ikke",
+                      "value": 0
                     }
                   ]
                 },
@@ -110,24 +130,28 @@
                   "name": "2017",
                   "series": [
                     {
-                      "name": "999",
-                      "value": 5.0
-                    },
-                    {
-                      "name": "100",
+                      "name": "Meget glad",
                       "value": 71.0
                     },
                     {
-                      "name": "75",
+                      "name": "Glad",
                       "value": 20.0
                     },
                     {
-                      "name": "50",
+                      "name": "Neutral",
                       "value": 3.0
                     },
                     {
-                      "name": "25",
+                      "name": "Sur",
                       "value": 2.0
+                    },
+                    {
+                      "name": "Meget sur",
+                      "value": 0
+                    },
+                    {
+                      "name": "Ved ikke",
+                      "value": 5
                     }
                   ]
                 }
@@ -141,23 +165,27 @@
                   "name": "2016",
                   "series": [
                     {
-                      "name": "999",
-                      "value": 2.0
-                    },
-                    {
-                      "name": "100",
+                      "name": "Meget glad",
                       "value": 70.0
                     },
                     {
-                      "name": "75",
+                      "name": "Glad",
                       "value": 20.0
                     },
                     {
-                      "name": "50",
+                      "name": "Neutral",
                       "value": 5.0
                     },
                     {
-                      "name": "0",
+                      "name": "Sur",
+                      "value": 0
+                    },
+                    {
+                      "name": "Meget sur",
+                      "value": 2.0
+                    },
+                    {
+                      "name": "Ved ikke",
                       "value": 2.0
                     }
                   ]
@@ -166,20 +194,28 @@
                   "name": "2017",
                   "series": [
                     {
-                      "name": "999",
-                      "value": 2.0
-                    },
-                    {
-                      "name": "100",
+                      "name": "Meget glad",
                       "value": 71.0
                     },
                     {
-                      "name": "75",
+                      "name": "Glad",
                       "value": 24.0
                     },
                     {
-                      "name": "50",
+                      "name": "Neutral",
                       "value": 3.0
+                    },
+                    {
+                      "name": "Sur",
+                      "value": 0
+                    },
+                    {
+                      "name": "Meget sur",
+                      "value": 0
+                    },
+                    {
+                      "name": "Ved ikke",
+                      "value": 2.0
                     }
                   ]
                 }
@@ -193,20 +229,28 @@
                   "name": "2016",
                   "series": [
                     {
-                      "name": "100",
+                      "name": "Meget glad",
                       "value": 65.0
                     },
                     {
-                      "name": "75",
+                      "name": "Glad",
                       "value": 28.0
                     },
                     {
-                      "name": "25",
+                      "name": "Neutral",
+                      "value": 0
+                    },
+                    {
+                      "name": "Sur",
                       "value": 5.0
                     },
                     {
-                      "name": "0",
+                      "name": "Meget sur",
                       "value": 2.0
+                    },
+                    {
+                      "name": "Ved ikke",
+                      "value": 0
                     }
                   ]
                 },
@@ -214,24 +258,28 @@
                   "name": "2017",
                   "series": [
                     {
-                      "name": "100",
+                      "name": "Meget glad",
                       "value": 68.0
                     },
                     {
-                      "name": "75",
+                      "name": "Glad",
                       "value": 24.0
                     },
                     {
-                      "name": "50",
+                      "name": "Neutral",
                       "value": 3.0
                     },
                     {
-                      "name": "25",
+                      "name": "Sur",
                       "value": 3.0
                     },
                     {
-                      "name": "0",
+                      "name": "Meget sur",
                       "value": 2.0
+                    },
+                    {
+                      "name": "Ved ikke",
+                      "value": 0
                     }
                   ]
                 }

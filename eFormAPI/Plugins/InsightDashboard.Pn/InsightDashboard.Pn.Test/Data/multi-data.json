@@ -27,11 +27,60 @@
           ],
           "multi": [
             {
+              "name": "16-01",
+              "series": [
+                {
+                  "name": "Meget glad",
+                  "value": 0
+                },
+                {
+                  "name":"Glad",
+                  "value": 100.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
+                }
+              ]
+            },
+            {
               "name": "16-05",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -39,12 +88,28 @@
               "name": "16-09",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 50.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -52,8 +117,57 @@
               "name": "16-13",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "name": "16-14",
+              "series": [
+                {
+                  "name": "Meget glad",
+                  "value": 0
+                },
+                {
+                  "name":"Glad",
+                  "value": 33.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 33.0
+                },
+                {
+                  "name": "Sur",
+                  "value": 33.0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -61,16 +175,28 @@
               "name": "16-18",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 33.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 33.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 33.0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -78,12 +204,28 @@
               "name": "16-23",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 50.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -91,8 +233,28 @@
               "name": "16-27",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -100,8 +262,28 @@
               "name": "16-31",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -109,12 +291,28 @@
               "name": "16-36",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 43.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 57.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -122,16 +320,28 @@
               "name": "16-40",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 60.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 20.0
                 },
                 {
-                  "name": "25",
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
                   "value": 20.0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -139,12 +349,28 @@
               "name": "16-45",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 33.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 67.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -152,12 +378,28 @@
               "name": "16-50",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 80.0
                 },
                 {
-                  "name": "50",
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name": "Neutral",
                   "value": 20.0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -165,16 +407,28 @@
               "name": "17-02",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 40.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 40.0
                 },
                 {
-                  "name": "0",
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
                   "value": 20.0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -182,11 +436,27 @@
               "name": "17-05",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 83.0
                 },
                 {
-                  "name": "999",
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
                   "value": 17.0
                 }
               ]
@@ -195,12 +465,28 @@
               "name": "17-10",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 50.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -208,8 +494,28 @@
               "name": "17-15",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -217,107 +523,28 @@
               "name": "17-19",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
-                  "value": 50.0
-                }
-              ]
-            },
-            {
-              "name": "17-24",
-              "series": [
-                {
-                  "name": "100",
-                  "value": 83.0
-                },
-                {
-                  "name": "75",
-                  "value": 17.0
-                }
-              ]
-            },
-            {
-              "name": "17-27",
-              "series": [
-                {
-                  "name": "100",
+                  "name":"Glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
-                  "value": 50.0
-                }
-              ]
-            },
-            {
-              "name": "17-33",
-              "series": [
-                {
-                  "name": "100",
-                  "value": 86.0
+                  "name":"Neutral",
+                  "value": 0
                 },
                 {
-                  "name": "75",
-                  "value": 14.0
-                }
-              ]
-            },
-            {
-              "name": "17-37",
-              "series": [
-                {
-                  "name": "100",
-                  "value": 69.0
+                  "name":"Sur",
+                  "value": 0
                 },
                 {
-                  "name": "75",
-                  "value": 15.0
+                  "name":"Meget sur",
+                  "value": 0
                 },
                 {
-                  "name": "50",
-                  "value": 15.0
-                }
-              ]
-            },
-            {
-              "name": "17-38",
-              "series": [
-                {
-                  "name": "100",
-                  "value": 60.0
-                },
-                {
-                  "name": "75",
-                  "value": 40.0
-                }
-              ]
-            },
-            {
-              "name": "16-01",
-              "series": [
-                {
-                  "name": "75",
-                  "value": 100.0
-                }
-              ]
-            },
-            {
-              "name": "16-14",
-              "series": [
-                {
-                  "name": "75",
-                  "value": 33.0
-                },
-                {
-                  "name": "50",
-                  "value": 33.0
-                },
-                {
-                  "name": "25",
-                  "value": 33.0
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -325,8 +552,173 @@
               "name": "17-23",
               "series": [
                 {
-                  "name": "75",
+                  "name": "Meget glad",
+                  "value": 0
+                },
+                {
+                  "name":"Glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "name": "17-24",
+              "series": [
+                {
+                  "name": "Meget glad",
+                  "value": 83.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 17.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "name": "17-27",
+              "series": [
+                {
+                  "name": "Meget glad",
+                  "value": 50.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 50.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "name": "17-33",
+              "series": [
+                {
+                  "name": "Meget glad",
+                  "value": 86.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 14.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "name": "17-37",
+              "series": [
+                {
+                  "name": "Meget glad",
+                  "value": 69.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 15.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 15.0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "name": "17-38",
+              "series": [
+                {
+                  "name": "Meget glad",
+                  "value": 60.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 40.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             }
@@ -361,11 +753,60 @@
           ],
           "multi": [
             {
+              "name": "16-Jan",
+              "series": [
+                {
+                  "name": "Meget glad",
+                  "value": 0
+                },
+                {
+                  "name":"Glad",
+                  "value": 100.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
+                }
+              ]
+            },
+            {
               "name": "16-Feb",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -373,12 +814,28 @@
               "name": "16-Mar",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 50.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -386,20 +843,28 @@
               "name": "16-Apr",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 25.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 25.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 25.0
                 },
                 {
-                  "name": "25",
+                  "name": "Sur",
                   "value": 25.0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -407,16 +872,28 @@
               "name": "16-May",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 33.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 33.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 33.0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -424,12 +901,28 @@
               "name": "16-Jun",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 50.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -437,8 +930,28 @@
               "name": "16-Jul",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -446,8 +959,28 @@
               "name": "16-Aug",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name":"Glad",
+                  "value": 0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -455,12 +988,28 @@
               "name": "16-Sep",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 43.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 57.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -468,16 +1017,28 @@
               "name": "16-Oct",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 60.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 20.0
                 },
                 {
-                  "name": "25",
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
                   "value": 20.0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -485,12 +1046,28 @@
               "name": "16-Nov",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 33.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 67.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -498,12 +1075,28 @@
               "name": "16-Dec",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 80.0
                 },
                 {
-                  "name": "50",
+                  "name": "Glad",
+                  "value": 0
+                },
+                {
+                  "name": "Neutral",
                   "value": 20.0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -511,16 +1104,28 @@
               "name": "17-Jan",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 40.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 40.0
                 },
                 {
-                  "name": "0",
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
                   "value": 20.0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -528,11 +1133,27 @@
               "name": "17-Feb",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 83.0
                 },
                 {
-                  "name": "999",
+                  "name": "Glad",
+                  "value": 0
+                }, 
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
                   "value": 17.0
                 }
               ]
@@ -541,12 +1162,28 @@
               "name": "17-Mar",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 50.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -554,8 +1191,28 @@
               "name": "17-Apr",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 100.0
+                },
+                {
+                  "name": "Glad",
+                  "value": 0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -563,12 +1220,28 @@
               "name": "17-May",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 50.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -576,12 +1249,28 @@
               "name": "17-Jun",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 71.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 29.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -589,12 +1278,28 @@
               "name": "17-Jul",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 50.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 50.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -602,12 +1307,28 @@
               "name": "17-Aug",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 86.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 14.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -615,25 +1336,28 @@
               "name": "17-Sep",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 67.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 22.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 11.0
-                }
-              ]
-            },
-            {
-              "name": "16-Jan",
-              "series": [
+                },
                 {
-                  "name": "75",
-                  "value": 100.0
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             }
@@ -671,12 +1395,28 @@
               "name": "16-K1",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 40.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 60.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -684,20 +1424,28 @@
               "name": "16-K2",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 33.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 33.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 22.0
                 },
                 {
-                  "name": "25",
+                  "name": "Sur",
                   "value": 11.0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -705,12 +1453,28 @@
               "name": "16-K3",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 69.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 31.0
+                },
+                {
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name":"Sur",
+                  "value": 0
+                },
+                {
+                  "name":"Meget sur",
+                  "value": 0
+                },
+                {
+                  "name":"Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -718,20 +1482,28 @@
               "name": "16-K4",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 62.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 23.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 8.0
                 },
                 {
-                  "name": "25",
+                  "name": "Sur",
                   "value": 8.0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -739,19 +1511,27 @@
               "name": "17-K1",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 59.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 29.0
                 },
                 {
-                  "name": "0",
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
                   "value": 6.0
                 },
                 {
-                  "name": "999",
+                  "name": "Ved ikke",
                   "value": 6.0
                 }
               ]
@@ -760,12 +1540,28 @@
               "name": "17-K2",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 74.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 26.0
+                },
+                {
+                  "name": "Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -773,16 +1569,28 @@
               "name": "17-K3",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 69.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 24.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 7.0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             }
@@ -820,20 +1628,28 @@
               "name": "16-1H",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 36.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 43.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 14.0
                 },
                 {
-                  "name": "25",
+                  "name": "Sur",
                   "value": 7.0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -841,20 +1657,28 @@
               "name": "16-2H",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 65.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 27.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 4.0
                 },
                 {
-                  "name": "25",
+                  "name": "Sur",
                   "value": 4.0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -862,19 +1686,27 @@
               "name": "17-1H",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 67.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 28.0
                 },
                 {
-                  "name": "0",
+                  "name":"Neutral",
+                  "value": 0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
                   "value": 3.0
                 },
                 {
-                  "name": "999",
+                  "name": "Ved ikke",
                   "value": 3.0
                 }
               ]
@@ -883,16 +1715,28 @@
               "name": "17-2H",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 69.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 24.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 7.0
+                },
+                {
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             }
@@ -930,20 +1774,28 @@
               "name": "2016",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 55.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 32.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 8.0
                 },
                 {
-                  "name": "25",
+                  "name": "Sur",
                   "value": 5.0
+                },
+                {
+                  "name": "Meget sur",
+                  "value": 0
+                },
+                {
+                  "name": "Ved ikke",
+                  "value": 0
                 }
               ]
             },
@@ -951,23 +1803,27 @@
               "name": "2017",
               "series": [
                 {
-                  "name": "100",
+                  "name": "Meget glad",
                   "value": 68.0
                 },
                 {
-                  "name": "75",
+                  "name":"Glad",
                   "value": 26.0
                 },
                 {
-                  "name": "50",
+                  "name": "Neutral",
                   "value": 3.0
                 },
                 {
-                  "name": "0",
+                  "name": "Sur",
+                  "value": 0
+                },
+                {
+                  "name": "Meget sur",
                   "value": 2.0
                 },
                 {
-                  "name": "999",
+                  "name": "Ved ikke",
                   "value": 2.0
                 }
               ]

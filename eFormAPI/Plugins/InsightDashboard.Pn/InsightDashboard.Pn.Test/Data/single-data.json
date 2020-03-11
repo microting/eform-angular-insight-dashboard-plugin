@@ -24,27 +24,27 @@
         "chartData": {
           "single": [
             {
-              "name": "100",
+              "name": "Meget glad",
               "value": 42.0
             },
             {
-              "name": "75",
+              "name": "Glad",
               "value": 35.0
             },
             {
-              "name": "50",
+              "name": "Neutral",
               "value": 11.0
             },
             {
-              "name": "25",
+              "name": "Sur",
               "value": 3.0
             },
             {
-              "name": "0",
+              "name": "Meget sur",
               "value": 7.0
             },
             {
-              "name": "999",
+              "name": "Ved ikke",
               "value": 2.0
             }
           ],
