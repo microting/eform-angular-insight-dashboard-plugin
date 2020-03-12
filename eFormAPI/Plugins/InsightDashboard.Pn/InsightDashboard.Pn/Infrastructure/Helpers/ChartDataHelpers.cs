@@ -318,7 +318,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -387,7 +387,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .GroupBy(ms => $"{ms.Finished:yy-MMM}")
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -456,7 +456,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -529,7 +529,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -600,7 +600,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .GroupBy(ms => $"{ms.Finished:yyyy}")
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
