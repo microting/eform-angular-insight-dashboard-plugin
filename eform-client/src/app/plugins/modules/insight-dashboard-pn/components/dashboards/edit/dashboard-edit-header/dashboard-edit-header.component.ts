@@ -30,7 +30,6 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    debugger;
     if (changes && changes.dashboardEditModel) {
       const currentValue = changes.dashboardEditModel.currentValue as DashboardEditModel;
       this.selectedLocationTagId = currentValue.tagId ? currentValue.tagId : currentValue.locationId;
@@ -49,7 +48,6 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
   }
 
   fieldChanged(value: any, fieldName: string) {
-    debugger;
     switch (fieldName) {
       case DashboardFieldsEnum.dashboardName:
         this.dashboardEditModel.dashboardName = value;

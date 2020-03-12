@@ -27,8 +27,13 @@
             (click)="onAddNewBlock(1)">{{ 'Add new item' | translate }}
           </button>
           <ng-container *ngIf="dashboardEditModel.items.length > 0">
-            <a class="float-right page-link mb-2" (click)="toggleCollapse()" mdbTooltip="{{'Expand all' | translate}}">
+            <a class="float-right page-link mb-2"  *ngIf="isItemsCollapsed"
+               (click)="toggleCollapse()" mdbTooltip="{{'Expand all' | translate}}">
               <fa-icon icon="expand-arrows-alt" size="lg" [fixedWidth]="true"></fa-icon>
+            </a>
+            <a class="float-right page-link mb-2" *ngIf="!isItemsCollapsed"
+               (click)="toggleCollapse()" mdbTooltip="{{'Collapse all' | translate}}">
+              <fa-icon icon="compress-arrows-alt" size="lg" [fixedWidth]="true"></fa-icon>
             </a>
           </ng-container>
         </div>

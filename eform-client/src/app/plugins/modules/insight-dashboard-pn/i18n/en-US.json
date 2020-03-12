@@ -63,5 +63,15 @@
   "No" : "No",
   "Copy to clipboard": "Copy to clipboard",
   "Percents": "Percents",
-  "Scores": "Score"
+  "Scores": "Score",
+
+  "Date From": "Date From",
+  "Date To": "Date To",
+  "Today": "Today",
+  "Expand all": "Expand all",
+  "Collapse all": "Collapse all",
+  "Period from": "Period from",
+  "Period to": "Period to",
+  "Dimension": "Dimension",
+  "Number of interviews": "Number of interviews"
 }

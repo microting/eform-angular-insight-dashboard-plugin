@@ -37,7 +37,7 @@
           <input mdbInputDirective [mdbValidate]="false"
                  name="dateRange" [(ngModel)]="selectedDateRange"
                  [disabled]="dashboardEditModel.answerDates.today"
-                 (ngModelChange)="fieldChanged(selectedDateRange[0], dashboardFields.dateTo)"
+                 (ngModelChange)="fieldChanged(selectedDateRange[1], dashboardFields.dateTo)"
                  type="text" [owlDateTime]="dateToPicker" [selectMode]="'rangeTo'"
                  class="form-control input-sm" id="dateToInput">
           <label for="dateToInput">{{'Date To' | translate}}</label>

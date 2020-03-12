@@ -63,5 +63,15 @@
   "No" : "Nej",
   "Copy to clipboard": "Kopier til udklipsholder",
   "Percents": "Procenter",
-  "Scores": "Score"
+  "Scores": "Score",
+
+  "Date From": "Dato Fra",
+  "Date To": "Dato Til",
+  "Today": "I dag",
+  "Expand all": "Udvid alle",
+  "Collapse all": "Skjul alle",
+  "Period from": "Periode fra",
+  "Period to": "Periode til",
+  "Dimension": "Dimension",
+  "Number of interviews": "Antal interviews"
 }
