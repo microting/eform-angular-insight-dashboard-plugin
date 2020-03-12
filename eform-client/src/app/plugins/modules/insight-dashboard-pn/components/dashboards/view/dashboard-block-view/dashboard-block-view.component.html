@@ -23,12 +23,16 @@
           </p>
           <p>
             <strong>{{'Dimension' | translate}}: </strong>
-            <ng-container *ngFor="let locationTag of itemModel.compareLocationsTags">
-              {{locationTag.name}}
-            </ng-container>
-            <ng-container *ngIf="itemModel.compareLocationsTags.length === 0">
-              --
-            </ng-container>
+<!--            <ng-container *ngIf="itemModel.compareEnabled">-->
+<!--              <ng-container *ngFor="let locationTag of itemModel.compareLocationsTags">-->
+<!--                {{locationTag.name}};-->
+<!--              </ng-container>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container *ngIf="itemModel.compareLocationsTags.length === 0 || !itemModel.compareEnabled">-->
+<!--              &#45;&#45;-->
+<!--            </ng-container>-->
+            --
           </p>
           <p>
             <strong>{{'Number of interviews' | translate}}: </strong>
@@ -49,7 +53,7 @@
           <p *ngIf="itemModel.ignoredAnswerValues && itemModel.ignoredAnswerValues.length > 0">
             <strong>{{'Ignored values' | translate}}: </strong>
             <ng-container *ngFor="let ignoredValue of itemModel.ignoredAnswerValues">
-              {{ignoredValue.name}}
+              {{ignoredValue.name}};
             </ng-container>
           </p>
         </div>
