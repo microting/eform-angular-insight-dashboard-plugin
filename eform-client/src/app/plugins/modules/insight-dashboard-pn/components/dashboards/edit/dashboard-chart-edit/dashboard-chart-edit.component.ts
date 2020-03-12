@@ -66,27 +66,27 @@ export class DashboardChartEditComponent implements OnChanges {
 
   customColors = [
     {
-      name: 'smiley1',
+      name: 'Meget glad',
       value: '#007E33'
     },
     {
-      name: 'smiley2',
+      name: 'Glad',
       value: '#00C851'
     },
     {
-      name: 'smiley3',
+      name: 'Neutral',
       value: '#ffbb33'
     },
     {
-      name: 'smiley4',
+      name: 'Sur',
       value: '#ff4444'
     },
     {
-      name: 'smiley5',
+      name: 'Meget sur',
       value: '#CC0000'
     },
     {
-      name: 'smiley6',
+      name: 'Ved ikke',
       value: '#0099CC'
     }
   ];
@@ -116,27 +116,27 @@ export class DashboardChartEditComponent implements OnChanges {
 
 const singleSmiley = [
   {
-    name: 'smiley1',
+    name: 'Meget glad',
     value: 65.63
   },
   {
-    name: 'smiley2',
+    name: 'Glad',
     value: 1.67
   },
   {
-    name: 'smiley3',
+    name: 'Neutral',
     value: 3.34
   },
   {
-    name: 'smiley4',
+    name: 'Sur',
     value: 26.73
   },
   {
-    name: 'smiley5',
+    name: 'Meget sur',
     value: 1.19
   },
   {
-    name: 'smiley6',
+    name: 'Ved ikke',
     value: 1.43
   },
 ];
@@ -221,7 +221,7 @@ const line = [
 ];
 const lineSmiley = [
   {
-    'name': 'smiley1',
+    'name': 'Meget glad',
     'series': [
       {
         'name': '16-1H',
@@ -242,7 +242,7 @@ const lineSmiley = [
     ]
   },
   {
-    'name': 'smiley2',
+    'name': 'Glad',
     'series': [
       {
         'name': '16-1H',
@@ -263,7 +263,7 @@ const lineSmiley = [
     ]
   },
   {
-    'name': 'smiley3',
+    'name': 'Neutral',
     'series': [
       {
         'name': '16-1H',
@@ -284,7 +284,7 @@ const lineSmiley = [
     ]
   },
   {
-    'name': 'smiley4',
+    'name': 'Sur',
     'series': [
       {
         'name': '16-1H',
@@ -305,7 +305,7 @@ const lineSmiley = [
     ]
   },
   {
-    'name': 'smiley5',
+    'name': 'Meget sur',
     'series': [
       {
         'name': '16-1H',
@@ -326,7 +326,7 @@ const lineSmiley = [
     ]
   },
   {
-    'name': 'smiley6',
+    'name': 'Ved ikke',
     'series': [
       {
         'name': '16-1H',
@@ -524,19 +524,19 @@ const multiSmiley = [
     'name': '16-1H',
     'series': [
       {
-        'name': 'smiley1',
+        'name': 'Meget glad',
         'value': 35.0
       },
       {
-        'name': 'smiley2',
+        'name': 'Glad',
         'value': 42.0
       },
       {
-        'name': 'smiley3',
+        'name': 'Neutral',
         'value': 14.0
       },
       {
-        'name': 'smiley4',
+        'name': 'Sur',
         'value': 7.0
       }
     ]
@@ -545,19 +545,19 @@ const multiSmiley = [
     'name': '16-2H',
     'series': [
       {
-        'name': 'smiley1',
+        'name': 'Meget glad',
         'value': 65.0
       },
       {
-        'name': 'smiley2',
+        'name': 'Glad',
         'value': 26.0
       },
       {
-        'name': 'smiley3',
+        'name': 'Neutral',
         'value': 3.0
       },
       {
-        'name': 'smiley4',
+        'name': 'Sur',
         'value': 3.0
       }
     ]
@@ -566,19 +566,19 @@ const multiSmiley = [
     'name': '17-1H',
     'series': [
       {
-        'name': 'smiley1',
+        'name': 'Meget glad',
         'value': 66.0
       },
       {
-        'name': 'smiley2',
+        'name': 'Glad',
         'value': 27.0
       },
       {
-        'name': 'smiley3',
+        'name': 'Neutral',
         'value': 2.0
       },
       {
-        'name': 'smiley5',
+        'name': 'Meget sur',
         'value': 2.0
       }
     ]
@@ -587,15 +587,15 @@ const multiSmiley = [
     'name': '17-2H',
     'series': [
       {
-        'name': 'smiley1',
+        'name': 'Meget glad',
         'value': 68.0
       },
       {
-        'name': 'smiley2',
+        'name': 'Glad',
         'value': 24.0
       },
       {
-        'name': 'smiley3',
+        'name': 'Neutral',
         'value': 6.0
       }
     ]
@@ -611,19 +611,19 @@ const multiStacked = [
         'name': '16-1H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 35.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 42.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 14.0
           },
           {
-            'name': 'smiley4',
+            'name': 'Sur',
             'value': 7.0
           }
         ]
@@ -632,19 +632,19 @@ const multiStacked = [
         'name': '16-2H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 65.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 26.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 3.0
           },
           {
-            'name': 'smiley4',
+            'name': 'Sur',
             'value': 3.0
           }
         ]
@@ -653,19 +653,19 @@ const multiStacked = [
         'name': '17-1H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 2.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 66.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 27.0
           },
           {
-            'name': 'smiley4',
+            'name': 'Sur',
             'value': 2.0
           }
         ]
@@ -674,15 +674,15 @@ const multiStacked = [
         'name': '17-2H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 68.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 24.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 6.0
           }
         ]
@@ -697,11 +697,11 @@ const multiStacked = [
         'name': '16-1H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 44.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 51
           },
           {
@@ -714,15 +714,15 @@ const multiStacked = [
         'name': '16-2H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 52.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 44.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 4.0
           }
         ]
@@ -731,23 +731,23 @@ const multiStacked = [
         'name': '17-1H',
         'series': [
           {
-            'name': 'smiley5',
+            'name': 'Meget sur',
             'value': 5.0
           },
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 70.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 18.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 2.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 2.0
           }
         ]
@@ -756,19 +756,19 @@ const multiStacked = [
         'name': '17-2H',
         'series': [
           {
-            'name': 'smiley5',
+            'name': 'Meget sur',
             'value': 3.0
           },
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 72.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 20.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 3.0
           }
         ]
@@ -783,15 +783,15 @@ const multiStacked = [
         'name': '16-1H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 76.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 11.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 5.0
           },
           {
@@ -808,15 +808,15 @@ const multiStacked = [
             'value': 20
           },
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 66.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 4
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 10
           }
         ]
@@ -825,15 +825,15 @@ const multiStacked = [
         'name': '17-1H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 80.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 16.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 3.0
           }
         ]
@@ -842,19 +842,19 @@ const multiStacked = [
         'name': '17-2H',
         'series': [
           {
-            'name': 'smiley5',
+            'name': 'Meget sur',
             'value': 3.0
           },
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 62.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 31.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 3.0
           }
         ]
@@ -869,19 +869,19 @@ const multiStacked = [
         'name': '16-1H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 60.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 26.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 6.0
           },
           {
-            'name': 'smiley4',
+            'name': 'Sur',
             'value': 6.0
           }
         ]
@@ -890,15 +890,15 @@ const multiStacked = [
         'name': '16-2H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 68.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 28.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 4.0
           }
         ]
@@ -907,19 +907,19 @@ const multiStacked = [
         'name': '17-1H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 65.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 24.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 6.0
           },
           {
-            'name': 'smiley4',
+            'name': 'Sur',
             'value': 3.0
           }
         ]
@@ -928,15 +928,15 @@ const multiStacked = [
         'name': '17-2H',
         'series': [
           {
-            'name': 'smiley1',
+            'name': 'Meget glad',
             'value': 70.0
           },
           {
-            'name': 'smiley2',
+            'name': 'Glad',
             'value': 23.0
           },
           {
-            'name': 'smiley3',
+            'name': 'Neutral',
             'value': 6.0
           }
         ]
