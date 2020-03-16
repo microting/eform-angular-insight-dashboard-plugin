@@ -1,15 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {DashboardChartTypesEnum, DashboardItemFieldsEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
 import {DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
 import {CommonDictionaryModel} from '../../../../../../../common/models/common';
@@ -68,7 +57,8 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     }
     if (this.dashboardItem.chartType && this.allCharts.length > 0) {
       fullName += ' - ' + this.allCharts.find(x => x.id === this.dashboardItem.chartType).name;
-    } return fullName;
+    }
+    return fullName;
   }
 
   constructor(private dictionariesService: InsightDashboardPnDashboardDictionariesService,
@@ -80,7 +70,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       if (!collapsed && this.dashboardItem.collapsed) {
         this.dashboardItem.collapsed = false;
         this.collapse.toggle();
-        this.onCollapseExpanded();
+        this.resizeCollapse();
       }
       if (collapsed && !this.dashboardItem.collapsed) {
         this.dashboardItem.collapsed = true;
@@ -177,6 +167,12 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         || fieldName === DashboardItemFieldsEnum.compareEnabled) {
         this.setAvailableCharts(true);
       }
+
+      if (fieldName === DashboardItemFieldsEnum.chartType) {
+        this.resizeCollapse();
+      }
+      //
+      // this.dashboardItem.answersLength =
     }
   }
 
@@ -324,7 +320,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
   }
 
-  onCollapseExpanded() {
+  resizeCollapse() {
     // collapse resize trigger to recalculate size
     this.collapse.resize();
   }

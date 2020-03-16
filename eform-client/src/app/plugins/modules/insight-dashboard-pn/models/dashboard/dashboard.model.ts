@@ -10,4 +10,6 @@ export class DashboardModel {
   locationId: number;
   tagName: string;
   tagId: number;
+  dateFrom: Date | null;
+  dateTo: Date | null;
 }

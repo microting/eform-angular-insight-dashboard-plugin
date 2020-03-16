@@ -558,7 +558,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     answersCount = await sdkContext.options
                                         .AsNoTracking()
                                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                        .Where(x => x.QuestionId == dashboardItemModel.FilterQuestionId)
+                                        .Where(x => x.QuestionId == dashboardItemModel.FirstQuestionId)
                                         .Select(x => x.Id)
                                         .CountAsync();
                                 }
@@ -620,7 +620,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 answersCount = await sdkContext.options
                                     .AsNoTracking()
                                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                    .Where(x => x.QuestionId == dashboardItemModel.FilterQuestionId)
+                                    .Where(x => x.QuestionId == dashboardItemModel.FirstQuestionId)
                                     .Select(x => x.Id)
                                     .CountAsync();
                             }

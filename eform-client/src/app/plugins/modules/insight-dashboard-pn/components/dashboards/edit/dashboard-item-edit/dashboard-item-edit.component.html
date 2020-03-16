@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-  <div mdbCollapse #collapse="bs-collapse" [collapse]="!dashboardItem.collapsed" (expanded)="onCollapseExpanded()">
+  <div mdbCollapse #collapse="bs-collapse" [collapse]="!dashboardItem.collapsed" (expanded)="resizeCollapse()">
     <div class="card-body">
       <div class="row">
         <div class="col-custom-1 d-flex align-items-center justify-content-center">
@@ -179,8 +179,7 @@
                 [items]="availableCharts"></ng-select>
               <app-dashboard-chart-edit [dashboardItem]="dashboardItem"
                                         [isFirstQuestionSmiley]="isFirstQuestionSmiley"
-                                        [answers]="questionAnswers"
-                                        *ngIf="dashboardItem.chartType">
+                                        [answers]="questionAnswers">
               </app-dashboard-chart-edit>
             </div>
           </div>
