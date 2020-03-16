@@ -161,6 +161,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                 answerQueryable = answerQueryable
                     .Where(x => !optionIds.Contains(x.OptionId));
+
                 ignoreOptions = await sdkContext.options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
             }
 

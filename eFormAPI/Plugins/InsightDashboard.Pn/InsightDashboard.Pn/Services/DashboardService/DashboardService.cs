@@ -355,6 +355,16 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         59,
                         59);
                 }
+                else if (editModel.AnswerDates.DateTo != null)
+                {
+                    editModel.AnswerDates.DateTo = new DateTime(
+                        editModel.AnswerDates.DateTo.Value.Year,
+                        editModel.AnswerDates.DateTo.Value.Month,
+                        editModel.AnswerDates.DateTo.Value.Day,
+                        23,
+                        59,
+                        59);
+                }
 
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
@@ -541,6 +551,30 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     await dashboardItemCompare.Save(_dbContext);
                                 }
 
+                                // Check ignore values
+                                int answersCount;
+                                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                                {
+                                    answersCount = await sdkContext.options
+                                        .AsNoTracking()
+                                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Where(x => x.QuestionId == dashboardItemModel.FilterQuestionId)
+                                        .Select(x => x.Id)
+                                        .CountAsync();
+                                }
+
+                                var modelAnswersCount = dashboardItemModel.IgnoredAnswerValues
+                                    .Select(x => x.AnswerId)
+                                    .Count();
+
+                                if (answersCount == modelAnswersCount)
+                                {
+                                    transactions.Rollback();
+                                    return new OperationResult(
+                                        false,
+                                        _localizationService.GetString("SelectAtLeastOneValueThatShouldNotBeIgnored"));
+                                }
+
                                 // Ignore
                                 var ignoreItemsIds = dashboardItemModel.IgnoredAnswerValues
                                     .Where(x => x.Id != null)
@@ -563,6 +597,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                                 foreach (var dashboardItemIgnoredAnswerModel in ignoreForCreate)
                                 {
+
                                     var dashboardItemIgnoredAnswer = new DashboardItemIgnoredAnswer
                                     {
                                         CreatedByUserId = UserId,
@@ -579,6 +614,29 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         // Create
                         foreach (var dashboardItemModel in forCreate)
                         {
+                            int answersCount;
+                            using (var sdkContext = core.dbContextHelper.GetDbContext())
+                            {
+                                answersCount = await sdkContext.options
+                                    .AsNoTracking()
+                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.QuestionId == dashboardItemModel.FilterQuestionId)
+                                    .Select(x => x.Id)
+                                    .CountAsync();
+                            }
+
+                            var modelAnswersCount = dashboardItemModel.IgnoredAnswerValues
+                                .Select(x => x.AnswerId)
+                                .Count();
+
+                            if (answersCount == modelAnswersCount)
+                            {
+                                transactions.Rollback();
+                                return new OperationResult(
+                                    false,
+                                    _localizationService.GetString("SelectAtLeastOneValueThatShouldNotBeIgnored"));
+                            }
+
                             var dashboardItem = new DashboardItem
                             {
                                 DashboardId = dashboard.Id,
