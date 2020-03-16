@@ -903,6 +903,50 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             }
                         }
 
+                        // Check data
+                        var answerQueryable = sdkContext.answer_values
+                            .AsNoTracking()
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .AsQueryable();
+
+                        if (dashboard.Today)
+                        {
+                            var dateTimeNow = DateTime.Now;
+                            dashboard.DateTo = new DateTime(
+                                dateTimeNow.Year,
+                                dateTimeNow.Month,
+                                dateTimeNow.Day,
+                                23,
+                                59,
+                                59);
+                        }
+
+                        if (dashboard.DateFrom != null)
+                        {
+                            answerQueryable = answerQueryable
+                                .Where(x => x.Answer.FinishedAt >= dashboard.DateFrom);
+                        }
+
+                        if (dashboard.DateTo != null)
+                        {
+                            answerQueryable = answerQueryable
+                                .Where(x => x.Answer.FinishedAt <= dashboard.DateTo);
+                        }
+
+                        if (dashboard.DateFrom != null || dashboard.DateTo != null)
+                        {
+                            var dataCount = await answerQueryable
+                                .Select(x => x.Id)
+                                .CountAsync();
+
+                            if (dataCount < 1)
+                            {
+                                return new OperationDataResult<DashboardViewModel>(
+                                    false,
+                                    _localizationService.GetString("NoDataAvailableForTheSelectedPeriod"));
+                            }
+                        }
+
                         await ChartDataHelpers.CalculateDashboardItem(
                             dashboardItemModel,
                             sdkContext,

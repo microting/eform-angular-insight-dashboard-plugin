@@ -250,5 +250,12 @@
       "da": "Samlet periode",
       "en-US": "Total Period"
     }
+  },
+  {
+    "Key": "NoDataAvailableForTheSelectedPeriod",
+    "LocalizedValue": {
+      "da": "Der er ingen tilgængelige data for den valgte periode",
+      "en-US": "No data available for the selected period"
+    }
   }
 ]
