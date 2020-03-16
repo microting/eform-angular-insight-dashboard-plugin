@@ -101,9 +101,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .AsQueryable();
 
-            answerQueryable = answerQueryable
-                .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);
-
             if (answerDates.Today)
             {
                 var dateTimeNow = DateTime.Now;
@@ -127,6 +124,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 answerQueryable = answerQueryable
                     .Where(x => x.Answer.FinishedAt <= answerDates.DateTo);
             }
+
+            answerQueryable = answerQueryable
+                .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);
+
 
             if (dashboardItem.CompareEnabled)
             {
@@ -160,6 +161,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                 answerQueryable = answerQueryable
                     .Where(x => !optionIds.Contains(x.OptionId));
+
                 ignoreOptions = await sdkContext.options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
             }
 
