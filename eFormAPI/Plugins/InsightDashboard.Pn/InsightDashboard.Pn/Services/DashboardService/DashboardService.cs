@@ -121,6 +121,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         LocationId = x.LocationId,
                         TagId = x.TagId,
                         DashboardName = x.Name,
+                        DateFrom = x.DateFrom,
+                        DateTo = x.DateTo,
                     })
                     .ToListAsync();
 
@@ -773,7 +775,9 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         .Select(x => new CommonDictionaryModel
                         {
                             Id = x.Id,
-                            Name = x.OptionTranslationses.Select(y=>y.Name).FirstOrDefault(),
+                            Name = x.OptionTranslationses
+                                .Select(y=>y.Name)
+                                .FirstOrDefault(),
                         }).ToListAsync();
                 }
 

@@ -24,6 +24,8 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 {
+    using System;
+
     public class DashboardModel
     {
         public int Id { get; set; }
@@ -34,5 +36,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
         public int? LocationId { get; set; }
         public string TagName { get; set; }
         public int? TagId { get; set; }
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateTo { get; set; }
     }
 }
