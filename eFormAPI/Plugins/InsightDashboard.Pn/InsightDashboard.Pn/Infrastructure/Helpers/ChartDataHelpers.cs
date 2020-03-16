@@ -1,5 +1,6 @@
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Microting.eForm.Infrastructure.Data.Entities;
 
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
@@ -146,6 +147,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         .Where(x => x.Answer.SiteId == dashboardLocationId);
                 }
             }
+            
+            List<options> ignoreOptions = new List<options>();
 
             if (dashboardItem.IgnoredAnswerValues
                 .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
@@ -157,6 +160,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                 answerQueryable = answerQueryable
                     .Where(x => !optionIds.Contains(x.OptionId));
+                ignoreOptions = await sdkContext.options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
             }
 
             if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
@@ -228,13 +232,18 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 if (isSmiley)
                 {
                     var tmpData = new List<DashboardViewChartDataSingleModel>();
-                    // var r = ;
-                    tmpData.Add(new DashboardViewChartDataSingleModel {Name = "100", Value = 0});
-                    tmpData.Add(new DashboardViewChartDataSingleModel {Name = "75", Value = 0});
-                    tmpData.Add(new DashboardViewChartDataSingleModel {Name = "50", Value = 0});
-                    tmpData.Add(new DashboardViewChartDataSingleModel {Name = "25", Value = 0});
-                    tmpData.Add(new DashboardViewChartDataSingleModel {Name = "0", Value = 0});
-                    tmpData.Add(new DashboardViewChartDataSingleModel {Name = "999", Value = 0});
+                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "100", Value = 0});
+                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "75", Value = 0});
+                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "50", Value = 0});
+                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "25", Value = 0});
+                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "0", Value = 0});
+                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "999", Value = 0});
                     foreach (DashboardViewChartDataSingleModel dashboardViewChartDataSingleModel in groupedData)
                     {
                         switch (@dashboardViewChartDataSingleModel.Name)
@@ -318,7 +327,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -387,7 +396,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .GroupBy(ms => $"{ms.Finished:yy-MMM}")
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -456,7 +465,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -529,7 +538,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -600,7 +609,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .GroupBy(ms => $"{ms.Finished:yyyy}")
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -713,14 +722,18 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                         if (isSmiley)
                         {
-                            // var tmpData = new List<DashboardViewChartDataSingleModel>();
-                            // var r = ;
-                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 100).Value});
-                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 75).Value});
-                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 50).Value});
-                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 25).Value});
-                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 0).Value});
-                            newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 999).Value});
+                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                               newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 100).Value});
+                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 75).Value});
+                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 50).Value});
+                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 25).Value});
+                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 0).Value});
+                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 999).Value});
 
                             foreach (var model in newLineData)
                             {
@@ -803,8 +816,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
                         }
-                        // columnNames.Sort();
-                        // lineNames.Sort();
 
                         var newLineData = new List<DashboardViewChartDataMultiModel>();
 
@@ -813,18 +824,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             foreach (string columnName in columnNames)
                             {
                                 var model = new DashboardViewChartDataMultiModel {Name = columnName};
-                                model.Series.Add(new DashboardViewChartDataSingleModel
-                                    {Name = _smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
-                                model.Series.Add(new DashboardViewChartDataSingleModel
-                                    {Name = _smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
-                                model.Series.Add(new DashboardViewChartDataSingleModel
-                                    {Name = _smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
-                                model.Series.Add(new DashboardViewChartDataSingleModel
-                                    {Name = _smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
-                                model.Series.Add(new DashboardViewChartDataSingleModel
-                                    {Name = _smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
-                                model.Series.Add(new DashboardViewChartDataSingleModel
-                                    {Name = _smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                    model.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                    model.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                    model.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                    model.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                    model.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                    model.Series.Add(new DashboardViewChartDataSingleModel
+                                        {Name = _smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                 newLineData.Add(model);
                             }
 
@@ -868,18 +885,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 {
                                     var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};
 
-                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
-                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
-                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
-                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
-                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
-                                    innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = _smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = _smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = _smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = _smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = _smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = _smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
 
                                     model.Series.Add(innerModel);
 
