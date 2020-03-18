@@ -382,7 +382,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 })
                                                 .ToList(),
                                         })
-                                        .OrderBy(y => y.Name)
+                                        // .OrderBy(y => y.Name)
                                         .ToList(),
                                 }).ToList();
                         }
@@ -879,36 +879,75 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         if (isSmiley)
                         {
                             var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
+                            List<string> columnNames = new List<string>();
+                            foreach (var stackedModel in multiStackedData)
+                            {
+                                foreach (var modelSeries in stackedModel.Series)
+                                {
+                                    if (!columnNames.Contains(modelSeries.Name))
+                                    {
+                                        columnNames.Add(modelSeries.Name);
+                                    }
+                                }
+                            }
+                            
+                            
+
 
                             foreach (var stackedModel in multiStackedData)
                             {
                                 var model = new DashboardViewChartDataMultiStackedModel() {Name = stackedModel.Name, Id = stackedModel.Id};
 
+
+                                foreach (string columnName in columnNames)
+                                {
+                                    var innerModel = new DashboardViewChartDataMultiModel() {Name = columnName};
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                    model.Series.Add(innerModel);
+                                }
+
                                 foreach (var modelSeries in stackedModel.Series)
                                 {
                                     var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};
+                                    // var innerModel = model.Series.Single(x => x.Name == modelSeries.Name);
 
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
-
-                                    model.Series.Add(innerModel);
-
+                                    // foreach (var modelSeries in model.Series)
+                                    // {
+                                    //     if (modelSeries.Name == series.Name)
+                                    //     {
+                                    //         modelSeries.Value = series.Value;
+                                    //     }
+                                    // }
+                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                    //         {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                    //         {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                    //         {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                    //         {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                    //         {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                    //         {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                    
                                     foreach (var innerSeries in modelSeries.Series)
                                     {
                                         foreach (var newInnerSeriesModel in innerModel.Series)
