@@ -19,12 +19,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     public static class ChartDataHelpers
     {
 
-        private static List<KeyValuePair<int, string>> _smileyLabels = new List<KeyValuePair<int, string>>()
-        {
-            new KeyValuePair<int, string>(100, "Meget glad"), new KeyValuePair<int, string>(75, "Glad"),
-            new KeyValuePair<int, string>(50, "Neutral"), new KeyValuePair<int, string>(25, "Sur"),
-            new KeyValuePair<int, string>(0, "Meget sur"), new KeyValuePair<int, string>(999, "Ved ikke")
-        };
         public static async Task CalculateDashboardItem(
             DashboardItemViewModel dashboardItemModel,
             MicrotingDbContext sdkContext,
@@ -36,6 +30,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
         {
             // Chart data
             bool singleData;
+            List<KeyValuePair<int, string>> smileyLabels = new List<KeyValuePair<int, string>>()
+            {
+                new KeyValuePair<int, string>(100, "Meget glad"), new KeyValuePair<int, string>(75, "Glad"),
+                new KeyValuePair<int, string>(50, "Neutral"), new KeyValuePair<int, string>(25, "Sur"),
+                new KeyValuePair<int, string>(0, "Meget sur"), new KeyValuePair<int, string>(999, "Ved ikke")
+            };
             switch (dashboardItem.ChartType)
             {
                 case DashboardChartTypes.Line:
@@ -187,7 +187,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             var data = await answerQueryable
                 .Select(x => new
                 {
-                    Name = x.Value,
+                    Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
                     Finished = x.Answer.FinishedAt,
                     LocationName = x.Answer.Site.Name,
                     LocationId = x.Answer.SiteId,
@@ -198,7 +198,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 .OrderBy(t => t.Finished)
                 .ToListAsync();
 
-            bool isSmiley = data.First().IsSmiley;
+            bool isSmiley = data.Any() && data.First().IsSmiley;
 
             List<string> lines;
             if (dashboardItem.CalculateAverage)
@@ -251,27 +251,27 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         switch (@dashboardViewChartDataSingleModel.Name)
                         {
                             case "100":
-                                tmpData[0].Name = _smileyLabels.Single(z => z.Key == 100).Value;
+                                tmpData[0].Name = smileyLabels.Single(z => z.Key == 100).Value;
                                 tmpData[0].Value = dashboardViewChartDataSingleModel.Value;
                                 break;
                             case "75":
-                                tmpData[1].Name = _smileyLabels.Single(z => z.Key == 75).Value;
+                                tmpData[1].Name = smileyLabels.Single(z => z.Key == 75).Value;
                                 tmpData[1].Value = dashboardViewChartDataSingleModel.Value;
                                 break;
                             case "50":
-                                tmpData[2].Name = _smileyLabels.Single(z => z.Key == 50).Value;
+                                tmpData[2].Name = smileyLabels.Single(z => z.Key == 50).Value;
                                 tmpData[2].Value = dashboardViewChartDataSingleModel.Value;
                                 break;
                             case "25":
-                                tmpData[3].Name = _smileyLabels.Single(z => z.Key == 25).Value;
+                                tmpData[3].Name = smileyLabels.Single(z => z.Key == 25).Value;
                                 tmpData[3].Value = dashboardViewChartDataSingleModel.Value;
                                 break;
                             case "0":
-                                tmpData[4].Name = _smileyLabels.Single(z => z.Key == 0).Value;
+                                tmpData[4].Name = smileyLabels.Single(z => z.Key == 0).Value;
                                 tmpData[4].Value = dashboardViewChartDataSingleModel.Value;
                                 break;
                             case "999":
-                                tmpData[5].Name = _smileyLabels.Single(z => z.Key == 999).Value;
+                                tmpData[5].Name = smileyLabels.Single(z => z.Key == 999).Value;
                                 tmpData[5].Value = dashboardViewChartDataSingleModel.Value;
                                 break;
                         }
@@ -307,7 +307,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .GroupBy(g => g.Name)
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
-                                                    Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
                                                     Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .ToList(),
@@ -347,7 +347,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Series = x.GroupBy(y => y.Name)
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -376,7 +376,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .GroupBy(g => g.Name)
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
-                                                    Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
+                                                    // Name = i.Key,
                                                     Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .ToList(),
@@ -416,7 +417,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Series = x.GroupBy(y => y.Name)
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -445,7 +446,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .GroupBy(g => g.Name)
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
-                                                    Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
                                                     Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .ToList(),
@@ -485,7 +486,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Series = x.GroupBy(y => y.Name)
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -515,7 +516,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .GroupBy(g => g.Name)
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
-                                                    Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
                                                     Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .OrderByDescending(
@@ -558,7 +559,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Series = x.GroupBy(y => y.Name)
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -587,7 +588,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .GroupBy(g => g.Name)
                                                 .Select(i => new DashboardViewChartDataSingleModel
                                                 {
-                                                    Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
+                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
                                                     Value = GetDataPercentage(i.Count(), y.Count()),
                                                 })
                                                 .OrderByDescending(
@@ -629,7 +630,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Series = x.GroupBy(y => y.Name)
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
-                                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
+                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
                                                 Value = dashboardItem.CalculateAverage
                                                     ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                     : GetDataPercentage(y.Count(), x.Count()),
@@ -650,7 +651,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             .GroupBy(x => x.Name)
                             .Select(x => new DashboardViewChartDataSingleModel
                             {
-                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key,
+                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key,
                                 Value = dashboardItem.CalculateAverage
                                     ? GetAverageDataPercentage(x.Average(k => k.Weight))
                                     : GetDataPercentage(x.Count(), data.Count),
@@ -677,14 +678,14 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         {
                             var multiItem = new DashboardViewChartDataMultiModel
                             {
-                                Name = isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line
+                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line
                             };
 
                             foreach (var groupedItem in multiData)
                             {
                                 foreach (var item in groupedItem.Series)
                                 {
-                                    if (item.Name == (isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line))
+                                    if (item.Name == (isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line))
                                     {
                                         var singleItem = new DashboardViewChartDataSingleModel
                                         {
@@ -725,17 +726,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         if (isSmiley)
                         {
                             if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                               newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 100).Value});
+                               newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 100).Value});
                             if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 75).Value});
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 75).Value});
                             if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 50).Value});
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 50).Value});
                             if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 25).Value});
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 25).Value});
                             if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 0).Value});
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 0).Value});
                             if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = _smileyLabels.Single(z => z.Key == 999).Value});
+                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 999).Value});
 
                             foreach (var model in newLineData)
                             {
@@ -828,22 +829,22 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 var model = new DashboardViewChartDataMultiModel {Name = columnName};
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
                                     model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                        {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
                                     model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                        {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
                                     model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                        {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
                                     model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                        {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
                                     model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                        {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                                     model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = _smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                        {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                 newLineData.Add(model);
                             }
 
@@ -889,22 +890,22 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
                                         innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = _smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
                                         innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = _smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
                                         innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = _smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
                                         innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = _smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
                                         innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = _smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                                         innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = _smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
 
                                     model.Series.Add(innerModel);
 
