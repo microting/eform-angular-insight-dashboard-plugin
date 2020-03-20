@@ -919,8 +919,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                 foreach (var modelSeries in stackedModel.Series)
                                 {
-                                    var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};
-                                    // var innerModel = model.Series.Single(x => x.Name == modelSeries.Name);
+                                    // var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};
+                                    var innerModel = model.Series.Single(x => x.Name == modelSeries.Name);
 
                                     // foreach (var modelSeries in model.Series)
                                     // {

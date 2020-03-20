@@ -63,7 +63,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 var result = new SurveyConfigsListModel();
                 // await core.GetAllSurveyConfigurations();
                 // await core.GetAllQuestionSets();
-                await core.GetAllAnswers();
+                // await core.GetAllAnswers();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var surveysQueryable = sdkContext.survey_configurations
