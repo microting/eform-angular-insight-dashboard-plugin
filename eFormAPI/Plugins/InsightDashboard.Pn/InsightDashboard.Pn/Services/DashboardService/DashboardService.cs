@@ -369,38 +369,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    // Check data
-                    var answerQueryable = sdkContext.answer_values
-                        .AsNoTracking()
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .AsQueryable();
-
-                    if (editModel.AnswerDates.DateFrom != null)
-                    {
-                        answerQueryable = answerQueryable
-                            .Where(x => x.Answer.FinishedAt >= editModel.AnswerDates.DateFrom);
-                    }
-
-                    if (editModel.AnswerDates.DateTo != null)
-                    {
-                        answerQueryable = answerQueryable
-                            .Where(x => x.Answer.FinishedAt <= editModel.AnswerDates.DateTo);
-                    }
-
-                    if (editModel.AnswerDates.DateFrom != null || editModel.AnswerDates.DateTo != null)
-                    {
-                        var dataCount = await answerQueryable
-                            .Select(x => x.Id)
-                            .CountAsync();
-
-                        if (dataCount < 1)
-                        {
-                            return new OperationDataResult<DashboardViewModel>(
-                                false,
-                                _localizationService.GetString("NoDataAvailableForTheSelectedPeriod"));
-                        }
-                    }
-
                     if (editModel.LocationId != null)
                     {
                         if (!await sdkContext
