@@ -1093,6 +1093,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         if (question != null)
                         {
                             dashboardItemModel.IsFirstQuestionSmiley = question.IsSmiley();
+                            dashboardItemModel.FirstQuestionType = question.QuestionType;
                         }
                     }
                 }
