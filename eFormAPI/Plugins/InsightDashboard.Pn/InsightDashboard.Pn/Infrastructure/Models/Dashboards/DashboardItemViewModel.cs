@@ -31,6 +31,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
     {
         public int Id { get; set; }
         public string FirstQuestionName { get; set; }
+        public string FirstQuestionType { get; set; }
         public string FilterQuestionName { get; set; }
         public string FilterAnswerName { get; set; }
         public int FirstQuestionId { get; set; }
@@ -48,5 +49,8 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
             = new List<DashboardItemCompareModel>();
         public List<DashboardItemIgnoredAnswerModel> IgnoredAnswerValues { get; set; }
             = new List<DashboardItemIgnoredAnswerModel>();
+
+        public List<DashboardItemTextQuestionDataModel> TextQuestionData { get; set; }
+            = new List<DashboardItemTextQuestionDataModel>();
     }
 }

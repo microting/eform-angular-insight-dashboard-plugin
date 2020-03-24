@@ -1,6 +1,26 @@
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microting.eForm.Infrastructure.Data.Entities;
+/*
+The MIT License (MIT)
+
+Copyright (c) 2007 - 2019 Microting A/S
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
@@ -11,6 +31,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using Microsoft.EntityFrameworkCore;
     using Microting.eForm.Infrastructure;
     using Microting.eForm.Infrastructure.Constants;
+    using Microting.eForm.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Enums;
     using Models.Dashboards;
@@ -128,6 +149,39 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             answerQueryable = answerQueryable
                 .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);
 
+            if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
+            {
+                var answerIds = answerQueryable
+                    .Where(y => y.QuestionId == dashboardItem.FilterQuestionId &&
+                                y.OptionId == dashboardItem.FilterAnswerId)
+                    .Select(y => y.AnswerId)
+                    .ToList();
+
+                answerQueryable = answerQueryable
+                    .Where(x => answerIds
+                        .Contains(x.AnswerId))
+                    .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
+            }
+            else
+            {
+                answerQueryable = answerQueryable
+                    .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
+            }
+
+            var textData = await answerQueryable
+                .Select(x => new DashboardItemTextQuestionDataModel
+                {
+                    Date = x.Answer.FinishedAt,
+                    LocationName = x.Answer.Site.Name,
+                    Commentary = x.Value,
+                })
+                .OrderBy(t => t.Date)
+                .ToListAsync();
+
+            dashboardItemModel.TextQuestionData.AddRange(textData);
+
+            // TODO CHART TEXT DATA
+
 
             if (dashboardItem.CompareEnabled)
             {
@@ -163,25 +217,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     .Where(x => !optionIds.Contains(x.OptionId));
 
                 ignoreOptions = await sdkContext.options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
-            }
-
-            if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
-            {
-                var answerIds = answerQueryable
-                    .Where(y => y.QuestionId == dashboardItem.FilterQuestionId &&
-                                y.OptionId == dashboardItem.FilterAnswerId)
-                    .Select(y => y.AnswerId)
-                    .ToList();
-
-                answerQueryable = answerQueryable
-                    .Where(x => answerIds
-                        .Contains(x.AnswerId))
-                    .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
-            }
-            else
-            {
-                answerQueryable = answerQueryable
-                    .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
             }
 
             var data = await answerQueryable
