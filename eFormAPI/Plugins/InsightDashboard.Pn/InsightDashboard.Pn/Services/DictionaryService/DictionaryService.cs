@@ -138,7 +138,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             .Select(x => new QuestionDictionaryModel()
                             {
                                 Id = x.Id,
-                                IsSmiley = x.IsSmiley(),
+                                Type = x.QuestionType,
                                 Name = x.QuestionTranslationses
                                     .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
                                     .Where(qt => qt.Language.Id == language.Id)
