@@ -170,6 +170,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             // Question type == Text
             if (dashboardItemModel.FirstQuestionType == Constants.QuestionTypes.Text)
             {
+                if (dashboardLocationId != null)
+                {
+                    answerQueryable = answerQueryable
+                        .Where(x => x.Answer.SiteId == dashboardLocationId);
+                }
+
                 var textData = await answerQueryable
                     .Select(x => new DashboardItemTextQuestionDataModel
                     {
