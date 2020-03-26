@@ -903,15 +903,18 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         var languages = await sdkContext.languages.ToListAsync();
                         foreach (var language in languages)
                         {
-                            dashboardItemModel.FirstQuestionName = await sdkContext.QuestionTranslations
+                            var firstQuestion = await sdkContext.QuestionTranslations
                                 .AsNoTracking()
                                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
                                 .Where(x => x.Language.Id == language.Id)
-                                .Select(x => x.Name)
+                                .Select(x => new {x.Name, x.Question.QuestionType})
                                 .FirstOrDefaultAsync();
+
+                            dashboardItemModel.FirstQuestionName = firstQuestion?.Name;
+                            dashboardItemModel.FirstQuestionType = firstQuestion?.QuestionType;
 
                             if (dashboardItemModel.FirstQuestionName != null)
                             {
