@@ -8,7 +8,7 @@ import {DashboardModel} from '../../../../models';
   styleUrls: ['./dashboard-copy.component.scss']
 })
 export class DashboardCopyComponent implements OnInit {
-  @ViewChild('frame') frame;
+  @ViewChild('frame', { static: true }) frame;
   @Output() dashboardCopied: EventEmitter<void> = new EventEmitter<void>()
   spinnerStatus = false;
   dashboard: DashboardModel = new DashboardModel();

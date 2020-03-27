@@ -8,7 +8,7 @@ import {InsightDashboardPnDashboardsService} from '../../../../services';
   styleUrls: ['./dashboard-delete.component.scss']
 })
 export class DashboardDeleteComponent implements OnInit {
-  @ViewChild('frame') frame;
+  @ViewChild('frame', { static: true }) frame;
   @Output() dashboardDeleted: EventEmitter<void> = new EventEmitter<void>();
   spinnerStatus = false;
   dashboard: DashboardModel = new DashboardModel();

@@ -9,7 +9,7 @@ import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
   styleUrls: ['./survey-configuration-edit.component.scss']
 })
 export class SurveyConfigurationEditComponent implements OnInit {
-  @ViewChild('frame') frame;
+  @ViewChild('frame', { static: true }) frame;
   @Input() locations: CommonDictionaryModel[] = [];
   @Input() surveys: CommonDictionaryModel[] = [];
   @Output() configUpdated: EventEmitter<void> = new EventEmitter<void>();

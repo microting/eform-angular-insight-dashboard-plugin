@@ -8,7 +8,7 @@ import {CommonDictionaryModel} from '../../../../../../common/models/common';
   styleUrls: ['./survey-configuration-new.component.scss']
 })
 export class SurveyConfigurationNewComponent implements OnInit {
-  @ViewChild('frame') frame;
+  @ViewChild('frame', { static: true }) frame;
   @Input() locations: CommonDictionaryModel[] = [];
   @Input() surveys: CommonDictionaryModel[] = [];
   @Output() configCreated: EventEmitter<void> = new EventEmitter<void>();

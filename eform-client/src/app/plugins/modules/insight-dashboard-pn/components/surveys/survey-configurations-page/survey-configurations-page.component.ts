@@ -25,10 +25,10 @@ import {SitesService} from '../../../../../../common/services/advanced';
   styleUrls: ['./survey-configurations-page.component.scss']
 })
 export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('newSurveyConfigModal') newSurveyConfigModal: SurveyConfigurationNewComponent;
-  @ViewChild('editSurveyConfigModal') editSurveyConfigModal: SurveyConfigurationEditComponent;
-  @ViewChild('statusSurveyConfigModal') statusSurveyConfigModal: SurveyConfigurationStatusComponent;
-  @ViewChild('deleteSurveyConfigModal') deleteSurveyConfigModal: SurveyConfigurationDeleteComponent;
+  @ViewChild('newSurveyConfigModal', { static: true }) newSurveyConfigModal: SurveyConfigurationNewComponent;
+  @ViewChild('editSurveyConfigModal', { static: true }) editSurveyConfigModal: SurveyConfigurationEditComponent;
+  @ViewChild('statusSurveyConfigModal', { static: true }) statusSurveyConfigModal: SurveyConfigurationStatusComponent;
+  @ViewChild('deleteSurveyConfigModal', { static: true }) deleteSurveyConfigModal: SurveyConfigurationDeleteComponent;
   surveyConfigurationsListModel: SurveyConfigsListModel = new SurveyConfigsListModel();
   localPageSettings: PageSettingsModel = new PageSettingsModel();
   surveyConfigurationsRequestModel: SurveyConfigsRequestModel = new SurveyConfigsRequestModel();

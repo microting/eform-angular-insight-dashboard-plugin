@@ -24,10 +24,10 @@ import {CommonDictionaryExtendedModel} from '../../../models/common-dictionary-e
   styleUrls: ['./dashboards-page.component.scss']
 })
 export class DashboardsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('newDashboardModal') newDashboardModal: DashboardNewComponent;
-  @ViewChild('copyDashboardModal') copyDashboardModal: DashboardCopyComponent;
-  @ViewChild('editDashboardModal') editDashboardModal: DashboardEditComponent;
-  @ViewChild('deleteDashboardModal') deleteDashboardModal: DashboardDeleteComponent;
+  @ViewChild('newDashboardModal', { static: true }) newDashboardModal: DashboardNewComponent;
+  @ViewChild('copyDashboardModal', { static: true }) copyDashboardModal: DashboardCopyComponent;
+  @ViewChild('editDashboardModal', { static: true }) editDashboardModal: DashboardEditComponent;
+  @ViewChild('deleteDashboardModal', { static: true }) deleteDashboardModal: DashboardDeleteComponent;
   dashboardsListModel: DashboardsListModel = new DashboardsListModel();
   dashboardsRequestModel: DashboardsRequestModel = new DashboardsRequestModel();
   localPageSettings: PageSettingsModel = new PageSettingsModel();

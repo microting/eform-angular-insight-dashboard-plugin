@@ -8,7 +8,7 @@ import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
   styleUrls: ['./survey-configuration-status.component.scss']
 })
 export class SurveyConfigurationStatusComponent implements OnInit {
-  @ViewChild('frame') frame;
+  @ViewChild('frame', { static: true }) frame;
   @Output() configStatusChanged: EventEmitter<SurveyConfigModel> = new EventEmitter<SurveyConfigModel>();
   selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel();
   spinnerStatus = false;

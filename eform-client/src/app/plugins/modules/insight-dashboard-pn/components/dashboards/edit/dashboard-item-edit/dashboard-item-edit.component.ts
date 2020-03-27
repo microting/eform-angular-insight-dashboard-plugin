@@ -17,7 +17,7 @@ import {InsightDashboardPnCollapseService} from '../../../../services/insight-da
   styleUrls: ['./dashboard-item-edit.component.scss']
 })
 export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges {
-  @ViewChild('collapse') collapse: CollapseDirective;
+  @ViewChild('collapse', { static: true }) collapse: CollapseDirective;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: DashboardItemQuestionModel[] = [];
   @Input() surveyId = 1;

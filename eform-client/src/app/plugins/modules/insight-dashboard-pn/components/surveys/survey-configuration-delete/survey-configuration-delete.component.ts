@@ -10,7 +10,7 @@ import {InsightDashboardPnSurveyConfigsService} from '../../../services';
 export class SurveyConfigurationDeleteComponent implements OnInit {
   @Output() surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
   surveyConfig: SurveyConfigModel = new SurveyConfigModel();
-  @ViewChild('frame') frame;
+  @ViewChild('frame', { static: true }) frame;
   spinnerStatus = false;
 
   constructor(private surveyConfigsService: InsightDashboardPnSurveyConfigsService) { }

@@ -12,7 +12,7 @@ import {CommonDictionaryExtendedModel} from '../../../models/common-dictionary-e
   styleUrls: ['./dashboard-new.component.scss']
 })
 export class DashboardNewComponent implements OnInit, OnDestroy {
-  @ViewChild('frame') frame;
+  @ViewChild('frame', { static: true }) frame;
   @Input() surveys: CommonDictionaryModel[] = [];
   @Output() dashboardCreated: EventEmitter<number> = new EventEmitter<number>();
   @Output() surveySelected: EventEmitter<number> = new EventEmitter<number>();
