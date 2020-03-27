@@ -5,7 +5,9 @@ mono: none
 dotnet: 2.2
 services:
   - mysql
-script:
+install:
+  - nvm install 11.0.0
+  - nvm use 11.0.0
   - pip install --user awscli
   - mysql -u root -e "create database 420_SDK"
   - mysql -u root 420_SDK < 420_SDK.sql
@@ -23,6 +25,7 @@ script:
   - chmod +x rabbitmqadmin
   - ./rabbitmqadmin declare queue name=eformsdk-input durable=true
   - ./rabbitmqadmin declare queue name=eform-angular-insight-dashboard-plugin durable=true
+script:
   - dotnet build eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
   - dotnet test -v n eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.Test/InsightDashboard.Pn.Test.csproj
   - cd ../..
