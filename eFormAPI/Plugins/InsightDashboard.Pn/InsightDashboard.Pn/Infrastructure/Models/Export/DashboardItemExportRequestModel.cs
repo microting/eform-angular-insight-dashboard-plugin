@@ -21,24 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
-namespace InsightDashboard.Pn.Services.DashboardService
+namespace InsightDashboard.Pn.Infrastructure.Models.Export
 {
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Dashboards;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-
-    public interface IDashboardService
+    public class DashboardItemExportRequestModel
     {
-        Task<OperationDataResult<DashboardsListModel>> GetAll(DashboardsRequestModel requestModel);
-        Task<OperationDataResult<int>> Create(DashboardCreateModel createModel);
-        Task<OperationResult> Copy(int dashboardId);
-        Task<OperationResult> Update(DashboardEditModel editModel);
-        Task<OperationResult> Remove(int dashboardId);
-        Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
-            int dashboardId,
-            bool onlyTextData,
-            int? dashBoardItemId = null);
-        Task<OperationDataResult<DashboardEditModel>> GetSingleForEdit(int dashboardId);
+        public int DashboardId { get; set; }
+        public int ItemId { get; set; }
     }
 }

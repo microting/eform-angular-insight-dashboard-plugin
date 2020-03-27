@@ -738,7 +738,10 @@ namespace InsightDashboard.Pn.Services.DashboardService
             }
         }
 
-        public async Task<OperationDataResult<DashboardViewModel>> GetSingleForView(int dashboardId)
+        public async Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
+            int dashboardId,
+            bool onlyTextData,
+            int? dashBoardItemId = null)
         {
             try
             {
@@ -844,6 +847,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .OrderBy(x => x.Position))
                 {
+                    if (onlyTextData)
+                    {
+                        if (dashboardItem.Id != dashBoardItemId)
+                        {
+                            continue;
+                        }
+                    }
                     var dashboardItemModel = new DashboardItemViewModel()
                     {
                         Id = dashboardItem.Id,

@@ -182,6 +182,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         Date = x.Answer.FinishedAt,
                         LocationName = x.Answer.Site.Name,
                         Commentary = x.Value,
+                        Id = x.Answer.Id,
                     })
                     .OrderBy(t => t.Date)
                     .ToListAsync();
