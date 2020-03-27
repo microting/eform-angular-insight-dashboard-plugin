@@ -38,7 +38,7 @@ import {
 } from './components';
 import {DragulaModule} from 'ng2-dragula';
 import {NgxChartsModule} from '@microting/ngx-charts';
-import {OwlDateTimeModule} from 'ng-pick-datetime';
+import {OwlDateTimeModule} from 'ng-pick-datetime-ex';
 
 @NgModule({
     imports: [
