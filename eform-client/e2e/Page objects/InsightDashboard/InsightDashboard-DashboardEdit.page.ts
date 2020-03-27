@@ -18,19 +18,27 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public get initialItemCreateBtn() {
-    return browser.element('#initialItemCreateBtn');
+    $('#initialItemCreateBtn').waitForDisplayed(20000);
+    $('#initialItemCreateBtn').waitForClickable({timeout: 20000});
+    return $('#initialItemCreateBtn');
   }
 
   public get dashboardUpdateSaveBtn() {
-    return browser.element('#dashboardUpdateSaveBtn');
+    $('#dashboardUpdateSaveBtn').waitForDisplayed(20000);
+    $('#dashboardUpdateSaveBtn').waitForClickable({timeout: 20000});
+    return $('#dashboardUpdateSaveBtn');
   }
 
   public get dashboardUpdateSaveCancelBtn() {
-    return browser.element('#dashboardUpdateSaveCancelBtn');
+    $('#dashboardUpdateSaveCancelBtn').waitForDisplayed(20000);
+    $('#dashboardUpdateSaveCancelBtn').waitForClickable({timeout: 20000});
+    return $('#dashboardUpdateSaveCancelBtn');
   }
 
   public get dashboardName() {
-    return browser.element('#dashboardNameCreate');
+    $('#dashboardNameCreate').waitForDisplayed(20000);
+    $('#dashboardNameCreate').waitForClickable({timeout: 20000});
+    return $('#dashboardNameCreate');
   }
 
   public firstQuestionSearchField(rowNum: number) {
@@ -91,7 +99,9 @@ export class InsightDashboardDashboardEditPage extends Page {
 
 
   public getLocationTagSearchField() {
-    return browser.element('#selectLocationTag .ng-input > input');
+    $('#selectLocationTag .ng-input > input').waitForDisplayed(20000);
+    $('#selectLocationTag .ng-input > input').waitForClickable({timeout: 20000});
+    return $('#selectLocationTag .ng-input > input');
   }
 
   public getLocationTagListOfChoices() {

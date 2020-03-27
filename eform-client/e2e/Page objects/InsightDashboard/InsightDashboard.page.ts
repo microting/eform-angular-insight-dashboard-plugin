@@ -8,10 +8,14 @@ export class InsightDashboardPage extends Page {
     browser.element(`//*[contains(@class, 'dropdown')]//*[contains(text(), 'Insight Instrumentbræt')]`).click();
   }
   public get SurveysConfigsBtn() {
-    return browser.element('#insight-dashboard-pn-surveys-configs');
+    $('#insight-dashboard-pn-surveys-configs').waitForDisplayed(20000);
+    $('#insight-dashboard-pn-surveys-configs').waitForClickable({timeout: 20000});
+    return $('#insight-dashboard-pn-surveys-configs');
   }
   public get DashboardsBtn() {
-    return browser.element('#insight-dashboard-pn-dashboards');
+    $('#insight-dashboard-pn-dashboards').waitForDisplayed(20000);
+    $('#insight-dashboard-pn-dashboards').waitForClickable({timeout: 20000});
+    return $('#insight-dashboard-pn-dashboards');
   }
   goToSurveysConfigs() {
     this.InsightDashboardDropDown();

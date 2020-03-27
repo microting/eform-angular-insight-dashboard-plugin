@@ -18,7 +18,9 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   public get returnToDashboards() {
-    return browser.element('#returnToPrevious');
+    $('#returnToPrevious').waitForDisplayed(20000);
+    $('#returnToPrevious').waitForClickable({timeout: 20000});
+    return $('#returnToPrevious');
   }
 
   public firstQuestion(rowNum: number) {
