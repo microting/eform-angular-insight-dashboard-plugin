@@ -15,10 +15,10 @@ script:
   - sudo apt-get install rabbitmq-server
   - sudo systemctl enable rabbitmq-server
   - sudo systemctl start rabbitmq-server
-  - sudo rabbitmqctl add_user admin password 
+  - sudo rabbitmqctl add_user admin password
   - sudo rabbitmqctl set_user_tags admin administrator
   - sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
-  - sudo rabbitmq-plugins enable rabbitmq_management	
+  - sudo rabbitmq-plugins enable rabbitmq_management
   - wget http://localhost:15672/cli/rabbitmqadmin
   - chmod +x rabbitmqadmin
   - ./rabbitmqadmin declare queue name=eformsdk-input durable=true
@@ -26,7 +26,7 @@ script:
   - dotnet build eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
   - dotnet test -v n eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.Test/InsightDashboard.Pn.Test.csproj
   - cd ../..
-  - git clone --depth=50 --branch=stable https://github.com/microting/eform-angular-frontend.git microting/eform-angular-frontend
+  - git clone --depth=50 --branch=$TRAVIS_BRANCH https://github.com/microting/eform-angular-frontend.git microting/eform-angular-frontend
   - cp -av microting/eform-angular-insight-dashboard-plugin/eform-client/src/app/plugins/modules/insight-dashboard-pn microting/eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn
   - cp -av microting/eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-settings microting/eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-settings
   - cp -av microting/eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-general microting/eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-general
