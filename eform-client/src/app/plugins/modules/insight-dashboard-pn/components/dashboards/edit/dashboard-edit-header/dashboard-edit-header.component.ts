@@ -3,7 +3,7 @@ import {DashboardEditModel, DashboardItemModel} from '../../../../models';
 import {DashboardFieldsEnum, DashboardItemFieldsEnum} from '../../../../const/enums';
 import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
 import * as moment from 'moment';
-import {parse} from 'date-fns';
+import {parse, toDate} from 'date-fns';
 
 @Component({
   selector: 'app-dashboard-edit-header',
@@ -37,8 +37,8 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
       if (currentValue.answerDates) {
         if (this.selectedDateRange) {
           this.selectedDateRange = [
-            currentValue.answerDates.dateFrom ? parse(currentValue.answerDates.dateFrom) : null,
-            currentValue.answerDates.dateTo ? parse(currentValue.answerDates.dateTo) : null
+            currentValue.answerDates.dateFrom ? toDate(currentValue.answerDates.dateFrom) : null,
+            currentValue.answerDates.dateTo ? toDate(currentValue.answerDates.dateTo) : null
           ];
         } else {
           this.selectedDateRange = [currentValue.answerDates.dateFrom, currentValue.answerDates.dateTo];
