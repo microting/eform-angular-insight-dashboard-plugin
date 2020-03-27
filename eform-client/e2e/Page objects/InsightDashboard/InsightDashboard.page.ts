@@ -17,13 +17,13 @@ export class InsightDashboardPage extends Page {
     this.InsightDashboardDropDown();
     browser.pause(1000);
     this.SurveysConfigsBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
   goToDashboards() {
     this.InsightDashboardDropDown();
     browser.pause(1000);
     this.DashboardsBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 }
 

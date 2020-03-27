@@ -12,19 +12,19 @@ describe('Insight Dashboard - Dashboards - Add', function () {
     insightDashboardPage.goToDashboards();
   });
   it('should create dashboard', function () {
-    browser.waitForVisible('#createDashboardBtn', 10000);
+    $('#createDashboardBtn').waitForDisplayed(10000);
     dashboardsPage.createDashboard();
     insightDashboardPage.goToDashboards();
     const dashboardCountAfterCreate = dashboardsPage.rowNum;
     const dashboard = dashboardsPage.getDashboard(dashboardCountAfterCreate);
     expect(dashboard.dashboardName).equal(dashboardName);
-    browser.pause(8000);
-    browser.refresh();
+    $('#spinner-animation').waitForDisplayed(90000, true);
+    loginPage.open('/');
   });
   it('should not create dashboard', function () {
     const rowNumsBeforeCreate = dashboardsPage.rowNum;
-    browser.pause(8000);
-    browser.waitForVisible('#createDashboardBtn', 10000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#createDashboardBtn').waitForDisplayed(10000);
     dashboardsPage.createDashboard_Cancels();
     expect(rowNumsBeforeCreate).equal(dashboardsPage.rowNum);
   });

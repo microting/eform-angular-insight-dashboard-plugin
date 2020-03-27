@@ -54,40 +54,40 @@ export class InsightDashboardSurveysConfigsPage extends Page {
 
   createSurveyConfig(configName: string) {
     this.surveyConfigCreateBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     const searchField = surveyConfigsPage.getSurveysSearchField();
     searchField.addValue(configName);
     const listChoices = surveyConfigsPage.getSurveyListOfChoices();
     const choice = listChoices[0];
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     choice.click();
     browser.pause(1000);
     this.surveyConfigCreateSaveBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   createSurveyConfig_Cancels() {
     this.surveyConfigCreateBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     this.surveyConfigCreateCancelBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
     rowObject.editSurveyConfigBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     this.surveyConfigLocationEditCheckbox(1).click();
     this.surveyConfigLocationEditCheckbox(2).click();
     browser.pause(1000);
     this.surveyConfigEditSaveBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     rowObject.editSurveyConfigBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     this.surveyConfigEditCancelBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
 
@@ -95,14 +95,14 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     rowObject.surveyConfigDeleteBtn.click();
     browser.pause(1000);
     this.surveyConfigDeleteSaveBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     rowObject.surveyConfigDeleteBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     this.surveyConfigDeleteCancelBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   activateSurveyConfig() {

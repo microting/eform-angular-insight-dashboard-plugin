@@ -58,7 +58,7 @@ export class InsightDashboardDashboardsPage extends Page {
 
   createDashboard() {
     this.dashboardCreateBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     this.dashboardName.click();
     browser.pause(1000);
     this.dashboardName.addValue(dashboardName);
@@ -67,32 +67,32 @@ export class InsightDashboardDashboardsPage extends Page {
     surveySearchField.addValue(configName);
     const surveyListChoices = dashboardsPage.getSurveyListOfChoices();
     const surveyChoice = surveyListChoices[0];
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     surveyChoice.click();
     browser.pause(1000);
     this.dashboardCreateSaveBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   createDashboard_Cancels() {
     this.dashboardCreateBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     this.dashboardCreateCancelBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   deleteDashboard(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardDeleteBtn.click();
     browser.pause(1000);
     this.dashboardDeleteSaveBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   deleteDashboard_Cancels(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardDeleteBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     this.dashboardDeleteCancelBtn.click();
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
   }
 
   copyDashboard(rowObject: DashboardsPageRowObject) {

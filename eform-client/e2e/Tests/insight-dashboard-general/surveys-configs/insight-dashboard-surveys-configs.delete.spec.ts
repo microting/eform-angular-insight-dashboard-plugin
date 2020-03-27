@@ -13,17 +13,17 @@ describe('Insight Dashboard - Survey Config - Delete', function () {
   });
   it('Should not delete survey config', function () {
     const rowNumsBeforeDelete = surveyConfigsPage.rowNum;
-    browser.waitForVisible('#createSurveyConfigBtn', 10000);
+    $('#createSurveyConfigBtn').waitForDisplayed(10000);
     surveyConfigsPage.deleteSurveyConfig_Cancels(surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
     expect(rowNumsBeforeDelete).equal(surveyConfigsPage.rowNum);
   });
   it('Should delete survey config', function () {
     const rowNumsBeforeDelete = surveyConfigsPage.rowNum;
-    browser.waitForVisible('#createSurveyConfigBtn', 10000);
+    $('#createSurveyConfigBtn').waitForDisplayed(10000);
     surveyConfigsPage.deleteSurveyConfig(surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
     const rowsAfterDelete = surveyConfigsPage.rowNum;
     expect(rowsAfterDelete).equal(rowNumsBeforeDelete - 1);
-    browser.pause(8000);
-    browser.refresh();
+    $('#spinner-animation').waitForDisplayed(90000, true);
+    loginPage.open('/');
   });
 });

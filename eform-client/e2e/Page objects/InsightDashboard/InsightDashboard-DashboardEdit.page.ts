@@ -104,7 +104,7 @@ export class InsightDashboardDashboardEditPage extends Page {
     locationSearchField.addValue(locationName);
     const locationListChoices = this.getLocationTagListOfChoices();
     const locationChoice = locationListChoices[0];
-    browser.pause(8000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
     locationChoice.click();
     browser.pause(3000);
   }

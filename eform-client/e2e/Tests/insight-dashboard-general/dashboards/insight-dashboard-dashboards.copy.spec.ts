@@ -13,18 +13,18 @@ describe('Insight Dashboard - Dashboards - Copy', function () {
   });
   it('should not copy dashboard', function () {
     const rowNumsBeforeDelete = dashboardsPage.rowNum;
-    browser.pause(8000);
-    browser.waitForVisible('#createDashboardBtn', 10000);
+    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#createDashboardBtn').waitForDisplayed(10000);
     dashboardsPage.copyDashboard_Cancel(dashboardsPage.getDashboard(rowNumsBeforeDelete));
     expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum);
   });
   it('should copy dashboard', function () {
-    browser.waitForVisible('#createDashboardBtn', 10000);
+    $('#createDashboardBtn').waitForDisplayed(10000);
     const rowNumsBeforeCopy = dashboardsPage.rowNum;
     dashboardsPage.copyDashboard(dashboardsPage.getDashboard(rowNumsBeforeCopy));
     insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeCopy).equal(dashboardsPage.rowNum - 1);
-    browser.pause(8000);
-    browser.refresh();
+    $('#spinner-animation').waitForDisplayed(90000, true);
+    loginPage.open('/');
   });
 });
