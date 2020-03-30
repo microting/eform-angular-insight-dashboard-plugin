@@ -13,126 +13,126 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   public get dashboardCreateBtn() {
-    $('#createDashboardBtn').waitForDisplayed(20000);
+    $('#createDashboardBtn').waitForDisplayed(30000);
     $('#createDashboardBtn').waitForClickable({timeout: 20000});
     return $('#createDashboardBtn');
   }
 
   public get dashboardCreateSaveBtn() {
-    $('#dashboardCreateSaveBtn').waitForDisplayed(20000);
+    $('#dashboardCreateSaveBtn').waitForDisplayed(30000);
     $('#dashboardCreateSaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardCreateSaveBtn');
   }
 
   public get dashboardCreateCancelBtn() {
-    $('#dashboardCreateSaveCancelBtn').waitForDisplayed(20000);
+    $('#dashboardCreateSaveCancelBtn').waitForDisplayed(30000);
     $('#dashboardCreateSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardCreateSaveCancelBtn');
   }
 
   public get dashboardName() {
-    $('#dashboardNameCreate').waitForDisplayed(20000);
+    $('#dashboardNameCreate').waitForDisplayed(30000);
     $('#dashboardNameCreate').waitForClickable({timeout: 20000});
     return $('#dashboardNameCreate');
   }
 
   public get dashboardNameInput() {
-    $('#dashboardNameCreate > input').waitForDisplayed(20000);
+    $('#dashboardNameCreate > input').waitForDisplayed(30000);
     $('#dashboardNameCreate > input').waitForClickable({timeout: 20000});
     return $('#dashboardNameCreate > input');
   }
 
   public get dashboardEditSaveBtn() {
-    $('#dashboardEditSaveBtn').waitForDisplayed(20000);
+    $('#dashboardEditSaveBtn').waitForDisplayed(30000);
     $('#dashboardEditSaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardEditSaveBtn');
   }
 
   public get dashboardEditCancelBtn() {
-    $('#dashboardEditSaveCancelBtn').waitForDisplayed(20000);
+    $('#dashboardEditSaveCancelBtn').waitForDisplayed(30000);
     $('#dashboardEditSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardEditSaveCancelBtn');
   }
 
   public get dashboardDeleteSaveBtn() {
-    $('#dashboardDeleteSaveBtn').waitForDisplayed(20000);
+    $('#dashboardDeleteSaveBtn').waitForDisplayed(30000);
     $('#dashboardDeleteSaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardDeleteSaveBtn');
   }
 
   public get dashboardDeleteCancelBtn() {
-    $('#dashboardDeleteCancelBtn').waitForDisplayed(20000);
+    $('#dashboardDeleteCancelBtn').waitForDisplayed(30000);
     $('#dashboardDeleteCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardDeleteCancelBtn');
   }
 
   public get dashboardCopySaveBtn() {
-    $('#dashboardCopySaveBtn').waitForDisplayed(20000);
+    $('#dashboardCopySaveBtn').waitForDisplayed(30000);
     $('#dashboardCopySaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardCopySaveBtn');
   }
 
   public get dashboardCopySaveCancelBtn() {
-    $('#dashboardCopySaveCancelBtn').waitForDisplayed(20000);
+    $('#dashboardCopySaveCancelBtn').waitForDisplayed(30000);
     $('#dashboardCopySaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardCopySaveCancelBtn');
   }
 
   createDashboard() {
     this.dashboardCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardName.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardName.addValue(dashboardName);
     // Select survey
     const surveySearchField = dashboardsPage.getSurveysSearchField();
     surveySearchField.addValue(configName);
     const surveyListChoices = dashboardsPage.getSurveyListOfChoices();
     const surveyChoice = surveyListChoices[0];
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     surveyChoice.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardCreateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   createDashboard_Cancels() {
     this.dashboardCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardCreateCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   deleteDashboard(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardDeleteSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   deleteDashboard_Cancels(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardDeleteCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   copyDashboard(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardCopySaveBtn.click();
     browser.pause(15000);
   }
 
   copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardCopySaveCancelBtn.click();
     browser.pause(15000);
   }
 
   public getSurveysSearchField() {
-    $('#selectSurveyCreate .ng-input > input').waitForDisplayed(20000);
+    $('#selectSurveyCreate .ng-input > input').waitForDisplayed(30000);
     $('#selectSurveyCreate .ng-input > input').waitForClickable({timeout: 20000});
     return $('#selectSurveyCreate .ng-input > input');
   }

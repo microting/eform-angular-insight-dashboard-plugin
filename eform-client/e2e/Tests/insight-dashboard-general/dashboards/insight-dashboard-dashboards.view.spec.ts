@@ -17,8 +17,8 @@ describe('Insight Dashboard - Dashboards - View', function () {
     dashboardEditPage.createFirstItem();
     dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     dashboardsViewPage.compareItem(dashboardsViewPage.rowNum);
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   });
 });

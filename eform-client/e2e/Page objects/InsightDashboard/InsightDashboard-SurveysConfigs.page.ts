@@ -12,31 +12,31 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public get surveyConfigCreateBtn() {
-    $('#createSurveyConfigBtn').waitForDisplayed(20000);
+    $('#createSurveyConfigBtn').waitForDisplayed(30000);
     $('#createSurveyConfigBtn').waitForClickable({timeout: 20000});
     return $('#createSurveyConfigBtn');
   }
 
   public get surveyConfigCreateSaveBtn() {
-    $('#surveyConfigCreateSaveBtn').waitForDisplayed(20000);
+    $('#surveyConfigCreateSaveBtn').waitForDisplayed(30000);
     $('#surveyConfigCreateSaveBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigCreateSaveBtn');
   }
 
   public get surveyConfigCreateCancelBtn() {
-    $('#surveyConfigCreateSaveCancelBtn').waitForDisplayed(20000);
+    $('#surveyConfigCreateSaveCancelBtn').waitForDisplayed(30000);
     $('#surveyConfigCreateSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigCreateSaveCancelBtn');
   }
 
   public get surveyConfigEditSaveBtn() {
-    $('#surveyConfigEditSaveBtn').waitForDisplayed(20000);
+    $('#surveyConfigEditSaveBtn').waitForDisplayed(30000);
     $('#surveyConfigEditSaveBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigEditSaveBtn');
   }
 
   public get surveyConfigEditCancelBtn() {
-    $('#surveyConfigEditSaveCancelBtn').waitForDisplayed(20000);
+    $('#surveyConfigEditSaveCancelBtn').waitForDisplayed(30000);
     $('#surveyConfigEditSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigEditSaveCancelBtn');
   }
@@ -50,59 +50,59 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public get surveyConfigDeleteSaveBtn() {
-    $('#surveyConfigDeleteSaveBtn').waitForDisplayed(20000);
+    $('#surveyConfigDeleteSaveBtn').waitForDisplayed(30000);
     $('#surveyConfigDeleteSaveBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigDeleteSaveBtn');
   }
 
   public get surveyConfigDeleteCancelBtn() {
-    $('#surveyConfigDeleteCancelBtn').waitForDisplayed(20000);
+    $('#surveyConfigDeleteCancelBtn').waitForDisplayed(30000);
     $('#surveyConfigDeleteCancelBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigDeleteCancelBtn');
   }
 
   public get installationDeleteCancelBtn() {
-    $('#surveyConfigDeleteCancelBtn').waitForDisplayed(20000);
+    $('#surveyConfigDeleteCancelBtn').waitForDisplayed(30000);
     $('#surveyConfigDeleteCancelBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigDeleteCancelBtn');
   }
 
   createSurveyConfig(configName: string) {
     this.surveyConfigCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     const searchField = surveyConfigsPage.getSurveysSearchField();
     searchField.addValue(configName);
     const listChoices = surveyConfigsPage.getSurveyListOfChoices();
     const choice = listChoices[0];
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     choice.click();
     browser.pause(1000);
     this.surveyConfigCreateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   createSurveyConfig_Cancels() {
     this.surveyConfigCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.surveyConfigCreateCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
     rowObject.editSurveyConfigBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.surveyConfigLocationEditCheckbox(1).click();
     this.surveyConfigLocationEditCheckbox(2).click();
     browser.pause(1000);
     this.surveyConfigEditSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     rowObject.editSurveyConfigBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.surveyConfigEditCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
 
@@ -110,14 +110,14 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     rowObject.surveyConfigDeleteBtn.click();
     browser.pause(1000);
     this.surveyConfigDeleteSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     rowObject.surveyConfigDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     this.surveyConfigDeleteCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   activateSurveyConfig() {
@@ -137,7 +137,7 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public getSurveysSearchField() {
-    $('#selectSurveyCreate .ng-input > input').waitForDisplayed(20000);
+    $('#selectSurveyCreate .ng-input > input').waitForDisplayed(30000);
     $('#selectSurveyCreate .ng-input > input').waitForClickable({timeout: 20000});
     return $('#selectSurveyCreate .ng-input > input');
   }
@@ -147,10 +147,12 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   getFirstRowObject(): SurveysConfigPageRowObject {
+    browser.pause(500);
     return new SurveysConfigPageRowObject(1);
   }
 
   getSurveyConfig(num): SurveysConfigPageRowObject {
+    browser.pause(500);
     return new SurveysConfigPageRowObject(num);
   }
 }

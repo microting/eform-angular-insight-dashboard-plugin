@@ -41,7 +41,7 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     dashboardEditPage.copyItem(item);
     expect(itemNumsBeforeCopyItem).equal(dashboardEditPage.rowNum - 1);
     loginPage.open('/');
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   });
   it('should save filled item', function () {
     const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
@@ -50,7 +50,7 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     dashboardEditPage.dashboardUpdateSaveBtn.click();
     browser.pause(10000);
     dashboardsViewPage.returnToDashboards.click();
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     const dashboardRowNum = dashboardsPage.rowNum;
     const createdDashboard = dashboardsPage.getDashboard(dashboardRowNum);
     createdDashboard.dashboardEditBtn.click();

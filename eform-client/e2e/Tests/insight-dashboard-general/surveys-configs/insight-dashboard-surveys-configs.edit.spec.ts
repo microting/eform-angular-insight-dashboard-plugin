@@ -13,7 +13,7 @@ describe('Insight Dashboard - Survey Configs - Edit', function () {
   it('Should not update survey config', function () {
     const surveyConfig = surveyConfigsPage.getSurveyConfig(surveyConfigsPage.rowNum);
     const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     $('#createSurveyConfigBtn').waitForDisplayed(30000);
     surveyConfigsPage.updateSurveyConfig_Cancels(surveyConfig);
     const locationsAfterUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
@@ -22,7 +22,7 @@ describe('Insight Dashboard - Survey Configs - Edit', function () {
   it('Should update survey config', function () {
     const surveyConfig = surveyConfigsPage.getSurveyConfig(surveyConfigsPage.rowNum);
     const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     $('#createSurveyConfigBtn').waitForDisplayed(30000);
     surveyConfigsPage.updateSurveyConfig(surveyConfig);
     const locationsAfterUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;

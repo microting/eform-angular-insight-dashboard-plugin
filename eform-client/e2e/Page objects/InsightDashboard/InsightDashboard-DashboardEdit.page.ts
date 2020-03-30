@@ -18,25 +18,25 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public get initialItemCreateBtn() {
-    $('#initialItemCreateBtn').waitForDisplayed(20000);
+    $('#initialItemCreateBtn').waitForDisplayed(30000);
     $('#initialItemCreateBtn').waitForClickable({timeout: 20000});
     return $('#initialItemCreateBtn');
   }
 
   public get dashboardUpdateSaveBtn() {
-    $('#dashboardUpdateSaveBtn').waitForDisplayed(20000);
+    $('#dashboardUpdateSaveBtn').waitForDisplayed(30000);
     $('#dashboardUpdateSaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardUpdateSaveBtn');
   }
 
   public get dashboardUpdateSaveCancelBtn() {
-    $('#dashboardUpdateSaveCancelBtn').waitForDisplayed(20000);
+    $('#dashboardUpdateSaveCancelBtn').waitForDisplayed(30000);
     $('#dashboardUpdateSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardUpdateSaveCancelBtn');
   }
 
   public get dashboardName() {
-    $('#dashboardNameCreate').waitForDisplayed(20000);
+    $('#dashboardNameCreate').waitForDisplayed(30000);
     $('#dashboardNameCreate').waitForClickable({timeout: 20000});
     return $('#dashboardNameCreate');
   }
@@ -99,7 +99,7 @@ export class InsightDashboardDashboardEditPage extends Page {
 
 
   public getLocationTagSearchField() {
-    $('#selectLocationTag .ng-input > input').waitForDisplayed(20000);
+    $('#selectLocationTag .ng-input > input').waitForDisplayed(30000);
     $('#selectLocationTag .ng-input > input').waitForClickable({timeout: 20000});
     return $('#selectLocationTag .ng-input > input');
   }
@@ -109,68 +109,68 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   selectFirstLocation() {
-    pause(3000);
-    const locationSearchField = this.getLocationTagSearchField();
+
+    $('#spinner-animation').waitForDisplayed(30000, true);    const locationSearchField = this.getLocationTagSearchField();
     locationSearchField.addValue(locationName);
     const locationListChoices = this.getLocationTagListOfChoices();
     const locationChoice = locationListChoices[0];
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     locationChoice.click();
-    pause(3000);
-  }
+
+    $('#spinner-animation').waitForDisplayed(30000, true);  }
 
   createFirstItem() {
     this.selectFirstLocation();
     this.initialItemCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   createItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   deleteItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   copyItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   fillItem(rowNum: number) {
     // Select first question
     this.firstQuestionSearchField(rowNum).addValue(firstQuestion);
     const firstQuestionChoice = this.firstQuestionListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     firstQuestionChoice.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     // Select filter question
     this.filterQuestionSearchField(rowNum).addValue(filterQuestion);
     const filterQuestionChoice = this.filterQuestionListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     filterQuestionChoice.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     // Select filter answer
     this.filterAnswerSearchField(rowNum).addValue(filterAnswer);
     const filterAnswerChoice = this.filterAnswerListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     filterAnswerChoice.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     // Select period
     this.periodSearchField(rowNum).addValue(period);
     const periodChoice = this.periodListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     periodChoice.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     // Select chart type
     this.chartTypeSearchField(rowNum).addValue(chartType);
     const chartTypeChoice = this.chartTypeListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     chartTypeChoice.click();
-    $('#spinner-animation').waitForDisplayed(20000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   getFirstItemObject(): DashboardsEditItemObject {

@@ -23,7 +23,7 @@ describe('Insight Dashboard - Survey Config - Delete', function () {
     surveyConfigsPage.deleteSurveyConfig(surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
     const rowsAfterDelete = surveyConfigsPage.rowNum;
     expect(rowsAfterDelete).equal(rowNumsBeforeDelete - 1);
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     loginPage.open('/');
   });
 });

@@ -13,7 +13,7 @@ describe('Insight Dashboard - Dashboards - Copy', function () {
   });
   it('should not copy dashboard', function () {
     const rowNumsBeforeDelete = dashboardsPage.rowNum;
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     $('#createDashboardBtn').waitForDisplayed(10000);
     dashboardsPage.copyDashboard_Cancel(dashboardsPage.getDashboard(rowNumsBeforeDelete));
     expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum);
@@ -24,7 +24,7 @@ describe('Insight Dashboard - Dashboards - Copy', function () {
     dashboardsPage.copyDashboard(dashboardsPage.getDashboard(rowNumsBeforeCopy));
     insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeCopy).equal(dashboardsPage.rowNum - 1);
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     loginPage.open('/');
   });
 });

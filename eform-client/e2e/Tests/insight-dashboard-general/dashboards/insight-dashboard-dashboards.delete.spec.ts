@@ -13,7 +13,7 @@ describe('Insight Dashboard - Dashboards - Delete', function () {
   });
   it('should not delete dashboard', function () {
     const rowNumsBeforeDelete = dashboardsPage.rowNum;
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     $('#createDashboardBtn').waitForDisplayed(10000);
     dashboardsPage.deleteDashboard_Cancels(dashboardsPage.getDashboard(rowNumsBeforeDelete));
     expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum);
@@ -24,7 +24,7 @@ describe('Insight Dashboard - Dashboards - Delete', function () {
     dashboardsPage.deleteDashboard(dashboardsPage.getDashboard(rowNumsBeforeDelete));
     insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum + 1);
-    $('#spinner-animation').waitForDisplayed(90000, true);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     loginPage.open('/');
   });
 });

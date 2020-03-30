@@ -39,6 +39,6 @@ describe('Application settings page - site header section', function () {
     expect(pluginToFind.id).equal(1);
     expect(pluginToFind.name).equal('Microting Insight Dashboard Plugin');
     expect(pluginToFind.version).equal('1.0.0.0');
-    $(`//*[contains(text(), 'Insight Instrumentbræt')]`).waitForDisplayed(20000);
+    $(`//*[contains(text(), 'Insight Instrumentbræt')]`).waitForDisplayed(30000);
   });
 });
