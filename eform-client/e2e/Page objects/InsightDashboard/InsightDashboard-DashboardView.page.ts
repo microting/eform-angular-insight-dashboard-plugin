@@ -24,23 +24,23 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   public firstQuestion(rowNum: number) {
-    return browser.element(`#firstQuestion${rowNum}`);
+    return $(`#firstQuestion${rowNum}`);
   }
 
   public filterQuestion(rowNum: number) {
-    return browser.element(`#filterQuestion${rowNum}`);
+    return $(`#filterQuestion${rowNum}`);
   }
 
   public filterAnswer(rowNum: number) {
-    return browser.element(`#filterAnswer${rowNum}`);
+    return $(`#filterAnswer${rowNum}`);
   }
 
   public period(rowNum: number) {
-    return browser.element(`#period${rowNum}`);
+    return $(`#period${rowNum}`);
   }
 
   public chartType(rowNum: number) {
-    return browser.element(`#chartType${rowNum}`);
+    return $(`#chartType${rowNum}`);
   }
 
   compareItem(rowNum: number) {

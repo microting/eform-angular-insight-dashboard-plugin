@@ -42,59 +42,59 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public firstQuestionSearchField(rowNum: number) {
-    return browser.element(`#editFirstQuestion${rowNum} .ng-input > input`);
+    return $(`#editFirstQuestion${rowNum} .ng-input > input`);
   }
 
   public firstQuestionListOfOptions(rowNum: number) {
-    return browser.$$(`#editFirstQuestion${rowNum} .ng-option`);
+    return $$(`#editFirstQuestion${rowNum} .ng-option`);
   }
 
   public filterQuestion(rowNum: number) {
-    return browser.element(`#editFilterQuestion${rowNum}`);
+    return $(`#editFilterQuestion${rowNum}`);
   }
 
   public filterQuestionSearchField(rowNum: number) {
-    return browser.element(`#editFilterQuestion${rowNum} .ng-input > input`);
+    return $(`#editFilterQuestion${rowNum} .ng-input > input`);
   }
 
   public filterQuestionListOfOptions(rowNum: number) {
-    return browser.$$(`#editFilterQuestion${rowNum} .ng-option`);
+    return $$(`#editFilterQuestion${rowNum} .ng-option`);
   }
 
   public filterAnswer(rowNum: number) {
-    return browser.element(`#editFilterAnswer${rowNum}`);
+    return $(`#editFilterAnswer${rowNum}`);
   }
 
   public filterAnswerSearchField(rowNum: number) {
-    return browser.element(`#editFilterAnswer${rowNum} .ng-input > input`);
+    return $(`#editFilterAnswer${rowNum} .ng-input > input`);
   }
 
   public filterAnswerListOfOptions(rowNum: number) {
-    return browser.$$(`#editFilterAnswer${rowNum} .ng-option`);
+    return $$(`#editFilterAnswer${rowNum} .ng-option`);
   }
 
   public period(rowNum: number) {
-    return browser.element(`#editPeriod${rowNum}`);
+    return $(`#editPeriod${rowNum}`);
   }
 
   public periodSearchField(rowNum: number) {
-    return browser.element(`#editPeriod${rowNum} .ng-input > input`);
+    return $(`#editPeriod${rowNum} .ng-input > input`);
   }
 
   public periodListOfOptions(rowNum: number) {
-    return browser.$$(`#editPeriod${rowNum} .ng-option`);
+    return $$(`#editPeriod${rowNum} .ng-option`);
   }
 
   public chartType(rowNum: number) {
-    return browser.element(`#editChartType${rowNum}`);
+    return $(`#editChartType${rowNum}`);
   }
 
   public chartTypeSearchField(rowNum: number) {
-    return browser.element(`#editChartType${rowNum} .ng-input > input`);
+    return $(`#editChartType${rowNum} .ng-input > input`);
   }
 
   public chartTypeListOfOptions(rowNum: number) {
-    return browser.$$(`#editChartType${rowNum} .ng-option`);
+    return $$(`#editChartType${rowNum} .ng-option`);
   }
 
 
@@ -105,72 +105,72 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public getLocationTagListOfChoices() {
-    return browser.$$('#selectLocationTag .ng-option');
+    return $$('#selectLocationTag .ng-option');
   }
 
   selectFirstLocation() {
-    browser.pause(3000);
+    pause(3000);
     const locationSearchField = this.getLocationTagSearchField();
     locationSearchField.addValue(locationName);
     const locationListChoices = this.getLocationTagListOfChoices();
     const locationChoice = locationListChoices[0];
     $('#spinner-animation').waitForDisplayed(90000, true);
     locationChoice.click();
-    browser.pause(3000);
+    pause(3000);
   }
 
   createFirstItem() {
     this.selectFirstLocation();
     this.initialItemCreateBtn.click();
-    browser.pause(4000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
   }
 
   createItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemCreateBtn.click();
-    browser.pause(4000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
   }
 
   deleteItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemDeleteBtn.click();
-    browser.pause(4000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
   }
 
   copyItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemCopyBtn.click();
-    browser.pause(4000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
   }
 
   fillItem(rowNum: number) {
     // Select first question
     this.firstQuestionSearchField(rowNum).addValue(firstQuestion);
     const firstQuestionChoice = this.firstQuestionListOfOptions(rowNum)[0];
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     firstQuestionChoice.click();
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     // Select filter question
     this.filterQuestionSearchField(rowNum).addValue(filterQuestion);
     const filterQuestionChoice = this.filterQuestionListOfOptions(rowNum)[0];
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     filterQuestionChoice.click();
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     // Select filter answer
     this.filterAnswerSearchField(rowNum).addValue(filterAnswer);
     const filterAnswerChoice = this.filterAnswerListOfOptions(rowNum)[0];
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     filterAnswerChoice.click();
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     // Select period
     this.periodSearchField(rowNum).addValue(period);
     const periodChoice = this.periodListOfOptions(rowNum)[0];
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     periodChoice.click();
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     // Select chart type
     this.chartTypeSearchField(rowNum).addValue(chartType);
     const chartTypeChoice = this.chartTypeListOfOptions(rowNum)[0];
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     chartTypeChoice.click();
-    browser.pause(4000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
   }
 
   getFirstItemObject(): DashboardsEditItemObject {

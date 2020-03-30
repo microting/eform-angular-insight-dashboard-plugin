@@ -82,7 +82,7 @@ export class InsightDashboardDashboardsPage extends Page {
     this.dashboardCreateBtn.click();
     $('#spinner-animation').waitForDisplayed(90000, true);
     this.dashboardName.click();
-    browser.pause(1000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     this.dashboardName.addValue(dashboardName);
     // Select survey
     const surveySearchField = dashboardsPage.getSurveysSearchField();
@@ -91,7 +91,7 @@ export class InsightDashboardDashboardsPage extends Page {
     const surveyChoice = surveyListChoices[0];
     $('#spinner-animation').waitForDisplayed(90000, true);
     surveyChoice.click();
-    browser.pause(1000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     this.dashboardCreateSaveBtn.click();
     $('#spinner-animation').waitForDisplayed(90000, true);
   }
@@ -105,7 +105,7 @@ export class InsightDashboardDashboardsPage extends Page {
 
   deleteDashboard(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardDeleteBtn.click();
-    browser.pause(1000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     this.dashboardDeleteSaveBtn.click();
     $('#spinner-animation').waitForDisplayed(90000, true);
   }
@@ -119,14 +119,14 @@ export class InsightDashboardDashboardsPage extends Page {
 
   copyDashboard(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardCopyBtn.click();
-    browser.pause(5000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     this.dashboardCopySaveBtn.click();
     browser.pause(15000);
   }
 
   copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardCopyBtn.click();
-    browser.pause(5000);
+    $('#spinner-animation').waitForDisplayed(20000, true);
     this.dashboardCopySaveCancelBtn.click();
     browser.pause(15000);
   }
@@ -138,7 +138,7 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   public getSurveyListOfChoices() {
-    return browser.$$('#selectSurveyCreate .ng-option');
+    return $$('#selectSurveyCreate .ng-option');
   }
 
   getFirstRowObject(): DashboardsPageRowObject {
