@@ -1067,9 +1067,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     {
                                         var rawDataList = new List<DashboardViewChartRawDataValuesModel>();
 
+                                        // Get element with max rows
+                                        var maxObject = dataMultiStackedModel.Series
+                                            .OrderByDescending(item => item.Series.Count)
+                                            .First();
+
                                         // Get row names
-                                        var firstElement = dataMultiStackedModel.Series.FirstOrDefault();
-                                        foreach (var singleModel in firstElement.Series)
+                                        foreach (var singleModel in maxObject.Series)
                                         {
                                             var rawDataValuesModel = new DashboardViewChartRawDataValuesModel
                                             {
