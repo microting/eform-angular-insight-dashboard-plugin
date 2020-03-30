@@ -9,3 +9,17 @@ cp -av Documents/workspace/microting/eform-angular-frontend/eform-client/src/app
 rm -fR Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn
 
 cp -av Documents/workspace/microting/eform-angular-frontend/eFormAPI/Plugins/InsightDashboard.Pn Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn
+
+# Test files rm
+
+rm -fR Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-settings
+rm -fR Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-general 
+rm -fR Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/e2e/Page\ objects/InsightDashboard
+rm -fR Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2.conf.js
+
+# Test files cp
+
+cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-settings Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-settings
+cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-general Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-general 
+cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/e2e/Page\ objects/InsightDashboard Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/e2e/Page\ objects/InsightDashboard
+cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2.conf.js Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2.conf.js
