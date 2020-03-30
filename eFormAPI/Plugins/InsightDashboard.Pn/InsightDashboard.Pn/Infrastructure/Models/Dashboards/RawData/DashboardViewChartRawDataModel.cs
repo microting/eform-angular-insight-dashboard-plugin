@@ -25,9 +25,14 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards.RawData
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Table (Location)
+    /// </summary>
     public class DashboardViewChartRawDataModel
     {
-        public List<string> RawHeaders { get; set; }
+        public string RawValueName { get; set; } // Location name
+
+        public List<string> RawHeaders { get; set; } // Year month week
             = new List<string>();
 
         public List<DashboardViewChartRawDataValuesModel> RawDataValues { get; set; }

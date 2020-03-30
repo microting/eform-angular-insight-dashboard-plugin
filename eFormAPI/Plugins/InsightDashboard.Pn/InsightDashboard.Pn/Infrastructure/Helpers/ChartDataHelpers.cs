@@ -35,6 +35,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Enums;
     using Models.Dashboards;
+    using Models.Dashboards.RawData;
     using Services.Common.InsightDashboardLocalizationService;
 
     public static class ChartDataHelpers
@@ -332,6 +333,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 {
                     var multiData = new List<DashboardViewChartDataMultiModel>();
                     var multiStackedData = new List<DashboardViewChartDataMultiStackedModel>();
+                    var rawData = new List<DashboardViewChartRawDataModel>();
                     switch (dashboardItem.Period)
                     {
                         case DashboardPeriodUnits.Week:
@@ -355,6 +357,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         Name = isSmiley
                                                             ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
                                                             : i.Key,
+                                                        DataCount = i.Count(),
                                                         Value = GetDataPercentage(i.Count(), y.Count()),
                                                     })
                                                     .ToList(),
@@ -1045,6 +1048,60 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     newLineData.Add(model);
                                 }
 
+                                // convert
+                                foreach (var dataMultiStackedModel in multiStackedData)
+                                {
+                                    var chartRawDataModel = new DashboardViewChartRawDataModel
+                                    {
+                                        RawValueName = dataMultiStackedModel.Name, // Location
+                                    };
+
+                                    // Headers
+                                    foreach (var dataMultiModel in dataMultiStackedModel.Series)
+                                    {
+                                        chartRawDataModel.RawHeaders.Add(dataMultiModel.Name); // Year name
+                                    }
+
+                                    // Rows
+                                    if (dataMultiStackedModel.Series.Any())
+                                    {
+                                        var rawDataList = new List<DashboardViewChartRawDataValuesModel>();
+
+                                        // Get row names
+                                        var firstElement = dataMultiStackedModel.Series.FirstOrDefault();
+                                        foreach (var singleModel in firstElement.Series)
+                                        {
+                                            var rawDataValuesModel = new DashboardViewChartRawDataValuesModel
+                                            {
+                                                ValueName = singleModel.Name,
+                                                Percents = new decimal[dataMultiStackedModel.Series.Count],
+                                                Amounts = new decimal[dataMultiStackedModel.Series.Count],
+                                            };
+
+                                            rawDataList.Add(rawDataValuesModel);
+                                        }
+
+                                        // by week
+                                        for (var i = 0; i < dataMultiStackedModel.Series.Count; i++)
+                                        {
+                                            var dataMultiModel = dataMultiStackedModel.Series[i];
+                                            
+                                            // by Item
+                                            for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                                            {
+                                                var dataSingleModel = dataMultiModel.Series[y];
+                                                rawDataList[y].Percents[i] = (decimal) dataSingleModel.Value;
+                                                rawDataList[y].Amounts[i] = (decimal) dataSingleModel.DataCount;
+                                            }
+                                        }
+
+                                        chartRawDataModel.RawDataValues = rawDataList;
+                                    }
+
+                                    rawData.Add(chartRawDataModel);
+                                }
+
+                                dashboardItemModel.ChartData.RawData.AddRange(rawData);
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(newLineData);
                             }
                             else

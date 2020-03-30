@@ -25,12 +25,13 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards.RawData
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Chart Raw data Row
+    /// </summary>
     public class DashboardViewChartRawDataValuesModel
     {
-        public List<DashboardViewChartRawDataValueModel> Percents { get; set; }
-            = new List<DashboardViewChartRawDataValueModel>();
-
-        public List<DashboardViewChartRawDataValueModel> Amounts { get; set; }
-            = new List<DashboardViewChartRawDataValueModel>();
+        public string ValueName { get; set; } // 25 50 75 100
+        public decimal[] Percents { get; set; }
+        public decimal[] Amounts { get; set; }
     }
 }
