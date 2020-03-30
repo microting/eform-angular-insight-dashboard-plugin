@@ -40,7 +40,6 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     const item = dashboardEditPage.getDashboardItem(itemNumsBeforeCopyItem);
     dashboardEditPage.copyItem(item);
     expect(itemNumsBeforeCopyItem).equal(dashboardEditPage.rowNum - 1);
-    loginPage.open('/');
     $('#spinner-animation').waitForDisplayed(30000, true);
   });
   it('should save filled item', function () {

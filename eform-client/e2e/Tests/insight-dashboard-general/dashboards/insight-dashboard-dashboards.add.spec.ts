@@ -19,7 +19,6 @@ describe('Insight Dashboard - Dashboards - Add', function () {
     const dashboard = dashboardsPage.getDashboard(dashboardCountAfterCreate);
     expect(dashboard.dashboardName).equal(dashboardName);
     $('#spinner-animation').waitForDisplayed(30000, true);
-    loginPage.open('/');
   });
   it('should not create dashboard', function () {
     const rowNumsBeforeCreate = dashboardsPage.rowNum;

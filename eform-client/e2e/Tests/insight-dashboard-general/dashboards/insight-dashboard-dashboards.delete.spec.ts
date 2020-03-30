@@ -25,6 +25,5 @@ describe('Insight Dashboard - Dashboards - Delete', function () {
     insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum + 1);
     $('#spinner-animation').waitForDisplayed(30000, true);
-    loginPage.open('/');
   });
 });

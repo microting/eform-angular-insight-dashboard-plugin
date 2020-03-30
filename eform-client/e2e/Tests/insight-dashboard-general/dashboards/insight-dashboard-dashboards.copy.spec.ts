@@ -25,6 +25,5 @@ describe('Insight Dashboard - Dashboards - Copy', function () {
     insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeCopy).equal(dashboardsPage.rowNum - 1);
     $('#spinner-animation').waitForDisplayed(30000, true);
-    loginPage.open('/');
   });
 });
