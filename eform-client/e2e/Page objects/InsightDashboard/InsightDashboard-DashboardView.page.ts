@@ -14,6 +14,7 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   public get rowNum(): number {
+    browser.pause(500);
     return $$('#dashboardViewItem').length;
   }
 

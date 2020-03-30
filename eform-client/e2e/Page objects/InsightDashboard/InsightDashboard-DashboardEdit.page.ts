@@ -14,6 +14,7 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public get rowNum(): number {
+    browser.pause(500);
     return $$('#dashboardItem').length;
   }
 
@@ -105,7 +106,10 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public getLocationTagListOfChoices() {
-    return $$('#selectLocationTag .ng-option');
+    const ele = $$('#selectLocationTag .ng-option');
+    ele[0].waitForDisplayed(30000);
+    ele[0].waitForClickable({timeout: 30000});
+    return ele;
   }
 
   selectFirstLocation() {

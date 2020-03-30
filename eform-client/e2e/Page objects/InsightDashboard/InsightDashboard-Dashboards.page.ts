@@ -9,6 +9,7 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   public get rowNum(): number {
+    browser.pause(500);
     return $$('#tableBody > tr').length;
   }
 
@@ -121,14 +122,14 @@ export class InsightDashboardDashboardsPage extends Page {
     rowObject.dashboardCopyBtn.click();
     $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardCopySaveBtn.click();
-    browser.pause(15000);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardCopyBtn.click();
     $('#spinner-animation').waitForDisplayed(30000, true);
     this.dashboardCopySaveCancelBtn.click();
-    browser.pause(15000);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   }
 
   public getSurveysSearchField() {
@@ -146,6 +147,7 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   getDashboard(num): DashboardsPageRowObject {
+    browser.pause(500);
     return new DashboardsPageRowObject(num);
   }
 }

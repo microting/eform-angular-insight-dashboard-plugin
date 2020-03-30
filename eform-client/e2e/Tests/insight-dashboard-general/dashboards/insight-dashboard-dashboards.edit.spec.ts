@@ -19,7 +19,7 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     expect(itemNumsBeforeInitialItem).equal(dashboardEditPage.rowNum - 1);
   });
   it('should delete item', function () {
-    browser.pause(4000);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     const itemNumsBeforeRemoveItem = dashboardEditPage.rowNum;
     const item = dashboardEditPage.getDashboardItem(itemNumsBeforeRemoveItem);
     dashboardEditPage.deleteItem(item);
@@ -29,7 +29,7 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     const itemNumsBeforeInitialItem = dashboardEditPage.rowNum;
     dashboardEditPage.createFirstItem();
     expect(itemNumsBeforeInitialItem).equal(dashboardEditPage.rowNum - 1);
-    browser.pause(2000);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
     const item = dashboardEditPage.getDashboardItem(itemNumsBeforeCreateItem);
     dashboardEditPage.createItem(item);
@@ -43,20 +43,22 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     $('#spinner-animation').waitForDisplayed(30000, true);
   });
   it('should save filled item', function () {
+    insightDashboardPage.goToDashboards();
+    dashboardsPage.createDashboard();
     const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
     dashboardEditPage.createFirstItem();
     dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
-    browser.pause(10000);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     dashboardsViewPage.returnToDashboards.click();
     $('#spinner-animation').waitForDisplayed(30000, true);
     const dashboardRowNum = dashboardsPage.rowNum;
     const createdDashboard = dashboardsPage.getDashboard(dashboardRowNum);
     createdDashboard.dashboardEditBtn.click();
-    browser.pause(5000);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     expect(itemNumsBeforeCreateItem).equal(dashboardEditPage.rowNum - 1);
-    browser.pause(5000);
+    $('#spinner-animation').waitForDisplayed(30000, true);
     dashboardEditPage.dashboardUpdateSaveCancelBtn.click();
-    browser.pause(10000);
+    $('#spinner-animation').waitForDisplayed(30000, true);
   });
 });

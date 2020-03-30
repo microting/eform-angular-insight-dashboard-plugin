@@ -8,6 +8,7 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public get rowNum(): number {
+    browser.pause(500);
     return $$('#tableBody > tr').length;
   }
 
@@ -42,11 +43,17 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   private surveyConfigLocationEditCheckbox(num: number) {
-    return $(`#checkboxEdit${num}`);
+    const ele =  $(`#checkboxEdit${num}`);
+    ele.waitForDisplayed(30000);
+    ele.waitForClickable({timeout: 30000});
+    return ele;
   }
 
   private surveyConfigLocationCreateCheckbox(num: number) {
-    return $(`#checkboxCreate${num}`);
+    const ele = $(`#checkboxCreate${num}`);
+    ele.waitForDisplayed(30000);
+    ele.waitForClickable({timeout: 30000});
+    return ele;
   }
 
   public get surveyConfigDeleteSaveBtn() {
@@ -143,7 +150,10 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public getSurveyListOfChoices() {
-    return $$('#selectSurveyCreate .ng-option');
+    const ele = $$('#selectSurveyCreate .ng-option');
+    ele[0].waitForDisplayed(30000);
+    ele[0].waitForClickable({timeout: 30000});
+    return ele;
   }
 
   getFirstRowObject(): SurveysConfigPageRowObject {
