@@ -5,7 +5,7 @@ export class InsightDashboardPage extends Page {
     super();
   }
   public InsightDashboardDropDown() {
-    browser.element(`//*[contains(@class, 'dropdown')]//*[contains(text(), 'Insight Instrumentbræt')]`).click();
+    $(`//*[contains(@class, 'dropdown')]//*[contains(text(), 'Insight Instrumentbræt')]`).click();
   }
   public get SurveysConfigsBtn() {
     $('#insight-dashboard-pn-surveys-configs').waitForDisplayed(20000);

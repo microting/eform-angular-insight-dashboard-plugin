@@ -43,11 +43,11 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   private surveyConfigLocationEditCheckbox(num: number) {
-    return browser.element(`#checkboxEdit${num}`);
+    return $(`#checkboxEdit${num}`);
   }
 
   private surveyConfigLocationCreateCheckbox(num: number) {
-    return browser.element(`#checkboxCreate${num}`);
+    return $(`#checkboxCreate${num}`);
   }
 
   public get surveyConfigDeleteSaveBtn() {

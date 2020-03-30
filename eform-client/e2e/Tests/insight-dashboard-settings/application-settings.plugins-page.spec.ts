@@ -13,8 +13,7 @@ describe('Application settings page - site header section', function () {
     loginPage.login();
     myEformsPage.Navbar.advancedDropdown();
     myEformsPage.Navbar.clickonSubMenuItem('Plugins');
-    browser.waitForExist('#plugin-name', 50000);
-    browser.pause(10000);
+    $('#plugin-name').waitForDisplayed(50000);
 
     const plugin = pluginsPage.getFirstPluginRowObj();
     expect(plugin.id).equal(1);
@@ -34,13 +33,12 @@ describe('Application settings page - site header section', function () {
     loginPage.login();
     myEformsPage.Navbar.advancedDropdown();
     myEformsPage.Navbar.clickonSubMenuItem('Plugins');
-    browser.waitForExist('#plugin-name', 50000);
-    browser.pause(10000);
+    $('#plugin-name').waitForDisplayed(50000);
 
     let pluginToFind = pluginsPage.getFirstPluginRowObj();
     expect(pluginToFind.id).equal(1);
     expect(pluginToFind.name).equal('Microting Insight Dashboard Plugin');
     expect(pluginToFind.version).equal('1.0.0.0');
-    expect(browser.element(`//*[contains(text(), 'Insight Instrumentbræt')]`).isExisting()).equal(true);
+    $(`//*[contains(text(), 'Insight Instrumentbræt')]`).waitForDisplayed(20000);
   });
 });
