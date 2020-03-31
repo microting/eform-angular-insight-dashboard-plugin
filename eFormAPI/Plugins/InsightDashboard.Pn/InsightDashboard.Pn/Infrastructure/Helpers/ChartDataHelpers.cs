@@ -299,26 +299,32 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 case "100":
                                     tmpData[0].Name = smileyLabels.Single(z => z.Key == 100).Value;
                                     tmpData[0].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[0].DataCount = dashboardViewChartDataSingleModel.DataCount;
                                     break;
                                 case "75":
                                     tmpData[1].Name = smileyLabels.Single(z => z.Key == 75).Value;
                                     tmpData[1].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[1].DataCount = dashboardViewChartDataSingleModel.DataCount;
                                     break;
                                 case "50":
                                     tmpData[2].Name = smileyLabels.Single(z => z.Key == 50).Value;
                                     tmpData[2].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[2].DataCount = dashboardViewChartDataSingleModel.DataCount;
                                     break;
                                 case "25":
                                     tmpData[3].Name = smileyLabels.Single(z => z.Key == 25).Value;
                                     tmpData[3].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[3].DataCount = dashboardViewChartDataSingleModel.DataCount;
                                     break;
                                 case "0":
                                     tmpData[4].Name = smileyLabels.Single(z => z.Key == 0).Value;
                                     tmpData[4].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[4].DataCount = dashboardViewChartDataSingleModel.DataCount;
                                     break;
                                 case "999":
                                     tmpData[5].Name = smileyLabels.Single(z => z.Key == 999).Value;
                                     tmpData[5].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[5].DataCount = dashboardViewChartDataSingleModel.DataCount;
                                     break;
                             }
                         }
