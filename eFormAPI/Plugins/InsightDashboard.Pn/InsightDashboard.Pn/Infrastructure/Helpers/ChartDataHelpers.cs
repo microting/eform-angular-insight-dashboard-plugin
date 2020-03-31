@@ -768,10 +768,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         if (dashboardItem.CalculateAverage)
                         {
                             // Sort by location position
-                            multiData =
-                                ChartHelpers.SortMultiDataLocationPosition(
-                                    multiData,
-                                    dashboardItem);
+                            if (isComparedData)
+                            {
+                                multiData =
+                                    ChartHelpers.SortMultiDataLocationPosition(
+                                        multiData,
+                                        dashboardItem);
+                            }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData, true);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
@@ -912,10 +915,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
 
                             // Sort by location position
-                            newLineData =
-                                ChartHelpers.SortMultiDataLocationPosition(
-                                    newLineData,
-                                    dashboardItem);
+                            if (isComparedData)
+                            {
+                                newLineData =
+                                    ChartHelpers.SortMultiDataLocationPosition(
+                                        newLineData,
+                                        dashboardItem);
+                            }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, true);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
@@ -996,10 +1002,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
 
                             // Sort by location position
-                            newLineData =
-                                ChartHelpers.SortMultiDataLocationPosition(
-                                    newLineData,
-                                    dashboardItem);
+                            if (isComparedData)
+                            {
+                                newLineData =
+                                    ChartHelpers.SortMultiDataLocationPosition(
+                                        newLineData,
+                                        dashboardItem);
+                            }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
@@ -1011,6 +1020,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 ChartHelpers.SortMultiStackedDataLocationPosition(
                                     multiStackedData,
                                     dashboardItem);
+
                             if (isSmiley)
                             {
                                 var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
