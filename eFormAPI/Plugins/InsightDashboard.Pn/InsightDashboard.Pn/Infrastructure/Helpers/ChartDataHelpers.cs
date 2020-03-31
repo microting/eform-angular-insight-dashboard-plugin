@@ -773,7 +773,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     multiData,
                                     dashboardItem);
 
-                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData, false);
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData, true);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(multiData);
                         }
