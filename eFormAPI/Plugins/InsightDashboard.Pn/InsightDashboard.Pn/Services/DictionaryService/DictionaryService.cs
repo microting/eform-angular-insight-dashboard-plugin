@@ -30,6 +30,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
     using System.Linq;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
+    using Infrastructure.Extensions;
     using Infrastructure.Models;
     using Infrastructure.Models.Dashboards;
     using Microsoft.EntityFrameworkCore;
@@ -138,7 +139,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             .Select(x => new QuestionDictionaryModel()
                             {
                                 Id = x.Id,
-                                Type = x.QuestionType,
+                                Type = x.GetQuestionType(),
                                 Name = x.QuestionTranslationses
                                     .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
                                     .Where(qt => qt.Language.Id == language.Id)

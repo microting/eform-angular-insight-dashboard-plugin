@@ -31,6 +31,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
+    using Infrastructure.Extensions;
     using Infrastructure.Helpers;
     using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Http;
@@ -920,7 +921,11 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
                                 .Where(x => x.Language.Id == language.Id)
-                                .Select(x => new {x.Name, x.Question.QuestionType})
+                                .Select(x => new
+                                {
+                                    x.Name,
+                                    x.Question.QuestionType,
+                                })
                                 .FirstOrDefaultAsync();
 
                             dashboardItemModel.FirstQuestionName = firstQuestion?.Name;
@@ -1106,7 +1111,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         if (question != null)
                         {
                             dashboardItemModel.IsFirstQuestionSmiley = question.IsSmiley();
-                            dashboardItemModel.FirstQuestionType = question.QuestionType;
+                            dashboardItemModel.FirstQuestionType = question.GetQuestionType();
                         }
                     }
                 }

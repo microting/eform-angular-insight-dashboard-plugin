@@ -863,6 +863,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     if (modelSeries.Name == series.Name)
                                                     {
                                                         modelSeries.Value = series.Value;
+                                                        modelSeries.DataCount = series.DataCount;
                                                     }
                                                 }
                                             }
