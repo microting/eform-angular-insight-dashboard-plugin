@@ -756,7 +756,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         if (dashboardItem.CalculateAverage)
                         {
-                            var rawData = ChartRawDataHelpers.ConvertMultiData(multiData);
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(multiData);
                         }
@@ -894,7 +894,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
-                            var rawData = ChartRawDataHelpers.ConvertMultiData(newLineData);
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
@@ -972,7 +972,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
-                            var rawData = ChartRawDataHelpers.ConvertMultiData(newLineData);
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
@@ -1086,6 +1086,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             // convert
                             var rawData = ChartRawDataHelpers.ConvertMultiStackedData(
+                                localizationService,
                                 dashboardItemModel.ChartData.MultiStacked);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                         }
