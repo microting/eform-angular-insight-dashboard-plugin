@@ -256,7 +256,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
 
                     // calculate total
-                    var lastRow = dataMultiModel.Series.Count + 1;
+                    var lastRow = dataMultiModel.Series.Count;
 
                     rawDataList[lastRow].Percents[i] = dataMultiModel.Series
                         .Where(x => x.Value != null)
