@@ -28,6 +28,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using Microting.eForm.Infrastructure.Constants;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Models.Dashboards;
 
@@ -39,6 +40,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
         {
             var result = new List<DashboardViewChartDataMultiStackedModel>();
             var locations = dashboardItem.CompareLocationsTags
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .Select(x => new { x.LocationId, x.Position })
                 .OrderBy(x => x.Position)
                 .ToArray();
@@ -62,6 +64,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
         {
             var result = new List<DashboardViewChartDataMultiModel>();
             var locations = dashboardItem.CompareLocationsTags
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .Select(x => new { x.LocationId, x.Position })
                 .OrderBy(x => x.Position)
                 .ToArray();
