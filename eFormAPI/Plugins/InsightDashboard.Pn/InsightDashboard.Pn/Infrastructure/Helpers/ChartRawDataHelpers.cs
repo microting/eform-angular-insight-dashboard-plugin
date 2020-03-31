@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2019 Microting A/S
@@ -97,7 +97,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         }
 
                         // calculate total
-                        var lastRow = dataMultiModel.Series.Count + 1;
+                        var lastRow = dataMultiModel.Series.Count;
 
                         rawDataList[lastRow].Percents[i] = dataMultiModel.Series
                             .Where(x => x.Value != null)
@@ -180,7 +180,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var dataSingleModel = dataMultiModel.Series[i];
 
                         rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
-                        rawDataList[i].Percents[y] = dataSingleModel.Value;
+                        rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
                     }
                 }
 
@@ -316,7 +316,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             }
 
             // calculate total
-            var lastRow = singleData.Count + 1;
+            var lastRow = singleData.Count;
 
             rawDataList[lastRow].Percents[0] = singleData
                 .Where(x => x.Value != null)
