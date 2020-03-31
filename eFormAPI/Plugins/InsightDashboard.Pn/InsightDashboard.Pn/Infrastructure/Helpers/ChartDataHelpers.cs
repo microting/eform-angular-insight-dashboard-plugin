@@ -793,7 +793,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                 newLineData.Add(multiItem);
                             }
-                            
+
                             foreach (var model in newLineData)
                             {
                                 foreach (var multiModel in lineData)
@@ -888,8 +888,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     }
                                 }
                             }
+                            dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
-                        dashboardItemModel.ChartData.Multi.AddRange(newLineData);
+                        else
+                        {
+                            dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                        }
                     }
                     else
                     {
@@ -911,9 +915,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     }
                                 }
                             }
-                            
-                            
-
 
                             foreach (var stackedModel in multiStackedData)
                             {
@@ -940,34 +941,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                 foreach (var modelSeries in stackedModel.Series)
                                 {
-                                    // var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};
                                     var innerModel = model.Series.Single(x => x.Name == modelSeries.Name);
-
-                                    // foreach (var modelSeries in model.Series)
-                                    // {
-                                    //     if (modelSeries.Name == series.Name)
-                                    //     {
-                                    //         modelSeries.Value = series.Value;
-                                    //     }
-                                    // }
-                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                    //         {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
-                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                    //         {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
-                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                    //         {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
-                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                    //         {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
-                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                    //         {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
-                                    // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                                    //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                    //         {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                     
                                     foreach (var innerSeries in modelSeries.Series)
                                     {
@@ -991,7 +965,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                         }
                     }
-
                 }
             }
         }
