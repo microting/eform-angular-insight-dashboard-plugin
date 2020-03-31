@@ -35,7 +35,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Enums;
     using Models.Dashboards;
-    using Models.Dashboards.RawData;
     using Services.Common.InsightDashboardLocalizationService;
 
     public static class ChartDataHelpers
@@ -292,7 +291,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             tmpData.Add(new DashboardViewChartDataSingleModel {Name = "0", Value = 0});
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                             tmpData.Add(new DashboardViewChartDataSingleModel {Name = "999", Value = 0});
-                        foreach (DashboardViewChartDataSingleModel dashboardViewChartDataSingleModel in groupedData)
+
+                        foreach (var dashboardViewChartDataSingleModel in groupedData)
                         {
                             switch (@dashboardViewChartDataSingleModel.Name)
                             {
@@ -328,13 +328,15 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                     // isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key
                     // dashboardItemModel.ChartData.Single.AddRange(groupedData);
+
+                    var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
+                    dashboardItemModel.ChartData.RawData.AddRange(rawData);
                     dashboardItemModel.ChartData.Single.AddRange(groupedData);
                 }
                 else
                 {
                     var multiData = new List<DashboardViewChartDataMultiModel>();
                     var multiStackedData = new List<DashboardViewChartDataMultiStackedModel>();
-                    var rawData = new List<DashboardViewChartRawDataModel>();
                     switch (dashboardItem.Period)
                     {
                         case DashboardPeriodUnits.Week:
@@ -754,6 +756,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         if (dashboardItem.CalculateAverage)
                         {
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(multiData);
+                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(multiData);
                         }
                         else
@@ -763,7 +767,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             {
                                 var multiItem = new DashboardViewChartDataMultiModel
                                 {
-                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line
+                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line,
                                 };
 
                                 foreach (var groupedItem in multiData)
@@ -778,6 +782,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = groupedItem.Name,
                                                 Value = item.Value,
+                                                DataCount = item.DataCount,
                                             };
                                             multiItem.Series.Add(singleItem);
                                         }
@@ -867,7 +872,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
                             else
                             {
-                                foreach (string lineName in lineNames)
+                                foreach (var lineName in lineNames)
                                 {
                                     var multiItem = new DashboardViewChartDataMultiModel
                                     {
@@ -888,6 +893,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(newLineData);
+                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
                     }
@@ -955,6 +962,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     if (modelSeries.Name == series.Name)
                                                     {
                                                         modelSeries.Value = series.Value;
+                                                        modelSeries.DataCount = series.DataCount;
                                                     }
                                                 }
                                             }
@@ -963,6 +971,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(newLineData);
+                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
                         else
@@ -1074,62 +1084,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
 
                             // convert
-                            foreach (var dataMultiStackedModel in dashboardItemModel.ChartData.MultiStacked)
-                            {
-                                var chartRawDataModel = new DashboardViewChartRawDataModel
-                                {
-                                    RawValueName = dataMultiStackedModel.Name, // Location
-                                };
-
-                                // Headers
-                                foreach (var dataMultiModel in dataMultiStackedModel.Series)
-                                {
-                                    chartRawDataModel.RawHeaders.Add(dataMultiModel.Name); // Year name
-                                }
-
-                                // Rows
-                                if (dataMultiStackedModel.Series.Any())
-                                {
-                                    var rawDataList = new List<DashboardViewChartRawDataValuesModel>();
-
-                                    // Get element with max rows
-                                    var maxObject = dataMultiStackedModel.Series
-                                        .OrderByDescending(item => item.Series.Count)
-                                        .First();
-
-                                    // Get row names
-                                    foreach (var singleModel in maxObject.Series)
-                                    {
-                                        var rawDataValuesModel = new DashboardViewChartRawDataValuesModel
-                                        {
-                                            ValueName = singleModel.Name,
-                                            Percents = new decimal[dataMultiStackedModel.Series.Count],
-                                            Amounts = new decimal[dataMultiStackedModel.Series.Count],
-                                        };
-
-                                        rawDataList.Add(rawDataValuesModel);
-                                    }
-
-                                    // by week
-                                    for (var i = 0; i < dataMultiStackedModel.Series.Count; i++)
-                                    {
-                                        var dataMultiModel = dataMultiStackedModel.Series[i];
-
-                                        // by Item
-                                        for (var y = 0; y < dataMultiModel.Series.Count; y++)
-                                        {
-                                            var dataSingleModel = dataMultiModel.Series[y];
-                                            rawDataList[y].Percents[i] = (decimal)dataSingleModel.Value;
-                                            rawDataList[y].Amounts[i] = dataSingleModel.DataCount;
-                                        }
-                                    }
-
-                                    chartRawDataModel.RawDataValues = rawDataList;
-                                }
-
-                                rawData.Add(chartRawDataModel);
-                            }
-
+                            var rawData = ChartRawDataHelpers.ConvertMultiStackedData(
+                                dashboardItemModel.ChartData.MultiStacked);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                         }
                     }
