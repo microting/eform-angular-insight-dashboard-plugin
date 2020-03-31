@@ -762,7 +762,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         if (dashboardItem.CalculateAverage)
                         {
-                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData);
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData, false);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(multiData);
                         }
@@ -900,7 +900,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
-                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData);
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, true);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
@@ -978,7 +978,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
-                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData);
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
