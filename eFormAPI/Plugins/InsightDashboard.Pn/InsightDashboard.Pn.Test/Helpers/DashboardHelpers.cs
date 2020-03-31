@@ -50,6 +50,12 @@ namespace InsightDashboard.Pn.Test.Helpers
             return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
         }
 
+        public static DashboardViewModel GetRawChartDataDashBoard()
+        {
+            var singleString = FileHelper.ReadFileFromResources("raw-chart-data");
+            return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
+        }
+
         public static DashboardItem GetDashboardItemFromModel(DashboardItemViewModel viewModel)
         {
             var rnd = new Random();
@@ -146,6 +152,9 @@ namespace InsightDashboard.Pn.Test.Helpers
             Assert.AreEqual(
                 originalItem.ChartData.MultiStacked.Count,
                 processedItem.ChartData.MultiStacked.Count);
+            Assert.AreEqual(
+                originalItem.ChartData.RawData.Count,
+                processedItem.ChartData.RawData.Count);
 
             // Single data
             for (var index = 0; index < originalItem.ChartData.Single.Count; index++)
@@ -198,6 +207,49 @@ namespace InsightDashboard.Pn.Test.Helpers
 
                         Assert.AreEqual(originalSeriesSeries.Name, processedSeriesSeries.Name);
                         Assert.AreEqual(originalSeriesSeries.Value, processedSeriesSeries.Value);
+                    }
+                }
+            }
+
+            // Raw chart data
+            for (var index = 0; index < originalItem.ChartData.RawData.Count; index++)
+            {
+                var dataOriginal = originalItem.ChartData.RawData[index];
+                var dataProcessed = processedItem.ChartData.RawData[index];
+
+                Assert.AreEqual(dataOriginal.RawValueName, dataProcessed.RawValueName);
+                Assert.AreEqual(dataOriginal.RawHeaders.Count, dataProcessed.RawHeaders.Count);
+
+                // Check table header
+                for (var i = 0; i < dataOriginal.RawHeaders.Count; i++)
+                {
+                    Assert.AreEqual(dataOriginal.RawHeaders[i], dataProcessed.RawHeaders[i]);
+                }
+
+                // Check table data
+                for (var i = 0; i < dataOriginal.RawDataValues.Count; i++)
+                {
+                    var originalSeries = dataOriginal.RawDataValues[i];
+                    var processedSeries = dataProcessed.RawDataValues[i];
+
+                    Assert.AreEqual(originalSeries.ValueName, processedSeries.ValueName);
+
+                    // Values
+                    for (var y = 0; y < originalSeries.Amounts.Length; y++)
+                    {
+                        var originalValue = originalSeries.Percents[y];
+                        var processedValue = processedSeries.Percents[y];
+
+                        Assert.AreEqual(originalValue, processedValue);
+                    }
+
+                    // Amounts
+                    for (var y = 0; y < originalSeries.Amounts.Length; y++)
+                    {
+                        var originalAmount = originalSeries.Amounts[y];
+                        var processedAmount = processedSeries.Amounts[y];
+
+                        Assert.AreEqual(originalAmount, processedAmount);
                     }
                 }
             }
