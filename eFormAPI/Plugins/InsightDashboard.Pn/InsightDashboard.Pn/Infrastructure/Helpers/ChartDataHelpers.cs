@@ -990,7 +990,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 foreach (var stackedModel in multiStackedData)
                                 {
                                     var model = new DashboardViewChartDataMultiStackedModel()
-                                        {Name = stackedModel.Name, Id = stackedModel.Id};
+                                    {
+                                        Name = stackedModel.Name,
+                                        Id = stackedModel.Id,
+                                    };
 
 
                                     foreach (string columnName in columnNames)
@@ -1055,6 +1058,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 if (innerSeries.Name == newInnerSeriesModel.Name)
                                                 {
                                                     newInnerSeriesModel.Value = innerSeries.Value;
+                                                    newInnerSeriesModel.DataCount = innerSeries.DataCount;
                                                 }
                                             }
                                         }
@@ -1116,7 +1120,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         {
                                             var dataSingleModel = dataMultiModel.Series[y];
                                             rawDataList[y].Percents[i] = (decimal)dataSingleModel.Value;
-                                            rawDataList[y].Amounts[i] = (decimal)dataSingleModel.DataCount;
+                                            rawDataList[y].Amounts[i] = dataSingleModel.DataCount;
                                         }
                                     }
 
