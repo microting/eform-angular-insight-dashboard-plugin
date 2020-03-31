@@ -185,15 +185,21 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 }
 
 
-                //// calculate total
-                //var lastRow = multiData.Count;
+                // calculate total
+                var lastRow = multiData.Count;
+                for (var i = 0; i < maxColumnsObject.Series.Count; i++)
+                {
+                    decimal totalValue = 0;
+                    decimal totalAmounts = 0;
+                    foreach (var rowData in rawDataList)
+                    {
+                        totalValue += rowData.Percents[i];
+                        totalAmounts += rowData.Amounts[i];
+                    }
 
-                //rawDataList[lastRow].Percents[i] = dataMultiModel.Series
-                //    .Where(x => x.Value != null)
-                //    .Sum(x => (decimal)x.Value);
-
-                //rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
-                //    .Sum(x => x.DataCount);
+                    rawDataList[lastRow].Percents[i] = totalValue;
+                    rawDataList[lastRow].Amounts[i] = totalAmounts;
+                }
 
                 chartRawDataModel.RawDataValues = rawDataList;
             }
