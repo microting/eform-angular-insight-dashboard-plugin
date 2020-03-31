@@ -29,11 +29,11 @@
           <ng-container *ngIf="dashboardEditModel.items.length > 0">
             <a class="float-right page-link mb-2"  *ngIf="isItemsCollapsed"
                (click)="toggleCollapse()" mdbTooltip="{{'Expand all' | translate}}">
-              <fa-icon icon="expand-arrows-alt" size="lg" [fixedWidth]="true"></fa-icon>
+              <fa-icon icon="angle-double-right" size="lg" [fixedWidth]="true"></fa-icon>
             </a>
             <a class="float-right page-link mb-2" *ngIf="!isItemsCollapsed"
                (click)="toggleCollapse()" mdbTooltip="{{'Collapse all' | translate}}">
-              <fa-icon icon="compress-arrows-alt" size="lg" [fixedWidth]="true"></fa-icon>
+              <fa-icon icon="angle-double-down" size="lg" [fixedWidth]="true"></fa-icon>
             </a>
           </ng-container>
         </div>

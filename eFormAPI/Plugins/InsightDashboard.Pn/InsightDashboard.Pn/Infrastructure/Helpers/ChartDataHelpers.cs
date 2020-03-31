@@ -662,6 +662,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         multiData.Add(totalPeriod);
                         break;
                     default:
+                        Console.WriteLine($"dashboardItem.Period is {dashboardItem.Period}");
                         throw new ArgumentOutOfRangeException();
                 }
 
@@ -791,6 +792,26 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
 
                                 newLineData.Add(multiItem);
+                            }
+                            
+                            foreach (var model in newLineData)
+                            {
+                                foreach (var multiModel in lineData)
+                                {
+                                    if (model.Name == multiModel.Name)
+                                    {
+                                        foreach (var series in multiModel.Series)
+                                        {
+                                            foreach (var modelSeries in model.Series)
+                                            {
+                                                if (modelSeries.Name == series.Name)
+                                                {
+                                                    modelSeries.Value = series.Value;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                         
