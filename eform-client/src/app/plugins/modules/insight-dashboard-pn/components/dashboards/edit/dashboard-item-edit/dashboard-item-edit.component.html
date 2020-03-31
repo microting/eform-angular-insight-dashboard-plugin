@@ -73,7 +73,7 @@
                 [disabled]="!dashboardItem.filterQuestionId"
                 [placeholder]="dashboardItem.filterAnswerName || ('Select Filter Answer' | translate)"
                 [items]="filterAnswers"></ng-select>
-              <ng-select
+              <ng-select *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text"
                 bindValue="id"
                 bindLabel="name"
                 id="editPeriod{{dashboardItem.position}}"
@@ -94,19 +94,19 @@
               <div class="row ml-1 mb-2">
                 <div class="mat-checkbox mb-1">
                   <input id="calcAverageCheckbox{{dashboardItem.position}}" type="checkbox"
-                         [disabled]="!dashboardItem.isFirstQuestionSmiley"
+                         [disabled]="dashboardItem.firstQuestionType !== questionTypes.Smiley"
                          [checked]="dashboardItem.calculateAverage"
                          (click)="fieldChanged($event.target.checked, itemFields.calculateAverage)"
                          [value]="dashboardItem.calculateAverage">
                   <label for="calcAverageCheckbox{{dashboardItem.position}}"
-                         [ngClass]="{'text-muted' : !dashboardItem.isFirstQuestionSmiley}">
+                         [ngClass]="{'text-muted' : !dashboardItem.firstQuestionType === questionTypes.Smiley}">
                     {{'Calculate average' | translate}}
                   </label>
                 </div>
               </div>
             </div>
           </div>
-          <div class="card z-depth-2 mb-3" style="width: 100%">
+          <div class="card z-depth-2 mb-3" style="width: 100%" *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text">
             <div class="card-body">
               <ng-container *ngIf="!questionAnswers.length">
                 <div class="row ml-1">
@@ -133,7 +133,7 @@
               </ng-container>
             </div>
           </div>
-          <div class="card z-depth-2 mb-3" style="width: 100%">
+          <div class="card z-depth-2 mb-3" style="width: 100%" *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text">
             <div class="card-body">
               <div class="row ml-1">
                 <div class="mat-checkbox mb-1">
@@ -165,23 +165,30 @@
             </div>
           </div>
           <div class="card z-depth-2 mb-3" style="width: 100%">
-            <div class="card-body">
-              <ng-select
-                id="editChartType{{dashboardItem.position}}"
-                bindValue="id"
-                bindLabel="name"
-                [clearable]="false"
-                [ngModel]="dashboardItem.chartType"
-                [disabled]="!dashboardItem.firstQuestionId"
-                (ngModelChange)="fieldChanged($event, itemFields.chartType)"
-                [placeholder]="('Select Chart' | translate) + ' *'"
-                [required]="true"
-                [items]="availableCharts"></ng-select>
-              <app-dashboard-chart-edit [dashboardItem]="dashboardItem"
-                                        [isFirstQuestionSmiley]="isFirstQuestionSmiley"
-                                        [answers]="questionAnswers">
-              </app-dashboard-chart-edit>
-            </div>
+            <ng-container *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text">
+              <div class="card-body">
+                <ng-select
+                  id="editChartType{{dashboardItem.position}}"
+                  bindValue="id"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [ngModel]="dashboardItem.chartType"
+                  [disabled]="!dashboardItem.firstQuestionId"
+                  (ngModelChange)="fieldChanged($event, itemFields.chartType)"
+                  [placeholder]="('Select Chart' | translate) + ' *'"
+                  [required]="true"
+                  [items]="availableCharts"></ng-select>
+                <app-dashboard-chart-edit [dashboardItem]="dashboardItem"
+                                          [questionType]="firstQuestionType"
+                                          [answers]="questionAnswers">
+                </app-dashboard-chart-edit>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="dashboardItem.firstQuestionType === questionTypes.Text">
+              <div class="card-body">
+                <app-dashboard-interviews-edit></app-dashboard-interviews-edit>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>

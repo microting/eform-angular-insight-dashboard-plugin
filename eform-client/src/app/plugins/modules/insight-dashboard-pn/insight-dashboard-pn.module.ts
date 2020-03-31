@@ -13,17 +13,23 @@ import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.mo
 import {CasesModule} from '../../../modules';
 import {
   InsightDashboardPnDashboardDictionariesService,
+  InsightDashboardPnDashboardItemsService,
   InsightDashboardPnDashboardsService,
   InsightDashboardPnSettingsService,
   InsightDashboardPnSurveyConfigsService
 } from './services';
 import {
   DashboardBlockViewComponent,
+  DashboardChartDataEditComponent,
+  DashboardChartDataViewComponent,
   DashboardChartEditComponent,
   DashboardChartViewComponent,
   DashboardCopyComponent,
   DashboardDeleteComponent,
   DashboardEditComponent,
+  DashboardEditHeaderComponent,
+  DashboardInterviewsEditComponent,
+  DashboardInterviewsViewComponent,
   DashboardItemEditComponent,
   DashboardNewComponent,
   DashboardsPageComponent,
@@ -33,30 +39,29 @@ import {
   SurveyConfigurationEditComponent,
   SurveyConfigurationNewComponent,
   SurveyConfigurationsPageComponent,
-  SurveyConfigurationStatusComponent,
-  DashboardEditHeaderComponent
+  SurveyConfigurationStatusComponent
 } from './components';
 import {DragulaModule} from 'ng2-dragula';
 import {NgxChartsModule} from '@microting/ngx-charts';
 import {OwlDateTimeModule} from 'ng-pick-datetime';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedPnModule,
-        MDBBootstrapModule,
-        InsightDashboardPnRoutingModule,
-        TranslateModule,
-        FormsModule,
-        NgSelectModule,
-        EformSharedModule,
-        FontAwesomeModule,
-        CasesModule,
-        DragulaModule,
-        CollapseModule,
-        NgxChartsModule,
-        OwlDateTimeModule
-    ],
+  imports: [
+    CommonModule,
+    SharedPnModule,
+    MDBBootstrapModule,
+    InsightDashboardPnRoutingModule,
+    TranslateModule,
+    FormsModule,
+    NgSelectModule,
+    EformSharedModule,
+    FontAwesomeModule,
+    CasesModule,
+    DragulaModule,
+    CollapseModule,
+    NgxChartsModule,
+    OwlDateTimeModule
+  ],
   declarations: [
     InsightDashboardPnLayoutComponent,
     InsightDashboardSettingsComponent,
@@ -75,10 +80,14 @@ import {OwlDateTimeModule} from 'ng-pick-datetime';
     DashboardChartEditComponent,
     DashboardChartViewComponent,
     DashboardBlockViewComponent,
-    DashboardEditHeaderComponent
+    DashboardEditHeaderComponent,
+    DashboardInterviewsEditComponent,
+    DashboardChartDataEditComponent,
+    DashboardChartDataViewComponent,
+    DashboardInterviewsViewComponent
   ],
   providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboardsService,
-    InsightDashboardPnSurveyConfigsService, InsightDashboardPnDashboardDictionariesService]
+    InsightDashboardPnSurveyConfigsService, InsightDashboardPnDashboardDictionariesService, InsightDashboardPnDashboardItemsService]
 })
 
 export class InsightDashboardPnModule {

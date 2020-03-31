@@ -8,6 +8,7 @@ import {DragulaService} from 'ng2-dragula';
 import {ToastrService} from 'ngx-toastr';
 import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
 import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
+import {DashboardItemQuestionTypesEnum} from '../../../../const/enums';
 
 @AutoUnsubscribe()
 @Component({
@@ -56,7 +57,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   updateDashboard() {
-    if (this.dashboardEditModel.items.find(x => x.firstQuestionId === null || x.period == null || x.chartType === null)) {
+    if (this.dashboardEditModel.items.find(x => (x.firstQuestionId === null || x.period == null || x.chartType === null) && x.firstQuestionType !== DashboardItemQuestionTypesEnum.Text)) {
       this.toastrService.error('First question, period and chart type in item could not be empty!', 'Error', {timeOut: 10000});
     } else {
       this.spinnerStatus = true;

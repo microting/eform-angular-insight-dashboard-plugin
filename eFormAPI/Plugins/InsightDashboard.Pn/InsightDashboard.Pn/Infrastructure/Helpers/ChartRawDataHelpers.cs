@@ -122,7 +122,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             List<DashboardViewChartDataMultiModel> multiData,
             bool isLineData)
         {
+
             var result = new List<DashboardViewChartRawDataModel>();
+
+            if (multiData.Count == 0)
+            {
+                return result;
+            }
 
             var chartRawDataModel = new DashboardViewChartRawDataModel
             {

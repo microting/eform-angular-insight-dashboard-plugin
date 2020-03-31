@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DashboardChartTypesEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
-import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view-item.model';
+import {DashboardChartTypesEnum, DashboardItemQuestionTypesEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
+import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
 import {DashboardViewModel} from '../../../../models';
 
 @Component({
@@ -15,6 +15,7 @@ export class DashboardBlockViewComponent implements OnInit {
 
   get chartTypes() { return DashboardChartTypesEnum; }
   get periodUnits() { return DashboardPeriodUnitsEnum; }
+  get questionType() { return DashboardItemQuestionTypesEnum; }
 
 
   constructor() { }
