@@ -272,6 +272,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         .Select(x => new DashboardViewChartDataSingleModel
                         {
                             Name = x.Key,
+                            DataCount = x.Count(),
                             Value = GetDataPercentage(x.Count(), count),
                         })
                         .ToList();
@@ -380,6 +381,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -400,6 +402,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = isSmiley
                                                         ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
                                                         : y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -431,7 +434,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         Name = isSmiley
                                                             ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
                                                             : i.Key,
-                                                        // Name = i.Key,
+                                                        DataCount = i.Count(),
                                                         Value = GetDataPercentage(i.Count(), y.Count()),
                                                     })
                                                     .ToList(),
@@ -454,6 +457,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -474,6 +478,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = isSmiley
                                                         ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
                                                         : y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -506,6 +511,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         Name = isSmiley
                                                             ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
                                                             : i.Key,
+                                                        DataCount = i.Count(),
                                                         Value = GetDataPercentage(i.Count(), y.Count()),
                                                     })
                                                     .ToList(),
@@ -528,6 +534,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -548,6 +555,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = isSmiley
                                                         ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
                                                         : y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -580,6 +588,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         Name = isSmiley
                                                             ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
                                                             : i.Key,
+                                                        DataCount = i.Count(),
                                                         Value = GetDataPercentage(i.Count(), y.Count()),
                                                     })
                                                     .OrderByDescending(
@@ -605,6 +614,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -626,6 +636,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = isSmiley
                                                         ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
                                                         : y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -657,6 +668,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         Name = isSmiley
                                                             ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
                                                             : i.Key,
+                                                        DataCount = i.Count(),
                                                         Value = GetDataPercentage(i.Count(), y.Count()),
                                                     })
                                                     .OrderByDescending(
@@ -681,6 +693,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -701,6 +714,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = isSmiley
                                                         ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
                                                         : y.Key,
+                                                    DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : GetDataPercentage(y.Count(), x.Count()),
@@ -722,6 +736,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 .Select(x => new DashboardViewChartDataSingleModel
                                 {
                                     Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key,
+                                    DataCount = x.Count(),
                                     Value = dashboardItem.CalculateAverage
                                         ? GetAverageDataPercentage(x.Average(k => k.Weight))
                                         : GetDataPercentage(x.Count(), data.Count),
@@ -1047,71 +1062,71 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                     newLineData.Add(model);
                                 }
-
-                                // convert
-                                foreach (var dataMultiStackedModel in multiStackedData)
-                                {
-                                    var chartRawDataModel = new DashboardViewChartRawDataModel
-                                    {
-                                        RawValueName = dataMultiStackedModel.Name, // Location
-                                    };
-
-                                    // Headers
-                                    foreach (var dataMultiModel in dataMultiStackedModel.Series)
-                                    {
-                                        chartRawDataModel.RawHeaders.Add(dataMultiModel.Name); // Year name
-                                    }
-
-                                    // Rows
-                                    if (dataMultiStackedModel.Series.Any())
-                                    {
-                                        var rawDataList = new List<DashboardViewChartRawDataValuesModel>();
-
-                                        // Get element with max rows
-                                        var maxObject = dataMultiStackedModel.Series
-                                            .OrderByDescending(item => item.Series.Count)
-                                            .First();
-
-                                        // Get row names
-                                        foreach (var singleModel in maxObject.Series)
-                                        {
-                                            var rawDataValuesModel = new DashboardViewChartRawDataValuesModel
-                                            {
-                                                ValueName = singleModel.Name,
-                                                Percents = new decimal[dataMultiStackedModel.Series.Count],
-                                                Amounts = new decimal[dataMultiStackedModel.Series.Count],
-                                            };
-
-                                            rawDataList.Add(rawDataValuesModel);
-                                        }
-
-                                        // by week
-                                        for (var i = 0; i < dataMultiStackedModel.Series.Count; i++)
-                                        {
-                                            var dataMultiModel = dataMultiStackedModel.Series[i];
-                                            
-                                            // by Item
-                                            for (var y = 0; y < dataMultiModel.Series.Count; y++)
-                                            {
-                                                var dataSingleModel = dataMultiModel.Series[y];
-                                                rawDataList[y].Percents[i] = (decimal) dataSingleModel.Value;
-                                                rawDataList[y].Amounts[i] = (decimal) dataSingleModel.DataCount;
-                                            }
-                                        }
-
-                                        chartRawDataModel.RawDataValues = rawDataList;
-                                    }
-
-                                    rawData.Add(chartRawDataModel);
-                                }
-
-                                dashboardItemModel.ChartData.RawData.AddRange(rawData);
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(newLineData);
                             }
                             else
                             {
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }
+
+                            // convert
+                            foreach (var dataMultiStackedModel in dashboardItemModel.ChartData.MultiStacked)
+                            {
+                                var chartRawDataModel = new DashboardViewChartRawDataModel
+                                {
+                                    RawValueName = dataMultiStackedModel.Name, // Location
+                                };
+
+                                // Headers
+                                foreach (var dataMultiModel in dataMultiStackedModel.Series)
+                                {
+                                    chartRawDataModel.RawHeaders.Add(dataMultiModel.Name); // Year name
+                                }
+
+                                // Rows
+                                if (dataMultiStackedModel.Series.Any())
+                                {
+                                    var rawDataList = new List<DashboardViewChartRawDataValuesModel>();
+
+                                    // Get element with max rows
+                                    var maxObject = dataMultiStackedModel.Series
+                                        .OrderByDescending(item => item.Series.Count)
+                                        .First();
+
+                                    // Get row names
+                                    foreach (var singleModel in maxObject.Series)
+                                    {
+                                        var rawDataValuesModel = new DashboardViewChartRawDataValuesModel
+                                        {
+                                            ValueName = singleModel.Name,
+                                            Percents = new decimal[dataMultiStackedModel.Series.Count],
+                                            Amounts = new decimal[dataMultiStackedModel.Series.Count],
+                                        };
+
+                                        rawDataList.Add(rawDataValuesModel);
+                                    }
+
+                                    // by week
+                                    for (var i = 0; i < dataMultiStackedModel.Series.Count; i++)
+                                    {
+                                        var dataMultiModel = dataMultiStackedModel.Series[i];
+
+                                        // by Item
+                                        for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                                        {
+                                            var dataSingleModel = dataMultiModel.Series[y];
+                                            rawDataList[y].Percents[i] = (decimal)dataSingleModel.Value;
+                                            rawDataList[y].Amounts[i] = (decimal)dataSingleModel.DataCount;
+                                        }
+                                    }
+
+                                    chartRawDataModel.RawDataValues = rawDataList;
+                                }
+
+                                rawData.Add(chartRawDataModel);
+                            }
+
+                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
                         }
                     }
                 }
