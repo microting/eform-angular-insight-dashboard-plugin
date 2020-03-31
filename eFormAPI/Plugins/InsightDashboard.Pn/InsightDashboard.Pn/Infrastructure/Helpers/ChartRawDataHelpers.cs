@@ -177,7 +177,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     // by week
                     for (var y = 0; y < dataMultiModel.Series.Count; y++)
                     {
-                        var dataSingleModel = dataMultiModel.Series[i];
+                        var dataSingleModel = dataMultiModel.Series[y];
 
                         rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
                         rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
