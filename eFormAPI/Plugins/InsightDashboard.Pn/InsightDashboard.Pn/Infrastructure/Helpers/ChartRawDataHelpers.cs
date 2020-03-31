@@ -180,7 +180,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var dataSingleModel = dataMultiModel.Series[i];
 
                         rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
-                        rawDataList[i].Percents[y] = dataSingleModel.DataCount;
+                        rawDataList[i].Percents[y] = dataSingleModel.Value;
                     }
                 }
 
