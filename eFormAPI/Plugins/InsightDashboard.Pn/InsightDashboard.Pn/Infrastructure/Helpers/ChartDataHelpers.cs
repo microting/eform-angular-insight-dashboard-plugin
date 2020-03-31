@@ -383,6 +383,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         .GroupBy(x => x.LocationName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                             Name = x.Key.ToString(),
                                             Series = x
                                                 .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
@@ -459,6 +460,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         .GroupBy(x => x.LocationName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                             Name = x.Key.ToString(),
                                             Series = x
                                                 .GroupBy(ms => $"{ms.Finished:yy-MMM}")
@@ -536,6 +538,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         .GroupBy(y => y.LocationName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                             Name = x.Key,
                                             Series = x.GroupBy(item =>
                                                     $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
@@ -615,6 +618,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         .GroupBy(y => y.LocationName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                             Name = x.Key,
                                             Series = x
                                                 .GroupBy(item =>
@@ -695,6 +699,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         .GroupBy(y => y.LocationName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
                                             Name = x.Key.ToString(),
                                             Series = x
                                                 .GroupBy(ms => $"{ms.Finished:yyyy}")
@@ -762,6 +767,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         if (dashboardItem.CalculateAverage)
                         {
+                            // Sort by location position
+                            multiData =
+                                ChartHelpers.SortMultiDataLocationPosition(
+                                    multiData,
+                                    dashboardItem);
+
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData, false);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(multiData);
@@ -900,6 +911,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
+                            // Sort by location position
+                            newLineData =
+                                ChartHelpers.SortMultiDataLocationPosition(
+                                    newLineData,
+                                    dashboardItem);
+
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, true);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
@@ -978,6 +995,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
+                            // Sort by location position
+                            newLineData =
+                                ChartHelpers.SortMultiDataLocationPosition(
+                                    newLineData,
+                                    dashboardItem);
+
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
@@ -985,7 +1008,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         else
                         {
                             multiStackedData =
-                                ChartHelpers.SortLocationPosition(
+                                ChartHelpers.SortMultiStackedDataLocationPosition(
                                     multiStackedData,
                                     dashboardItem);
                             if (isSmiley)

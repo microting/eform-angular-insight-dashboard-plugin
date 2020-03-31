@@ -33,19 +33,42 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
     public static class ChartHelpers
     {
-        public static List<DashboardViewChartDataMultiStackedModel> SortLocationPosition(
+        public static List<DashboardViewChartDataMultiStackedModel> SortMultiStackedDataLocationPosition(
             List<DashboardViewChartDataMultiStackedModel> multiStackedData,
             DashboardItem dashboardItem)
         {
             var result = new List<DashboardViewChartDataMultiStackedModel>();
             var locations = dashboardItem.CompareLocationsTags
-                .Select(x => new {x.LocationId, x.Position})
+                .Select(x => new { x.LocationId, x.Position })
                 .OrderBy(x => x.Position)
                 .ToArray();
 
             foreach (var location in locations)
             {
                 var data = multiStackedData.FirstOrDefault(x => x.Id == location.LocationId);
+
+                if (data != null)
+                {
+                    result.Add(data);
+                }
+            }
+
+            return result;
+        }
+
+        public static List<DashboardViewChartDataMultiModel> SortMultiDataLocationPosition(
+            List<DashboardViewChartDataMultiModel> multiData,
+            DashboardItem dashboardItem)
+        {
+            var result = new List<DashboardViewChartDataMultiModel>();
+            var locations = dashboardItem.CompareLocationsTags
+                .Select(x => new { x.LocationId, x.Position })
+                .OrderBy(x => x.Position)
+                .ToArray();
+
+            foreach (var location in locations)
+            {
+                var data = multiData.FirstOrDefault(x => x.Id == location.LocationId);
 
                 if (data != null)
                 {
