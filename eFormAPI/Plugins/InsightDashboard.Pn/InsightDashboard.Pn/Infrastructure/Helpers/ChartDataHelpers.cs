@@ -59,7 +59,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             switch (dashboardItem.ChartType)
             {
                 case DashboardChartTypes.Line:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.Pie:
                     singleData = true;
@@ -68,22 +67,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     singleData = true;
                     break;
                 case DashboardChartTypes.HorizontalBarStacked:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.HorizontalBarGrouped:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.VerticalBar:
                     singleData = true;
                     break;
                 case DashboardChartTypes.VerticalBarStacked:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.VerticalBarGrouped:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.GroupedStackedBarChart:
-                    singleData = false;
                     break;
                 case 0:
                     if (dashboardItemModel.FirstQuestionType != "text")
