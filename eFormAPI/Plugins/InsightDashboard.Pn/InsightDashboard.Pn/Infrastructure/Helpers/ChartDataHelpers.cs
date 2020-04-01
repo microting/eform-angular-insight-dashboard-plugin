@@ -49,7 +49,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             DashboardEditAnswerDates answerDates)
         {
             // Chart data
-            bool singleData;
+            bool singleData = false;
             List<KeyValuePair<int, string>> smileyLabels = new List<KeyValuePair<int, string>>()
             {
                 new KeyValuePair<int, string>(100, "Meget glad"), new KeyValuePair<int, string>(75, "Glad"),

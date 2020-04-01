@@ -57,11 +57,13 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     if (this.dashboardItem.firstQuestionId && this.questions.length > 0) {
       fullName = this.questions.find(x => x.id === this.dashboardItem.firstQuestionId).name;
     }
-    if (this.dashboardItem.period) {
+    if (this.dashboardItem.period && this.firstQuestionType !== DashboardItemQuestionTypesEnum.Text) {
       fullName += ' - ' + this.periodUnits[this.dashboardItem.period];
     }
-    if (this.dashboardItem.chartType && this.allCharts.length > 0) {
-      fullName += ' - ' + this.allCharts.find(x => x.id === this.dashboardItem.chartType).name;
+    if (this.dashboardItem.chartType && this.firstQuestionType !== DashboardItemQuestionTypesEnum.Text) {
+      if (this.allCharts.length) {
+        fullName += ' - ' + this.allCharts.find(x => x.id === this.dashboardItem.chartType).name;
+      }
     }
     return fullName;
   }
