@@ -855,6 +855,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             continue;
                         }
                     }
+
+                    // Dashboard item without chart
+                    if (dashboardItem.ChartType == 0)
+                    {
+                        continue;
+                    }
+
                     var dashboardItemModel = new DashboardItemViewModel()
                     {
                         Id = dashboardItem.Id,
