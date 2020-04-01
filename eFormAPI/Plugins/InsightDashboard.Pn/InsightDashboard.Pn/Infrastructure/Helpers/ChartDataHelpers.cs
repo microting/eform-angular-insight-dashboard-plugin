@@ -85,6 +85,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 case DashboardChartTypes.GroupedStackedBarChart:
                     singleData = false;
                     break;
+                case 0:
+                    if (dashboardItemModel.FirstQuestionType != "text")
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
