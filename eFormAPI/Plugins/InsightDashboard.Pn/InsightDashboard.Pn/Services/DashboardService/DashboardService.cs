@@ -238,16 +238,20 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         {
                             Name = dashboard.Name,
                             SurveyId = dashboard.SurveyId,
-                            LocationId = dashboard.LocationId,
-                            TagId = dashboard.TagId,
                             CreatedByUserId = UserId,
                             UpdatedByUserId = UserId,
-                            DateFrom = dashboard.DateFrom,
-                            DateTo = dashboard.DateTo,
-                            Today = dashboard.Today,
                         };
 
                         await newDashboard.Create(_dbContext);
+
+                        newDashboard.LocationId = dashboard.LocationId;
+                        newDashboard.TagId = dashboard.TagId;
+                        newDashboard.DateFrom = dashboard.DateFrom;
+                        newDashboard.DateTo = dashboard.DateTo;
+                        newDashboard.Today = dashboard.Today;
+                        newDashboard.UpdatedByUserId = UserId;
+
+                        await newDashboard.Update(_dbContext);
 
                         foreach (var dashboardItem in dashboard
                             .DashboardItems
