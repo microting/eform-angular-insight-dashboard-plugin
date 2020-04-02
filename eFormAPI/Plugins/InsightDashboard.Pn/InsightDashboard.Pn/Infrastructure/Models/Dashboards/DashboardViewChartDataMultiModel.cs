@@ -28,6 +28,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 
     public class DashboardViewChartDataMultiModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public List<DashboardViewChartDataSingleModel> Series { get; set; }

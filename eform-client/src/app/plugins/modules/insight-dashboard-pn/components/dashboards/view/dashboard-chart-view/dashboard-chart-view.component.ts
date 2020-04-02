@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
 import domtoimage from 'dom-to-image';
-import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view-item.model';
+import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
 
 @Component({
   selector: 'app-dashboard-chart-view',
@@ -19,7 +19,7 @@ export class DashboardChartViewComponent {
   line: any[];
   multi: any[];
   pie: any[];
-  view: any[] = [1000, 500];
+  view: any[] = [1000, 400];
 
   colorScheme = {
     domain: ['#9c27b0', '#3f51b5', '#2196f3', '#00bcd4', '#009688', '#8bc34a', '#cddc39', '#ffc107', '#ff9800', '#9e9e9e']

@@ -1,6 +1,26 @@
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microting.eForm.Infrastructure.Data.Entities;
+/*
+The MIT License (MIT)
+
+Copyright (c) 2007 - 2019 Microting A/S
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
@@ -11,6 +31,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using Microsoft.EntityFrameworkCore;
     using Microting.eForm.Infrastructure;
     using Microting.eForm.Infrastructure.Constants;
+    using Microting.eForm.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Microting.InsightDashboardBase.Infrastructure.Enums;
     using Models.Dashboards;
@@ -18,7 +39,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
     public static class ChartDataHelpers
     {
-
         public static async Task CalculateDashboardItem(
             DashboardItemViewModel dashboardItemModel,
             MicrotingDbContext sdkContext,
@@ -29,7 +49,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             DashboardEditAnswerDates answerDates)
         {
             // Chart data
-            bool singleData;
+            bool singleData = false;
             List<KeyValuePair<int, string>> smileyLabels = new List<KeyValuePair<int, string>>()
             {
                 new KeyValuePair<int, string>(100, "Meget glad"), new KeyValuePair<int, string>(75, "Glad"),
@@ -39,7 +59,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             switch (dashboardItem.ChartType)
             {
                 case DashboardChartTypes.Line:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.Pie:
                     singleData = true;
@@ -48,22 +67,23 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     singleData = true;
                     break;
                 case DashboardChartTypes.HorizontalBarStacked:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.HorizontalBarGrouped:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.VerticalBar:
                     singleData = true;
                     break;
                 case DashboardChartTypes.VerticalBarStacked:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.VerticalBarGrouped:
-                    singleData = false;
                     break;
                 case DashboardChartTypes.GroupedStackedBarChart:
-                    singleData = false;
+                    break;
+                case 0:
+                    if (dashboardItemModel.FirstQuestionType != "text")
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -128,43 +148,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             answerQueryable = answerQueryable
                 .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);
 
-
-            if (dashboardItem.CompareEnabled)
-            {
-                var siteIds = dashboardItem.CompareLocationsTags
-                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Where(x => x.LocationId != null)
-                    .Select(x => (int) x.LocationId)
-                    .ToList();
-
-                answerQueryable = answerQueryable
-                    .Where(x => siteIds.Contains(x.Answer.SiteId));
-            }
-            else
-            {
-                if (dashboardLocationId != null)
-                {
-                    answerQueryable = answerQueryable
-                        .Where(x => x.Answer.SiteId == dashboardLocationId);
-                }
-            }
-            
-            List<options> ignoreOptions = new List<options>();
-
-            if (dashboardItem.IgnoredAnswerValues
-                .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
-            {
-                var optionIds = dashboardItem.IgnoredAnswerValues
-                    .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Select(x => x.AnswerId)
-                    .ToArray();
-
-                answerQueryable = answerQueryable
-                    .Where(x => !optionIds.Contains(x.OptionId));
-
-                ignoreOptions = await sdkContext.options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
-            }
-
             if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
             {
                 var answerIds = answerQueryable
@@ -184,822 +167,963 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
             }
 
-            var data = await answerQueryable
-                .Select(x => new
+            // Question type == Text
+            if (dashboardItemModel.FirstQuestionType == Constants.QuestionTypes.Text)
+            {
+                if (dashboardLocationId != null)
                 {
-                    Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
-                    Finished = x.Answer.FinishedAt,
-                    LocationName = x.Answer.Site.Name,
-                    LocationId = x.Answer.SiteId,
-                    Weight = x.Option.WeightValue,
-                    OptionIndex = x.Option.OptionsIndex,
-                    IsSmiley = x.Question.IsSmiley()
-                })
-                .OrderBy(t => t.Finished)
-                .ToListAsync();
+                    answerQueryable = answerQueryable
+                        .Where(x => x.Answer.SiteId == dashboardLocationId);
+                }
 
-            bool isSmiley = data.Any() && data.First().IsSmiley;
-
-            List<string> lines;
-            if (dashboardItem.CalculateAverage)
-            {
-                lines = data
-                    .GroupBy(x => x.LocationName)
-                    .OrderBy(x => x.Key)
-                    .Select(x => x.Key)
-                    .ToList();
-            }
-            else
-            {
-                lines = data
-                    .GroupBy(x => x.Name)
-                    .OrderBy(x => x.Key)
-                    .Select(x => x.Key)
-                    .ToList();
-            }
-
-            if (singleData)
-            {
-                var count = data.Count;
-
-                var groupedData = data
-                    .GroupBy(x => x.Name)
-                    .Select(x => new DashboardViewChartDataSingleModel
+                var textData = await answerQueryable
+                    .Select(x => new DashboardItemTextQuestionDataModel
                     {
-                        Name = x.Key,
-                        Value = GetDataPercentage(x.Count(), count),
+                        Date = x.Answer.FinishedAt,
+                        LocationName = x.Answer.Site.Name,
+                        Commentary = x.Value,
+                        Id = x.Answer.Id,
                     })
-                    .ToList();
+                    .OrderBy(t => t.Date)
+                    .ToListAsync();
 
-                if (isSmiley)
-                {
-                    List<int> smileyIndex = new List<int>();
-                    var tmpData = new List<DashboardViewChartDataSingleModel>();
-                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                    {
-                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "100", Value = 0});
-                        smileyIndex.Add(100);
-                    }
-                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                    {
-                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "75", Value = 0});
-                        smileyIndex.Add(75);
-                    }
-                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                    {
-                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "50", Value = 0});
-                        smileyIndex.Add(50);
-                    }
-                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                    {
-                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "25", Value = 0});
-                        smileyIndex.Add(25);
-                    }
-                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                    {
-                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "0", Value = 0});
-                        smileyIndex.Add(0);
-                    }
-                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                    {
-                        tmpData.Add(new DashboardViewChartDataSingleModel {Name = "999", Value = 0});
-                        smileyIndex.Add(999);
-                    }
-                    foreach (DashboardViewChartDataSingleModel dashboardViewChartDataSingleModel in groupedData)
-                    {
-                        switch (@dashboardViewChartDataSingleModel.Name)
-                        {
-                            case "100":
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                                {
-                                    tmpData[smileyIndex.IndexOf(100)].Name = smileyLabels.Single(z => z.Key == 100).Value;
-                                    tmpData[smileyIndex.IndexOf(100)].Value = dashboardViewChartDataSingleModel.Value;
-                                }
-                                break;
-                            case "75":
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                                {
-                                    tmpData[smileyIndex.IndexOf(75)].Name = smileyLabels.Single(z => z.Key == 75).Value;
-                                    tmpData[smileyIndex.IndexOf(75)].Value = dashboardViewChartDataSingleModel.Value;
-                                }
-                                break;
-                            case "50":
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                                {
-                                    tmpData[smileyIndex.IndexOf(50)].Name = smileyLabels.Single(z => z.Key == 50).Value;
-                                    tmpData[smileyIndex.IndexOf(50)].Value = dashboardViewChartDataSingleModel.Value;
-                                }
-                                break;
-                            case "25":
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                                {
-                                    tmpData[smileyIndex.IndexOf(25)].Name = smileyLabels.Single(z => z.Key == 25).Value;
-                                    tmpData[smileyIndex.IndexOf(25)].Value = dashboardViewChartDataSingleModel.Value;
-                                }
-                                break;
-                            case "0":
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                                {
-                                    tmpData[smileyIndex.IndexOf(0)].Name = smileyLabels.Single(z => z.Key == 0).Value;
-                                    tmpData[smileyIndex.IndexOf(0)].Value = dashboardViewChartDataSingleModel.Value;
-                                }
-                                break;
-                            case "999":
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                                {
-                                    tmpData[smileyIndex.IndexOf(999)].Name = smileyLabels.Single(z => z.Key == 999).Value;
-                                    tmpData[smileyIndex.IndexOf(999)].Value = dashboardViewChartDataSingleModel.Value;
-                                }
-                                break;
-                        }
-                    }
-                    groupedData = tmpData;
-                }
-                // isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key
-                // dashboardItemModel.ChartData.Single.AddRange(groupedData);
-                dashboardItemModel.ChartData.Single.AddRange(groupedData);
+                dashboardItemModel.TextQuestionData.AddRange(textData);
             }
             else
             {
- 
-                var multiData = new List<DashboardViewChartDataMultiModel>();
-                var multiStackedData = new List<DashboardViewChartDataMultiStackedModel>();
-                switch (dashboardItem.Period)
+                // Question type != Text
+                if (dashboardItem.CompareEnabled)
                 {
-                    case DashboardPeriodUnits.Week:
-                        if (isStackedData)
-                        {
-                            multiStackedData = data
-                                .GroupBy(x => x.LocationName)
-                                .Select(x => new DashboardViewChartDataMultiStackedModel
-                                {
-                                    Id = x.Select(i => i.LocationId).FirstOrDefault(),
-                                    Name = x.Key.ToString(), // Location name
-                                    Series = x
-                                        .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
-                                        .Select(y => new DashboardViewChartDataMultiModel
-                                        {
-                                            Name = y.Key, // Week name
-                                            Series = y
-                                                .GroupBy(g => g.Name)
-                                                .Select(i => new DashboardViewChartDataSingleModel
-                                                {
-                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
-                                                    Value = GetDataPercentage(i.Count(), y.Count()),
-                                                })
-                                                .ToList(),
-                                        })
-                                        .OrderBy(y => y.Name)
-                                        .ToList(),
-                                }).ToList();
-                        }
-                        else
-                        {
-                            if (isComparedData)
-                            {
-                                multiData = data
-                                    .GroupBy(x => x.LocationName)
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key.ToString(),
-                                        Series = x
-                                            .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                            else
-                            {
-                                multiData = data
-                                    .GroupBy(x => ChartHelpers.GetWeekString(x.Finished))
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key.ToString(),
-                                        Series = x.GroupBy(y => y.Name)
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                        }
+                    var siteIds = dashboardItem.CompareLocationsTags
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.LocationId != null)
+                        .Select(x => (int) x.LocationId)
+                        .ToList();
 
-                        break;
-                    case DashboardPeriodUnits.Month:
-                        if (isStackedData)
-                        {
-                            multiStackedData = data
-                                .GroupBy(x => x.LocationName)
-                                .Select(x => new DashboardViewChartDataMultiStackedModel
-                                {
-                                    Id = x.Select(i => i.LocationId).FirstOrDefault(),
-                                    Name = x.Key.ToString(), // Location name
-                                    Series = x
-                                        .GroupBy(ms => $"{ms.Finished:yy-MMM}")
-                                        .Select(y => new DashboardViewChartDataMultiModel
-                                        {
-                                            Name = y.Key, // Month name
-                                            Series = y
-                                                .GroupBy(g => g.Name)
-                                                .Select(i => new DashboardViewChartDataSingleModel
-                                                {
-                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
-                                                    // Name = i.Key,
-                                                    Value = GetDataPercentage(i.Count(), y.Count()),
-                                                })
-                                                .ToList(),
-                                        })
-                                        // .OrderBy(y => y.Name)
-                                        .ToList(),
-                                }).ToList();
-                        }
-                        else
-                        {
-                            if (isComparedData)
-                            {
-                                multiData = data
-                                    .GroupBy(x => x.LocationName)
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key.ToString(),
-                                        Series = x
-                                            .GroupBy(ms => $"{ms.Finished:yy-MMM}")
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                            else
-                            {
-                                multiData = data
-                                    .GroupBy(ms => $"{ms.Finished:yy-MMM}")
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key.ToString(),
-                                        Series = x.GroupBy(y => y.Name)
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                        }
-
-                        break;
-                    case DashboardPeriodUnits.Quarter:
-                        if (isStackedData)
-                        {
-                            multiStackedData = data
-                                .GroupBy(x => x.LocationName)
-                                .Select(x => new DashboardViewChartDataMultiStackedModel
-                                {
-                                    Id = x.Select(i => i.LocationId).FirstOrDefault(),
-                                    Name = x.Key.ToString(), // Location name
-                                    Series = x
-                                        .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
-                                        .Select(y => new DashboardViewChartDataMultiModel
-                                        {
-                                            Name = y.Key, // Quarter name
-                                            Series = y
-                                                .GroupBy(g => g.Name)
-                                                .Select(i => new DashboardViewChartDataSingleModel
-                                                {
-                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
-                                                    Value = GetDataPercentage(i.Count(), y.Count()),
-                                                })
-                                                .ToList(),
-                                        })
-                                        .OrderByDescending(y => y.Name)
-                                        .ToList(),
-                                }).ToList();
-                        }
-                        else
-                        {
-                            if (isComparedData)
-                            {
-                                multiData = data
-                                    .GroupBy(y => y.LocationName)
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key,
-                                        Series = x.GroupBy(item =>
-                                                $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                            else
-                            {
-                                multiData = data
-                                    .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key,
-                                        Series = x.GroupBy(y => y.Name)
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                        }
-
-                        break;
-                    case DashboardPeriodUnits.SixMonth:
-                        if (isStackedData)
-                        {
-                            multiStackedData = data
-                                .GroupBy(x => x.LocationName)
-                                .Select(x => new DashboardViewChartDataMultiStackedModel
-                                {
-                                    Id = x.Select(i => i.LocationId).FirstOrDefault(),
-                                    Name = x.Key.ToString(), // Location name
-                                    Series = x
-                                        .GroupBy(item =>
-                                            $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
-                                        .Select(y => new DashboardViewChartDataMultiModel
-                                        {
-                                            Name = y.Key, // SixMonth name
-                                            Series = y
-                                                .GroupBy(g => g.Name)
-                                                .Select(i => new DashboardViewChartDataSingleModel
-                                                {
-                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
-                                                    Value = GetDataPercentage(i.Count(), y.Count()),
-                                                })
-                                                .OrderByDescending(
-                                                    t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
-                                                .ToList(),
-                                        })
-                                        .OrderBy(y => y.Name)
-                                        .ToList(),
-                                }).ToList();
-                        }
-                        else
-                        {
-                            if (isComparedData)
-                            {
-                                multiData = data
-                                    .GroupBy(y => y.LocationName)
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key,
-                                        Series = x
-                                            .GroupBy(item =>
-                                                $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                            else
-                            {
-                                multiData = data
-                                    .GroupBy(item => $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key,
-                                        Series = x.GroupBy(y => y.Name)
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                        }
-
-                        break;
-                    case DashboardPeriodUnits.Year:
-                        if (isStackedData)
-                        {
-                            multiStackedData = data
-                                .GroupBy(x => x.LocationName)
-                                .Select(x => new DashboardViewChartDataMultiStackedModel
-                                {
-                                    Id = x.Select(i => i.LocationId).FirstOrDefault(),
-                                    Name = x.Key.ToString(), // Location name
-                                    Series = x
-                                        .GroupBy(ms => $"{ms.Finished:yyyy}")
-                                        .Select(y => new DashboardViewChartDataMultiModel
-                                        {
-                                            Name = y.Key, // Year name
-                                            Series = y
-                                                .GroupBy(g => g.Name)
-                                                .Select(i => new DashboardViewChartDataSingleModel
-                                                {
-                                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value : i.Key,
-                                                    Value = GetDataPercentage(i.Count(), y.Count()),
-                                                })
-                                                .OrderByDescending(
-                                                    t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
-                                                .ToList(),
-                                        })
-                                        .OrderBy(y => y.Name)
-                                        .ToList(),
-                                }).ToList();
-                        }
-                        else
-                        {
-                            if (isComparedData)
-                            {
-                                multiData = data
-                                    .GroupBy(y => y.LocationName)
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key.ToString(),
-                                        Series = x
-                                            .GroupBy(ms => $"{ms.Finished:yyyy}")
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                            else
-                            {
-                                multiData = data
-                                    .GroupBy(ms => $"{ms.Finished:yyyy}")
-                                    .Select(x => new DashboardViewChartDataMultiModel
-                                    {
-                                        Name = x.Key.ToString(),
-                                        Series = x.GroupBy(y => y.Name)
-                                            .Select(y => new DashboardViewChartDataSingleModel
-                                            {
-                                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value : y.Key,
-                                                Value = dashboardItem.CalculateAverage
-                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                    : GetDataPercentage(y.Count(), x.Count()),
-                                            })
-                                            .ToList(),
-                                    }).ToList();
-                            }
-                        }
-
-                        break;
-                    case DashboardPeriodUnits.Total:
-                        var totalPeriod = new DashboardViewChartDataMultiModel
-                        {
-                            Name = localizationService.GetString("TotalPeriod")
-                        };
-
-                        totalPeriod.Series = data
-                            .GroupBy(x => x.Name)
-                            .Select(x => new DashboardViewChartDataSingleModel
-                            {
-                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key,
-                                Value = dashboardItem.CalculateAverage
-                                    ? GetAverageDataPercentage(x.Average(k => k.Weight))
-                                    : GetDataPercentage(x.Count(), data.Count),
-                            })
-                            .ToList();
-
-
-                        multiData.Add(totalPeriod);
-                        break;
-                    default:
-                        Console.WriteLine($"dashboardItem.Period is {dashboardItem.Period}");
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                if (dashboardItem.ChartType == DashboardChartTypes.Line)
-                {
-                    if (dashboardItem.CalculateAverage)
-                    {
-                        dashboardItemModel.ChartData.Multi.AddRange(multiData);
-                    }
-                    else
-                    {
-                        var lineData = new List<DashboardViewChartDataMultiModel>();
-                        foreach (var line in lines)
-                        {
-                            var multiItem = new DashboardViewChartDataMultiModel
-                            {
-                                Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line
-                            };
-
-                            foreach (var groupedItem in multiData)
-                            {
-                                foreach (var item in groupedItem.Series)
-                                {
-                                    if (item.Name == (isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line))
-                                    {
-                                        var singleItem = new DashboardViewChartDataSingleModel
-                                        {
-                                            Name = groupedItem.Name,
-                                            Value = item.Value,
-                                        };
-                                        multiItem.Series.Add(singleItem);
-                                    }
-                                }
-                            }
-
-                            lineData.Add(multiItem);
-                        }
-
-                        List<string> columnNames = new List<string>();
-                        List<string> lineNames = new List<string>();
-
-                        foreach (var model in lineData)
-                        {
-                            if (!lineNames.Contains(model.Name))
-                            {
-                                lineNames.Add(model.Name);
-                            }
-
-                            foreach (var dashboardViewChartDataSingleModel in model.Series)
-                            {
-                                if (!columnNames.Contains(dashboardViewChartDataSingleModel.Name))
-                                {
-                                    columnNames.Add(dashboardViewChartDataSingleModel.Name);
-                                }
-                            }
-                        }
-                        columnNames.Sort();
-                        lineNames.Sort();
-
-                        var newLineData = new List<DashboardViewChartDataMultiModel>();
-
-                        if (isSmiley)
-                        {
-                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                               newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 100).Value});
-                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 75).Value});
-                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 50).Value});
-                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 25).Value});
-                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 0).Value});
-                            if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                                newLineData.Add(new DashboardViewChartDataMultiModel {Name = smileyLabels.Single(z => z.Key == 999).Value});
-
-                            foreach (var model in newLineData)
-                            {
-                                foreach (string columnName in columnNames)
-                                {
-                                    var singleItem = new DashboardViewChartDataSingleModel
-                                    {
-                                        Name = columnName,
-                                        Value = 0,
-                                    };
-                                    model.Series.Add(singleItem);
-                                }
-                            }
-
-                            foreach (var model in newLineData)
-                            {
-                                foreach (var multiModel in lineData)
-                                {
-                                    if (model.Name == multiModel.Name)
-                                    {
-                                        foreach (var series in multiModel.Series)
-                                        {
-                                            foreach (var modelSeries in model.Series)
-                                            {
-                                                if (modelSeries.Name == series.Name)
-                                                {
-                                                    modelSeries.Value = series.Value;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            foreach (string lineName in lineNames)
-                            {
-                                var multiItem = new DashboardViewChartDataMultiModel
-                                {
-                                    Name = lineName
-                                };
-
-                                foreach (string columnName in columnNames)
-                                {
-                                    var singleItem = new DashboardViewChartDataSingleModel
-                                    {
-                                        Name = columnName,
-                                        Value = 0,
-                                    };
-                                    multiItem.Series.Add(singleItem);
-                                }
-
-                                newLineData.Add(multiItem);
-                            }
-
-                            foreach (var model in newLineData)
-                            {
-                                foreach (var multiModel in lineData)
-                                {
-                                    if (model.Name == multiModel.Name)
-                                    {
-                                        foreach (var series in multiModel.Series)
-                                        {
-                                            foreach (var modelSeries in model.Series)
-                                            {
-                                                if (modelSeries.Name == series.Name)
-                                                {
-                                                    modelSeries.Value = series.Value;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                        dashboardItemModel.ChartData.Multi.AddRange(newLineData);
-                    }
+                    answerQueryable = answerQueryable
+                        .Where(x => siteIds.Contains(x.Answer.SiteId));
                 }
                 else
                 {
-                    if (!isStackedData)
+                    if (dashboardLocationId != null)
                     {
-                        List<string> columnNames = new List<string>();
-                        List<string> lineNames = new List<string>();
+                        answerQueryable = answerQueryable
+                            .Where(x => x.Answer.SiteId == dashboardLocationId);
+                    }
+                }
 
-                        foreach (var model in multiData)
+                List<options> ignoreOptions = new List<options>();
+
+                if (dashboardItem.IgnoredAnswerValues
+                    .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                {
+                    var optionIds = dashboardItem.IgnoredAnswerValues
+                        .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Select(x => x.AnswerId)
+                        .ToArray();
+
+                    answerQueryable = answerQueryable
+                        .Where(x => !optionIds.Contains(x.OptionId));
+
+                    ignoreOptions = await sdkContext.options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
+                }
+
+                var data = await answerQueryable
+                    .Select(x => new
+                    {
+                        Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                        Finished = x.Answer.FinishedAt,
+                        LocationName = x.Answer.Site.Name,
+                        LocationId = x.Answer.SiteId,
+                        Weight = x.Option.WeightValue,
+                        OptionIndex = x.Option.OptionsIndex,
+                        IsSmiley = x.Question.IsSmiley()
+                    })
+                    .OrderBy(t => t.Finished)
+                    .ToListAsync();
+
+                bool isSmiley = data.Any() && data.First().IsSmiley;
+
+                List<string> lines;
+                if (dashboardItem.CalculateAverage)
+                {
+                    lines = data
+                        .GroupBy(x => x.LocationName)
+                        .OrderBy(x => x.Key)
+                        .Select(x => x.Key)
+                        .ToList();
+                }
+                else
+                {
+                    lines = data
+                        .GroupBy(x => x.Name)
+                        .OrderBy(x => x.Key)
+                        .Select(x => x.Key)
+                        .ToList();
+                }
+
+                if (singleData)
+                {
+                    var count = data.Count;
+
+                    var groupedData = data
+                        .GroupBy(x => x.Name)
+                        .Select(x => new DashboardViewChartDataSingleModel
                         {
-                            if (!columnNames.Contains(model.Name))
-                            {
-                                columnNames.Add(model.Name);
-                            }
+                            Name = x.Key,
+                            DataCount = x.Count(),
+                            Value = GetDataPercentage(x.Count(), count),
+                        })
+                        .ToList();
 
-                            foreach (var dashboardViewChartDataSingleModel in model.Series)
+                    if (isSmiley)
+                    {
+                        var tmpData = new List<DashboardViewChartDataSingleModel>();
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "100", Value = 0});
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "75", Value = 0});
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "50", Value = 0});
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "25", Value = 0});
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "0", Value = 0});
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "999", Value = 0});
+
+                        foreach (var dashboardViewChartDataSingleModel in groupedData)
+                        {
+                            switch (@dashboardViewChartDataSingleModel.Name)
                             {
-                                if (!lineNames.Contains(dashboardViewChartDataSingleModel.Name))
-                                {
-                                    lineNames.Add(dashboardViewChartDataSingleModel.Name);
-                                }
+                                case "100":
+                                    tmpData[0].Name = smileyLabels.Single(z => z.Key == 100).Value;
+                                    tmpData[0].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[0].DataCount = dashboardViewChartDataSingleModel.DataCount;
+                                    break;
+                                case "75":
+                                    tmpData[1].Name = smileyLabels.Single(z => z.Key == 75).Value;
+                                    tmpData[1].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[1].DataCount = dashboardViewChartDataSingleModel.DataCount;
+                                    break;
+                                case "50":
+                                    tmpData[2].Name = smileyLabels.Single(z => z.Key == 50).Value;
+                                    tmpData[2].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[2].DataCount = dashboardViewChartDataSingleModel.DataCount;
+                                    break;
+                                case "25":
+                                    tmpData[3].Name = smileyLabels.Single(z => z.Key == 25).Value;
+                                    tmpData[3].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[3].DataCount = dashboardViewChartDataSingleModel.DataCount;
+                                    break;
+                                case "0":
+                                    tmpData[4].Name = smileyLabels.Single(z => z.Key == 0).Value;
+                                    tmpData[4].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[4].DataCount = dashboardViewChartDataSingleModel.DataCount;
+                                    break;
+                                case "999":
+                                    tmpData[5].Name = smileyLabels.Single(z => z.Key == 999).Value;
+                                    tmpData[5].Value = dashboardViewChartDataSingleModel.Value;
+                                    tmpData[5].DataCount = dashboardViewChartDataSingleModel.DataCount;
+                                    break;
                             }
                         }
 
-                        var newLineData = new List<DashboardViewChartDataMultiModel>();
+                        groupedData = tmpData;
+                    }
 
-                        if (isSmiley)
-                        {
-                            foreach (string columnName in columnNames)
+                    // isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key
+                    // dashboardItemModel.ChartData.Single.AddRange(groupedData);
+
+                    var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
+                    dashboardItemModel.ChartData.RawData.AddRange(rawData);
+                    dashboardItemModel.ChartData.Single.AddRange(groupedData);
+                }
+                else
+                {
+                    var multiData = new List<DashboardViewChartDataMultiModel>();
+                    var multiStackedData = new List<DashboardViewChartDataMultiStackedModel>();
+                    switch (dashboardItem.Period)
+                    {
+                        case DashboardPeriodUnits.Week:
+                            if (isStackedData)
                             {
-                                var model = new DashboardViewChartDataMultiModel {Name = columnName};
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                                    model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                                    model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                                    model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                                    model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                                    model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                                    model.Series.Add(new DashboardViewChartDataSingleModel
-                                        {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
-                                newLineData.Add(model);
+                                multiStackedData = data
+                                    .GroupBy(x => x.LocationName)
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Name = x.Key.ToString(), // Location name
+                                        Series = x
+                                            .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = y.Key, // Week name
+                                                Series = y
+                                                    .GroupBy(g => g.Name)
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
+                                                            : i.Key,
+                                                        DataCount = i.Count(),
+                                                        Value = GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .ToList(),
+                                            })
+                                            .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
+                            }
+                            else
+                            {
+                                if (isComparedData)
+                                {
+                                    multiData = data
+                                        .GroupBy(x => x.LocationName)
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Name = x.Key.ToString(),
+                                            Series = x
+                                                .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                                else
+                                {
+                                    multiData = data
+                                        .GroupBy(x => ChartHelpers.GetWeekString(x.Finished))
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key.ToString(),
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = isSmiley
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
+                                                        : y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
                             }
 
-                            foreach (var model in newLineData)
+                            break;
+                        case DashboardPeriodUnits.Month:
+                            if (isStackedData)
                             {
-                                foreach (var multiModel in multiData)
-                                {
-                                    if (model.Name == multiModel.Name)
+                                multiStackedData = data
+                                    .GroupBy(x => x.LocationName)
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
-                                        foreach (var series in multiModel.Series)
-                                        {
-                                            foreach (var modelSeries in model.Series)
+                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Name = x.Key.ToString(), // Location name
+                                        Series = x
+                                            .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                            .Select(y => new DashboardViewChartDataMultiModel
                                             {
-                                                if (modelSeries.Name == series.Name)
+                                                Name = y.Key, // Month name
+                                                Series = y
+                                                    .GroupBy(g => g.Name)
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
+                                                            : i.Key,
+                                                        DataCount = i.Count(),
+                                                        Value = GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .ToList(),
+                                            })
+                                            // .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
+                            }
+                            else
+                            {
+                                if (isComparedData)
+                                {
+                                    multiData = data
+                                        .GroupBy(x => x.LocationName)
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Name = x.Key.ToString(),
+                                            Series = x
+                                                .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                                .Select(y => new DashboardViewChartDataSingleModel
                                                 {
-                                                    modelSeries.Value = series.Value;
+                                                    Name = y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                                else
+                                {
+                                    multiData = data
+                                        .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key.ToString(),
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = isSmiley
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
+                                                        : y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                            }
+
+                            break;
+                        case DashboardPeriodUnits.Quarter:
+                            if (isStackedData)
+                            {
+                                multiStackedData = data
+                                    .GroupBy(x => x.LocationName)
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Name = x.Key.ToString(), // Location name
+                                        Series = x
+                                            .GroupBy(item =>
+                                                $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = y.Key, // Quarter name
+                                                Series = y
+                                                    .GroupBy(g => g.Name)
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
+                                                            : i.Key,
+                                                        DataCount = i.Count(),
+                                                        Value = GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .ToList(),
+                                            })
+                                            .OrderByDescending(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
+                            }
+                            else
+                            {
+                                if (isComparedData)
+                                {
+                                    multiData = data
+                                        .GroupBy(y => y.LocationName)
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Name = x.Key,
+                                            Series = x.GroupBy(item =>
+                                                    $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                                else
+                                {
+                                    multiData = data
+                                        .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key,
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = isSmiley
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
+                                                        : y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                            }
+
+                            break;
+                        case DashboardPeriodUnits.SixMonth:
+                            if (isStackedData)
+                            {
+                                multiStackedData = data
+                                    .GroupBy(x => x.LocationName)
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Name = x.Key.ToString(), // Location name
+                                        Series = x
+                                            .GroupBy(item =>
+                                                $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = y.Key, // SixMonth name
+                                                Series = y
+                                                    .GroupBy(g => g.Name)
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
+                                                            : i.Key,
+                                                        DataCount = i.Count(),
+                                                        Value = GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .OrderByDescending(
+                                                        t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ToList(),
+                                            })
+                                            .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
+                            }
+                            else
+                            {
+                                if (isComparedData)
+                                {
+                                    multiData = data
+                                        .GroupBy(y => y.LocationName)
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Name = x.Key,
+                                            Series = x
+                                                .GroupBy(item =>
+                                                    $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                                else
+                                {
+                                    multiData = data
+                                        .GroupBy(item =>
+                                            $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key,
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = isSmiley
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
+                                                        : y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                            }
+
+                            break;
+                        case DashboardPeriodUnits.Year:
+                            if (isStackedData)
+                            {
+                                multiStackedData = data
+                                    .GroupBy(x => x.LocationName)
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Name = x.Key.ToString(), // Location name
+                                        Series = x
+                                            .GroupBy(ms => $"{ms.Finished:yyyy}")
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Name = y.Key, // Year name
+                                                Series = y
+                                                    .GroupBy(g => g.Name)
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
+                                                            : i.Key,
+                                                        DataCount = i.Count(),
+                                                        Value = GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .OrderByDescending(
+                                                        t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ToList(),
+                                            })
+                                            .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
+                            }
+                            else
+                            {
+                                if (isComparedData)
+                                {
+                                    multiData = data
+                                        .GroupBy(y => y.LocationName)
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Name = x.Key.ToString(),
+                                            Series = x
+                                                .GroupBy(ms => $"{ms.Finished:yyyy}")
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                                else
+                                {
+                                    multiData = data
+                                        .GroupBy(ms => $"{ms.Finished:yyyy}")
+                                        .Select(x => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = x.Key.ToString(),
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = isSmiley
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
+                                                        : y.Key,
+                                                    DataCount = y.Count(),
+                                                    Value = dashboardItem.CalculateAverage
+                                                        ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+                                }
+                            }
+
+                            break;
+                        case DashboardPeriodUnits.Total:
+                            var totalPeriod = new DashboardViewChartDataMultiModel
+                            {
+                                Name = localizationService.GetString("TotalPeriod")
+                            };
+
+                            totalPeriod.Series = data
+                                .GroupBy(x => x.Name)
+                                .Select(x => new DashboardViewChartDataSingleModel
+                                {
+                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key,
+                                    DataCount = x.Count(),
+                                    Value = dashboardItem.CalculateAverage
+                                        ? GetAverageDataPercentage(x.Average(k => k.Weight))
+                                        : GetDataPercentage(x.Count(), data.Count),
+                                })
+                                .ToList();
+                            multiData.Add(totalPeriod);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    if (dashboardItem.ChartType == DashboardChartTypes.Line)
+                    {
+                        if (dashboardItem.CalculateAverage)
+                        {
+                            // Sort by location position
+                            if (isComparedData)
+                            {
+                                multiData =
+                                    ChartHelpers.SortMultiDataLocationPosition(
+                                        multiData,
+                                        dashboardItem);
+                            }
+
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData, true);
+                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
+                            dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                        }
+                        else
+                        {
+                            var lineData = new List<DashboardViewChartDataMultiModel>();
+                            foreach (var line in lines)
+                            {
+                                var multiItem = new DashboardViewChartDataMultiModel
+                                {
+                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line,
+                                };
+
+                                foreach (var groupedItem in multiData)
+                                {
+                                    foreach (var item in groupedItem.Series)
+                                    {
+                                        if (item.Name == (isSmiley
+                                                ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value
+                                                : line))
+                                        {
+                                            var singleItem = new DashboardViewChartDataSingleModel
+                                            {
+                                                Name = groupedItem.Name,
+                                                Value = item.Value,
+                                                DataCount = item.DataCount,
+                                            };
+                                            multiItem.Series.Add(singleItem);
+                                        }
+                                    }
+                                }
+
+                                lineData.Add(multiItem);
+                            }
+
+                            List<string> columnNames = new List<string>();
+                            List<string> lineNames = new List<string>();
+
+                            foreach (var model in lineData)
+                            {
+                                if (!lineNames.Contains(model.Name))
+                                {
+                                    lineNames.Add(model.Name);
+                                }
+
+                                foreach (var dashboardViewChartDataSingleModel in model.Series)
+                                {
+                                    if (!columnNames.Contains(dashboardViewChartDataSingleModel.Name))
+                                    {
+                                        columnNames.Add(dashboardViewChartDataSingleModel.Name);
+                                    }
+                                }
+                            }
+
+                            columnNames.Sort();
+                            lineNames.Sort();
+
+                            var newLineData = new List<DashboardViewChartDataMultiModel>();
+
+                            if (isSmiley)
+                            {
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                    newLineData.Add(new DashboardViewChartDataMultiModel
+                                        {Name = smileyLabels.Single(z => z.Key == 100).Value});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                    newLineData.Add(new DashboardViewChartDataMultiModel
+                                        {Name = smileyLabels.Single(z => z.Key == 75).Value});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                    newLineData.Add(new DashboardViewChartDataMultiModel
+                                        {Name = smileyLabels.Single(z => z.Key == 50).Value});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                    newLineData.Add(new DashboardViewChartDataMultiModel
+                                        {Name = smileyLabels.Single(z => z.Key == 25).Value});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                    newLineData.Add(new DashboardViewChartDataMultiModel
+                                        {Name = smileyLabels.Single(z => z.Key == 0).Value});
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                    newLineData.Add(new DashboardViewChartDataMultiModel
+                                        {Name = smileyLabels.Single(z => z.Key == 999).Value});
+
+                                foreach (var model in newLineData)
+                                {
+                                    foreach (string columnName in columnNames)
+                                    {
+                                        var singleItem = new DashboardViewChartDataSingleModel
+                                        {
+                                            Name = columnName,
+                                            Value = 0,
+                                        };
+                                        model.Series.Add(singleItem);
+                                    }
+                                }
+
+                                foreach (var model in newLineData)
+                                {
+                                    foreach (var multiModel in lineData)
+                                    {
+                                        if (model.Name == multiModel.Name)
+                                        {
+                                            foreach (var series in multiModel.Series)
+                                            {
+                                                foreach (var modelSeries in model.Series)
+                                                {
+                                                    if (modelSeries.Name == series.Name)
+                                                    {
+                                                        modelSeries.Value = series.Value;
+                                                        modelSeries.DataCount = series.DataCount;
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
+                            else
+                            {
+                                foreach (var lineName in lineNames)
+                                {
+                                    var multiItem = new DashboardViewChartDataMultiModel
+                                    {
+                                        Name = lineName
+                                    };
+
+                                    foreach (string columnName in columnNames)
+                                    {
+                                        var singleItem = new DashboardViewChartDataSingleModel
+                                        {
+                                            Name = columnName,
+                                            Value = 0,
+                                        };
+                                        multiItem.Series.Add(singleItem);
+                                    }
+
+                                    newLineData.Add(multiItem);
+                                }
+                            }
+
+                            // Sort by location position
+                            if (isComparedData)
+                            {
+                                newLineData =
+                                    ChartHelpers.SortMultiDataLocationPosition(
+                                        newLineData,
+                                        dashboardItem);
+                            }
+
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, true);
+                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
+                            dashboardItemModel.ChartData.Multi.AddRange(newLineData);
+                        }
+                    }
+                    else
+                    {
+                        if (!isStackedData)
+                        {
+                            List<string> columnNames = new List<string>();
+                            List<string> lineNames = new List<string>();
+
+                            foreach (var model in multiData)
+                            {
+                                if (!columnNames.Contains(model.Name))
+                                {
+                                    columnNames.Add(model.Name);
+                                }
+
+                                foreach (var dashboardViewChartDataSingleModel in model.Series)
+                                {
+                                    if (!lineNames.Contains(dashboardViewChartDataSingleModel.Name))
+                                    {
+                                        lineNames.Add(dashboardViewChartDataSingleModel.Name);
+                                    }
+                                }
+                            }
+
+                            var newLineData = new List<DashboardViewChartDataMultiModel>();
+
+                            if (isSmiley)
+                            {
+                                foreach (string columnName in columnNames)
+                                {
+                                    var model = new DashboardViewChartDataMultiModel {Name = columnName};
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                        model.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                        model.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                        model.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                        model.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                        model.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                        model.Series.Add(new DashboardViewChartDataSingleModel
+                                            {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                    newLineData.Add(model);
+                                }
+
+                                foreach (var model in newLineData)
+                                {
+                                    foreach (var multiModel in multiData)
+                                    {
+                                        if (model.Name == multiModel.Name)
+                                        {
+                                            foreach (var series in multiModel.Series)
+                                            {
+                                                foreach (var modelSeries in model.Series)
+                                                {
+                                                    if (modelSeries.Name == series.Name)
+                                                    {
+                                                        modelSeries.Value = series.Value;
+                                                        modelSeries.DataCount = series.DataCount;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Sort by location position
+                            if (isComparedData)
+                            {
+                                newLineData =
+                                    ChartHelpers.SortMultiDataLocationPosition(
+                                        newLineData,
+                                        dashboardItem);
+                            }
+
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false);
+                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
                         else
                         {
-                            dashboardItemModel.ChartData.Multi.AddRange(multiData);
-                        }
-                    }
-                    else
-                    {
-                        multiStackedData =
-                            ChartHelpers.SortLocationPosition(
-                                multiStackedData,
-                                dashboardItem);
-                        if (isSmiley)
-                        {
-                            var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
-                            List<string> columnNames = new List<string>();
-                            foreach (var stackedModel in multiStackedData)
+                            multiStackedData =
+                                ChartHelpers.SortMultiStackedDataLocationPosition(
+                                    multiStackedData,
+                                    dashboardItem);
+
+                            if (isSmiley)
                             {
-                                foreach (var modelSeries in stackedModel.Series)
+                                var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
+                                List<string> columnNames = new List<string>();
+                                foreach (var stackedModel in multiStackedData)
                                 {
-                                    if (!columnNames.Contains(modelSeries.Name))
+                                    foreach (var modelSeries in stackedModel.Series)
                                     {
-                                        columnNames.Add(modelSeries.Name);
-                                    }
-                                }
-                            }
-
-                            foreach (var stackedModel in multiStackedData)
-                            {
-                                var model = new DashboardViewChartDataMultiStackedModel() {Name = stackedModel.Name, Id = stackedModel.Id};
-
-
-                                foreach (string columnName in columnNames)
-                                {
-                                    var innerModel = new DashboardViewChartDataMultiModel() {Name = columnName};
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                                        innerModel.Series.Add(new DashboardViewChartDataSingleModel {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
-                                    model.Series.Add(innerModel);
-                                }
-
-                                foreach (var modelSeries in stackedModel.Series)
-                                {
-                                    var innerModel = model.Series.Single(x => x.Name == modelSeries.Name);
-                                    
-                                    foreach (var innerSeries in modelSeries.Series)
-                                    {
-                                        foreach (var newInnerSeriesModel in innerModel.Series)
+                                        if (!columnNames.Contains(modelSeries.Name))
                                         {
-                                            if (innerSeries.Name == newInnerSeriesModel.Name)
-                                            {
-                                                newInnerSeriesModel.Value = innerSeries.Value;
-                                            }
+                                            columnNames.Add(modelSeries.Name);
                                         }
                                     }
                                 }
+                                foreach (var stackedModel in multiStackedData)
+                                {
+                                    var model = new DashboardViewChartDataMultiStackedModel()
+                                    {
+                                        Name = stackedModel.Name,
+                                        Id = stackedModel.Id,
+                                    };
 
-                                newLineData.Add(model);
+
+                                    foreach (string columnName in columnNames)
+                                    {
+                                        var innerModel = new DashboardViewChartDataMultiModel() {Name = columnName};
+                                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                            innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                                {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                            innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                                {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                            innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                                {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                            innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                                {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                            innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                                {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                            innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                                {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                        model.Series.Add(innerModel);
+                                    }
+                                  
+                                    foreach (var modelSeries in stackedModel.Series)
+                                    {
+                                        // var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};
+                                        var innerModel = model.Series.Single(x => x.Name == modelSeries.Name);
+
+                                        // foreach (var modelSeries in model.Series)
+                                        // {
+                                        //     if (modelSeries.Name == series.Name)
+                                        //     {
+                                        //         modelSeries.Value = series.Value;
+                                        //     }
+                                        // }
+                                        // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                        //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        //         {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                        // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                        //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        //         {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                        // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                        //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        //         {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                        // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                        //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        //         {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                        // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                        //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        //         {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                        // if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                        //     innerModel.Series.Add(new DashboardViewChartDataSingleModel
+                                        //         {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+
+                                        foreach (var innerSeries in modelSeries.Series)
+                                        {
+                                            foreach (var newInnerSeriesModel in innerModel.Series)
+                                            {
+                                                if (innerSeries.Name == newInnerSeriesModel.Name)
+                                                {
+                                                    newInnerSeriesModel.Value = innerSeries.Value;
+                                                    newInnerSeriesModel.DataCount = innerSeries.DataCount;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    newLineData.Add(model);
+                                }
+                                dashboardItemModel.ChartData.MultiStacked.AddRange(newLineData);
+                            }
+                            else
+                            {
+                                dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
                             }
 
-                            dashboardItemModel.ChartData.MultiStacked.AddRange(newLineData);
-                        }
-                        else
-                        {
-                            dashboardItemModel.ChartData.MultiStacked.AddRange(multiStackedData);
+                            // convert
+                            var rawData = ChartRawDataHelpers.ConvertMultiStackedData(
+                                localizationService,
+                                dashboardItemModel.ChartData.MultiStacked);
+                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
                         }
                     }
                 }
@@ -1008,13 +1132,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         private static int GetAverageDataPercentage(double averageValue)
         {
-            var value = Math.Round((decimal)averageValue);
+            var value = Math.Round((decimal) averageValue);
             return decimal.ToInt32(value);
         }
 
         public static int GetDataPercentage(int subCount, int totalCount)
         {
-            var value = Math.Round(((decimal)subCount * 100) / totalCount, 0);
+            var value = Math.Round(((decimal) subCount * 100) / totalCount, 0);
             return decimal.ToInt32(value);
         }
     }

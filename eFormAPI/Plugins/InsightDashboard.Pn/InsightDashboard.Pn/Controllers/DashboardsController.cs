@@ -52,7 +52,7 @@ namespace InsightDashboard.Pn.Controllers
         [Route("api/insight-dashboard-pn/dashboards/view/{id}")]
         public async Task<OperationDataResult<DashboardViewModel>> GetSingleForView(int id)
         {
-            return await _dashboardService.GetSingleForView(id);
+            return await _dashboardService.GetSingleForView(id, false);
         }
 
         [HttpGet]
