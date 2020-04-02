@@ -174,12 +174,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         || fieldName === DashboardItemFieldsEnum.compareEnabled) {
         this.setAvailableCharts(true);
       }
-
-      if (fieldName === DashboardItemFieldsEnum.chartType) {
-        this.resizeCollapse();
-      }
-      //
-      // this.dashboardItem.answersLength =
     }
   }
 
