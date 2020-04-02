@@ -755,8 +755,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         : GetDataPercentage(x.Count(), data.Count),
                                 })
                                 .ToList();
-
-
                             multiData.Add(totalPeriod);
                             break;
                         default:
@@ -1035,8 +1033,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         }
                                     }
                                 }
-
-
                                 foreach (var stackedModel in multiStackedData)
                                 {
                                     var model = new DashboardViewChartDataMultiStackedModel()
@@ -1069,7 +1065,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                         model.Series.Add(innerModel);
                                     }
-
+                                  
                                     foreach (var modelSeries in stackedModel.Series)
                                     {
                                         // var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};
