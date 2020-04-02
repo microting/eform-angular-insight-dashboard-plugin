@@ -113,6 +113,7 @@ namespace InsightDashboard.Pn.Test.Helpers
                 FirstQuestionName = viewModel.FirstQuestionName,
                 CompareLocationsTags = viewModel.CompareLocationsTags,
                 IgnoredAnswerValues = viewModel.IgnoredAnswerValues,
+                FirstQuestionType = viewModel.FirstQuestionType,
             };
 
             return dashboardItem;
