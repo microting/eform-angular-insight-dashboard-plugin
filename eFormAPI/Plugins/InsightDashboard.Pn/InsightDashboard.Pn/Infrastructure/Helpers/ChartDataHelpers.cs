@@ -233,46 +233,83 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                 if (isSmiley)
                 {
+                    List<int> smileyIndex = new List<int>();
                     var tmpData = new List<DashboardViewChartDataSingleModel>();
                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                    {
                         tmpData.Add(new DashboardViewChartDataSingleModel {Name = "100", Value = 0});
+                        smileyIndex.Add(100);
+                    }
                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                    {
                         tmpData.Add(new DashboardViewChartDataSingleModel {Name = "75", Value = 0});
+                        smileyIndex.Add(75);
+                    }
                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                    {
                         tmpData.Add(new DashboardViewChartDataSingleModel {Name = "50", Value = 0});
+                        smileyIndex.Add(50);
+                    }
                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                    {
                         tmpData.Add(new DashboardViewChartDataSingleModel {Name = "25", Value = 0});
+                        smileyIndex.Add(25);
+                    }
                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                    {
                         tmpData.Add(new DashboardViewChartDataSingleModel {Name = "0", Value = 0});
+                        smileyIndex.Add(0);
+                    }
                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                    {
                         tmpData.Add(new DashboardViewChartDataSingleModel {Name = "999", Value = 0});
+                        smileyIndex.Add(999);
+                    }
                     foreach (DashboardViewChartDataSingleModel dashboardViewChartDataSingleModel in groupedData)
                     {
                         switch (@dashboardViewChartDataSingleModel.Name)
                         {
                             case "100":
-                                tmpData[0].Name = smileyLabels.Single(z => z.Key == 100).Value;
-                                tmpData[0].Value = dashboardViewChartDataSingleModel.Value;
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                {
+                                    tmpData[smileyIndex.IndexOf(100)].Name = smileyLabels.Single(z => z.Key == 100).Value;
+                                    tmpData[smileyIndex.IndexOf(100)].Value = dashboardViewChartDataSingleModel.Value;
+                                }
                                 break;
                             case "75":
-                                tmpData[1].Name = smileyLabels.Single(z => z.Key == 75).Value;
-                                tmpData[1].Value = dashboardViewChartDataSingleModel.Value;
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                {
+                                    tmpData[smileyIndex.IndexOf(75)].Name = smileyLabels.Single(z => z.Key == 75).Value;
+                                    tmpData[smileyIndex.IndexOf(75)].Value = dashboardViewChartDataSingleModel.Value;
+                                }
                                 break;
                             case "50":
-                                tmpData[2].Name = smileyLabels.Single(z => z.Key == 50).Value;
-                                tmpData[2].Value = dashboardViewChartDataSingleModel.Value;
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                {
+                                    tmpData[smileyIndex.IndexOf(50)].Name = smileyLabels.Single(z => z.Key == 50).Value;
+                                    tmpData[smileyIndex.IndexOf(50)].Value = dashboardViewChartDataSingleModel.Value;
+                                }
                                 break;
                             case "25":
-                                tmpData[3].Name = smileyLabels.Single(z => z.Key == 25).Value;
-                                tmpData[3].Value = dashboardViewChartDataSingleModel.Value;
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                {
+                                    tmpData[smileyIndex.IndexOf(25)].Name = smileyLabels.Single(z => z.Key == 25).Value;
+                                    tmpData[smileyIndex.IndexOf(25)].Value = dashboardViewChartDataSingleModel.Value;
+                                }
                                 break;
                             case "0":
-                                tmpData[4].Name = smileyLabels.Single(z => z.Key == 0).Value;
-                                tmpData[4].Value = dashboardViewChartDataSingleModel.Value;
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                {
+                                    tmpData[smileyIndex.IndexOf(0)].Name = smileyLabels.Single(z => z.Key == 0).Value;
+                                    tmpData[smileyIndex.IndexOf(0)].Value = dashboardViewChartDataSingleModel.Value;
+                                }
                                 break;
                             case "999":
-                                tmpData[5].Name = smileyLabels.Single(z => z.Key == 999).Value;
-                                tmpData[5].Value = dashboardViewChartDataSingleModel.Value;
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                {
+                                    tmpData[smileyIndex.IndexOf(999)].Name = smileyLabels.Single(z => z.Key == 999).Value;
+                                    tmpData[smileyIndex.IndexOf(999)].Value = dashboardViewChartDataSingleModel.Value;
+                                }
                                 break;
                         }
                     }
