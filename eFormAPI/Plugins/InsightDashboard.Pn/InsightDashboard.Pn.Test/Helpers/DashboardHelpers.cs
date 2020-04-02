@@ -153,9 +153,6 @@ namespace InsightDashboard.Pn.Test.Helpers
             Assert.AreEqual(
                 originalItem.ChartData.MultiStacked.Count,
                 processedItem.ChartData.MultiStacked.Count);
-            Assert.AreEqual(
-                originalItem.ChartData.RawData.Count,
-                processedItem.ChartData.RawData.Count);
 
             // Single data
             for (var index = 0; index < originalItem.ChartData.Single.Count; index++)

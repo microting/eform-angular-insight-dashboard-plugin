@@ -57,6 +57,10 @@ namespace InsightDashboard.Pn.Test.Helpers
                 .Setup(x => x.GetString("TotalPeriod"))
                 .Returns("Total Period");
 
+            localizationServiceMock
+                .Setup(x => x.GetString("Total"))
+                .Returns("Total");
+
             return localizationServiceMock.Object;
         }
     }
