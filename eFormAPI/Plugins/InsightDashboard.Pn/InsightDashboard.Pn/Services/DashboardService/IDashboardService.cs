@@ -35,7 +35,10 @@ namespace InsightDashboard.Pn.Services.DashboardService
         Task<OperationResult> Copy(int dashboardId);
         Task<OperationResult> Update(DashboardEditModel editModel);
         Task<OperationResult> Remove(int dashboardId);
-        Task<OperationDataResult<DashboardViewModel>> GetSingleForView(int dashboardId);
+        Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
+            int dashboardId,
+            bool onlyTextData,
+            int? dashBoardItemId = null);
         Task<OperationDataResult<DashboardEditModel>> GetSingleForEdit(int dashboardId);
     }
 }

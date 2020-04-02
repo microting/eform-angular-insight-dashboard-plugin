@@ -1,11 +1,11 @@
-import {DashboardChartTypesEnum, DashboardPeriodUnitsEnum} from '../../const/enums';
+import {DashboardChartTypesEnum, DashboardItemQuestionTypesEnum, DashboardPeriodUnitsEnum} from '../../../const/enums';
 import {DashboardItemCompareModel} from './dashboard-item-compare.model';
 import {DashboardItemIgnoredAnswerModel} from './dashboard-item-ignored-answer.model';
 
 export class DashboardItemModel {
   id: number;
   firstQuestionId: number;
-  isFirstQuestionSmiley: boolean;
+  firstQuestionType: DashboardItemQuestionTypesEnum;
   filterQuestionId: number;
   filterAnswerId: number;
   filterAnswerName: string;
@@ -19,6 +19,7 @@ export class DashboardItemModel {
   calculateAverage: boolean;
 
   position: number;
+  answersLength = 0;
 
   // Helper fields
   collapsed: boolean;

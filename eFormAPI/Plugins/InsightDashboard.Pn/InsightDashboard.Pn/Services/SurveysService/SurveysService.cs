@@ -64,6 +64,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 await core.GetAllQuestionSets();
                 // await core.GetAllSurveyConfigurations();
                 await core.GetAllAnswers();
+                //await AddTextAnswers(); 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var surveysQueryable = sdkContext.survey_configurations
@@ -372,6 +373,57 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 return new OperationResult(
                     false,
                     _localizationService.GetString("ErrorWhileRemovingSurveyConfiguration"));
+            }
+        }
+
+        private async Task AddTextAnswers()
+        {
+            var core = await _coreHelper.GetCore();
+            var dbContext = core.dbContextHelper.GetDbContext();
+            int questionId;
+            int answerOptionId = 1;
+            int naOptionId = 1;
+            if (dbContext.QuestionTranslations.SingleOrDefault(x => x.Name == "Enter you opinion about the question") == null)
+            {
+                questions textQuestion = new questions()
+                {
+                    QuestionType = Constants.QuestionTypes.Text,
+                    QuestionSetId = dbContext.question_sets.First().Id
+                };
+                await textQuestion.Create(dbContext, true);
+                questionId = textQuestion.Id;
+                question_translations questionTranslation = new question_translations()
+                {
+                    Name = "Enter you opinion about the question",
+                    QuestionId = textQuestion.Id,
+                    LanguageId = dbContext.languages.First().Id
+                };
+                await questionTranslation.Create(dbContext);
+            }
+            else
+            {
+                var questionTranslation = dbContext.QuestionTranslations
+                    .Single(x => x.Name == "Enter you opinion about the question");
+                questionId = questionTranslation.QuestionId;
+                answerOptionId = questionTranslation.Question.Options.First().Id;
+                naOptionId = questionTranslation.Question.Options.Last().Id;
+            }
+            int i = 1;
+            foreach (answers answer in dbContext.answers.ToList())
+            {
+                if (dbContext.answer_values.SingleOrDefault(x =>
+                        x.AnswerId == answer.Id && x.QuestionId == questionId) == null)
+                {
+                    answer_values answerValue = new answer_values()
+                    {
+                        QuestionId = questionId,
+                        AnswerId = answer.Id,
+                        OptionId = (i % 2 == 0) ? answerOptionId : naOptionId,
+                        Value = (i % 2 == 0) ? "dfliwfjwefo wfiowefjwoiejfjiwefj wef oijwifow ifowiejf iwofjiw fiowf " : ""
+                    };
+                    await answerValue.Create(dbContext);
+                }
+                i += 1;
             }
         }
     }

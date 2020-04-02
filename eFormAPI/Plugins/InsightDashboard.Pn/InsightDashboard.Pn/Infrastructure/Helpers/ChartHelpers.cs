@@ -28,24 +28,50 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using Microting.eForm.Infrastructure.Constants;
     using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
     using Models.Dashboards;
 
     public static class ChartHelpers
     {
-        public static List<DashboardViewChartDataMultiStackedModel> SortLocationPosition(
+        public static List<DashboardViewChartDataMultiStackedModel> SortMultiStackedDataLocationPosition(
             List<DashboardViewChartDataMultiStackedModel> multiStackedData,
             DashboardItem dashboardItem)
         {
             var result = new List<DashboardViewChartDataMultiStackedModel>();
             var locations = dashboardItem.CompareLocationsTags
-                .Select(x => new {x.LocationId, x.Position})
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .Select(x => new { x.LocationId, x.Position })
                 .OrderBy(x => x.Position)
                 .ToArray();
 
             foreach (var location in locations)
             {
                 var data = multiStackedData.FirstOrDefault(x => x.Id == location.LocationId);
+
+                if (data != null)
+                {
+                    result.Add(data);
+                }
+            }
+
+            return result;
+        }
+
+        public static List<DashboardViewChartDataMultiModel> SortMultiDataLocationPosition(
+            List<DashboardViewChartDataMultiModel> multiData,
+            DashboardItem dashboardItem)
+        {
+            var result = new List<DashboardViewChartDataMultiModel>();
+            var locations = dashboardItem.CompareLocationsTags
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .Select(x => new { x.LocationId, x.Position })
+                .OrderBy(x => x.Position)
+                .ToArray();
+
+            foreach (var location in locations)
+            {
+                var data = multiData.FirstOrDefault(x => x.Id == location.LocationId);
 
                 if (data != null)
                 {

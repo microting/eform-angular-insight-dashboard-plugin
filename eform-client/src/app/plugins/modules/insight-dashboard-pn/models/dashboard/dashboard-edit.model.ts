@@ -1,4 +1,4 @@
-import {DashboardItemModel} from './dashboard-item.model';
+import {DashboardItemModel} from './dashboard-item/dashboard-item.model';
 import {DashboardAnswerDatesModel} from './dashboard-answer-dates.model';
 
 export class DashboardEditModel {

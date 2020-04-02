@@ -252,6 +252,13 @@
     }
   },
   {
+    "Key": "Total",
+    "LocalizedValue": {
+      "da": "Total",
+      "en-US": "Total"
+    }
+  },
+  {
     "Key": "NoDataAvailableForTheSelectedPeriod",
     "LocalizedValue": {
       "da": "Der er ingen tilgængelige data for den valgte periode",

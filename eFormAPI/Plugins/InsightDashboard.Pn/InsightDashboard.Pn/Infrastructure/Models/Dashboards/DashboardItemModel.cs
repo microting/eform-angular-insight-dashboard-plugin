@@ -31,6 +31,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
     {
         public int? Id { get; set; }
         public int FirstQuestionId { get; set; }
+        public string FirstQuestionType { get; set; }
         public bool IsFirstQuestionSmiley { get; set; }
         public int? FilterQuestionId { get; set; }
         public int? FilterAnswerId { get; set; }
