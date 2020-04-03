@@ -1,5 +1,10 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
-import {DashboardChartTypesEnum, DashboardItemFieldsEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
+import {
+  DashboardChartTypesEnum,
+  DashboardItemFieldsEnum,
+  DashboardItemQuestionTypesEnum,
+  DashboardPeriodUnitsEnum
+} from '../../../../const/enums';
 import {DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
 import {CommonDictionaryModel} from '../../../../../../../common/models/common';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
@@ -26,7 +31,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   @Output() copyItem: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() dashboardItemChanged: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() deleteItem: EventEmitter<number> = new EventEmitter<number>();
-  isFirstQuestionSmiley = false;
+  firstQuestionType: DashboardItemQuestionTypesEnum = DashboardItemQuestionTypesEnum.Other;
   filterAnswers: CommonDictionaryModel[] = [];
   questionAnswers: CommonDictionaryModel[] = [];
   loadAnswersSub$: Subscription;
@@ -43,8 +48,8 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     return DashboardItemFieldsEnum;
   }
 
-  get chartTypes() {
-    return DashboardChartTypesEnum;
+  get questionTypes() {
+    return DashboardItemQuestionTypesEnum;
   }
 
   get dashboardItemFullName() {
@@ -52,11 +57,13 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     if (this.dashboardItem.firstQuestionId && this.questions.length > 0) {
       fullName = this.questions.find(x => x.id === this.dashboardItem.firstQuestionId).name;
     }
-    if (this.dashboardItem.period) {
+    if (this.dashboardItem.period && this.firstQuestionType !== DashboardItemQuestionTypesEnum.Text) {
       fullName += ' - ' + this.periodUnits[this.dashboardItem.period];
     }
-    if (this.dashboardItem.chartType && this.allCharts.length > 0) {
-      fullName += ' - ' + this.allCharts.find(x => x.id === this.dashboardItem.chartType).name;
+    if (this.dashboardItem.chartType && this.firstQuestionType !== DashboardItemQuestionTypesEnum.Text) {
+      if (this.allCharts.length) {
+        fullName += ' - ' + this.allCharts.find(x => x.id === this.dashboardItem.chartType).name;
+      }
     }
     return fullName;
   }
@@ -120,7 +127,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       this.loadAnswers(false);
 
       // set separate property for smiley
-      this.isFirstQuestionSmiley = currentValue.isFirstQuestionSmiley;
+      this.firstQuestionType = currentValue.firstQuestionType;
 
       // change available chart types depends on period
       this.fillInitialChartOptions(currentValue.period);
@@ -151,8 +158,8 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         this.dashboardItem.ignoredAnswerValues = [];
 
         // Set is smiley for model
-        this.dashboardItem.isFirstQuestionSmiley = this.questions.find(x => x.id === value).isSmiley;
-        this.isFirstQuestionSmiley = this.dashboardItem.isFirstQuestionSmiley;
+        this.dashboardItem.firstQuestionType = this.questions.find(x => x.id === value).type as DashboardItemQuestionTypesEnum;
+        this.firstQuestionType = this.dashboardItem.firstQuestionType;
 
         this.fillInitialChartOptions(this.dashboardItem.period);
       }
@@ -167,12 +174,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         || fieldName === DashboardItemFieldsEnum.compareEnabled) {
         this.setAvailableCharts(true);
       }
-
-      if (fieldName === DashboardItemFieldsEnum.chartType) {
-        this.resizeCollapse();
-      }
-      //
-      // this.dashboardItem.answersLength =
     }
   }
 
@@ -203,20 +204,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         this.availableCharts = [];
       }
     }
-
-    // if (this.dashboardItem.calculateAverage) {
-    //   if (this.dashboardItem.compareEnabled) {
-    //     this.availableCharts = [
-    //       this.allCharts[DashboardChartTypesEnum.Line - 1]];
-    //     if (this.dashboardItem.period === DashboardPeriodUnitsEnum.Total) {
-    //       this.availableCharts = [];
-    //     }
-    //   } else {
-    //     this.availableCharts = this.allCharts[DashboardChartTypesEnum.HorizontalBarStackedGrouped - 1];
-    //   }
-    // } else {
-    //
-    // }
   }
 
   private fillInitialChartOptions(period: DashboardPeriodUnitsEnum | null) {

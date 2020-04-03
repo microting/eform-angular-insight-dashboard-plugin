@@ -34,10 +34,10 @@
 <!--            </ng-container>-->
             --
           </p>
-          <p>
+          <p *ngIf="itemModel.firstQuestionType === questionType.Text">
             <strong>{{'Number of interviews' | translate}}: </strong>
             <span id="numberOfInterviews{{position}}">
-              {{'--'}}</span>
+              {{itemModel.interviewsCount}}</span>
           </p>
         </div>
         <div class="col">
@@ -59,9 +59,17 @@
         </div>
       </div>
       <div class="d-flex justify-content-center flex-column">
-        <app-dashboard-chart-view [chartPosition]="position"
-                                  [itemModel]="itemModel">
-        </app-dashboard-chart-view>
+        <ng-container *ngIf="itemModel.firstQuestionType !== questionType.Text">
+          <app-dashboard-chart-view [chartPosition]="position"
+                                    [itemModel]="itemModel">
+          </app-dashboard-chart-view>
+          <app-dashboard-chart-data-view [itemModel]="itemModel"></app-dashboard-chart-data-view>
+        </ng-container>
+
+        <app-dashboard-interviews-view *ngIf="itemModel.firstQuestionType === questionType.Text"
+                                       [dashboardViewModel]="dashboardViewModel"
+                                       [itemModel]="itemModel">
+        </app-dashboard-interviews-view>
       </div>
     </div>
 

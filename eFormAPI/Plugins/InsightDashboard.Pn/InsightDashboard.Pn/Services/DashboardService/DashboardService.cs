@@ -31,6 +31,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
+    using Infrastructure.Extensions;
     using Infrastructure.Helpers;
     using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Http;
@@ -237,16 +238,20 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         {
                             Name = dashboard.Name,
                             SurveyId = dashboard.SurveyId,
-                            LocationId = dashboard.LocationId,
-                            TagId = dashboard.TagId,
                             CreatedByUserId = UserId,
                             UpdatedByUserId = UserId,
-                            DateFrom = dashboard.DateFrom,
-                            DateTo = dashboard.DateTo,
-                            Today = dashboard.Today,
                         };
 
                         await newDashboard.Create(_dbContext);
+
+                        newDashboard.LocationId = dashboard.LocationId;
+                        newDashboard.TagId = dashboard.TagId;
+                        newDashboard.DateFrom = dashboard.DateFrom;
+                        newDashboard.DateTo = dashboard.DateTo;
+                        newDashboard.Today = dashboard.Today;
+                        newDashboard.UpdatedByUserId = UserId;
+
+                        await newDashboard.Update(_dbContext);
 
                         foreach (var dashboardItem in dashboard
                             .DashboardItems
@@ -738,7 +743,10 @@ namespace InsightDashboard.Pn.Services.DashboardService
             }
         }
 
-        public async Task<OperationDataResult<DashboardViewModel>> GetSingleForView(int dashboardId)
+        public async Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
+            int dashboardId,
+            bool onlyTextData,
+            int? dashBoardItemId = null)
         {
             try
             {
@@ -844,6 +852,14 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .OrderBy(x => x.Position))
                 {
+                    if (onlyTextData)
+                    {
+                        if (dashboardItem.Id != dashBoardItemId)
+                        {
+                            continue;
+                        }
+                    }
+
                     var dashboardItemModel = new DashboardItemViewModel()
                     {
                         Id = dashboardItem.Id,
@@ -903,15 +919,22 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         var languages = await sdkContext.languages.ToListAsync();
                         foreach (var language in languages)
                         {
-                            dashboardItemModel.FirstQuestionName = await sdkContext.QuestionTranslations
+                            var firstQuestion = await sdkContext.QuestionTranslations
                                 .AsNoTracking()
                                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.Question.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
                                 .Where(x => x.Language.Id == language.Id)
-                                .Select(x => x.Name)
+                                .Select(x => new
+                                {
+                                    x.Name,
+                                    x.Question.QuestionType,
+                                })
                                 .FirstOrDefaultAsync();
+
+                            dashboardItemModel.FirstQuestionName = firstQuestion?.Name;
+                            dashboardItemModel.FirstQuestionType = firstQuestion?.QuestionType;
 
                             if (dashboardItemModel.FirstQuestionName != null)
                             {
@@ -1093,6 +1116,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         if (question != null)
                         {
                             dashboardItemModel.IsFirstQuestionSmiley = question.IsSmiley();
+                            dashboardItemModel.FirstQuestionType = question.GetQuestionType();
                         }
                     }
                 }

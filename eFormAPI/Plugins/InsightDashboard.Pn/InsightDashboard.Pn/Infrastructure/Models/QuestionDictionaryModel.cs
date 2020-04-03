@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public bool IsSmiley { get; set; }
+        public string Type { get; set; }
     }
 }

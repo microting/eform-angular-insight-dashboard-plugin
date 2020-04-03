@@ -8,12 +8,14 @@
     <ItemGroup>
       <None Remove="Data\multi-data.json" />
       <None Remove="Data\multi-stacked-data.json" />
+      <None Remove="Data\raw-chart-data.json" />
       <None Remove="Data\single-data.json" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Include="Data\multi-stacked-data.json" />
       <EmbeddedResource Include="Data\multi-data.json" />
+      <EmbeddedResource Include="Data\raw-chart-data.json" />
       <EmbeddedResource Include="Data\single-data.json" />
     </ItemGroup>
 

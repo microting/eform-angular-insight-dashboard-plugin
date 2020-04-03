@@ -25,6 +25,7 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 {
     using System.Collections.Generic;
+    using RawData;
 
     public class DashboardViewChartDataModel
     {
@@ -36,5 +37,8 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 
         public List<DashboardViewChartDataMultiStackedModel> MultiStacked { get; set; }
             = new List<DashboardViewChartDataMultiStackedModel>();
+
+        public List<DashboardViewChartRawDataModel> RawData { get; set; }
+            = new List<DashboardViewChartRawDataModel>();
     }
 }
