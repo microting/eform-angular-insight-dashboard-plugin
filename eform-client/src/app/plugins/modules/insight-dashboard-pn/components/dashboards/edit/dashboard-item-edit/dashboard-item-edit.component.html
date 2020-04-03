@@ -99,7 +99,7 @@
                          (click)="fieldChanged($event.target.checked, itemFields.calculateAverage)"
                          [value]="dashboardItem.calculateAverage">
                   <label for="calcAverageCheckbox{{dashboardItem.position}}"
-                         [ngClass]="{'text-muted' : !dashboardItem.firstQuestionType === questionTypes.Smiley}">
+                         [ngClass]="{'text-muted' : dashboardItem.firstQuestionType !== questionTypes.Smiley}">
                     {{'Calculate average' | translate}}
                   </label>
                 </div>
