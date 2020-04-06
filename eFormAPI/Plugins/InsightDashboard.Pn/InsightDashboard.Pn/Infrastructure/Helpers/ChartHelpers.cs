@@ -60,18 +60,29 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static List<DashboardViewChartDataMultiModel> SortMultiDataLocationPosition(
             List<DashboardViewChartDataMultiModel> multiData,
-            DashboardItem dashboardItem)
+            DashboardItem dashboardItem,
+            int? locationId)
         {
             var result = new List<DashboardViewChartDataMultiModel>();
-            var locations = dashboardItem.CompareLocationsTags
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .Select(x => new { x.LocationId, x.Position })
-                .OrderBy(x => x.Position)
-                .ToArray();
+            var locations = new List<int>();
+            if (locationId == null)
+            {
+                locations = dashboardItem.CompareLocationsTags
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Select(x => new {x.LocationId, x.Position})
+                    .OrderBy(x => x.Position)
+                    .Select(x => (int)x.LocationId)
+                    .ToList();
+            }
+            else
+            {
+                locations.Add((int)locationId);
+            }
+
 
             foreach (var location in locations)
             {
-                var data = multiData.FirstOrDefault(x => x.Id == location.LocationId);
+                var data = multiData.FirstOrDefault(x => x.Id == location);
 
                 if (data != null)
                 {
