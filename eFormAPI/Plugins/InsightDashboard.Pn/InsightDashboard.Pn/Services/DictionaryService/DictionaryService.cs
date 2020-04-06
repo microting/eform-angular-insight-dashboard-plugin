@@ -31,6 +31,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
     using Infrastructure.Extensions;
+    using Infrastructure.Helpers;
     using Infrastructure.Models;
     using Infrastructure.Models.Dashboards;
     using Microsoft.EntityFrameworkCore;
@@ -178,8 +179,14 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 {
                     var languages = await sdkContext.languages.ToListAsync();
                     var answersResult = new List<CommonDictionaryModel>();
+                    bool isSmileyQuestion = false;
                     foreach (var language in languages)
                     {
+                        isSmileyQuestion = await sdkContext.questions
+                            .Where(x => x.Id == requestModel.FilterQuestionId)
+                            .Select(x => x.IsSmiley())
+                            .FirstOrDefaultAsync();
+
                         // TODO take by language
                         var answers = await sdkContext.options
                             .AsNoTracking()
@@ -201,6 +208,26 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             break;
                         }
                     }
+
+                    if (isSmileyQuestion)
+                    {
+                        var result = new List<CommonDictionaryModel>();
+
+                        foreach (var dictionaryModel in answersResult)
+                        {
+                            result.Add(new CommonDictionaryModel
+                            {
+                                Id = dictionaryModel.Id,
+                                Name = ChartHelpers.GetSmileyLabel(dictionaryModel.Name),
+                                Description = dictionaryModel.Description,
+                            });
+                        }
+
+                        return new OperationDataResult<List<CommonDictionaryModel>>(
+                            true,
+                            result);
+                    }
+
 
                     return new OperationDataResult<List<CommonDictionaryModel>>(
                         true,

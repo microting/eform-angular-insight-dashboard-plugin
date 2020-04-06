@@ -118,5 +118,26 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
             throw new ArgumentException($"Invalid month {month}");
         }
+        
+        public static string GetSmileyLabel(string smileyString)
+        {
+            switch (smileyString)
+            {
+                case "smiley1":
+                    return "Meget glad";
+                case "smiley2":
+                    return "Glad";
+                case "smiley3":
+                    return "Neutral";
+                case "smiley4":
+                    return "Sur";
+                case "smiley5":
+                    return "Meget sur";
+                case "smiley6":
+                    return "Ved ikke";
+            }
+
+            throw new ArgumentException($"Invalid smiley string {smileyString}");
+        }
     }
 }
