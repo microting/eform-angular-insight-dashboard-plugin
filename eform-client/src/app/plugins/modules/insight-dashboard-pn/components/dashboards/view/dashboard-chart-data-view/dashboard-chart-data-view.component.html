@@ -1,6 +1,6 @@
 <div class="row p-1 mb-4 table-responsive no-gutters scrollable-block"
      *ngFor="let rawData of itemModel.chartData.rawData">
-  <table class="table table-sm table-striped text-center z-depth-1">
+  <table class="table table-sm table-striped text-right z-depth-1">
     <thead>
       <tr>
         <th scope="col">
@@ -12,14 +12,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dataValues of rawData.rawDataValues">
-        <td>
+      <tr *ngFor="let dataValues of rawData.rawDataValues; let last = last;">
+        <td [ngClass]="{'font-bold': last}">
           {{dataValues.valueName}}
         </td>
-        <td *ngFor="let value of dataValues.percents">
-          {{value}}
+        <td *ngFor="let value of dataValues.percents" [ngClass]="{'font-bold': last}">
+          <ng-container *ngIf="itemModel.calculateAverage">
+            {{value}}
+          </ng-container>
           <ng-container *ngIf="!itemModel.calculateAverage">
-            %
+            {{value}}%
           </ng-container>
         </td>
       </tr>
@@ -27,11 +29,11 @@
         <td></td>
         <td *ngFor="let header of rawData.rawHeaders"></td>
       </tr>
-      <tr *ngFor="let dataValues of rawData.rawDataValues">
-        <td>
+      <tr *ngFor="let dataValues of rawData.rawDataValues; let last = last;">
+        <td [ngClass]="{'font-bold': last}">
           {{dataValues.valueName}}
         </td>
-        <td *ngFor="let value of dataValues.amounts">
+        <td *ngFor="let value of dataValues.amounts" [ngClass]="{'font-bold': last}">
           {{value}}
         </td>
       </tr>
