@@ -135,9 +135,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     return "Meget sur";
                 case "smiley6":
                     return "Ved ikke";
+                default:
+                    return smileyString;
             }
-
-            throw new ArgumentException($"Invalid smiley string {smileyString}");
         }
     }
 }

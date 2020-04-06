@@ -907,7 +907,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 {
                                     Id = dashboardItemIgnoredAnswer.Id,
                                     AnswerId = dashboardItemIgnoredAnswer.AnswerId,
-                                    Name = option.Name
+                                    Name = ChartHelpers.GetSmileyLabel(option.Name),
                                 };
                                 dashboardItemModel.IgnoredAnswerValues.Add(ignoredAnswer);
                             }
@@ -974,7 +974,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
                                     .Where(x => x.OptionId == dashboardItem.FilterAnswerId)
                                     .Where(x => x.Language.Id == language.Id)
-                                    .Select(x => x.Name)
+                                    .Select(x => ChartHelpers.GetSmileyLabel(x.Name))
                                     .FirstOrDefaultAsync();
 
                                 if (dashboardItemModel.FilterAnswerName != null)
