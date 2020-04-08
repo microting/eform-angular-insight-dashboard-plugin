@@ -271,5 +271,19 @@
       "da": "Vælg mindst en værdi, der ikke skal ignoreres.",
       "en-US": "Select at least one value that should not be ignored."
     }
+  },
+  {
+    "Key": "ErrorWhileObtainingSurveys",
+    "LocalizedValue": {
+      "da": "Fejl under opnåelse af undersøgelser",
+      "en-US": "Error while obtaining surveys"
+    }
+  },
+  {
+    "Key": "ErrorWhileObtainingTags",
+    "LocalizedValue": {
+      "da": "Fejl under hentning af tags",
+      "en-US": "Error while obtaining tags"
+    }
   }
 ]

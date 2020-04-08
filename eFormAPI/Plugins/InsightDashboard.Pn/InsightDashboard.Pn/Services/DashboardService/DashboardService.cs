@@ -990,6 +990,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             dashboardItem,
                             _localizationService,
                             dashboard.LocationId,
+                            dashboard.TagId,
                             dashboard.SurveyId,
                             new DashboardEditAnswerDates
                             {
