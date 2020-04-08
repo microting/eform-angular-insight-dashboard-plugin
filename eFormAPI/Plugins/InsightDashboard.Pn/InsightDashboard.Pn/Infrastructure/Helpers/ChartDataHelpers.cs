@@ -246,24 +246,32 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         .Select(x => x.TagId)
                         .ToList();
 
-                    var tagsData = await answerQueryable
-                        .Where(x => x.Answer.Site.SiteTags.Any(
-                            y => tagIds.Contains(y.TagId)))
-                        .Select(x => new ChartDataItem
-                        {
-                            Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
-                            Finished = x.Answer.FinishedAt,
-                            LocationTagName = x.Answer.Site.SiteTags
-                                .Select(y => y.Tag.Name)
-                                .FirstOrDefault(),
-                            LocationTagId = (int)x.Answer.Site.SiteTags
-                                .Select(y => y.TagId)
-                                .FirstOrDefault(),
-                            Weight = x.Option.WeightValue,
-                            OptionIndex = x.Option.OptionsIndex,
-                            IsSmiley = x.Question.IsSmiley()
-                        })
-                        .ToListAsync();
+                    var tagsData = new List<ChartDataItem>();
+                    foreach (var tagId in tagIds)
+                    {
+                        var tagData = await answerQueryable
+                            .Where(x => x.Answer.Site.SiteTags.Any(
+                                y => y.TagId == tagId))
+                            .Select(x => new ChartDataItem
+                            {
+                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                                Finished = x.Answer.FinishedAt,
+                                LocationTagName = x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == tagId)
+                                    .Select(y => y.Tag.Name)
+                                    .FirstOrDefault(),
+                                LocationTagId = (int)x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == tagId)
+                                    .Select(y => y.TagId)
+                                    .FirstOrDefault(),
+                                Weight = x.Option.WeightValue,
+                                OptionIndex = x.Option.OptionsIndex,
+                                IsSmiley = x.Question.IsSmiley()
+                            })
+                            .ToListAsync();
+
+                        tagsData.AddRange(tagData);
+                    }
 
                     var siteIds = dashboardItem.CompareLocationsTags
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
