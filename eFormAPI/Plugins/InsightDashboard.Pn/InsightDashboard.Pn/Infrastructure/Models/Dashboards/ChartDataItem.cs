@@ -21,23 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
-namespace InsightDashboard.Pn.Services.DictionaryService
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Infrastructure.Models;
-    using Infrastructure.Models.Dashboards;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+    using System;
 
-    public interface IDictionaryService
+    public class ChartDataItem
     {
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys();
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags();
-        Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId);
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(
-            DashboardItemAnswerRequestModel requestModel);
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int surveyId);
+        public string Name { get; set; }
+        public DateTime Finished { get; set; }
+        public string LocationTagName { get; set; }
+        public int LocationTagId { get; set; }
+        public int Weight { get; set; }
+        public int OptionIndex { get; set; }
+        public bool IsSmiley { get; set; }
     }
 }

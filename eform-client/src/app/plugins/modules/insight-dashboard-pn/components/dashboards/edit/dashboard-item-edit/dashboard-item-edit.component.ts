@@ -301,11 +301,15 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
   getCurrentLocationValue(locationTag: CommonDictionaryExtendedModel) {
     if (this.dashboardItem && this.dashboardItem.compareLocationsTags) {
-      const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.locationId === locationTag.id);
-      return foundCurrentValue ? foundCurrentValue.position : null;
+      if (locationTag.isTag) {
+        const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.tagId === locationTag.id);
+        return foundCurrentValue ? foundCurrentValue.position : null;
+      } else {
+        const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.locationId === locationTag.id);
+        return foundCurrentValue ? foundCurrentValue.position : null;
+      }
     }
     return null;
-
   }
 
   resizeCollapse() {

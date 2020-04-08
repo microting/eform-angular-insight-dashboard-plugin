@@ -19,8 +19,8 @@ export class DashboardChartViewComponent {
   line: any[];
   multi: any[];
   pie: any[];
-  view: any[] = [1000, 400];
-  multiChartView: any[] = [1000, 400];
+  view: any[] = [1200, 400];
+  multiChartView: any[] = [800, 400];
 
   colorScheme = {
     domain: ['#9c27b0', '#3f51b5', '#2196f3', '#00bcd4', '#009688', '#8bc34a', '#cddc39', '#ffc107', '#ff9800', '#9e9e9e']
@@ -88,6 +88,7 @@ export class DashboardChartViewComponent {
       value: '#0099CC '
     }
   ];
+  spinnerStatus = false;
 
   constructor() {
     Object.assign(this, {line});
@@ -96,12 +97,15 @@ export class DashboardChartViewComponent {
   }
 
   copyChart() {
+    this.spinnerStatus = true;
+    const context = this;
     const scale = 2;
     const node = document.getElementById(`copyableChart${this.chartPosition}`);
     setTimeout(() => domtoimage.toBlob(node, {
       // add greater scaling
       height: node.offsetHeight * scale,
-      width: node.offsetWidth * scale,
+      width: this.itemModel.chartType === DashboardChartTypesEnum.HorizontalBarStackedGrouped
+        ? node.scrollWidth * scale : node.offsetWidth * scale,
       style: {
         transform: 'scale(' + scale + ')',
         transformOrigin: 'top left',
@@ -120,8 +124,10 @@ export class DashboardChartViewComponent {
               [blob.type]: blob
             })
           ]);
+          context.spinnerStatus = false;
         } catch (e) {
           // TODO: REMOVE IN PROD
+          context.spinnerStatus = false;
           console.error(e, e.message);
         }
       })

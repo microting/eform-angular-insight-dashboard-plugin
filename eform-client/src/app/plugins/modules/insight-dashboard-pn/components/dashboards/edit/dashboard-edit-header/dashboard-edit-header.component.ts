@@ -63,9 +63,11 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
         break;
       case DashboardFieldsEnum.tagId:
         this.dashboardEditModel.tagId = value;
+        this.dashboardEditModel.locationId = null;
         break;
       case DashboardFieldsEnum.locationId:
         this.dashboardEditModel.locationId = value;
+        this.dashboardEditModel.tagId = null;
         break;
     }
     this.dashboardChanged.emit(this.dashboardEditModel);

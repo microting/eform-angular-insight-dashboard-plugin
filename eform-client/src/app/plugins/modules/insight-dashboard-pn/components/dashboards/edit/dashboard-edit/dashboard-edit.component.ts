@@ -22,6 +22,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   collapseSub$: Subscription;
   getDashboardSub$: Subscription;
   getTagsSub$: Subscription;
+  getLocationsSub$: Subscription;
   dashboardEditModel: DashboardEditModel = new DashboardEditModel();
   questions: DashboardItemQuestionModel[] = [];
   availableLocationsTags: CommonDictionaryExtendedModel[] = [];
@@ -94,17 +95,21 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   getLocationTags(surveyId: number) {
-    // this.getLocationsSub$ = this.sitesService.getAllSitesDictionary().subscribe((data) => {
-    //   if (data && data.success) {
-    //     this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-    //       return {id: x.id, name: x.name, isTag: true, description: x.description};
-    //     })];
-    //   }
-    // });
-    this.getTagsSub$ = this.dictionaryService.getLocationBySurveyId(surveyId).subscribe((data) => {
+    this.getLocationsSub$ = this.dictionaryService.getLocationBySurveyId(surveyId).subscribe((data) => {
       if (data && data.success) {
+        this.getTags();
         this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
           return {id: x.id, name: x.name, isTag: false, description: x.description} as CommonDictionaryExtendedModel;
+        })];
+      }
+    });
+  }
+
+  getTags() {
+    this.getTagsSub$ = this.dictionaryService.getTags().subscribe((data) => {
+      if (data && data.success) {
+        this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
+          return {id: x.id, name: x.name, isTag: true, description: x.description};
         })];
       }
     });

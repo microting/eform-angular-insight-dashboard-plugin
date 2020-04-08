@@ -81,7 +81,34 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationDataResult<List<CommonDictionaryModel>>(false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileObtainingSurveys"));
+            }
+        }
+        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags()
+        {
+            try
+            {
+                var core = await _coreHelper.GetCore();
+                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                {
+                    var surveys = await sdkContext.tags
+                        .AsNoTracking()
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Select(x => new CommonDictionaryModel()
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                        }).ToListAsync();
+
+                    return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.Message);
+                _logger.LogError(e.Message);
+                return new OperationDataResult<List<CommonDictionaryModel>>(false,
+                    _localizationService.GetString("ErrorWhileObtainingTags"));
             }
         }
 

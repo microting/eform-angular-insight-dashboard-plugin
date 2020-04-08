@@ -39,15 +39,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             DashboardItem dashboardItem)
         {
             var result = new List<DashboardViewChartDataMultiStackedModel>();
-            var locations = dashboardItem.CompareLocationsTags
+            var locationAndTagList = dashboardItem.CompareLocationsTags
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .Select(x => new { x.LocationId, x.Position })
+                .Select(x => new { x.LocationId, x.TagId, x.Position })
                 .OrderBy(x => x.Position)
-                .ToArray();
+                .Select(x => x.LocationId ?? x.TagId ?? 0)
+                .ToList();
 
-            foreach (var location in locations)
+
+            foreach (var locationOrTag in locationAndTagList)
             {
-                var data = multiStackedData.FirstOrDefault(x => x.Id == location.LocationId);
+                var data = multiStackedData.FirstOrDefault(x => x.Id == locationOrTag);
 
                 if (data != null)
                 {
@@ -61,28 +63,36 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
         public static List<DashboardViewChartDataMultiModel> SortMultiDataLocationPosition(
             List<DashboardViewChartDataMultiModel> multiData,
             DashboardItem dashboardItem,
-            int? locationId)
+            int? locationId,
+            int? locationTagId)
         {
             var result = new List<DashboardViewChartDataMultiModel>();
-            var locations = new List<int>();
-            if (locationId == null)
+            var locationAndTagList = new List<int>();
+            if (locationId == null && locationTagId == null)
             {
-                locations = dashboardItem.CompareLocationsTags
+                locationAndTagList = dashboardItem.CompareLocationsTags
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Select(x => new {x.LocationId, x.Position})
+                    .Select(x => new { x.LocationId, x.TagId, x.Position })
                     .OrderBy(x => x.Position)
-                    .Select(x => (int)x.LocationId)
+                    .Select(x => x.LocationId ?? x.TagId ?? 0)
                     .ToList();
             }
             else
             {
-                locations.Add((int)locationId);
+                if (locationId != null)
+                {
+                    locationAndTagList.Add((int)locationId);
+                }
+                
+                if (locationTagId != null)
+                {
+                    locationAndTagList.Add((int)locationTagId);
+                }
             }
 
-
-            foreach (var location in locations)
+            foreach (var locationOrTag in locationAndTagList)
             {
-                var data = multiData.FirstOrDefault(x => x.Id == location);
+                var data = multiData.FirstOrDefault(x => x.Id == locationOrTag);
 
                 if (data != null)
                 {
