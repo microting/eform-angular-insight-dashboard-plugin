@@ -20,6 +20,7 @@ export class DashboardChartViewComponent {
   multi: any[];
   pie: any[];
   view: any[] = [1000, 400];
+  multiChartView: any[] = [1000, 400];
 
   colorScheme = {
     domain: ['#9c27b0', '#3f51b5', '#2196f3', '#00bcd4', '#009688', '#8bc34a', '#cddc39', '#ffc107', '#ff9800', '#9e9e9e']
