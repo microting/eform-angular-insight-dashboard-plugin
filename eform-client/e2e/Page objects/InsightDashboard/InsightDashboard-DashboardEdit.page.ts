@@ -3,7 +3,7 @@ import dashboardsPage, {configName} from './InsightDashboard-Dashboards.page';
 
 export const firstQuestion = 'Q2';
 export const filterQuestion = 'Q3';
-export const filterAnswer = 'smiley1';
+export const filterAnswer = 'Meget glad';
 export const period = 'Måned';
 export const chartType = 'Linje';
 export const locationName = 'Location 1';
