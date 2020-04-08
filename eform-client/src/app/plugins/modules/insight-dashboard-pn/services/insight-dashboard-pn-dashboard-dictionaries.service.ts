@@ -11,7 +11,8 @@ const DictionariesMethods = {
   GetSurveys: 'api/insight-dashboard-pn/dictionary/surveys',
   GetLocationsBySurvey: 'api/insight-dashboard-pn/dictionary/locations-by-survey',
   GetQuestions: 'api/insight-dashboard-pn/dictionary/questions',
-  GetFilterAnswers: 'api/insight-dashboard-pn/dictionary/filter-answers'
+  GetFilterAnswers: 'api/insight-dashboard-pn/dictionary/filter-answers',
+  GetTags: 'api/insight-dashboard-pn/dictionary/locations-tags'
 };
 
 @Injectable()
@@ -30,6 +31,10 @@ export class InsightDashboardPnDashboardDictionariesService extends BaseService 
 
   getSurveys(): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {
     return this.get(DictionariesMethods.GetSurveys);
+  }
+
+  getTags(): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {
+    return this.get(DictionariesMethods.GetTags);
   }
 
   getLocationBySurveyId(surveyId?: number): Observable<OperationDataResult<Array<CommonDictionaryModel>>> {

@@ -52,6 +52,13 @@ namespace InsightDashboard.Pn.Controllers
         }
 
         [HttpGet]
+        [Route("api/insight-dashboard-pn/dictionary/locations-tags")]
+        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags()
+        {
+            return await _dictionaryService.GetTags();
+        }
+
+        [HttpGet]
         [Route("api/insight-dashboard-pn/dictionary/locations-by-survey/{id}")]
         public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int id)
         {

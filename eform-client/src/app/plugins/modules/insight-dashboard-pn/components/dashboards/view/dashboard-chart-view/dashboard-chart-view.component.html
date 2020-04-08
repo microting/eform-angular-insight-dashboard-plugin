@@ -1,15 +1,7 @@
-<!--Line = 1,-->
-<!--Pie,-->
-<!--HorizontalBar,-->
-<!--HorizontalBarStacked,-->
-<!--HorizontalBarGrouped,-->
-<!--VerticalBar,-->
-<!--VerticalBarStacked,-->
-<!--VerticalBarGrouped-->
-<div id="copyableChart{{chartPosition}}" [ngStyle]="{'width': view[0] + 'px' }" style="background-color: #FFFFFF !important;">
-  <div [ngStyle]="{'width': view[0] + 'px', 'height': view[1] + 'px' }"
-       *ngIf="itemModel.chartType !== chartTypes.HorizontalBarStackedGrouped"
-  >
+<div id="copyableChart{{chartPosition}}"
+     *ngIf="itemModel.chartType !== chartTypes.HorizontalBarStackedGrouped"
+     [ngStyle]="{'width': view[0] + 'px' }" style="background-color: #FFFFFF !important;">
+  <div [ngStyle]="{'width': view[0] + 'px', 'height': view[1] + 'px' }">
     <ngx-charts-line-chart *ngIf="itemModel.chartType === chartTypes.Line"
                            [view]="view"
                            [scheme]="colorScheme"
@@ -147,25 +139,30 @@
     <!--                                      [maxYAxisTickLength]="maxYAxisTickLength">-->
     <!--  </ngx-charts-bar-vertical-2d-stacked>-->
   </div>
-  <div [ngStyle]="{'width': multiChartView[0] + 10 + 'px', 'height': multiChartView[1] + 'px' }"
-       *ngFor="let itemData of itemModel.chartData.multiStacked; let first = first;"
-       style="display: inline-block">
-    <ngx-charts-bar-vertical-stacked [view]="multiChartView"
-                                     [scheme]="colorScheme"
-                                     [results]="itemData.series"
-                                     [customColors]="customColors"
-                                     [gradient]="false"
-                                     [xAxis]="true"
-                                     [yAxis]="true"
-                                     [legend]="true"
-                                     [animations]="false"
-                                     [showXAxisLabel]="true"
-                                     [showYAxisLabel]="true"
-                                     [yAxisLabel]="'Percents' | translate"
-                                     [xAxisLabel]="itemData.name"
-                                     [yScaleMax]="100"></ngx-charts-bar-vertical-stacked>
-  </div>
+</div>
 
+<div class="scrollable-y-block mb-2"
+     *ngIf="itemModel.chartType === chartTypes.HorizontalBarStackedGrouped">
+  <div class="d-flex" id="copyableChart{{chartPosition}}" style="background-color: #FFFFFF !important;">
+    <div [ngStyle]="{'width': multiChartView[0] + 'px', 'height': multiChartView[1] + 'px' }"
+         style="background-color: #FFFFFF !important;"
+         *ngFor="let itemData of itemModel.chartData.multiStacked; let first = first; let last = last;">
+      <ngx-charts-bar-vertical-stacked [scheme]="colorScheme"
+                                       [view]="multiChartView"
+                                       [results]="itemData.series"
+                                       [customColors]="customColors"
+                                       [gradient]="false"
+                                       [xAxis]="true"
+                                       [yAxis]="true"
+                                       [legend]="last"
+                                       [animations]="false"
+                                       [showXAxisLabel]="true"
+                                       [showYAxisLabel]="first"
+                                       [yAxisLabel]="'Percents' | translate"
+                                       [xAxisLabel]="itemData.name"
+                                       [yScaleMax]="100"></ngx-charts-bar-vertical-stacked>
+    </div>
+  </div>
 </div>
 
 
@@ -174,4 +171,6 @@
     <fa-icon icon="copy" [fixedWidth]="true"></fa-icon>
   </button>
 </div>
+
+<eform-spinner [spinnerVisibility]="spinnerStatus"></eform-spinner>
 

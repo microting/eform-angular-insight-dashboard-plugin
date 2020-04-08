@@ -37,6 +37,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using Models.Dashboards;
     using Services.Common.InsightDashboardLocalizationService;
 
+
+
+
     public static class ChartDataHelpers
     {
         public static async Task CalculateDashboardItem(
@@ -45,6 +48,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             DashboardItem dashboardItem,
             IInsightDashboardLocalizationService localizationService,
             int? dashboardLocationId,
+            int? dashboardLocationTagId,
             int dashboardSurveyId,
             DashboardEditAnswerDates answerDates)
         {
@@ -175,6 +179,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     answerQueryable = answerQueryable
                         .Where(x => x.Answer.SiteId == dashboardLocationId);
                 }
+                else if (dashboardLocationTagId != null)
+                {
+                    answerQueryable = answerQueryable
+                        .Where(x => x.Answer.Site.SiteTags.Any(
+                            y => y.TagId == dashboardLocationTagId));
+                }
 
                 var textData = await answerQueryable
                     .Select(x => new DashboardItemTextQuestionDataModel
@@ -194,14 +204,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 // Question type != Text
                 if (dashboardItem.CompareEnabled)
                 {
-                    var siteIds = dashboardItem.CompareLocationsTags
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.LocationId != null)
-                        .Select(x => (int) x.LocationId)
-                        .ToList();
-
-                    answerQueryable = answerQueryable
-                        .Where(x => siteIds.Contains(x.Answer.SiteId));
+                    // TODO
                 }
                 else
                 {
@@ -209,6 +212,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         answerQueryable = answerQueryable
                             .Where(x => x.Answer.SiteId == dashboardLocationId);
+                    }
+                    else if (dashboardLocationTagId != null)
+                    {
+                        answerQueryable = answerQueryable
+                            .Where(x => x.Answer.Site.SiteTags.Any(
+                                y => y.TagId == dashboardLocationTagId));
                     }
                 }
 
@@ -228,19 +237,108 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     ignoreOptions = await sdkContext.options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
                 }
 
-                var data = await answerQueryable
-                    .Select(x => new
+                var data = new List<ChartDataItem>();
+                if (isComparedData) // TODO Compare enabled?
+                {
+                    var tagIds = dashboardItem.CompareLocationsTags
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.TagId != null)
+                        .Select(x => x.TagId)
+                        .ToList();
+
+                    var tagsData = new List<ChartDataItem>();
+                    foreach (var tagId in tagIds)
                     {
-                        Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
-                        Finished = x.Answer.FinishedAt,
-                        LocationName = x.Answer.Site.Name,
-                        LocationId = x.Answer.SiteId,
-                        Weight = x.Option.WeightValue,
-                        OptionIndex = x.Option.OptionsIndex,
-                        IsSmiley = x.Question.IsSmiley()
-                    })
-                    .OrderBy(t => t.Finished)
-                    .ToListAsync();
+                        var tagData = await answerQueryable
+                            .Where(x => x.Answer.Site.SiteTags.Any(
+                                y => y.TagId == tagId))
+                            .Select(x => new ChartDataItem
+                            {
+                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                                Finished = x.Answer.FinishedAt,
+                                LocationTagName = x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == tagId)
+                                    .Select(y => y.Tag.Name)
+                                    .FirstOrDefault(),
+                                LocationTagId = (int)x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == tagId)
+                                    .Select(y => y.TagId)
+                                    .FirstOrDefault(),
+                                Weight = x.Option.WeightValue,
+                                OptionIndex = x.Option.OptionsIndex,
+                                IsSmiley = x.Question.IsSmiley()
+                            })
+                            .ToListAsync();
+
+                        tagsData.AddRange(tagData);
+                    }
+
+                    var siteIds = dashboardItem.CompareLocationsTags
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.LocationId != null)
+                        .Select(x => (int)x.LocationId)
+                        .ToList();
+
+                    var sitesData = await answerQueryable
+                        .Where(x => siteIds.Contains(x.Answer.SiteId))
+                        .Select(x => new ChartDataItem
+                        {
+                            Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                            Finished = x.Answer.FinishedAt,
+                            LocationTagName = x.Answer.Site.Name,
+                            LocationTagId = x.Answer.SiteId,
+                            Weight = x.Option.WeightValue,
+                            OptionIndex = x.Option.OptionsIndex,
+                            IsSmiley = x.Question.IsSmiley()
+                        })
+                        .ToListAsync();
+
+                    data.AddRange(tagsData);
+                    data.AddRange(sitesData);
+                    data = data.OrderBy(t => t.Finished).ToList();
+                }
+                else
+                {
+                    if (dashboardLocationId != null)
+                    {
+                        data = await answerQueryable
+                            .Select(x => new ChartDataItem
+                            {
+                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                                Finished = x.Answer.FinishedAt,
+                                LocationTagName = x.Answer.Site.Name,
+                                LocationTagId = x.Answer.SiteId,
+                                Weight = x.Option.WeightValue,
+                                OptionIndex = x.Option.OptionsIndex,
+                                IsSmiley = x.Question.IsSmiley()
+                            })
+                            .OrderBy(t => t.Finished)
+                            .ToListAsync();
+                    }
+
+                    if (dashboardLocationTagId != null)
+                    {
+                        data = await answerQueryable
+                            .Select(x => new ChartDataItem
+                            {
+                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                                Finished = x.Answer.FinishedAt,
+                                LocationTagName = x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == dashboardLocationTagId)
+                                    .Select(y => y.Tag.Name)
+                                    .FirstOrDefault(),
+                                LocationTagId = (int) x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == dashboardLocationTagId)
+                                    .Select(y => y.TagId)
+                                    .FirstOrDefault(),
+                                Weight = x.Option.WeightValue,
+                                OptionIndex = x.Option.OptionsIndex,
+                                IsSmiley = x.Question.IsSmiley()
+                            })
+                            .OrderBy(t => t.Finished)
+                            .ToListAsync();
+                    }
+                }
 
                 bool isSmiley = data.Any() && data.First().IsSmiley;
 
@@ -248,7 +346,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 if (dashboardItem.CalculateAverage)
                 {
                     lines = data
-                        .GroupBy(x => x.LocationName)
+                        .GroupBy(x => x.LocationTagName)
                         .OrderBy(x => x.Key)
                         .Select(x => x.Key)
                         .ToList();
@@ -349,10 +447,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationName)
+                                    .GroupBy(x => x.LocationTagName)
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
-                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                         Name = x.Key.ToString(), // Location name
                                         Series = x
                                             .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
@@ -380,10 +478,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(x => x.LocationName)
+                                        .GroupBy(x => x.LocationTagName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
-                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                             Name = x.Key.ToString(),
                                             Series = x
                                                 .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
@@ -426,10 +524,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationName)
+                                    .GroupBy(x => x.LocationTagName)
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
-                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                         Name = x.Key.ToString(), // Location name
                                         Series = x
                                             .GroupBy(ms => $"{ms.Finished:yy-MMM}")
@@ -457,10 +555,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(x => x.LocationName)
+                                        .GroupBy(x => x.LocationTagName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
-                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                             Name = x.Key.ToString(),
                                             Series = x
                                                 .GroupBy(ms => $"{ms.Finished:yy-MMM}")
@@ -503,10 +601,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationName)
+                                    .GroupBy(x => x.LocationTagName)
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
-                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                         Name = x.Key.ToString(), // Location name
                                         Series = x
                                             .GroupBy(item =>
@@ -535,10 +633,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(y => y.LocationName)
+                                        .GroupBy(y => y.LocationTagName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
-                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                             Name = x.Key,
                                             Series = x.GroupBy(item =>
                                                     $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
@@ -581,10 +679,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationName)
+                                    .GroupBy(x => x.LocationTagName)
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
-                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                         Name = x.Key.ToString(), // Location name
                                         Series = x
                                             .GroupBy(item =>
@@ -615,10 +713,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(y => y.LocationName)
+                                        .GroupBy(y => y.LocationTagName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
-                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                             Name = x.Key,
                                             Series = x
                                                 .GroupBy(item =>
@@ -663,10 +761,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationName)
+                                    .GroupBy(x => x.LocationTagName)
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
-                                        Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                        Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                         Name = x.Key.ToString(), // Location name
                                         Series = x
                                             .GroupBy(ms => $"{ms.Finished:yyyy}")
@@ -696,10 +794,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(y => y.LocationName)
+                                        .GroupBy(y => y.LocationTagName)
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
-                                            Id = x.Select(i => i.LocationId).FirstOrDefault(),
+                                            Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
                                             Name = x.Key.ToString(),
                                             Series = x
                                                 .GroupBy(ms => $"{ms.Finished:yyyy}")
@@ -774,7 +872,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         ChartHelpers.SortMultiDataLocationPosition(
                                             multiData,
                                             dashboardItem,
-                                            dashboardLocationId);
+                                            dashboardLocationId,
+                                            dashboardLocationTagId);
                                 }
                                 else
                                 {
@@ -782,6 +881,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         ChartHelpers.SortMultiDataLocationPosition(
                                             multiData,
                                             dashboardItem,
+                                            null,
                                             null);
                                 }
                             }
@@ -933,7 +1033,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         ChartHelpers.SortMultiDataLocationPosition(
                                             newLineData,
                                             dashboardItem,
-                                            dashboardLocationId);
+                                            dashboardLocationId,
+                                            dashboardLocationTagId);
                                 }
                                 else
                                 {
@@ -941,6 +1042,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         ChartHelpers.SortMultiDataLocationPosition(
                                             newLineData,
                                             dashboardItem,
+                                            null,
                                             null);
                                 }
                             }
@@ -1032,7 +1134,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         ChartHelpers.SortMultiDataLocationPosition(
                                             newLineData,
                                             dashboardItem,
-                                            dashboardLocationId);
+                                            dashboardLocationId,
+                                            dashboardLocationTagId);
                                 }
                                 else
                                 {
@@ -1040,6 +1143,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         ChartHelpers.SortMultiDataLocationPosition(
                                             newLineData,
                                             dashboardItem,
+                                            null,
                                             null);
                                 }
                             }

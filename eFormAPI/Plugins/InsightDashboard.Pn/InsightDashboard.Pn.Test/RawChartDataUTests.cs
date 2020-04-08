@@ -54,6 +54,7 @@ namespace InsightDashboard.Pn.Test
                     dashboardItem,
                     localizationService,
                     dashboardViewModel.LocationId,
+                    dashboardViewModel.TagId,
                     dashboardViewModel.SurveyId,
                     dashboardViewModel.AnswerDates);
 
