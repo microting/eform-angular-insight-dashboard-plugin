@@ -39,15 +39,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             DashboardItem dashboardItem)
         {
             var result = new List<DashboardViewChartDataMultiStackedModel>();
-            var locations = dashboardItem.CompareLocationsTags
+            var locationAndTagList = dashboardItem.CompareLocationsTags
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .Select(x => new { x.LocationId, x.Position })
+                .Select(x => new { x.LocationId, x.TagId, x.Position })
                 .OrderBy(x => x.Position)
-                .ToArray();
+                .Select(x => x.LocationId ?? x.TagId ?? 0)
+                .ToList();
 
-            foreach (var location in locations)
+
+            foreach (var locationOrTag in locationAndTagList)
             {
-                var data = multiStackedData.FirstOrDefault(x => x.Id == location.LocationId);
+                var data = multiStackedData.FirstOrDefault(x => x.Id == locationOrTag);
 
                 if (data != null)
                 {
