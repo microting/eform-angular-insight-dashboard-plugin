@@ -795,6 +795,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 };
 
                 List<CommonDictionaryModel> sites;
+                List<CommonDictionaryModel> tags;
                 List<CommonDictionaryModel> options;
 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
@@ -827,6 +828,15 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     }
 
                     sites = await sdkContext.sites
+                        .AsNoTracking()
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Select(x => new CommonDictionaryModel
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                        }).ToListAsync();
+
+                    tags = await sdkContext.tags
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Select(x => new CommonDictionaryModel
@@ -889,6 +899,21 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     Position = dashboardItemCompareLocationsTag.Position,
                                     TagId = dashboardItemCompareLocationsTag.TagId,
                                     Name = site.Name,
+                                };
+                                dashboardItemModel.CompareLocationsTags.Add(itemCompare);
+                            }
+                        }
+                        foreach (var tag in tags)
+                        {
+                            if (tag.Id == dashboardItemCompareLocationsTag.TagId)
+                            {
+                                var itemCompare = new DashboardItemCompareModel
+                                {
+                                    Id = dashboardItemCompareLocationsTag.Id,
+                                    LocationId = dashboardItemCompareLocationsTag.LocationId,
+                                    Position = dashboardItemCompareLocationsTag.Position,
+                                    TagId = dashboardItemCompareLocationsTag.TagId,
+                                    Name = tag.Name,
                                 };
                                 dashboardItemModel.CompareLocationsTags.Add(itemCompare);
                             }
