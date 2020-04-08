@@ -768,10 +768,22 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             // Sort by location position
                             if (isComparedData)
                             {
-                                multiData =
-                                    ChartHelpers.SortMultiDataLocationPosition(
-                                        multiData,
-                                        dashboardItem);
+                                if (dashboardItem.CompareEnabled == false)
+                                {
+                                    multiData =
+                                        ChartHelpers.SortMultiDataLocationPosition(
+                                            multiData,
+                                            dashboardItem,
+                                            dashboardLocationId);
+                                }
+                                else
+                                {
+                                    multiData =
+                                        ChartHelpers.SortMultiDataLocationPosition(
+                                            multiData,
+                                            dashboardItem,
+                                            null);
+                                }
                             }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData, true);
@@ -915,10 +927,22 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             // Sort by location position
                             if (isComparedData)
                             {
-                                newLineData =
-                                    ChartHelpers.SortMultiDataLocationPosition(
-                                        newLineData,
-                                        dashboardItem);
+                                if (dashboardItem.CompareEnabled == false)
+                                {
+                                    newLineData =
+                                        ChartHelpers.SortMultiDataLocationPosition(
+                                            newLineData,
+                                            dashboardItem,
+                                            dashboardLocationId);
+                                }
+                                else
+                                {
+                                    newLineData =
+                                        ChartHelpers.SortMultiDataLocationPosition(
+                                            newLineData,
+                                            dashboardItem,
+                                            null);
+                                }
                             }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, true);
@@ -1002,10 +1026,22 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             // Sort by location position
                             if (isComparedData)
                             {
-                                newLineData =
-                                    ChartHelpers.SortMultiDataLocationPosition(
-                                        newLineData,
-                                        dashboardItem);
+                                if (dashboardItem.CompareEnabled == false)
+                                {
+                                    newLineData =
+                                        ChartHelpers.SortMultiDataLocationPosition(
+                                            newLineData,
+                                            dashboardItem,
+                                            dashboardLocationId);
+                                }
+                                else
+                                {
+                                    newLineData =
+                                        ChartHelpers.SortMultiDataLocationPosition(
+                                            newLineData,
+                                            dashboardItem,
+                                            null);
+                                }
                             }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false);

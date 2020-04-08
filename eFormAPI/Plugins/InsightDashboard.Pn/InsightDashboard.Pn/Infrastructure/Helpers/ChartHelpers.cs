@@ -60,18 +60,29 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static List<DashboardViewChartDataMultiModel> SortMultiDataLocationPosition(
             List<DashboardViewChartDataMultiModel> multiData,
-            DashboardItem dashboardItem)
+            DashboardItem dashboardItem,
+            int? locationId)
         {
             var result = new List<DashboardViewChartDataMultiModel>();
-            var locations = dashboardItem.CompareLocationsTags
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .Select(x => new { x.LocationId, x.Position })
-                .OrderBy(x => x.Position)
-                .ToArray();
+            var locations = new List<int>();
+            if (locationId == null)
+            {
+                locations = dashboardItem.CompareLocationsTags
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Select(x => new {x.LocationId, x.Position})
+                    .OrderBy(x => x.Position)
+                    .Select(x => (int)x.LocationId)
+                    .ToList();
+            }
+            else
+            {
+                locations.Add((int)locationId);
+            }
+
 
             foreach (var location in locations)
             {
-                var data = multiData.FirstOrDefault(x => x.Id == location.LocationId);
+                var data = multiData.FirstOrDefault(x => x.Id == location);
 
                 if (data != null)
                 {
@@ -106,6 +117,27 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             }
 
             throw new ArgumentException($"Invalid month {month}");
+        }
+        
+        public static string GetSmileyLabel(string smileyString)
+        {
+            switch (smileyString)
+            {
+                case "smiley1":
+                    return "Meget glad";
+                case "smiley2":
+                    return "Glad";
+                case "smiley3":
+                    return "Neutral";
+                case "smiley4":
+                    return "Sur";
+                case "smiley5":
+                    return "Meget sur";
+                case "smiley6":
+                    return "Ved ikke";
+                default:
+                    return smileyString;
+            }
         }
     }
 }

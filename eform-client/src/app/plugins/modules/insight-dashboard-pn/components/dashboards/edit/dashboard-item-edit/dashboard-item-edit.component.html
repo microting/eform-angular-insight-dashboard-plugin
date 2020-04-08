@@ -1,24 +1,38 @@
 <div class="card z-depth-3 mb-4" style="width: 100%">
   <div class="card-header">
-    <div class="row">
-      <div class="col-1" style="cursor: pointer">
-        <div *ngIf="dashboardItem.collapsed">
+    <div class="d-flex flex-row align-items-center">
+      <div style="cursor: pointer">
+        <div *ngIf="dashboardItem.collapsed" class="mr-4">
           <a>
             <fa-icon icon="grip-lines" size="lg" [fixedWidth]="true"></fa-icon>
           </a>
         </div>
       </div>
-      <div class="col-8">
-        <div>
-          {{dashboardItemFullName}}
-        </div>
+      <div>
+        {{dashboardItemFullName}}
       </div>
-      <div class="col-3">
-        <div class="text-right"
-             (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed);"
-             style="cursor: pointer">
-          <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="dashboardItem.collapsed"></fa-icon>
-          <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!dashboardItem.collapsed"></fa-icon>
+      <div class="ml-auto">
+        <div class="d-flex flex-row-reverse align-items-center">
+          <div
+            (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed);"
+            style="cursor: pointer">
+            <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="dashboardItem.collapsed"></fa-icon>
+            <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!dashboardItem.collapsed"></fa-icon>
+          </div>
+          <div class="text-black-50">
+            <fa-icon icon="plus-circle" [className]="'pr-2'"
+                     id="createItemBtn"
+                     mdbTooltip="{{ 'Add block' | translate }}"
+                     size="2x" style="cursor: pointer" (click)="addNew(dashboardItem.position)"></fa-icon>
+            <fa-icon icon="copy" [className]="'pr-2'"
+                     id="copyItemBtn"
+                     mdbTooltip="{{ 'Copy block' | translate }}"
+                     size="2x" style="cursor: pointer" (click)="copy(dashboardItem)"></fa-icon>
+            <fa-icon icon="trash" [className]="'pr-2'"
+                     id="deleteItemBtn"
+                     mdbTooltip="{{ 'Delete block' | translate }}"
+                     size="2x" style="cursor: pointer" (click)="delete(dashboardItem.position)"></fa-icon>
+          </div>
         </div>
       </div>
     </div>
@@ -26,22 +40,6 @@
   <div mdbCollapse #collapse="bs-collapse" [collapse]="!dashboardItem.collapsed" (expanded)="resizeCollapse()">
     <div class="card-body">
       <div class="row">
-        <div class="col-custom-1 d-flex align-items-center justify-content-center">
-          <div class="d-flex flex-column text-black-50">
-            <fa-icon icon="plus-circle" [className]="'mb-3'"
-                     id="createItemBtn"
-                     mdbTooltip="{{ 'Add block' | translate }}"
-                     size="2x" style="cursor: pointer" (click)="addNew(dashboardItem.position)"></fa-icon>
-            <fa-icon icon="copy" [className]="'mb-3'"
-                     id="copyItemBtn"
-                     mdbTooltip="{{ 'Copy block' | translate }}"
-                     size="2x" style="cursor: pointer" (click)="copy(dashboardItem)"></fa-icon>
-            <fa-icon icon="trash" [className]="'mb-3'"
-                     id="deleteItemBtn"
-                     mdbTooltip="{{ 'Delete block' | translate }}"
-                     size="2x" style="cursor: pointer" (click)="delete(dashboardItem.position)"></fa-icon>
-          </div>
-        </div>
         <div class="col">
           <div class="card z-depth-2 mb-3" style="width: 100%">
             <div class="card-body">
@@ -74,16 +72,16 @@
                 [placeholder]="dashboardItem.filterAnswerName || ('Select Filter Answer' | translate)"
                 [items]="filterAnswers"></ng-select>
               <ng-select *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text"
-                bindValue="id"
-                bindLabel="name"
-                id="editPeriod{{dashboardItem.position}}"
-                [ngModel]="dashboardItem.period"
-                [required]="true"
-                [clearable]="false"
-                [disabled]="!dashboardItem.firstQuestionId"
-                (ngModelChange)="fieldChanged($event, itemFields.period)"
-                [placeholder]="('Select Period Unit' | translate) + ' *'"
-                [items]="[
+                         bindValue="id"
+                         bindLabel="name"
+                         id="editPeriod{{dashboardItem.position}}"
+                         [ngModel]="dashboardItem.period"
+                         [required]="true"
+                         [clearable]="false"
+                         [disabled]="!dashboardItem.firstQuestionId"
+                         (ngModelChange)="fieldChanged($event, itemFields.period)"
+                         [placeholder]="('Select Period Unit' | translate) + ' *'"
+                         [items]="[
                   {id: periodUnits.Week, name: periodUnits[periodUnits.Week] | translate},
                   {id: periodUnits.Month, name: periodUnits[periodUnits.Month] | translate},
                   {id: periodUnits.Quarter, name: periodUnits[periodUnits.Quarter] | translate},
@@ -106,7 +104,8 @@
               </div>
             </div>
           </div>
-          <div class="card z-depth-2 mb-3" style="width: 100%" *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text">
+          <div class="card z-depth-2 mb-3" style="width: 100%"
+               *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text">
             <div class="card-body">
               <ng-container *ngIf="!questionAnswers.length">
                 <div class="row ml-1">
@@ -133,7 +132,8 @@
               </ng-container>
             </div>
           </div>
-          <div class="card z-depth-2 mb-3" style="width: 100%" *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text">
+          <div class="card z-depth-2 mb-3" style="width: 100%"
+               *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text">
             <div class="card-body">
               <div class="row ml-1">
                 <div class="mat-checkbox mb-1">
@@ -148,7 +148,7 @@
                   </label>
                 </div>
               </div>
-              <div class="scrollable-block">
+              <div class="scrollable-block" *ngIf="dashboardItem.compareEnabled">
                 <div class="row m-0 ml-2" *ngFor="let locationTag of locationsTags">
                   <div class="col-2">
                     <div class="md-form">

@@ -91,6 +91,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   copy(model: DashboardItemModel) {
+    model = {...model, collapsed: false};
     this.copyItem.emit(model);
   }
 
