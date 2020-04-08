@@ -4,7 +4,7 @@ import dashboardEditPage from './InsightDashboard-DashboardEdit.page';
 
 export const firstQuestion = 'Q2';
 export const filterQuestion = 'Q3';
-export const filterAnswer = 'smiley1';
+export const filterAnswer = 'Meget glad';
 export const period = 'Måned';
 export const chartType = 'Linje';
 
