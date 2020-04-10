@@ -24,9 +24,12 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Controllers
 {
+    using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Threading.Tasks;
     using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Services.DashboardService;
@@ -89,5 +92,21 @@ namespace InsightDashboard.Pn.Controllers
         {
             return await _dashboardService.Remove(id);
         }
+
+        [HttpPost]
+        [Route("api/insight-dashboard-pn/dashboards/export-doc")]
+        public async Task<OperationResult> ExportDoc(DashboardViewExportDocModel docModel)
+        {
+            Debugger.Break();
+            return null;
+        }
+    }
+
+
+
+    public class DashboardViewExportDocModel
+    {
+        public int DashboardId { get; set; }
+        public List<IFormFile> Files { get; set; }
     }
 }
