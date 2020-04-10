@@ -94,8 +94,8 @@ namespace InsightDashboard.Pn.Controllers
         }
 
         [HttpPost]
-        [Route("api/insight-dashboard-pn/dashboards/export-doc")]
-        public async Task<OperationResult> ExportDoc(DashboardViewExportDocModel docModel)
+        [Route("api/insight-dashboard-pn/dashboards/export-doc/{id}")]
+        public async Task<OperationResult> ExportDoc(int id, [FromForm]List<IFormFile> files)
         {
             Debugger.Break();
             return null;
