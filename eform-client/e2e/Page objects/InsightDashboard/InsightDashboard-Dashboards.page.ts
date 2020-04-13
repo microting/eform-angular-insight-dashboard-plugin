@@ -14,126 +14,126 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   public get dashboardCreateBtn() {
-    $('#createDashboardBtn').waitForDisplayed(30000);
+    $('#createDashboardBtn').waitForDisplayed({timeout: 30000});
     $('#createDashboardBtn').waitForClickable({timeout: 20000});
     return $('#createDashboardBtn');
   }
 
   public get dashboardCreateSaveBtn() {
-    $('#dashboardCreateSaveBtn').waitForDisplayed(30000);
+    $('#dashboardCreateSaveBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardCreateSaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardCreateSaveBtn');
   }
 
   public get dashboardCreateCancelBtn() {
-    $('#dashboardCreateSaveCancelBtn').waitForDisplayed(30000);
+    $('#dashboardCreateSaveCancelBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardCreateSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardCreateSaveCancelBtn');
   }
 
   public get dashboardName() {
-    $('#dashboardNameCreate').waitForDisplayed(30000);
+    $('#dashboardNameCreate').waitForDisplayed({timeout: 30000});
     $('#dashboardNameCreate').waitForClickable({timeout: 20000});
     return $('#dashboardNameCreate');
   }
 
   public get dashboardNameInput() {
-    $('#dashboardNameCreate > input').waitForDisplayed(30000);
+    $('#dashboardNameCreate > input').waitForDisplayed({timeout: 30000});
     $('#dashboardNameCreate > input').waitForClickable({timeout: 20000});
     return $('#dashboardNameCreate > input');
   }
 
   public get dashboardEditSaveBtn() {
-    $('#dashboardEditSaveBtn').waitForDisplayed(30000);
+    $('#dashboardEditSaveBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardEditSaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardEditSaveBtn');
   }
 
   public get dashboardEditCancelBtn() {
-    $('#dashboardEditSaveCancelBtn').waitForDisplayed(30000);
+    $('#dashboardEditSaveCancelBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardEditSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardEditSaveCancelBtn');
   }
 
   public get dashboardDeleteSaveBtn() {
-    $('#dashboardDeleteSaveBtn').waitForDisplayed(30000);
+    $('#dashboardDeleteSaveBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardDeleteSaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardDeleteSaveBtn');
   }
 
   public get dashboardDeleteCancelBtn() {
-    $('#dashboardDeleteCancelBtn').waitForDisplayed(30000);
+    $('#dashboardDeleteCancelBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardDeleteCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardDeleteCancelBtn');
   }
 
   public get dashboardCopySaveBtn() {
-    $('#dashboardCopySaveBtn').waitForDisplayed(30000);
+    $('#dashboardCopySaveBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardCopySaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardCopySaveBtn');
   }
 
   public get dashboardCopySaveCancelBtn() {
-    $('#dashboardCopySaveCancelBtn').waitForDisplayed(30000);
+    $('#dashboardCopySaveCancelBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardCopySaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardCopySaveCancelBtn');
   }
 
   createDashboard() {
     this.dashboardCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardName.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardName.addValue(dashboardName);
     // Select survey
     const surveySearchField = dashboardsPage.getSurveysSearchField();
     surveySearchField.addValue(configName);
     const surveyListChoices = dashboardsPage.getSurveyListOfChoices();
     const surveyChoice = surveyListChoices[0];
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     surveyChoice.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardCreateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   createDashboard_Cancels() {
     this.dashboardCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardCreateCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   deleteDashboard(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardDeleteSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   deleteDashboard_Cancels(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardDeleteCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   copyDashboard(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardCopySaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
     rowObject.dashboardCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardCopySaveCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   public getSurveysSearchField() {
-    $('#selectSurveyCreate .ng-input > input').waitForDisplayed(30000);
+    $('#selectSurveyCreate .ng-input > input').waitForDisplayed({timeout: 30000});
     $('#selectSurveyCreate .ng-input > input').waitForClickable({timeout: 20000});
     return $('#selectSurveyCreate .ng-input > input');
   }

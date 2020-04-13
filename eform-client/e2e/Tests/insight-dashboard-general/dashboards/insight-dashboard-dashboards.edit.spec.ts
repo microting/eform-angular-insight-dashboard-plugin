@@ -13,13 +13,13 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     dashboardsPage.createDashboard();
   });
   it('should create initial empty item', function () {
-    $('#dashboardUpdateSaveBtn').waitForDisplayed(10000);
+    $('#dashboardUpdateSaveBtn').waitForDisplayed({timeout: 10000});
     const itemNumsBeforeInitialItem = dashboardEditPage.rowNum;
     dashboardEditPage.createFirstItem();
     expect(itemNumsBeforeInitialItem).equal(dashboardEditPage.rowNum - 1);
   });
   it('should delete item', function () {
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     const itemNumsBeforeRemoveItem = dashboardEditPage.rowNum;
     const item = dashboardEditPage.getDashboardItem(itemNumsBeforeRemoveItem);
     dashboardEditPage.deleteItem(item);
@@ -29,7 +29,7 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     const itemNumsBeforeInitialItem = dashboardEditPage.rowNum;
     dashboardEditPage.createFirstItem();
     expect(itemNumsBeforeInitialItem).equal(dashboardEditPage.rowNum - 1);
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
     const item = dashboardEditPage.getDashboardItem(itemNumsBeforeCreateItem);
     dashboardEditPage.createItem(item);
@@ -40,7 +40,7 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     const item = dashboardEditPage.getDashboardItem(itemNumsBeforeCopyItem);
     dashboardEditPage.copyItem(item);
     expect(itemNumsBeforeCopyItem).equal(dashboardEditPage.rowNum - 1);
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   });
   it('should save filled item', function () {
     insightDashboardPage.goToDashboards();
@@ -49,16 +49,16 @@ describe('Insight Dashboard - Dashboards - Edit', function () {
     dashboardEditPage.createFirstItem();
     dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     dashboardsViewPage.returnToDashboards.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     const dashboardRowNum = dashboardsPage.rowNum;
     const createdDashboard = dashboardsPage.getDashboard(dashboardRowNum);
     createdDashboard.dashboardEditBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     expect(itemNumsBeforeCreateItem).equal(dashboardEditPage.rowNum - 1);
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     dashboardEditPage.dashboardUpdateSaveCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   });
 });

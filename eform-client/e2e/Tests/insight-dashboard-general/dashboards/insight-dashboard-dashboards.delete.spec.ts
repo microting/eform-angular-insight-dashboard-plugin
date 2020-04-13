@@ -13,17 +13,17 @@ describe('Insight Dashboard - Dashboards - Delete', function () {
   });
   it('should not delete dashboard', function () {
     const rowNumsBeforeDelete = dashboardsPage.rowNum;
-    $('#spinner-animation').waitForDisplayed(30000, true);
-    $('#createDashboardBtn').waitForDisplayed(10000);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    $('#createDashboardBtn').waitForDisplayed({timeout: 10000});
     dashboardsPage.deleteDashboard_Cancels(dashboardsPage.getDashboard(rowNumsBeforeDelete));
     expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum);
   });
   it('should delete dashboard', function () {
-    $('#createDashboardBtn').waitForDisplayed(10000);
+    $('#createDashboardBtn').waitForDisplayed({timeout: 10000});
     const rowNumsBeforeDelete = dashboardsPage.rowNum;
     dashboardsPage.deleteDashboard(dashboardsPage.getDashboard(rowNumsBeforeDelete));
     insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum + 1);
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   });
 });

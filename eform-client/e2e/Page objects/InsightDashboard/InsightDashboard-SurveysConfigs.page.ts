@@ -13,103 +13,103 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public get surveyConfigCreateBtn() {
-    $('#createSurveyConfigBtn').waitForDisplayed(30000);
+    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 30000});
     $('#createSurveyConfigBtn').waitForClickable({timeout: 20000});
     return $('#createSurveyConfigBtn');
   }
 
   public get surveyConfigCreateSaveBtn() {
-    $('#surveyConfigCreateSaveBtn').waitForDisplayed(30000);
+    $('#surveyConfigCreateSaveBtn').waitForDisplayed({timeout: 30000});
     $('#surveyConfigCreateSaveBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigCreateSaveBtn');
   }
 
   public get surveyConfigCreateCancelBtn() {
-    $('#surveyConfigCreateSaveCancelBtn').waitForDisplayed(30000);
+    $('#surveyConfigCreateSaveCancelBtn').waitForDisplayed({timeout: 30000});
     $('#surveyConfigCreateSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigCreateSaveCancelBtn');
   }
 
   public get surveyConfigEditSaveBtn() {
-    $('#surveyConfigEditSaveBtn').waitForDisplayed(30000);
+    $('#surveyConfigEditSaveBtn').waitForDisplayed({timeout: 30000});
     $('#surveyConfigEditSaveBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigEditSaveBtn');
   }
 
   public get surveyConfigEditCancelBtn() {
-    $('#surveyConfigEditSaveCancelBtn').waitForDisplayed(30000);
+    $('#surveyConfigEditSaveCancelBtn').waitForDisplayed({timeout: 30000});
     $('#surveyConfigEditSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigEditSaveCancelBtn');
   }
 
   private surveyConfigLocationEditCheckbox(num: number) {
     const ele =  $(`#checkboxEdit${num}`);
-    ele.waitForDisplayed(30000);
+    ele.waitForDisplayed({timeout: 30000});
     ele.waitForClickable({timeout: 30000});
     return ele;
   }
 
   private surveyConfigLocationCreateCheckbox(num: number) {
     const ele = $(`#checkboxCreate${num}`);
-    ele.waitForDisplayed(30000);
+    ele.waitForDisplayed({timeout: 30000});
     ele.waitForClickable({timeout: 30000});
     return ele;
   }
 
   public get surveyConfigDeleteSaveBtn() {
-    $('#surveyConfigDeleteSaveBtn').waitForDisplayed(30000);
+    $('#surveyConfigDeleteSaveBtn').waitForDisplayed({timeout: 30000});
     $('#surveyConfigDeleteSaveBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigDeleteSaveBtn');
   }
 
   public get surveyConfigDeleteCancelBtn() {
-    $('#surveyConfigDeleteCancelBtn').waitForDisplayed(30000);
+    $('#surveyConfigDeleteCancelBtn').waitForDisplayed({timeout: 30000});
     $('#surveyConfigDeleteCancelBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigDeleteCancelBtn');
   }
 
   public get installationDeleteCancelBtn() {
-    $('#surveyConfigDeleteCancelBtn').waitForDisplayed(30000);
+    $('#surveyConfigDeleteCancelBtn').waitForDisplayed({timeout: 30000});
     $('#surveyConfigDeleteCancelBtn').waitForClickable({timeout: 20000});
     return $('#surveyConfigDeleteCancelBtn');
   }
 
   createSurveyConfig(configName: string) {
     this.surveyConfigCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     const searchField = surveyConfigsPage.getSurveysSearchField();
     searchField.addValue(configName);
     const listChoices = surveyConfigsPage.getSurveyListOfChoices();
     const choice = listChoices[0];
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     choice.click();
     browser.pause(1000);
     this.surveyConfigCreateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   createSurveyConfig_Cancels() {
     this.surveyConfigCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.surveyConfigCreateCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
     rowObject.editSurveyConfigBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.surveyConfigLocationEditCheckbox(1).click();
     this.surveyConfigLocationEditCheckbox(2).click();
     browser.pause(1000);
     this.surveyConfigEditSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     rowObject.editSurveyConfigBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.surveyConfigEditCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
 
@@ -117,14 +117,14 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     rowObject.surveyConfigDeleteBtn.click();
     browser.pause(1000);
     this.surveyConfigDeleteSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     rowObject.surveyConfigDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.surveyConfigDeleteCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   activateSurveyConfig() {
@@ -144,14 +144,14 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public getSurveysSearchField() {
-    $('#selectSurveyCreate .ng-input > input').waitForDisplayed(30000);
+    $('#selectSurveyCreate .ng-input > input').waitForDisplayed({timeout: 30000});
     $('#selectSurveyCreate .ng-input > input').waitForClickable({timeout: 20000});
     return $('#selectSurveyCreate .ng-input > input');
   }
 
   public getSurveyListOfChoices() {
     const ele = $$('#selectSurveyCreate .ng-option');
-    ele[0].waitForDisplayed(30000);
+    ele[0].waitForDisplayed({timeout: 30000});
     ele[0].waitForClickable({timeout: 30000});
     return ele;
   }

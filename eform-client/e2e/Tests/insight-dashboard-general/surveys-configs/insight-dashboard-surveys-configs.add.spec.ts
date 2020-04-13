@@ -11,15 +11,15 @@ describe('Insight Dashboard - Survey Config - Add', function () {
     insightDashboardPage.goToSurveysConfigs();
   });
   it('Should create survey config', function () {
-    $('#createSurveyConfigBtn').waitForDisplayed(30000);
+    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 30000});
     surveyConfigsPage.createSurveyConfig(configName);
     const surveyConfig = surveyConfigsPage.getFirstRowObject();
     expect(surveyConfig.surveyName).equal(configName);
   });
   it('Should not create survey config', function () {
     const rowNumsBeforeCreate = surveyConfigsPage.rowNum;
-    $('#spinner-animation').waitForDisplayed(30000, true);
-    $('#createSurveyConfigBtn').waitForDisplayed(10000);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 10000});
     surveyConfigsPage.createSurveyConfig_Cancels();
     expect(rowNumsBeforeCreate).equal(surveyConfigsPage.rowNum);
   });

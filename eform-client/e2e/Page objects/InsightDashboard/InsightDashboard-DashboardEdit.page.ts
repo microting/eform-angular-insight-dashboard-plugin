@@ -19,25 +19,25 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public get initialItemCreateBtn() {
-    $('#initialItemCreateBtn').waitForDisplayed(30000);
+    $('#initialItemCreateBtn').waitForDisplayed({timeout: 30000});
     $('#initialItemCreateBtn').waitForClickable({timeout: 20000});
     return $('#initialItemCreateBtn');
   }
 
   public get dashboardUpdateSaveBtn() {
-    $('#dashboardUpdateSaveBtn').waitForDisplayed(30000);
+    $('#dashboardUpdateSaveBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardUpdateSaveBtn').waitForClickable({timeout: 20000});
     return $('#dashboardUpdateSaveBtn');
   }
 
   public get dashboardUpdateSaveCancelBtn() {
-    $('#dashboardUpdateSaveCancelBtn').waitForDisplayed(30000);
+    $('#dashboardUpdateSaveCancelBtn').waitForDisplayed({timeout: 30000});
     $('#dashboardUpdateSaveCancelBtn').waitForClickable({timeout: 20000});
     return $('#dashboardUpdateSaveCancelBtn');
   }
 
   public get dashboardName() {
-    $('#dashboardNameCreate').waitForDisplayed(30000);
+    $('#dashboardNameCreate').waitForDisplayed({timeout: 30000});
     $('#dashboardNameCreate').waitForClickable({timeout: 20000});
     return $('#dashboardNameCreate');
   }
@@ -100,81 +100,81 @@ export class InsightDashboardDashboardEditPage extends Page {
 
 
   public getLocationTagSearchField() {
-    $('#selectLocationTag .ng-input > input').waitForDisplayed(30000);
+    $('#selectLocationTag .ng-input > input').waitForDisplayed({timeout: 30000});
     $('#selectLocationTag .ng-input > input').waitForClickable({timeout: 20000});
     return $('#selectLocationTag .ng-input > input');
   }
 
   public getLocationTagListOfChoices() {
     const ele = $$('#selectLocationTag .ng-option');
-    ele[0].waitForDisplayed(30000);
+    ele[0].waitForDisplayed({timeout: 30000});
     ele[0].waitForClickable({timeout: 30000});
     return ele;
   }
 
   selectFirstLocation() {
 
-    $('#spinner-animation').waitForDisplayed(30000, true);    const locationSearchField = this.getLocationTagSearchField();
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});    const locationSearchField = this.getLocationTagSearchField();
     locationSearchField.addValue(locationName);
     const locationListChoices = this.getLocationTagListOfChoices();
     const locationChoice = locationListChoices[0];
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     locationChoice.click();
 
-    $('#spinner-animation').waitForDisplayed(30000, true);  }
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});  }
 
   createFirstItem() {
     this.selectFirstLocation();
     this.initialItemCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   createItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   deleteItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   copyItem(rowObject: DashboardsEditItemObject) {
     rowObject.itemCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   fillItem(rowNum: number) {
     // Select first question
     this.firstQuestionSearchField(rowNum).addValue(firstQuestion);
     const firstQuestionChoice = this.firstQuestionListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     firstQuestionChoice.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     // Select filter question
     this.filterQuestionSearchField(rowNum).addValue(filterQuestion);
     const filterQuestionChoice = this.filterQuestionListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     filterQuestionChoice.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     // Select filter answer
     this.filterAnswerSearchField(rowNum).addValue(filterAnswer);
     const filterAnswerChoice = this.filterAnswerListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     filterAnswerChoice.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     // Select period
     this.periodSearchField(rowNum).addValue(period);
     const periodChoice = this.periodListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     periodChoice.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     // Select chart type
     this.chartTypeSearchField(rowNum).addValue(chartType);
     const chartTypeChoice = this.chartTypeListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     chartTypeChoice.click();
-    $('#spinner-animation').waitForDisplayed(30000, true);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   getFirstItemObject(): DashboardsEditItemObject {

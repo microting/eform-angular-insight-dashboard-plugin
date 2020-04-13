@@ -1,6 +1,6 @@
 <subheader-pn [title]="'Insight Dashboard plugin settings' | translate">
   <div class="p-3">
-    <button class="btn btn-success" (click)="updateSettings()">{{ 'Save' | translate }}</button>
+    <button mdbBtn class=" btn-success" (click)="updateSettings()">{{ 'Save' | translate }}</button>
   </div>
 </subheader-pn>
 
@@ -12,7 +12,7 @@
       <div class="container-fluid">
         <div class="col-md-12">
           <div class="md-form input-group">
-            <input mdbInputDirective
+            <input mdbInput
                    [mdbValidate]="false" [(ngModel)]="settingsModel.sdkConnectionString"
                    type="text" name="sdkConnectionString" #sdkConnectionString="ngModel"
                    id="sdkConnectionString" class="form-control">
@@ -21,7 +21,7 @@
         </div>
         <div class="col-md-12">
           <div class="md-form input-group">
-            <input mdbInputDirective
+            <input mdbInput
                    [mdbValidate]="false" [(ngModel)]="settingsModel.logLevel"
                    type="text" name="logLevel" #loglevel="ngModel"
                    id="logLevel" class="form-control">
@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-12">
           <div class="md-form input-group">
-            <input mdbInputDirective
+            <input mdbInput
                    [mdbValidate]="false" [(ngModel)]="settingsModel.logLimit"
                    type="text" name="logLimit" #loglimit="ngModel"
                    id="logLimit" class="form-control">

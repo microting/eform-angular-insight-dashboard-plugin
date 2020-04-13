@@ -19,7 +19,7 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   public get returnToDashboards() {
-    $('#returnToPrevious').waitForDisplayed(30000);
+    $('#returnToPrevious').waitForDisplayed({timeout: 30000});
     $('#returnToPrevious').waitForClickable({timeout: 20000});
     return $('#returnToPrevious');
   }
