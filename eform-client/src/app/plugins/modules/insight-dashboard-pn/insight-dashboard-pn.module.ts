@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {CollapseModule, MDBBootstrapModule} from 'port/angular-bootstrap-md';
+import {CollapseModule, MDBBootstrapModule} from 'angular-bootstrap-md';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {SharedPnModule} from '../shared/shared-pn.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';

@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs';
 import {InsightDashboardPnDashboardDictionariesService} from '../../../../services';
 import {TranslateService} from '@ngx-translate/core';
 import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
-import {CollapseDirective} from '../../../../../../../../../port/angular-bootstrap-md/collapse';
+import {CollapseDirective} from 'angular-bootstrap-md/collapse';
 import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
 
 @AutoUnsubscribe()
