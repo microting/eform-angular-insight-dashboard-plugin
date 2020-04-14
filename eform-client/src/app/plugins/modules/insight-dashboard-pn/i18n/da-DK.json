@@ -73,5 +73,7 @@
   "Period from": "Periode fra",
   "Period to": "Periode til",
   "Dimension": "Dimension",
-  "Number of interviews": "Antal interviews"
+  "Number of interviews": "Antal interviews",
+  "Export": "Eksport",
+  "Export to Word": "Eksporter til Word"
 }

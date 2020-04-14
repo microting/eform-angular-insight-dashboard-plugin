@@ -197,11 +197,11 @@ namespace InsightDashboard.Pn.Services.WordService
                         }
 
                         // Tables
-                        foreach (var dataModel in dashboardItem.ChartData.RawData)
-                        {
-                            itemsHtml += @"<br/>";
-                            itemsHtml += @"<table style=""background-color:#f5f5f5"" width=""100%"" border=""1"">";
+                        itemsHtml += @"<table style=""background-color:#f5f5f5"" width=""100%"" border=""1"">";
 
+                        for (int y = 0; y < dashboardItem.ChartData.RawData.Count; y++)
+                        {
+                            var dataModel = dashboardItem.ChartData.RawData[y];
                             // Table header
                             itemsHtml += @"<tr style=""font-weight:bold"">";
                             itemsHtml += $@"<td>{dataModel.RawValueName}</td>";
@@ -266,6 +266,17 @@ namespace InsightDashboard.Pn.Services.WordService
                                     itemsHtml += $@"<td>{valueAmount}</td>";
                                 }
 
+                                itemsHtml += @"</tr>";
+                            }
+
+                            // Empty table row
+                            if (y < dashboardItem.ChartData.RawData.Count - 1)
+                            {
+                                itemsHtml += @"<tr style=""font-weight:bold; background-color:#fff"">";
+                                foreach (var valueAmount in dataModel.RawHeaders)
+                                {
+                                    itemsHtml += $@"<td></td>";
+                                }
                                 itemsHtml += @"</tr>";
                             }
                         }
