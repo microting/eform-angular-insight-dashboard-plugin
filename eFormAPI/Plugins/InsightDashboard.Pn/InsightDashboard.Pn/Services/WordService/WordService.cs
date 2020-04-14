@@ -80,6 +80,10 @@ namespace InsightDashboard.Pn.Services.WordService
 
                 resourceString = "InsightDashboard.Pn.Resources.Templates.WordExport.file.docx";
                 var docxFileResourceStream = assembly.GetManifestResourceStream(resourceString);
+                if (docxFileResourceStream == null)
+                {
+                    throw new InvalidOperationException($"{nameof(docxFileResourceStream)} is null");
+                }
                 var docxFileStream = new MemoryStream();
                 await docxFileResourceStream.CopyToAsync(docxFileStream);
 
@@ -248,6 +252,7 @@ namespace InsightDashboard.Pn.Services.WordService
 
                 word.AddHtml(html);
                 word.Dispose();
+                docxFileStream.Position = 0;
                 return new OperationDataResult<Stream>(true, docxFileStream);
             }
             catch (Exception e)
