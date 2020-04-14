@@ -159,7 +159,7 @@ namespace InsightDashboard.Pn.Services.WordService
 
                                 // Convert byte[] to Base64 String
                                 string base64String = Convert.ToBase64String(imageBytes);
-                                html = html.Replace("{pngBase64String}", base64String);
+                                itemsHtml = itemsHtml.Replace("{pngBase64String}", base64String);
                             }
                         }
 
