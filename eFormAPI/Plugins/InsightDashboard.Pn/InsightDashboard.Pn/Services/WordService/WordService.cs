@@ -59,7 +59,7 @@ namespace InsightDashboard.Pn.Services.WordService
                 var reportDataResult = await _dashboardService
                     .GetSingleForView(
                         dashboardId,
-                        true);
+                        false);
 
                 if (!reportDataResult.Success)
                 {
