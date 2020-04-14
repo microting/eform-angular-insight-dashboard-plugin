@@ -3,16 +3,12 @@
 <head>
 </head>
 <body>
+    <p><b>{%DashboardNameString%}:</b> {%DashboardName%}</p>
+    <p><b>{%SurveyNameString%}:</b> {%SurveyName%}</p>
+    <p><b>{%LocationTagString%}:</b> {%LocationTag%}</p>
+    {%PeriodFrom%}
+    {%PeriodTo%}
 
-
-<p><font size="16"><span style="font-weight: bold">Dashboard:</span> {%DashboardName%} </font></p>
-<p><span style="font-weight: bold">Survey:</span> {%SurveyName%}</p>
-<p><span style="font-weight: bold">Tags:</span> {%TagList%}</p>
-
-<p><span style="font-weight: bold">Period from:</span> {%PeriodFrom%}</p>
-<p><span style="font-weight: bold">Period to:</span> {%PeriodTo%}</p>
-
-
-{%ItemList%}
+    {%ItemList%}
 </body>
 </html>

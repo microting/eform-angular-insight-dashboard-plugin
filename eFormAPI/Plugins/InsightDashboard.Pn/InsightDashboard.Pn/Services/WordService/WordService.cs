@@ -27,7 +27,6 @@ namespace InsightDashboard.Pn.Services.WordService
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Drawing;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -53,7 +52,6 @@ namespace InsightDashboard.Pn.Services.WordService
 
         public async Task<OperationDataResult<Stream>> GenerateWordDashboard(int dashboardId, List<IFormFile> files)
         {
-            Debugger.Break();
             try
             {
                 var reportDataResult = await _dashboardService
@@ -90,20 +88,39 @@ namespace InsightDashboard.Pn.Services.WordService
                 var word = new WordProcessor(docxFileStream);
 
                 // Add dashboard page
-
                 html = html.Replace("{%DashboardName%}", dashboardView.DashboardName);
+                html = html.Replace("{%DashboardNameString%}", _localizationService.GetString("Dashboard"));
+
                 html = html.Replace("{%SurveyName%}", dashboardView.SurveyName);
-                html = html.Replace("{%TagList%}", dashboardView.TagName);
+                html = html.Replace("{%SurveyNameString%}", _localizationService.GetString("Survey"));
 
-                html = html.Replace("{%PeriodFrom%}", dashboardView.AnswerDates.DateFrom.ToString());
+                html = html.Replace("{%LocationTag%}", dashboardView.LocationName ?? dashboardView.TagName);
+                html = html.Replace("{%LocationTagString%}", _localizationService.GetString("LocationTag"));
 
-                if (dashboardView.AnswerDates.Today)
+                // Period
+                if (dashboardView.AnswerDates.DateFrom != null)
                 {
-                    html = html.Replace("{%PeriodTo%}", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                    var periodFromTemplate = $@"<p><b>{_localizationService.GetString("PeriodFrom")}:</b> {dashboardView.AnswerDates.DateFrom:dd-MM-yyyy}</p>";
+                    html = html.Replace("{%PeriodFrom%}", periodFromTemplate);
                 }
                 else
                 {
-                    html = html.Replace("{%PeriodTo%}", dashboardView.AnswerDates.DateTo.ToString());
+                    html = html.Replace("{%PeriodFrom%}", string.Empty);
+                }
+
+                if (dashboardView.AnswerDates.Today)
+                {
+                    var periodToTemplate = $@"<p><b>{_localizationService.GetString("PeriodTo")}:</b> {DateTime.Now:dd-MM-yyyy}</p>";
+                    html = html.Replace("{%PeriodTo%}", periodToTemplate);
+                }
+                else if (dashboardView.AnswerDates.DateFrom != null)
+                {
+                    var periodToTemplate = $@"<p><b>{_localizationService.GetString("PeriodTo")}:</b> {dashboardView.AnswerDates.DateTo:dd-MM-yyyy}</p>";
+                    html = html.Replace("{%PeriodTo%}", periodToTemplate);
+                }
+                else
+                {
+                    html = html.Replace("{%PeriodTo%}", string.Empty);
                 }
 
                 var itemsHtml = "";
@@ -113,15 +130,15 @@ namespace InsightDashboard.Pn.Services.WordService
 
                     itemsHtml += @"<div style=""page-break-before:always"">";
 
-                    itemsHtml += $@"<p><span style=""font-weight:bold"">Question:</span> {dashboardItem.FirstQuestionName}</p>";
+                    itemsHtml += $@"<p><b>{_localizationService.GetString("Question")}:</b> {dashboardItem.FirstQuestionName}</p>";
 
                     if (!string.IsNullOrEmpty(dashboardItem.FilterQuestionName))
                     {
-                        itemsHtml += $@"<p><span style=""font-weight:bold"">Filter question:</span> {dashboardItem.FilterQuestionName}</p>";
+                        itemsHtml += $@"<p><b>{_localizationService.GetString("FilterQuestion")}:</b> {dashboardItem.FilterQuestionName}</p>";
                     }
                     if (!string.IsNullOrEmpty(dashboardItem.FilterAnswerName))
                     {
-                        itemsHtml += $@"<p><span style=""font-weight:bold"">Filter answer:</span> {dashboardItem.FilterAnswerName}</p>";
+                        itemsHtml += $@"<p><b>{_localizationService.GetString("FilterAnswer")}/b> {dashboardItem.FilterAnswerName}</p>";
                     }
 
                     if (isText)
@@ -131,9 +148,9 @@ namespace InsightDashboard.Pn.Services.WordService
 
                         // Table header
                         itemsHtml += @"<tr style=""background-color:#f5f5f5;font-weight:bold"">";
-                        itemsHtml += $@"<td>Date</td>";
-                        itemsHtml += $@"<td>Tag</td>";
-                        itemsHtml += $@"<td>Comments</td>";
+                        itemsHtml += $@"<td>{_localizationService.GetString("Date")}</td>";
+                        itemsHtml += $@"<td>{_localizationService.GetString("Tag")}</td>";
+                        itemsHtml += $@"<td>{_localizationService.GetString("Comments")}</td>";
                         itemsHtml += @"</tr>";
 
                         foreach (var dataModel in dashboardItem.TextQuestionData)
@@ -148,25 +165,36 @@ namespace InsightDashboard.Pn.Services.WordService
                     }
                     else
                     {
-                        itemsHtml += @"<p><img src=""data:image/png;base64,{pngBase64String}"" width=""650px"" alt=""Image"" /></p>";
-
-
-                        var imageFile = files.FirstOrDefault(x => x.FileName == dashboardItem.Id.ToString());
-
-
-                        using (Image image = Image.FromStream(imageFile.OpenReadStream()))
+                        if (dashboardItem.IgnoredAnswerValues.Any())
                         {
-                            using (MemoryStream m = new MemoryStream())
-                            {
-                                image.Save(m, image.RawFormat);
-                                byte[] imageBytes = m.ToArray();
+                            var ignoredAnswerValuesString = string.Join(
+                                ", ",
+                                dashboardItem.IgnoredAnswerValues
+                                    .Select(x => x.Name)
+                                    .ToArray());
 
-                                // Convert byte[] to Base64 String
-                                string base64String = Convert.ToBase64String(imageBytes);
-                                itemsHtml = itemsHtml.Replace("{pngBase64String}", base64String);
-                            }
+                            itemsHtml += $@"<p><b>{_localizationService.GetString("IgnoredValues")}:</b> {ignoredAnswerValuesString}</p>";
                         }
 
+                        itemsHtml += $@"<p><img src=""data:image/png;base64,pngBase64String_{dashboardItem.Id}"" width=""650px"" alt=""Image"" /></p>";
+                        var imageFile = files.FirstOrDefault(x => x.FileName == dashboardItem.Id.ToString());
+                        if (imageFile == null)
+                        {
+                            throw new InvalidOperationException($"{nameof(imageFile)} is null");
+                        }
+
+                        using (var image = Image.FromStream(imageFile.OpenReadStream()))
+                        {
+                            using (var memoryStream = new MemoryStream())
+                            {
+                                image.Save(memoryStream, image.RawFormat);
+                                var imageBytes = memoryStream.ToArray();
+
+                                // Convert byte[] to Base64 String
+                                var base64String = Convert.ToBase64String(imageBytes);
+                                itemsHtml = itemsHtml.Replace($"pngBase64String_{dashboardItem.Id}", base64String);
+                            }
+                        }
 
                         // Tables
                         foreach (var dataModel in dashboardItem.ChartData.RawData)
@@ -261,7 +289,7 @@ namespace InsightDashboard.Pn.Services.WordService
                 _logger.LogError(e.Message);
                 return new OperationDataResult<Stream>(
                     false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileCreatingWordFile"));
             }
         }
     }
