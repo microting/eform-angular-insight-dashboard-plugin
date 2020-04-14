@@ -69,20 +69,20 @@
                 <fa-icon icon="pen" [fixedWidth]="true" size="lg"></fa-icon>
               </button>
               <div id="surveyConfigStatus" [ngStyle]="{'color': surveyConfig.isActive ? '#06ba06' : '#ba3f4e'}">
-                <button *ngIf="!surveyConfig.isActive"
+                <button mdbBtn *ngIf="!surveyConfig.isActive"
                         mdbTooltip="{{'Activate Survey config' | translate}}"
                         class="btn btn-accent text-black-50 btn-icon mb-2"
                         (click)="openStatusModal(surveyConfig)">
                   <fa-icon icon="toggle-on" [fixedWidth]="true"></fa-icon>
                 </button>
-                <button *ngIf="surveyConfig.isActive"
+                <button mdbBtn *ngIf="surveyConfig.isActive"
                         mdbTooltip="{{'Deactivate Survey config' | translate}}"
                         class="btn btn-success text-black-50 btn-icon mb-2"
                         (click)="openStatusModal(surveyConfig)">
                   <fa-icon icon="toggle-off" [fixedWidth]="true"></fa-icon>
                 </button>
               </div>
-              <button id="surveyConfigDeleteBtn"
+              <button mdbBtn id="surveyConfigDeleteBtn"
                       class="btn btn-danger btn-icon mb-2 "
                       mdbTooltip="{{'Delete Survey' | translate}}"
                       (click)="openDeleteModal(surveyConfig)">

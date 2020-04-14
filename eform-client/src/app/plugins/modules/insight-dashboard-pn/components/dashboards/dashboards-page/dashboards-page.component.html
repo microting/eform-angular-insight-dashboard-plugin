@@ -1,8 +1,8 @@
 <subheader-pn [title]="'Dashboards' | translate">
   <div class="p-3">
-    <button
+    <button mdbBtn
       id="createDashboardBtn"
-      class="btn btn-success"
+      class="btn-success"
       (click)="openCreateModal()">{{ 'New Dashboard' | translate }}
     </button>
   </div>
@@ -100,7 +100,7 @@
                   <fa-icon icon="copy" [fixedWidth]="true" size="lg"></fa-icon>
                 </button>
               </div>
-              <button id="dashboardDeleteBtn"
+              <button mdbBtn id="dashboardDeleteBtn"
                       class="btn btn-danger btn-icon mb-2 "
                       mdbTooltip="{{'Delete Dashboard' | translate}}"
                       (click)="openDeleteModal(dashboard)">
