@@ -25,7 +25,7 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Controllers
 {
     using System.Collections.Generic;
-    using System.Diagnostics;
+    using System.Text;
     using System.Threading.Tasks;
     using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Authorization;
@@ -33,15 +33,20 @@ namespace InsightDashboard.Pn.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Services.DashboardService;
+    using Services.WordService;
 
     [Authorize]
     public class DashboardsController : Controller
     {
         private readonly IDashboardService _dashboardService;
+        private readonly IWordService _wordService;
 
-        public DashboardsController(IDashboardService dashboardService)
+        public DashboardsController(
+            IDashboardService dashboardService,
+            IWordService wordService)
         {
             _dashboardService = dashboardService;
+            _wordService = wordService;
         }
 
         [HttpPost]
@@ -95,18 +100,40 @@ namespace InsightDashboard.Pn.Controllers
 
         [HttpPost]
         [Route("api/insight-dashboard-pn/dashboards/export-doc/{id}")]
-        public async Task<OperationResult> ExportDoc(int id, [FromForm]List<IFormFile> files)
+        public async Task ExportDoc(int id, [FromForm]List<IFormFile> files)
         {
-            Debugger.Break();
-            return null;
+            
+            var result = await _wordService.GenerateWordDashboard(id, files);
+            const int bufferSize = 4086;
+            byte[] buffer = new byte[bufferSize];
+            Response.OnStarting(async () =>
+            {
+                if (!result.Success)
+                {
+                    Response.ContentLength = result.Message.Length;
+                    Response.ContentType = "text/plain";
+                    Response.StatusCode = 400;
+                    byte[] bytes = Encoding.UTF8.GetBytes(result.Message);
+                    await Response.Body.WriteAsync(bytes, 0, result.Message.Length);
+                    await Response.Body.FlushAsync();
+                }
+                else
+                {
+                    using (var wordStream = result.Model)
+                    {
+                        int bytesRead;
+                        Response.ContentLength = wordStream.Length;
+                        Response.ContentType =
+                            "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                        while ((bytesRead = wordStream.Read(buffer, 0, buffer.Length)) > 0 &&
+                               !HttpContext.RequestAborted.IsCancellationRequested)
+                        {
+                            await Response.Body.WriteAsync(buffer, 0, bytesRead);
+                            await Response.Body.FlushAsync();
+                        }
+                    }
+                }
+            });
         }
-    }
-
-
-
-    public class DashboardViewExportDocModel
-    {
-        public int DashboardId { get; set; }
-        public List<IFormFile> Files { get; set; }
     }
 }
