@@ -42,7 +42,7 @@ import {
   SurveyConfigurationStatusComponent
 } from './components';
 import {DragulaModule} from 'ng2-dragula';
-import {NgxChartsModule} from '@microting/ngx-charts';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {OwlDateTimeModule} from 'ng-pick-datetime-ex';
 
 @NgModule({
