@@ -43,7 +43,10 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public firstQuestionSearchField(rowNum: number) {
-    return $(`#editFirstQuestion${rowNum} .ng-input > input`);
+    const ele = $(`#editFirstQuestion${rowNum} .ng-input > input`);
+    ele.waitForDisplayed({timeout:20000});
+    ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
   public firstQuestionListOfOptions(rowNum: number) {
