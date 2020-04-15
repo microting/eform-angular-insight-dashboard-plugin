@@ -305,13 +305,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         data = await answerQueryable
                             .Select(x => new ChartDataItem
                             {
-                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                                Name = x.Question.IsSmiley()
+                                    ? x.Option.WeightValue.ToString()
+                                    : x.Question.QuestionType == Constants.QuestionTypes.Multi
+                                        ? x.Option.OptionTranslationses
+                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(z => $@"{x.Question.QuestionTranslationses
+                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                                .Select(qt => qt.Name)
+                                                .FirstOrDefault()}_{z.Name}")
+                                            .FirstOrDefault()
+                                        : x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.Name,
                                 LocationTagId = x.Answer.SiteId,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley()
+                                IsSmiley = x.Question.IsSmiley(),
+                                AnswerId = x.AnswerId
                             })
                             .OrderBy(t => t.Finished)
                             .ToListAsync();
@@ -333,14 +344,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .FirstOrDefault()
                                         : x.Value,
                                 Finished = x.Answer.FinishedAt,
-                                LocationTagName = x.Answer.Site.SiteTags
-                                    .Where(y => y.TagId == dashboardLocationTagId)
-                                    .Select(y => y.Tag.Name)
-                                    .FirstOrDefault(),
-                                LocationTagId = (int)x.Answer.Site.SiteTags
-                                    .Where(y => y.TagId == dashboardLocationTagId)
-                                    .Select(y => y.TagId)
-                                    .FirstOrDefault(),
+                                LocationTagName = x.Answer.Site.Name,
+                                LocationTagId = x.Answer.SiteId,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
                                 IsSmiley = x.Question.IsSmiley()
@@ -704,6 +709,30 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 })
                                                 .ToList(),
                                         }).ToList();
+                                    Debugger.Break();
+
+                                    var test = data
+                                        .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                        .Select(x => new 
+                                        {
+                                            AnswersIds = x.GroupBy(y => y.AnswerId).Select(y => y.Count()).FirstOrDefault(),
+                                            // Total
+                                            Answers = x.GroupBy(y => y.AnswerId).Select(y => y.Key).ToList(),
+                                            Name = x.Key,
+                                            Items = x.ToList(),
+                                            Series = x.GroupBy(y => y.Name)
+                                                .Select(y => new
+                                                {
+                                                    QuarterCount = x.Count(),
+                                                    Name = y.Key,
+                                                    // Subtotal
+                                                    DataCount = y.Count(),
+                                                    Items = y.ToList()
+                                                })
+                                                .ToList(),
+                                        }).ToList();
+
+                                    var q13_1 = data.Where(x => x.Name == "Q13_1").ToList();
                                 }
                             }
 
@@ -1183,7 +1212,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
-                            dashboardItemModel.ChartData.Multi.AddRange(newLineData);
+                            dashboardItemModel.ChartData.Multi.AddRange(multiData);
                         }
                         else
                         {

@@ -27,6 +27,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
 
     public class ChartDataItem
     {
+        public int AnswerId { get; set; }
         public string Name { get; set; }
         public DateTime Finished { get; set; }
         public string LocationTagName { get; set; }
