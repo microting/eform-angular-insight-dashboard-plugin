@@ -315,6 +315,38 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             })
                             .OrderBy(t => t.Finished)
                             .ToListAsync();
+
+                        // TODO Test code
+                        Debugger.Break();
+                        var test = await answerQueryable
+                            .Select(x => new
+                            {
+                                Name = x.Question.IsSmiley()
+                                    ? x.Option.WeightValue.ToString()
+                                    : x.Question.QuestionType == Constants.QuestionTypes.Multi
+                                        ? x.Option.OptionTranslationses
+                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(z => $@"{x.Question.QuestionTranslationses
+                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                                .Select(qt => qt.Name)
+                                                .FirstOrDefault()}_{z.Name}")
+                                            .FirstOrDefault()
+                                        : x.Value,
+                                Finished = x.Answer.FinishedAt,
+                                LocationTagName = x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == dashboardLocationTagId)
+                                    .Select(y => y.Tag.Name)
+                                    .FirstOrDefault(),
+                                LocationTagId = (int)x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == dashboardLocationTagId)
+                                    .Select(y => y.TagId)
+                                    .FirstOrDefault(),
+                                Weight = x.Option.WeightValue,
+                                OptionIndex = x.Option.OptionsIndex,
+                                IsSmiley = x.Question.IsSmiley()
+                            })
+                            .OrderBy(t => t.Finished)
+                            .ToListAsync();
                     }
 
                     if (dashboardLocationTagId != null)
@@ -338,33 +370,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             })
                             .OrderBy(t => t.Finished)
                             .ToListAsync();
-
-                        // TODO Test code
-                        Debugger.Break();
-                        var test = await answerQueryable
-                            .Select(x => new
-                            {
-                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
-                                Translations = x.Option.OptionTranslationses.ToList(),
-                                NameQ = x.Option.OptionTranslationses
-                                    .Select(z=> $"{x.Question.Id}_{z.Name}")
-                                    .FirstOrDefault(),
-                                Finished = x.Answer.FinishedAt,
-                                LocationTagName = x.Answer.Site.SiteTags
-                                    .Where(y => y.TagId == dashboardLocationTagId)
-                                    .Select(y => y.Tag.Name)
-                                    .FirstOrDefault(),
-                                LocationTagId = (int)x.Answer.Site.SiteTags
-                                    .Where(y => y.TagId == dashboardLocationTagId)
-                                    .Select(y => y.TagId)
-                                    .FirstOrDefault(),
-                                Weight = x.Option.WeightValue,
-                                OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley()
-                            })
-                            .OrderBy(t => t.Finished)
-                            .ToListAsync();
-
                     }
                 }
 
