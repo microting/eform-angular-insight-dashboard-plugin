@@ -5,7 +5,7 @@ import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
 import {DashboardViewModel} from '../../../../models';
 import {DashboardChartTypesEnum, DashboardItemQuestionTypesEnum} from '../../../../const/enums';
-import domtoimage from 'dom-to-image';
+import * as domtoimage from 'dom-to-image';
 import {DashboardViewExportDocModel} from '../../../../models/dashboard/dashboard-view/dashboard-view-export-doc.model';
 import {saveAs} from 'file-saver';
 
