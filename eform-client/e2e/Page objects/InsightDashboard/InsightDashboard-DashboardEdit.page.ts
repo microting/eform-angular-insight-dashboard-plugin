@@ -45,7 +45,6 @@ export class InsightDashboardDashboardEditPage extends Page {
   public firstQuestionSearchField(rowNum: number) {
     const ele = $(`#editFirstQuestion${rowNum} .ng-input > input`);
     ele.waitForDisplayed({timeout:20000});
-    ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
