@@ -21,11 +21,14 @@
     <PackageReference Include="Microting.eFormApi.BasePn" Version="1.2.52" />
     <PackageReference Include="Microting.InsightDashboardBase" Version="1.0.17" />
     <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <PackageReference Include="HtmlToOpenXml.dll" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\localization.json" />
     <EmbeddedResource Include="Resources\Templates\interviews-template.xlsx" />
+    <EmbeddedResource Include="Resources\Templates\WordExport\file.docx" />
+    <EmbeddedResource Include="Resources\Templates\WordExport\page.html" />
   </ItemGroup>
 
 </Project>

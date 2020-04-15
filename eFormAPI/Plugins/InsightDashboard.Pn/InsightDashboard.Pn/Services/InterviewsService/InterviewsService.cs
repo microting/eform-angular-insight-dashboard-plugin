@@ -78,7 +78,7 @@ namespace InsightDashboard.Pn.Services.InterviewsService
                 {
                     return new OperationDataResult<FileStreamModel>(
                         false,
-                        _localizationService.GetString(""));
+                        _localizationService.GetString("DashboardItemNotFound"));
                 }
 
                 var interviews = new List<InterviewsExportModel>();
@@ -126,7 +126,7 @@ namespace InsightDashboard.Pn.Services.InterviewsService
                 _logger.LogError(e.Message);
                 return new OperationDataResult<FileStreamModel>(
                     false,
-                    _localizationService.GetString(""));
+                    _localizationService.GetString("ErrorWhileExportingInterviews"));
             }
         }
     }
