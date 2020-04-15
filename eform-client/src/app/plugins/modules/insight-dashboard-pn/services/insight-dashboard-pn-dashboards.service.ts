@@ -8,6 +8,7 @@ import {OperationDataResult, OperationResult} from '../../../../common/models';
 import {DashboardCreateModel, DashboardsListModel, DashboardViewModel, SurveyConfigsListModel} from '../models';
 import {DashboardsRequestModel} from '../models/dashboard/dashboards-request.model';
 import {DashboardEditModel} from '../models/dashboard/dashboard-edit.model';
+import {DashboardViewExportDocModel} from '../models/dashboard/dashboard-view/dashboard-view-export-doc.model';
 
 export let DashboardMethods = {
   Get: 'api/insight-dashboard-pn/dashboards',
@@ -17,6 +18,7 @@ export let DashboardMethods = {
   Update: 'api/insight-dashboard-pn/dashboards/update',
   Copy: 'api/insight-dashboard-pn/dashboards/copy',
   Delete: 'api/insight-dashboard-pn/dashboards/delete',
+  ExportDoc: 'api/insight-dashboard-pn/dashboards/export-doc',
 };
 @Injectable()
 export class InsightDashboardPnDashboardsService extends BaseService {
@@ -50,5 +52,9 @@ export class InsightDashboardPnDashboardsService extends BaseService {
 
   remove(dashboardId: number): Observable<OperationResult> {
     return this.post(DashboardMethods.Delete + '/' + dashboardId, {});
+  }
+
+  exportToDoc(model: DashboardViewExportDocModel): Observable<any> {
+    return this.uploadFiles(DashboardMethods.ExportDoc + '/' + model.dashboardId, model.files, {}, 'blob');
   }
 }
