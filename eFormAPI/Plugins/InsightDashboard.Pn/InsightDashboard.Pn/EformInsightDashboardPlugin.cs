@@ -49,6 +49,7 @@ namespace InsightDashboard.Pn
     using Services.InterviewsExcelService;
     using Services.InterviewsService;
     using Services.SurveysService;
+    using Services.WordService;
 
     public class EformInsightDashboardPlugin : IEformPlugin
     {
@@ -76,6 +77,7 @@ namespace InsightDashboard.Pn
             services.AddScoped<IDictionaryService, DictionaryService>();
             services.AddScoped<IInterviewsService, InterviewsService>();
             services.AddTransient<IInterviewsExcelService, InterviewsExcelService>();
+            services.AddTransient<IWordService, WordService>();
         }
 
         public void ConfigureOptionsServices(IServiceCollection services, IConfiguration configuration)

@@ -26,6 +26,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
@@ -337,6 +338,33 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             })
                             .OrderBy(t => t.Finished)
                             .ToListAsync();
+
+                        // TODO Test code
+                        Debugger.Break();
+                        var test = await answerQueryable
+                            .Select(x => new
+                            {
+                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                                Translations = x.Option.OptionTranslationses.ToList(),
+                                NameQ = x.Option.OptionTranslationses
+                                    .Select(z=> $"{x.Question.Id}_{z.Name}")
+                                    .FirstOrDefault(),
+                                Finished = x.Answer.FinishedAt,
+                                LocationTagName = x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == dashboardLocationTagId)
+                                    .Select(y => y.Tag.Name)
+                                    .FirstOrDefault(),
+                                LocationTagId = (int)x.Answer.Site.SiteTags
+                                    .Where(y => y.TagId == dashboardLocationTagId)
+                                    .Select(y => y.TagId)
+                                    .FirstOrDefault(),
+                                Weight = x.Option.WeightValue,
+                                OptionIndex = x.Option.OptionsIndex,
+                                IsSmiley = x.Question.IsSmiley()
+                            })
+                            .OrderBy(t => t.Finished)
+                            .ToListAsync();
+
                     }
                 }
 

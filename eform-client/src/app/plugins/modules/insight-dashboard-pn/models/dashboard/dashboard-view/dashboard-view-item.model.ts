@@ -15,6 +15,7 @@ export class DashboardViewItemModel {
   filterQuestionId: number | null;
   filterAnswerName: string;
   filterAnswerId: number | null;
+  position: number;
 
   ignoredAnswerValues: DashboardItemIgnoredAnswerViewModel[];
   calculateAverage: boolean;

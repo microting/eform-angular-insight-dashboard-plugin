@@ -285,5 +285,110 @@
       "da": "Fejl under hentning af tags",
       "en-US": "Error while obtaining tags"
     }
+  },
+  {
+    "Key": "PeriodFrom",
+    "LocalizedValue": {
+      "da": "Periode fra",
+      "en-US": "Period from"
+    }
+  },
+  {
+    "Key": "PeriodTo",
+    "LocalizedValue": {
+      "da": "Periode til",
+      "en-US": "Period to"
+    }
+  },
+  {
+    "Key": "Dashboard",
+    "LocalizedValue": {
+      "da": "Instrumentbræt",
+      "en-US": "Dashboard"
+    }
+  },
+  {
+    "Key": "Survey",
+    "LocalizedValue": {
+      "da": "Undersøgelse",
+      "en-US": "Survey"
+    }
+  },
+  {
+    "Key": "LocationTag",
+    "LocalizedValue": {
+      "da": "Beliggenhed / Tag",
+      "en-US": "Location / Tag"
+    }
+  },
+  {
+    "Key": "Question",
+    "LocalizedValue": {
+      "da": "Spørgsmål",
+      "en-US": "Question"
+    }
+  },
+  {
+    "Key": "FilterQuestion",
+    "LocalizedValue": {
+      "da": "Filtrer spørgsmål",
+      "en-US": "Filter question"
+    }
+  },
+  {
+    "Key": "FilterAnswer",
+    "LocalizedValue": {
+      "da": "Filtrer svar",
+      "en-US": "Filter answer"
+    }
+  },
+  {
+    "Key": "Date",
+    "LocalizedValue": {
+      "da": "Dato",
+      "en-US": "Date"
+    }
+  },
+  {
+    "Key": "Tag",
+    "LocalizedValue": {
+      "da": "Tag",
+      "en-US": "Tag"
+    }
+  },
+  {
+    "Key": "Comments",
+    "LocalizedValue": {
+      "da": "Kommentarer",
+      "en-US": "Comments"
+    }
+  },
+  {
+    "Key": "IgnoredValues",
+    "LocalizedValue": {
+      "da": "Ignorerede værdier",
+      "en-US": "Ignored values"
+    }
+  },
+  {
+    "Key": "DashboardItemNotFound",
+    "LocalizedValue": {
+      "da": "Dashboard-vare ikke fundet",
+      "en-US": "Dashboard item not found"
+    }
+  },
+  {
+    "Key": "ErrorWhileExportingInterviews",
+    "LocalizedValue": {
+      "da": "Fejl under eksport af interviews",
+      "en-US": "Error while exporting interviews"
+    }
+  },
+  {
+    "Key": "ErrorWhileCreatingWordFile",
+    "LocalizedValue": {
+      "da": "Fejl under oprettelse af Word fil",
+      "en-US": "Error while creating word file"
+    }
   }
 ]
