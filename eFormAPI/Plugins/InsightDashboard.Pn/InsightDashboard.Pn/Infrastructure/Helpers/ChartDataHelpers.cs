@@ -255,7 +255,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 y => y.TagId == tagId))
                             .Select(x => new ChartDataItem
                             {
-                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                                Name = x.Question.IsSmiley()
+                                    ? x.Option.WeightValue.ToString()
+                                    : x.Question.QuestionType == Constants.QuestionTypes.Multi
+                                        ? x.Option.OptionTranslationses
+                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(z => $@"{x.Question.QuestionTranslationses
+                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                                .Select(qt => qt.Name)
+                                                .FirstOrDefault()}_{z.Name}")
+                                            .FirstOrDefault()
+                                        : x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.SiteTags
                                     .Where(y => y.TagId == tagId)
@@ -267,7 +277,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     .FirstOrDefault(),
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley()
+                                IsSmiley = x.Question.IsSmiley(),
+                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
+                                AnswerId = x.AnswerId,
                             })
                             .ToListAsync();
 
@@ -284,13 +296,25 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         .Where(x => siteIds.Contains(x.Answer.SiteId))
                         .Select(x => new ChartDataItem
                         {
-                            Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
+                            Name = x.Question.IsSmiley()
+                                ? x.Option.WeightValue.ToString()
+                                : x.Question.QuestionType == Constants.QuestionTypes.Multi
+                                    ? x.Option.OptionTranslationses
+                                        .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Select(z => $@"{x.Question.QuestionTranslationses
+                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(qt => qt.Name)
+                                            .FirstOrDefault()}_{z.Name}")
+                                        .FirstOrDefault()
+                                    : x.Value,
                             Finished = x.Answer.FinishedAt,
                             LocationTagName = x.Answer.Site.Name,
                             LocationTagId = x.Answer.SiteId,
                             Weight = x.Option.WeightValue,
                             OptionIndex = x.Option.OptionsIndex,
-                            IsSmiley = x.Question.IsSmiley()
+                            IsSmiley = x.Question.IsSmiley(),
+                            IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
+                            AnswerId = x.AnswerId,
                         })
                         .ToListAsync();
 
@@ -322,15 +346,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
                                 IsSmiley = x.Question.IsSmiley(),
+                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
                                 AnswerId = x.AnswerId
                             })
                             .OrderBy(t => t.Finished)
                             .ToListAsync();
+                    }
 
-                        // TODO Test code
-                        Debugger.Break();
-                        var test = await answerQueryable
-                            .Select(x => new
+                    if (dashboardLocationTagId != null)
+                    {
+                        data = await answerQueryable
+                            .Select(x => new ChartDataItem
                             {
                                 Name = x.Question.IsSmiley()
                                     ? x.Option.WeightValue.ToString()
@@ -344,23 +370,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .FirstOrDefault()
                                         : x.Value,
                                 Finished = x.Answer.FinishedAt,
-                                LocationTagName = x.Answer.Site.Name,
-                                LocationTagId = x.Answer.SiteId,
-                                Weight = x.Option.WeightValue,
-                                OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley()
-                            })
-                            .OrderBy(t => t.Finished)
-                            .ToListAsync();
-                    }
-
-                    if (dashboardLocationTagId != null)
-                    {
-                        data = await answerQueryable
-                            .Select(x => new ChartDataItem
-                            {
-                                Name = x.Question.IsSmiley() ? x.Option.WeightValue.ToString() : x.Value,
-                                Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.SiteTags
                                     .Where(y => y.TagId == dashboardLocationTagId)
                                     .Select(y => y.Tag.Name)
@@ -371,7 +380,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     .FirstOrDefault(),
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley()
+                                IsSmiley = x.Question.IsSmiley(),
+                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
+                                AnswerId = x.AnswerId,
                             })
                             .OrderBy(t => t.Finished)
                             .ToListAsync();
@@ -379,6 +390,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 }
 
                 bool isSmiley = data.Any() && data.First().IsSmiley;
+                bool isMulti = data.Any() && data.First().IsSmiley;
 
                 List<string> lines;
                 if (dashboardItem.CalculateAverage)
@@ -658,7 +670,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                             ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
                                                             : i.Key,
                                                         DataCount = i.Count(),
-                                                        Value = GetDataPercentage(i.Count(), y.Count()),
+                                                        Value = isMulti
+                                                            ? GetDataPercentage(i.Count(), GetAnswersCount(y))
+                                                            : GetDataPercentage(i.Count(), y.Count()),
                                                     })
                                                     .ToList(),
                                             })
@@ -705,7 +719,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
-                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                                        : isMulti 
+                                                            ? GetDataPercentage(y.Count(), GetAnswersCount(x))
+                                                            : GetDataPercentage(y.Count(), x.Count()),
                                                 })
                                                 .ToList(),
                                         }).ToList();
@@ -717,7 +733,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         {
                                             AnswersIds = x.GroupBy(y => y.AnswerId).Select(y => y.Count()).FirstOrDefault(),
                                             // Total
-                                            Answers = x.GroupBy(y => y.AnswerId).Select(y => y.Key).ToList(),
+                                            TotalAnswers = x.GroupBy(y => y.AnswerId)
+                                                .Select(y => y.Key)
+                                                .Count(),
                                             Name = x.Key,
                                             Items = x.ToList(),
                                             Series = x.GroupBy(y => y.Name)
@@ -732,7 +750,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .ToList(),
                                         }).ToList();
 
-                                    var q13_1 = data.Where(x => x.Name == "Q13_1").ToList();
                                 }
                             }
 
@@ -1334,8 +1351,16 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         private static int GetAverageDataPercentage(double averageValue)
         {
-            var value = Math.Round((decimal) averageValue);
+            var value = Math.Round((decimal)averageValue);
             return decimal.ToInt32(value);
+        }
+
+        private static int GetAnswersCount(IGrouping<string, ChartDataItem> grouping)
+        {
+            var value = grouping.GroupBy(u => u.AnswerId)
+                .Select(u => u.Key)
+                .Count();
+            return value;
         }
 
         public static int GetDataPercentage(int subCount, int totalCount)

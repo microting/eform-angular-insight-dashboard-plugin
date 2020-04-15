@@ -35,5 +35,6 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
         public int Weight { get; set; }
         public int OptionIndex { get; set; }
         public bool IsSmiley { get; set; }
+        public bool IsMulti { get; set; }
     }
 }
