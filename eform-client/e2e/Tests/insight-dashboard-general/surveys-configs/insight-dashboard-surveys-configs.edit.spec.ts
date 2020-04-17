@@ -13,8 +13,8 @@ describe('Insight Dashboard - Survey Configs - Edit', function () {
   it('Should not update survey config', function () {
     const surveyConfig = surveyConfigsPage.getSurveyConfig(surveyConfigsPage.rowNum);
     const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
-    $('#spinner-animation').waitForDisplayed(30000, true);
-    $('#createSurveyConfigBtn').waitForDisplayed(30000);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 30000});
     surveyConfigsPage.updateSurveyConfig_Cancels(surveyConfig);
     const locationsAfterUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
     expect(locationsAfterUpdate).equal(locationsBeforeUpdate);
@@ -22,8 +22,8 @@ describe('Insight Dashboard - Survey Configs - Edit', function () {
   it('Should update survey config', function () {
     const surveyConfig = surveyConfigsPage.getSurveyConfig(surveyConfigsPage.rowNum);
     const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
-    $('#spinner-animation').waitForDisplayed(30000, true);
-    $('#createSurveyConfigBtn').waitForDisplayed(30000);
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 30000});
     surveyConfigsPage.updateSurveyConfig(surveyConfig);
     const locationsAfterUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
     expect(locationsAfterUpdate).equal(locationsBeforeUpdate);

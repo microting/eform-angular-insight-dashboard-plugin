@@ -36,12 +36,12 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" (click)="createConfig()"
+        <button mdbBtn class=" btn-success" (click)="createConfig()"
                 [disabled]="!selectedSurveyId && selectedLocations.length < 1"
                 id="surveyConfigCreateSaveBtn">
           {{ 'Save' | translate }}
         </button>
-        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="surveyConfigCreateSaveCancelBtn">
+        <button mdbBtn class=" btn-accent text-black-50" (click)="frame.hide()" id="surveyConfigCreateSaveCancelBtn">
           {{ 'Cancel' | translate }}
         </button>
       </div>

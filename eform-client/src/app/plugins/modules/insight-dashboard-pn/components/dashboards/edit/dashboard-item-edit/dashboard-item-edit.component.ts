@@ -12,8 +12,8 @@ import {Subscription} from 'rxjs';
 import {InsightDashboardPnDashboardDictionariesService} from '../../../../services';
 import {TranslateService} from '@ngx-translate/core';
 import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
-import {CollapseDirective} from '../../../../../../../../../port/angular-bootstrap-md/collapse';
 import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
+import {CollapseComponent} from 'angular-bootstrap-md';
 
 @AutoUnsubscribe()
 @Component({
@@ -22,7 +22,7 @@ import {InsightDashboardPnCollapseService} from '../../../../services/insight-da
   styleUrls: ['./dashboard-item-edit.component.scss']
 })
 export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges {
-  @ViewChild('collapse', { static: true }) collapse: CollapseDirective;
+  @ViewChild('collapse', { static: true }) collapse: CollapseComponent;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: DashboardItemQuestionModel[] = [];
   @Input() surveyId = 1;
@@ -314,6 +314,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
 
   resizeCollapse() {
     // collapse resize trigger to recalculate size
-    this.collapse.resize();
+    //this.collapse;
   }
 }

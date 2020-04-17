@@ -8,15 +8,15 @@
         <p>{{'Are you sure you want to change status to this survey configuration?' | translate}}</p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" *ngIf="!selectedSurveyConfig.isActive" (click)="changeSurveyConfigStatus()"
+        <button mdbBtn class=" btn-success" *ngIf="!selectedSurveyConfig.isActive" (click)="changeSurveyConfigStatus()"
                 id="surveyConfigActivateBtn">
           {{ 'Activate' | translate }}
         </button>
-        <button class="btn btn-danger" *ngIf="selectedSurveyConfig.isActive" (click)="changeSurveyConfigStatus()"
+        <button mdbBtn class=" btn-danger" *ngIf="selectedSurveyConfig.isActive" (click)="changeSurveyConfigStatus()"
                 id="surveyConfigDeactivateBtn">
           {{ 'Deactivate' | translate }}
         </button>
-        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="surveyConfigActivateCancelBtn">
+        <button mdbBtn class=" btn-accent text-black-50" (click)="frame.hide()" id="surveyConfigActivateCancelBtn">
           {{ 'Cancel' | translate }}
         </button>
       </div>

@@ -9,8 +9,7 @@
           <div class="row">
             <div class="col">
               <div class="md-form">
-                <input mdbInputDirective [mdbValidate]="false"
-                       type="text" [(ngModel)]="dashboardName"
+                <input mdbInput type="text" [(ngModel)]="dashboardName"
                        class="form-control input-sm" id="dashboardNameCreate">
                 <label for="dashboardNameCreate">{{'Name' | translate}}</label>
               </div>
@@ -32,12 +31,12 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" (click)="createDashboard()"
+        <button mdbBtn class=" btn-success" (click)="createDashboard()"
                 [disabled]="!dashboardName && !selectedSurveyId"
                 id="dashboardCreateSaveBtn">
           {{ 'Save' | translate }}
         </button>
-        <button class="btn btn-accent text-black-50" (click)="frame.hide()" id="dashboardCreateSaveCancelBtn">
+        <button mdbBtn class=" btn-accent text-black-50" (click)="frame.hide()" id="dashboardCreateSaveCancelBtn">
           {{ 'Cancel' | translate }}
         </button>
       </div>

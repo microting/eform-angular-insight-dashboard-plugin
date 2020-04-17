@@ -13,7 +13,7 @@ describe('Application settings page - site header section', function () {
     loginPage.login();
     myEformsPage.Navbar.advancedDropdown();
     myEformsPage.Navbar.clickonSubMenuItem('Plugins');
-    $('#plugin-name').waitForDisplayed(50000);
+    $('#plugin-name').waitForDisplayed({timeout: 50000});
 
     const plugin = pluginsPage.getFirstPluginRowObj();
     expect(plugin.id).equal(1);
@@ -25,7 +25,7 @@ describe('Application settings page - site header section', function () {
     let plugin = pluginsPage.getFirstPluginRowObj();
     // pluginPage.pluginSettingsBtn.click();
     plugin.activateBtn.click();
-    $('#pluginOKBtn').waitForDisplayed(40000);
+    $('#pluginOKBtn').waitForDisplayed({timeout: 40000});
     pluginPage.pluginOKBtn.click();
     browser.pause(50000); // We need to wait 50 seconds for the plugin to create db etc.
     loginPage.open('/');
@@ -33,12 +33,12 @@ describe('Application settings page - site header section', function () {
     loginPage.login();
     myEformsPage.Navbar.advancedDropdown();
     myEformsPage.Navbar.clickonSubMenuItem('Plugins');
-    $('#plugin-name').waitForDisplayed(50000);
+    $('#plugin-name').waitForDisplayed({timeout: 50000});
 
     let pluginToFind = pluginsPage.getFirstPluginRowObj();
     expect(pluginToFind.id).equal(1);
     expect(pluginToFind.name).equal('Microting Insight Dashboard Plugin');
     expect(pluginToFind.version).equal('1.0.0.0');
-    $(`//*[contains(text(), 'Insight Instrumentbræt')]`).waitForDisplayed(30000);
+    $(`//*[contains(text(), 'Insight Instrumentbræt')]`).waitForDisplayed({timeout: 30000});
   });
 });

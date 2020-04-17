@@ -1,11 +1,13 @@
 <subheader-pn [title]="'Edit Dashboard' | translate">
   <div class="p-3">
     <button
+      mdbBtn
       id="dashboardUpdateSaveBtn"
       class="btn btn-success" [disabled]="!dashboardEditModel.locationId && !dashboardEditModel.tagId"
       (click)="updateDashboard()">{{ 'Save' | translate }}
     </button>
     <button
+      mdbBtn
       id="dashboardUpdateSaveCancelBtn"
       class="btn btn-accent text-black-50"
       [routerLink]="['../../../dashboards']">{{ 'Cancel' | translate }}
@@ -22,6 +24,7 @@
       <div class="row">
         <div class="col">
           <button
+            mdbBtn
             id="initialItemCreateBtn"
             class="btn btn-success mb-1 mt-1" *ngIf="dashboardEditModel.items.length === 0"
             (click)="onAddNewBlock(1)">{{ 'Add new item' | translate }}

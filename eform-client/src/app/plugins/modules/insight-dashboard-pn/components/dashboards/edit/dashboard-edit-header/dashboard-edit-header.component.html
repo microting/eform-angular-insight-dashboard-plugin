@@ -3,8 +3,7 @@
     <div class="row">
       <div class="col">
         <div class="md-form">
-          <input mdbInputDirective [mdbValidate]="false"
-                 [(ngModel)]="dashboardEditModel.dashboardName"
+          <input mdbInput [(ngModel)]="dashboardEditModel.dashboardName"
                  (ngModelChange)="fieldChanged(dashboardEditModel.dashboardName, dashboardFields.dashboardName);"
                  type="text"
                  class="form-control input-sm" id="dashboardNameInput">
@@ -18,8 +17,7 @@
           <i class="material-icons prefix">
             calendar_today
           </i>
-          <input mdbInputDirective [mdbValidate]="false"
-                 name="dateRange" [(ngModel)]="selectedDateRange"
+          <input mdbInput name="dateRange" [(ngModel)]="selectedDateRange"
                  (ngModelChange)="fieldChanged(selectedDateRange[0], dashboardFields.dateFrom)"
                  type="text" [owlDateTime]="dateFromPicker" [selectMode]="'rangeFrom'"
                  class="form-control input-sm" id="dateFromInput">
@@ -34,8 +32,7 @@
           <i class="material-icons prefix">
             calendar_today
           </i>
-          <input mdbInputDirective [mdbValidate]="false"
-                 name="dateRange" [(ngModel)]="selectedDateRange"
+          <input mdbInput name="dateRange" [(ngModel)]="selectedDateRange"
                  [disabled]="dashboardEditModel.answerDates.today"
                  (ngModelChange)="fieldChanged(selectedDateRange[1], dashboardFields.dateTo)"
                  type="text" [owlDateTime]="dateToPicker" [selectMode]="'rangeTo'"
