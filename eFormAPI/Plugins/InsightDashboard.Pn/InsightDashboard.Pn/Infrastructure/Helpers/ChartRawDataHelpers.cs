@@ -34,7 +34,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     {
         public static List<DashboardViewChartRawDataModel> ConvertMultiStackedData(
             IInsightDashboardLocalizationService localizationService,
-            List<DashboardViewChartDataMultiStackedModel> multiStackedData)
+            List<DashboardViewChartDataMultiStackedModel> multiStackedData,
+            bool isMulti)
         {
             var result = new List<DashboardViewChartRawDataModel>();
             foreach (var dataMultiStackedModel in multiStackedData)
@@ -101,10 +102,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                         rawDataList[lastRow].Percents[i] = dataMultiModel.Series
                             .Where(x => x.Value != null)
-                            .Sum(x => (decimal) x.Value);
+                            .Sum(x => (decimal)x.Value);
 
-                        rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
-                            .Sum(x => x.DataCount);
+                        if (isMulti)
+                        {
+                            rawDataList[lastRow].Amounts[i] = dataMultiModel.AnswersCount;
+                        }
+                        else
+                        {
+                            rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
+                                .Sum(x => x.DataCount);
+                        }
                     }
 
                     chartRawDataModel.RawDataValues = rawDataList;
@@ -120,7 +128,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
         public static List<DashboardViewChartRawDataModel> ConvertMultiData(
             IInsightDashboardLocalizationService localizationService,
             List<DashboardViewChartDataMultiModel> multiData,
-            bool isLineData)
+            bool isLineData,
+            bool isMulti)
         {
 
             var result = new List<DashboardViewChartRawDataModel>();
@@ -262,14 +271,21 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
 
                     // calculate total
-                    var lastRow = dataMultiModel.Series.Count;
+                    var lastRow = maxObject.Series.Count;
 
                     rawDataList[lastRow].Percents[i] = dataMultiModel.Series
                         .Where(x => x.Value != null)
                         .Sum(x => (decimal)x.Value);
 
-                    rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
-                        .Sum(x => x.DataCount);
+                    if (isMulti)
+                    {
+                        rawDataList[lastRow].Amounts[i] = dataMultiModel.AnswersCount;
+                    }
+                    else
+                    {
+                        rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
+                            .Sum(x => x.DataCount);
+                    }
                 }
 
                 chartRawDataModel.RawDataValues = rawDataList;
