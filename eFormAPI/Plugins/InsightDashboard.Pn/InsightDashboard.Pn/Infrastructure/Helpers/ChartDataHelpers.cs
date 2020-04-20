@@ -1349,7 +1349,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .ToList();
                                     }
 
-                                    newStackedModel.Series = stackedModel.Series;
+                                    newStackedModel.Series = stackedModel.Series
+                                        .OrderBy(x => x.Name)
+                                        .ToList();
+
                                     newLineData.Add(newStackedModel);
                                 }
 
