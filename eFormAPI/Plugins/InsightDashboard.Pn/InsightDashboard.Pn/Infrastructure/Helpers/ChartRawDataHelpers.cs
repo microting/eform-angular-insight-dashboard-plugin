@@ -128,7 +128,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
         public static List<DashboardViewChartRawDataModel> ConvertMultiData(
             IInsightDashboardLocalizationService localizationService,
             List<DashboardViewChartDataMultiModel> multiData,
-            bool isLineData)
+            bool isLineData,
+            bool isMulti)
         {
 
             var result = new List<DashboardViewChartRawDataModel>();
@@ -276,8 +277,15 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         .Where(x => x.Value != null)
                         .Sum(x => (decimal)x.Value);
 
-                    rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
-                        .Sum(x => x.DataCount);
+                    if (isMulti)
+                    {
+                        rawDataList[lastRow].Amounts[i] = dataMultiModel.AnswersCount;
+                    }
+                    else
+                    {
+                        rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
+                            .Sum(x => x.DataCount);
+                    }
                 }
 
                 chartRawDataModel.RawDataValues = rawDataList;
