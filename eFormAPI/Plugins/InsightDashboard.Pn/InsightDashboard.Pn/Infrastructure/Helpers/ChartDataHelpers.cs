@@ -707,6 +707,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Name = x.Key,
+                                            AnswersCount = GetAnswersCount(x),
                                             Series = x.GroupBy(y => y.Name)
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
@@ -1339,7 +1340,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     var newStackedModel = new DashboardViewChartDataMultiStackedModel
                                     {
                                         Id = stackedModel.Id,
-                                        Name = stackedModel.Name
+                                        Name = stackedModel.Name,
                                     };
 
                                     foreach (var stackedModelSeries in stackedModel.Series)
@@ -1366,7 +1367,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             // convert
                             var rawData = ChartRawDataHelpers.ConvertMultiStackedData(
                                 localizationService,
-                                dashboardItemModel.ChartData.MultiStacked);
+                                dashboardItemModel.ChartData.MultiStacked,
+                                isMulti);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
                         }
                     }
