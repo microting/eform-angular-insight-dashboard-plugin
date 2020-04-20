@@ -688,7 +688,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     })
                                                     .ToList(),
                                             })
-                                            .OrderByDescending(y => y.Name)
+                                            .OrderBy(y => y.Name)
                                             .ToList(),
                                     }).ToList();
                             }
