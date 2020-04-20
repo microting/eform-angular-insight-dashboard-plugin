@@ -659,6 +659,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .Select(y => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = y.Key, // Quarter name
+                                                AnswersCount = GetAnswersCount(y),
                                                 Series = y
                                                     .GroupBy(g => g.Name)
                                                     .Select(i => new DashboardViewChartDataSingleModel
@@ -1227,7 +1228,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
-                            dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                            dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
                         else
                         {
