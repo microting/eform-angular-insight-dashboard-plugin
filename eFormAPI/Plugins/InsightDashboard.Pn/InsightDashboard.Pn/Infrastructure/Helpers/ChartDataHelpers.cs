@@ -37,10 +37,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using Microting.InsightDashboardBase.Infrastructure.Enums;
     using Models.Dashboards;
     using Services.Common.InsightDashboardLocalizationService;
-
-
-
-
+    
     public static class ChartDataHelpers
     {
         public static async Task CalculateDashboardItem(
@@ -390,7 +387,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 }
 
                 bool isSmiley = data.Any() && data.First().IsSmiley;
-                bool isMulti = data.Any() && data.First().IsSmiley;
+                bool isMulti = data.Any() && data.First().IsMulti;
 
                 List<string> lines;
                 if (dashboardItem.CalculateAverage)
@@ -1331,6 +1328,31 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                     newLineData.Add(model);
                                 }
+                                dashboardItemModel.ChartData.MultiStacked.AddRange(newLineData);
+                            }
+                            else if (isMulti)
+                            {
+                                var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
+
+                                foreach (var stackedModel in multiStackedData)
+                                {
+                                    var newStackedModel = new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Id = stackedModel.Id,
+                                        Name = stackedModel.Name
+                                    };
+
+                                    foreach (var stackedModelSeries in stackedModel.Series)
+                                    {
+                                        stackedModelSeries.Series = stackedModelSeries.Series
+                                            .OrderBy(x => x.Name)
+                                            .ToList();
+                                    }
+
+                                    newStackedModel.Series = stackedModel.Series;
+                                    newLineData.Add(newStackedModel);
+                                }
+
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(newLineData);
                             }
                             else
