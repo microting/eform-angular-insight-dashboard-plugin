@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
-import domtoimage from 'dom-to-image';
+import * as domtoimage from 'dom-to-image';
 import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
 
 @Component({

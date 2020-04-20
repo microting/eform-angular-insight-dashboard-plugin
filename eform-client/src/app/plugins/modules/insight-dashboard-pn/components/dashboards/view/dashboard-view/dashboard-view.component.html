@@ -7,7 +7,7 @@
       mdbTooltip="{{'Export to Word' | translate}}"
       (click)="exportToDoc()">{{ 'Export' | translate }} <fa-icon icon="file-word" [fixedWidth]="true"></fa-icon>
     </button>
-    <button 
+    <button
       mdbBtn
       id="returnToPrevious"
       class="btn btn-success"
@@ -19,7 +19,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-9 col-xl-9 col-md-12">
+    <div class="col-lg-12 col-xl-12 col-md-12">
       <div class="card z-depth-3 mt-3 mb-4" style="width: 100%">
         <div class="card-body">
           <ng-container *ngFor="let dashboardViewItemModel of dashboardViewModel.items; let pos = index">
