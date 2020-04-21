@@ -1,5 +1,5 @@
 export class DashboardAnswerDatesModel {
-    dateFrom: Date;
-    dateTo: Date;
+    dateFrom: string;
+    dateTo:  string;
     today: boolean;
 }

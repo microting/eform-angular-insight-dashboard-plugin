@@ -2,8 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {DashboardEditModel, DashboardItemModel} from '../../../../models';
 import {DashboardFieldsEnum, DashboardItemFieldsEnum} from '../../../../const/enums';
 import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
-import * as moment from 'moment';
-import {parse, toDate} from 'date-fns';
+import {format, parse, toDate, parseISO} from 'date-fns';
 
 @Component({
   selector: 'app-dashboard-edit-header',
@@ -37,8 +36,8 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
       if (currentValue.answerDates) {
         if (this.selectedDateRange) {
           this.selectedDateRange = [
-            currentValue.answerDates.dateFrom ? toDate(currentValue.answerDates.dateFrom) : null,
-            currentValue.answerDates.dateTo ? toDate(currentValue.answerDates.dateTo) : null
+            currentValue.answerDates.dateFrom ? parseISO(currentValue.answerDates.dateFrom) : null,
+            currentValue.answerDates.dateTo ? parseISO(currentValue.answerDates.dateTo) : null
           ];
         } else {
           this.selectedDateRange = [currentValue.answerDates.dateFrom, currentValue.answerDates.dateTo];
@@ -53,10 +52,10 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
         this.dashboardEditModel.dashboardName = value;
         break;
       case DashboardFieldsEnum.dateFrom:
-        this.dashboardEditModel.answerDates.dateFrom = value ? value.format('YYYY/MM/DD') : null;
+        this.dashboardEditModel.answerDates.dateFrom = value ? format(value,'yyyy/MM/dd') : null;
         break;
       case DashboardFieldsEnum.dateTo:
-        this.dashboardEditModel.answerDates.dateTo = value ? value.format('YYYY/MM/DD') : null;
+        this.dashboardEditModel.answerDates.dateTo = value ? format(value,'yyyy/MM/dd') : null;
         break;
       case DashboardFieldsEnum.today:
         this.dashboardEditModel.answerDates.today = value;
