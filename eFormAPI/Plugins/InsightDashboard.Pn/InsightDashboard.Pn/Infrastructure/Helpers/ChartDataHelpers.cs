@@ -236,13 +236,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 }
 
                 var data = new List<ChartDataItem>();
-                if (isComparedData) // TODO Compare enabled?
+                if (isComparedData)
                 {
-                    var tagIds = dashboardItem.CompareLocationsTags
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.TagId != null)
-                        .Select(x => x.TagId)
-                        .ToList();
+                    var tagIds = new List<int>();
+                    if (dashboardItem.CompareEnabled)
+                    {
+                        tagIds = dashboardItem.CompareLocationsTags
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.TagId != null)
+                            .Select(x => (int)x.TagId)
+                            .ToList();
+                    }
+                    else
+                    {
+                        if (dashboardLocationTagId != null)
+                        {
+                            tagIds.Add((int)dashboardLocationTagId);
+                        }
+                    }
 
                     var tagsData = new List<ChartDataItem>();
                     foreach (var tagId in tagIds)
@@ -283,11 +294,22 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         tagsData.AddRange(tagData);
                     }
 
-                    var siteIds = dashboardItem.CompareLocationsTags
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.LocationId != null)
-                        .Select(x => (int)x.LocationId)
-                        .ToList();
+                    var siteIds = new List<int>();
+                    if (dashboardItem.CompareEnabled)
+                    {
+                        siteIds = dashboardItem.CompareLocationsTags
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.LocationId != null)
+                            .Select(x => (int)x.LocationId)
+                            .ToList();
+                    }
+                    else
+                    {
+                        if (dashboardLocationId != null)
+                        {
+                            siteIds.Add((int)dashboardLocationId);
+                        }
+                    }
 
                     var sitesData = await answerQueryable
                         .Where(x => siteIds.Contains(x.Answer.SiteId))
