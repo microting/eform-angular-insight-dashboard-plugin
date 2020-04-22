@@ -3,14 +3,14 @@
     <button
       mdbBtn
       id="exportToDoc"
-      class="btn btn-success"
+      class="btn btn-success text-white"
       mdbTooltip="{{'Export to Word' | translate}}"
-      (click)="exportToDoc()">{{ 'Export' | translate }} <fa-icon icon="file-word" [fixedWidth]="true"></fa-icon>
+      (click)="exportToDoc()"><fa-icon icon="file-word" [fixedWidth]="true" size="lg"></fa-icon>
     </button>
     <button
       mdbBtn
       id="returnToPrevious"
-      class="btn btn-success"
+      class="btn btn-accent text-black-50"
       mdbTooltip="{{'Return to dashboards list' | translate}}"
       [routerLink]="['../../dashboards']">{{ 'Return' | translate }}
     </button>
