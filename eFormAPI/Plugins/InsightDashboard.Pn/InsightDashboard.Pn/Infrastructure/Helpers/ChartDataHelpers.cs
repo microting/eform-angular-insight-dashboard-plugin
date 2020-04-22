@@ -1290,6 +1290,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             null);
                                 }
                             }
+                            else
+                            {
+                                newLineData = multiData;
+                            }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false, isMulti);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
