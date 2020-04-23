@@ -25,8 +25,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   getLocationsSub$: Subscription;
   dashboardEditModel: DashboardEditModel = new DashboardEditModel();
   questions: DashboardItemQuestionModel[] = [];
-  availableLocationsTags: CommonDictionaryExtendedModel[] = [];
-  selectedDateRange = [];
+  availableLocationsTags: any[] = [];
   isItemsCollapsed = false;
   selectedDashboardId: number;
   spinnerStatus = false;
@@ -99,7 +98,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
       if (data && data.success) {
         this.getTags();
         this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-          return {id: x.id, name: x.name, isTag: false, description: x.description} as CommonDictionaryExtendedModel;
+          return {value: x.id, label: x.name, isTag: false};
         })];
       }
     });
@@ -109,7 +108,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
     this.getTagsSub$ = this.dictionaryService.getTags().subscribe((data) => {
       if (data && data.success) {
         this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-          return {id: x.id, name: x.name, isTag: true, description: x.description};
+          return {value: x.id, label: x.name, isTag: true};
         })];
       }
     });

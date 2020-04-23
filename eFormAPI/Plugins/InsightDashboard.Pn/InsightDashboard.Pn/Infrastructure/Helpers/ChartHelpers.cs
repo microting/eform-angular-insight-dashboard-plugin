@@ -39,17 +39,32 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             DashboardItem dashboardItem)
         {
             var result = new List<DashboardViewChartDataMultiStackedModel>();
-            var locationAndTagList = dashboardItem.CompareLocationsTags
+
+            var locationTagList = dashboardItem.CompareLocationsTags
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .Select(x => new { x.LocationId, x.TagId, x.Position })
                 .OrderBy(x => x.Position)
-                .Select(x => x.LocationId ?? x.TagId ?? 0)
+                .Select(x => new
+                {
+                    IsTag = x.TagId != null,
+                    IsLocation = x.LocationId != null,
+                    x.TagId,
+                    x.LocationId,
+                })
                 .ToList();
 
 
-            foreach (var locationOrTag in locationAndTagList)
+            foreach (var locationOrTag in locationTagList)
             {
-                var data = multiStackedData.FirstOrDefault(x => x.Id == locationOrTag);
+                var data = new DashboardViewChartDataMultiStackedModel();
+                if (locationOrTag.IsTag)
+                {
+                    data = multiStackedData.FirstOrDefault(x => x.Id == locationOrTag.TagId && x.IsTag);
+                }
+                else if (locationOrTag.IsLocation)
+                {
+                    data = multiStackedData.FirstOrDefault(x => x.Id == locationOrTag.LocationId && !x.IsTag);
+                }
 
                 if (data != null)
                 {
@@ -67,32 +82,37 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             int? locationTagId)
         {
             var result = new List<DashboardViewChartDataMultiModel>();
-            var locationAndTagList = new List<int>();
+            var locationAndTagList = new Dictionary<int, bool>();
             if (locationId == null && locationTagId == null)
             {
                 locationAndTagList = dashboardItem.CompareLocationsTags
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .Select(x => new { x.LocationId, x.TagId, x.Position })
                     .OrderBy(x => x.Position)
-                    .Select(x => x.LocationId ?? x.TagId ?? 0)
-                    .ToList();
+                    .Select(x => new
+                    {
+                        IsTag = x.TagId != null,
+                        LocationTagId = x.LocationId ?? x.TagId ?? 0,
+                    }).ToDictionary(x => x.LocationTagId, y => y.IsTag);
             }
             else
             {
                 if (locationId != null)
                 {
-                    locationAndTagList.Add((int)locationId);
+                    locationAndTagList.Add((int)locationId, false);
                 }
                 
                 if (locationTagId != null)
                 {
-                    locationAndTagList.Add((int)locationTagId);
+                    locationAndTagList.Add((int)locationTagId, true);
                 }
             }
 
             foreach (var locationOrTag in locationAndTagList)
             {
-                var data = multiData.FirstOrDefault(x => x.Id == locationOrTag);
+                var data = locationOrTag.Value // is tag
+                    ? multiData.FirstOrDefault(x => x.Id == locationOrTag.Key && x.IsTag) // tag
+                    : multiData.FirstOrDefault(x => x.Id == locationOrTag.Key && !x.IsTag); // location
 
                 if (data != null)
                 {

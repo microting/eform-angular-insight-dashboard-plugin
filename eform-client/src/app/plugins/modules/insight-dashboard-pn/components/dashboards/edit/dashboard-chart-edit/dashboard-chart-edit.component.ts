@@ -23,6 +23,7 @@ export class DashboardChartEditComponent implements OnChanges {
   multiStacked: any[];
   pie: any[];
   view: any[] = [800, 400];
+  multiChartView: any[] = [800, 400];
 
   colorScheme = {
     domain: ['#9c27b0', '#3f51b5', '#2196f3', '#00bcd4', '#009688', '#8bc34a', '#cddc39', '#ffc107', '#ff9800', '#9e9e9e']
@@ -102,12 +103,12 @@ export class DashboardChartEditComponent implements OnChanges {
           Object.assign(this, {line: lineSmiley});
           Object.assign(this, {multi: multiSmiley});
           Object.assign(this, {pie: singleSmiley});
-          Object.assign(this, {multiStacked});
+          Object.assign(this, {multiStacked: multiStackedSmiley});
         } else {
           Object.assign(this, {line: line});
           Object.assign(this, {multi});
           Object.assign(this, {pie: single});
-          Object.assign(this, {multiStacked});
+          Object.assign(this, {multiStacked: multiStacked});
         }
     }
   }
@@ -603,6 +604,124 @@ const multiSmiley = [
 ];
 
 const multiStacked = [
+  {
+    'id': 1,
+    'name': 'Location 1',
+    'series': [
+      {
+        'name': '16-1H',
+        'series': [
+          {
+            'name': 'Ja',
+            'value': 40.0
+          },
+          {
+            'name': 'Nej',
+            'value': 60.0
+          }
+        ]
+      },
+      {
+        'name': '16-2H',
+        'series': [
+          {
+            'name': 'Ja',
+            'value': 60.0
+          },
+          {
+            'name': 'Nej',
+            'value': 40.0
+          }
+        ]
+      },
+      {
+        'name': '17-1H',
+        'series': [
+          {
+            'name': 'Ja',
+            'value': 30.0
+          },
+          {
+            'name': 'Nej',
+            'value': 70.0
+          }
+        ]
+      },
+      {
+        'name': '17-2H',
+        'series': [
+          {
+            'name': 'Ja',
+            'value': 20.0
+          },
+          {
+            'name': 'Nej',
+            'value': 80.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    'id': 2,
+    'name': 'Location 2',
+    'series': [
+      {
+        'name': '16-1H',
+        'series': [
+          {
+            'name': 'Ja',
+            'value': 40.0
+          },
+          {
+            'name': 'Nej',
+            'value': 60.0
+          }
+        ]
+      },
+      {
+        'name': '16-2H',
+        'series': [
+          {
+            'name': 'Ja',
+            'value': 0
+          },
+          {
+            'name': 'Nej',
+            'value': 100.0
+          }
+        ]
+      },
+      {
+        'name': '17-1H',
+        'series': [
+          {
+            'name': 'Ja',
+            'value': 10
+          },
+          {
+            'name': 'Nej',
+            'value': 90
+          }
+        ]
+      },
+      {
+        'name': '17-2H',
+        'series': [
+          {
+            'name': 'Ja',
+            'value': 88
+          },
+          {
+            'name': 'Nej',
+            'value': 12
+          }
+        ]
+      }
+    ]
+  }
+];
+const multiStackedSmiley = [
   {
     'id': 1,
     'name': 'Location 1',

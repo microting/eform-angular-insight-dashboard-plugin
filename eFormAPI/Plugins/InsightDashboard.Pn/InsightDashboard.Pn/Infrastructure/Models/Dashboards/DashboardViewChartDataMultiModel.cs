@@ -31,6 +31,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
         public int Id { get; set; }
         public string Name { get; set; }
         public int AnswersCount { get; set; }
+        public bool IsTag { get; set; }
 
         public List<DashboardViewChartDataSingleModel> Series { get; set; }
             = new List<DashboardViewChartDataSingleModel>();

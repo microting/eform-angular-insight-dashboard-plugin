@@ -1,5 +1,6 @@
 <div [ngStyle]="{'width': view[0] + 50 + 'px', 'height': view[1] + 40 + 'px' }"
      id="copyableChart"
+     *ngIf="dashboardItem.chartType !== chartTypes.HorizontalBarStackedGrouped"
      style="background-color: #FFFFFF !important;"
 >
   <ngx-charts-line-chart *ngIf="dashboardItem.chartType === chartTypes.Line"
@@ -145,4 +146,28 @@
                                       [maxXAxisTickLength]="maxXAxisTickLength"
                                       [maxYAxisTickLength]="maxYAxisTickLength">
   </ngx-charts-bar-vertical-2d-stacked>
+</div>
+
+<div class="scrollable-y-block mb-2"
+     *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarStackedGrouped">
+  <div class="d-flex" id="copyableChart{{chartPosition}}" style="background-color: #FFFFFF !important;">
+    <div [ngStyle]="{'width': multiChartView[0] + 'px', 'height': multiChartView[1] + 'px' }"
+         style="background-color: #FFFFFF !important;"
+         *ngFor="let itemData of multiStacked; let first = first; let last = last;">
+      <ngx-charts-bar-vertical-stacked [scheme]="colorScheme"
+                                       [view]="multiChartView"
+                                       [results]="itemData.series"
+                                       [customColors]="customColors"
+                                       [gradient]="false"
+                                       [xAxis]="true"
+                                       [yAxis]="true"
+                                       [legend]="last"
+                                       [animations]="true"
+                                       [showXAxisLabel]="true"
+                                       [showYAxisLabel]="first"
+                                       [yAxisLabel]="'Percents' | translate"
+                                       [xAxisLabel]="itemData.name"
+                                       [yScaleMax]="100"></ngx-charts-bar-vertical-stacked>
+    </div>
+  </div>
 </div>

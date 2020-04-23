@@ -11,9 +11,9 @@ import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
 import {InsightDashboardPnDashboardDictionariesService} from '../../../../services';
 import {TranslateService} from '@ngx-translate/core';
-import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
 import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
 import {CollapseComponent} from 'angular-bootstrap-md';
+import {LabelValueExtendedModel} from 'src/app/plugins/modules/insight-dashboard-pn/models/label-value-extended.model';
 
 @AutoUnsubscribe()
 @Component({
@@ -26,7 +26,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: DashboardItemQuestionModel[] = [];
   @Input() surveyId = 1;
-  @Input() locationsTags: CommonDictionaryExtendedModel[] = [];
+  @Input() locationsTags: LabelValueExtendedModel[] = [];
   @Output() addNewItem: EventEmitter<number> = new EventEmitter<number>();
   @Output() copyItem: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() dashboardItemChanged: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
@@ -264,48 +264,48 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     return this.dashboardItem.ignoredAnswerValues && this.dashboardItem.ignoredAnswerValues.findIndex(x => x.answerId === id) > -1;
   }
 
-  onLocationPositionChanged(e: any, locationTag: CommonDictionaryExtendedModel) {
+  onLocationPositionChanged(e: any, locationTag: LabelValueExtendedModel) {
     const newValue = +e.target.value;
     if (!this.dashboardItem.compareLocationsTags) {
       this.dashboardItem.compareLocationsTags = [];
     }
     if (locationTag.isTag) {
-      const foundTagIndex = this.dashboardItem.compareLocationsTags.findIndex(x => x.tagId === locationTag.id);
+      const foundTagIndex = this.dashboardItem.compareLocationsTags.findIndex(x => x.tagId === locationTag.value);
       if (foundTagIndex > -1) {
         if (newValue > 0) {
-          this.dashboardItem.compareLocationsTags[foundTagIndex] = {tagId: locationTag.id, position: newValue, locationId: null};
+          this.dashboardItem.compareLocationsTags[foundTagIndex] = {tagId: locationTag.value, position: newValue, locationId: null};
         } else {
           this.dashboardItem.compareLocationsTags.splice(foundTagIndex, 1);
         }
       } else {
         if (newValue) {
-          this.dashboardItem.compareLocationsTags.push({tagId: locationTag.id, position: newValue, locationId: null});
+          this.dashboardItem.compareLocationsTags.push({tagId: locationTag.value, position: newValue, locationId: null});
         }
       }
     } else {
-      const foundLocationIndex = this.dashboardItem.compareLocationsTags.findIndex(x => x.locationId === locationTag.id);
+      const foundLocationIndex = this.dashboardItem.compareLocationsTags.findIndex(x => x.locationId === locationTag.value);
       if (foundLocationIndex > -1) {
         if (newValue > 0) {
-          this.dashboardItem.compareLocationsTags[foundLocationIndex] = {locationId: locationTag.id, position: newValue, tagId: null};
+          this.dashboardItem.compareLocationsTags[foundLocationIndex] = {locationId: locationTag.value, position: newValue, tagId: null};
         } else {
           this.dashboardItem.compareLocationsTags.splice(foundLocationIndex, 1);
         }
       } else {
         if (newValue) {
-          this.dashboardItem.compareLocationsTags.push({locationId: locationTag.id, position: newValue, tagId: null});
+          this.dashboardItem.compareLocationsTags.push({locationId: locationTag.value, position: newValue, tagId: null});
         }
       }
     }
     this.fieldChanged(this.dashboardItem.compareLocationsTags, DashboardItemFieldsEnum.compareLocationsTags);
   }
 
-  getCurrentLocationValue(locationTag: CommonDictionaryExtendedModel) {
+  getCurrentLocationValue(locationTag: LabelValueExtendedModel) {
     if (this.dashboardItem && this.dashboardItem.compareLocationsTags) {
       if (locationTag.isTag) {
-        const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.tagId === locationTag.id);
+        const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.tagId === locationTag.value);
         return foundCurrentValue ? foundCurrentValue.position : null;
       } else {
-        const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.locationId === locationTag.id);
+        const foundCurrentValue = this.dashboardItem.compareLocationsTags.find(x => x.locationId === locationTag.value);
         return foundCurrentValue ? foundCurrentValue.position : null;
       }
     }
