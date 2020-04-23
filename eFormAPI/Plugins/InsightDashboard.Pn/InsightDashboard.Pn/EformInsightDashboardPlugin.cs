@@ -53,7 +53,7 @@ namespace InsightDashboard.Pn
 
     public class EformInsightDashboardPlugin : IEformPlugin
     {
-        public string Name => "Microting Insight Dashboard Plugin";
+        public string Name => "Microting InSight Dashboard Plugin";
         public string PluginId => "eform-angular-insight-dashboard-plugin";
         public string PluginPath => PluginAssembly().Location;
         public string PluginBaseUrl => "insight-dashboard-pn";
