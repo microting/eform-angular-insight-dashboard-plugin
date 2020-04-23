@@ -26,7 +26,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
@@ -283,6 +282,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     .Where(y => y.TagId == tagId)
                                     .Select(y => y.TagId)
                                     .FirstOrDefault(),
+                                IsTag = true,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
                                 IsSmiley = x.Question.IsSmiley(),
@@ -329,6 +329,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             Finished = x.Answer.FinishedAt,
                             LocationTagName = x.Answer.Site.Name,
                             LocationTagId = x.Answer.SiteId,
+                            IsTag = false,
                             Weight = x.Option.WeightValue,
                             OptionIndex = x.Option.OptionsIndex,
                             IsSmiley = x.Question.IsSmiley(),
@@ -362,6 +363,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.Name,
                                 LocationTagId = x.Answer.SiteId,
+                                IsTag = false,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
                                 IsSmiley = x.Question.IsSmiley(),
@@ -397,6 +399,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     .Where(y => y.TagId == dashboardLocationTagId)
                                     .Select(y => y.TagId)
                                     .FirstOrDefault(),
+                                IsTag = true,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
                                 IsSmiley = x.Question.IsSmiley(),
@@ -447,17 +450,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         var tmpData = new List<DashboardViewChartDataSingleModel>();
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
-                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "100", Value = 0});
+                            tmpData.Add(new DashboardViewChartDataSingleModel { Name = "100", Value = 0});
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
-                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "75", Value = 0});
+                            tmpData.Add(new DashboardViewChartDataSingleModel { Name = "75", Value = 0});
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
-                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "50", Value = 0});
+                            tmpData.Add(new DashboardViewChartDataSingleModel { Name = "50", Value = 0});
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
-                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "25", Value = 0});
+                            tmpData.Add(new DashboardViewChartDataSingleModel { Name = "25", Value = 0});
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
-                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "0", Value = 0});
+                            tmpData.Add(new DashboardViewChartDataSingleModel { Name = "0", Value = 0});
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
-                            tmpData.Add(new DashboardViewChartDataSingleModel {Name = "999", Value = 0});
+                            tmpData.Add(new DashboardViewChartDataSingleModel { Name = "999", Value = 0});
 
                         foreach (var dashboardViewChartDataSingleModel in groupedData)
                         {
@@ -516,17 +519,19 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationTagName)
+                                    .GroupBy(x => new { x.LocationTagName, x.IsTag })
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
                                         Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                        Name = x.Key.ToString(), // Location name
+                                        Name = x.Key.LocationTagName, // Location or tag name
+                                        IsTag = x.Key.IsTag,
                                         Series = x
                                             .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
                                             .Select(y => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = y.Key, // Week name
                                                 AnswersCount = GetAnswersCount(y),
+                                                IsTag = x.Key.IsTag,
                                                 Series = y
                                                     .GroupBy(g => g.Name)
                                                     .Select(i => new DashboardViewChartDataSingleModel
@@ -550,11 +555,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(x => x.LocationTagName)
+                                        .GroupBy(y => new { y.LocationTagName, y.IsTag })
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                            Name = x.Key.ToString(),
+                                            Name = x.Key.LocationTagName, // Location or tag name
+                                            IsTag = x.Key.IsTag,
                                             AnswersCount = GetAnswersCount(x),
                                             Series = x
                                                 .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
@@ -600,17 +606,19 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationTagName)
+                                    .GroupBy(x => new { x.LocationTagName, x.IsTag })
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
                                         Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                        Name = x.Key.ToString(), // Location name
+                                        Name = x.Key.LocationTagName, // Location or tag name
+                                        IsTag = x.Key.IsTag,
                                         Series = x
                                             .GroupBy(ms => $"{ms.Finished:yy-MMM}")
                                             .Select(y => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = y.Key, // Month name
                                                 AnswersCount = GetAnswersCount(y),
+                                                IsTag = x.Key.IsTag,
                                                 Series = y
                                                     .GroupBy(g => g.Name)
                                                     .Select(i => new DashboardViewChartDataSingleModel
@@ -634,11 +642,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(x => x.LocationTagName)
+                                        .GroupBy(y => new { y.LocationTagName, y.IsTag })
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                            Name = x.Key.ToString(),
+                                            Name = x.Key.LocationTagName, // Location or tag name
+                                            IsTag = x.Key.IsTag,
                                             AnswersCount = GetAnswersCount(x),
                                             Series = x
                                                 .GroupBy(ms => $"{ms.Finished:yy-MMM}")
@@ -684,11 +693,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationTagName)
+                                    .GroupBy(x => new { x.LocationTagName, x.IsTag })
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
                                         Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                        Name = x.Key.ToString(), // Location name
+                                        Name = x.Key.LocationTagName, // Location or tag name
+                                        IsTag = x.Key.IsTag,
                                         Series = x
                                             .GroupBy(item =>
                                                 $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
@@ -696,6 +706,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key, // Quarter name
                                                 AnswersCount = GetAnswersCount(y),
+                                                IsTag = x.Key.IsTag,
                                                 Series = y
                                                     .GroupBy(g => g.Name)
                                                     .Select(i => new DashboardViewChartDataSingleModel
@@ -719,11 +730,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(y => y.LocationTagName)
+                                        .GroupBy(y => new { y.LocationTagName, y.IsTag })
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                            Name = x.Key,
+                                            Name = x.Key.LocationTagName, // Location or tag name
+                                            IsTag = x.Key.IsTag,
                                             AnswersCount = GetAnswersCount(x),
                                             Series = x.GroupBy(item =>
                                                     $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
@@ -769,11 +781,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationTagName)
+                                    .GroupBy(x => new { x.LocationTagName, x.IsTag })
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
                                         Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                        Name = x.Key.ToString(), // Location name
+                                        Name = x.Key.LocationTagName, // Location or tag name
+                                        IsTag = x.Key.IsTag,
                                         Series = x
                                             .GroupBy(item =>
                                                 $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
@@ -781,6 +794,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             {
                                                 Name = y.Key, // SixMonth name
                                                 AnswersCount = GetAnswersCount(y),
+                                                IsTag = x.Key.IsTag,
                                                 Series = y
                                                     .GroupBy(g => g.Name)
                                                     .Select(i => new DashboardViewChartDataSingleModel
@@ -806,11 +820,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(y => y.LocationTagName)
+                                        .GroupBy(y => new { y.LocationTagName, y.IsTag })
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                            Name = x.Key,
+                                            Name = x.Key.LocationTagName, // Location or tag name
+                                            IsTag = x.Key.IsTag,
                                             AnswersCount = GetAnswersCount(x),
                                             Series = x
                                                 .GroupBy(item =>
@@ -858,17 +873,19 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isStackedData)
                             {
                                 multiStackedData = data
-                                    .GroupBy(x => x.LocationTagName)
+                                    .GroupBy(x => new { x.LocationTagName, x.IsTag })
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
                                         Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                        Name = x.Key.ToString(), // Location name
+                                        Name = x.Key.LocationTagName, // Location or tag name
+                                        IsTag = x.Key.IsTag,
                                         Series = x
                                             .GroupBy(ms => $"{ms.Finished:yyyy}")
                                             .Select(y => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = y.Key, // Year name
                                                 AnswersCount = GetAnswersCount(y),
+                                                IsTag = x.Key.IsTag,
                                                 Series = y
                                                     .GroupBy(g => g.Name)
                                                     .Select(i => new DashboardViewChartDataSingleModel
@@ -894,11 +911,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 if (isComparedData)
                                 {
                                     multiData = data
-                                        .GroupBy(y => y.LocationTagName)
+                                        .GroupBy(y => new { y.LocationTagName, y.IsTag })
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
-                                            Name = x.Key.ToString(),
+                                            Name = x.Key.LocationTagName, // Location or tag name
+                                            IsTag = x.Key.IsTag,
                                             AnswersCount = GetAnswersCount(x),
                                             Series = x
                                                 .GroupBy(ms => $"{ms.Finished:yyyy}")
@@ -1054,22 +1072,22 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             {
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
                                     newLineData.Add(new DashboardViewChartDataMultiModel
-                                        {Name = smileyLabels.Single(z => z.Key == 100).Value});
+                                    { Name = smileyLabels.Single(z => z.Key == 100).Value});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
                                     newLineData.Add(new DashboardViewChartDataMultiModel
-                                        {Name = smileyLabels.Single(z => z.Key == 75).Value});
+                                    { Name = smileyLabels.Single(z => z.Key == 75).Value});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
                                     newLineData.Add(new DashboardViewChartDataMultiModel
-                                        {Name = smileyLabels.Single(z => z.Key == 50).Value});
+                                    { Name = smileyLabels.Single(z => z.Key == 50).Value});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
                                     newLineData.Add(new DashboardViewChartDataMultiModel
-                                        {Name = smileyLabels.Single(z => z.Key == 25).Value});
+                                    { Name = smileyLabels.Single(z => z.Key == 25).Value});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
                                     newLineData.Add(new DashboardViewChartDataMultiModel
-                                        {Name = smileyLabels.Single(z => z.Key == 0).Value});
+                                    { Name = smileyLabels.Single(z => z.Key == 0).Value});
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                                     newLineData.Add(new DashboardViewChartDataMultiModel
-                                        {Name = smileyLabels.Single(z => z.Key == 999).Value});
+                                    { Name = smileyLabels.Single(z => z.Key == 999).Value});
 
                                 foreach (var model in newLineData)
                                 {
@@ -1111,7 +1129,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 {
                                     var multiItem = new DashboardViewChartDataMultiModel
                                     {
-                                        Name = lineName
+                                        Name = lineName,
                                     };
 
                                     foreach (string columnName in columnNames)
@@ -1206,25 +1224,25 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             {
                                 foreach (string columnName in columnNames)
                                 {
-                                    var model = new DashboardViewChartDataMultiModel {Name = columnName};
+                                    var model = new DashboardViewChartDataMultiModel { Name = columnName};
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                        { Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                        { Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                        { Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                        { Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                        { Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                            {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                        { Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                     newLineData.Add(model);
                                 }
 
@@ -1258,6 +1276,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Id = stackedModel.Id,
                                         Name = stackedModel.Name,
                                         AnswersCount = stackedModel.AnswersCount,
+                                        IsTag = stackedModel.IsTag,
                                     };
 
                                     newStackedModel.Series = stackedModel.Series
@@ -1325,6 +1344,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     var model = new DashboardViewChartDataMultiStackedModel()
                                     {
                                         Name = stackedModel.Name,
+                                        IsTag = stackedModel.IsTag,
                                         Id = stackedModel.Id,
                                     };
 
@@ -1334,22 +1354,22 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         var innerModel = new DashboardViewChartDataMultiModel() {Name = columnName};
                                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
                                             innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                                {Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                            { Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
                                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
                                             innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                                {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                            { Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
                                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
                                             innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                                {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                            { Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
                                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
                                             innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                                {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                            { Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
                                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
                                             innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                                {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                            { Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
                                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                                             innerModel.Series.Add(new DashboardViewChartDataSingleModel
-                                                {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                            { Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                         model.Series.Add(innerModel);
                                     }
                                   
@@ -1411,6 +1431,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     {
                                         Id = stackedModel.Id,
                                         Name = stackedModel.Name,
+                                        IsTag = stackedModel.IsTag,
                                     };
 
                                     foreach (var stackedModelSeries in stackedModel.Series)
@@ -1452,7 +1473,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             return decimal.ToInt32(value);
         }
 
-        private static int GetAnswersCount(IGrouping<string, ChartDataItem> grouping)
+        private static int GetAnswersCount(IGrouping<object, ChartDataItem> grouping)
         {
             var value = grouping.GroupBy(u => u.AnswerId)
                 .Select(u => u.Key)
