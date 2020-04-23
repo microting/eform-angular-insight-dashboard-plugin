@@ -5,7 +5,7 @@ import dashboardsPage, {
   dashboardName,
 } from '../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 
-describe('Insight Dashboard - Dashboards - Add', function () {
+describe('InSight Dashboard - Dashboards - Add', function () {
   before(function () {
     loginPage.open('/auth');
     loginPage.login();

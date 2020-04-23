@@ -4,7 +4,7 @@ import {Guid} from 'guid-typescript';
 import insightDashboardPage from '../../../Page objects/InsightDashboard/InsightDashboard.page';
 import surveyConfigsPage, {configName} from '../../../Page objects/InsightDashboard/InsightDashboard-SurveysConfigs.page';
 
-describe('Insight Dashboard - Survey Config - Delete', function () {
+describe('InSight Dashboard - Survey Config - Delete', function () {
   before(function () {
     loginPage.open('/auth');
     loginPage.login();

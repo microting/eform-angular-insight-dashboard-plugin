@@ -4,7 +4,7 @@ import insightDashboardPage from '../../../Page objects/InsightDashboard/Insight
 import surveyConfigsPage, {configName} from '../../../Page objects/InsightDashboard/InsightDashboard-SurveysConfigs.page';
 
 
-describe('Insight Dashboard - Survey Config - Add', function () {
+describe('InSight Dashboard - Survey Config - Add', function () {
   before(function () {
     loginPage.open('/auth');
     loginPage.login();

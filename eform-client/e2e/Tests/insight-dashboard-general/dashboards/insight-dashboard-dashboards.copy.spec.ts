@@ -3,7 +3,7 @@ import loginPage from '../../../Page objects/Login.page';
 import insightDashboardPage from '../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 
-describe('Insight Dashboard - Dashboards - Copy', function () {
+describe('InSight Dashboard - Dashboards - Copy', function () {
   before(function () {
     loginPage.open('/auth');
     loginPage.login();

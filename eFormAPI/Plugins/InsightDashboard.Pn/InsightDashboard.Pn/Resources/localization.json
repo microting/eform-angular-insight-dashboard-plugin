@@ -226,22 +226,22 @@
   {
     "Key": "Dashboards",
     "LocalizedValue": {
-      "da": "Instrumentbræt",
+      "da": "Dashboard",
       "en-US": "Dashboards"
     }
   },
   {
     "Key": "InsightDashboard",
     "LocalizedValue": {
-      "da": "Insight Instrumentbræt",
-      "en-US": "Insight Dashboard"
+      "da": "InSight Dashboard",
+      "en-US": "InSight Dashboard"
     }
   },
   {
     "Key": "SurveysConfigs",
     "LocalizedValue": {
-      "da": "Undersøger Configs",
-      "en-US": "Surveys Configs"
+      "da": "Undersøgelsesconfigurationer",
+      "en-US": "Surveys configurations"
     }
   },
   {
@@ -303,7 +303,7 @@
   {
     "Key": "Dashboard",
     "LocalizedValue": {
-      "da": "Instrumentbræt",
+      "da": "Dashboard",
       "en-US": "Dashboard"
     }
   },

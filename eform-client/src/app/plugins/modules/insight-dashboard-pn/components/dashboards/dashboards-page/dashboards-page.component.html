@@ -2,7 +2,7 @@
   <div class="p-3">
     <button mdbBtn
       id="createDashboardBtn"
-      class="btn-success"
+      class="btn btn-success"
       (click)="openCreateModal()">{{ 'New Dashboard' | translate }}
     </button>
   </div>
@@ -20,7 +20,7 @@
   </div>
   <div class="container-fluid">
     <div class="row p-1 mt-4 table-responsive no-gutters" *ngIf="dashboardsListModel.total !== 0">
-      <table class="table table-sm table-striped text-center z-depth-1">
+      <table mdbTable striped="true" hover="true" small="true" class="z-depth-1 text-center">
         <thead>
         <tr>
           <th scope="col" class="table-header-sortable" id="idTableHeader" (click)="sortTable(sortCols.id)">
@@ -83,25 +83,25 @@
           </td>
           <td>
             <div class="d-flex flex-row justify-content-center">
-              <button mdbBtn class=" btn-success text-black-50 btn-icon mb-2 " id="dashboardViewBtn"
+              <button mdbBtn class="btn-accent text-black-50 btn-icon mb-2 " id="dashboardViewBtn"
                       mdbTooltip="{{'View Dashboard' | translate}}" mdbWavesEffect
                       (click)="openViewPage(dashboard)">
                 <fa-icon icon="eye" [fixedWidth]="true" size="lg"></fa-icon>
               </button>
-              <button mdbBtn class=" btn-accent text-black-50 btn-icon mb-2 " id="dashboardEditBtn"
+              <button mdbBtn class="btn-accent text-black-50 btn-icon mb-2 " id="dashboardEditBtn"
                       mdbTooltip="{{'Edit Dashboard' | translate}}" mdbWavesEffect
                       (click)="openEditPage(dashboard)">
                 <fa-icon icon="pen" [fixedWidth]="true" size="lg"></fa-icon>
               </button>
               <div id="dashboardCopyBtn">
-                <button (click)="openCopyModal(dashboard)"
+                <button mdbBtn (click)="openCopyModal(dashboard)"
                         mdbTooltip="{{'Copy Dashboard' | translate}}"
-                        class="btn btn-accent text-black-50 btn-icon mb-2">
+                        class="btn-accent text-black-50 btn-icon mb-2">
                   <fa-icon icon="copy" [fixedWidth]="true" size="lg"></fa-icon>
                 </button>
               </div>
               <button mdbBtn id="dashboardDeleteBtn"
-                      class="btn btn-danger btn-icon mb-2 "
+                      class="btn-danger btn-icon mb-2 "
                       mdbTooltip="{{'Delete Dashboard' | translate}}"
                       (click)="openDeleteModal(dashboard)">
                 <fa-icon icon="trash-alt" [fixedWidth]="true" size="lg"></fa-icon>

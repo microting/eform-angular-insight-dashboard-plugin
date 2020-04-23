@@ -5,7 +5,7 @@ import dashboardsPage from '../../../Page objects/InsightDashboard/InsightDashbo
 import dashboardEditPage from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
 
-describe('Insight Dashboard - Dashboards - View', function () {
+describe('InSight Dashboard - Dashboards - View', function () {
   before(function () {
     loginPage.open('/auth');
     loginPage.login();

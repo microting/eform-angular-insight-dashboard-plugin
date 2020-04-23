@@ -17,7 +17,7 @@ describe('Application settings page - site header section', function () {
 
     const plugin = pluginsPage.getFirstPluginRowObj();
     expect(plugin.id).equal(1);
-    expect(plugin.name).equal('Microting Insight Dashboard Plugin');
+    expect(plugin.name).equal('Microting InSight Dashboard Plugin');
     expect(plugin.version).equal('1.0.0.0');
 
   });
@@ -37,8 +37,8 @@ describe('Application settings page - site header section', function () {
 
     let pluginToFind = pluginsPage.getFirstPluginRowObj();
     expect(pluginToFind.id).equal(1);
-    expect(pluginToFind.name).equal('Microting Insight Dashboard Plugin');
+    expect(pluginToFind.name).equal('Microting InSight Dashboard Plugin');
     expect(pluginToFind.version).equal('1.0.0.0');
-    $(`//*[contains(text(), 'Insight Instrumentbræt')]`).waitForDisplayed({timeout: 30000});
+    $(`//*[contains(text(), 'InSight Dashboard')]`).waitForDisplayed({timeout: 30000});
   });
 });
