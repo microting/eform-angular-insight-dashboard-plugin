@@ -59,12 +59,10 @@
     <div class="row">
       <div class="col">
         <ng-select [items]="availableLocationsTags"
-                   bindLabel="name"
                    [placeholder]="('Select location/report tag' | translate) + '*'"
                    required
-                   bindValue="id"
                    [clearable]="false"
-                   [(ngModel)]="selectedLocationTagId"
+                   [(ngModel)]="selectedLocationTag"
                    (change)="onLocationTagSelected($event)"
                    id="selectLocationTag">
         </ng-select>

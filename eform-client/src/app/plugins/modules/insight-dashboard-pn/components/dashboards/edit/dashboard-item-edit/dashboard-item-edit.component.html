@@ -155,8 +155,8 @@
                       <input mdbInput (change)="onLocationPositionChanged($event, locationTag)"
                              [value]="getCurrentLocationValue(locationTag)"
                              type="number" [disabled]="!dashboardItem.compareEnabled"
-                             class="form-control input-sm" id="{{locationTag.id}}">
-                      <label for="{{locationTag.id}}">{{locationTag.name}}</label>
+                             class="form-control input-sm" id="locationTag{{locationTag.value}}">
+                      <label for="locationTag{{locationTag.value}}">{{locationTag.label}}</label>
                     </div>
                   </div>
                 </div>

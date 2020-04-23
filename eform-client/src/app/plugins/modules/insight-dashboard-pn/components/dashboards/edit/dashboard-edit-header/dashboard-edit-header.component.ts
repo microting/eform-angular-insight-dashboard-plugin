@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {DashboardEditModel, DashboardItemModel} from '../../../../models';
-import {DashboardFieldsEnum, DashboardItemFieldsEnum} from '../../../../const/enums';
-import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
-import {format, parse, toDate, parseISO} from 'date-fns';
+import {DashboardEditModel} from '../../../../models';
+import {DashboardFieldsEnum} from '../../../../const/enums';
+import {format, parseISO} from 'date-fns';
+import {LabelValueExtendedModel} from 'src/app/plugins/modules/insight-dashboard-pn/models/label-value-extended.model';
 
 @Component({
   selector: 'app-dashboard-edit-header',
@@ -11,11 +11,12 @@ import {format, parse, toDate, parseISO} from 'date-fns';
 })
 export class DashboardEditHeaderComponent implements OnInit, OnChanges {
   @Input() dashboardEditModel: DashboardEditModel = new DashboardEditModel;
-  @Input() availableLocationsTags: CommonDictionaryExtendedModel[] = [];
+  @Input() availableLocationsTags: LabelValueExtendedModel[] = [];
   @Output() dashboardChanged: EventEmitter<DashboardEditModel> = new EventEmitter<DashboardEditModel>();
   selectedLocationId: number | null;
   reportTagId: number | null;
   selectedLocationTagId: number;
+  selectedLocationTag: { value: number, label: string } = null;
   selectedDateRange = [];
 
   get dashboardFields() {
@@ -32,6 +33,10 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
     if (changes && changes.dashboardEditModel) {
       const currentValue = changes.dashboardEditModel.currentValue as DashboardEditModel;
       this.selectedLocationTagId = currentValue.tagId ? currentValue.tagId : currentValue.locationId;
+      this.selectedLocationTag = currentValue.tagId ? {value: currentValue.tagId, label: currentValue.tagName} : {
+        value: currentValue.locationId,
+        label: currentValue.locationName
+      };
 
       if (currentValue.answerDates) {
         if (this.selectedDateRange) {
@@ -52,10 +57,10 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
         this.dashboardEditModel.dashboardName = value;
         break;
       case DashboardFieldsEnum.dateFrom:
-        this.dashboardEditModel.answerDates.dateFrom = value ? format(value,'yyyy/MM/dd') : null;
+        this.dashboardEditModel.answerDates.dateFrom = value ? format(value, 'yyyy/MM/dd') : null;
         break;
       case DashboardFieldsEnum.dateTo:
-        this.dashboardEditModel.answerDates.dateTo = value ? format(value,'yyyy/MM/dd') : null;
+        this.dashboardEditModel.answerDates.dateTo = value ? format(value, 'yyyy/MM/dd') : null;
         break;
       case DashboardFieldsEnum.today:
         this.dashboardEditModel.answerDates.today = value;
@@ -75,23 +80,23 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
 
   onLocationTagSelected(model: any) {
     if (model.isTag) {
-      this.reportTagId = model.id;
+      this.reportTagId = model.value;
       this.selectedLocationId = null;
-      this.fieldChanged(model.id, DashboardFieldsEnum.tagId);
+      this.fieldChanged(model.value, DashboardFieldsEnum.tagId);
     } else {
-      this.selectedLocationId = model.id;
+      this.selectedLocationId = model.value;
       this.reportTagId = null;
-      this.fieldChanged(model.id, DashboardFieldsEnum.locationId);
+      this.fieldChanged(model.value, DashboardFieldsEnum.locationId);
     }
   }
 
-  clearDateTo() {
-    this.selectedDateRange = [this.selectedDateRange[0], null];
-    this.fieldChanged(null, DashboardFieldsEnum.dateTo);
-  }
-
-  clearDateFrom() {
-    this.selectedDateRange = [null, this.selectedDateRange[1]];
-    this.fieldChanged(null, DashboardFieldsEnum.dateFrom);
-  }
+  // clearDateTo() {
+  //   this.selectedDateRange = [this.selectedDateRange[0], null];
+  //   this.fieldChanged(null, DashboardFieldsEnum.dateTo);
+  // }
+  //
+  // clearDateFrom() {
+  //   this.selectedDateRange = [null, this.selectedDateRange[1]];
+  //   this.fieldChanged(null, DashboardFieldsEnum.dateFrom);
+  // }
 }
