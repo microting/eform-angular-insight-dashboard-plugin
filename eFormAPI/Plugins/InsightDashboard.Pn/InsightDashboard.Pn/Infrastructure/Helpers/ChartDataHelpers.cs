@@ -1267,6 +1267,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     newLineData.Add(newStackedModel);
                                 }
                             }
+                            else
+                            {
+                                newLineData = multiData;
+                            }
 
                             // Sort by location position
                             if (isComparedData)
@@ -1289,10 +1293,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             null,
                                             null);
                                 }
-                            }
-                            else
-                            {
-                                newLineData = multiData;
                             }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false, isMulti);
