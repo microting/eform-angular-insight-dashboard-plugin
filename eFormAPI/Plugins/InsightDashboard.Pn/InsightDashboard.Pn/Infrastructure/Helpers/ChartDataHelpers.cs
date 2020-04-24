@@ -1231,7 +1231,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
                             else
                             {
-                                columnNames.Add("No data");
+                                columnNames.Add(localizationService.GetString("NoData"));
                             }
 
                             var newLineData = new List<DashboardViewChartDataMultiModel>();
@@ -1351,16 +1351,32 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             {
                                 var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
                                 var columnNames = new List<string>();
-                                foreach (var stackedModel in multiStackedData)
+
+                                if (multiStackedData.Any())
                                 {
-                                    foreach (var modelSeries in stackedModel.Series)
+                                    foreach (var stackedModel in multiStackedData)
                                     {
-                                        if (!columnNames.Contains(modelSeries.Name))
+                                        foreach (var modelSeries in stackedModel.Series)
                                         {
-                                            columnNames.Add(modelSeries.Name);
+                                            if (!columnNames.Contains(modelSeries.Name))
+                                            {
+                                                columnNames.Add(modelSeries.Name);
+                                            }
                                         }
                                     }
                                 }
+                                else
+                                {
+                                    var model = new DashboardViewChartDataMultiStackedModel()
+                                    {
+                                        Name = localizationService.GetString("NoData"),
+                                        IsTag = false,
+                                        Id = 0,
+                                    };
+                                    multiStackedData.Add(model);
+                                    columnNames.Add(localizationService.GetString("NoData"));
+                                }
+
                                 foreach (var stackedModel in multiStackedData)
                                 {
                                     var model = new DashboardViewChartDataMultiStackedModel()

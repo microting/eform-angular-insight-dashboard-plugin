@@ -61,6 +61,10 @@ namespace InsightDashboard.Pn.Test.Helpers
                 .Setup(x => x.GetString("Total"))
                 .Returns("Total");
 
+            localizationServiceMock
+                .Setup(x => x.GetString("NoData"))
+                .Returns("No data");
+
             return localizationServiceMock.Object;
         }
     }
