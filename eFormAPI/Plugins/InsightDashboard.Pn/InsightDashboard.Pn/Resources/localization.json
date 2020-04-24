@@ -390,5 +390,12 @@
       "da": "Fejl under oprettelse af Word fil",
       "en-US": "Error while creating word file"
     }
+  },
+  {
+    "Key": "NoData",
+    "LocalizedValue": {
+      "da": "Ingen data",
+      "en-US": "No data"
+    }
   }
 ]

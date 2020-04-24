@@ -50,12 +50,15 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             DashboardEditAnswerDates answerDates)
         {
             // Chart data
-            bool singleData = false;
-            List<KeyValuePair<int, string>> smileyLabels = new List<KeyValuePair<int, string>>()
+            var singleData = false;
+            var smileyLabels = new List<KeyValuePair<int, string>>()
             {
-                new KeyValuePair<int, string>(100, "Meget glad"), new KeyValuePair<int, string>(75, "Glad"),
-                new KeyValuePair<int, string>(50, "Neutral"), new KeyValuePair<int, string>(25, "Sur"),
-                new KeyValuePair<int, string>(0, "Meget sur"), new KeyValuePair<int, string>(999, "Ved ikke")
+                new KeyValuePair<int, string>(100, "Meget glad"),
+                new KeyValuePair<int, string>(75, "Glad"),
+                new KeyValuePair<int, string>(50, "Neutral"),
+                new KeyValuePair<int, string>(25, "Sur"),
+                new KeyValuePair<int, string>(0, "Meget sur"),
+                new KeyValuePair<int, string>(999, "Ved ikke")
             };
             switch (dashboardItem.ChartType)
             {
@@ -103,7 +106,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 isStackedData = false;
             }
 
-            bool isComparedData = false;
+            var isComparedData = false;
             if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
                 || dashboardItem.ChartType == DashboardChartTypes.Line)
             {
@@ -218,7 +221,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
                 }
 
-                List<options> ignoreOptions = new List<options>();
+                var ignoreOptions = new List<options>();
 
                 if (dashboardItem.IgnoredAnswerValues
                     .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
@@ -285,8 +288,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 IsTag = true,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley(),
-                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
                                 AnswerId = x.AnswerId,
                             })
                             .ToListAsync();
@@ -332,8 +333,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             IsTag = false,
                             Weight = x.Option.WeightValue,
                             OptionIndex = x.Option.OptionsIndex,
-                            IsSmiley = x.Question.IsSmiley(),
-                            IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
                             AnswerId = x.AnswerId,
                         })
                         .ToListAsync();
@@ -366,8 +365,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 IsTag = false,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley(),
-                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
                                 AnswerId = x.AnswerId
                             })
                             .OrderBy(t => t.Finished)
@@ -402,8 +399,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 IsTag = true,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley(),
-                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
+                                
                                 AnswerId = x.AnswerId,
                             })
                             .OrderBy(t => t.Finished)
@@ -411,8 +407,21 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
                 }
 
-                bool isSmiley = data.Any() && data.First().IsSmiley;
-                bool isMulti = data.Any() && data.First().IsMulti;
+                // Get question type
+                var questionTypeData = await sdkContext.questions
+                    .AsNoTracking()
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.Id == dashboardItem.FirstQuestionId)
+                    .Select(x=> new
+                    {
+                        IsSmiley = x.IsSmiley(),
+                        IsMulti = x.QuestionType == Constants.QuestionTypes.Multi,
+                    })
+                    .FirstOrDefaultAsync();
+
+
+                var isSmiley = questionTypeData.IsSmiley;
+                var isMulti = questionTypeData.IsMulti;
 
                 List<string> lines;
                 if (dashboardItem.CalculateAverage)
@@ -985,32 +994,192 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         if (dashboardItem.CalculateAverage)
                         {
+                            var lineData = new List<DashboardViewChartDataMultiModel>();
+                            var newLineData = new List<DashboardViewChartDataMultiModel>();
+                            if (multiData.Count() == 0)
+                            {
+                                foreach (var line in lines)
+                                {
+                                    var multiItem = new DashboardViewChartDataMultiModel
+                                    {
+                                        Name = isSmiley && !isComparedData ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value : line,
+                                    };
+
+                                    foreach (var groupedItem in multiData)
+                                    {
+                                        foreach (var item in groupedItem.Series)
+                                        {
+                                            if (item.Name == (isSmiley && !isComparedData
+                                                    ? smileyLabels.Single(z => z.Key == int.Parse(line)).Value
+                                                    : line))
+                                            {
+                                                var singleItem = new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = groupedItem.Name,
+                                                    Value = item.Value,
+                                                    DataCount = item.DataCount,
+                                                };
+                                                multiItem.Series.Add(singleItem);
+                                            }
+                                        }
+                                    }
+
+                                    lineData.Add(multiItem);
+                                }
+
+                                var columnNames = new List<string>();
+                                var lineNames = new List<string>();
+
+                                foreach (var model in lineData)
+                                {
+                                    if (!lineNames.Contains(model.Name))
+                                    {
+                                        lineNames.Add(model.Name);
+                                    }
+
+                                    foreach (var dashboardViewChartDataSingleModel in model.Series)
+                                    {
+                                        if (!columnNames.Contains(dashboardViewChartDataSingleModel.Name))
+                                        {
+                                            columnNames.Add(dashboardViewChartDataSingleModel.Name);
+                                        }
+                                    }
+                                }
+
+                                columnNames.Sort();
+                                lineNames.Sort();
+
+                                
+
+                                if (isSmiley)
+                                {
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                        newLineData.Add(new DashboardViewChartDataMultiModel
+                                        { Name = smileyLabels.Single(z => z.Key == 100).Value });
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                        newLineData.Add(new DashboardViewChartDataMultiModel
+                                        { Name = smileyLabels.Single(z => z.Key == 75).Value });
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                        newLineData.Add(new DashboardViewChartDataMultiModel
+                                        { Name = smileyLabels.Single(z => z.Key == 50).Value });
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                        newLineData.Add(new DashboardViewChartDataMultiModel
+                                        { Name = smileyLabels.Single(z => z.Key == 25).Value });
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                        newLineData.Add(new DashboardViewChartDataMultiModel
+                                        { Name = smileyLabels.Single(z => z.Key == 0).Value });
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                        newLineData.Add(new DashboardViewChartDataMultiModel
+                                        { Name = smileyLabels.Single(z => z.Key == 999).Value });
+
+                                    foreach (var model in newLineData)
+                                    {
+                                        foreach (var columnName in columnNames)
+                                        {
+                                            var singleItem = new DashboardViewChartDataSingleModel
+                                            {
+                                                Name = columnName,
+                                                Value = 0,
+                                            };
+                                            model.Series.Add(singleItem);
+                                        }
+                                    }
+
+                                    foreach (var model in newLineData)
+                                    {
+                                        foreach (var multiModel in lineData)
+                                        {
+                                            if (model.Name == multiModel.Name)
+                                            {
+                                                foreach (var series in multiModel.Series)
+                                                {
+                                                    foreach (var modelSeries in model.Series)
+                                                    {
+                                                        if (modelSeries.Name == series.Name)
+                                                        {
+                                                            modelSeries.Value = series.Value;
+                                                            modelSeries.DataCount = series.DataCount;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var lineName in lineNames)
+                                    {
+                                        var multiItem = new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = lineName,
+                                        };
+
+                                        foreach (var columnName in columnNames)
+                                        {
+                                            var singleItem = new DashboardViewChartDataSingleModel
+                                            {
+                                                Name = columnName,
+                                                Value = 0,
+                                            };
+                                            multiItem.Series.Add(singleItem);
+                                        }
+
+                                        newLineData.Add(multiItem);
+                                    }
+
+                                    foreach (var model in newLineData)
+                                    {
+                                        foreach (var multiModel in lineData)
+                                        {
+                                            if (model.Name == multiModel.Name)
+                                            {
+                                                foreach (var series in multiModel.Series)
+                                                {
+                                                    foreach (var modelSeries in model.Series)
+                                                    {
+                                                        if (modelSeries.Name == series.Name)
+                                                        {
+                                                            modelSeries.Value = series.Value;
+                                                            modelSeries.DataCount = series.DataCount;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else
+                            {
+                                newLineData = multiData;
+                            }
+
                             // Sort by location position
-                            if (isComparedData)
+                            if (isComparedData && lines.Any())
                             {
                                 if (dashboardItem.CompareEnabled == false)
                                 {
-                                    multiData =
+                                    newLineData =
                                         ChartHelpers.SortMultiDataLocationPosition(
-                                            multiData,
+                                            newLineData,
                                             dashboardItem,
                                             dashboardLocationId,
                                             dashboardLocationTagId);
                                 }
                                 else
                                 {
-                                    multiData =
+                                    newLineData =
                                         ChartHelpers.SortMultiDataLocationPosition(
-                                            multiData,
+                                            newLineData,
                                             dashboardItem,
                                             null,
                                             null);
                                 }
                             }
 
-                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, multiData, true, isMulti);
+                            var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, true, isMulti);
                             dashboardItemModel.ChartData.RawData.AddRange(rawData);
-                            dashboardItemModel.ChartData.Multi.AddRange(multiData);
+                            dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
                         else
                         {
@@ -1044,8 +1213,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 lineData.Add(multiItem);
                             }
 
-                            List<string> columnNames = new List<string>();
-                            List<string> lineNames = new List<string>();
+                            var columnNames = new List<string>();
+                            var lineNames = new List<string>();
 
                             foreach (var model in lineData)
                             {
@@ -1091,7 +1260,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                 foreach (var model in newLineData)
                                 {
-                                    foreach (string columnName in columnNames)
+                                    foreach (var columnName in columnNames)
                                     {
                                         var singleItem = new DashboardViewChartDataSingleModel
                                         {
@@ -1132,7 +1301,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Name = lineName,
                                     };
 
-                                    foreach (string columnName in columnNames)
+                                    foreach (var columnName in columnNames)
                                     {
                                         var singleItem = new DashboardViewChartDataSingleModel
                                         {
@@ -1199,50 +1368,63 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         if (!isStackedData)
                         {
-                            List<string> columnNames = new List<string>();
-                            List<string> lineNames = new List<string>();
+                            var columnNames = new List<string>();
+                            var lineNames = new List<string>();
 
-                            foreach (var model in multiData)
+                            if (multiData.Any())
                             {
-                                if (!columnNames.Contains(model.Name))
+                                foreach (var multiDataModel in multiData)
                                 {
-                                    columnNames.Add(model.Name);
-                                }
-
-                                foreach (var dashboardViewChartDataSingleModel in model.Series)
-                                {
-                                    if (!lineNames.Contains(dashboardViewChartDataSingleModel.Name))
+                                    if (!columnNames.Contains(multiDataModel.Name))
                                     {
-                                        lineNames.Add(dashboardViewChartDataSingleModel.Name);
+                                        columnNames.Add(multiDataModel.Name);
+                                    }
+
+                                    foreach (var dashboardViewChartDataSingleModel in multiDataModel.Series)
+                                    {
+                                        if (!lineNames.Contains(dashboardViewChartDataSingleModel.Name))
+                                        {
+                                            lineNames.Add(dashboardViewChartDataSingleModel.Name);
+                                        }
                                     }
                                 }
+                            }
+                            else
+                            {
+                                columnNames.Add(localizationService.GetString("NoData"));
                             }
 
                             var newLineData = new List<DashboardViewChartDataMultiModel>();
 
                             if (isSmiley)
                             {
-                                foreach (string columnName in columnNames)
+                                foreach (var columnName in columnNames)
                                 {
-                                    var model = new DashboardViewChartDataMultiModel { Name = columnName};
+                                    var model = new DashboardViewChartDataMultiModel {Name = columnName};
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                    {
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                        { Name = smileyLabels.Single(z => z.Key == 100).Value, Value = 0});
+                                        {
+                                            Name = smileyLabels.Single(z => z.Key == 100).Value,
+                                            Value = 0
+                                        });
+                                    }
+                                        
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                        { Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                        { Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                        { Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                        { Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                                         model.Series.Add(new DashboardViewChartDataSingleModel
-                                        { Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
+                                            {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                     newLineData.Add(model);
                                 }
 
@@ -1328,17 +1510,33 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             if (isSmiley)
                             {
                                 var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
-                                List<string> columnNames = new List<string>();
-                                foreach (var stackedModel in multiStackedData)
+                                var columnNames = new List<string>();
+
+                                if (multiStackedData.Any())
                                 {
-                                    foreach (var modelSeries in stackedModel.Series)
+                                    foreach (var stackedModel in multiStackedData)
                                     {
-                                        if (!columnNames.Contains(modelSeries.Name))
+                                        foreach (var modelSeries in stackedModel.Series)
                                         {
-                                            columnNames.Add(modelSeries.Name);
+                                            if (!columnNames.Contains(modelSeries.Name))
+                                            {
+                                                columnNames.Add(modelSeries.Name);
+                                            }
                                         }
                                     }
                                 }
+                                else
+                                {
+                                    var model = new DashboardViewChartDataMultiStackedModel()
+                                    {
+                                        Name = localizationService.GetString("NoData"),
+                                        IsTag = false,
+                                        Id = 0,
+                                    };
+                                    multiStackedData.Add(model);
+                                    columnNames.Add(localizationService.GetString("NoData"));
+                                }
+
                                 foreach (var stackedModel in multiStackedData)
                                 {
                                     var model = new DashboardViewChartDataMultiStackedModel()
@@ -1349,7 +1547,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     };
 
 
-                                    foreach (string columnName in columnNames)
+                                    foreach (var columnName in columnNames)
                                     {
                                         var innerModel = new DashboardViewChartDataMultiModel() {Name = columnName};
                                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
