@@ -285,8 +285,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 IsTag = true,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley(),
-                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
                                 AnswerId = x.AnswerId,
                             })
                             .ToListAsync();
@@ -332,8 +330,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             IsTag = false,
                             Weight = x.Option.WeightValue,
                             OptionIndex = x.Option.OptionsIndex,
-                            IsSmiley = x.Question.IsSmiley(),
-                            IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
                             AnswerId = x.AnswerId,
                         })
                         .ToListAsync();
@@ -366,8 +362,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 IsTag = false,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley(),
-                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
                                 AnswerId = x.AnswerId
                             })
                             .OrderBy(t => t.Finished)
@@ -402,8 +396,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 IsTag = true,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionsIndex,
-                                IsSmiley = x.Question.IsSmiley(),
-                                IsMulti = x.Question.QuestionType == Constants.QuestionTypes.Multi,
+                                
                                 AnswerId = x.AnswerId,
                             })
                             .OrderBy(t => t.Finished)
@@ -411,8 +404,21 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
                 }
 
-                bool isSmiley = data.Any() && data.First().IsSmiley;
-                bool isMulti = data.Any() && data.First().IsMulti;
+                // Get question type
+                var questionTypeData = await sdkContext.questions
+                    .AsNoTracking()
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.Id == dashboardItem.FirstQuestionId)
+                    .Select(x=> new
+                    {
+                        IsSmiley = x.IsSmiley(),
+                        IsMulti = x.QuestionType == Constants.QuestionTypes.Multi,
+                    })
+                    .FirstOrDefaultAsync();
+
+
+                bool isSmiley = questionTypeData.IsSmiley;
+                bool isMulti = questionTypeData.IsMulti;
 
                 List<string> lines;
                 if (dashboardItem.CalculateAverage)
