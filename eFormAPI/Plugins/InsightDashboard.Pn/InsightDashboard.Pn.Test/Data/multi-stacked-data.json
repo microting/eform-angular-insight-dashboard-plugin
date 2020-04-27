@@ -17,7 +17,7 @@
         "filterQuestionId": null,
         "filterAnswerId": null,
         "period": 5,
-        "chartType": 9,
+        "chartType": 11,
         "compareEnabled": true,
         "calculateAverage": false,
         "position": 1,
