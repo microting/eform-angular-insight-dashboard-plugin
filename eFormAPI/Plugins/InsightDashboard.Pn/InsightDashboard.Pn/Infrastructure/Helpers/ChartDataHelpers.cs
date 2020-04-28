@@ -67,6 +67,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 case DashboardChartTypes.Pie:
                     singleData = true;
                     break;
+                case DashboardChartTypes.AdvancedPie:
+                    singleData = true;
+                    break;
+                case DashboardChartTypes.PieGrid:
+                    singleData = true;
+                    break;
                 case DashboardChartTypes.HorizontalBar:
                     singleData = true;
                     break;
