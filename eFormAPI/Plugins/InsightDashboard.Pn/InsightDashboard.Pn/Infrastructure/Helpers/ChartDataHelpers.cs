@@ -477,48 +477,25 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "999", Value = 0});
 
-                        foreach (var dashboardViewChartDataSingleModel in groupedData)
+                        foreach (var tmpDataModel in tmpData)
                         {
-                            switch (@dashboardViewChartDataSingleModel.Name)
+                            var chartDataSingleModel = groupedData
+                                .FirstOrDefault(x => x.Name == tmpDataModel.Name);
+
+                            if (chartDataSingleModel != null)
                             {
-                                case "100":
-                                    tmpData[0].Name = smileyLabels.Single(z => z.Key == 100).Value;
-                                    tmpData[0].Value = dashboardViewChartDataSingleModel.Value;
-                                    tmpData[0].DataCount = dashboardViewChartDataSingleModel.DataCount;
-                                    break;
-                                case "75":
-                                    tmpData[1].Name = smileyLabels.Single(z => z.Key == 75).Value;
-                                    tmpData[1].Value = dashboardViewChartDataSingleModel.Value;
-                                    tmpData[1].DataCount = dashboardViewChartDataSingleModel.DataCount;
-                                    break;
-                                case "50":
-                                    tmpData[2].Name = smileyLabels.Single(z => z.Key == 50).Value;
-                                    tmpData[2].Value = dashboardViewChartDataSingleModel.Value;
-                                    tmpData[2].DataCount = dashboardViewChartDataSingleModel.DataCount;
-                                    break;
-                                case "25":
-                                    tmpData[3].Name = smileyLabels.Single(z => z.Key == 25).Value;
-                                    tmpData[3].Value = dashboardViewChartDataSingleModel.Value;
-                                    tmpData[3].DataCount = dashboardViewChartDataSingleModel.DataCount;
-                                    break;
-                                case "0":
-                                    tmpData[4].Name = smileyLabels.Single(z => z.Key == 0).Value;
-                                    tmpData[4].Value = dashboardViewChartDataSingleModel.Value;
-                                    tmpData[4].DataCount = dashboardViewChartDataSingleModel.DataCount;
-                                    break;
-                                case "999":
-                                    tmpData[5].Name = smileyLabels.Single(z => z.Key == 999).Value;
-                                    tmpData[5].Value = dashboardViewChartDataSingleModel.Value;
-                                    tmpData[5].DataCount = dashboardViewChartDataSingleModel.DataCount;
-                                    break;
+                                var parseResult = int.TryParse(chartDataSingleModel.Name, out var labelNumber);
+                                if (parseResult)
+                                {
+                                    tmpDataModel.Name = smileyLabels.Single(z => z.Key == labelNumber).Value;
+                                    tmpDataModel.Value = chartDataSingleModel.Value;
+                                    tmpDataModel.DataCount = chartDataSingleModel.DataCount;
+                                }
                             }
                         }
 
                         groupedData = tmpData;
                     }
-
-                    // isSmiley ? _smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key
-                    // dashboardItemModel.ChartData.Single.AddRange(groupedData);
 
                     var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
                     dashboardItemModel.ChartData.RawData.AddRange(rawData);
