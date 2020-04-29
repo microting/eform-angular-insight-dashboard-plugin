@@ -66,7 +66,6 @@
   "Copy to clipboard": "Copy to clipboard",
   "Percents": "Percents",
   "Scores": "Score",
-
   "Date From": "Date From",
   "Date To": "Date To",
   "Today": "Today",
@@ -77,5 +76,8 @@
   "Dimension": "Dimension",
   "Number of interviews": "Number of interviews",
   "Export": "Export",
-  "Export to Word": "Export to Word"
+  "Export to Word": "Export to Word",
+  "AdvancedPie": "Advanced Pie",
+  "PieGrid": "Pie Grid",
+  "HorizontalBarStackedGrouped": "Horizontal Bar Stacked Grouped"
 }
