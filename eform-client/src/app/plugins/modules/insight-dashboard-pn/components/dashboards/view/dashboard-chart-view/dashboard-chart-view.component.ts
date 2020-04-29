@@ -126,7 +126,6 @@ export class DashboardChartViewComponent {
           ]);
           context.spinnerStatus = false;
         } catch (e) {
-          // TODO: REMOVE IN PROD
           context.spinnerStatus = false;
           console.error(e, e.message);
         }

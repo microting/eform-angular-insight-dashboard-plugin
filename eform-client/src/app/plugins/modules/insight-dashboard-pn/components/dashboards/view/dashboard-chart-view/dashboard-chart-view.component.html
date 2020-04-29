@@ -28,6 +28,19 @@
                           [doughnut]="false"
                           [gradient]="false">
     </ngx-charts-pie-chart>
+    <ngx-charts-advanced-pie-chart *ngIf="itemModel.chartType === chartTypes.AdvancedPie"
+                                   [view]="view"
+                                   [customColors]="customColors"
+                                   [scheme]="colorScheme"
+                                   [results]="itemModel.chartData.single"
+                                   [gradient]="false">
+    </ngx-charts-advanced-pie-chart>
+    <ngx-charts-pie-grid *ngIf="itemModel.chartType === chartTypes.PieGrid"
+                         [view]="view"
+                         [customColors]="customColors"
+                         [scheme]="colorScheme"
+                         [results]="itemModel.chartData.single">
+    </ngx-charts-pie-grid>
     <ngx-charts-bar-horizontal *ngIf="itemModel.chartType === chartTypes.HorizontalBar"
                                [view]="view"
                                [scheme]="colorScheme"

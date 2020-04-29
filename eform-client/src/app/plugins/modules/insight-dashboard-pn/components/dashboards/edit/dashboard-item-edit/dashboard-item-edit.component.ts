@@ -217,6 +217,14 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.Pie])
       },
         {
+          id: DashboardChartTypesEnum.AdvancedPie,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.AdvancedPie])
+        },
+        {
+          id: DashboardChartTypesEnum.PieGrid,
+          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.PieGrid])
+        },
+        {
           id: DashboardChartTypesEnum.HorizontalBar,
           name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBar])
         },
@@ -224,7 +232,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
           id: DashboardChartTypesEnum.VerticalBar,
           name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBar])
         },
-
         {
           id: DashboardChartTypesEnum.HorizontalBarStacked,
           name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStacked])

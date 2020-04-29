@@ -57,7 +57,8 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   updateDashboard() {
-    if (this.dashboardEditModel.items.find(x => (x.firstQuestionId === null || x.period == null || x.chartType === null) && x.firstQuestionType !== DashboardItemQuestionTypesEnum.Text)) {
+    if (this.dashboardEditModel.items.find(x => (x.firstQuestionId === null || x.period == null || x.chartType === null)
+      && x.firstQuestionType !== DashboardItemQuestionTypesEnum.Text)) {
       this.toastrService.error('First question, period and chart type in item could not be empty!', 'Error', {timeOut: 10000});
     } else {
       this.spinnerStatus = true;

@@ -78,5 +78,8 @@
   "Dimension": "Dimension",
   "Number of interviews": "Antal interviews",
   "Export": "Eksport",
-  "Export to Word": "Eksporter til Word"
+  "Export to Word": "Eksporter til Word",
+  "AdvancedPie": "Avanceret cirkel",
+  "PieGrid": "Cirkelnettet",
+  "HorizontalBarStackedGrouped": "Vandret Bjælke Stablet Grupperet"
 }
