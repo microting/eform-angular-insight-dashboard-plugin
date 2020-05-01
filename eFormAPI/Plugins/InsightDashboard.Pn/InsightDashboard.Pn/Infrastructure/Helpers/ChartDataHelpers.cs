@@ -498,6 +498,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
 
                     var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
+
+                    // Convert data for pie chart
+                    if (dashboardItem.ChartType == DashboardChartTypes.AdvancedPie ||
+                        dashboardItem.ChartType == DashboardChartTypes.PieGrid)
+                    {
+                        foreach (var singleModel in groupedData)
+                        {
+                            singleModel.Value = singleModel.DataCount;
+                        }
+                    }
+
                     dashboardItemModel.ChartData.RawData.AddRange(rawData);
                     dashboardItemModel.ChartData.Single.AddRange(groupedData);
                 }
