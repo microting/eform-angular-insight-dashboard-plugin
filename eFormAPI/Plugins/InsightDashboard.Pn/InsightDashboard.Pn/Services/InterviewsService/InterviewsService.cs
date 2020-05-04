@@ -67,6 +67,7 @@ namespace InsightDashboard.Pn.Services.InterviewsService
                         true,
                         false,
                         null,
+                        null,
                         requestModel.ItemId);
 
                 if (!reportDataResult.Success)

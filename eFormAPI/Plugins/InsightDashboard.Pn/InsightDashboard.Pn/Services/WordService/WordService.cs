@@ -59,6 +59,7 @@ namespace InsightDashboard.Pn.Services.WordService
                         dashboardId,
                         false,
                         false,
+                        null,
                         null);
 
                 if (!reportDataResult.Success)
@@ -275,7 +276,7 @@ namespace InsightDashboard.Pn.Services.WordService
                             if (y < dashboardItem.ChartData.RawData.Count - 1)
                             {
                                 itemsHtml += @"<tr style=""font-weight:bold; background-color:#fff"">";
-                                foreach (var valueAmount in dataModel.RawHeaders)
+                                foreach (var unused in dataModel.RawHeaders)
                                 {
                                     itemsHtml += $@"<td></td>";
                                 }

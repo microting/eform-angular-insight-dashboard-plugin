@@ -36,7 +36,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Internal;
     using Microsoft.Extensions.Logging;
     using Microting.eForm.Infrastructure.Constants;
     using Microting.eFormApi.BasePn.Abstractions;
@@ -749,6 +748,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
             bool onlyTextData,
             bool dashboardItemPreview,
             List<DashboardItem> dashboardPreviewItems,
+            DashboardPreviewInfoModel dashboardPreviewInfo,
             int? dashBoardItemId = null)
         {
             try
@@ -767,6 +767,16 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     return new OperationDataResult<DashboardViewModel>(
                         false,
                         _localizationService.GetString("DashboardNotFound"));
+                }
+
+                // Modify dashboard if preview enabled
+                if (dashboardItemPreview)
+                {
+                    dashboard.TagId = dashboardPreviewInfo.TagId;
+                    dashboard.LocationId = dashboardPreviewInfo.LocationId;
+                    dashboard.DateFrom = dashboardPreviewInfo.AnswerDates.DateFrom;
+                    dashboard.DateTo = dashboardPreviewInfo.AnswerDates.DateTo;
+                    dashboard.Today = dashboardPreviewInfo.AnswerDates.Today;
                 }
 
                 if (dashboard.Today)
@@ -1061,25 +1071,24 @@ namespace InsightDashboard.Pn.Services.DashboardService
         }
 
         public async Task<OperationDataResult<DashboardItemViewModel>> GetItemPreview(
-            int dashboardId,
-            DashboardItemModel dashboardItemModel)
+            DashboardItemPreviewRequestModel previewModel)
         {
             try
             {
                 var dashboardItem = new DashboardItem
                 {
-                    Id = dashboardItemModel.Id ?? 0,
-                    ChartType = dashboardItemModel.ChartType,
-                    Position = dashboardItemModel.Position,
-                    CalculateAverage = dashboardItemModel.CalculateAverage,
-                    CompareEnabled = dashboardItemModel.CompareEnabled,
-                    FirstQuestionId = dashboardItemModel.FirstQuestionId,
-                    FilterQuestionId = dashboardItemModel.FilterQuestionId,
-                    FilterAnswerId = dashboardItemModel.FilterAnswerId,
-                    Period = dashboardItemModel.Period,
+                    Id = previewModel.Item.Id ?? 0,
+                    ChartType = previewModel.Item.ChartType,
+                    Position = previewModel.Item.Position,
+                    CalculateAverage = previewModel.Item.CalculateAverage,
+                    CompareEnabled = previewModel.Item.CompareEnabled,
+                    FirstQuestionId = previewModel.Item.FirstQuestionId,
+                    FilterQuestionId = previewModel.Item.FilterQuestionId,
+                    FilterAnswerId = previewModel.Item.FilterAnswerId,
+                    Period = previewModel.Item.Period,
                     Version = 1,
-                    DashboardId = dashboardId,
-                    CompareLocationsTags = dashboardItemModel.CompareLocationsTags
+                    DashboardId = previewModel.DashboardPreviewInfo.DashboardId,
+                    CompareLocationsTags = previewModel.Item.CompareLocationsTags
                         .Select(x=> new DashboardItemCompare
                         {
                             Id = x.Id ?? 0,
@@ -1087,7 +1096,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             LocationId = x.LocationId,
                             TagId = x.TagId,
                         }).ToList(),
-                    IgnoredAnswerValues = dashboardItemModel.IgnoredAnswerValues
+                    IgnoredAnswerValues = previewModel.Item.IgnoredAnswerValues
                         .Select(x => new DashboardItemIgnoredAnswer()
                         {
                             Id = x.Id ?? 0,
@@ -1098,10 +1107,11 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 var items = new List<DashboardItem> { dashboardItem };
 
                 var viewResult = await GetSingleForView(
-                    dashboardId,
+                    previewModel.DashboardPreviewInfo.DashboardId,
                     false,
                     true,
-                    items);
+                    items,
+                    previewModel.DashboardPreviewInfo);
 
                 if (!viewResult.Success)
                 {
@@ -1232,6 +1242,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     dashboardId,
                     false,
                     false,
+                    null,
                     null);
 
                 if (!viewResult.Success)

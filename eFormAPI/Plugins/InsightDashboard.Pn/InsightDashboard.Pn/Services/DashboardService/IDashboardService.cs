@@ -43,11 +43,11 @@ namespace InsightDashboard.Pn.Services.DashboardService
             bool onlyTextData,
             bool dashboardItemPreview,
             List<DashboardItem> dashboardPreviewItems,
+            DashboardPreviewInfoModel dashboardPreviewInfo,
             int? dashBoardItemId = null);
 
         Task<OperationDataResult<DashboardItemViewModel>> GetItemPreview(
-            int dashboardId,
-            DashboardItemModel dashboardItemModel);
+            DashboardItemPreviewRequestModel previewModel);
 
         Task<OperationDataResult<DashboardEditModel>> GetSingleForEdit(int dashboardId);
     }

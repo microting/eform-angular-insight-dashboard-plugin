@@ -64,6 +64,7 @@ namespace InsightDashboard.Pn.Controllers
                 id,
                 false,
                 false,
+                null,
                 null);
         }
 
@@ -104,12 +105,11 @@ namespace InsightDashboard.Pn.Controllers
 
 
         [HttpPost]
-        [Route("api/insight-dashboard-pn/dashboard-items/preview/{dashboardId}")]
+        [Route("api/insight-dashboard-pn/dashboard-items/preview")]
         public async Task<OperationDataResult<DashboardItemViewModel>> GetItemPreview(
-            int dashboardId,
-            [FromBody] DashboardItemModel itemModel)
+            [FromBody] DashboardItemPreviewRequestModel previewModel)
         {
-            return await _dashboardService.GetItemPreview(dashboardId, itemModel);
+            return await _dashboardService.GetItemPreview(previewModel);
         }
 
         [HttpPost]
