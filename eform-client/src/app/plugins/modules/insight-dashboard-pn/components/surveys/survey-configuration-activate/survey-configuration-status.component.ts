@@ -11,7 +11,6 @@ export class SurveyConfigurationStatusComponent implements OnInit {
   @ViewChild('frame', { static: true }) frame;
   @Output() configStatusChanged: EventEmitter<SurveyConfigModel> = new EventEmitter<SurveyConfigModel>();
   selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel();
-  spinnerStatus = false;
 
   constructor(private surveyConfigsService: InsightDashboardPnSurveyConfigsService) {
   }
@@ -25,14 +24,12 @@ export class SurveyConfigurationStatusComponent implements OnInit {
   }
 
   changeSurveyConfigStatus() {
-    this.spinnerStatus = true;
     this.surveyConfigsService.changeStatus({id: this.selectedSurveyConfig.id, isActive: !this.selectedSurveyConfig.isActive})
       .subscribe((data) => {
         if (data && data.success) {
           this.frame.hide();
           this.configStatusChanged.emit();
         }
-        this.spinnerStatus = false;
       });
   }
 }

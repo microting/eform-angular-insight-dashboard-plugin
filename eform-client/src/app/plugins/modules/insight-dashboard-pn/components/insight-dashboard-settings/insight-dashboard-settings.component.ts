@@ -8,7 +8,6 @@ import {InsightDashboardBaseSettingsModel} from '../../models';
   styleUrls: ['./insight-dashboard-settings.component.scss']
 })
 export class InsightDashboardSettingsComponent implements OnInit {
-  spinnerStatus = false;
   settingsModel: InsightDashboardBaseSettingsModel = new InsightDashboardBaseSettingsModel();
 
   constructor(private insightDashboardPnSettingsService: InsightDashboardPnSettingsService) {
@@ -20,7 +19,6 @@ export class InsightDashboardSettingsComponent implements OnInit {
 
 
   getSettings() {
-    this.spinnerStatus = true;
     this.insightDashboardPnSettingsService.getAllSettings().subscribe((data) => {
       if (data && data.success) {
         this.settingsModel = data.model;
@@ -29,7 +27,6 @@ export class InsightDashboardSettingsComponent implements OnInit {
   }
 
   updateSettings() {
-    this.spinnerStatus = true;
     this.insightDashboardPnSettingsService.updateSettings(this.settingsModel)
       .subscribe((data) => {
         if (data && data.success) {

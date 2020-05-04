@@ -17,7 +17,6 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
   @Output() dashboardCreated: EventEmitter<number> = new EventEmitter<number>();
   @Output() surveySelected: EventEmitter<number> = new EventEmitter<number>();
   selectedSurveyId: number;
-  spinnerStatus = false;
   createDashboard$: Subscription;
   dashboardName: string;
 
@@ -33,7 +32,6 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
   }
 
   createDashboard() {
-    this.spinnerStatus = true;
     this.createDashboard$ = this.dashboardsService.create({
       name: this.dashboardName,
       surveyId: this.selectedSurveyId,
@@ -42,7 +40,6 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
         this.frame.hide();
         this.dashboardCreated.emit(data.model);
       }
-      this.spinnerStatus = false;
     });
   }
 

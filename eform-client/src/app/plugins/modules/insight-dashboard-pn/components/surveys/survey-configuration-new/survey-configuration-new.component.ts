@@ -12,7 +12,6 @@ export class SurveyConfigurationNewComponent implements OnInit {
   @Input() locations: CommonDictionaryModel[] = [];
   @Input() surveys: CommonDictionaryModel[] = [];
   @Output() configCreated: EventEmitter<void> = new EventEmitter<void>();
-  spinnerStatus = false;
   selectedSurveyId: number;
   selectedLocations: number[] = [];
 
@@ -30,7 +29,6 @@ export class SurveyConfigurationNewComponent implements OnInit {
   }
 
   createConfig() {
-    this.spinnerStatus = true;
     this.surveyConfigsService.create({locationsIds: this.selectedLocations, surveyId: this.selectedSurveyId})
       .subscribe((data) => {
         if (data && data.success) {
@@ -38,7 +36,6 @@ export class SurveyConfigurationNewComponent implements OnInit {
           this.configCreated.emit();
           this.selectedLocations = [];
         }
-        this.spinnerStatus = false;
       });
   }
 

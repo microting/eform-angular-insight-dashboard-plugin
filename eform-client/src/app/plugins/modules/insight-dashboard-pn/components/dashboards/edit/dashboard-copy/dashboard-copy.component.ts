@@ -10,7 +10,6 @@ import {DashboardModel} from '../../../../models';
 export class DashboardCopyComponent implements OnInit {
   @ViewChild('frame', { static: true }) frame;
   @Output() dashboardCopied: EventEmitter<void> = new EventEmitter<void>()
-  spinnerStatus = false;
   dashboard: DashboardModel = new DashboardModel();
 
   constructor(private dashboardService: InsightDashboardPnDashboardsService) { }
@@ -24,14 +23,12 @@ export class DashboardCopyComponent implements OnInit {
   }
 
   copyDashboard() {
-    this.spinnerStatus = true;
     this.dashboardService.copy(this.dashboard.id)
       .subscribe((data) => {
         if (data && data.success) {
           this.frame.hide();
           this.dashboardCopied.emit();
         }
-        this.spinnerStatus = false;
       });
   }
 }

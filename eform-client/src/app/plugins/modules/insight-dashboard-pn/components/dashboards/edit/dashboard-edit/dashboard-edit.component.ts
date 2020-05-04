@@ -28,7 +28,6 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   availableLocationsTags: any[] = [];
   isItemsCollapsed = false;
   selectedDashboardId: number;
-  spinnerStatus = false;
   dragulaGroupName = 'ITEMS';
 
   constructor(private dashboardsService: InsightDashboardPnDashboardsService,
@@ -61,19 +60,16 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
       && x.firstQuestionType !== DashboardItemQuestionTypesEnum.Text)) {
       this.toastrService.error('First question, period and chart type in item could not be empty!', 'Error', {timeOut: 10000});
     } else {
-      this.spinnerStatus = true;
       this.updateDashboardSub$ = this.dashboardsService.update(this.dashboardEditModel)
         .subscribe((data) => {
           if (data && data.success) {
             this.router.navigate(['../../', this.dashboardEditModel.id], {relativeTo: this.route}).then();
           }
-          this.spinnerStatus = false;
         });
     }
   }
 
   getDashboardForEdit(dashboardId: number) {
-    this.spinnerStatus = true;
     this.getDashboardSub$ = this.dashboardsService.getSingleForEdit(dashboardId)
       .subscribe((data) => {
         if (data && data.success) {
@@ -81,7 +77,6 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
         }
         this.getFilterQuestions(data.model.surveyId);
         this.getLocationTags(data.model.surveyId);
-        this.spinnerStatus = false;
       });
   }
 

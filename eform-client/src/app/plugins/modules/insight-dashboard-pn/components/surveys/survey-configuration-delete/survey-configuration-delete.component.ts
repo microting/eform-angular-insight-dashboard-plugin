@@ -11,7 +11,6 @@ export class SurveyConfigurationDeleteComponent implements OnInit {
   @Output() surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
   surveyConfig: SurveyConfigModel = new SurveyConfigModel();
   @ViewChild('frame', { static: true }) frame;
-  spinnerStatus = false;
 
   constructor(private surveyConfigsService: InsightDashboardPnSurveyConfigsService) { }
 
@@ -24,14 +23,12 @@ export class SurveyConfigurationDeleteComponent implements OnInit {
   }
 
   deleteSurveyConfig() {
-    this.spinnerStatus = true;
     this.surveyConfigsService.remove(this.surveyConfig.id)
       .subscribe((data) => {
         if (data && data.success) {
           this.frame.hide();
           this.surveyConfigDeleted.emit();
         }
-        this.spinnerStatus = false;
       });
   }
 }

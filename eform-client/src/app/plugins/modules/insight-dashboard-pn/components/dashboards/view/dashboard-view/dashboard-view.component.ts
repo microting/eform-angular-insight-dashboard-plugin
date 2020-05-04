@@ -16,7 +16,6 @@ import {saveAs} from 'file-saver';
   styleUrls: ['./dashboard-view.component.scss']
 })
 export class DashboardViewComponent implements OnInit, OnDestroy {
-  spinnerStatus = false;
   selectedDashboardId: number;
   getDashboardSub$: Subscription;
   exportToDocSub$: Subscription;
@@ -33,18 +32,15 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
   }
 
   getDashboardForView(dashboardId: number) {
-    this.spinnerStatus = true;
     this.getDashboardSub$ = this.dashboardsService.getSingleForView(dashboardId)
       .subscribe((data) => {
         if (data && data.success) {
           this.dashboardViewModel = data.model;
         }
-        this.spinnerStatus = false;
       });
   }
 
   exportToDoc() {
-    this.spinnerStatus = true;
     const context = this;
     const scale = 2;
     const exportDocModel = new DashboardViewExportDocModel();
@@ -97,15 +93,12 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
   }
 
   private exportItemsToDoc(model: DashboardViewExportDocModel) {
-    this.spinnerStatus = true;
     this.exportToDocSub$ = this.dashboardsService.exportToDoc(model)
       .subscribe((data) => {
         if (data) {
           const blob = new Blob([data]);
           saveAs(blob, `doc.docx`);
-          this.spinnerStatus = false;
         }
-        this.spinnerStatus = false;
       });
   }
 }
