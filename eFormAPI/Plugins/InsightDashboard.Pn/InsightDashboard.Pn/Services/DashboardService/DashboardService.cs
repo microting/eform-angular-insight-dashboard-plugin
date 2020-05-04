@@ -746,6 +746,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
         public async Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
             int dashboardId,
             bool onlyTextData,
+            bool dashboardItemPreview,
+            List<DashboardItem> dashboardPreviewItems,
             int? dashBoardItemId = null)
         {
             try
@@ -857,10 +859,25 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         }).ToListAsync();
                 }
 
+                var items = new List<DashboardItem>();
+
+                if (dashboardItemPreview && dashboardPreviewItems != null)
+                {
+                    items.AddRange(dashboardPreviewItems
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .OrderBy(x => x.Position)
+                        .ToList());
+                }
+                else
+                {
+                    items = dashboard.DashboardItems
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .OrderBy(x => x.Position)
+                        .ToList();
+                }
+
                 // Dashboard items
-                foreach (var dashboardItem in dashboard.DashboardItems
-                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .OrderBy(x => x.Position))
+                foreach (var dashboardItem in items)
                 {
                     if (onlyTextData)
                     {
@@ -1038,6 +1055,68 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationDataResult<DashboardViewModel>(false,
+                    _localizationService.GetString("ErrorWhileObtainingDashboardInfo"));
+            }
+        }
+
+        public async Task<OperationDataResult<DashboardItemViewModel>> GetItemPreview(
+            int dashboardId,
+            DashboardItemModel dashboardItemModel)
+        {
+            try
+            {
+                var dashboardItem = new DashboardItem
+                {
+                    Id = dashboardItemModel.Id ?? 0,
+                    ChartType = dashboardItemModel.ChartType,
+                    Position = dashboardItemModel.Position,
+                    CalculateAverage = dashboardItemModel.CalculateAverage,
+                    CompareEnabled = dashboardItemModel.CompareEnabled,
+                    FirstQuestionId = dashboardItemModel.FirstQuestionId,
+                    FilterQuestionId = dashboardItemModel.FilterQuestionId,
+                    FilterAnswerId = dashboardItemModel.FilterAnswerId,
+                    Period = dashboardItemModel.Period,
+                    Version = 1,
+                    DashboardId = dashboardId,
+                    CompareLocationsTags = dashboardItemModel.CompareLocationsTags
+                        .Select(x=> new DashboardItemCompare
+                        {
+                            Id = x.Id ?? 0,
+                            Position = x.Position,
+                            LocationId = x.LocationId,
+                            TagId = x.TagId,
+                        }).ToList(),
+                    IgnoredAnswerValues = dashboardItemModel.IgnoredAnswerValues
+                        .Select(x => new DashboardItemIgnoredAnswer()
+                        {
+                            Id = x.Id ?? 0,
+                            AnswerId = x.AnswerId,
+                        }).ToList(),
+                };
+
+                var items = new List<DashboardItem> { dashboardItem };
+
+                var viewResult = await GetSingleForView(
+                    dashboardId,
+                    false,
+                    true,
+                    items);
+
+                if (!viewResult.Success)
+                {
+                    return new OperationDataResult<DashboardItemViewModel>(false, viewResult.Message);
+                }
+
+                return new OperationDataResult<DashboardItemViewModel>(
+                    true,
+                    viewResult.Model.Items.FirstOrDefault());
+                
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.Message);
+                _logger.LogError(e.Message);
+                return new OperationDataResult<DashboardItemViewModel>(false,
                     _localizationService.GetString("ErrorWhileObtainingDashboardInfo"));
             }
         }
