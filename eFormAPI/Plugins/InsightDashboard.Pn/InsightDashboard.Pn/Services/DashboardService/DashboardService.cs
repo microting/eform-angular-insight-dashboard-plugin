@@ -36,6 +36,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
     using Infrastructure.Models.Dashboards;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Internal;
     using Microsoft.Extensions.Logging;
     using Microting.eForm.Infrastructure.Constants;
     using Microting.eFormApi.BasePn.Abstractions;
@@ -1223,6 +1224,32 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             dashboardItemModel.IsFirstQuestionSmiley = question.IsSmiley();
                             dashboardItemModel.FirstQuestionType = question.GetQuestionType();
                         }
+                    }
+                }
+
+                // Get chart preview
+                var viewResult = await GetSingleForView(
+                    dashboardId,
+                    false,
+                    false,
+                    null);
+
+                if (!viewResult.Success)
+                {
+                    return new OperationDataResult<DashboardEditModel>(false, viewResult.Message);
+                }
+
+                foreach (var dashboardItem in dashboard.Items)
+                {
+                    // Find dashboard item model view
+                    var dashboardViewItemChartData = viewResult.Model.Items
+                        .Where(x => x.Id == dashboardItem.Id)
+                        .Select(x => x.ChartData)
+                        .FirstOrDefault();
+
+                    if (dashboardViewItemChartData != null)
+                    {
+                        dashboardItem.ChartData = dashboardViewItemChartData;
                     }
                 }
 
