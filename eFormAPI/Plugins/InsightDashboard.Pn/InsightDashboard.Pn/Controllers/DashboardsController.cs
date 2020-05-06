@@ -60,7 +60,12 @@ namespace InsightDashboard.Pn.Controllers
         [Route("api/insight-dashboard-pn/dashboards/view/{id}")]
         public async Task<OperationDataResult<DashboardViewModel>> GetSingleForView(int id)
         {
-            return await _dashboardService.GetSingleForView(id, false);
+            return await _dashboardService.GetSingleForView(
+                id,
+                false,
+                false,
+                null,
+                null);
         }
 
         [HttpGet]
@@ -96,6 +101,15 @@ namespace InsightDashboard.Pn.Controllers
         public async Task<OperationResult> Remove(int id)
         {
             return await _dashboardService.Remove(id);
+        }
+
+
+        [HttpPost]
+        [Route("api/insight-dashboard-pn/dashboard-items/preview")]
+        public async Task<OperationDataResult<DashboardItemViewModel>> GetItemPreview(
+            [FromBody] DashboardItemPreviewRequestModel previewModel)
+        {
+            return await _dashboardService.GetItemPreview(previewModel);
         }
 
         [HttpPost]
