@@ -16,7 +16,6 @@ export class DashboardInterviewsViewComponent implements OnInit, OnDestroy {
   @Input() dashboardViewModel: DashboardViewModel = new DashboardViewModel();
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel;
   exportSub$: Subscription;
-  spinnerStatus = false;
 
   constructor(private dashboardItemsService: InsightDashboardPnDashboardItemsService) {
   }
@@ -25,14 +24,12 @@ export class DashboardInterviewsViewComponent implements OnInit, OnDestroy {
   }
 
   exportToCsv() {
-    this.spinnerStatus = true;
     this.exportSub$ = this.dashboardItemsService.exportInterviewsToExcel({
       dashboardId: this.dashboardViewModel.id,
       itemId: this.itemModel.id
     }).subscribe(data => {
       const blob = new Blob([data]);
       saveAs(blob, `${this.dashboardViewModel.dashboardName}_interviews.xlsx`);
-      this.spinnerStatus = false;
     });
   }
 

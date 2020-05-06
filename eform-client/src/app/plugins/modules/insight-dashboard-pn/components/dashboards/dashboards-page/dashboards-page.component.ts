@@ -31,7 +31,6 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   dashboardsListModel: DashboardsListModel = new DashboardsListModel();
   dashboardsRequestModel: DashboardsRequestModel = new DashboardsRequestModel();
   localPageSettings: PageSettingsModel = new PageSettingsModel();
-  spinnerStatus = false;
   searchSubject = new Subject();
   availableSurveys: CommonDictionaryModel[] = [];
   availableLocationsTags: CommonDictionaryExtendedModel[] = [];
@@ -59,7 +58,6 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   getDashboardsList() {
-    this.spinnerStatus = true;
     this.dashboardsRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
     this.dashboardsRequestModel.sort = this.localPageSettings.sort;
     this.dashboardsRequestModel.pageSize = this.localPageSettings.pageSize;
@@ -68,17 +66,14 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
       if (data && data.success) {
         this.dashboardsListModel = data.model;
       }
-      this.spinnerStatus = false;
     });
   }
 
   getSurveys() {
-    this.spinnerStatus = true;
     this.getSurveysSub$ = this.dictionariesService.getSurveys().subscribe((data) => {
       if (data && data.success) {
         this.availableSurveys = data.model;
       }
-      this.spinnerStatus = false;
     });
   }
 

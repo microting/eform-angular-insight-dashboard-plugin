@@ -13,7 +13,6 @@ export class SurveyConfigurationEditComponent implements OnInit {
   @Input() locations: CommonDictionaryModel[] = [];
   @Input() surveys: CommonDictionaryModel[] = [];
   @Output() configUpdated: EventEmitter<void> = new EventEmitter<void>();
-  spinnerStatus = false;
   extendedLocations: { id: number, name: string, isChecked: boolean }[] = [];
   selectedLocations: number[] = [];
   selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel();
@@ -37,7 +36,6 @@ export class SurveyConfigurationEditComponent implements OnInit {
   }
 
   updateConfig() {
-    this.spinnerStatus = true;
     this.surveyConfigsService.update({
       locationsIds: this.selectedLocations,
       surveyId: this.selectedSurveyConfig.surveyId,
@@ -48,7 +46,6 @@ export class SurveyConfigurationEditComponent implements OnInit {
           this.frame.hide();
           this.configUpdated.emit();
         }
-        this.spinnerStatus = false;
       });
   }
 
