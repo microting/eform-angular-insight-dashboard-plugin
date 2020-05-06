@@ -1,5 +1,5 @@
 import {DashboardChartTypesEnum, DashboardItemQuestionTypesEnum, DashboardPeriodUnitsEnum} from '../../../const/enums';
-import {DashboardViewChartDataModel} from './dashboard-view-chart-data.model';
+import {DashboardChartDataModel} from '../dashboard-chart-data.model';
 import {DashboardItemCompareModel} from '../dashboard-item/dashboard-item-compare.model';
 import {DashboardItemIgnoredAnswerModel} from '../dashboard-item/dashboard-item-ignored-answer.model';
 import {DashboardItemCompareViewModel} from '../dashboard-item/dashboard-item-compare-view.model';
@@ -24,7 +24,7 @@ export class DashboardViewItemModel {
 
   period: DashboardPeriodUnitsEnum;
   chartType: DashboardChartTypesEnum;
-  chartData: DashboardViewChartDataModel;
+  chartData: DashboardChartDataModel;
 
   interviewsCount: number;
   textQuestionData: DashboardItemTextQuestionDataModel[];

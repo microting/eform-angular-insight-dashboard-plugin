@@ -37,7 +37,7 @@
       </div>
     </div>
   </div>
-  <div mdbCollapse #collapse="bs-collapse" [isCollapsed]="dashboardItem.collapsed" (expanded)="resizeCollapse()">
+  <div mdbCollapse #collapse="bs-collapse" [isCollapsed]="dashboardItem.collapsed">
     <div class="card-body">
       <div class="row">
         <div class="col">
@@ -178,6 +178,8 @@
                   [required]="true"
                   [items]="availableCharts"></ng-select>
                 <app-dashboard-chart-edit [dashboardItem]="dashboardItem"
+                                          [dashboardItemChartData]="dashboardItemChartData"
+                                          [chartGeneratedPreviewData]="chartGeneratedPreviewData"
                                           [questionType]="firstQuestionType"
                                           [answers]="questionAnswers">
                 </app-dashboard-chart-edit>

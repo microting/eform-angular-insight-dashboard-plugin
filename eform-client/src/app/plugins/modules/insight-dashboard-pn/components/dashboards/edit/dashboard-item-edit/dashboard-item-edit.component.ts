@@ -5,15 +5,16 @@ import {
   DashboardItemQuestionTypesEnum,
   DashboardPeriodUnitsEnum
 } from '../../../../const/enums';
-import {DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
-import {CommonDictionaryModel} from '../../../../../../../common/models/common';
+import {DashboardAnswerDatesModel, DashboardEditModel, DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
+import {CommonDictionaryModel} from 'src/app/common/models';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
-import {InsightDashboardPnDashboardDictionariesService} from '../../../../services';
+import {InsightDashboardPnDashboardDictionariesService, InsightDashboardPnDashboardItemsService} from '../../../../services';
 import {TranslateService} from '@ngx-translate/core';
 import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
 import {CollapseComponent} from 'angular-bootstrap-md';
 import {LabelValueExtendedModel} from 'src/app/plugins/modules/insight-dashboard-pn/models/label-value-extended.model';
+import {DashboardChartDataModel} from '../../../../models/dashboard/dashboard-chart-data.model';
 
 @AutoUnsubscribe()
 @Component({
@@ -22,11 +23,15 @@ import {LabelValueExtendedModel} from 'src/app/plugins/modules/insight-dashboard
   styleUrls: ['./dashboard-item-edit.component.scss']
 })
 export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges {
-  @ViewChild('collapse', { static: true }) collapse: CollapseComponent;
+  @ViewChild('collapse', {static: true}) collapse: CollapseComponent;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: DashboardItemQuestionModel[] = [];
-  @Input() surveyId = 1;
+  @Input() selectedSurveyId = 1;
+  @Input() dashboardId = 1;
   @Input() locationsTags: LabelValueExtendedModel[] = [];
+  @Input() selectedTagId: number;
+  @Input() selectedLocationId: number;
+  @Input() selectedAnswerDates: DashboardAnswerDatesModel;
   @Output() addNewItem: EventEmitter<number> = new EventEmitter<number>();
   @Output() copyItem: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
   @Output() dashboardItemChanged: EventEmitter<DashboardItemModel> = new EventEmitter<DashboardItemModel>();
@@ -37,6 +42,9 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   loadAnswersSub$: Subscription;
   collapseSub$: Subscription;
   filteredQuestions: CommonDictionaryModel[] = [];
+  dashboardItemChartData: DashboardChartDataModel;
+  chartGeneratedPreviewData: DashboardChartDataModel;
+  chartGeneratedPreviewDataSub$: Subscription;
   allCharts = [];
   availableCharts = [];
 
@@ -69,7 +77,8 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   constructor(private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-              private translateService: TranslateService, private collapseService: InsightDashboardPnCollapseService) {
+              private translateService: TranslateService, private collapseService: InsightDashboardPnCollapseService,
+              private dashboardItemService: InsightDashboardPnDashboardItemsService) {
   }
 
   ngOnInit() {
@@ -77,7 +86,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       if (!collapsed && this.dashboardItem.collapsed) {
         this.dashboardItem.collapsed = false;
         this.collapse.toggle();
-        this.resizeCollapse();
       }
       if (collapsed && !this.dashboardItem.collapsed) {
         this.dashboardItem.collapsed = true;
@@ -124,6 +132,7 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       // load answers on change fields
       this.dashboardItem[DashboardItemFieldsEnum.firstQuestionId] = currentValue.firstQuestionId;
       this.dashboardItem[DashboardItemFieldsEnum.filterQuestionId] = currentValue.filterQuestionId;
+      this.dashboardItemChartData = {...currentValue.chartData};
       this.loadAnswers(true);
       this.loadAnswers(false);
 
@@ -139,7 +148,8 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   fieldChanged(value: any, fieldName: string) {
-    if (this.dashboardItem[fieldName] !== value) {
+    if (this.dashboardItem[fieldName] !== value || fieldName === DashboardItemFieldsEnum.compareLocationsTags
+      || fieldName === DashboardItemFieldsEnum.ignoredAnswerValues) {
       this.dashboardItem[fieldName] = value;
       this.dashboardItemChanged.emit(this.dashboardItem);
 
@@ -175,6 +185,12 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         || fieldName === DashboardItemFieldsEnum.compareEnabled) {
         this.setAvailableCharts(true);
       }
+
+      // get preview for chart
+      if (this.dashboardItem.firstQuestionId && this.dashboardItem.period && this.dashboardItem.chartType) {
+        this.chartGeneratedPreviewData = new DashboardChartDataModel();
+        this.getChartPreviewData(this.dashboardItem);
+      }
     }
   }
 
@@ -205,6 +221,24 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         this.availableCharts = [];
       }
     }
+  }
+
+  getChartPreviewData(model: DashboardItemModel) {
+    this.chartGeneratedPreviewDataSub$ = this.dashboardItemService.getItemPreview(
+      {
+        item: model, dashboardPreviewInfo: {
+          dashboardId: this.dashboardId,
+          tagId: this.selectedTagId,
+          locationId: this.selectedLocationId,
+          answerDates: {...this.selectedAnswerDates}
+        }
+      }
+    )
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.chartGeneratedPreviewData = {...data.model.chartData};
+        }
+      });
   }
 
   private fillInitialChartOptions(period: DashboardPeriodUnitsEnum | null) {
@@ -317,10 +351,5 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       }
     }
     return null;
-  }
-
-  resizeCollapse() {
-    // collapse resize trigger to recalculate size
-    //this.collapse;
   }
 }

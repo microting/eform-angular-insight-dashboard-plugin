@@ -6,7 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DashboardEditModel, DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
 import {DragulaService} from 'ng2-dragula';
 import {ToastrService} from 'ngx-toastr';
-import {CommonDictionaryExtendedModel} from '../../../../models/common-dictionary-extended.model';
 import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
 import {DashboardItemQuestionTypesEnum} from '../../../../const/enums';
 
@@ -77,7 +76,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
     this.getDashboardSub$ = this.dashboardsService.getSingleForEdit(dashboardId)
       .subscribe((data) => {
         if (data && data.success) {
-          this.dashboardEditModel = data.model;
+          this.dashboardEditModel = {...data.model};
         }
         this.getFilterQuestions(data.model.surveyId);
         this.getLocationTags(data.model.surveyId);

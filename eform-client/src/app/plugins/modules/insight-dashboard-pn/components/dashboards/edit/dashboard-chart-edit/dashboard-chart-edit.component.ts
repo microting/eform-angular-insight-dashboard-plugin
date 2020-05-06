@@ -7,6 +7,7 @@ import {
   lineSmiley, multi,
   multiSmiley, multiStacked, multiStackedSmiley, single, singleSmiley
 } from './chart-data';
+import {DashboardChartDataModel} from 'src/app/plugins/modules/insight-dashboard-pn/models/dashboard/dashboard-chart-data.model';
 
 @Component({
   selector: 'app-dashboard-chart-edit',
@@ -17,7 +18,9 @@ export class DashboardChartEditComponent implements OnChanges {
   @Input() chartPosition: number;
   @Input() questionType: DashboardItemQuestionTypesEnum;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
+  @Input() dashboardItemChartData: DashboardChartDataModel;
   @Input() answers: CommonDictionaryModel[] = [];
+  @Input() chartGeneratedPreviewData: DashboardChartDataModel;
 
   get chartTypes() {
     return DashboardChartTypesEnum;
