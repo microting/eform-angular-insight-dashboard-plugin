@@ -29,5 +29,6 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
         public string Name { get; set; }
         public decimal? Value { get; set; }
         public int DataCount { get; set; }
+        public int OptionIndex { get; set; }
     }
 }

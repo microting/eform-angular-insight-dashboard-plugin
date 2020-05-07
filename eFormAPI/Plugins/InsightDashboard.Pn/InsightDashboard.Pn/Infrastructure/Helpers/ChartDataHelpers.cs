@@ -536,17 +536,19 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 AnswersCount = GetAnswersCount(y),
                                                 IsTag = x.Key.IsTag,
                                                 Series = y
-                                                    .GroupBy(g => g.Name)
+                                                    .GroupBy(g => new { g.Name, g.OptionIndex })
                                                     .Select(i => new DashboardViewChartDataSingleModel
                                                     {
                                                         Name = isSmiley
-                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
-                                                            : i.Key,
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name)).Value
+                                                            : i.Key.Name,
+                                                        OptionIndex = i.Key.OptionIndex,
                                                         DataCount = i.Count(),
                                                         Value = isMulti
                                                             ? GetDataPercentage(i.Count(), GetAnswersCount(y))
                                                             : GetDataPercentage(i.Count(), y.Count()),
                                                     })
+                                                    .OrderBy(f => f.OptionIndex)
                                                     .ToList(),
                                             })
                                             .OrderBy(y => y.Name)
@@ -586,19 +588,21 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         {
                                             Name = x.Key.ToString(),
                                             AnswersCount = GetAnswersCount(x),
-                                            Series = x.GroupBy(y => y.Name)
+                                            Series = x.GroupBy(g => new { g.Name, g.OptionIndex })
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = isSmiley
-                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
-                                                        : y.Key,
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key.Name)).Value
+                                                        : y.Key.Name,
                                                     DataCount = y.Count(),
+                                                    OptionIndex = y.Key.OptionIndex,
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : isMulti
                                                             ? GetDataPercentage(y.Count(), GetAnswersCount(x))
                                                             : GetDataPercentage(y.Count(), x.Count()),
                                                 })
+                                                .OrderBy(f => f.OptionIndex)
                                                 .ToList(),
                                         }).ToList();
                                 }
@@ -623,17 +627,19 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 AnswersCount = GetAnswersCount(y),
                                                 IsTag = x.Key.IsTag,
                                                 Series = y
-                                                    .GroupBy(g => g.Name)
+                                                    .GroupBy(g => new { g.Name, g.OptionIndex })
                                                     .Select(i => new DashboardViewChartDataSingleModel
                                                     {
                                                         Name = isSmiley
-                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
-                                                            : i.Key,
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name)).Value
+                                                            : i.Key.Name,
+                                                        OptionIndex = i.Key.OptionIndex,
                                                         DataCount = i.Count(),
                                                         Value = isMulti
                                                             ? GetDataPercentage(i.Count(), GetAnswersCount(y))
                                                             : GetDataPercentage(i.Count(), y.Count()),
                                                     })
+                                                    .OrderBy(f => f.OptionIndex)
                                                     .ToList(),
                                             })
                                             // .OrderBy(y => y.Name)
@@ -673,12 +679,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         {
                                             Name = x.Key.ToString(),
                                             AnswersCount = GetAnswersCount(x),
-                                            Series = x.GroupBy(y => y.Name)
+                                            Series = x.GroupBy(g => new { g.Name, g.OptionIndex })
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = isSmiley
-                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
-                                                        : y.Key,
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key.Name)).Value
+                                                        : y.Key.Name,
+                                                    OptionIndex = y.Key.OptionIndex,
                                                     DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
@@ -686,6 +693,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                             ? GetDataPercentage(y.Count(), GetAnswersCount(x))
                                                             : GetDataPercentage(y.Count(), x.Count()),
                                                 })
+                                                .OrderBy(f => f.OptionIndex)
                                                 .ToList(),
                                         }).ToList();
                                 }
@@ -711,17 +719,19 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 AnswersCount = GetAnswersCount(y),
                                                 IsTag = x.Key.IsTag,
                                                 Series = y
-                                                    .GroupBy(g => g.Name)
+                                                    .GroupBy(g => new { g.Name, g.OptionIndex })
                                                     .Select(i => new DashboardViewChartDataSingleModel
                                                     {
                                                         Name = isSmiley
-                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
-                                                            : i.Key,
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name)).Value
+                                                            : i.Key.Name,
                                                         DataCount = i.Count(),
+                                                        OptionIndex = i.Key.OptionIndex,
                                                         Value = isMulti
                                                             ? GetDataPercentage(i.Count(), GetAnswersCount(y))
                                                             : GetDataPercentage(i.Count(), y.Count()),
                                                     })
+                                                    .OrderBy(f => f.OptionIndex)
                                                     .ToList(),
                                             })
                                             .OrderBy(y => y.Name)
@@ -761,19 +771,21 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         {
                                             Name = x.Key,
                                             AnswersCount = GetAnswersCount(x),
-                                            Series = x.GroupBy(y => y.Name)
+                                            Series = x.GroupBy(g => new { g.Name, g.OptionIndex })
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = isSmiley
-                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
-                                                        : y.Key,
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key.Name)).Value
+                                                        : y.Key.Name,
                                                     DataCount = y.Count(),
+                                                    OptionIndex = y.Key.OptionIndex,
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
                                                         : isMulti
                                                             ? GetDataPercentage(y.Count(), GetAnswersCount(x))
                                                             : GetDataPercentage(y.Count(), x.Count()),
                                                 })
+                                                .OrderBy(f => f.OptionIndex)
                                                 .ToList(),
                                         }).ToList();
                                 }
@@ -799,12 +811,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 AnswersCount = GetAnswersCount(y),
                                                 IsTag = x.Key.IsTag,
                                                 Series = y
-                                                    .GroupBy(g => g.Name)
+                                                    .GroupBy(g => new { g.Name, g.OptionIndex })
                                                     .Select(i => new DashboardViewChartDataSingleModel
                                                     {
                                                         Name = isSmiley
-                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
-                                                            : i.Key,
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name)).Value
+                                                            : i.Key.Name,
+                                                        OptionIndex = i.Key.OptionIndex,
                                                         DataCount = i.Count(),
                                                         Value = isMulti
                                                             ? GetDataPercentage(i.Count(), GetAnswersCount(y))
@@ -812,6 +825,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     })
                                                     .OrderByDescending(
                                                         t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ThenBy(f => f.OptionIndex)
                                                     .ToList(),
                                             })
                                             .OrderBy(y => y.Name)
@@ -853,12 +867,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         {
                                             Name = x.Key,
                                             AnswersCount = GetAnswersCount(x),
-                                            Series = x.GroupBy(y => y.Name)
+                                            Series = x.GroupBy(g => new { g.Name, g.OptionIndex })
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = isSmiley
-                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
-                                                        : y.Key,
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key.Name)).Value
+                                                        : y.Key.Name,
+                                                    OptionIndex = y.Key.OptionIndex,
                                                     DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
@@ -866,6 +881,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                             ? GetDataPercentage(y.Count(), GetAnswersCount(x))
                                                             : GetDataPercentage(y.Count(), x.Count()),
                                                 })
+                                                .OrderBy(f => f.OptionIndex)
                                                 .ToList(),
                                         }).ToList();
                                 }
@@ -890,12 +906,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 AnswersCount = GetAnswersCount(y),
                                                 IsTag = x.Key.IsTag,
                                                 Series = y
-                                                    .GroupBy(g => g.Name)
+                                                    .GroupBy(g => new { g.Name, g.OptionIndex })
                                                     .Select(i => new DashboardViewChartDataSingleModel
                                                     {
+                                                        OptionIndex = i.Key.OptionIndex,
                                                         Name = isSmiley
-                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key)).Value
-                                                            : i.Key,
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name)).Value
+                                                            : i.Key.Name,
                                                         DataCount = i.Count(),
                                                         Value = isMulti
                                                             ? GetDataPercentage(i.Count(), GetAnswersCount(y))
@@ -903,6 +920,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     })
                                                     .OrderByDescending(
                                                         t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ThenBy(f => f.OptionIndex)
                                                     .ToList(),
                                             })
                                             .OrderBy(y => y.Name)
@@ -942,12 +960,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         {
                                             Name = x.Key.ToString(),
                                             AnswersCount = GetAnswersCount(x),
-                                            Series = x.GroupBy(y => y.Name)
+                                            Series = x.GroupBy(y => new { y.Name, y.OptionIndex })
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
+                                                    OptionIndex = y.Key.OptionIndex,
                                                     Name = isSmiley
-                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key)).Value
-                                                        : y.Key,
+                                                        ? smileyLabels.Single(z => z.Key == int.Parse(y.Key.Name)).Value
+                                                        : y.Key.Name,
                                                     DataCount = y.Count(),
                                                     Value = dashboardItem.CalculateAverage
                                                         ? GetAverageDataPercentage(y.Average(k => k.Weight))
@@ -955,6 +974,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                             ? GetDataPercentage(y.Count(), GetAnswersCount(x))
                                                             : GetDataPercentage(y.Count(), x.Count()),
                                                 })
+                                                .OrderBy(f => f.OptionIndex)
                                                 .ToList(),
                                         }).ToList();
                                 }
@@ -968,15 +988,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             };
 
                             totalPeriod.Series = data
-                                .GroupBy(x => x.Name)
+                                .GroupBy(g => new { g.Name, g.OptionIndex })
                                 .Select(x => new DashboardViewChartDataSingleModel
                                 {
-                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(x.Key)).Value : x.Key,
+                                    Name = isSmiley ? smileyLabels.Single(z => z.Key == int.Parse(x.Key.Name)).Value : x.Key.Name,
+                                    OptionIndex = x.Key.OptionIndex,
                                     DataCount = x.Count(),
                                     Value = dashboardItem.CalculateAverage
                                         ? GetAverageDataPercentage(x.Average(k => k.Weight))
                                         : GetDataPercentage(x.Count(), data.Count),
                                 })
+                                .OrderBy(f => f.OptionIndex)
                                 .ToList();
                             multiData.Add(totalPeriod);
                             break;
@@ -990,7 +1012,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         {
                             var lineData = new List<DashboardViewChartDataMultiModel>();
                             var newLineData = new List<DashboardViewChartDataMultiModel>();
-                            if (multiData.Count() == 0)
+                            if (!multiData.Any())
                             {
                                 foreach (var line in lines)
                                 {
@@ -1040,10 +1062,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     }
                                 }
 
-                                columnNames.Sort();
-                                lineNames.Sort();
+                                if (dashboardItem.Period != DashboardPeriodUnits.Month)
+                                {
+                                    columnNames.Sort();
+                                }
 
-                                
+                                lineNames.Sort();
 
                                 if (isSmiley)
                                 {
@@ -1226,7 +1250,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 }
                             }
 
-                            columnNames.Sort();
+                            if (dashboardItem.Period != DashboardPeriodUnits.Month)
+                            {
+                                columnNames.Sort();
+                            }
                             lineNames.Sort();
 
                             var newLineData = new List<DashboardViewChartDataMultiModel>();
@@ -1453,11 +1480,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Name = stackedModel.Name,
                                         AnswersCount = stackedModel.AnswersCount,
                                         IsTag = stackedModel.IsTag,
+                                        Series = stackedModel.Series
+                                            .OrderBy(x => x.Name)
+                                            .ToList(),
                                     };
 
-                                    newStackedModel.Series = stackedModel.Series
-                                        .OrderBy(x => x.Name)
-                                        .ToList();
 
                                     newLineData.Add(newStackedModel);
                                 }
@@ -1661,7 +1688,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         private static int GetAverageDataPercentage(double averageValue)
         {
-            var value = Math.Round((decimal)averageValue);
+            var value = Math.Round((decimal)averageValue, 0, MidpointRounding.AwayFromZero);
             return decimal.ToInt32(value);
         }
 
@@ -1675,7 +1702,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static int GetDataPercentage(int subCount, int totalCount)
         {
-            var value = Math.Round(((decimal) subCount * 100) / totalCount, 0);
+            var value = Math.Round(((decimal) subCount * 100) / totalCount, 0, MidpointRounding.AwayFromZero);
             return decimal.ToInt32(value);
         }
     }
