@@ -122,9 +122,9 @@ export class DashboardChartViewComponent {
               [blob.type]: blob
             })
           ]);
-          context.spinnerStatus = false;
+          // context.spinnerStatus = false;
         } catch (e) {
-          context.spinnerStatus = false;
+          // context.spinnerStatus = false;
           console.error(e, e.message);
         }
       })
