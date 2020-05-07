@@ -1688,7 +1688,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         private static int GetAverageDataPercentage(double averageValue)
         {
-            var value = Math.Round((decimal)averageValue);
+            var value = Math.Round((decimal)averageValue, 0, MidpointRounding.AwayFromZero);
             return decimal.ToInt32(value);
         }
 
@@ -1702,7 +1702,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static int GetDataPercentage(int subCount, int totalCount)
         {
-            var value = Math.Round(((decimal) subCount * 100) / totalCount, 0);
+            var value = Math.Round(((decimal) subCount * 100) / totalCount, 0, MidpointRounding.AwayFromZero);
             return decimal.ToInt32(value);
         }
     }

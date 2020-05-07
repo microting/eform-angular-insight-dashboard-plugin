@@ -1,12 +1,12 @@
-<div class="row p-1 mb-4 table-responsive no-gutters scrollable-block"
+<div class="row p-1 mb-4 table-responsive no-gutters scrollable-xy-block"
      *ngFor="let rawData of itemModel.chartData.rawData">
-  <table class="table table-sm table-striped text-right z-depth-1">
+  <table class="table table-sm text-right z-depth-1">
     <thead>
       <tr>
         <th scope="col">
           {{rawData.rawValueName}}
         </th>
-        <th scope="col" *ngFor="let header of rawData.rawHeaders">
+        <th scope="col" *ngFor="let header of rawData.rawHeaders" class="font-bold">
           {{header}}
         </th>
       </tr>
