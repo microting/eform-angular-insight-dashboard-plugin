@@ -1,0 +1,6616 @@
+import {DashboardTestItemEditModel} from '../InsightDashboard-DashboardEdit.page';
+
+export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
+  {
+    firstQuestion: 'Q13',
+    filterQuestion: '',
+    filterAnswer: '',
+    period: 'Uge',
+    chartType: 'Linje',
+    calculateAverage: false,
+    ignoredAnswerIds: []
+  },
+  {
+    firstQuestion: 'Q13',
+    filterQuestion: '',
+    filterAnswer: '',
+    period: 'Uge',
+    chartType: 'Vandret Stablet Søjlediagram',
+    calculateAverage: false,
+    ignoredAnswerIds: []
+  },
+  {
+    firstQuestion: 'Q13',
+    filterQuestion: '',
+    filterAnswer: '',
+    period: 'Uge',
+    chartType: 'Vandret Grupperet Søjlediagram',
+    calculateAverage: false,
+    ignoredAnswerIds: []
+  },
+  {
+    firstQuestion: 'Q13',
+    filterQuestion: '',
+    filterAnswer: '',
+    period: 'Uge',
+    chartType: 'Lodret Stablet Søjlediagram',
+    calculateAverage: false,
+    ignoredAnswerIds: []
+  },
+  {
+    firstQuestion: 'Q13',
+    filterQuestion: '',
+    filterAnswer: '',
+    period: 'Uge',
+    chartType: 'Lodret Grupperet Søjlediagram',
+    calculateAverage: false,
+    ignoredAnswerIds: []
+  }
+];
+
+export const dashboardMultiChartDataJson = {
+  'id': 47,
+  'dashboardName': 'Multi chart',
+  'surveyName': 'Test-Set',
+  'surveyId': 1,
+  'locationName': 'Location 1',
+  'locationId': 1,
+  'tagName': null,
+  'tagId': null,
+  'answerDates': {
+    'dateFrom': '2016-01-01T00:00:00',
+    'dateTo': '2020-05-12T23:59:59',
+    'today': true
+  },
+  'items': [
+    {
+      'id': 104,
+      'firstQuestionName': 'Q13: ...',
+      'firstQuestionType': 'multi',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 13,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 1,
+      'chartType': 1,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 1,
+      'chartData': {
+        'single': [],
+        'multi': [
+          {
+            'id': 0,
+            'name': 'Q13: ..._1',
+            'answersCount': 0,
+            'isTag': false,
+            'series': [
+              {
+                'name': '16-01',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-05',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-09',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-13',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-14',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-18',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-23',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-27',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-31',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-36',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-40',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-45',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-50',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-01',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-02',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-05',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-10',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-15',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-19',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-23',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-24',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-27',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-28',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-33',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-37',
+                'value': 20.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-38',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': 'Q13: ..._2',
+            'answersCount': 0,
+            'isTag': false,
+            'series': [
+              {
+                'name': '16-01',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-05',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-09',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-13',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-14',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-18',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-23',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-27',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-31',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-36',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-40',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-45',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-50',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-01',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-02',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-05',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-10',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-15',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-19',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-23',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-24',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-27',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-28',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-33',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-37',
+                'value': 60.0,
+                'dataCount': 9,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-38',
+                'value': 100.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': 'Q13: ..._3',
+            'answersCount': 0,
+            'isTag': false,
+            'series': [
+              {
+                'name': '16-01',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-05',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-09',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-13',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-14',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-18',
+                'value': 14.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-23',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-27',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-31',
+                'value': 17.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-36',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-40',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-45',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-50',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-01',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-02',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-05',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-10',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-15',
+                'value': 13.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-19',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-23',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-24',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-27',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-28',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-33',
+                'value': 38.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-37',
+                'value': 40.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-38',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': 'Q13: ..._4',
+            'answersCount': 0,
+            'isTag': false,
+            'series': [
+              {
+                'name': '16-01',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-05',
+                'value': 100.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-09',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-13',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-14',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-18',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-23',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-27',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-31',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-36',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-40',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-45',
+                'value': 83.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-50',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-01',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-02',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-05',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-10',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-15',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-19',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-23',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-24',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-27',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-28',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-33',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-37',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-38',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': 'Q13: ..._5',
+            'answersCount': 0,
+            'isTag': false,
+            'series': [
+              {
+                'name': '16-01',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-05',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-09',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-13',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-14',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-18',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-23',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-27',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-31',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-36',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-40',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-45',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '16-50',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-01',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-02',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-05',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-10',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-15',
+                'value': 88.0,
+                'dataCount': 7,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-19',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-23',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-24',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-27',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-28',
+                'value': 0.0,
+                'dataCount': 0,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-33',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-37',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              },
+              {
+                'name': '17-38',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          }
+        ],
+        'multiStacked': [],
+        'rawData': [
+          {
+            'rawValueName': '',
+            'rawHeaders': [
+              '16-01',
+              '16-05',
+              '16-09',
+              '16-13',
+              '16-14',
+              '16-18',
+              '16-23',
+              '16-27',
+              '16-31',
+              '16-36',
+              '16-40',
+              '16-45',
+              '16-50',
+              '17-01',
+              '17-02',
+              '17-05',
+              '17-10',
+              '17-15',
+              '17-19',
+              '17-23',
+              '17-24',
+              '17-27',
+              '17-28',
+              '17-33',
+              '17-37',
+              '17-38'
+            ],
+            'rawDataValues': [
+              {
+                'valueName': 'Q13: ..._1',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  0.0,
+                  75.0,
+                  86.0,
+                  0.0,
+                  50.0,
+                  50.0,
+                  43.0,
+                  50.0,
+                  67.0,
+                  57.0,
+                  100.0,
+                  0.0,
+                  57.0,
+                  57.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  20.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  0.0,
+                  3.0,
+                  6.0,
+                  0.0,
+                  2.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  0.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  3.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._2',
+                'percents': [
+                  100.0,
+                  50.0,
+                  33.0,
+                  100.0,
+                  50.0,
+                  57.0,
+                  25.0,
+                  50.0,
+                  67.0,
+                  86.0,
+                  50.0,
+                  67.0,
+                  29.0,
+                  0.0,
+                  80.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  43.0,
+                  0.0,
+                  57.0,
+                  25.0,
+                  67.0,
+                  50.0,
+                  60.0,
+                  100.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  6.0,
+                  3.0,
+                  4.0,
+                  2.0,
+                  0.0,
+                  4.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  3.0,
+                  0.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  9.0,
+                  5.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._3',
+                'percents': [
+                  33.0,
+                  50.0,
+                  33.0,
+                  100.0,
+                  50.0,
+                  14.0,
+                  100.0,
+                  75.0,
+                  17.0,
+                  71.0,
+                  67.0,
+                  50.0,
+                  43.0,
+                  100.0,
+                  40.0,
+                  29.0,
+                  57.0,
+                  13.0,
+                  43.0,
+                  0.0,
+                  86.0,
+                  25.0,
+                  67.0,
+                  38.0,
+                  40.0,
+                  60.0
+                ],
+                'amounts': [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  2.0,
+                  1.0,
+                  4.0,
+                  3.0,
+                  1.0,
+                  5.0,
+                  4.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  2.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  0.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  6.0,
+                  3.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._4',
+                'percents': [
+                  33.0,
+                  100.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  57.0,
+                  75.0,
+                  50.0,
+                  33.0,
+                  71.0,
+                  50.0,
+                  83.0,
+                  57.0,
+                  0.0,
+                  60.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  57.0,
+                  0.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  1.0,
+                  2.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  5.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  3.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._5',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  0.0,
+                  50.0,
+                  43.0,
+                  25.0,
+                  25.0,
+                  33.0,
+                  43.0,
+                  33.0,
+                  67.0,
+                  57.0,
+                  100.0,
+                  40.0,
+                  29.0,
+                  71.0,
+                  88.0,
+                  43.0,
+                  0.0,
+                  43.0,
+                  100.0,
+                  0.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  0.0,
+                  2.0,
+                  3.0,
+                  1.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  2.0,
+                  5.0,
+                  7.0,
+                  3.0,
+                  0.0,
+                  3.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Total',
+                'percents': [
+                  366.0,
+                  300.0,
+                  233.0,
+                  200.0,
+                  275.0,
+                  257.0,
+                  225.0,
+                  250.0,
+                  200.0,
+                  314.0,
+                  250.0,
+                  334.0,
+                  243.0,
+                  300.0,
+                  220.0,
+                  229.0,
+                  271.0,
+                  277.0,
+                  243.0,
+                  100.0,
+                  272.0,
+                  300.0,
+                  268.0,
+                  163.0,
+                  226.0,
+                  400.0
+                ],
+                'amounts': [
+                  11.0,
+                  6.0,
+                  7.0,
+                  2.0,
+                  11.0,
+                  18.0,
+                  9.0,
+                  10.0,
+                  12.0,
+                  22.0,
+                  15.0,
+                  20.0,
+                  17.0,
+                  3.0,
+                  11.0,
+                  16.0,
+                  19.0,
+                  22.0,
+                  17.0,
+                  1.0,
+                  19.0,
+                  12.0,
+                  8.0,
+                  13.0,
+                  34.0,
+                  20.0
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
+    },
+    {
+      'id': 105,
+      'firstQuestionName': 'Q13: ...',
+      'firstQuestionType': 'multi',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 13,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 1,
+      'chartType': 6,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 2,
+      'chartData': {
+        'single': [],
+        'multi': [
+          {
+            'id': 0,
+            'name': '16-01',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-05',
+            'answersCount': 2,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 100.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-09',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-13',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-14',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-18',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 14.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-23',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-27',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-31',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 17.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-36',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-40',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-45',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 83.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-50',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-01',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-02',
+            'answersCount': 5,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-05',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-10',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-15',
+            'answersCount': 8,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 13.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 88.0,
+                'dataCount': 7,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-19',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-23',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-24',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-27',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-28',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-33',
+            'answersCount': 8,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 38.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-37',
+            'answersCount': 15,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 20.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 60.0,
+                'dataCount': 9,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 40.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-38',
+            'answersCount': 5,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          }
+        ],
+        'multiStacked': [],
+        'rawData': [
+          {
+            'rawValueName': '',
+            'rawHeaders': [
+              '16-01',
+              '16-05',
+              '16-09',
+              '16-13',
+              '16-14',
+              '16-18',
+              '16-23',
+              '16-27',
+              '16-31',
+              '16-36',
+              '16-40',
+              '16-45',
+              '16-50',
+              '17-01',
+              '17-02',
+              '17-05',
+              '17-10',
+              '17-15',
+              '17-19',
+              '17-23',
+              '17-24',
+              '17-27',
+              '17-28',
+              '17-33',
+              '17-37',
+              '17-38'
+            ],
+            'rawDataValues': [
+              {
+                'valueName': 'Q13: ..._1',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  100.0,
+                  75.0,
+                  86.0,
+                  25.0,
+                  50.0,
+                  50.0,
+                  43.0,
+                  50.0,
+                  67.0,
+                  57.0,
+                  100.0,
+                  80.0,
+                  57.0,
+                  57.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  20.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  1.0,
+                  3.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  3.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._2',
+                'percents': [
+                  100.0,
+                  50.0,
+                  33.0,
+                  100.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  50.0,
+                  67.0,
+                  86.0,
+                  50.0,
+                  67.0,
+                  29.0,
+                  100.0,
+                  40.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  43.0,
+                  0.0,
+                  57.0,
+                  25.0,
+                  67.0,
+                  50.0,
+                  60.0,
+                  100.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  2.0,
+                  4.0,
+                  6.0,
+                  3.0,
+                  4.0,
+                  2.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  3.0,
+                  0.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  9.0,
+                  5.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._3',
+                'percents': [
+                  33.0,
+                  50.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  14.0,
+                  75.0,
+                  75.0,
+                  17.0,
+                  71.0,
+                  67.0,
+                  50.0,
+                  43.0,
+                  100.0,
+                  60.0,
+                  29.0,
+                  57.0,
+                  13.0,
+                  43.0,
+                  0.0,
+                  86.0,
+                  25.0,
+                  67.0,
+                  38.0,
+                  40.0,
+                  60.0
+                ],
+                'amounts': [
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  5.0,
+                  4.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  0.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  6.0,
+                  3.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._4',
+                'percents': [
+                  33.0,
+                  100.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  57.0,
+                  25.0,
+                  50.0,
+                  33.0,
+                  71.0,
+                  50.0,
+                  83.0,
+                  57.0,
+                  0.0,
+                  40.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  57.0,
+                  0.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  1.0,
+                  2.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  2.0,
+                  5.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._5',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  0.0,
+                  50.0,
+                  43.0,
+                  0.0,
+                  25.0,
+                  33.0,
+                  43.0,
+                  33.0,
+                  67.0,
+                  57.0,
+                  0.0,
+                  0.0,
+                  29.0,
+                  71.0,
+                  88.0,
+                  43.0,
+                  0.0,
+                  43.0,
+                  100.0,
+                  0.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  0.0,
+                  2.0,
+                  3.0,
+                  0.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  5.0,
+                  7.0,
+                  3.0,
+                  0.0,
+                  3.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Total',
+                'percents': [
+                  366.0,
+                  300.0,
+                  233.0,
+                  200.0,
+                  275.0,
+                  257.0,
+                  225.0,
+                  250.0,
+                  200.0,
+                  314.0,
+                  250.0,
+                  334.0,
+                  243.0,
+                  300.0,
+                  220.0,
+                  229.0,
+                  271.0,
+                  277.0,
+                  243.0,
+                  100.0,
+                  272.0,
+                  300.0,
+                  268.0,
+                  163.0,
+                  226.0,
+                  400.0
+                ],
+                'amounts': [
+                  3.0,
+                  2.0,
+                  3.0,
+                  1.0,
+                  4.0,
+                  7.0,
+                  4.0,
+                  4.0,
+                  6.0,
+                  7.0,
+                  6.0,
+                  6.0,
+                  7.0,
+                  1.0,
+                  5.0,
+                  7.0,
+                  7.0,
+                  8.0,
+                  7.0,
+                  1.0,
+                  7.0,
+                  4.0,
+                  3.0,
+                  8.0,
+                  15.0,
+                  5.0
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
+    },
+    {
+      'id': 106,
+      'firstQuestionName': 'Q13: ...',
+      'firstQuestionType': 'multi',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 13,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 1,
+      'chartType': 7,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 3,
+      'chartData': {
+        'single': [],
+        'multi': [
+          {
+            'id': 0,
+            'name': '16-01',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-05',
+            'answersCount': 2,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 100.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-09',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-13',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-14',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-18',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 14.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-23',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-27',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-31',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 17.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-36',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-40',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-45',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 83.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-50',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-01',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-02',
+            'answersCount': 5,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-05',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-10',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-15',
+            'answersCount': 8,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 13.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 88.0,
+                'dataCount': 7,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-19',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-23',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-24',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-27',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-28',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-33',
+            'answersCount': 8,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 38.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-37',
+            'answersCount': 15,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 20.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 60.0,
+                'dataCount': 9,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 40.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-38',
+            'answersCount': 5,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          }
+        ],
+        'multiStacked': [],
+        'rawData': [
+          {
+            'rawValueName': '',
+            'rawHeaders': [
+              '16-01',
+              '16-05',
+              '16-09',
+              '16-13',
+              '16-14',
+              '16-18',
+              '16-23',
+              '16-27',
+              '16-31',
+              '16-36',
+              '16-40',
+              '16-45',
+              '16-50',
+              '17-01',
+              '17-02',
+              '17-05',
+              '17-10',
+              '17-15',
+              '17-19',
+              '17-23',
+              '17-24',
+              '17-27',
+              '17-28',
+              '17-33',
+              '17-37',
+              '17-38'
+            ],
+            'rawDataValues': [
+              {
+                'valueName': 'Q13: ..._1',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  100.0,
+                  75.0,
+                  86.0,
+                  25.0,
+                  50.0,
+                  50.0,
+                  43.0,
+                  50.0,
+                  67.0,
+                  57.0,
+                  100.0,
+                  80.0,
+                  57.0,
+                  57.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  20.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  1.0,
+                  3.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  3.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._2',
+                'percents': [
+                  100.0,
+                  50.0,
+                  33.0,
+                  100.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  50.0,
+                  67.0,
+                  86.0,
+                  50.0,
+                  67.0,
+                  29.0,
+                  100.0,
+                  40.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  43.0,
+                  0.0,
+                  57.0,
+                  25.0,
+                  67.0,
+                  50.0,
+                  60.0,
+                  100.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  2.0,
+                  4.0,
+                  6.0,
+                  3.0,
+                  4.0,
+                  2.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  3.0,
+                  0.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  9.0,
+                  5.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._3',
+                'percents': [
+                  33.0,
+                  50.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  14.0,
+                  75.0,
+                  75.0,
+                  17.0,
+                  71.0,
+                  67.0,
+                  50.0,
+                  43.0,
+                  100.0,
+                  60.0,
+                  29.0,
+                  57.0,
+                  13.0,
+                  43.0,
+                  0.0,
+                  86.0,
+                  25.0,
+                  67.0,
+                  38.0,
+                  40.0,
+                  60.0
+                ],
+                'amounts': [
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  5.0,
+                  4.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  0.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  6.0,
+                  3.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._4',
+                'percents': [
+                  33.0,
+                  100.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  57.0,
+                  25.0,
+                  50.0,
+                  33.0,
+                  71.0,
+                  50.0,
+                  83.0,
+                  57.0,
+                  0.0,
+                  40.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  57.0,
+                  0.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  1.0,
+                  2.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  2.0,
+                  5.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._5',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  0.0,
+                  50.0,
+                  43.0,
+                  0.0,
+                  25.0,
+                  33.0,
+                  43.0,
+                  33.0,
+                  67.0,
+                  57.0,
+                  0.0,
+                  0.0,
+                  29.0,
+                  71.0,
+                  88.0,
+                  43.0,
+                  0.0,
+                  43.0,
+                  100.0,
+                  0.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  0.0,
+                  2.0,
+                  3.0,
+                  0.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  5.0,
+                  7.0,
+                  3.0,
+                  0.0,
+                  3.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Total',
+                'percents': [
+                  366.0,
+                  300.0,
+                  233.0,
+                  200.0,
+                  275.0,
+                  257.0,
+                  225.0,
+                  250.0,
+                  200.0,
+                  314.0,
+                  250.0,
+                  334.0,
+                  243.0,
+                  300.0,
+                  220.0,
+                  229.0,
+                  271.0,
+                  277.0,
+                  243.0,
+                  100.0,
+                  272.0,
+                  300.0,
+                  268.0,
+                  163.0,
+                  226.0,
+                  400.0
+                ],
+                'amounts': [
+                  3.0,
+                  2.0,
+                  3.0,
+                  1.0,
+                  4.0,
+                  7.0,
+                  4.0,
+                  4.0,
+                  6.0,
+                  7.0,
+                  6.0,
+                  6.0,
+                  7.0,
+                  1.0,
+                  5.0,
+                  7.0,
+                  7.0,
+                  8.0,
+                  7.0,
+                  1.0,
+                  7.0,
+                  4.0,
+                  3.0,
+                  8.0,
+                  15.0,
+                  5.0
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
+    },
+    {
+      'id': 107,
+      'firstQuestionName': 'Q13: ...',
+      'firstQuestionType': 'multi',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 13,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 1,
+      'chartType': 9,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 4,
+      'chartData': {
+        'single': [],
+        'multi': [
+          {
+            'id': 0,
+            'name': '16-01',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-05',
+            'answersCount': 2,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 100.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-09',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-13',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-14',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-18',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 14.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-23',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-27',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-31',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 17.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-36',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-40',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-45',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 83.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-50',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-01',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-02',
+            'answersCount': 5,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-05',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-10',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-15',
+            'answersCount': 8,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 13.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 88.0,
+                'dataCount': 7,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-19',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-23',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-24',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-27',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-28',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-33',
+            'answersCount': 8,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 38.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-37',
+            'answersCount': 15,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 20.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 60.0,
+                'dataCount': 9,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 40.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-38',
+            'answersCount': 5,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          }
+        ],
+        'multiStacked': [],
+        'rawData': [
+          {
+            'rawValueName': '',
+            'rawHeaders': [
+              '16-01',
+              '16-05',
+              '16-09',
+              '16-13',
+              '16-14',
+              '16-18',
+              '16-23',
+              '16-27',
+              '16-31',
+              '16-36',
+              '16-40',
+              '16-45',
+              '16-50',
+              '17-01',
+              '17-02',
+              '17-05',
+              '17-10',
+              '17-15',
+              '17-19',
+              '17-23',
+              '17-24',
+              '17-27',
+              '17-28',
+              '17-33',
+              '17-37',
+              '17-38'
+            ],
+            'rawDataValues': [
+              {
+                'valueName': 'Q13: ..._1',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  100.0,
+                  75.0,
+                  86.0,
+                  25.0,
+                  50.0,
+                  50.0,
+                  43.0,
+                  50.0,
+                  67.0,
+                  57.0,
+                  100.0,
+                  80.0,
+                  57.0,
+                  57.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  20.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  1.0,
+                  3.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  3.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._2',
+                'percents': [
+                  100.0,
+                  50.0,
+                  33.0,
+                  100.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  50.0,
+                  67.0,
+                  86.0,
+                  50.0,
+                  67.0,
+                  29.0,
+                  100.0,
+                  40.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  43.0,
+                  0.0,
+                  57.0,
+                  25.0,
+                  67.0,
+                  50.0,
+                  60.0,
+                  100.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  2.0,
+                  4.0,
+                  6.0,
+                  3.0,
+                  4.0,
+                  2.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  3.0,
+                  0.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  9.0,
+                  5.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._3',
+                'percents': [
+                  33.0,
+                  50.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  14.0,
+                  75.0,
+                  75.0,
+                  17.0,
+                  71.0,
+                  67.0,
+                  50.0,
+                  43.0,
+                  100.0,
+                  60.0,
+                  29.0,
+                  57.0,
+                  13.0,
+                  43.0,
+                  0.0,
+                  86.0,
+                  25.0,
+                  67.0,
+                  38.0,
+                  40.0,
+                  60.0
+                ],
+                'amounts': [
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  5.0,
+                  4.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  0.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  6.0,
+                  3.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._4',
+                'percents': [
+                  33.0,
+                  100.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  57.0,
+                  25.0,
+                  50.0,
+                  33.0,
+                  71.0,
+                  50.0,
+                  83.0,
+                  57.0,
+                  0.0,
+                  40.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  57.0,
+                  0.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  1.0,
+                  2.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  2.0,
+                  5.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._5',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  0.0,
+                  50.0,
+                  43.0,
+                  0.0,
+                  25.0,
+                  33.0,
+                  43.0,
+                  33.0,
+                  67.0,
+                  57.0,
+                  0.0,
+                  0.0,
+                  29.0,
+                  71.0,
+                  88.0,
+                  43.0,
+                  0.0,
+                  43.0,
+                  100.0,
+                  0.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  0.0,
+                  2.0,
+                  3.0,
+                  0.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  5.0,
+                  7.0,
+                  3.0,
+                  0.0,
+                  3.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Total',
+                'percents': [
+                  366.0,
+                  300.0,
+                  233.0,
+                  200.0,
+                  275.0,
+                  257.0,
+                  225.0,
+                  250.0,
+                  200.0,
+                  314.0,
+                  250.0,
+                  334.0,
+                  243.0,
+                  300.0,
+                  220.0,
+                  229.0,
+                  271.0,
+                  277.0,
+                  243.0,
+                  100.0,
+                  272.0,
+                  300.0,
+                  268.0,
+                  163.0,
+                  226.0,
+                  400.0
+                ],
+                'amounts': [
+                  3.0,
+                  2.0,
+                  3.0,
+                  1.0,
+                  4.0,
+                  7.0,
+                  4.0,
+                  4.0,
+                  6.0,
+                  7.0,
+                  6.0,
+                  6.0,
+                  7.0,
+                  1.0,
+                  5.0,
+                  7.0,
+                  7.0,
+                  8.0,
+                  7.0,
+                  1.0,
+                  7.0,
+                  4.0,
+                  3.0,
+                  8.0,
+                  15.0,
+                  5.0
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
+    },
+    {
+      'id': 108,
+      'firstQuestionName': 'Q13: ...',
+      'firstQuestionType': 'multi',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 13,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 1,
+      'chartType': 10,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 5,
+      'chartData': {
+        'single': [],
+        'multi': [
+          {
+            'id': 0,
+            'name': '16-01',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-05',
+            'answersCount': 2,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 100.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 50.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-09',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-13',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-14',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-18',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 14.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-23',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-27',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-31',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 17.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-36',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-40',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 33.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-45',
+            'answersCount': 6,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 50.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 83.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 67.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '16-50',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-01',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-02',
+            'answersCount': 5,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._2',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 40.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-05',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 29.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-10',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 71.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-15',
+            'answersCount': 8,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 13.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 63.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 88.0,
+                'dataCount': 7,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-19',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-23',
+            'answersCount': 1,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 100.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-24',
+            'answersCount': 7,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 57.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 86.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 43.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-27',
+            'answersCount': 4,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 25.0,
+                'dataCount': 1,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 75.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 100.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-28',
+            'answersCount': 3,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 67.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-33',
+            'answersCount': 8,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 50.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 38.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 25.0,
+                'dataCount': 2,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-37',
+            'answersCount': 15,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 20.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 60.0,
+                'dataCount': 9,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 40.0,
+                'dataCount': 6,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 53.0,
+                'dataCount': 8,
+                'optionIndex': 0
+              }
+            ]
+          },
+          {
+            'id': 0,
+            'name': '17-38',
+            'answersCount': 5,
+            'isTag': false,
+            'series': [
+              {
+                'name': 'Q13: ..._1',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._2',
+                'value': 100.0,
+                'dataCount': 5,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._3',
+                'value': 60.0,
+                'dataCount': 3,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._4',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              },
+              {
+                'name': 'Q13: ..._5',
+                'value': 80.0,
+                'dataCount': 4,
+                'optionIndex': 0
+              }
+            ]
+          }
+        ],
+        'multiStacked': [],
+        'rawData': [
+          {
+            'rawValueName': '',
+            'rawHeaders': [
+              '16-01',
+              '16-05',
+              '16-09',
+              '16-13',
+              '16-14',
+              '16-18',
+              '16-23',
+              '16-27',
+              '16-31',
+              '16-36',
+              '16-40',
+              '16-45',
+              '16-50',
+              '17-01',
+              '17-02',
+              '17-05',
+              '17-10',
+              '17-15',
+              '17-19',
+              '17-23',
+              '17-24',
+              '17-27',
+              '17-28',
+              '17-33',
+              '17-37',
+              '17-38'
+            ],
+            'rawDataValues': [
+              {
+                'valueName': 'Q13: ..._1',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  100.0,
+                  75.0,
+                  86.0,
+                  25.0,
+                  50.0,
+                  50.0,
+                  43.0,
+                  50.0,
+                  67.0,
+                  57.0,
+                  100.0,
+                  80.0,
+                  57.0,
+                  57.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  20.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  1.0,
+                  3.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  3.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._2',
+                'percents': [
+                  100.0,
+                  50.0,
+                  33.0,
+                  100.0,
+                  50.0,
+                  57.0,
+                  100.0,
+                  50.0,
+                  67.0,
+                  86.0,
+                  50.0,
+                  67.0,
+                  29.0,
+                  100.0,
+                  40.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  43.0,
+                  0.0,
+                  57.0,
+                  25.0,
+                  67.0,
+                  50.0,
+                  60.0,
+                  100.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  2.0,
+                  4.0,
+                  6.0,
+                  3.0,
+                  4.0,
+                  2.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  3.0,
+                  0.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  4.0,
+                  9.0,
+                  5.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._3',
+                'percents': [
+                  33.0,
+                  50.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  14.0,
+                  75.0,
+                  75.0,
+                  17.0,
+                  71.0,
+                  67.0,
+                  50.0,
+                  43.0,
+                  100.0,
+                  60.0,
+                  29.0,
+                  57.0,
+                  13.0,
+                  43.0,
+                  0.0,
+                  86.0,
+                  25.0,
+                  67.0,
+                  38.0,
+                  40.0,
+                  60.0
+                ],
+                'amounts': [
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  1.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  5.0,
+                  4.0,
+                  3.0,
+                  3.0,
+                  1.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  3.0,
+                  0.0,
+                  6.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  6.0,
+                  3.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._4',
+                'percents': [
+                  33.0,
+                  100.0,
+                  33.0,
+                  0.0,
+                  50.0,
+                  57.0,
+                  25.0,
+                  50.0,
+                  33.0,
+                  71.0,
+                  50.0,
+                  83.0,
+                  57.0,
+                  0.0,
+                  40.0,
+                  57.0,
+                  43.0,
+                  63.0,
+                  57.0,
+                  0.0,
+                  43.0,
+                  75.0,
+                  67.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  1.0,
+                  2.0,
+                  1.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  1.0,
+                  2.0,
+                  2.0,
+                  5.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  4.0,
+                  3.0,
+                  5.0,
+                  4.0,
+                  0.0,
+                  3.0,
+                  3.0,
+                  2.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Q13: ..._5',
+                'percents': [
+                  100.0,
+                  50.0,
+                  67.0,
+                  0.0,
+                  50.0,
+                  43.0,
+                  0.0,
+                  25.0,
+                  33.0,
+                  43.0,
+                  33.0,
+                  67.0,
+                  57.0,
+                  0.0,
+                  0.0,
+                  29.0,
+                  71.0,
+                  88.0,
+                  43.0,
+                  0.0,
+                  43.0,
+                  100.0,
+                  0.0,
+                  25.0,
+                  53.0,
+                  80.0
+                ],
+                'amounts': [
+                  3.0,
+                  1.0,
+                  2.0,
+                  0.0,
+                  2.0,
+                  3.0,
+                  0.0,
+                  1.0,
+                  2.0,
+                  3.0,
+                  2.0,
+                  4.0,
+                  4.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  5.0,
+                  7.0,
+                  3.0,
+                  0.0,
+                  3.0,
+                  4.0,
+                  0.0,
+                  2.0,
+                  8.0,
+                  4.0
+                ]
+              },
+              {
+                'valueName': 'Total',
+                'percents': [
+                  366.0,
+                  300.0,
+                  233.0,
+                  200.0,
+                  275.0,
+                  257.0,
+                  225.0,
+                  250.0,
+                  200.0,
+                  314.0,
+                  250.0,
+                  334.0,
+                  243.0,
+                  300.0,
+                  220.0,
+                  229.0,
+                  271.0,
+                  277.0,
+                  243.0,
+                  100.0,
+                  272.0,
+                  300.0,
+                  268.0,
+                  163.0,
+                  226.0,
+                  400.0
+                ],
+                'amounts': [
+                  3.0,
+                  2.0,
+                  3.0,
+                  1.0,
+                  4.0,
+                  7.0,
+                  4.0,
+                  4.0,
+                  6.0,
+                  7.0,
+                  6.0,
+                  6.0,
+                  7.0,
+                  1.0,
+                  5.0,
+                  7.0,
+                  7.0,
+                  8.0,
+                  7.0,
+                  1.0,
+                  7.0,
+                  4.0,
+                  3.0,
+                  8.0,
+                  15.0,
+                  5.0
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
+    }
+  ]
+};

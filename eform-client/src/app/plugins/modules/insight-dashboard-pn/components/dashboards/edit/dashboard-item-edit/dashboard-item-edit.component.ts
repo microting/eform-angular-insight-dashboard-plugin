@@ -108,19 +108,27 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   loadAnswers(isFilter: boolean) {
-    this.loadAnswersSub$ = this.dictionariesService.getFilterAnswers({
-      filterQuestionId: isFilter ? this.dashboardItem.filterQuestionId : this.dashboardItem.firstQuestionId
-    })
-      .subscribe((data) => {
-        if (data && data.success) {
-          if (isFilter) {
+    if (isFilter && this.dashboardItem.filterQuestionId) {
+      this.loadAnswersSub$ = this.dictionariesService.getFilterAnswers({
+        filterQuestionId: this.dashboardItem.filterQuestionId
+      })
+        .subscribe((data) => {
+          if (data && data.success) {
             this.filterAnswers = data.model;
-          } else {
+          }
+        });
+    } else if (this.dashboardItem.firstQuestionId) {
+      this.loadAnswersSub$ = this.dictionariesService.getFilterAnswers({
+        filterQuestionId: this.dashboardItem.firstQuestionId
+      })
+        .subscribe((data) => {
+          if (data && data.success) {
             this.questionAnswers = data.model;
           }
-        }
-      });
+        });
+    }
   }
+
 
   ngOnDestroy(): void {
   }

@@ -96,7 +96,7 @@
                          [checked]="dashboardItem.calculateAverage"
                          (click)="fieldChanged($event.target.checked, itemFields.calculateAverage)"
                          [value]="dashboardItem.calculateAverage">
-                  <label for="calcAverageCheckbox{{dashboardItem.position}}"
+                  <label for="calcAverageCheckbox{{dashboardItem.position}}" id="calculateAverageCheckbox{{dashboardItem.position}}"
                          [ngClass]="{'text-muted' : dashboardItem.firstQuestionType !== questionTypes.Smiley}">
                     {{'Calculate average' | translate}}
                   </label>
@@ -116,14 +116,15 @@
                 <div class="row ml-1 mb-3">
                   {{'Select answer values to ignore in calculation'  | translate}}
                 </div>
-                <div class="scrollable-block">
+                <div class="scrollable-block" id="ignoredAnswers{{dashboardItem.position}}">
                   <div class="row ml-2 mb-2" *ngFor="let answer of questionAnswers">
                     <div class="mat-checkbox mb-1">
-                      <input id="answerIgnoreCheckbox{{answer.id}}_{{dashboardItem.position}}" type="checkbox"
+                      <input id="ignoreCheckbox{{answer.id}}_{{dashboardItem.position}}" type="checkbox"
                              [checked]="isAnswerIgnored(answer.id)"
                              (change)="addToArrayIgnoredValues($event, answer.id)"
                              [value]="isAnswerIgnored(answer.id)">
-                      <label for="answerIgnoreCheckbox{{answer.id}}_{{dashboardItem.position}}">
+                      <label for="ignoreCheckbox{{answer.id}}_{{dashboardItem.position}}"
+                             id="answerIgnoreCheckbox{{answer.id}}_{{dashboardItem.position}}">
                         {{answer.name}}
                       </label>
                     </div>

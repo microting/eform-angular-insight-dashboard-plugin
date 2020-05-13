@@ -79,12 +79,12 @@ export class InsightDashboardDashboardsPage extends Page {
     return $('#dashboardCopySaveCancelBtn');
   }
 
-  createDashboard() {
+  createDashboard(name: string = 'NewDashboard') {
     this.dashboardCreateBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     this.dashboardName.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardName.addValue(dashboardName);
+    this.dashboardName.addValue(name);
     // Select survey
     const surveySearchField = dashboardsPage.getSurveysSearchField();
     surveySearchField.addValue(configName);

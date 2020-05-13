@@ -1,22 +1,24 @@
-<div class="row p-1 mb-4 table-responsive no-gutters scrollable-xy-block"
+<div class="row p-1 mb-4 table-responsive no-gutters scrollable-xy-block" id="dashboardViewChartData{{itemModel.position - 1}}"
      *ngFor="let rawData of itemModel.chartData.rawData">
   <table class="table table-sm text-right z-depth-1">
-    <thead>
+    <thead id="dataViewTableHeader">
       <tr>
         <th scope="col">
           {{rawData.rawValueName}}
         </th>
-        <th scope="col" *ngFor="let header of rawData.rawHeaders" class="font-bold">
+        <th scope="col" id="dataViewRawHeader"
+            *ngFor="let header of rawData.rawHeaders; let i = index;" class="font-bold">
           {{header}}
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dataValues of rawData.rawDataValues; let last = last;">
-        <td [ngClass]="{'font-bold': last}">
+      <tr *ngFor="let dataValues of rawData.rawDataValues; let last = last; let i = index;" id="dataViewPercent">
+        <td [ngClass]="{'font-bold': last}" id="dataViewValuePercentName">
           {{dataValues.valueName}}
         </td>
-        <td *ngFor="let value of dataValues.percents" [ngClass]="{'font-bold': last}">
+        <td *ngFor="let value of dataValues.percents; let t = index" [ngClass]="{'font-bold': last}"
+            id="dataViewPercentValue">
           <ng-container *ngIf="itemModel.calculateAverage">
             {{value}}
           </ng-container>
@@ -29,11 +31,12 @@
         <td></td>
         <td *ngFor="let header of rawData.rawHeaders"></td>
       </tr>
-      <tr *ngFor="let dataValues of rawData.rawDataValues; let last = last;">
-        <td [ngClass]="{'font-bold': last}">
+      <tr *ngFor="let dataValues of rawData.rawDataValues; let last = last; let i = index" id="dataViewAmount">
+        <td [ngClass]="{'font-bold': last}" id="dataViewValueAmountName{{i}}">
           {{dataValues.valueName}}
         </td>
-        <td *ngFor="let value of dataValues.amounts" [ngClass]="{'font-bold': last}">
+        <td *ngFor="let value of dataValues.amounts; let t = index"
+            [ngClass]="{'font-bold': last}" id="dataViewAmountValue">
           {{value}}
         </td>
       </tr>
