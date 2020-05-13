@@ -1,11 +1,6 @@
 import Page from '../Page';
 import dashboardsPage, {configName} from './InsightDashboard-Dashboards.page';
 
-export const firstQuestion = 'Q2';
-export const filterQuestion = 'Q3';
-export const filterAnswer = 'Meget glad';
-export const period = 'Måned';
-export const chartType = 'Linje';
 export const locationName = 'Location 1';
 
 export class InsightDashboardDashboardEditPage extends Page {
@@ -44,7 +39,7 @@ export class InsightDashboardDashboardEditPage extends Page {
 
   public firstQuestionSearchField(rowNum: number) {
     const ele = $(`#editFirstQuestion${rowNum} .ng-input > input`);
-    ele.waitForDisplayed({timeout:20000});
+    ele.waitForDisplayed({timeout: 20000});
     return ele;
   }
 
@@ -78,6 +73,18 @@ export class InsightDashboardDashboardEditPage extends Page {
 
   public period(rowNum: number) {
     return $(`#editPeriod${rowNum}`);
+  }
+
+  public calculateAverageCheckbox(rowNum: number) {
+    return $(`#calculateAverageCheckbox${rowNum}`);
+  }
+
+  public enableIgnoreCheckbox(rowNum: number) {
+    return $(`#enableIgnoreCheckbox${rowNum}`);
+  }
+
+  public answerIgnoreCheckbox(rowNum: number, ignoredAnswerId: number) {
+    return $(`#answerIgnoreCheckbox${ignoredAnswerId}_${rowNum}`);
   }
 
   public periodSearchField(rowNum: number) {
@@ -115,15 +122,16 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   selectFirstLocation() {
-
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});    const locationSearchField = this.getLocationTagSearchField();
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    const locationSearchField = this.getLocationTagSearchField();
     locationSearchField.addValue(locationName);
     const locationListChoices = this.getLocationTagListOfChoices();
     const locationChoice = locationListChoices[0];
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     locationChoice.click();
 
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});  }
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  }
 
   createFirstItem() {
     this.selectFirstLocation();
@@ -131,67 +139,94 @@ export class InsightDashboardDashboardEditPage extends Page {
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  createItem(rowObject: DashboardsEditItemObject) {
+  createItem(rowObject: InsightDashboardEditRowObject) {
     rowObject.itemCreateBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  deleteItem(rowObject: DashboardsEditItemObject) {
+  deleteItem(rowObject: InsightDashboardEditRowObject) {
     rowObject.itemDeleteBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  copyItem(rowObject: DashboardsEditItemObject) {
+  copyItem(rowObject: InsightDashboardEditRowObject) {
     rowObject.itemCopyBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  fillItem(rowNum: number) {
+  fillItem(rowNum: number, itemObject: DashboardTestItemEditModel) {
     // Select first question
-    this.firstQuestionSearchField(rowNum).addValue(firstQuestion);
+    this.firstQuestionSearchField(rowNum).addValue(itemObject.firstQuestion);
     const firstQuestionChoice = this.firstQuestionListOfOptions(rowNum)[0];
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     firstQuestionChoice.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     // Select filter question
-    this.filterQuestionSearchField(rowNum).addValue(filterQuestion);
-    const filterQuestionChoice = this.filterQuestionListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    filterQuestionChoice.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    if (itemObject.filterQuestion) {
+      this.filterQuestionSearchField(rowNum).addValue(itemObject.filterQuestion);
+      const filterQuestionChoice = this.filterQuestionListOfOptions(rowNum)[0];
+      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+      filterQuestionChoice.click();
+      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    }
+
     // Select filter answer
-    this.filterAnswerSearchField(rowNum).addValue(filterAnswer);
-    const filterAnswerChoice = this.filterAnswerListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    filterAnswerChoice.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    if (itemObject.filterAnswer) {
+      this.filterAnswerSearchField(rowNum).addValue(itemObject.filterAnswer);
+      const filterAnswerChoice = this.filterAnswerListOfOptions(rowNum)[0];
+      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+      filterAnswerChoice.click();
+      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    }
+
     // Select period
-    this.periodSearchField(rowNum).addValue(period);
-    const periodChoice = this.periodListOfOptions(rowNum)[0];
+    this.periodSearchField(rowNum).addValue(itemObject.period);
+    const periodChoice = itemObject.period === 'År' ? this.periodListOfOptions(rowNum)[1] : this.periodListOfOptions(rowNum)[0];
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     periodChoice.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+
+    // Select calculate average
+    if (itemObject.calculateAverage) {
+      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+      this.calculateAverageCheckbox(rowNum).click();
+    }
+
+    // Ignored answers
+    for (const ignoredAnswerId of itemObject.ignoredAnswerIds) {
+      this.answerIgnoreCheckbox(rowNum, ignoredAnswerId).click();
+    }
+
     // Select chart type
-    this.chartTypeSearchField(rowNum).addValue(chartType);
+    this.chartTypeSearchField(rowNum).addValue(itemObject.chartType);
+    browser.pause(2000);
     const chartTypeChoice = this.chartTypeListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     chartTypeChoice.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  getFirstItemObject(): DashboardsEditItemObject {
-    return new DashboardsEditItemObject(1);
+  generateItems(itemsArray: DashboardTestItemEditModel[]) {
+    this.createFirstItem();
+    for (let i = 0; i < itemsArray.length; i++) {
+      this.fillItem(i + 1, itemsArray[i]);
+      if (i < itemsArray.length - 1) {
+        this.createItem(this.getDashboardItem(i + 1));
+      }
+    }
   }
 
-  getDashboardItem(num): DashboardsEditItemObject {
-    return new DashboardsEditItemObject(num);
+  getFirstItemObject(): InsightDashboardEditRowObject {
+    return new InsightDashboardEditRowObject(1);
+  }
+
+  getDashboardItem(num): InsightDashboardEditRowObject {
+    return new InsightDashboardEditRowObject(num);
   }
 }
 
 const dashboardsEditPage = new InsightDashboardDashboardEditPage();
 export default dashboardsEditPage;
 
-export class DashboardsEditItemObject {
+export class InsightDashboardEditRowObject {
   constructor(rowNum) {
     this.firstQuestion = $$('#editFirstQuestion')[rowNum - 1];
     this.firstQuestionSearchField = $$('#editFirstQuestion .ng-input > input')[rowNum - 1];
@@ -208,6 +243,8 @@ export class DashboardsEditItemObject {
     this.period = $$('#editPeriod')[rowNum - 1];
     this.periodSearchField = $$('#editPeriod .ng-input > input')[rowNum - 1];
     this.periodListOfOptions = $$('#editPeriod .ng-option')[rowNum - 1];
+
+    this.calcAverageCheckbox = $$('#calcAverageCheckbox')[rowNum - 1];
 
     this.chartType = $$('#editChartType')[rowNum - 1];
     this.chartTypeSearchField = $$('#editChartType .ng-input > input')[rowNum - 1];
@@ -230,10 +267,21 @@ export class DashboardsEditItemObject {
   public period;
   public periodSearchField;
   public periodListOfOptions;
+  public calcAverageCheckbox;
   public chartType;
   public chartTypeSearchField;
   public chartTypeListOfOptions;
   public itemCreateBtn;
   public itemDeleteBtn;
   public itemCopyBtn;
+}
+
+export interface DashboardTestItemEditModel {
+  firstQuestion: string;
+  filterQuestion: string;
+  filterAnswer: string;
+  period: string;
+  chartType: string;
+  calculateAverage: boolean;
+  ignoredAnswerIds: number[];
 }

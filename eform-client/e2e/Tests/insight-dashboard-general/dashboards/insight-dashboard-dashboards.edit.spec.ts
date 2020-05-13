@@ -2,8 +2,18 @@ import {expect} from 'chai';
 import loginPage from '../../../Page objects/Login.page';
 import insightDashboardPage from '../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
-import dashboardEditPage from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
+import dashboardEditPage, {DashboardTestItemEditModel} from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
+
+const testItem: DashboardTestItemEditModel = {
+  firstQuestion: 'Q2',
+  filterQuestion: 'Q3',
+  filterAnswer: 'Meget glad',
+  period: 'Måned',
+  chartType: 'Linje',
+  calculateAverage: false,
+  ignoredAnswerIds: []
+};
 
 describe('InSight Dashboard - Dashboards - Edit', function () {
   before(function () {
@@ -47,7 +57,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     dashboardsPage.createDashboard();
     const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
     dashboardEditPage.createFirstItem();
-    dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1);
+    dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1, testItem);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     dashboardsViewPage.returnToDashboards.click();
