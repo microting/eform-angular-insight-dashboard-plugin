@@ -33,7 +33,6 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   localPageSettings: PageSettingsModel = new PageSettingsModel();
   surveyConfigurationsRequestModel: SurveyConfigsRequestModel = new SurveyConfigsRequestModel();
   availableSurveys: CommonDictionaryModel[] = [];
-  spinnerStatus = false;
   locations: CommonDictionaryModel[] = [];
   searchSubject = new Subject();
   getSurveyConfigsSub$: Subscription;
@@ -63,7 +62,6 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   getSurveyConfigsList() {
-    this.spinnerStatus = true;
     this.surveyConfigurationsRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
     this.surveyConfigurationsRequestModel.sort = this.localPageSettings.sort;
     this.surveyConfigurationsRequestModel.pageSize = this.localPageSettings.pageSize;
@@ -73,18 +71,15 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
         if (data && data.success) {
           this.surveyConfigurationsListModel = data.model;
         }
-        this.spinnerStatus = false;
       });
   }
 
   getSurveys() {
-    this.spinnerStatus = true;
     this.getSurveysSub$ = this.dictionariesService.getSurveys()
       .subscribe((data) => {
         if (data && data.success) {
           this.availableSurveys = data.model;
         }
-        this.spinnerStatus = false;
       });
   }
 

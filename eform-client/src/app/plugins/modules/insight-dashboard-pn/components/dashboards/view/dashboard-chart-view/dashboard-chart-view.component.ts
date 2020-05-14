@@ -88,7 +88,6 @@ export class DashboardChartViewComponent {
       value: '#0099CC '
     }
   ];
-  spinnerStatus = false;
 
   constructor() {
     Object.assign(this, {line});
@@ -97,7 +96,6 @@ export class DashboardChartViewComponent {
   }
 
   copyChart() {
-    this.spinnerStatus = true;
     const context = this;
     const scale = 2;
     const node = document.getElementById(`copyableChart${this.chartPosition}`);
@@ -124,9 +122,9 @@ export class DashboardChartViewComponent {
               [blob.type]: blob
             })
           ]);
-          context.spinnerStatus = false;
+          // context.spinnerStatus = false;
         } catch (e) {
-          context.spinnerStatus = false;
+          // context.spinnerStatus = false;
           console.error(e, e.message);
         }
       })

@@ -10,7 +10,6 @@ import {InsightDashboardPnDashboardsService} from '../../../../services';
 export class DashboardDeleteComponent implements OnInit {
   @ViewChild('frame', { static: true }) frame;
   @Output() dashboardDeleted: EventEmitter<void> = new EventEmitter<void>();
-  spinnerStatus = false;
   dashboard: DashboardModel = new DashboardModel();
 
   constructor(private dashboardService: InsightDashboardPnDashboardsService) { }
@@ -24,14 +23,12 @@ export class DashboardDeleteComponent implements OnInit {
   }
 
   deleteDashboard() {
-    this.spinnerStatus = true;
     this.dashboardService.remove(this.dashboard.id)
       .subscribe((data) => {
         if (data && data.success) {
           this.frame.hide();
           this.dashboardDeleted.emit();
         }
-        this.spinnerStatus = false;
       });
   }
 }
