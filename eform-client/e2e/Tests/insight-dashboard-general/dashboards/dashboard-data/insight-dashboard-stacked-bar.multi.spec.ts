@@ -3,29 +3,44 @@ import loginPage from '../../../../Page objects/Login.page';
 import insightDashboardPage from '../../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 import dashboardsViewPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
-import dashboardEditPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
+import dashboardEditPage, {DashboardTestConfigEditModel} from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 import {
-  dashboardVerticalBarDataJson,
-  dashboardVerticalBarItems
-} from '../../../../Page objects/InsightDashboard/ChartData/DashboardVerticalBar.data';
+  dashboardStackedBarDataJson,
+  dashboardStackedBarItems
+} from '../../../../Page objects/InsightDashboard/ChartData/DashboardStackedBar.data';
+import sitesPage from '../../../../Page objects/Sites.page';
+
+const dashboardConfig: DashboardTestConfigEditModel = {
+  locationTagName: 'Total',
+  dateFrom: '2016/01/01',
+  dateTo: '2020/05/14',
+  today: true
+};
 
 describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
   before(function () {
     loginPage.open('/auth');
     loginPage.login();
+
+    // Create and assign total tag TODO: FIX
+    // loginPage.open('/advanced/sites');
+    // sitesPage.createAndAssignTag(dashboardConfig.locationTagName, [1, 2, 3, 4]);
+
+    // Create dashboard with items
     insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Vertical Bar');
-    dashboardEditPage.generateItems(dashboardVerticalBarItems);
+    dashboardsPage.createDashboard('Stacked Bar');
+    dashboardEditPage.setDashboardSettings(dashboardConfig);
+    dashboardEditPage.generateItems(dashboardStackedBarItems);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
   });
   it('should compare items headers', function () {
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardsViewPage.compareHeaders(dashboardVerticalBarDataJson);
+    dashboardsViewPage.compareHeaders(dashboardStackedBarDataJson);
   });
   it('should compare items percentage', function () {
-    dashboardsViewPage.comparePercentage(dashboardVerticalBarDataJson);
+    dashboardsViewPage.comparePercentage(dashboardStackedBarDataJson);
   });
   it('should compare items amounts', function () {
-    dashboardsViewPage.compareAmounts(dashboardVerticalBarDataJson);
+    dashboardsViewPage.compareAmounts(dashboardStackedBarDataJson);
   });
 });

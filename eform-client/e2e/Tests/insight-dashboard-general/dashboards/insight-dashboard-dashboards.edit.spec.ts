@@ -2,8 +2,18 @@ import {expect} from 'chai';
 import loginPage from '../../../Page objects/Login.page';
 import insightDashboardPage from '../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
-import dashboardEditPage, {DashboardTestItemEditModel} from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
+import dashboardEditPage, {
+  DashboardTestConfigEditModel,
+  DashboardTestItemEditModel
+} from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
+
+const dashboardConfig: DashboardTestConfigEditModel = {
+  locationTagName: 'Location 1',
+  dateFrom: '2016/01/01',
+  dateTo: '2020/05/14',
+  today: false
+};
 
 const testItem: DashboardTestItemEditModel = {
   firstQuestion: 'Q2',
@@ -21,6 +31,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     loginPage.login();
     insightDashboardPage.goToDashboards();
     dashboardsPage.createDashboard();
+    dashboardEditPage.setDashboardSettings(dashboardConfig);
   });
   it('should create initial empty item', function () {
     $('#dashboardUpdateSaveBtn').waitForDisplayed({timeout: 10000});
@@ -56,6 +67,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     insightDashboardPage.goToDashboards();
     dashboardsPage.createDashboard();
     const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
+    dashboardEditPage.setDashboardSettings(dashboardConfig);
     dashboardEditPage.createFirstItem();
     dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1, testItem);
     dashboardEditPage.dashboardUpdateSaveBtn.click();

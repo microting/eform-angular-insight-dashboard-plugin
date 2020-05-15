@@ -1,7 +1,7 @@
 import Page from '../Page';
 import {expect} from "chai";
 import dashboardEditPage from './InsightDashboard-DashboardEdit.page';
-import {dashboardLineDataJson} from './ChartData/DashboardViewLine.data';
+import {dashboardLineDataJson} from './ChartData/DashboardLine.data';
 
 export const firstQuestion = 'Q2';
 export const filterQuestion = 'Q3';
@@ -67,7 +67,8 @@ export class InsightDashboardDashboardViewPage extends Page {
     for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
       const headerArray = dashboardsViewPage.rawChartDataHeaders(itemIndex);
       for (let headerIndex = 0; headerIndex < headerArray.length; headerIndex++) {
-        expect(dataJson.items[itemIndex].chartData.rawData[0].rawHeaders[headerIndex])
+        expect(dataJson.items[itemIndex].chartData.rawData[0].rawHeaders[headerIndex]
+          , `Header is incorrect on ${itemIndex} item, ${headerIndex} header`)
           .equal(headerArray[headerIndex].getText());
       }
     }
@@ -79,7 +80,8 @@ export class InsightDashboardDashboardViewPage extends Page {
       for (let row = 0; row < percentValueRows.length; row++) {
         for (let value = 0; value < percentValueRows[row].length; value++) {
           // Requires % to compare correctly
-          expect(`${dataJson.items[itemIndex].chartData.rawData[0].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`)
+          expect(`${dataJson.items[itemIndex].chartData.rawData[0].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`,
+            `Percentage is incorrect on ${itemIndex} item, ${row} row, ${value} value`)
             .equal(percentValueRows[row][value].getText());
         }
       }
@@ -92,7 +94,8 @@ export class InsightDashboardDashboardViewPage extends Page {
       for (let row = 0; row < amountValueRows.length; row++) {
         for (let amount = 0; amount < amountValueRows[row].length; amount++) {
           // Requires cast to integer or to string
-          expect(dataJson.items[itemIndex].chartData.rawData[0].rawDataValues[row].amounts[amount])
+          expect(dataJson.items[itemIndex].chartData.rawData[0].rawDataValues[row].amounts[amount],
+            `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`)
             .equal(+amountValueRows[row][amount].getText());
         }
       }

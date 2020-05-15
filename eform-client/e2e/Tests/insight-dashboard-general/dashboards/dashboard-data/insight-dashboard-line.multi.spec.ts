@@ -3,9 +3,15 @@ import loginPage from '../../../../Page objects/Login.page';
 import insightDashboardPage from '../../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 import dashboardsViewPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
-import {dashboardLineDataItems, dashboardLineDataJson} from '../../../../Page objects/InsightDashboard/ChartData/DashboardViewLine.data';
-import dashboardEditPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
+import {dashboardLineDataItems, dashboardLineDataJson} from '../../../../Page objects/InsightDashboard/ChartData/DashboardLine.data';
+import dashboardEditPage, {DashboardTestConfigEditModel} from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 
+const dashboardConfig: DashboardTestConfigEditModel = {
+  locationTagName: 'Location 1',
+  dateFrom: '2016/01/01',
+  dateTo: '2020/05/14',
+  today: true
+};
 
 describe('InSight Dashboard - Dashboards - Line', function () {
   before(function () {
@@ -13,6 +19,7 @@ describe('InSight Dashboard - Dashboards - Line', function () {
     loginPage.login();
     insightDashboardPage.goToDashboards();
     dashboardsPage.createDashboard('Line');
+    dashboardEditPage.setDashboardSettings(dashboardConfig);
     dashboardEditPage.generateItems(dashboardLineDataItems);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
   });

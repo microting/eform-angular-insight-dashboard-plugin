@@ -1,8 +1,6 @@
 import Page from '../Page';
 import dashboardsPage, {configName} from './InsightDashboard-Dashboards.page';
 
-export const locationName = 'Location 1';
-
 export class InsightDashboardDashboardEditPage extends Page {
   constructor() {
     super();
@@ -35,6 +33,24 @@ export class InsightDashboardDashboardEditPage extends Page {
     $('#dashboardNameCreate').waitForDisplayed({timeout: 30000});
     $('#dashboardNameCreate').waitForClickable({timeout: 20000});
     return $('#dashboardNameCreate');
+  }
+
+  public get dashboardRangeToTodayCheckbox() {
+    $('#rangeToTodayCheckbox').waitForDisplayed({timeout: 30000});
+    $('#rangeToTodayCheckbox').waitForClickable({timeout: 20000});
+    return $('#rangeToTodayCheckbox');
+  }
+
+  public get dashboardDateFrom() {
+    $('#dateFromInput').waitForDisplayed({timeout: 30000});
+    $('#dateFromInput').waitForClickable({timeout: 20000});
+    return $('#dateFromInput');
+  }
+
+  public get dashboardDateTo() {
+    $('#dateToInput').waitForDisplayed({timeout: 30000});
+    $('#dateToInput').waitForClickable({timeout: 20000});
+    return $('#dateToInput');
   }
 
   public firstQuestionSearchField(rowNum: number) {
@@ -121,10 +137,24 @@ export class InsightDashboardDashboardEditPage extends Page {
     return ele;
   }
 
-  selectFirstLocation() {
+  setDashboardSettings(model: DashboardTestConfigEditModel) {
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+
+    // Set date from and date to
+    if (model.dateFrom) {
+      this.dashboardDateFrom.addValue(model.dateFrom);
+    }
+    if (model.dateTo) {
+      this.dashboardDateTo.addValue(model.dateTo);
+    }
+
+    // Set today
+    if (model.today) {
+      this.dashboardRangeToTodayCheckbox.click();
+    }
+
     const locationSearchField = this.getLocationTagSearchField();
-    locationSearchField.addValue(locationName);
+    locationSearchField.addValue(model.locationTagName);
     const locationListChoices = this.getLocationTagListOfChoices();
     const locationChoice = locationListChoices[0];
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
@@ -134,7 +164,6 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   createFirstItem() {
-    this.selectFirstLocation();
     this.initialItemCreateBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
@@ -199,8 +228,9 @@ export class InsightDashboardDashboardEditPage extends Page {
 
     // Select chart type
     this.chartTypeSearchField(rowNum).addValue(itemObject.chartType);
-    browser.pause(2000);
     const chartTypeChoice = this.chartTypeListOfOptions(rowNum)[0];
+    chartTypeChoice.waitForDisplayed({timeout: 30000});
+    chartTypeChoice.waitForClickable({timeout: 30000});
     chartTypeChoice.click();
   }
 
@@ -285,3 +315,11 @@ export interface DashboardTestItemEditModel {
   calculateAverage: boolean;
   ignoredAnswerIds: number[];
 }
+
+export interface DashboardTestConfigEditModel {
+  locationTagName: string;
+  dateFrom: string;
+  dateTo: string;
+  today: boolean;
+}
+

@@ -3,11 +3,18 @@ import loginPage from '../../../../Page objects/Login.page';
 import insightDashboardPage from '../../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 import dashboardsViewPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
-import dashboardEditPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
+import dashboardEditPage, {DashboardTestConfigEditModel} from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 import {
   dashboardMultiChartDataJson,
   dashboardMultiChartItems
 } from '../../../../Page objects/InsightDashboard/ChartData/DashboardMultiChart.data';
+
+const dashboardConfig: DashboardTestConfigEditModel = {
+  locationTagName: 'Location 1',
+  dateFrom: '2016/01/01',
+  dateTo: '2020/05/14',
+  today: true
+};
 
 describe('InSight Dashboard - Dashboards - Multi chart', function () {
   before(function () {
@@ -15,6 +22,7 @@ describe('InSight Dashboard - Dashboards - Multi chart', function () {
     loginPage.login();
     insightDashboardPage.goToDashboards();
     dashboardsPage.createDashboard('Multi chart');
+    dashboardEditPage.setDashboardSettings(dashboardConfig);
     dashboardEditPage.generateItems(dashboardMultiChartItems);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
   });
