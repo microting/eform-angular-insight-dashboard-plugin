@@ -179,9 +179,9 @@
                   [required]="true"
                   [items]="availableCharts"></ng-select>
                 <app-dashboard-chart-edit [dashboardItem]="dashboardItem"
-                                          [dashboardItemChartData]="dashboardItemChartData"
-                                          [chartGeneratedPreviewData]="chartGeneratedPreviewData"
                                           [questionType]="firstQuestionType"
+                                          [period]="dashboardItem.period"
+                                          [chartType]="dashboardItem.chartType"
                                           [answers]="questionAnswers">
                 </app-dashboard-chart-edit>
               </div>

@@ -7,7 +7,7 @@
                          [view]="view"
                          [customColors]="customColors"
                          [scheme]="colorScheme"
-                         [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.multi : dashboardItemChartData.multi"
+                         [results]="chartData"
                          [gradient]="false"
                          [xAxis]="true"
                          [yAxis]="true"
@@ -21,7 +21,7 @@
                         [view]="view"
                         [customColors]="customColors"
                         [scheme]="colorScheme"
-                        [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.single : dashboardItemChartData.single"
+                        [results]="chartData"
                         [legend]="true"
                         [explodeSlices]="false"
                         [labels]="true"
@@ -32,20 +32,20 @@
                         [view]="view"
                         [customColors]="customColors"
                         [scheme]="colorScheme"
-                        [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.single : dashboardItemChartData.single"
+                        [results]="chartData"
                         [gradient]="false">
   </ngx-charts-advanced-pie-chart>
   <ngx-charts-pie-grid *ngIf="dashboardItem.chartType === chartTypes.PieGrid"
                         [view]="view"
                         [customColors]="customColors"
                         [scheme]="colorScheme"
-                       [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.single : dashboardItemChartData.single">
+                       [results]="chartData">
   </ngx-charts-pie-grid>
   <ngx-charts-bar-horizontal *ngIf="dashboardItem.chartType === chartTypes.HorizontalBar"
                              [view]="view"
                              [scheme]="colorScheme"
                              [customColors]="customColors"
-                             [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.single : dashboardItemChartData.single"
+                             [results]="chartData"
                              [gradient]="false"
                              [xAxis]="true"
                              [yAxis]="true"
@@ -58,7 +58,7 @@
                                      [view]="view"
                                      [scheme]="colorScheme"
                                      [customColors]="customColors"
-                                     [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.multi : dashboardItemChartData.multi"
+                                     [results]="chartData"
                                      [gradient]="false"
                                      [xAxis]="true"
                                      [yAxis]="true"
@@ -72,7 +72,7 @@
                                 [view]="view"
                                 [scheme]="colorScheme"
                                 [customColors]="customColors"
-                                [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.multi : dashboardItemChartData.multi"
+                                [results]="chartData"
                                 [gradient]="false"
                                 [xAxis]="true"
                                 [yAxis]="true"
@@ -86,7 +86,7 @@
                            [view]="view"
                            [scheme]="colorScheme"
                            [customColors]="customColors"
-                           [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.single : dashboardItemChartData.single"
+                           [results]="chartData"
                            [gradient]="false"
                            [xAxis]="true"
                            [yAxis]="true"
@@ -101,7 +101,7 @@
                                    [view]="view"
                                    [scheme]="colorScheme"
                                    [customColors]="customColors"
-                                   [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.multi : dashboardItemChartData.multi"
+                                   [results]="chartData"
                                    [gradient]="false"
                                    [xAxis]="true"
                                    [yAxis]="true"
@@ -116,7 +116,7 @@
                               [view]="view"
                               [scheme]="colorScheme"
                               [customColors]="customColors"
-                              [results]="chartGeneratedPreviewData ? chartGeneratedPreviewData.multi : dashboardItemChartData.multi"
+                              [results]="chartData"
                               [gradient]="false"
                               [xAxis]="true"
                               [yAxis]="true"
@@ -134,8 +134,7 @@
   <div class="d-flex" id="copyableChart{{chartPosition}}" style="background-color: #FFFFFF !important;">
     <div [ngStyle]="{'width': multiChartView[0] + 'px', 'height': multiChartView[1] + 'px' }"
          style="background-color: #FFFFFF !important;"
-         *ngFor="let itemData of chartGeneratedPreviewData
-         ? chartGeneratedPreviewData.multiStacked : dashboardItemChartData.multiStacked;
+         *ngFor="let itemData of chartData;
          let first = first; let last = last;">
       <ngx-charts-bar-vertical-stacked [scheme]="colorScheme"
                                        [view]="multiChartView"
