@@ -247,7 +247,6 @@ export class InsightDashboardDashboardEditPage extends Page {
   getFirstItemObject(): InsightDashboardEditRowObject {
     return new InsightDashboardEditRowObject(1);
   }
-
   getDashboardItem(num): InsightDashboardEditRowObject {
     return new InsightDashboardEditRowObject(num);
   }
@@ -322,4 +321,3 @@ export interface DashboardTestConfigEditModel {
   dateTo: string;
   today: boolean;
 }
-
