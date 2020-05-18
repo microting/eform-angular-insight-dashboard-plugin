@@ -31,9 +31,7 @@ describe('InSight Dashboard - Dashboards - View', function () {
     dashboardEditPage.setDashboardSettings(dashboardConfig);
   });
   it('should observe filled item', function () {
-    const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
-    dashboardEditPage.createFirstItem();
-    dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1, item);
+    dashboardEditPage.generateItems([item]);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     dashboardsViewPage.compareItem(dashboardsViewPage.rowNum, item, dashboardConfig);
