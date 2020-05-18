@@ -22,7 +22,8 @@ const testItem: DashboardTestItemEditModel = {
   period: 'Måned',
   chartType: 'Linje',
   calculateAverage: false,
-  ignoredAnswerIds: []
+  ignoredAnswerIds: [],
+  comparedItems: []
 };
 
 describe('InSight Dashboard - Dashboards - Edit', function () {
