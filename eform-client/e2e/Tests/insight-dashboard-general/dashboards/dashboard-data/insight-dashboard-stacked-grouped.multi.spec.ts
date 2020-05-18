@@ -11,7 +11,7 @@ import {
 } from '../../../../Page objects/InsightDashboard/ChartData/DashboardStackedGrouped.data';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
-  locationTagName: 'Location 1',
+  locationTagName: 'Total',
   dateFrom: '2016/01/01',
   dateTo: '2020/05/14',
   today: true
