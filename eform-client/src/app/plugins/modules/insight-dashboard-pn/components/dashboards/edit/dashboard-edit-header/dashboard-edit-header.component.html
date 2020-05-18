@@ -45,12 +45,12 @@
       </div>
       <div class="col-3 mt-2">
         <div class="mat-checkbox mt-4">
-          <input id="rangeToTodayCheckbox"
+          <input id="rangeToToday"
                  [checked]="dashboardEditModel.answerDates.today"
                  (click)="fieldChanged($event.target.checked, dashboardFields.today)"
                  [value]="dashboardEditModel.answerDates.today"
                  type="checkbox">
-          <label for="rangeToTodayCheckbox">
+          <label for="rangeToToday" id="rangeToTodayCheckbox">
             {{'Today' | translate}}
           </label>
         </div>

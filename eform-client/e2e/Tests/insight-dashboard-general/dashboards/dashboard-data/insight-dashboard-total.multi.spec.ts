@@ -4,10 +4,7 @@ import insightDashboardPage from '../../../../Page objects/InsightDashboard/Insi
 import dashboardsPage from '../../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 import dashboardsViewPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
 import dashboardEditPage, {DashboardTestConfigEditModel} from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
-import {
-  dashboardHorizontalBarDataJson,
-  dashboardHorizontalBarItems
-} from '../../../../Page objects/InsightDashboard/ChartData/DashboardHorizontalBar.data';
+import {dashboardTotalDataJson, dashboardTotalItems} from '../../../../Page objects/InsightDashboard/ChartData/DashboardTotal.data';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
@@ -16,24 +13,25 @@ const dashboardConfig: DashboardTestConfigEditModel = {
   today: true
 };
 
-describe('InSight Dashboard - Dashboards - Horizontal Bar', function () {
+describe('InSight Dashboard - Dashboards - Total', function () {
   before(function () {
     loginPage.open('/auth');
     loginPage.login();
+
     insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Horizontal Bar');
+    dashboardsPage.createDashboard('Total');
     dashboardEditPage.setDashboardSettings(dashboardConfig);
-    dashboardEditPage.generateItems(dashboardHorizontalBarItems);
+    dashboardEditPage.generateItems(dashboardTotalItems);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
   });
   it('should compare items headers', function () {
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardsViewPage.compareHeaders(dashboardHorizontalBarDataJson);
+    dashboardsViewPage.compareHeaders(dashboardTotalDataJson);
   });
   it('should compare items percentage', function () {
-    dashboardsViewPage.comparePercentage(dashboardHorizontalBarDataJson);
+    dashboardsViewPage.comparePercentage(dashboardTotalDataJson);
   });
   it('should compare items amounts', function () {
-    dashboardsViewPage.compareAmounts(dashboardHorizontalBarDataJson);
+    dashboardsViewPage.compareAmounts(dashboardTotalDataJson);
   });
 });

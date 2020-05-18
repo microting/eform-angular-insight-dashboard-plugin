@@ -4,36 +4,43 @@ import insightDashboardPage from '../../../../Page objects/InsightDashboard/Insi
 import dashboardsPage from '../../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 import dashboardsViewPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
 import dashboardEditPage, {DashboardTestConfigEditModel} from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
+import sitesPage from '../../../../Page objects/Sites.page';
 import {
-  dashboardHorizontalBarDataJson,
-  dashboardHorizontalBarItems
-} from '../../../../Page objects/InsightDashboard/ChartData/DashboardHorizontalBar.data';
+  dashboardStackedGroupedDataJson,
+  dashboardStackedGroupedItems
+} from '../../../../Page objects/InsightDashboard/ChartData/DashboardStackedGrouped.data';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
-  locationTagName: 'Location 1',
+  locationTagName: 'Total',
   dateFrom: '2016/01/01',
   dateTo: '2020/05/14',
   today: true
 };
 
-describe('InSight Dashboard - Dashboards - Horizontal Bar', function () {
+describe('InSight Dashboard - Dashboards - Stacked Grouped', function () {
   before(function () {
     loginPage.open('/auth');
     loginPage.login();
+
+    // Create and assign total tag
+    loginPage.open('/advanced/sites');
+    sitesPage.createAndAssignTag(dashboardConfig.locationTagName, [1, 2, 3, 4]);
+
+    // Create dashboard with items
     insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Horizontal Bar');
+    dashboardsPage.createDashboard('Stacked Grouped');
     dashboardEditPage.setDashboardSettings(dashboardConfig);
-    dashboardEditPage.generateItems(dashboardHorizontalBarItems);
+    dashboardEditPage.generateItems(dashboardStackedGroupedItems);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
   });
   it('should compare items headers', function () {
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardsViewPage.compareHeaders(dashboardHorizontalBarDataJson);
+    dashboardsViewPage.compareHeaders(dashboardStackedGroupedDataJson);
   });
   it('should compare items percentage', function () {
-    dashboardsViewPage.comparePercentage(dashboardHorizontalBarDataJson);
+    dashboardsViewPage.comparePercentage(dashboardStackedGroupedDataJson);
   });
   it('should compare items amounts', function () {
-    dashboardsViewPage.compareAmounts(dashboardHorizontalBarDataJson);
+    dashboardsViewPage.compareAmounts(dashboardStackedGroupedDataJson);
   });
 });

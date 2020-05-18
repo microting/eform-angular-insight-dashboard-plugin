@@ -144,20 +144,20 @@
                          (ngModelChange)="fieldChanged($event, itemFields.compareEnabled)"
                          [disabled]="!dashboardItem.firstQuestionId"
                          [value]="dashboardItem.compareEnabled">
-                  <label for="enableCompare{{dashboardItem.position}}">
+                  <label for="enableCompare{{dashboardItem.position}}" id="enableCompareLabel{{dashboardItem.position}}">
                     {{'Compare Location/Report tag' | translate}}
                   </label>
                 </div>
               </div>
               <div class="scrollable-block" *ngIf="dashboardItem.compareEnabled">
-                <div class="row m-0 ml-2" *ngFor="let locationTag of locationsTags">
+                <div class="row m-0 ml-2" *ngFor="let locationTag of locationsTags; let compareItemIndex = index;">
                   <div class="col-2">
                     <div class="md-form">
                       <input mdbInput (change)="onLocationPositionChanged($event, locationTag)"
                              [value]="getCurrentLocationValue(locationTag)"
                              type="number" [disabled]="!dashboardItem.compareEnabled"
-                             class="form-control input-sm" id="locationTag{{locationTag.value}}">
-                      <label for="locationTag{{locationTag.value}}">{{locationTag.label}}</label>
+                             class="form-control input-sm" id="locationTag{{dashboardItem.position}}_{{compareItemIndex}}">
+                      <label for="locationTag{{dashboardItem.position}}_{{compareItemIndex}}">{{locationTag.label}}</label>
                     </div>
                   </div>
                 </div>

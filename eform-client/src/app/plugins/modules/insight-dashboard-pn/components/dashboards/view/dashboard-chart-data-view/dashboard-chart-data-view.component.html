@@ -1,5 +1,6 @@
-<div class="row p-1 mb-4 table-responsive no-gutters scrollable-xy-block" id="dashboardViewChartData{{itemModel.position - 1}}"
-     *ngFor="let rawData of itemModel.chartData.rawData">
+<div class="row p-1 mb-4 table-responsive no-gutters scrollable-xy-block"
+     id="dashboardViewChartData{{itemModel.position - 1}}_{{rawDataIndex}}"
+     *ngFor="let rawData of itemModel.chartData.rawData; let rawDataIndex = index">
   <table class="table table-sm text-right z-depth-1">
     <thead id="dataViewTableHeader">
       <tr>

@@ -8,7 +8,8 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Linje',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q13',
@@ -17,7 +18,8 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Vandret Stablet Søjlediagram',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q13',
@@ -26,7 +28,8 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Vandret Grupperet Søjlediagram',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q13',
@@ -35,7 +38,8 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Lodret Stablet Søjlediagram',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q13',
@@ -44,7 +48,8 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Lodret Grupperet Søjlediagram',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   }
 ];
 
