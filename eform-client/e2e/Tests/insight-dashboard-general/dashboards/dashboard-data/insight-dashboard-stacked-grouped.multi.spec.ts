@@ -23,8 +23,8 @@ describe('InSight Dashboard - Dashboards - Stacked Grouped', function () {
     loginPage.login();
 
     // Create and assign total tag
-    // loginPage.open('/advanced/sites');
-    // sitesPage.createAndAssignTag(dashboardConfig.locationTagName, [1, 2, 3, 4]);
+    loginPage.open('/advanced/sites');
+    sitesPage.createAndAssignTag(dashboardConfig.locationTagName, [1, 2, 3, 4]);
 
     // Create dashboard with items
     insightDashboardPage.goToDashboards();
