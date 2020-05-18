@@ -24,11 +24,9 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Services.DashboardService
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Infrastructure.Models.Dashboards;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
 
     public interface IDashboardService
     {
@@ -41,13 +39,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
         Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
             int dashboardId,
             bool onlyTextData,
-            bool dashboardItemPreview,
-            List<DashboardItem> dashboardPreviewItems,
-            DashboardPreviewInfoModel dashboardPreviewInfo,
             int? dashBoardItemId = null);
-
-        Task<OperationDataResult<DashboardItemViewModel>> GetItemPreview(
-            DashboardItemPreviewRequestModel previewModel);
 
         Task<OperationDataResult<DashboardEditModel>> GetSingleForEdit(int dashboardId);
     }
