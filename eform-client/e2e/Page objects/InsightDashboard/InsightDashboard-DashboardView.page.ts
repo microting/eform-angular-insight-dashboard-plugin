@@ -119,6 +119,7 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   compareItem(rowNum: number, originalItem: DashboardTestItemEditModel, config: DashboardTestConfigEditModel) {
+    browser.pause(1000);
     expect(this.firstQuestion(rowNum).getText()).equal(originalItem.firstQuestion);
     expect(this.filterQuestion(rowNum).getText()).equal(originalItem.filterQuestion);
     expect(this.filterAnswer(rowNum).getText()).equal(originalItem.filterAnswer);
