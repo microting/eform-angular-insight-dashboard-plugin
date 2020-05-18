@@ -24,6 +24,7 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Test
 {
+    using System;
     using System.Threading.Tasks;
     using Base;
     using Helpers;
@@ -31,35 +32,40 @@ namespace InsightDashboard.Pn.Test
     using NUnit.Framework;
 
     [TestFixture]
-    public class MultiDataUTests : DbTestFixture
+    public class ChartDataUTests : DbTestFixture
     {
         /// <summary>
-        /// Multi data calculate correct.
+        /// Raw chart data calculate correct.
         /// </summary>
         [Test]
-        public async Task MultiData_Calculate_Correct()
+        public async Task ChartData_Calculate_Correct()
         {
             // Arrange
             var localizationService = MockHelper.GetLocalizationService();
-            var dashboardViewModel = DashboardHelpers.GetMultiDashBoard();
+            var dashboardViews = DashboardHelpers.GetChartDataDashBoards();
 
-            // Act
-            foreach (var itemViewModel in dashboardViewModel.Items)
+            foreach (var dashboardView in dashboardViews)
             {
-                var newItemViewModel = DashboardHelpers.CopyDashboardItem(itemViewModel);
-                var dashboardItem = DashboardHelpers.GetDashboardItemFromModel(itemViewModel);
+                Console.WriteLine($"Check template: {dashboardView.Value}");
 
-                await ChartDataHelpers.CalculateDashboardItem(
-                    newItemViewModel,
-                    DbContext,
-                    dashboardItem,
-                    localizationService,
-                    dashboardViewModel.LocationId,
-                    dashboardViewModel.TagId,
-                    dashboardViewModel.SurveyId,
-                    dashboardViewModel.AnswerDates);
+                // Act
+                foreach (var itemViewModel in dashboardView.Key.Items)
+                {
+                    var newItemViewModel = DashboardHelpers.CopyDashboardItem(itemViewModel);
+                    var dashboardItem = DashboardHelpers.GetDashboardItemFromModel(itemViewModel);
 
-                DashboardHelpers.CheckData(itemViewModel, newItemViewModel);
+                    await ChartDataHelpers.CalculateDashboardItem(
+                        newItemViewModel,
+                        DbContext,
+                        dashboardItem,
+                        localizationService,
+                        dashboardView.Key.LocationId,
+                        dashboardView.Key.TagId,
+                        dashboardView.Key.SurveyId,
+                        dashboardView.Key.AnswerDates);
+
+                    DashboardHelpers.CheckData(itemViewModel, newItemViewModel);
+                }
             }
         }
     }

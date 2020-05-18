@@ -25,6 +25,7 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Test.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Infrastructure.Models.Dashboards;
     using Microting.eForm.Infrastructure.Constants;
@@ -34,27 +35,25 @@ namespace InsightDashboard.Pn.Test.Helpers
 
     public static class DashboardHelpers
     {
-        public static DashboardViewModel GetSingleDashBoard()
+        public static DashboardViewModel GetDashboardViewModel(string name)
         {
-            var singleString = FileHelper.ReadFileFromResources("single-data");
-            return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
-        }
-        public static DashboardViewModel GetMultiDashBoard()
-        {
-            var singleString = FileHelper.ReadFileFromResources("multi-data");
-            return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
-        }
-        public static DashboardViewModel GetMultiStackedDashBoard()
-        {
-            var singleString = FileHelper.ReadFileFromResources("multi-stacked-data");
+            var singleString = FileHelper.ReadFileFromResources(name);
             return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
         }
 
-        public static DashboardViewModel GetRawChartDataDashBoard()
+        public static Dictionary<DashboardViewModel, string> GetChartDataDashBoards()
         {
-            var singleString = FileHelper.ReadFileFromResources("raw-chart-data");
-            return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
+            var result = new Dictionary<DashboardViewModel, string>();
+
+            var name = "DashboardHorizontalBar.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardLine.data";
+            result.Add(GetDashboardViewModel(name), name);
+
+            return result;
         }
+
+
 
         public static DashboardItem GetDashboardItemFromModel(DashboardItemViewModel viewModel)
         {
