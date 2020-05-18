@@ -13,13 +13,14 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 const item = {
-  firstQuestion: 'Q2: Er personalet på afsnittet venligt og imødekommende?',
-  filterQuestion: 'Q3: Oplever du, at personalet er forberedt til samtaler med dig om din udredning/behandling?',
+  firstQuestion: 'Q2',
+  filterQuestion: 'Q3',
   filterAnswer: 'Meget glad',
   period: 'Måned',
   chartType: 'Linje',
   calculateAverage: false,
-  ignoredAnswerIds: []
+  ignoredAnswerIds: [],
+  comparedItems: []
 };
 
 describe('InSight Dashboard - Dashboards - View', function () {

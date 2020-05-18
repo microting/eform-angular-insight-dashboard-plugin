@@ -8,7 +8,8 @@ export const dashboardTotalNItems: DashboardTestItemEditModel[] = [
     period: 'Total',
     chartType: 'Avanceret cirkel',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q1',
@@ -17,7 +18,8 @@ export const dashboardTotalNItems: DashboardTestItemEditModel[] = [
     period: 'Total',
     chartType: 'Cirkelnettet',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q1',
@@ -26,7 +28,8 @@ export const dashboardTotalNItems: DashboardTestItemEditModel[] = [
     period: 'Total',
     chartType: 'Lagkagediagram',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
 ];
 

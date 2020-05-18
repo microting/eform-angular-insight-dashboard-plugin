@@ -95,12 +95,20 @@ export class InsightDashboardDashboardEditPage extends Page {
     return $(`#calculateAverageCheckbox${rowNum}`);
   }
 
+  public enableCompareCheckbox(rowNum: number) {
+    return $(`#enableCompareLabel${rowNum}`);
+  }
+
   public enableIgnoreCheckbox(rowNum: number) {
     return $(`#enableIgnoreCheckbox${rowNum}`);
   }
 
   public answerIgnoreCheckbox(rowNum: number, ignoredAnswerId: number) {
     return $(`#answerIgnoreCheckbox${ignoredAnswerId}_${rowNum}`);
+  }
+
+  public compareItemInput(rowNum: number, compareItemIndex: number) {
+    return $(`#locationTag${rowNum}_${compareItemIndex}`);
   }
 
   public periodSearchField(rowNum: number) {
@@ -226,6 +234,14 @@ export class InsightDashboardDashboardEditPage extends Page {
       this.answerIgnoreCheckbox(rowNum, ignoredAnswerId).click();
     }
 
+    // Compared items
+    if (itemObject.comparedItems.length) {
+      this.enableCompareCheckbox(rowNum).click();
+      for (const compareItem of itemObject.comparedItems) {
+        this.compareItemInput(rowNum, compareItem.itemIndex).addValue(compareItem.value);
+      }
+    }
+
     // Select chart type
     this.chartTypeSearchField(rowNum).addValue(itemObject.chartType);
     const chartTypeChoice = this.chartTypeListOfOptions(rowNum)[0];
@@ -314,6 +330,7 @@ export interface DashboardTestItemEditModel {
   chartType: string;
   calculateAverage: boolean;
   ignoredAnswerIds: number[];
+  comparedItems: { itemIndex: number, value: number }[];
 }
 
 export interface DashboardTestConfigEditModel {

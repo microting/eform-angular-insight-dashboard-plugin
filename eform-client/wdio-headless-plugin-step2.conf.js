@@ -28,6 +28,7 @@ exports.config = {
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total.multi.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-bar.multi.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total-n.multi.spec.ts',
+    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-grouped.multi.spec.ts',
   ],
   suites: {
     settings: [

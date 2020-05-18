@@ -8,7 +8,8 @@ export const dashboardLineDataItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Linje',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q1',
@@ -17,7 +18,8 @@ export const dashboardLineDataItems: DashboardTestItemEditModel[] = [
     period: 'Måned',
     chartType: 'Linje',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q1',
@@ -26,7 +28,8 @@ export const dashboardLineDataItems: DashboardTestItemEditModel[] = [
     period: 'Kvarter',
     chartType: 'Linje',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q1',
@@ -35,7 +38,8 @@ export const dashboardLineDataItems: DashboardTestItemEditModel[] = [
     period: 'Seks måned',
     chartType: 'Linje',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q1',
@@ -44,7 +48,8 @@ export const dashboardLineDataItems: DashboardTestItemEditModel[] = [
     period: 'År',
     chartType: 'Linje',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   }
 ];
 

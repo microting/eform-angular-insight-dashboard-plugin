@@ -8,7 +8,8 @@ export const dashboardStackedBarItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Vandret Stablet Søjlediagram',
     calculateAverage: false,
-    ignoredAnswerIds: []
+    ignoredAnswerIds: [],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q2',
@@ -17,7 +18,8 @@ export const dashboardStackedBarItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Lodret Stablet Søjlediagram',
     calculateAverage: false,
-    ignoredAnswerIds: [8]
+    ignoredAnswerIds: [8],
+    comparedItems: []
   },
   {
     firstQuestion: 'Q3',
@@ -26,7 +28,8 @@ export const dashboardStackedBarItems: DashboardTestItemEditModel[] = [
     period: 'Uge',
     chartType: 'Lodret Stablet Søjlediagram',
     calculateAverage: false,
-    ignoredAnswerIds: [14]
+    ignoredAnswerIds: [14],
+    comparedItems: []
   }
 ];
 
