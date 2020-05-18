@@ -1,6 +1,6 @@
 import Page from '../Page';
 import {expect} from "chai";
-import dashboardEditPage from './InsightDashboard-DashboardEdit.page';
+import dashboardEditPage, {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
 import {dashboardLineDataJson} from './ChartData/DashboardLine.data';
 
 export class InsightDashboardDashboardViewPage extends Page {
@@ -29,6 +29,14 @@ export class InsightDashboardDashboardViewPage extends Page {
 
   public filterAnswer(rowNum: number) {
     return $(`#filterAnswer${rowNum}`);
+  }
+
+  public dateFrom(rowNum: number) {
+    return $(`#dateFrom${rowNum}`);
+  }
+
+  public dateTo(rowNum: number) {
+    return $(`#dateTo${rowNum}`);
   }
 
   public period(rowNum: number) {
@@ -96,10 +104,12 @@ export class InsightDashboardDashboardViewPage extends Page {
     }
   }
 
-  compareItem(rowNum: number, originalItem: any) {
+  compareItem(rowNum: number, originalItem: DashboardTestItemEditModel, config: DashboardTestConfigEditModel) {
     expect(this.firstQuestion(rowNum).getText()).equal(originalItem.firstQuestion);
     expect(this.filterQuestion(rowNum).getText()).equal(originalItem.filterQuestion);
     expect(this.filterAnswer(rowNum).getText()).equal(originalItem.filterAnswer);
+    expect(this.dateFrom(rowNum).getText()).equal(config.dateFrom);
+    expect(this.dateTo(rowNum).getText()).equal(config.dateTo);
   }
 }
 
