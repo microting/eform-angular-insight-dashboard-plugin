@@ -3,12 +3,6 @@ import {expect} from "chai";
 import dashboardEditPage from './InsightDashboard-DashboardEdit.page';
 import {dashboardLineDataJson} from './ChartData/DashboardLine.data';
 
-export const firstQuestion = 'Q2';
-export const filterQuestion = 'Q3';
-export const filterAnswer = 'Meget glad';
-export const period = 'Måned';
-export const chartType = 'Linje';
-
 export class InsightDashboardDashboardViewPage extends Page {
   constructor() {
     super();
@@ -102,10 +96,10 @@ export class InsightDashboardDashboardViewPage extends Page {
     }
   }
 
-  compareItem(rowNum: number) {
-    expect(this.firstQuestion(rowNum).getText()).equal(firstQuestion);
-    expect(this.filterQuestion(rowNum).getText()).equal(filterQuestion);
-    expect(this.filterAnswer(rowNum).getText()).equal(filterAnswer);
+  compareItem(rowNum: number, originalItem: any) {
+    expect(this.firstQuestion(rowNum).getText()).equal(originalItem.firstQuestion);
+    expect(this.filterQuestion(rowNum).getText()).equal(originalItem.filterQuestion);
+    expect(this.filterAnswer(rowNum).getText()).equal(originalItem.filterAnswer);
   }
 }
 

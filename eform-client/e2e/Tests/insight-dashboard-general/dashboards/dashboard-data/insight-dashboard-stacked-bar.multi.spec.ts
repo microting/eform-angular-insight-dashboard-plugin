@@ -22,9 +22,9 @@ describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
     loginPage.open('/auth');
     loginPage.login();
 
-    // Create and assign total tag TODO: FIX
-    // loginPage.open('/advanced/sites');
-    // sitesPage.createAndAssignTag(dashboardConfig.locationTagName, [1, 2, 3, 4]);
+    // Create and assign total tag
+    loginPage.open('/advanced/sites');
+    sitesPage.createAndAssignTag(dashboardConfig.locationTagName, [1, 2, 3, 4]);
 
     // Create dashboard with items
     insightDashboardPage.goToDashboards();

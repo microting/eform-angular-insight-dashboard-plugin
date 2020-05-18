@@ -15,6 +15,7 @@ const dashboardConfig: DashboardTestConfigEditModel = {
   dateTo: '2020/05/14',
   today: true
 };
+
 describe('InSight Dashboard - Dashboards - Horizontal Bar', function () {
   before(function () {
     loginPage.open('/auth');
