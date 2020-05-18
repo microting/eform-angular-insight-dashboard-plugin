@@ -47,58 +47,72 @@ export class InsightDashboardDashboardViewPage extends Page {
     return $(`#chartType${rowNum}`);
   }
 
-  public rawChartDataHeaders(rowNum: number) {
-    return $(`#dashboardViewChartData${rowNum}`).$$(`#dataViewRawHeader`);
+  public rawChartDataHeaders(rowNum: number, rawDataNum: number) {
+    return $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewRawHeader`);
   }
 
-  public rawChartDataPercentValueRows(rowNum: number) {
-    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}`).$$(`#dataViewPercent`);
+  public rawChartDataPercentValueRows(rowNum: number, rawDataNum: number) {
+    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewPercent`);
     return dataViewPercentRow.map(x => {
       return x.$$(`#dataViewPercentValue`);
     });
   }
 
-  public rawChartDataAmountValueRows(rowNum: number) {
-    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}`).$$(`#dataViewAmount`);
+  public rawChartDataAmountValueRows(rowNum: number, rawDataNum: number) {
+    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewAmount`);
     return dataViewPercentRow.map(x => {
       return x.$$(`#dataViewAmountValue`);
     });
   }
 
   public compareHeaders(dataJson: any) {
+    // items in dashboard
     for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
-      const headerArray = dashboardsViewPage.rawChartDataHeaders(itemIndex);
-      for (let headerIndex = 0; headerIndex < headerArray.length; headerIndex++) {
-        expect(dataJson.items[itemIndex].chartData.rawData[0].rawHeaders[headerIndex]
-          , `Header is incorrect on ${itemIndex} item, ${headerIndex} header`)
-          .equal(headerArray[headerIndex].getText());
+      // raw data in item
+      for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
+        const headerArray = dashboardsViewPage.rawChartDataHeaders(itemIndex, rawDataIndex);
+        // headers in raw data
+        for (let headerIndex = 0; headerIndex < headerArray.length; headerIndex++) {
+          expect(dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawHeaders[headerIndex]
+            , `Header is incorrect on ${itemIndex} item, ${headerIndex} header`)
+            .equal(headerArray[headerIndex].getText());
+        }
       }
     }
   }
 
   public comparePercentage(dataJson: any, addPercentSymbol: boolean = true) {
     for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
-      const percentValueRows = dashboardsViewPage.rawChartDataPercentValueRows(itemIndex);
-      for (let row = 0; row < percentValueRows.length; row++) {
-        for (let value = 0; value < percentValueRows[row].length; value++) {
-          // Requires % to compare correctly
-          expect(`${dataJson.items[itemIndex].chartData.rawData[0].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`,
-            `Percentage is incorrect on ${itemIndex} item, ${row} row, ${value} value`)
-            .equal(percentValueRows[row][value].getText());
+      // raw data in item
+      for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
+        const percentValueRows = dashboardsViewPage.rawChartDataPercentValueRows(itemIndex, rawDataIndex);
+        // rows in raw data
+        for (let row = 0; row < percentValueRows.length; row++) {
+          // columns in row
+          for (let value = 0; value < percentValueRows[row].length; value++) {
+            // Requires % to compare correctly
+            expect(`${dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`,
+              `Percentage is incorrect on ${itemIndex} item, ${row} row, ${value} value`)
+              .equal(percentValueRows[row][value].getText());
+          }
         }
       }
     }
   }
 
-  public compareAmounts(dataJson: any, castValueToNumber: boolean = true) {
+  public compareAmounts(dataJson: any) {
     for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
-      const amountValueRows = dashboardsViewPage.rawChartDataAmountValueRows(itemIndex);
-      for (let row = 0; row < amountValueRows.length; row++) {
-        for (let amount = 0; amount < amountValueRows[row].length; amount++) {
-          // Requires cast to integer or to string
-          expect(dataJson.items[itemIndex].chartData.rawData[0].rawDataValues[row].amounts[amount],
-            `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`)
-            .equal(+amountValueRows[row][amount].getText());
+      // raw data in item
+      for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
+        const amountValueRows = dashboardsViewPage.rawChartDataAmountValueRows(itemIndex, rawDataIndex);
+        // rows in raw data
+        for (let row = 0; row < amountValueRows.length; row++) {
+          for (let amount = 0; amount < amountValueRows[row].length; amount++) {
+            // Requires cast to integer or to string
+            expect(dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataValues[row].amounts[amount],
+              `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`)
+              .equal(+amountValueRows[row][amount].getText());
+          }
         }
       }
     }
