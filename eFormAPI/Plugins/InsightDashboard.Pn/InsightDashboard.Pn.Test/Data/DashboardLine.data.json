@@ -9,7 +9,7 @@
   "tagId": null,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-05-08T23:59:59",
+    "dateTo": "2020-05-19T23:59:59",
     "today": true
   },
   "items": [
@@ -601,127 +601,127 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-Jan",
+                "name": "16-jan",
                 "value": 67.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-Feb",
+                "name": "16-feb",
                 "value": 50.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-Mar",
+                "name": "16-mar",
                 "value": 67.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-Apr",
+                "name": "16-apr",
                 "value": 80.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-May",
+                "name": "16-maj",
                 "value": 43.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-Jun",
+                "name": "16-jun",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-Jul",
+                "name": "16-jul",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-Aug",
+                "name": "16-aug",
                 "value": 67.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-Sep",
+                "name": "16-sep",
                 "value": 100.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "16-Oct",
+                "name": "16-okt",
                 "value": 83.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "16-Nov",
+                "name": "16-nov",
                 "value": 50.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-Dec",
+                "name": "16-dec",
                 "value": 71.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "17-Jan",
+                "name": "17-jan",
                 "value": 83.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "17-Feb",
+                "name": "17-feb",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-Mar",
+                "name": "17-mar",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-Apr",
+                "name": "17-apr",
                 "value": 75.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-May",
+                "name": "17-maj",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-Jun",
+                "name": "17-jun",
                 "value": 88.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "17-Jul",
+                "name": "17-jul",
                 "value": 57.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "17-Aug",
+                "name": "17-aug",
                 "value": 88.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "17-Sep",
+                "name": "17-sep",
                 "value": 90.0,
                 "dataCount": 18,
                 "optionIndex": 0
@@ -735,127 +735,127 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-Jan",
+                "name": "16-jan",
                 "value": 33.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-Feb",
+                "name": "16-feb",
                 "value": 50.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-Mar",
+                "name": "16-mar",
                 "value": 33.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-Apr",
+                "name": "16-apr",
                 "value": 20.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-May",
+                "name": "16-maj",
                 "value": 57.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-Jun",
+                "name": "16-jun",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-Jul",
+                "name": "16-jul",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-Aug",
+                "name": "16-aug",
                 "value": 33.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-Sep",
+                "name": "16-sep",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "16-Oct",
+                "name": "16-okt",
                 "value": 17.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-Nov",
+                "name": "16-nov",
                 "value": 50.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-Dec",
+                "name": "16-dec",
                 "value": 29.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "17-Jan",
+                "name": "17-jan",
                 "value": 17.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-Feb",
+                "name": "17-feb",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-Mar",
+                "name": "17-mar",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-Apr",
+                "name": "17-apr",
                 "value": 25.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "17-May",
+                "name": "17-maj",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-Jun",
+                "name": "17-jun",
                 "value": 13.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-Jul",
+                "name": "17-jul",
                 "value": 43.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "17-Aug",
+                "name": "17-aug",
                 "value": 13.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-Sep",
+                "name": "17-sep",
                 "value": 10.0,
                 "dataCount": 2,
                 "optionIndex": 0
