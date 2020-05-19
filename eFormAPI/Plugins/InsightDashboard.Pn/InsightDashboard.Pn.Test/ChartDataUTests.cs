@@ -68,7 +68,7 @@ namespace InsightDashboard.Pn.Test
                         key.SurveyId,
                         key.AnswerDates);
 
-                    DashboardHelpers.CheckData(itemViewModel, newItemViewModel);
+                    DashboardHelpers.CheckData(itemViewModel, newItemViewModel, key, value);
                 }
             }
         }
