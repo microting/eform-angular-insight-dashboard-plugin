@@ -1,16 +1,16 @@
 ﻿{
   "id": 44,
-    "dashboardName": "Horisontal bar",
-    "surveyName": "Test-Set",
-    "surveyId": 1,
-    "locationName": "Location 1",
-    "locationId": 1,
-    "tagName": null,
-    "tagId": null,
-    "answerDates": {
+  "dashboardName": "Horisontal bar",
+  "surveyName": "Test-Set",
+  "surveyId": 1,
+  "locationName": "Location 1",
+  "locationId": 1,
+  "tagName": null,
+  "tagId": null,
+  "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-      "dateTo": "2020-05-12T23:59:59",
-      "today": true
+    "dateTo": "2020-05-12T23:59:59",
+    "today": true
   },
   "items": [
     {
@@ -29,7 +29,6 @@
       "position": 1,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -506,7 +505,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -722,13 +720,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -747,7 +742,6 @@
       "position": 2,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -1166,7 +1160,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -1347,13 +1340,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -1372,7 +1362,6 @@
       "position": 3,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -1517,7 +1506,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -1600,13 +1588,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -1625,7 +1610,6 @@
       "position": 4,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -1710,7 +1694,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -1772,13 +1755,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -1797,7 +1777,6 @@
       "position": 5,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -1842,7 +1821,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -1890,13 +1868,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -1915,7 +1890,6 @@
       "position": 6,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -2392,7 +2366,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -2608,13 +2581,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -2633,7 +2603,6 @@
       "position": 7,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -3052,7 +3021,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -3233,13 +3201,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -3258,7 +3223,6 @@
       "position": 8,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -3403,7 +3367,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -3486,13 +3449,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -3511,7 +3471,6 @@
       "position": 9,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -3596,7 +3555,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -3658,13 +3616,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     },
     {
@@ -3683,7 +3638,6 @@
       "position": 10,
       "chartData": {
         "single": [
-
         ],
         "multi": [
           {
@@ -3728,7 +3682,6 @@
           }
         ],
         "multiStacked": [
-
         ],
         "rawData": [
           {
@@ -3776,13 +3729,10 @@
         ]
       },
       "compareLocationsTags": [
-
       ],
       "ignoredAnswerValues": [
-
       ],
       "textQuestionData": [
-
       ]
     }
   ]

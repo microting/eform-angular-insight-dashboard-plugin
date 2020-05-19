@@ -42,18 +42,18 @@ namespace InsightDashboard.Pn.Test
         public async Task ChartData_Calculate_Correct()
         {
             // Settings
-            CultureInfo.CurrentCulture = new CultureInfo("da-DK"); ;
+            CultureInfo.CurrentCulture = new CultureInfo("da-DK");
 
             // Arrange
             var localizationService = MockHelper.GetLocalizationService();
             var dashboardViews = DashboardHelpers.GetChartDataDashBoards();
 
-            foreach (var dashboardView in dashboardViews)
+            foreach (var (key, value) in dashboardViews)
             {
-                Console.WriteLine($"Check template: {dashboardView.Value}");
+                Console.WriteLine($"Check template: {value}");
 
                 // Act
-                foreach (var itemViewModel in dashboardView.Key.Items)
+                foreach (var itemViewModel in key.Items)
                 {
                     var newItemViewModel = DashboardHelpers.CopyDashboardItem(itemViewModel);
                     var dashboardItem = DashboardHelpers.GetDashboardItemFromModel(itemViewModel);
@@ -63,10 +63,10 @@ namespace InsightDashboard.Pn.Test
                         DbContext,
                         dashboardItem,
                         localizationService,
-                        dashboardView.Key.LocationId,
-                        dashboardView.Key.TagId,
-                        dashboardView.Key.SurveyId,
-                        dashboardView.Key.AnswerDates);
+                        key.LocationId,
+                        key.TagId,
+                        key.SurveyId,
+                        key.AnswerDates);
 
                     DashboardHelpers.CheckData(itemViewModel, newItemViewModel);
                 }

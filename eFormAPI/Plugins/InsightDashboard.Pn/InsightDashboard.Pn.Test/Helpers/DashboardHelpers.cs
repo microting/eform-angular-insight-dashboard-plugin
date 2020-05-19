@@ -49,11 +49,29 @@ namespace InsightDashboard.Pn.Test.Helpers
             result.Add(GetDashboardViewModel(name), name);
             name = "DashboardLine.data";
             result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardLineScore.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardMultiChart.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardStackedBar.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardStackedGrouped.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardTotal.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardTotalN.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardVerticalBar.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardViewLine.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardViewLineScore.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardViewTotal.data";
+            result.Add(GetDashboardViewModel(name), name);
 
             return result;
         }
-
-
 
         public static DashboardItem GetDashboardItemFromModel(DashboardItemViewModel viewModel)
         {
