@@ -19,9 +19,6 @@
       <None Remove="Data\DashboardTotal.data.json" />
       <None Remove="Data\DashboardTotalN.data.json" />
       <None Remove="Data\DashboardVerticalBar.data.json" />
-      <None Remove="Data\DashboardViewLine.data.json" />
-      <None Remove="Data\DashboardViewLineScore.data.json" />
-      <None Remove="Data\DashboardViewTotal.data.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,9 +26,6 @@
       <EmbeddedResource Include="Data\DashboardMultiChart.data.json" />
       <EmbeddedResource Include="Data\DashboardStackedGrouped.data.json" />
       <EmbeddedResource Include="Data\DashboardTotal.data.json" />
-      <EmbeddedResource Include="Data\DashboardViewLine.data.json" />
-      <EmbeddedResource Include="Data\DashboardViewTotal.data.json" />
-      <EmbeddedResource Include="Data\DashboardViewLineScore.data.json" />
       <EmbeddedResource Include="Data\DashboardVerticalBar.data.json" />
       <EmbeddedResource Include="Data\DashboardTotalN.data.json" />
       <EmbeddedResource Include="Data\DashboardStackedBar.data.json" />
