@@ -55,7 +55,7 @@ namespace InsightDashboard.Pn.Test.Helpers
 
             localizationServiceMock
                 .Setup(x => x.GetString("TotalPeriod"))
-                .Returns("Total Period");
+                .Returns("Samlet periode");
 
             localizationServiceMock
                 .Setup(x => x.GetString("Total"))
@@ -63,7 +63,7 @@ namespace InsightDashboard.Pn.Test.Helpers
 
             localizationServiceMock
                 .Setup(x => x.GetString("NoData"))
-                .Returns("No data");
+                .Returns("Ingen data");
 
             return localizationServiceMock.Object;
         }
