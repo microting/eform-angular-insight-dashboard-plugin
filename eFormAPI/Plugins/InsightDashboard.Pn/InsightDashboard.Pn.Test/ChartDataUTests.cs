@@ -25,6 +25,7 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Test
 {
     using System;
+    using System.Globalization;
     using System.Threading.Tasks;
     using Base;
     using Helpers;
@@ -40,6 +41,9 @@ namespace InsightDashboard.Pn.Test
         [Test]
         public async Task ChartData_Calculate_Correct()
         {
+            // Settings
+            CultureInfo.CurrentCulture = new CultureInfo("da-DK"); ;
+
             // Arrange
             var localizationService = MockHelper.GetLocalizationService();
             var dashboardViews = DashboardHelpers.GetChartDataDashBoards();
