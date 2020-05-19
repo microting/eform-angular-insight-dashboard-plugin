@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {DashboardChartTypesEnum, DashboardItemQuestionTypesEnum} from '../../../../const/enums';
+import {DashboardChartTypesEnum, DashboardItemQuestionTypesEnum, DashboardPeriodUnitsEnum} from '../../../../const/enums';
 import {DashboardItemModel} from '../../../../models';
 import {CommonDictionaryModel} from 'src/app/common/models';
 import {
@@ -8,6 +8,7 @@ import {
   multiSmiley, multiStacked, multiStackedSmiley, single, singleSmiley
 } from './chart-data';
 import {DashboardChartDataModel} from 'src/app/plugins/modules/insight-dashboard-pn/models/dashboard/dashboard-chart-data.model';
+import {getChartData} from 'src/app/plugins/modules/insight-dashboard-pn/helpers/preview-values-generator.helper';
 
 @Component({
   selector: 'app-dashboard-chart-edit',
@@ -17,19 +18,17 @@ import {DashboardChartDataModel} from 'src/app/plugins/modules/insight-dashboard
 export class DashboardChartEditComponent implements OnChanges {
   @Input() chartPosition: number;
   @Input() questionType: DashboardItemQuestionTypesEnum;
+  @Input() period: number;
+  @Input() chartType: number;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
-  @Input() dashboardItemChartData: DashboardChartDataModel;
   @Input() answers: CommonDictionaryModel[] = [];
   @Input() chartGeneratedPreviewData: DashboardChartDataModel;
+  chartData: any[];
 
   get chartTypes() {
     return DashboardChartTypesEnum;
   }
 
-  line: any[];
-  multi: any[];
-  multiStacked: any[];
-  pie: any[];
   view: any[] = [800, 400];
   multiChartView: any[] = [800, 400];
 
@@ -92,19 +91,22 @@ export class DashboardChartEditComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.questionType) {
-      const currentValue = changes.questionType.currentValue as DashboardItemQuestionTypesEnum;
-        if (currentValue === DashboardItemQuestionTypesEnum.Smiley) {
-          Object.assign(this, {line: lineSmiley});
-          Object.assign(this, {multi: multiSmiley});
-          Object.assign(this, {pie: singleSmiley});
-          Object.assign(this, {multiStacked: multiStackedSmiley});
-        } else {
-          Object.assign(this, {line: line});
-          Object.assign(this, {multi});
-          Object.assign(this, {pie: single});
-          Object.assign(this, {multiStacked: multiStacked});
-        }
+    if (changes) {
+      if (changes.questionType) {
+        this.chartData = [];
+        const currentValue = changes.questionType.currentValue as DashboardItemQuestionTypesEnum;
+        this.chartData = [...getChartData(currentValue, this.period, this.dashboardItem.chartType)];
+      }
+      if (changes.period) {
+        this.chartData = [];
+        const currentValue = changes.period.currentValue as DashboardPeriodUnitsEnum;
+        this.chartData = [...getChartData(this.questionType, currentValue, this.dashboardItem.chartType)];
+      }
+      if (changes.chartType) {
+        this.chartData = [];
+        const currentValue = changes.chartType.currentValue as DashboardChartTypesEnum;
+        this.chartData = [...getChartData(this.questionType, this.period, currentValue)];
+      }
     }
   }
 }

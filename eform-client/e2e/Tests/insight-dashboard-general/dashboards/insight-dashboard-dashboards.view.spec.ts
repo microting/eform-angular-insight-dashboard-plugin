@@ -13,8 +13,8 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 const item = {
-  firstQuestion: 'Q2',
-  filterQuestion: 'Q3',
+  firstQuestion: 'Q2: Er personalet på afsnittet venligt og imødekommende?',
+  filterQuestion: 'Q3: Oplever du, at personalet er forberedt til samtaler med dig om din udredning/behandling?',
   filterAnswer: 'Meget glad',
   period: 'Måned',
   chartType: 'Linje',

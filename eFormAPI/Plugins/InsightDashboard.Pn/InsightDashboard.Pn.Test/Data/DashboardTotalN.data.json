@@ -1,20 +1,20 @@
-export const dashboardTotalDataJson = {
-  "id": 41,
-  "dashboardName": "Total",
+﻿{
+  "id": 52,
+  "dashboardName": "Test Total N",
   "surveyName": "Test-Set",
   "surveyId": 1,
-  "locationName": "Location 1",
-  "locationId": 1,
-  "tagName": null,
-  "tagId": null,
+  "locationName": null,
+  "locationId": null,
+  "tagName": "Total",
+  "tagId": 1,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-05-08T23:59:59",
+    "dateTo": "2020-05-15T23:59:59",
     "today": true
   },
   "items": [
     {
-      "id": 87,
+      "id": 124,
       "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
       "firstQuestionType": "list",
       "filterQuestionName": null,
@@ -31,14 +31,14 @@ export const dashboardTotalDataJson = {
         "single": [
           {
             "name": "Ja",
-            "value": 105.0,
-            "dataCount": 105,
+            "value": 419.0,
+            "dataCount": 419,
             "optionIndex": 0
           },
           {
             "name": "Nej",
-            "value": 33.0,
-            "dataCount": 33,
+            "value": 133.0,
+            "dataCount": 133,
             "optionIndex": 0
           }
         ],
@@ -48,7 +48,7 @@ export const dashboardTotalDataJson = {
           {
             "rawValueName": "",
             "rawHeaders": [
-              "Total Period"
+              "Samlet periode"
             ],
             "rawDataValues": [
               {
@@ -57,7 +57,7 @@ export const dashboardTotalDataJson = {
                   76.0
                 ],
                 "amounts": [
-                  105.0
+                  419.0
                 ]
               },
               {
@@ -66,7 +66,7 @@ export const dashboardTotalDataJson = {
                   24.0
                 ],
                 "amounts": [
-                  33.0
+                  133.0
                 ]
               },
               {
@@ -75,7 +75,7 @@ export const dashboardTotalDataJson = {
                   100.0
                 ],
                 "amounts": [
-                  138.0
+                  552.0
                 ]
               }
             ]
@@ -87,7 +87,7 @@ export const dashboardTotalDataJson = {
       "textQuestionData": []
     },
     {
-      "id": 127,
+      "id": 125,
       "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
       "firstQuestionType": "list",
       "filterQuestionName": null,
@@ -104,14 +104,14 @@ export const dashboardTotalDataJson = {
         "single": [
           {
             "name": "Ja",
-            "value": 105.0,
-            "dataCount": 105,
+            "value": 419.0,
+            "dataCount": 419,
             "optionIndex": 0
           },
           {
             "name": "Nej",
-            "value": 33.0,
-            "dataCount": 33,
+            "value": 133.0,
+            "dataCount": 133,
             "optionIndex": 0
           }
         ],
@@ -121,7 +121,7 @@ export const dashboardTotalDataJson = {
           {
             "rawValueName": "",
             "rawHeaders": [
-              "Total Period"
+              "Samlet periode"
             ],
             "rawDataValues": [
               {
@@ -130,7 +130,7 @@ export const dashboardTotalDataJson = {
                   76.0
                 ],
                 "amounts": [
-                  105.0
+                  419.0
                 ]
               },
               {
@@ -139,7 +139,7 @@ export const dashboardTotalDataJson = {
                   24.0
                 ],
                 "amounts": [
-                  33.0
+                  133.0
                 ]
               },
               {
@@ -148,7 +148,7 @@ export const dashboardTotalDataJson = {
                   100.0
                 ],
                 "amounts": [
-                  138.0
+                  552.0
                 ]
               }
             ]
@@ -160,7 +160,7 @@ export const dashboardTotalDataJson = {
       "textQuestionData": []
     },
     {
-      "id": 88,
+      "id": 126,
       "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
       "firstQuestionType": "list",
       "filterQuestionName": null,
@@ -169,7 +169,7 @@ export const dashboardTotalDataJson = {
       "filterQuestionId": null,
       "filterAnswerId": null,
       "period": 6,
-      "chartType": 5,
+      "chartType": 2,
       "compareEnabled": false,
       "calculateAverage": false,
       "position": 3,
@@ -178,13 +178,13 @@ export const dashboardTotalDataJson = {
           {
             "name": "Ja",
             "value": 76.0,
-            "dataCount": 105,
+            "dataCount": 419,
             "optionIndex": 0
           },
           {
             "name": "Nej",
             "value": 24.0,
-            "dataCount": 33,
+            "dataCount": 133,
             "optionIndex": 0
           }
         ],
@@ -194,7 +194,7 @@ export const dashboardTotalDataJson = {
           {
             "rawValueName": "",
             "rawHeaders": [
-              "Total Period"
+              "Samlet periode"
             ],
             "rawDataValues": [
               {
@@ -203,7 +203,7 @@ export const dashboardTotalDataJson = {
                   76.0
                 ],
                 "amounts": [
-                  105.0
+                  419.0
                 ]
               },
               {
@@ -212,7 +212,7 @@ export const dashboardTotalDataJson = {
                   24.0
                 ],
                 "amounts": [
-                  33.0
+                  133.0
                 ]
               },
               {
@@ -221,80 +221,7 @@ export const dashboardTotalDataJson = {
                   100.0
                 ],
                 "amounts": [
-                  138.0
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
-    },
-    {
-      "id": 89,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 8,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 4,
-      "chartData": {
-        "single": [
-          {
-            "name": "Ja",
-            "value": 76.0,
-            "dataCount": 105,
-            "optionIndex": 0
-          },
-          {
-            "name": "Nej",
-            "value": 24.0,
-            "dataCount": 33,
-            "optionIndex": 0
-          }
-        ],
-        "multi": [],
-        "multiStacked": [],
-        "rawData": [
-          {
-            "rawValueName": "",
-            "rawHeaders": [
-              "Total Period"
-            ],
-            "rawDataValues": [
-              {
-                "valueName": "Ja",
-                "percents": [
-                  76.0
-                ],
-                "amounts": [
-                  105.0
-                ]
-              },
-              {
-                "valueName": "Nej",
-                "percents": [
-                  24.0
-                ],
-                "amounts": [
-                  33.0
-                ]
-              },
-              {
-                "valueName": "Total",
-                "percents": [
-                  100.0
-                ],
-                "amounts": [
-                  138.0
+                  552.0
                 ]
               }
             ]

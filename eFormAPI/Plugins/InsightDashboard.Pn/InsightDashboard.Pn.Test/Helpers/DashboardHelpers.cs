@@ -25,6 +25,7 @@ SOFTWARE.
 namespace InsightDashboard.Pn.Test.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Infrastructure.Models.Dashboards;
     using Microting.eForm.Infrastructure.Constants;
@@ -34,26 +35,36 @@ namespace InsightDashboard.Pn.Test.Helpers
 
     public static class DashboardHelpers
     {
-        public static DashboardViewModel GetSingleDashBoard()
+        public static DashboardViewModel GetDashboardViewModel(string name)
         {
-            var singleString = FileHelper.ReadFileFromResources("single-data");
-            return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
-        }
-        public static DashboardViewModel GetMultiDashBoard()
-        {
-            var singleString = FileHelper.ReadFileFromResources("multi-data");
-            return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
-        }
-        public static DashboardViewModel GetMultiStackedDashBoard()
-        {
-            var singleString = FileHelper.ReadFileFromResources("multi-stacked-data");
+            var singleString = FileHelper.ReadFileFromResources(name);
             return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
         }
 
-        public static DashboardViewModel GetRawChartDataDashBoard()
+        public static Dictionary<DashboardViewModel, string> GetChartDataDashBoards()
         {
-            var singleString = FileHelper.ReadFileFromResources("raw-chart-data");
-            return JsonConvert.DeserializeObject<DashboardViewModel>(singleString);
+            var result = new Dictionary<DashboardViewModel, string>();
+
+            var name = "DashboardHorizontalBar.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardLine.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardLineScore.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardMultiChart.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardStackedBar.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardStackedGrouped.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardTotal.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardTotalN.data";
+            result.Add(GetDashboardViewModel(name), name);
+            name = "DashboardVerticalBar.data";
+            result.Add(GetDashboardViewModel(name), name);
+
+            return result;
         }
 
         public static DashboardItem GetDashboardItemFromModel(DashboardItemViewModel viewModel)
@@ -121,38 +132,65 @@ namespace InsightDashboard.Pn.Test.Helpers
 
         public static void CheckData(
             DashboardItemViewModel originalItem,
-            DashboardItemViewModel processedItem)
+            DashboardItemViewModel processedItem,
+            DashboardViewModel originalViewModel,
+            string templateName)
         {
+
+            // ss
+            var message = $"Check data for template: \"{templateName}\"\n" +
+                          $"Dashboard id: {originalViewModel.Id}\n" +
+                          $"Dashboard name: {originalViewModel.DashboardName}\n" +
+                          "Dashboard item:\n" +
+                          $"Id: {originalItem.Id}\n" +
+                          $"Chart type: {originalItem.ChartType}\n" +
+                          $"Calculate average: {originalItem.CalculateAverage}\n" +
+                          $"Compare enabled: {originalItem.CompareEnabled}\n" +
+                          $"Period: {originalItem.Period}\n" +
+                          $"Position: {originalItem.Position}\n" +
+                          $"First question: ({originalItem.FirstQuestionId}, {originalItem.FirstQuestionName})\n" +
+                          "Test error: \n";
+
             Assert.AreEqual(
                 originalItem.Id,
-                processedItem.Id);
+                processedItem.Id,
+                message);
             Assert.AreEqual(
                 originalItem.CalculateAverage,
-                processedItem.CalculateAverage);
+                processedItem.CalculateAverage,
+                message);
             Assert.AreEqual(
                 originalItem.ChartType,
-                processedItem.ChartType);
+                processedItem.ChartType,
+                message);
             Assert.AreEqual(
                 originalItem.CompareEnabled,
-                processedItem.CompareEnabled);
+                processedItem.CompareEnabled,
+                message);
             Assert.AreEqual(
                 originalItem.Period,
-                processedItem.Period);
+                processedItem.Period,
+                message);
             Assert.AreEqual(
                 originalItem.Position,
-                processedItem.Position);
+                processedItem.Position,
+                message);
             Assert.AreEqual(
                 originalItem.Position,
-                processedItem.Position);
+                processedItem.Position,
+                message);
             Assert.AreEqual(
                 originalItem.ChartData.Single.Count,
-                processedItem.ChartData.Single.Count);
+                processedItem.ChartData.Single.Count,
+                message);
             Assert.AreEqual(
                 originalItem.ChartData.Multi.Count,
-                processedItem.ChartData.Multi.Count);
+                processedItem.ChartData.Multi.Count,
+                message);
             Assert.AreEqual(
                 originalItem.ChartData.MultiStacked.Count,
-                processedItem.ChartData.MultiStacked.Count);
+                processedItem.ChartData.MultiStacked.Count,
+                message);
 
             // Single data
             for (var index = 0; index < originalItem.ChartData.Single.Count; index++)
@@ -160,8 +198,8 @@ namespace InsightDashboard.Pn.Test.Helpers
                 var dataOriginal = originalItem.ChartData.Single[index];
                 var dataProcessed = processedItem.ChartData.Single[index];
 
-                Assert.AreEqual(dataOriginal.Name, dataProcessed.Name);
-                Assert.AreEqual(dataOriginal.Value, dataProcessed.Value);
+                Assert.AreEqual(dataOriginal.Name, dataProcessed.Name, message);
+                Assert.AreEqual(dataOriginal.Value, dataProcessed.Value, message);
             }
 
             // Multi data
@@ -170,15 +208,15 @@ namespace InsightDashboard.Pn.Test.Helpers
                 var dataOriginal = originalItem.ChartData.Multi[index];
                 var dataProcessed = processedItem.ChartData.Multi[index];
 
-                Assert.AreEqual(dataOriginal.Name, dataProcessed.Name);
+                Assert.AreEqual(dataOriginal.Name, dataProcessed.Name, message);
 
                 for (var i = 0; i < dataOriginal.Series.Count; i++)
                 {
                     var originalSeries = dataOriginal.Series[i];
                     var originalProcessed = dataProcessed.Series[i];
 
-                    Assert.AreEqual(originalSeries.Name, originalProcessed.Name);
-                    Assert.AreEqual(originalSeries.Value, originalProcessed.Value);
+                    Assert.AreEqual(originalSeries.Name, originalProcessed.Name, message);
+                    Assert.AreEqual(originalSeries.Value, originalProcessed.Value, message);
                 }
             }
 
@@ -188,23 +226,23 @@ namespace InsightDashboard.Pn.Test.Helpers
                 var dataOriginal = originalItem.ChartData.MultiStacked[index];
                 var dataProcessed = processedItem.ChartData.MultiStacked[index];
 
-                Assert.AreEqual(dataOriginal.Id, dataProcessed.Id);
-                Assert.AreEqual(dataOriginal.Name, dataProcessed.Name);
+                Assert.AreEqual(dataOriginal.Id, dataProcessed.Id, message);
+                Assert.AreEqual(dataOriginal.Name, dataProcessed.Name, message);
 
                 for (var i = 0; i < dataOriginal.Series.Count; i++)
                 {
                     var originalSeries = dataOriginal.Series[i];
                     var processedSeries = dataProcessed.Series[i];
 
-                    Assert.AreEqual(originalSeries.Name, processedSeries.Name);
+                    Assert.AreEqual(originalSeries.Name, processedSeries.Name, message);
 
                     for (var y = 0; y < originalSeries.Series.Count; y++)
                     {
                         var originalSeriesSeries = originalSeries.Series[y];
                         var processedSeriesSeries = processedSeries.Series[y];
 
-                        Assert.AreEqual(originalSeriesSeries.Name, processedSeriesSeries.Name);
-                        Assert.AreEqual(originalSeriesSeries.Value, processedSeriesSeries.Value);
+                        Assert.AreEqual(originalSeriesSeries.Name, processedSeriesSeries.Name, message);
+                        Assert.AreEqual(originalSeriesSeries.Value, processedSeriesSeries.Value, message);
                     }
                 }
             }
@@ -215,13 +253,13 @@ namespace InsightDashboard.Pn.Test.Helpers
                 var dataOriginal = originalItem.ChartData.RawData[index];
                 var dataProcessed = processedItem.ChartData.RawData[index];
 
-                Assert.AreEqual(dataOriginal.RawValueName, dataProcessed.RawValueName);
-                Assert.AreEqual(dataOriginal.RawHeaders.Count, dataProcessed.RawHeaders.Count);
+                Assert.AreEqual(dataOriginal.RawValueName, dataProcessed.RawValueName, message);
+                Assert.AreEqual(dataOriginal.RawHeaders.Count, dataProcessed.RawHeaders.Count, message);
 
                 // Check table header
                 for (var i = 0; i < dataOriginal.RawHeaders.Count; i++)
                 {
-                    Assert.AreEqual(dataOriginal.RawHeaders[i], dataProcessed.RawHeaders[i]);
+                    Assert.AreEqual(dataOriginal.RawHeaders[i], dataProcessed.RawHeaders[i], message);
                 }
 
                 // Check table data
@@ -230,7 +268,7 @@ namespace InsightDashboard.Pn.Test.Helpers
                     var originalSeries = dataOriginal.RawDataValues[i];
                     var processedSeries = dataProcessed.RawDataValues[i];
 
-                    Assert.AreEqual(originalSeries.ValueName, processedSeries.ValueName);
+                    Assert.AreEqual(originalSeries.ValueName, processedSeries.ValueName, message);
 
                     // Values
                     for (var y = 0; y < originalSeries.Amounts.Length; y++)
@@ -238,7 +276,7 @@ namespace InsightDashboard.Pn.Test.Helpers
                         var originalValue = originalSeries.Percents[y];
                         var processedValue = processedSeries.Percents[y];
 
-                        Assert.AreEqual(originalValue, processedValue);
+                        Assert.AreEqual(originalValue, processedValue, message);
                     }
 
                     // Amounts
@@ -247,7 +285,7 @@ namespace InsightDashboard.Pn.Test.Helpers
                         var originalAmount = originalSeries.Amounts[y];
                         var processedAmount = processedSeries.Amounts[y];
 
-                        Assert.AreEqual(originalAmount, processedAmount);
+                        Assert.AreEqual(originalAmount, processedAmount, message);
                     }
                 }
             }

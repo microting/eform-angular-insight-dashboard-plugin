@@ -746,10 +746,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
         public async Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
             int dashboardId,
             bool onlyTextData,
-            bool dashboardItemPreview,
-            List<DashboardItem> dashboardPreviewItems,
-            DashboardPreviewInfoModel dashboardPreviewInfo,
-            int? dashBoardItemId = null)
+            int? dashboardItemId = null)
         {
             try
             {
@@ -767,16 +764,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     return new OperationDataResult<DashboardViewModel>(
                         false,
                         _localizationService.GetString("DashboardNotFound"));
-                }
-
-                // Modify dashboard if preview enabled
-                if (dashboardItemPreview)
-                {
-                    dashboard.TagId = dashboardPreviewInfo.TagId;
-                    dashboard.LocationId = dashboardPreviewInfo.LocationId;
-                    dashboard.DateFrom = dashboardPreviewInfo.AnswerDates.DateFrom;
-                    dashboard.DateTo = dashboardPreviewInfo.AnswerDates.DateTo;
-                    dashboard.Today = dashboardPreviewInfo.AnswerDates.Today;
                 }
 
                 if (dashboard.Today)
@@ -870,29 +857,17 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         }).ToListAsync();
                 }
 
-                var items = new List<DashboardItem>();
-
-                if (dashboardItemPreview && dashboardPreviewItems != null)
-                {
-                    items.AddRange(dashboardPreviewItems
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .OrderBy(x => x.Position)
-                        .ToList());
-                }
-                else
-                {
-                    items = dashboard.DashboardItems
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .OrderBy(x => x.Position)
-                        .ToList();
-                }
+                var items = dashboard.DashboardItems
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .OrderBy(x => x.Position)
+                    .ToList();
 
                 // Dashboard items
                 foreach (var dashboardItem in items)
                 {
                     if (onlyTextData)
                     {
-                        if (dashboardItem.Id != dashBoardItemId)
+                        if (dashboardItem.Id != dashboardItemId)
                         {
                             continue;
                         }
@@ -1070,68 +1045,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
             }
         }
 
-        public async Task<OperationDataResult<DashboardItemViewModel>> GetItemPreview(
-            DashboardItemPreviewRequestModel previewModel)
-        {
-            try
-            {
-                var dashboardItem = new DashboardItem
-                {
-                    Id = previewModel.Item.Id ?? 0,
-                    ChartType = previewModel.Item.ChartType,
-                    Position = previewModel.Item.Position,
-                    CalculateAverage = previewModel.Item.CalculateAverage,
-                    CompareEnabled = previewModel.Item.CompareEnabled,
-                    FirstQuestionId = previewModel.Item.FirstQuestionId,
-                    FilterQuestionId = previewModel.Item.FilterQuestionId,
-                    FilterAnswerId = previewModel.Item.FilterAnswerId,
-                    Period = previewModel.Item.Period,
-                    Version = 1,
-                    DashboardId = previewModel.DashboardPreviewInfo.DashboardId,
-                    CompareLocationsTags = previewModel.Item.CompareLocationsTags
-                        .Select(x=> new DashboardItemCompare
-                        {
-                            Id = x.Id ?? 0,
-                            Position = x.Position,
-                            LocationId = x.LocationId,
-                            TagId = x.TagId,
-                        }).ToList(),
-                    IgnoredAnswerValues = previewModel.Item.IgnoredAnswerValues
-                        .Select(x => new DashboardItemIgnoredAnswer()
-                        {
-                            Id = x.Id ?? 0,
-                            AnswerId = x.AnswerId,
-                        }).ToList(),
-                };
-
-                var items = new List<DashboardItem> { dashboardItem };
-
-                var viewResult = await GetSingleForView(
-                    previewModel.DashboardPreviewInfo.DashboardId,
-                    false,
-                    true,
-                    items,
-                    previewModel.DashboardPreviewInfo);
-
-                if (!viewResult.Success)
-                {
-                    return new OperationDataResult<DashboardItemViewModel>(false, viewResult.Message);
-                }
-
-                return new OperationDataResult<DashboardItemViewModel>(
-                    true,
-                    viewResult.Model.Items.FirstOrDefault());
-                
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-                _logger.LogError(e.Message);
-                return new OperationDataResult<DashboardItemViewModel>(false,
-                    _localizationService.GetString("ErrorWhileObtainingDashboardInfo"));
-            }
-        }
-
         public async Task<OperationDataResult<DashboardEditModel>> GetSingleForEdit(int dashboardId)
         {
             try
@@ -1234,33 +1147,6 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             dashboardItemModel.IsFirstQuestionSmiley = question.IsSmiley();
                             dashboardItemModel.FirstQuestionType = question.GetQuestionType();
                         }
-                    }
-                }
-
-                // Get chart preview
-                var viewResult = await GetSingleForView(
-                    dashboardId,
-                    false,
-                    false,
-                    null,
-                    null);
-
-                if (!viewResult.Success)
-                {
-                    return new OperationDataResult<DashboardEditModel>(false, viewResult.Message);
-                }
-
-                foreach (var dashboardItem in dashboard.Items)
-                {
-                    // Find dashboard item model view
-                    var dashboardViewItemChartData = viewResult.Model.Items
-                        .Where(x => x.Id == dashboardItem.Id)
-                        .Select(x => x.ChartData)
-                        .FirstOrDefault();
-
-                    if (dashboardViewItemChartData != null)
-                    {
-                        dashboardItem.ChartData = dashboardViewItemChartData;
                     }
                 }
 

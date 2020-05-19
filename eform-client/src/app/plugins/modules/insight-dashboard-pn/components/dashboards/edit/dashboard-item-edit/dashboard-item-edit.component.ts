@@ -42,9 +42,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   loadAnswersSub$: Subscription;
   collapseSub$: Subscription;
   filteredQuestions: CommonDictionaryModel[] = [];
-  dashboardItemChartData: DashboardChartDataModel;
-  chartGeneratedPreviewData: DashboardChartDataModel;
-  chartGeneratedPreviewDataSub$: Subscription;
   allCharts = [];
   availableCharts = [];
 
@@ -140,7 +137,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
       // load answers on change fields
       this.dashboardItem[DashboardItemFieldsEnum.firstQuestionId] = currentValue.firstQuestionId;
       this.dashboardItem[DashboardItemFieldsEnum.filterQuestionId] = currentValue.filterQuestionId;
-      this.dashboardItemChartData = {...currentValue.chartData};
       this.loadAnswers(true);
       this.loadAnswers(false);
 
@@ -193,12 +189,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         || fieldName === DashboardItemFieldsEnum.compareEnabled) {
         this.setAvailableCharts(true);
       }
-
-      // get preview for chart
-      if (this.dashboardItem.firstQuestionId && this.dashboardItem.period && this.dashboardItem.chartType) {
-        this.chartGeneratedPreviewData = new DashboardChartDataModel();
-        this.getChartPreviewData(this.dashboardItem);
-      }
     }
   }
 
@@ -229,24 +219,6 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         this.availableCharts = [];
       }
     }
-  }
-
-  getChartPreviewData(model: DashboardItemModel) {
-    this.chartGeneratedPreviewDataSub$ = this.dashboardItemService.getItemPreview(
-      {
-        item: model, dashboardPreviewInfo: {
-          dashboardId: this.dashboardId,
-          tagId: this.selectedTagId,
-          locationId: this.selectedLocationId,
-          answerDates: {...this.selectedAnswerDates}
-        }
-      }
-    )
-      .subscribe((data) => {
-        if (data && data.success) {
-          this.chartGeneratedPreviewData = {...data.model.chartData};
-        }
-      });
   }
 
   private fillInitialChartOptions(period: DashboardPeriodUnitsEnum | null) {

@@ -57,10 +57,7 @@ namespace InsightDashboard.Pn.Services.WordService
                 var reportDataResult = await _dashboardService
                     .GetSingleForView(
                         dashboardId,
-                        false,
-                        false,
-                        null,
-                        null);
+                        false);
 
                 if (!reportDataResult.Success)
                 {

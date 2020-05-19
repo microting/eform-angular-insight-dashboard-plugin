@@ -65,9 +65,6 @@ namespace InsightDashboard.Pn.Services.InterviewsService
                     .GetSingleForView(
                         requestModel.DashboardId,
                         true,
-                        false,
-                        null,
-                        null,
                         requestModel.ItemId);
 
                 if (!reportDataResult.Success)
