@@ -63,12 +63,6 @@ namespace InsightDashboard.Pn.Test.Helpers
             result.Add(GetDashboardViewModel(name), name);
             name = "DashboardVerticalBar.data";
             result.Add(GetDashboardViewModel(name), name);
-            name = "DashboardViewLine.data";
-            result.Add(GetDashboardViewModel(name), name);
-            name = "DashboardViewLineScore.data";
-            result.Add(GetDashboardViewModel(name), name);
-            name = "DashboardViewTotal.data";
-            result.Add(GetDashboardViewModel(name), name);
 
             return result;
         }
