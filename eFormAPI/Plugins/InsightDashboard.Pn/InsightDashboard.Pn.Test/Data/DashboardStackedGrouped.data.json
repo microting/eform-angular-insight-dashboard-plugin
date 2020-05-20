@@ -6,7 +6,7 @@
   "locationName": null,
   "locationId": null,
   "tagName": "Total",
-  "tagId": 7,
+  "tagId": 1,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
     "dateTo": "2020-05-18T23:59:59",
@@ -32,7 +32,7 @@
         "multi": [],
         "multiStacked": [
           {
-            "id": 7,
+            "id": 1,
             "name": "Total",
             "isTag": true,
             "series": [
@@ -829,7 +829,7 @@
         {
           "id": 94,
           "locationId": null,
-          "tagId": 7,
+          "tagId": 1,
           "position": 1,
           "name": "Total"
         },
