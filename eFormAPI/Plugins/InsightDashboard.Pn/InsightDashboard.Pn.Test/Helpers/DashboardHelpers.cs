@@ -136,8 +136,10 @@ namespace InsightDashboard.Pn.Test.Helpers
             DashboardViewModel originalViewModel,
             string templateName)
         {
+            var originalItemString = JsonConvert.SerializeObject(originalItem);
+            var processedItemString = JsonConvert.SerializeObject(processedItem);
 
-            // ss
+            // Build info
             var message = $"Check data for template: \"{templateName}\"\n" +
                           $"Dashboard id: {originalViewModel.Id}\n" +
                           $"Dashboard name: {originalViewModel.DashboardName}\n" +
@@ -148,7 +150,12 @@ namespace InsightDashboard.Pn.Test.Helpers
                           $"Compare enabled: {originalItem.CompareEnabled}\n" +
                           $"Period: {originalItem.Period}\n" +
                           $"Position: {originalItem.Position}\n" +
-                          $"First question: ({originalItem.FirstQuestionId}, {originalItem.FirstQuestionName})\n" +
+                          $"First question: ({originalItem.FirstQuestionId}, {originalItem.FirstQuestionName})" +
+                          "\n\n" +
+                          $"Original item: \n{originalItemString}" +
+                          "\n\n" +
+                          $"Processed item: \n{processedItemString}" +
+                          "\n\n" +
                           "Test error: \n";
 
             Assert.AreEqual(
