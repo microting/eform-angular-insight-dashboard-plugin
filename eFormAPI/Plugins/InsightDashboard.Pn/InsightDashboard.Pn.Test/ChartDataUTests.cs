@@ -44,6 +44,9 @@ namespace InsightDashboard.Pn.Test
             // Settings
             CultureInfo.CurrentCulture = new CultureInfo("da-DK");
 
+            // Add total tag
+            await DatabaseHelper.AddTotalTag(DbContext);
+
             // Arrange
             var localizationService = MockHelper.GetLocalizationService();
             var dashboardViews = DashboardHelpers.GetChartDataDashBoards();
