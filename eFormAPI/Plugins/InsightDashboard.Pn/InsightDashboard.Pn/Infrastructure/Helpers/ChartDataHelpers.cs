@@ -509,13 +509,14 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         }
                     }
 
-                    dashboardItemModel.ChartData.RawData.AddRange(rawData);
+                    dashboardItemModel.ChartData.RawData = rawData;
                     dashboardItemModel.ChartData.Single.AddRange(groupedData);
                 }
                 else
                 {
                     var multiData = new List<DashboardViewChartDataMultiModel>();
                     var multiStackedData = new List<DashboardViewChartDataMultiStackedModel>();
+                    var multiStackedRawData = new List<DashboardViewChartDataMultiStackedModel>();
                     switch (dashboardItem.Period)
                     {
                         case DashboardPeriodUnits.Week:
@@ -926,6 +927,41 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .OrderBy(y => y.Name)
                                             .ToList(),
                                     }).ToList();
+
+                                multiStackedRawData = data
+                                    .GroupBy(ms => $"{ms.Finished:yyyy}")
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Name = x.Key, // Year 
+                                        Series = x
+                                            .GroupBy(ms => new { ms.LocationTagName, ms.IsTag })
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Id = y.Select(i => i.LocationTagId).FirstOrDefault(),
+                                                Name = y.Key.LocationTagName, // Location
+                                                AnswersCount = GetAnswersCount(y),
+                                                IsTag = y.Key.IsTag,
+                                                Series = y
+                                                    .GroupBy(g => new { g.Name, g.OptionIndex })
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        OptionIndex = i.Key.OptionIndex,
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name)).Value
+                                                            : i.Key.Name,
+                                                        DataCount = i.Count(),
+                                                        Value = isMulti
+                                                            ? GetDataPercentage(i.Count(), GetAnswersCount(y))
+                                                            : GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .OrderByDescending(
+                                                        t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ThenBy(f => f.OptionIndex)
+                                                    .ToList(),
+                                            })
+                                            .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
                             }
                             else
                             {
@@ -1196,7 +1232,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, true, isMulti);
-                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
+                            dashboardItemModel.ChartData.RawData = rawData;
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
                         else
@@ -1381,7 +1417,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, true, isMulti);
-                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
+                            dashboardItemModel.ChartData.RawData = rawData;
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
                     }
@@ -1518,7 +1554,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
 
                             var rawData = ChartRawDataHelpers.ConvertMultiData(localizationService, newLineData, false, isMulti);
-                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
+                            dashboardItemModel.ChartData.RawData = rawData;
                             dashboardItemModel.ChartData.Multi.AddRange(newLineData);
                         }
                         else
@@ -1528,8 +1564,15 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     multiStackedData,
                                     dashboardItem);
 
+                            multiStackedRawData =
+                                ChartHelpers.SortMultiStackedRawDataLocationPosition(
+                                    multiStackedRawData,
+                                    dashboardItem);
+
                             if (isSmiley)
                             {
+                                // TODO: Raw data sorting
+
                                 var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
                                 var columnNames = new List<string>();
 
@@ -1638,10 +1681,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                     newLineData.Add(model);
                                 }
+
                                 dashboardItemModel.ChartData.MultiStacked.AddRange(newLineData);
                             }
                             else if (isMulti)
                             {
+                                // TODO: Raw data sorting
+
                                 var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
 
                                 foreach (var stackedModel in multiStackedData)
@@ -1678,8 +1724,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             var rawData = ChartRawDataHelpers.ConvertMultiStackedData(
                                 localizationService,
                                 dashboardItemModel.ChartData.MultiStacked,
+                                multiStackedRawData,
                                 isMulti);
-                            dashboardItemModel.ChartData.RawData.AddRange(rawData);
+
+                            dashboardItemModel.ChartData.RawData = rawData;
                         }
                     }
                 }

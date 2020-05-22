@@ -24,32 +24,65 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Models.Dashboards;
     using Models.Dashboards.RawData;
     using Services.Common.InsightDashboardLocalizationService;
 
+    public class DashboardViewChartRawDataModel
+    {
+        public List<string> RawHeaders { get; set; } // Table headers
+            = new List<string>();
+
+        public List<DashboardViewChartRawDataItemModel> RawDataItems { get; set; }
+            = new List<DashboardViewChartRawDataItemModel>();
+        public List<DashboardViewChartRawDataItemModel> InvertedRawDataItems { get; set; }
+            = new List<DashboardViewChartRawDataItemModel>();
+    }
+
+
     public static class ChartRawDataHelpers
     {
-        public static List<DashboardViewChartRawDataModel> ConvertMultiStackedData(
+        public static DashboardViewChartRawDataModel ConvertMultiStackedData(
             IInsightDashboardLocalizationService localizationService,
             List<DashboardViewChartDataMultiStackedModel> multiStackedData,
+            List<DashboardViewChartDataMultiStackedModel> multiStackedRawData,
             bool isMulti)
         {
-            var result = new List<DashboardViewChartRawDataModel>();
+            var result = new DashboardViewChartRawDataModel();
+            var multiStackedDataResult = new List<DashboardViewChartRawDataItemModel>();
+
+            // Get element with max Option count
+            var maxOptionObject = multiStackedData
+                    .Select(location => location.Series.OrderByDescending(item => item.Series.Count)
+                        .First())
+                    .Select(x => x.Series)
+                    .FirstOrDefault();
+
+            if (maxOptionObject == null)
+            {
+                throw new Exception($"{nameof(maxOptionObject)} is null");
+            }
+
+
+            // Add global headers
+            foreach (var dataMultiModel in maxOptionObject)
+            {
+                result.RawHeaders.Add(dataMultiModel.Name); // Option name
+            }
+
+            // Location
+            // // Year name
+            // // // Option
+            // // // // Value
             foreach (var dataMultiStackedModel in multiStackedData)
             {
-                var chartRawDataModel = new DashboardViewChartRawDataModel
+                var chartRawDataModel = new DashboardViewChartRawDataItemModel
                 {
                     RawValueName = dataMultiStackedModel.Name, // Location
                 };
-
-                // Headers
-                foreach (var dataMultiModel in dataMultiStackedModel.Series)
-                {
-                    chartRawDataModel.RawHeaders.Add(dataMultiModel.Name); // Year name
-                }
 
                 // Rows
                 if (dataMultiStackedModel.Series.Any())
@@ -93,7 +126,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         for (var y = 0; y < dataMultiModel.Series.Count; y++)
                         {
                             var dataSingleModel = dataMultiModel.Series[y];
-                            rawDataList[y].Percents[i] = (decimal)dataSingleModel.Value;
+                            rawDataList[y].Percents[i] = (decimal) dataSingleModel.Value;
                             rawDataList[y].Amounts[i] = dataSingleModel.DataCount;
                         }
 
@@ -102,7 +135,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                         rawDataList[lastRow].Percents[i] = dataMultiModel.Series
                             .Where(x => x.Value != null)
-                            .Sum(x => (decimal)x.Value);
+                            .Sum(x => (decimal) x.Value);
 
                         if (isMulti)
                         {
@@ -118,28 +151,37 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     chartRawDataModel.RawDataValues = rawDataList;
                 }
 
-                result.Add(chartRawDataModel);
+                multiStackedDataResult.Add(chartRawDataModel);
             }
 
+
+
+            // Year
+            // // Location
+            // // // Option
+            // // // // Value
+
+
+
+            result.RawDataItems = multiStackedDataResult;
             return result;
         }
 
 
-        public static List<DashboardViewChartRawDataModel> ConvertMultiData(
+        public static DashboardViewChartRawDataModel ConvertMultiData(
             IInsightDashboardLocalizationService localizationService,
             List<DashboardViewChartDataMultiModel> multiData,
             bool isLineData,
             bool isMulti)
         {
-
-            var result = new List<DashboardViewChartRawDataModel>();
+            var result = new DashboardViewChartRawDataModel();
 
             if (multiData.Count == 0)
             {
                 return result;
             }
 
-            var chartRawDataModel = new DashboardViewChartRawDataModel
+            var chartRawDataModel = new DashboardViewChartRawDataItemModel
             {
                 RawValueName = string.Empty, // Empty location
             };
@@ -155,7 +197,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 // Headers
                 foreach (var dataSingleModel in maxColumnsObject.Series)
                 {
-                    chartRawDataModel.RawHeaders.Add(dataSingleModel.Name); // Year name
+                    result.RawHeaders.Add(dataSingleModel.Name); // Year name
                 }
 
                 // Rows
@@ -195,7 +237,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var dataSingleModel = dataMultiModel.Series[y];
 
                         rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
-                        rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
+                        rawDataList[i].Percents[y] = (decimal) dataSingleModel.Value;
                     }
                 }
 
@@ -223,7 +265,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 // Headers
                 foreach (var multiModel in multiData)
                 {
-                    chartRawDataModel.RawHeaders.Add(multiModel.Name); // Year name
+                    result.RawHeaders.Add(multiModel.Name); // Year name
                 }
 
                 // Rows
@@ -266,7 +308,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     for (var y = 0; y < dataMultiModel.Series.Count; y++)
                     {
                         var dataSingleModel = dataMultiModel.Series[y];
-                        rawDataList[y].Percents[i] = (decimal)dataSingleModel.Value;
+                        rawDataList[y].Percents[i] = (decimal) dataSingleModel.Value;
                         rawDataList[y].Amounts[i] = dataSingleModel.DataCount;
                     }
 
@@ -275,7 +317,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                     rawDataList[lastRow].Percents[i] = dataMultiModel.Series
                         .Where(x => x.Value != null)
-                        .Sum(x => (decimal)x.Value);
+                        .Sum(x => (decimal) x.Value);
 
                     if (isMulti)
                     {
@@ -291,23 +333,23 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 chartRawDataModel.RawDataValues = rawDataList;
             }
 
-            result.Add(chartRawDataModel);
+            result.RawDataItems.Add(chartRawDataModel);
             return result;
         }
 
-        public static List<DashboardViewChartRawDataModel> ConvertSingleData(
+        public static DashboardViewChartRawDataModel ConvertSingleData(
             IInsightDashboardLocalizationService localizationService,
             List<DashboardViewChartDataSingleModel> singleData)
         {
             const int columnsCount = 1;
-            var result = new List<DashboardViewChartRawDataModel>();
-            var chartRawDataModel = new DashboardViewChartRawDataModel
+            var result = new DashboardViewChartRawDataModel();
+            var chartRawDataModel = new DashboardViewChartRawDataItemModel
             {
                 RawValueName = string.Empty, // Empty location
             };
 
             // Headers
-            chartRawDataModel.RawHeaders.Add(
+            result.RawHeaders.Add(
                 localizationService.GetString("TotalPeriod"));
 
             // Rows
@@ -339,7 +381,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             for (var y = 0; y < singleData.Count; y++)
             {
                 var dataSingleModel = singleData[y];
-                rawDataList[y].Percents[0] = (decimal)dataSingleModel.Value;
+                rawDataList[y].Percents[0] = (decimal) dataSingleModel.Value;
                 rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
             }
 
@@ -354,7 +396,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 .Sum(x => x.DataCount);
 
             chartRawDataModel.RawDataValues = rawDataList;
-            result.Add(chartRawDataModel);
+            result.RawDataItems.Add(chartRawDataModel);
             return result;
         }
     }

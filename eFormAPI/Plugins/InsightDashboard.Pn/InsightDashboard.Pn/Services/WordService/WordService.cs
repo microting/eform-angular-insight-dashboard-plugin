@@ -199,87 +199,87 @@ namespace InsightDashboard.Pn.Services.WordService
                         // Tables
                         itemsHtml += @"<table style=""background-color:#f5f5f5"" width=""100%"" border=""1"">";
 
-                        for (int y = 0; y < dashboardItem.ChartData.RawData.Count; y++)
-                        {
-                            var dataModel = dashboardItem.ChartData.RawData[y];
-                            // Table header
-                            itemsHtml += @"<tr style=""font-weight:bold"">";
-                            itemsHtml += $@"<td>{dataModel.RawValueName}</td>";
+                        //for (int y = 0; y < dashboardItem.ChartData.RawData.Count; y++)
+                        //{
+                        //    var dataModel = dashboardItem.ChartData.RawData[y];
+                        //    // Table header
+                        //    itemsHtml += @"<tr style=""font-weight:bold"">";
+                        //    itemsHtml += $@"<td>{dataModel.RawValueName}</td>";
 
-                            foreach (var rawHeader in dataModel.RawHeaders)
-                            {
-                                itemsHtml += $@"<td>{rawHeader}</td>";
-                            }
+                        //    foreach (var rawHeader in dataModel.RawHeaders)
+                        //    {
+                        //        itemsHtml += $@"<td>{rawHeader}</td>";
+                        //    }
 
-                            itemsHtml += @"</tr>";
+                        //    itemsHtml += @"</tr>";
 
-                            // Table percents and average
-                            for (var i = 0; i < dataModel.RawDataValues.Count; i++)
-                            {
-                                var dataValue = dataModel.RawDataValues[i];
+                        //    // Table percents and average
+                        //    for (var i = 0; i < dataModel.RawDataValues.Count; i++)
+                        //    {
+                        //        var dataValue = dataModel.RawDataValues[i];
 
-                                if (i == dataModel.RawDataValues.Count - 1)
-                                {
-                                    itemsHtml += @"<tr style=""font-weight:bold"">";
-                                }
-                                else
-                                {
-                                    itemsHtml += @"<tr>";
-                                }
+                        //        if (i == dataModel.RawDataValues.Count - 1)
+                        //        {
+                        //            itemsHtml += @"<tr style=""font-weight:bold"">";
+                        //        }
+                        //        else
+                        //        {
+                        //            itemsHtml += @"<tr>";
+                        //        }
 
-                                itemsHtml += $@"<td>{dataValue.ValueName}</td>";
+                        //        itemsHtml += $@"<td>{dataValue.ValueName}</td>";
 
-                                foreach (var valuePercent in dataValue.Percents)
-                                {
-                                    if (dashboardItem.CalculateAverage)
-                                    {
-                                        itemsHtml += $@"<td>{valuePercent}</td>";
-                                    }
-                                    else
-                                    {
-                                        itemsHtml += $@"<td>{valuePercent}%</td>";
-                                    }
-                                }
+                        //        foreach (var valuePercent in dataValue.Percents)
+                        //        {
+                        //            if (dashboardItem.CalculateAverage)
+                        //            {
+                        //                itemsHtml += $@"<td>{valuePercent}</td>";
+                        //            }
+                        //            else
+                        //            {
+                        //                itemsHtml += $@"<td>{valuePercent}%</td>";
+                        //            }
+                        //        }
 
-                                itemsHtml += @"</tr>";
-                            }
+                        //        itemsHtml += @"</tr>";
+                        //    }
 
-                            itemsHtml += @"<tr><td></td></tr>";
+                        //    itemsHtml += @"<tr><td></td></tr>";
 
-                            // Table amounts
-                            for (var i = 0; i < dataModel.RawDataValues.Count; i++)
-                            {
-                                var dataValue = dataModel.RawDataValues[i];
+                        //    // Table amounts
+                        //    for (var i = 0; i < dataModel.RawDataValues.Count; i++)
+                        //    {
+                        //        var dataValue = dataModel.RawDataValues[i];
 
-                                if (i == dataModel.RawDataValues.Count - 1)
-                                {
-                                    itemsHtml += @"<tr style=""font-weight:bold"">";
-                                }
-                                else
-                                {
-                                    itemsHtml += @"<tr>";
-                                }
+                        //        if (i == dataModel.RawDataValues.Count - 1)
+                        //        {
+                        //            itemsHtml += @"<tr style=""font-weight:bold"">";
+                        //        }
+                        //        else
+                        //        {
+                        //            itemsHtml += @"<tr>";
+                        //        }
 
-                                itemsHtml += $@"<td>{dataValue.ValueName}</td>";
-                                foreach (var valueAmount in dataValue.Amounts)
-                                {
-                                    itemsHtml += $@"<td>{valueAmount}</td>";
-                                }
+                        //        itemsHtml += $@"<td>{dataValue.ValueName}</td>";
+                        //        foreach (var valueAmount in dataValue.Amounts)
+                        //        {
+                        //            itemsHtml += $@"<td>{valueAmount}</td>";
+                        //        }
 
-                                itemsHtml += @"</tr>";
-                            }
+                        //        itemsHtml += @"</tr>";
+                        //    }
 
-                            // Empty table row
-                            if (y < dashboardItem.ChartData.RawData.Count - 1)
-                            {
-                                itemsHtml += @"<tr style=""font-weight:bold; background-color:#fff"">";
-                                foreach (var unused in dataModel.RawHeaders)
-                                {
-                                    itemsHtml += $@"<td></td>";
-                                }
-                                itemsHtml += @"</tr>";
-                            }
-                        }
+                        //    // Empty table row
+                        //    if (y < dashboardItem.ChartData.RawData.Count - 1)
+                        //    {
+                        //        itemsHtml += @"<tr style=""font-weight:bold; background-color:#fff"">";
+                        //        foreach (var unused in dataModel.RawHeaders)
+                        //        {
+                        //            itemsHtml += $@"<td></td>";
+                        //        }
+                        //        itemsHtml += @"</tr>";
+                        //    }
+                        //}
 
                         itemsHtml += @"</table>";
                     }

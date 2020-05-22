@@ -28,7 +28,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards.RawData
     /// </summary>
     public class DashboardViewChartRawDataValuesModel
     {
-        public string ValueName { get; set; } // 25 50 75 100
+        public string ValueName { get; set; } // 25 50 75 100 (Glad Meget Glad) ????????
         public decimal[] Percents { get; set; }
         public decimal[] Amounts { get; set; }
     }

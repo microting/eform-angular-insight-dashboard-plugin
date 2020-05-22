@@ -75,6 +75,50 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             return result;
         }
 
+        public static List<DashboardViewChartDataMultiStackedModel> SortMultiStackedRawDataLocationPosition(
+            List<DashboardViewChartDataMultiStackedModel> multiStackedRawData,
+            DashboardItem dashboardItem)
+        {
+            var locationTagList = dashboardItem.CompareLocationsTags
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .Select(x => new { x.LocationId, x.TagId, x.Position })
+                .OrderBy(x => x.Position)
+                .Select(x => new
+                {
+                    IsTag = x.TagId != null,
+                    IsLocation = x.LocationId != null,
+                    x.TagId,
+                    x.LocationId,
+                })
+                .ToList();
+
+            foreach (var multiStackedModel in multiStackedRawData)
+            {
+                var result = new List<DashboardViewChartDataMultiModel>();
+                foreach (var locationOrTag in locationTagList)
+                {
+                    var data = new DashboardViewChartDataMultiModel();
+                    if (locationOrTag.IsTag)
+                    {
+                        data = multiStackedModel.Series.FirstOrDefault(x => x.Id == locationOrTag.TagId && x.IsTag);
+                    }
+                    else if (locationOrTag.IsLocation)
+                    {
+                        data = multiStackedModel.Series.FirstOrDefault(x => x.Id == locationOrTag.LocationId && !x.IsTag);
+                    }
+
+                    if (data != null)
+                    {
+                        result.Add(data);
+                    }
+                }
+
+                multiStackedModel.Series = result;
+            }
+
+            return multiStackedRawData;
+        }
+
         public static List<DashboardViewChartDataMultiModel> SortMultiDataLocationPosition(
             List<DashboardViewChartDataMultiModel> multiData,
             DashboardItem dashboardItem,
