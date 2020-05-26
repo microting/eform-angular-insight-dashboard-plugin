@@ -32,6 +32,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards.RawData
     {
         public string RawValueName { get; set; } // Location / Year name
 
+
         public List<DashboardViewChartRawDataValuesModel> RawDataValues { get; set; }
             = new List<DashboardViewChartRawDataValuesModel>();
     }
