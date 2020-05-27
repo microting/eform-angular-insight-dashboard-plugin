@@ -208,7 +208,6 @@ namespace InsightDashboard.Pn.Services.WordService
                                 // Table header
                                 itemsHtml += @"<tr style=""font-weight:bold"">";
                                 itemsHtml += @"<td colspan=""2""></td>";
-                                itemsHtml += @"<td></td>";
 
                                 foreach (var rawHeader in rawDataItem.RawHeaders)
                                 {
@@ -222,6 +221,9 @@ namespace InsightDashboard.Pn.Services.WordService
                                 {
                                     var dataModel = rawDataItem.RawDataItems[y];
 
+                                    // open
+                                    itemsHtml += @"<tr>";
+                                    
                                     // add first table text
                                     var rowCount = dataModel.RawDataValues.Count;
                                     itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
@@ -270,6 +272,9 @@ namespace InsightDashboard.Pn.Services.WordService
                                         // close
                                         itemsHtml += @"<tr>";
                                     }
+
+                                    // close
+                                    itemsHtml += @"<tr>";
 
                                     //itemsHtml += @"<tr><td></td></tr>";
 
