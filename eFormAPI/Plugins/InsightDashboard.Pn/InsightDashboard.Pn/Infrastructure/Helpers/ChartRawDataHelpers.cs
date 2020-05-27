@@ -105,6 +105,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                     // column count + total column
                     var columnCount = maxObject.Series.Count + 1;
+                    var lastColumnArrayIndex = columnCount - 1;
 
                     // Get row names
                     foreach (var multiModel in dataMultiStackedModel.Series)
@@ -134,17 +135,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         }
 
                         // calculate total
-                        rawDataList[i].Percents[columnCount] = dataMultiModel.Series
+                        rawDataList[i].Percents[lastColumnArrayIndex] = dataMultiModel.Series
                             .Where(x => x.Value != null)
                             .Sum(x => (decimal)x.Value);
 
                         if (isMulti)
                         {
-                            rawDataList[i].Amounts[columnCount] = dataMultiModel.AnswersCount;
+                            rawDataList[i].Amounts[lastColumnArrayIndex] = dataMultiModel.AnswersCount;
                         }
                         else
                         {
-                            rawDataList[i].Amounts[columnCount] = dataMultiModel.Series
+                            rawDataList[i].Amounts[lastColumnArrayIndex] = dataMultiModel.Series
                                 .Sum(x => x.DataCount);
                         }
                     }
