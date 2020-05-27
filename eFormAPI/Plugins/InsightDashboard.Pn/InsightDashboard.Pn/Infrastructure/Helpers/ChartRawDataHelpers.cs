@@ -44,8 +44,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             var invertedDataItem = new DashboardViewChartRawDataModel();
             var dataItem = new DashboardViewChartRawDataModel();
 
-            Debugger.Break();
-
             // Get element with max Option count
             var maxOptionObject = multiStackedData
                     .Select(location => location.Series.OrderByDescending(item => item.Series.Count)

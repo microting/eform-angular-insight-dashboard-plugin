@@ -207,11 +207,12 @@ namespace InsightDashboard.Pn.Services.WordService
                             {
                                 // Table header
                                 itemsHtml += @"<tr style=""font-weight:bold"">";
-                                itemsHtml += @"<td colspan=""2""></td>";
+                                itemsHtml += @"<th></th>";
+                                itemsHtml += @"<th></th>";
 
                                 foreach (var rawHeader in rawDataItem.RawHeaders)
                                 {
-                                    itemsHtml += $@"<td>{rawHeader}</td>";
+                                    itemsHtml += $@"<th>{rawHeader}</th>";
                                 }
 
                                 itemsHtml += @"</tr>";
@@ -225,8 +226,11 @@ namespace InsightDashboard.Pn.Services.WordService
                                     itemsHtml += @"<tr>";
                                     
                                     // add first table text
-                                    var rowCount = dataModel.RawDataValues.Count;
+                                    var rowCount = dataModel.RawDataValues.Count + 1;
                                     itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
+
+                                    // close
+                                    itemsHtml += @"</tr>";
 
                                     // Table percents and average
                                     for (var i = 0; i < dataModel.RawDataValues.Count; i++)
@@ -270,11 +274,11 @@ namespace InsightDashboard.Pn.Services.WordService
                                         }
 
                                         // close
-                                        itemsHtml += @"<tr>";
+                                        itemsHtml += @"</tr>";
                                     }
 
                                     // close
-                                    itemsHtml += @"<tr>";
+                                    //itemsHtml += @"<tr>";
 
                                     //itemsHtml += @"<tr><td></td></tr>";
 
