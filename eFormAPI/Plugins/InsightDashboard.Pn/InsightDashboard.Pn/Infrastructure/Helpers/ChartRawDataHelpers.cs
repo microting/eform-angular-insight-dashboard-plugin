@@ -58,7 +58,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 throw new Exception($"{nameof(maxOptionObject)} is null");
             }
 
-            // Add global headers
+            // Add percent headers
             var headers = new List<string>(maxOptionObject.Count);
             foreach (var dataMultiModel in maxOptionObject)
             {
@@ -67,6 +67,15 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
             // Add total header
             headers.Add("%");
+
+            // Add amount headers
+            foreach (var dataMultiModel in maxOptionObject)
+            {
+                headers.Add(dataMultiModel.Name); // Option name
+            }
+
+            // Add total header
+            headers.Add("n");
 
             invertedDataItem.RawHeaders = headers;
             dataItem.RawHeaders = headers;
@@ -102,7 +111,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         var rawDataValuesModel = new DashboardViewChartRawDataValuesModel
                         {
-                            ValueName = multiModel.Name, // TODO location name
+                            ValueName = multiModel.Name, // location name
                             Percents = new decimal[columnCount],
                             Amounts = new decimal[columnCount],
                         };
@@ -110,43 +119,32 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         rawDataList.Add(rawDataValuesModel);
                     }
 
-                    // Add total row
-                    //var totalRow = new DashboardViewChartRawDataValuesModel
-                    //{
-                    //    ValueName = localizationService.GetString("Total"),
-                    //    Percents = new decimal[dataMultiStackedModel.Series.Count],
-                    //    Amounts = new decimal[dataMultiStackedModel.Series.Count],
-                    //};
-
-                    //rawDataList.Add(totalRow);
-
-                    // by week
+                    // by location
                     for (var i = 0; i < dataMultiStackedModel.Series.Count; i++)
                     {
+                        // location
                         var dataMultiModel = dataMultiStackedModel.Series[i];
 
                         // by Item
                         for (var y = 0; y < dataMultiModel.Series.Count; y++)
                         {
                             var dataSingleModel = dataMultiModel.Series[y];
-                            rawDataList[y].Percents[i] = (decimal)dataSingleModel.Value;
-                            rawDataList[y].Amounts[i] = dataSingleModel.DataCount;
+                            rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
+                            rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
                         }
 
                         // calculate total
-                        var lastRow = dataMultiModel.Series.Count;
-
-                        rawDataList[lastRow].Percents[i] = dataMultiModel.Series
+                        rawDataList[i].Percents[columnCount] = dataMultiModel.Series
                             .Where(x => x.Value != null)
                             .Sum(x => (decimal)x.Value);
 
                         if (isMulti)
                         {
-                            rawDataList[lastRow].Amounts[i] = dataMultiModel.AnswersCount;
+                            rawDataList[i].Amounts[columnCount] = dataMultiModel.AnswersCount;
                         }
                         else
                         {
-                            rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
+                            rawDataList[i].Amounts[columnCount] = dataMultiModel.Series
                                 .Sum(x => x.DataCount);
                         }
                     }
