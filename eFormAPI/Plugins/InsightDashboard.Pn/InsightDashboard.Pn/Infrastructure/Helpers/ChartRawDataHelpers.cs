@@ -26,6 +26,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using Models.Dashboards;
     using Models.Dashboards.RawData;
@@ -42,6 +43,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             var result = new List<DashboardViewChartRawDataModel>();
             var invertedDataItem = new DashboardViewChartRawDataModel();
             var dataItem = new DashboardViewChartRawDataModel();
+
+            Debugger.Break();
 
             // Get element with max Option count
             var maxOptionObject = multiStackedData
@@ -61,6 +64,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             {
                 headers.Add(dataMultiModel.Name); // Option name
             }
+
+            // Add total header
+            headers.Add("%");
 
             invertedDataItem.RawHeaders = headers;
             dataItem.RawHeaders = headers;
@@ -83,33 +89,36 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 {
                     var rawDataList = new List<DashboardViewChartRawDataValuesModel>();
 
-                    // Get element with max rows
+                    // Get element with max rows (locations)
                     var maxObject = dataMultiStackedModel.Series
                         .OrderByDescending(item => item.Series.Count)
                         .First();
 
+                    // column count + total column
+                    var columnCount = maxObject.Series.Count + 1;
+
                     // Get row names
-                    foreach (var singleModel in maxObject.Series)
+                    foreach (var multiModel in dataMultiStackedModel.Series)
                     {
                         var rawDataValuesModel = new DashboardViewChartRawDataValuesModel
                         {
-                            ValueName = singleModel.Name,
-                            Percents = new decimal[dataMultiStackedModel.Series.Count],
-                            Amounts = new decimal[dataMultiStackedModel.Series.Count],
+                            ValueName = multiModel.Name, // TODO location name
+                            Percents = new decimal[columnCount],
+                            Amounts = new decimal[columnCount],
                         };
 
                         rawDataList.Add(rawDataValuesModel);
                     }
 
                     // Add total row
-                    var totalRow = new DashboardViewChartRawDataValuesModel
-                    {
-                        ValueName = localizationService.GetString("Total"),
-                        Percents = new decimal[dataMultiStackedModel.Series.Count],
-                        Amounts = new decimal[dataMultiStackedModel.Series.Count],
-                    };
+                    //var totalRow = new DashboardViewChartRawDataValuesModel
+                    //{
+                    //    ValueName = localizationService.GetString("Total"),
+                    //    Percents = new decimal[dataMultiStackedModel.Series.Count],
+                    //    Amounts = new decimal[dataMultiStackedModel.Series.Count],
+                    //};
 
-                    rawDataList.Add(totalRow);
+                    //rawDataList.Add(totalRow);
 
                     // by week
                     for (var i = 0; i < dataMultiStackedModel.Series.Count; i++)
