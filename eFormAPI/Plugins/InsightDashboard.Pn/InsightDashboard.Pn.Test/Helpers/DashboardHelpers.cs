@@ -255,47 +255,53 @@ namespace InsightDashboard.Pn.Test.Helpers
             }
 
             // Raw chart data
-            //for (var index = 0; index < originalItem.ChartData.RawData.RawDataItems; index++)
-            //{
-            //    var dataOriginal = originalItem.ChartData.RawData.RawDataItems[index];
-            //    var dataProcessed = processedItem.ChartData.RawData.RawDataItems[index];
+            for (var x = 0; x < originalItem.ChartData.RawData.Count; x++)
+            {
+                var rawDataItemOriginal = originalItem.ChartData.RawData[x];
+                var rawDataItemProcessed = processedItem.ChartData.RawData[x];
 
-            //    Assert.AreEqual(dataOriginal.RawValueName, dataProcessed.RawValueName, message);
-            //    Assert.AreEqual(dataOriginal.RawHeaders.Count, dataProcessed.RawHeaders.Count, message);
+                // Check table header
+                for (var i = 0; i < rawDataItemOriginal.RawHeaders.Count; i++)
+                {
+                    Assert.AreEqual(rawDataItemOriginal.RawHeaders[i], rawDataItemProcessed.RawHeaders[i], message);
+                }
 
-            //    // Check table header
-            //    for (var i = 0; i < dataOriginal.RawHeaders.Count; i++)
-            //    {
-            //        Assert.AreEqual(dataOriginal.RawHeaders[i], dataProcessed.RawHeaders[i], message);
-            //    }
+                for (var index = 0; index < rawDataItemOriginal.RawDataItems.Count; index++)
+                {
+                    var dataOriginal = rawDataItemOriginal.RawDataItems[index];
+                    var dataProcessed = rawDataItemProcessed.RawDataItems[index];
 
-            //    // Check table data
-            //    for (var i = 0; i < dataOriginal.RawDataValues.Count; i++)
-            //    {
-            //        var originalSeries = dataOriginal.RawDataValues[i];
-            //        var processedSeries = dataProcessed.RawDataValues[i];
+                    Assert.AreEqual(dataOriginal.RawValueName, dataProcessed.RawValueName, message);
+                    Assert.AreEqual(dataOriginal.RawDataValues.Count, dataProcessed.RawDataValues.Count, message);
 
-            //        Assert.AreEqual(originalSeries.ValueName, processedSeries.ValueName, message);
+                    // Check table data
+                    for (var i = 0; i < dataOriginal.RawDataValues.Count; i++)
+                    {
+                        var originalSeries = dataOriginal.RawDataValues[i];
+                        var processedSeries = dataProcessed.RawDataValues[i];
 
-            //        // Values
-            //        for (var y = 0; y < originalSeries.Amounts.Length; y++)
-            //        {
-            //            var originalValue = originalSeries.Percents[y];
-            //            var processedValue = processedSeries.Percents[y];
+                        Assert.AreEqual(originalSeries.ValueName, processedSeries.ValueName, message);
 
-            //            Assert.AreEqual(originalValue, processedValue, message);
-            //        }
+                        // Values
+                        for (var y = 0; y < originalSeries.Amounts.Length; y++)
+                        {
+                            var originalValue = originalSeries.Percents[y];
+                            var processedValue = processedSeries.Percents[y];
 
-            //        // Amounts
-            //        for (var y = 0; y < originalSeries.Amounts.Length; y++)
-            //        {
-            //            var originalAmount = originalSeries.Amounts[y];
-            //            var processedAmount = processedSeries.Amounts[y];
+                            Assert.AreEqual(originalValue, processedValue, message);
+                        }
 
-            //            Assert.AreEqual(originalAmount, processedAmount, message);
-            //        }
-            //    }
-            //}
+                        // Amounts
+                        for (var y = 0; y < originalSeries.Amounts.Length; y++)
+                        {
+                            var originalAmount = originalSeries.Amounts[y];
+                            var processedAmount = processedSeries.Amounts[y];
+
+                            Assert.AreEqual(originalAmount, processedAmount, message);
+                        }
+                    }
+                }
+            }
         }
     }
 }

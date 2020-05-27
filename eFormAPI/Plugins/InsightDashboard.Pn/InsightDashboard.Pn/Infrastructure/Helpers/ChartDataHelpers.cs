@@ -555,6 +555,42 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .OrderBy(y => y.Name)
                                             .ToList(),
                                     }).ToList();
+
+                                multiStackedRawData = data
+                                    .GroupBy(ms => ChartHelpers.GetWeekString(ms.Finished))
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Name = x.Key, // Week
+                                        Series = x
+                                            .GroupBy(ms => new {ms.LocationTagName, ms.IsTag})
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Id = y.Select(i => i.LocationTagId).FirstOrDefault(),
+                                                Name = y.Key.LocationTagName, // Location
+                                                AnswersCount = GetAnswersCount(y),
+                                                IsTag = y.Key.IsTag,
+                                                Series = y
+                                                    .GroupBy(g => new {g.Name, g.OptionIndex})
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        OptionIndex = i.Key.OptionIndex,
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name))
+                                                                .Value
+                                                            : i.Key.Name,
+                                                        DataCount = i.Count(),
+                                                        Value = isMulti
+                                                            ? GetDataPercentage(i.Count(), GetAnswersCount(y))
+                                                            : GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .OrderByDescending(
+                                                        t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ThenBy(f => f.OptionIndex)
+                                                    .ToList(),
+                                            })
+                                            .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
                             }
                             else
                             {
@@ -644,6 +680,42 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     .ToList(),
                                             })
                                             // .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
+
+                                multiStackedRawData = data
+                                    .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Name = x.Key, // Month
+                                        Series = x
+                                            .GroupBy(ms => new {ms.LocationTagName, ms.IsTag})
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Id = y.Select(i => i.LocationTagId).FirstOrDefault(),
+                                                Name = y.Key.LocationTagName, // Location
+                                                AnswersCount = GetAnswersCount(y),
+                                                IsTag = y.Key.IsTag,
+                                                Series = y
+                                                    .GroupBy(g => new {g.Name, g.OptionIndex})
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        OptionIndex = i.Key.OptionIndex,
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name))
+                                                                .Value
+                                                            : i.Key.Name,
+                                                        DataCount = i.Count(),
+                                                        Value = isMulti
+                                                            ? GetDataPercentage(i.Count(), GetAnswersCount(y))
+                                                            : GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .OrderByDescending(
+                                                        t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ThenBy(f => f.OptionIndex)
+                                                    .ToList(),
+                                            })
+                                            //.OrderBy(y => y.Name)
                                             .ToList(),
                                     }).ToList();
                             }
@@ -738,6 +810,42 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .OrderBy(y => y.Name)
                                             .ToList(),
                                     }).ToList();
+
+                                multiStackedRawData = data
+                                    .GroupBy(ms => $"{ms.Finished:yy}-K{((ms.Finished.Month - 1) / 3) + 1}")
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Name = x.Key, // Quarter
+                                        Series = x
+                                            .GroupBy(ms => new {ms.LocationTagName, ms.IsTag})
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Id = y.Select(i => i.LocationTagId).FirstOrDefault(),
+                                                Name = y.Key.LocationTagName, // Location
+                                                AnswersCount = GetAnswersCount(y),
+                                                IsTag = y.Key.IsTag,
+                                                Series = y
+                                                    .GroupBy(g => new {g.Name, g.OptionIndex})
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        OptionIndex = i.Key.OptionIndex,
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name))
+                                                                .Value
+                                                            : i.Key.Name,
+                                                        DataCount = i.Count(),
+                                                        Value = isMulti
+                                                            ? GetDataPercentage(i.Count(), GetAnswersCount(y))
+                                                            : GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .OrderByDescending(
+                                                        t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ThenBy(f => f.OptionIndex)
+                                                    .ToList(),
+                                            })
+                                            .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
                             }
                             else
                             {
@@ -819,6 +927,42 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                             ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name)).Value
                                                             : i.Key.Name,
                                                         OptionIndex = i.Key.OptionIndex,
+                                                        DataCount = i.Count(),
+                                                        Value = isMulti
+                                                            ? GetDataPercentage(i.Count(), GetAnswersCount(y))
+                                                            : GetDataPercentage(i.Count(), y.Count()),
+                                                    })
+                                                    .OrderByDescending(
+                                                        t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                    .ThenBy(f => f.OptionIndex)
+                                                    .ToList(),
+                                            })
+                                            .OrderBy(y => y.Name)
+                                            .ToList(),
+                                    }).ToList();
+
+                                multiStackedRawData = data
+                                    .GroupBy(ms => $"{ms.Finished:yy}-{ChartHelpers.GetHalfOfYear(ms.Finished)}H")
+                                    .Select(x => new DashboardViewChartDataMultiStackedModel
+                                    {
+                                        Name = x.Key, // Half of year 
+                                        Series = x
+                                            .GroupBy(ms => new {ms.LocationTagName, ms.IsTag})
+                                            .Select(y => new DashboardViewChartDataMultiModel
+                                            {
+                                                Id = y.Select(i => i.LocationTagId).FirstOrDefault(),
+                                                Name = y.Key.LocationTagName, // Location
+                                                AnswersCount = GetAnswersCount(y),
+                                                IsTag = y.Key.IsTag,
+                                                Series = y
+                                                    .GroupBy(g => new {g.Name, g.OptionIndex})
+                                                    .Select(i => new DashboardViewChartDataSingleModel
+                                                    {
+                                                        OptionIndex = i.Key.OptionIndex,
+                                                        Name = isSmiley
+                                                            ? smileyLabels.Single(z => z.Key == int.Parse(i.Key.Name))
+                                                                .Value
+                                                            : i.Key.Name,
                                                         DataCount = i.Count(),
                                                         Value = isMulti
                                                             ? GetDataPercentage(i.Count(), GetAnswersCount(y))

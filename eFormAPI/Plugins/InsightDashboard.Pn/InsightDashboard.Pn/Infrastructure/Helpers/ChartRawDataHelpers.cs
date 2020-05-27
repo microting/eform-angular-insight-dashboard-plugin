@@ -173,61 +173,54 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 {
                     var rawDataList = new List<DashboardViewChartRawDataValuesModel>();
 
-                    // Get element with max rows
+                    // Get element with max rows (years)
                     var maxObject = dataMultiStackedModel.Series
                         .OrderByDescending(item => item.Series.Count)
                         .First();
 
+                    // column count + total column
+                    var columnCount = maxObject.Series.Count + 1;
+                    var lastColumnArrayIndex = columnCount - 1;
+
                     // Get row names
-                    foreach (var singleModel in maxObject.Series)
+                    foreach (var multiModel in dataMultiStackedModel.Series)
                     {
                         var rawDataValuesModel = new DashboardViewChartRawDataValuesModel
                         {
-                            ValueName = singleModel.Name,
-                            Percents = new decimal[dataMultiStackedModel.Series.Count],
-                            Amounts = new decimal[dataMultiStackedModel.Series.Count],
+                            ValueName = multiModel.Name, // year name
+                            Percents = new decimal[columnCount],
+                            Amounts = new decimal[columnCount],
                         };
 
                         rawDataList.Add(rawDataValuesModel);
                     }
 
-                    // Add total row
-                    var totalRow = new DashboardViewChartRawDataValuesModel
-                    {
-                        ValueName = localizationService.GetString("Total"),
-                        Percents = new decimal[dataMultiStackedModel.Series.Count],
-                        Amounts = new decimal[dataMultiStackedModel.Series.Count],
-                    };
-
-                    rawDataList.Add(totalRow);
-
-                    // by week
+                    // by year
                     for (var i = 0; i < dataMultiStackedModel.Series.Count; i++)
                     {
+                        // year
                         var dataMultiModel = dataMultiStackedModel.Series[i];
 
                         // by Item
                         for (var y = 0; y < dataMultiModel.Series.Count; y++)
                         {
                             var dataSingleModel = dataMultiModel.Series[y];
-                            rawDataList[y].Percents[i] = (decimal) dataSingleModel.Value;
-                            rawDataList[y].Amounts[i] = dataSingleModel.DataCount;
+                            rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
+                            rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
                         }
 
                         // calculate total
-                        var lastRow = dataMultiModel.Series.Count;
-
-                        rawDataList[lastRow].Percents[i] = dataMultiModel.Series
+                        rawDataList[i].Percents[lastColumnArrayIndex] = dataMultiModel.Series
                             .Where(x => x.Value != null)
-                            .Sum(x => (decimal) x.Value);
+                            .Sum(x => (decimal)x.Value);
 
                         if (isMulti)
                         {
-                            rawDataList[lastRow].Amounts[i] = dataMultiModel.AnswersCount;
+                            rawDataList[i].Amounts[lastColumnArrayIndex] = dataMultiModel.AnswersCount;
                         }
                         else
                         {
-                            rawDataList[lastRow].Amounts[i] = dataMultiModel.Series
+                            rawDataList[i].Amounts[lastColumnArrayIndex] = dataMultiModel.Series
                                 .Sum(x => x.DataCount);
                         }
                     }
