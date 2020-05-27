@@ -198,15 +198,93 @@ namespace InsightDashboard.Pn.Services.WordService
                         }
 
                         // Tables
-                        itemsHtml += @"<table style=""background-color:#f5f5f5"" width=""100%"" border=""1"">";
-
                         foreach (var rawDataItem in dashboardItem.ChartData.RawData)
                         {
-                            if (dashboardItem.ChartType == DashboardChartTypes.HorizontalBarStacked)
+                            itemsHtml += @"<table style=""background-color:#f5f5f5"" width=""100%"" border=""1"">";
+                            
+                            // multiStacked data chart with inverted values
+                            if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)
                             {
-                                // multiStacked data chart with inverted values
+                                // Table header
+                                itemsHtml += @"<tr style=""font-weight:bold"">";
+                                itemsHtml += @"<td colspan=""2""></td>";
+                                itemsHtml += @"<td></td>";
 
-                                // TODO TODO
+                                foreach (var rawHeader in rawDataItem.RawHeaders)
+                                {
+                                    itemsHtml += $@"<td>{rawHeader}</td>";
+                                }
+
+                                itemsHtml += @"</tr>";
+
+                                // Table elements
+                                for (var y = 0; y < rawDataItem.RawDataItems.Count; y++)
+                                {
+                                    var dataModel = rawDataItem.RawDataItems[y];
+
+                                    // add first table text
+                                    var rowCount = dataModel.RawDataValues.Count;
+                                    itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
+
+                                    // Table percents and average
+                                    for (var i = 0; i < dataModel.RawDataValues.Count; i++)
+                                    {
+                                        var dataValue = dataModel.RawDataValues[i];
+
+                                        // open
+                                        itemsHtml += @"<tr>";
+
+                                        // location or year name
+                                        itemsHtml += $@"<td>{dataValue.ValueName}</td>";
+
+                                        // for percents
+                                        for (var percentIndex = 0; percentIndex < dataValue.Percents.Length; percentIndex++)
+                                        {
+                                            var valuePercent = dataValue.Percents[percentIndex];
+
+                                            if (percentIndex == dataValue.Percents.Length - 1)
+                                            {
+                                                itemsHtml += $@"<td style=""font-weight:bold"">{valuePercent}%</td>";
+                                            }
+                                            else
+                                            {
+                                                itemsHtml += $@"<td>{valuePercent}%</td>";
+                                            }
+                                        }
+
+                                        // for amounts
+                                        for (var amountIndex = 0; amountIndex < dataValue.Amounts.Length; amountIndex++)
+                                        {
+                                            var amountPercent = dataValue.Amounts[amountIndex];
+
+                                            if (amountIndex == dataValue.Amounts.Length - 1)
+                                            {
+                                                itemsHtml += $@"<td style=""font-weight:bold"">{amountPercent}</td>";
+                                            }
+                                            else
+                                            {
+                                                itemsHtml += $@"<td>{amountPercent}</td>";
+                                            }
+                                        }
+
+                                        // close
+                                        itemsHtml += @"<tr>";
+                                    }
+
+                                    //itemsHtml += @"<tr><td></td></tr>";
+
+
+                                    //// Empty table row
+                                    //if (y < dashboardItem.ChartData.RawData.Count - 1)
+                                    //{
+                                    //    itemsHtml += @"<tr style=""font-weight:bold; background-color:#fff"">";
+                                    //    foreach (var unused in rawDataItem.RawHeaders)
+                                    //    {
+                                    //        itemsHtml += $@"<td></td>";
+                                    //    }
+                                    //    itemsHtml += @"</tr>";
+                                    //}
+                                }
                             }
                             else
                             {
@@ -293,9 +371,8 @@ namespace InsightDashboard.Pn.Services.WordService
                                     }
                                 }
                             }
+                            itemsHtml += @"</table>";
                         }
-
-                        itemsHtml += @"</table>";
                     }
 
                     itemsHtml += @"<div/>";
