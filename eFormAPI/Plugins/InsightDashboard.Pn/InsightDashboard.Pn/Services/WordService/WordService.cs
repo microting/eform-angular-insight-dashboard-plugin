@@ -231,15 +231,11 @@ namespace InsightDashboard.Pn.Services.WordService
                                         itemsHtml += @"<tr>";
 
                                         // add first table text
-                                        if (i == 0 && y == 0)
+                                        if (i == 0)
                                         {
                                             var rowCount = dataModel.RawDataValues.Count; // TODO add +1
                                             itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
 
-                                        }
-                                        else
-                                        {
-                                            itemsHtml += @"<td></td>"; // TODO remove
                                         }
 
 
