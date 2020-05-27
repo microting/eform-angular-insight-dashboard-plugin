@@ -208,11 +208,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             else
             {
                 // Question type != Text
-                if (dashboardItem.CompareEnabled)
-                {
-                    // TODO
-                }
-                else
+                if (!dashboardItem.CompareEnabled)
                 {
                     if (dashboardLocationId != null)
                     {
@@ -1715,8 +1711,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             if (isSmiley)
                             {
-                                // TODO: Raw data sorting
-
                                 var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
                                 var columnNames = new List<string>();
 
@@ -1830,8 +1824,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
                             else if (isMulti)
                             {
-                                // TODO: Raw data sorting
-
                                 var newLineData = new List<DashboardViewChartDataMultiStackedModel>();
 
                                 foreach (var stackedModel in multiStackedData)
@@ -1866,7 +1858,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             // convert
                             var rawData = ChartRawDataHelpers.ConvertMultiStackedData(
-                                localizationService,
                                 dashboardItemModel.ChartData.MultiStacked,
                                 multiStackedRawData,
                                 isMulti);

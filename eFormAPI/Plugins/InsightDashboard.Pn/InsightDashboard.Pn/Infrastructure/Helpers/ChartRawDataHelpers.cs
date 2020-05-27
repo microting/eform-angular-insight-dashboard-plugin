@@ -35,7 +35,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     public static class ChartRawDataHelpers
     {
         public static List<DashboardViewChartRawDataModel> ConvertMultiStackedData(
-            IInsightDashboardLocalizationService localizationService,
             List<DashboardViewChartDataMultiStackedModel> multiStackedData,
             List<DashboardViewChartDataMultiStackedModel> multiStackedRawData,
             bool isMulti)

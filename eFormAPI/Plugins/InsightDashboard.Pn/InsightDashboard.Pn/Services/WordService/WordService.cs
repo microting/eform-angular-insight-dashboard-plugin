@@ -218,10 +218,8 @@ namespace InsightDashboard.Pn.Services.WordService
                                 itemsHtml += @"</tr>";
 
                                 // Table elements
-                                for (var y = 0; y < rawDataItem.RawDataItems.Count; y++)
+                                foreach (var dataModel in rawDataItem.RawDataItems)
                                 {
-                                    var dataModel = rawDataItem.RawDataItems[y];
-
                                     // Table percents and average
                                     for (var i = 0; i < dataModel.RawDataValues.Count; i++)
                                     {
@@ -230,14 +228,12 @@ namespace InsightDashboard.Pn.Services.WordService
                                         // open
                                         itemsHtml += @"<tr>";
 
-                                        // add first table text
+                                        // add first table text (year/location)
                                         if (i == 0)
                                         {
-                                            var rowCount = dataModel.RawDataValues.Count; // TODO add +1
+                                            var rowCount = dataModel.RawDataValues.Count;
                                             itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
-
                                         }
-
 
                                         // location or year name
                                         itemsHtml += $@"<td>{dataValue.ValueName}</td>";
@@ -275,23 +271,6 @@ namespace InsightDashboard.Pn.Services.WordService
                                         // close
                                         itemsHtml += @"</tr>";
                                     }
-
-                                    // close
-                                    //itemsHtml += @"<tr>";
-
-                                    //itemsHtml += @"<tr><td></td></tr>";
-
-
-                                    //// Empty table row
-                                    //if (y < dashboardItem.ChartData.RawData.Count - 1)
-                                    //{
-                                    //    itemsHtml += @"<tr style=""font-weight:bold; background-color:#fff"">";
-                                    //    foreach (var unused in rawDataItem.RawHeaders)
-                                    //    {
-                                    //        itemsHtml += $@"<td></td>";
-                                    //    }
-                                    //    itemsHtml += @"</tr>";
-                                    //}
                                 }
                             }
                             else
