@@ -222,16 +222,6 @@ namespace InsightDashboard.Pn.Services.WordService
                                 {
                                     var dataModel = rawDataItem.RawDataItems[y];
 
-                                    // open
-                                    itemsHtml += @"<tr>";
-                                    
-                                    // add first table text
-                                    var rowCount = dataModel.RawDataValues.Count + 1;
-                                    itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
-
-                                    // close
-                                    itemsHtml += @"</tr>";
-
                                     // Table percents and average
                                     for (var i = 0; i < dataModel.RawDataValues.Count; i++)
                                     {
@@ -239,6 +229,19 @@ namespace InsightDashboard.Pn.Services.WordService
 
                                         // open
                                         itemsHtml += @"<tr>";
+
+                                        // add first table text
+                                        if (i == 0 && y == 0)
+                                        {
+                                            var rowCount = dataModel.RawDataValues.Count; // TODO add +1
+                                            itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
+
+                                        }
+                                        else
+                                        {
+                                            itemsHtml += @"<td></td>"; // TODO remove
+                                        }
+
 
                                         // location or year name
                                         itemsHtml += $@"<td>{dataValue.ValueName}</td>";
