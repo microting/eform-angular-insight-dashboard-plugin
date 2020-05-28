@@ -9,12 +9,12 @@
   "tagId": 1,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-05-18T23:59:59",
+    "dateTo": "2020-05-28T23:59:59",
     "today": true
   },
   "items": [
     {
-      "id": 249,
+      "id": 287,
       "firstQuestionName": "Q2: Er personalet på afsnittet venligt og imødekommende?",
       "firstQuestionType": "smiley2",
       "filterQuestionName": null,
@@ -449,376 +449,452 @@
         ],
         "rawData": [
           {
-            "rawValueName": "Total",
             "rawHeaders": [
-              "2016",
-              "2017"
+              "Meget glad",
+              "Glad",
+              "Neutral",
+              "Sur",
+              "Meget sur",
+              "%",
+              "Meget glad",
+              "Glad",
+              "Neutral",
+              "Sur",
+              "Meget sur",
+              "n"
             ],
-            "rawDataValues": [
+            "rawDataItems": [
               {
-                "valueName": "Meget glad",
-                "percents": [
-                  60.0,
-                  71.0
-                ],
-                "amounts": [
-                  100.0,
-                  175.0
+                "rawValueName": "2016",
+                "rawDataValues": [
+                  {
+                    "valueName": "Total",
+                    "percents": [
+                      60.0,
+                      32.0,
+                      4.0,
+                      2.0,
+                      2.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      100.0,
+                      53.0,
+                      6.0,
+                      4.0,
+                      3.0,
+                      166.0
+                    ]
+                  },
+                  {
+                    "valueName": "Location 1",
+                    "percents": [
+                      55.0,
+                      33.0,
+                      8.0,
+                      5.0,
+                      0.0,
+                      101.0
+                    ],
+                    "amounts": [
+                      22.0,
+                      13.0,
+                      3.0,
+                      2.0,
+                      0.0,
+                      40.0
+                    ]
+                  },
+                  {
+                    "valueName": "Location 2",
+                    "percents": [
+                      49.0,
+                      47.0,
+                      2.0,
+                      2.0,
+                      0.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      21.0,
+                      20.0,
+                      1.0,
+                      1.0,
+                      0.0,
+                      43.0
+                    ]
+                  },
+                  {
+                    "valueName": "Location 3",
+                    "percents": [
+                      72.0,
+                      21.0,
+                      5.0,
+                      2.0,
+                      0.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      31.0,
+                      9.0,
+                      2.0,
+                      1.0,
+                      0.0,
+                      43.0
+                    ]
+                  },
+                  {
+                    "valueName": "Location 4",
+                    "percents": [
+                      65.0,
+                      28.0,
+                      5.0,
+                      3.0,
+                      0.0,
+                      101.0
+                    ],
+                    "amounts": [
+                      26.0,
+                      11.0,
+                      2.0,
+                      1.0,
+                      0.0,
+                      40.0
+                    ]
+                  }
                 ]
               },
               {
-                "valueName": "Glad",
-                "percents": [
-                  32.0,
-                  24.0
-                ],
-                "amounts": [
-                  53.0,
-                  59.0
-                ]
-              },
-              {
-                "valueName": "Neutral",
-                "percents": [
-                  4.0,
-                  3.0
-                ],
-                "amounts": [
-                  6.0,
-                  8.0
-                ]
-              },
-              {
-                "valueName": "Sur",
-                "percents": [
-                  2.0,
-                  1.0
-                ],
-                "amounts": [
-                  4.0,
-                  3.0
-                ]
-              },
-              {
-                "valueName": "Meget sur",
-                "percents": [
-                  2.0,
-                  1.0
-                ],
-                "amounts": [
-                  3.0,
-                  2.0
-                ]
-              },
-              {
-                "valueName": "Total",
-                "percents": [
-                  100.0,
-                  100.0
-                ],
-                "amounts": [
-                  166.0,
-                  247.0
+                "rawValueName": "2017",
+                "rawDataValues": [
+                  {
+                    "valueName": "Total",
+                    "percents": [
+                      71.0,
+                      24.0,
+                      3.0,
+                      1.0,
+                      1.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      175.0,
+                      59.0,
+                      8.0,
+                      3.0,
+                      2.0,
+                      247.0
+                    ]
+                  },
+                  {
+                    "valueName": "Location 1",
+                    "percents": [
+                      69.0,
+                      27.0,
+                      3.0,
+                      2.0,
+                      0.0,
+                      101.0
+                    ],
+                    "amounts": [
+                      44.0,
+                      17.0,
+                      2.0,
+                      1.0,
+                      0.0,
+                      64.0
+                    ]
+                  },
+                  {
+                    "valueName": "Location 2",
+                    "percents": [
+                      75.0,
+                      21.0,
+                      3.0,
+                      2.0,
+                      0.0,
+                      101.0
+                    ],
+                    "amounts": [
+                      47.0,
+                      13.0,
+                      2.0,
+                      1.0,
+                      0.0,
+                      63.0
+                    ]
+                  },
+                  {
+                    "valueName": "Location 3",
+                    "percents": [
+                      72.0,
+                      25.0,
+                      3.0,
+                      0.0,
+                      0.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      44.0,
+                      15.0,
+                      2.0,
+                      0.0,
+                      0.0,
+                      61.0
+                    ]
+                  },
+                  {
+                    "valueName": "Location 4",
+                    "percents": [
+                      68.0,
+                      24.0,
+                      3.0,
+                      3.0,
+                      2.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      40.0,
+                      14.0,
+                      2.0,
+                      2.0,
+                      1.0,
+                      59.0
+                    ]
+                  }
                 ]
               }
             ]
           },
           {
-            "rawValueName": "Location 1",
             "rawHeaders": [
-              "2016",
-              "2017"
+              "Meget glad",
+              "Glad",
+              "Neutral",
+              "Sur",
+              "Meget sur",
+              "%",
+              "Meget glad",
+              "Glad",
+              "Neutral",
+              "Sur",
+              "Meget sur",
+              "n"
             ],
-            "rawDataValues": [
+            "rawDataItems": [
               {
-                "valueName": "Meget glad",
-                "percents": [
-                  55.0,
-                  69.0
-                ],
-                "amounts": [
-                  22.0,
-                  44.0
+                "rawValueName": "Total",
+                "rawDataValues": [
+                  {
+                    "valueName": "2016",
+                    "percents": [
+                      60.0,
+                      32.0,
+                      4.0,
+                      2.0,
+                      2.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      100.0,
+                      53.0,
+                      6.0,
+                      4.0,
+                      3.0,
+                      166.0
+                    ]
+                  },
+                  {
+                    "valueName": "2017",
+                    "percents": [
+                      71.0,
+                      24.0,
+                      3.0,
+                      1.0,
+                      1.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      175.0,
+                      59.0,
+                      8.0,
+                      3.0,
+                      2.0,
+                      247.0
+                    ]
+                  }
                 ]
               },
               {
-                "valueName": "Glad",
-                "percents": [
-                  33.0,
-                  27.0
-                ],
-                "amounts": [
-                  13.0,
-                  17.0
+                "rawValueName": "Location 1",
+                "rawDataValues": [
+                  {
+                    "valueName": "2016",
+                    "percents": [
+                      55.0,
+                      33.0,
+                      8.0,
+                      5.0,
+                      0.0,
+                      101.0
+                    ],
+                    "amounts": [
+                      22.0,
+                      13.0,
+                      3.0,
+                      2.0,
+                      0.0,
+                      40.0
+                    ]
+                  },
+                  {
+                    "valueName": "2017",
+                    "percents": [
+                      69.0,
+                      27.0,
+                      3.0,
+                      0.0,
+                      2.0,
+                      101.0
+                    ],
+                    "amounts": [
+                      44.0,
+                      17.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      64.0
+                    ]
+                  }
                 ]
               },
               {
-                "valueName": "Neutral",
-                "percents": [
-                  8.0,
-                  3.0
-                ],
-                "amounts": [
-                  3.0,
-                  2.0
+                "rawValueName": "Location 2",
+                "rawDataValues": [
+                  {
+                    "valueName": "2016",
+                    "percents": [
+                      49.0,
+                      47.0,
+                      2.0,
+                      0.0,
+                      2.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      21.0,
+                      20.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      43.0
+                    ]
+                  },
+                  {
+                    "valueName": "2017",
+                    "percents": [
+                      75.0,
+                      21.0,
+                      3.0,
+                      2.0,
+                      0.0,
+                      101.0
+                    ],
+                    "amounts": [
+                      47.0,
+                      13.0,
+                      2.0,
+                      1.0,
+                      0.0,
+                      63.0
+                    ]
+                  }
                 ]
               },
               {
-                "valueName": "Sur",
-                "percents": [
-                  5.0,
-                  0.0
-                ],
-                "amounts": [
-                  2.0,
-                  0.0
+                "rawValueName": "Location 3",
+                "rawDataValues": [
+                  {
+                    "valueName": "2016",
+                    "percents": [
+                      72.0,
+                      21.0,
+                      5.0,
+                      0.0,
+                      2.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      31.0,
+                      9.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      43.0
+                    ]
+                  },
+                  {
+                    "valueName": "2017",
+                    "percents": [
+                      72.0,
+                      25.0,
+                      3.0,
+                      0.0,
+                      0.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      44.0,
+                      15.0,
+                      2.0,
+                      0.0,
+                      0.0,
+                      61.0
+                    ]
+                  }
                 ]
               },
               {
-                "valueName": "Meget sur",
-                "percents": [
-                  0.0,
-                  2.0
-                ],
-                "amounts": [
-                  0.0,
-                  1.0
-                ]
-              },
-              {
-                "valueName": "Total",
-                "percents": [
-                  101.0,
-                  101.0
-                ],
-                "amounts": [
-                  40.0,
-                  64.0
-                ]
-              }
-            ]
-          },
-          {
-            "rawValueName": "Location 2",
-            "rawHeaders": [
-              "2016",
-              "2017"
-            ],
-            "rawDataValues": [
-              {
-                "valueName": "Meget glad",
-                "percents": [
-                  49.0,
-                  75.0
-                ],
-                "amounts": [
-                  21.0,
-                  47.0
-                ]
-              },
-              {
-                "valueName": "Glad",
-                "percents": [
-                  47.0,
-                  21.0
-                ],
-                "amounts": [
-                  20.0,
-                  13.0
-                ]
-              },
-              {
-                "valueName": "Neutral",
-                "percents": [
-                  2.0,
-                  3.0
-                ],
-                "amounts": [
-                  1.0,
-                  2.0
-                ]
-              },
-              {
-                "valueName": "Sur",
-                "percents": [
-                  0.0,
-                  2.0
-                ],
-                "amounts": [
-                  0.0,
-                  1.0
-                ]
-              },
-              {
-                "valueName": "Meget sur",
-                "percents": [
-                  2.0,
-                  0.0
-                ],
-                "amounts": [
-                  1.0,
-                  0.0
-                ]
-              },
-              {
-                "valueName": "Total",
-                "percents": [
-                  100.0,
-                  101.0
-                ],
-                "amounts": [
-                  43.0,
-                  63.0
-                ]
-              }
-            ]
-          },
-          {
-            "rawValueName": "Location 3",
-            "rawHeaders": [
-              "2016",
-              "2017"
-            ],
-            "rawDataValues": [
-              {
-                "valueName": "Meget glad",
-                "percents": [
-                  72.0,
-                  72.0
-                ],
-                "amounts": [
-                  31.0,
-                  44.0
-                ]
-              },
-              {
-                "valueName": "Glad",
-                "percents": [
-                  21.0,
-                  25.0
-                ],
-                "amounts": [
-                  9.0,
-                  15.0
-                ]
-              },
-              {
-                "valueName": "Neutral",
-                "percents": [
-                  5.0,
-                  3.0
-                ],
-                "amounts": [
-                  2.0,
-                  2.0
-                ]
-              },
-              {
-                "valueName": "Sur",
-                "percents": [
-                  0.0,
-                  0.0
-                ],
-                "amounts": [
-                  0.0,
-                  0.0
-                ]
-              },
-              {
-                "valueName": "Meget sur",
-                "percents": [
-                  2.0,
-                  0.0
-                ],
-                "amounts": [
-                  1.0,
-                  0.0
-                ]
-              },
-              {
-                "valueName": "Total",
-                "percents": [
-                  100.0,
-                  100.0
-                ],
-                "amounts": [
-                  43.0,
-                  61.0
-                ]
-              }
-            ]
-          },
-          {
-            "rawValueName": "Location 4",
-            "rawHeaders": [
-              "2016",
-              "2017"
-            ],
-            "rawDataValues": [
-              {
-                "valueName": "Meget glad",
-                "percents": [
-                  65.0,
-                  68.0
-                ],
-                "amounts": [
-                  26.0,
-                  40.0
-                ]
-              },
-              {
-                "valueName": "Glad",
-                "percents": [
-                  28.0,
-                  24.0
-                ],
-                "amounts": [
-                  11.0,
-                  14.0
-                ]
-              },
-              {
-                "valueName": "Neutral",
-                "percents": [
-                  0.0,
-                  3.0
-                ],
-                "amounts": [
-                  0.0,
-                  2.0
-                ]
-              },
-              {
-                "valueName": "Sur",
-                "percents": [
-                  5.0,
-                  3.0
-                ],
-                "amounts": [
-                  2.0,
-                  2.0
-                ]
-              },
-              {
-                "valueName": "Meget sur",
-                "percents": [
-                  3.0,
-                  2.0
-                ],
-                "amounts": [
-                  1.0,
-                  1.0
-                ]
-              },
-              {
-                "valueName": "Total",
-                "percents": [
-                  101.0,
-                  100.0
-                ],
-                "amounts": [
-                  40.0,
-                  59.0
+                "rawValueName": "Location 4",
+                "rawDataValues": [
+                  {
+                    "valueName": "2016",
+                    "percents": [
+                      65.0,
+                      28.0,
+                      0.0,
+                      5.0,
+                      3.0,
+                      101.0
+                    ],
+                    "amounts": [
+                      26.0,
+                      11.0,
+                      0.0,
+                      2.0,
+                      1.0,
+                      40.0
+                    ]
+                  },
+                  {
+                    "valueName": "2017",
+                    "percents": [
+                      68.0,
+                      24.0,
+                      3.0,
+                      3.0,
+                      2.0,
+                      100.0
+                    ],
+                    "amounts": [
+                      40.0,
+                      14.0,
+                      2.0,
+                      2.0,
+                      1.0,
+                      59.0
+                    ]
+                  }
                 ]
               }
             ]
@@ -827,35 +903,35 @@
       },
       "compareLocationsTags": [
         {
-          "id": 94,
+          "id": 130,
           "locationId": null,
           "tagId": 1,
           "position": 1,
           "name": "Total"
         },
         {
-          "id": 90,
+          "id": 131,
           "locationId": 1,
           "tagId": null,
           "position": 2,
           "name": "Location 1"
         },
         {
-          "id": 91,
+          "id": 132,
           "locationId": 2,
           "tagId": null,
           "position": 3,
           "name": "Location 2"
         },
         {
-          "id": 92,
+          "id": 133,
           "locationId": 3,
           "tagId": null,
           "position": 4,
           "name": "Location 3"
         },
         {
-          "id": 93,
+          "id": 134,
           "locationId": 4,
           "tagId": null,
           "position": 5,
@@ -864,7 +940,7 @@
       ],
       "ignoredAnswerValues": [
         {
-          "id": 106,
+          "id": 128,
           "answerId": 8,
           "name": "Ved ikke"
         }

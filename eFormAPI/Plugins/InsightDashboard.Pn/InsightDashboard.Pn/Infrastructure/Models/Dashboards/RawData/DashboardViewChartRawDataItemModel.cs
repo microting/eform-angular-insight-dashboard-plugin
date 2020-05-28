@@ -23,13 +23,17 @@ SOFTWARE.
 */
 namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards.RawData
 {
+    using System.Collections.Generic;
+
     /// <summary>
-    /// Chart Raw data Row
+    /// Table (Location)
     /// </summary>
-    public class DashboardViewChartRawDataValuesModel
+    public class DashboardViewChartRawDataItemModel
     {
-        public string ValueName { get; set; } // 25 50 75 100 (Glad Meget Glad) ????????
-        public decimal[] Percents { get; set; }
-        public decimal[] Amounts { get; set; }
+        public string RawValueName { get; set; } // Location / Year name
+
+
+        public List<DashboardViewChartRawDataValuesModel> RawDataValues { get; set; }
+            = new List<DashboardViewChartRawDataValuesModel>();
     }
 }

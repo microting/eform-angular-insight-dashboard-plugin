@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
+import {DashboardChartTypesEnum} from 'src/app/plugins/modules/insight-dashboard-pn/const';
 
 @Component({
   selector: 'app-dashboard-chart-data-view',
@@ -8,6 +9,11 @@ import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-vie
 })
 export class DashboardChartDataViewComponent implements OnInit {
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
+
+  get chartTypes() {
+    return DashboardChartTypesEnum;
+  }
+
   constructor() { }
 
   ngOnInit() {

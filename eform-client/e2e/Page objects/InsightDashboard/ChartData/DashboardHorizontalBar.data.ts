@@ -55,17 +55,17 @@ export const dashboardHorizontalBarItems: DashboardTestItemEditModel[] = [
 
 export const dashboardHorizontalBarDataJson = {
   'id': 44,
-    'dashboardName': 'Horisontal bar',
-    'surveyName': 'Test-Set',
-    'surveyId': 1,
-    'locationName': 'Location 1',
-    'locationId': 1,
-    'tagName': null,
-    'tagId': null,
-    'answerDates': {
+  'dashboardName': 'Horizontal bar',
+  'surveyName': 'Test-Set',
+  'surveyId': 1,
+  'locationName': 'Location 1',
+  'locationId': 1,
+  'tagName': null,
+  'tagId': null,
+  'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-      'dateTo': '2020-05-12T23:59:59',
-      'today': true
+    'dateTo': '2020-05-27T23:59:59',
+    'today': true
   },
   'items': [
     {
@@ -83,9 +83,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 1,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -560,12 +558,9 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '16-01',
               '16-05',
@@ -594,197 +589,196 @@ export const dashboardHorizontalBarDataJson = {
               '17-37',
               '17-38'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  67.0,
-                  50.0,
-                  67.0,
-                  100.0,
-                  75.0,
-                  43.0,
-                  50.0,
-                  50.0,
-                  67.0,
-                  100.0,
-                  83.0,
-                  50.0,
-                  71.0,
-                  100.0,
-                  100.0,
-                  86.0,
-                  86.0,
-                  75.0,
-                  86.0,
-                  100.0,
-                  86.0,
-                  100.0,
-                  100.0,
-                  88.0,
-                  87.0,
-                  100.0
-                ],
-                'amounts': [
-                  2.0,
-                  1.0,
-                  2.0,
-                  1.0,
-                  3.0,
-                  3.0,
-                  2.0,
-                  2.0,
-                  4.0,
-                  7.0,
-                  5.0,
-                  3.0,
-                  5.0,
-                  1.0,
-                  5.0,
-                  6.0,
-                  6.0,
-                  6.0,
-                  6.0,
-                  1.0,
-                  6.0,
-                  4.0,
-                  3.0,
-                  7.0,
-                  13.0,
-                  5.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  33.0,
-                  50.0,
-                  33.0,
-                  0.0,
-                  25.0,
-                  57.0,
-                  50.0,
-                  50.0,
-                  33.0,
-                  0.0,
-                  17.0,
-                  50.0,
-                  29.0,
-                  0.0,
-                  0.0,
-                  14.0,
-                  14.0,
-                  25.0,
-                  14.0,
-                  0.0,
-                  14.0,
-                  0.0,
-                  0.0,
-                  13.0,
-                  13.0,
-                  0.0
-                ],
-                'amounts': [
-                  1.0,
-                  1.0,
-                  1.0,
-                  0.0,
-                  1.0,
-                  4.0,
-                  2.0,
-                  2.0,
-                  2.0,
-                  0.0,
-                  1.0,
-                  3.0,
-                  2.0,
-                  0.0,
-                  0.0,
-                  1.0,
-                  1.0,
-                  2.0,
-                  1.0,
-                  0.0,
-                  1.0,
-                  0.0,
-                  0.0,
-                  1.0,
-                  2.0,
-                  0.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  101.0,
-                  100.0,
-                  100.0
-                ],
-                'amounts': [
-                  3.0,
-                  2.0,
-                  3.0,
-                  1.0,
-                  4.0,
-                  7.0,
-                  4.0,
-                  4.0,
-                  6.0,
-                  7.0,
-                  6.0,
-                  6.0,
-                  7.0,
-                  1.0,
-                  5.0,
-                  7.0,
-                  7.0,
-                  8.0,
-                  7.0,
-                  1.0,
-                  7.0,
-                  4.0,
-                  3.0,
-                  8.0,
-                  15.0,
-                  5.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      67.0,
+                      50.0,
+                      67.0,
+                      100.0,
+                      75.0,
+                      43.0,
+                      50.0,
+                      50.0,
+                      67.0,
+                      100.0,
+                      83.0,
+                      50.0,
+                      71.0,
+                      100.0,
+                      100.0,
+                      86.0,
+                      86.0,
+                      75.0,
+                      86.0,
+                      100.0,
+                      86.0,
+                      100.0,
+                      100.0,
+                      88.0,
+                      87.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      2.0,
+                      1.0,
+                      2.0,
+                      1.0,
+                      3.0,
+                      3.0,
+                      2.0,
+                      2.0,
+                      4.0,
+                      7.0,
+                      5.0,
+                      3.0,
+                      5.0,
+                      1.0,
+                      5.0,
+                      6.0,
+                      6.0,
+                      6.0,
+                      6.0,
+                      1.0,
+                      6.0,
+                      4.0,
+                      3.0,
+                      7.0,
+                      13.0,
+                      5.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      33.0,
+                      50.0,
+                      33.0,
+                      0.0,
+                      25.0,
+                      57.0,
+                      50.0,
+                      50.0,
+                      33.0,
+                      0.0,
+                      17.0,
+                      50.0,
+                      29.0,
+                      0.0,
+                      0.0,
+                      14.0,
+                      14.0,
+                      25.0,
+                      14.0,
+                      0.0,
+                      14.0,
+                      0.0,
+                      0.0,
+                      13.0,
+                      13.0,
+                      0.0
+                    ],
+                    'amounts': [
+                      1.0,
+                      1.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      4.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      3.0,
+                      2.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      1.0,
+                      2.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      2.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      101.0,
+                      100.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      3.0,
+                      2.0,
+                      3.0,
+                      1.0,
+                      4.0,
+                      7.0,
+                      4.0,
+                      4.0,
+                      6.0,
+                      7.0,
+                      6.0,
+                      6.0,
+                      7.0,
+                      1.0,
+                      5.0,
+                      7.0,
+                      7.0,
+                      8.0,
+                      7.0,
+                      1.0,
+                      7.0,
+                      4.0,
+                      3.0,
+                      8.0,
+                      15.0,
+                      5.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 135,
@@ -801,9 +795,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 2,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -1220,12 +1212,9 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '16-jan',
               '16-feb',
@@ -1249,167 +1238,166 @@ export const dashboardHorizontalBarDataJson = {
               '17-aug',
               '17-sep'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  67.0,
-                  50.0,
-                  67.0,
-                  80.0,
-                  43.0,
-                  50.0,
-                  50.0,
-                  67.0,
-                  100.0,
-                  83.0,
-                  50.0,
-                  71.0,
-                  83.0,
-                  86.0,
-                  86.0,
-                  75.0,
-                  86.0,
-                  88.0,
-                  57.0,
-                  88.0,
-                  90.0
-                ],
-                'amounts': [
-                  2.0,
-                  1.0,
-                  2.0,
-                  4.0,
-                  3.0,
-                  2.0,
-                  2.0,
-                  4.0,
-                  7.0,
-                  5.0,
-                  3.0,
-                  5.0,
-                  5.0,
-                  6.0,
-                  6.0,
-                  6.0,
-                  6.0,
-                  7.0,
-                  4.0,
-                  7.0,
-                  18.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  33.0,
-                  50.0,
-                  33.0,
-                  20.0,
-                  57.0,
-                  50.0,
-                  50.0,
-                  33.0,
-                  0.0,
-                  17.0,
-                  50.0,
-                  29.0,
-                  17.0,
-                  14.0,
-                  14.0,
-                  25.0,
-                  14.0,
-                  13.0,
-                  43.0,
-                  13.0,
-                  10.0
-                ],
-                'amounts': [
-                  1.0,
-                  1.0,
-                  1.0,
-                  1.0,
-                  4.0,
-                  2.0,
-                  2.0,
-                  2.0,
-                  0.0,
-                  1.0,
-                  3.0,
-                  2.0,
-                  1.0,
-                  1.0,
-                  1.0,
-                  2.0,
-                  1.0,
-                  1.0,
-                  3.0,
-                  1.0,
-                  2.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  101.0,
-                  100.0,
-                  101.0,
-                  100.0
-                ],
-                'amounts': [
-                  3.0,
-                  2.0,
-                  3.0,
-                  5.0,
-                  7.0,
-                  4.0,
-                  4.0,
-                  6.0,
-                  7.0,
-                  6.0,
-                  6.0,
-                  7.0,
-                  6.0,
-                  7.0,
-                  7.0,
-                  8.0,
-                  7.0,
-                  8.0,
-                  7.0,
-                  8.0,
-                  20.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      67.0,
+                      50.0,
+                      67.0,
+                      80.0,
+                      43.0,
+                      50.0,
+                      50.0,
+                      67.0,
+                      100.0,
+                      83.0,
+                      50.0,
+                      71.0,
+                      83.0,
+                      86.0,
+                      86.0,
+                      75.0,
+                      86.0,
+                      88.0,
+                      57.0,
+                      88.0,
+                      90.0
+                    ],
+                    'amounts': [
+                      2.0,
+                      1.0,
+                      2.0,
+                      4.0,
+                      3.0,
+                      2.0,
+                      2.0,
+                      4.0,
+                      7.0,
+                      5.0,
+                      3.0,
+                      5.0,
+                      5.0,
+                      6.0,
+                      6.0,
+                      6.0,
+                      6.0,
+                      7.0,
+                      4.0,
+                      7.0,
+                      18.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      33.0,
+                      50.0,
+                      33.0,
+                      20.0,
+                      57.0,
+                      50.0,
+                      50.0,
+                      33.0,
+                      0.0,
+                      17.0,
+                      50.0,
+                      29.0,
+                      17.0,
+                      14.0,
+                      14.0,
+                      25.0,
+                      14.0,
+                      13.0,
+                      43.0,
+                      13.0,
+                      10.0
+                    ],
+                    'amounts': [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      4.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      3.0,
+                      2.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      2.0,
+                      1.0,
+                      1.0,
+                      3.0,
+                      1.0,
+                      2.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      101.0,
+                      100.0,
+                      101.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      3.0,
+                      2.0,
+                      3.0,
+                      5.0,
+                      7.0,
+                      4.0,
+                      4.0,
+                      6.0,
+                      7.0,
+                      6.0,
+                      6.0,
+                      7.0,
+                      6.0,
+                      7.0,
+                      7.0,
+                      8.0,
+                      7.0,
+                      8.0,
+                      7.0,
+                      8.0,
+                      20.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 136,
@@ -1426,9 +1414,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 3,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -1571,12 +1557,9 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '16-K1',
               '16-K2',
@@ -1586,83 +1569,82 @@ export const dashboardHorizontalBarDataJson = {
               '17-K2',
               '17-K3'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  63.0,
-                  56.0,
-                  76.0,
-                  68.0,
-                  85.0,
-                  83.0,
-                  83.0
-                ],
-                'amounts': [
-                  5.0,
-                  9.0,
-                  13.0,
-                  13.0,
-                  17.0,
-                  19.0,
-                  29.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  38.0,
-                  44.0,
-                  24.0,
-                  32.0,
-                  15.0,
-                  17.0,
-                  17.0
-                ],
-                'amounts': [
-                  3.0,
-                  7.0,
-                  4.0,
-                  6.0,
-                  3.0,
-                  4.0,
-                  6.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  101.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0
-                ],
-                'amounts': [
-                  8.0,
-                  16.0,
-                  17.0,
-                  19.0,
-                  20.0,
-                  23.0,
-                  35.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      63.0,
+                      56.0,
+                      76.0,
+                      68.0,
+                      85.0,
+                      83.0,
+                      83.0
+                    ],
+                    'amounts': [
+                      5.0,
+                      9.0,
+                      13.0,
+                      13.0,
+                      17.0,
+                      19.0,
+                      29.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      38.0,
+                      44.0,
+                      24.0,
+                      32.0,
+                      15.0,
+                      17.0,
+                      17.0
+                    ],
+                    'amounts': [
+                      3.0,
+                      7.0,
+                      4.0,
+                      6.0,
+                      3.0,
+                      4.0,
+                      6.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      101.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      8.0,
+                      16.0,
+                      17.0,
+                      19.0,
+                      20.0,
+                      23.0,
+                      35.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 137,
@@ -1679,9 +1661,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 4,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -1764,77 +1744,73 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '16-1H',
               '16-2H',
               '17-1H',
               '17-2H'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  58.0,
-                  72.0,
-                  84.0,
-                  83.0
-                ],
-                'amounts': [
-                  14.0,
-                  26.0,
-                  36.0,
-                  29.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  42.0,
-                  28.0,
-                  16.0,
-                  17.0
-                ],
-                'amounts': [
-                  10.0,
-                  10.0,
-                  7.0,
-                  6.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0
-                ],
-                'amounts': [
-                  24.0,
-                  36.0,
-                  43.0,
-                  35.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      58.0,
+                      72.0,
+                      84.0,
+                      83.0
+                    ],
+                    'amounts': [
+                      14.0,
+                      26.0,
+                      36.0,
+                      29.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      42.0,
+                      28.0,
+                      16.0,
+                      17.0
+                    ],
+                    'amounts': [
+                      10.0,
+                      10.0,
+                      7.0,
+                      6.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      24.0,
+                      36.0,
+                      43.0,
+                      35.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 138,
@@ -1851,9 +1827,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 5,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -1896,63 +1870,59 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '2016',
               '2017'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  67.0,
-                  83.0
-                ],
-                'amounts': [
-                  40.0,
-                  65.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  33.0,
-                  17.0
-                ],
-                'amounts': [
-                  20.0,
-                  13.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0,
-                  100.0
-                ],
-                'amounts': [
-                  60.0,
-                  78.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      67.0,
+                      83.0
+                    ],
+                    'amounts': [
+                      40.0,
+                      65.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      33.0,
+                      17.0
+                    ],
+                    'amounts': [
+                      20.0,
+                      13.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      60.0,
+                      78.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 139,
@@ -1969,9 +1939,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 6,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -2446,12 +2414,9 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '16-01',
               '16-05',
@@ -2480,197 +2445,196 @@ export const dashboardHorizontalBarDataJson = {
               '17-37',
               '17-38'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  67.0,
-                  50.0,
-                  67.0,
-                  100.0,
-                  75.0,
-                  43.0,
-                  50.0,
-                  50.0,
-                  67.0,
-                  100.0,
-                  83.0,
-                  50.0,
-                  71.0,
-                  100.0,
-                  100.0,
-                  86.0,
-                  86.0,
-                  75.0,
-                  86.0,
-                  100.0,
-                  86.0,
-                  100.0,
-                  100.0,
-                  88.0,
-                  87.0,
-                  100.0
-                ],
-                'amounts': [
-                  2.0,
-                  1.0,
-                  2.0,
-                  1.0,
-                  3.0,
-                  3.0,
-                  2.0,
-                  2.0,
-                  4.0,
-                  7.0,
-                  5.0,
-                  3.0,
-                  5.0,
-                  1.0,
-                  5.0,
-                  6.0,
-                  6.0,
-                  6.0,
-                  6.0,
-                  1.0,
-                  6.0,
-                  4.0,
-                  3.0,
-                  7.0,
-                  13.0,
-                  5.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  33.0,
-                  50.0,
-                  33.0,
-                  0.0,
-                  25.0,
-                  57.0,
-                  50.0,
-                  50.0,
-                  33.0,
-                  0.0,
-                  17.0,
-                  50.0,
-                  29.0,
-                  0.0,
-                  0.0,
-                  14.0,
-                  14.0,
-                  25.0,
-                  14.0,
-                  0.0,
-                  14.0,
-                  0.0,
-                  0.0,
-                  13.0,
-                  13.0,
-                  0.0
-                ],
-                'amounts': [
-                  1.0,
-                  1.0,
-                  1.0,
-                  0.0,
-                  1.0,
-                  4.0,
-                  2.0,
-                  2.0,
-                  2.0,
-                  0.0,
-                  1.0,
-                  3.0,
-                  2.0,
-                  0.0,
-                  0.0,
-                  1.0,
-                  1.0,
-                  2.0,
-                  1.0,
-                  0.0,
-                  1.0,
-                  0.0,
-                  0.0,
-                  1.0,
-                  2.0,
-                  0.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  101.0,
-                  100.0,
-                  100.0
-                ],
-                'amounts': [
-                  3.0,
-                  2.0,
-                  3.0,
-                  1.0,
-                  4.0,
-                  7.0,
-                  4.0,
-                  4.0,
-                  6.0,
-                  7.0,
-                  6.0,
-                  6.0,
-                  7.0,
-                  1.0,
-                  5.0,
-                  7.0,
-                  7.0,
-                  8.0,
-                  7.0,
-                  1.0,
-                  7.0,
-                  4.0,
-                  3.0,
-                  8.0,
-                  15.0,
-                  5.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      67.0,
+                      50.0,
+                      67.0,
+                      100.0,
+                      75.0,
+                      43.0,
+                      50.0,
+                      50.0,
+                      67.0,
+                      100.0,
+                      83.0,
+                      50.0,
+                      71.0,
+                      100.0,
+                      100.0,
+                      86.0,
+                      86.0,
+                      75.0,
+                      86.0,
+                      100.0,
+                      86.0,
+                      100.0,
+                      100.0,
+                      88.0,
+                      87.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      2.0,
+                      1.0,
+                      2.0,
+                      1.0,
+                      3.0,
+                      3.0,
+                      2.0,
+                      2.0,
+                      4.0,
+                      7.0,
+                      5.0,
+                      3.0,
+                      5.0,
+                      1.0,
+                      5.0,
+                      6.0,
+                      6.0,
+                      6.0,
+                      6.0,
+                      1.0,
+                      6.0,
+                      4.0,
+                      3.0,
+                      7.0,
+                      13.0,
+                      5.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      33.0,
+                      50.0,
+                      33.0,
+                      0.0,
+                      25.0,
+                      57.0,
+                      50.0,
+                      50.0,
+                      33.0,
+                      0.0,
+                      17.0,
+                      50.0,
+                      29.0,
+                      0.0,
+                      0.0,
+                      14.0,
+                      14.0,
+                      25.0,
+                      14.0,
+                      0.0,
+                      14.0,
+                      0.0,
+                      0.0,
+                      13.0,
+                      13.0,
+                      0.0
+                    ],
+                    'amounts': [
+                      1.0,
+                      1.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      4.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      3.0,
+                      2.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      1.0,
+                      2.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      2.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      101.0,
+                      100.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      3.0,
+                      2.0,
+                      3.0,
+                      1.0,
+                      4.0,
+                      7.0,
+                      4.0,
+                      4.0,
+                      6.0,
+                      7.0,
+                      6.0,
+                      6.0,
+                      7.0,
+                      1.0,
+                      5.0,
+                      7.0,
+                      7.0,
+                      8.0,
+                      7.0,
+                      1.0,
+                      7.0,
+                      4.0,
+                      3.0,
+                      8.0,
+                      15.0,
+                      5.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 140,
@@ -2687,9 +2651,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 7,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -3106,12 +3068,9 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '16-jan',
               '16-feb',
@@ -3135,167 +3094,166 @@ export const dashboardHorizontalBarDataJson = {
               '17-aug',
               '17-sep'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  67.0,
-                  50.0,
-                  67.0,
-                  80.0,
-                  43.0,
-                  50.0,
-                  50.0,
-                  67.0,
-                  100.0,
-                  83.0,
-                  50.0,
-                  71.0,
-                  83.0,
-                  86.0,
-                  86.0,
-                  75.0,
-                  86.0,
-                  88.0,
-                  57.0,
-                  88.0,
-                  90.0
-                ],
-                'amounts': [
-                  2.0,
-                  1.0,
-                  2.0,
-                  4.0,
-                  3.0,
-                  2.0,
-                  2.0,
-                  4.0,
-                  7.0,
-                  5.0,
-                  3.0,
-                  5.0,
-                  5.0,
-                  6.0,
-                  6.0,
-                  6.0,
-                  6.0,
-                  7.0,
-                  4.0,
-                  7.0,
-                  18.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  33.0,
-                  50.0,
-                  33.0,
-                  20.0,
-                  57.0,
-                  50.0,
-                  50.0,
-                  33.0,
-                  0.0,
-                  17.0,
-                  50.0,
-                  29.0,
-                  17.0,
-                  14.0,
-                  14.0,
-                  25.0,
-                  14.0,
-                  13.0,
-                  43.0,
-                  13.0,
-                  10.0
-                ],
-                'amounts': [
-                  1.0,
-                  1.0,
-                  1.0,
-                  1.0,
-                  4.0,
-                  2.0,
-                  2.0,
-                  2.0,
-                  0.0,
-                  1.0,
-                  3.0,
-                  2.0,
-                  1.0,
-                  1.0,
-                  1.0,
-                  2.0,
-                  1.0,
-                  1.0,
-                  3.0,
-                  1.0,
-                  2.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  101.0,
-                  100.0,
-                  101.0,
-                  100.0
-                ],
-                'amounts': [
-                  3.0,
-                  2.0,
-                  3.0,
-                  5.0,
-                  7.0,
-                  4.0,
-                  4.0,
-                  6.0,
-                  7.0,
-                  6.0,
-                  6.0,
-                  7.0,
-                  6.0,
-                  7.0,
-                  7.0,
-                  8.0,
-                  7.0,
-                  8.0,
-                  7.0,
-                  8.0,
-                  20.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      67.0,
+                      50.0,
+                      67.0,
+                      80.0,
+                      43.0,
+                      50.0,
+                      50.0,
+                      67.0,
+                      100.0,
+                      83.0,
+                      50.0,
+                      71.0,
+                      83.0,
+                      86.0,
+                      86.0,
+                      75.0,
+                      86.0,
+                      88.0,
+                      57.0,
+                      88.0,
+                      90.0
+                    ],
+                    'amounts': [
+                      2.0,
+                      1.0,
+                      2.0,
+                      4.0,
+                      3.0,
+                      2.0,
+                      2.0,
+                      4.0,
+                      7.0,
+                      5.0,
+                      3.0,
+                      5.0,
+                      5.0,
+                      6.0,
+                      6.0,
+                      6.0,
+                      6.0,
+                      7.0,
+                      4.0,
+                      7.0,
+                      18.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      33.0,
+                      50.0,
+                      33.0,
+                      20.0,
+                      57.0,
+                      50.0,
+                      50.0,
+                      33.0,
+                      0.0,
+                      17.0,
+                      50.0,
+                      29.0,
+                      17.0,
+                      14.0,
+                      14.0,
+                      25.0,
+                      14.0,
+                      13.0,
+                      43.0,
+                      13.0,
+                      10.0
+                    ],
+                    'amounts': [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      4.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      3.0,
+                      2.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      2.0,
+                      1.0,
+                      1.0,
+                      3.0,
+                      1.0,
+                      2.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      101.0,
+                      100.0,
+                      101.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      3.0,
+                      2.0,
+                      3.0,
+                      5.0,
+                      7.0,
+                      4.0,
+                      4.0,
+                      6.0,
+                      7.0,
+                      6.0,
+                      6.0,
+                      7.0,
+                      6.0,
+                      7.0,
+                      7.0,
+                      8.0,
+                      7.0,
+                      8.0,
+                      7.0,
+                      8.0,
+                      20.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 141,
@@ -3312,9 +3270,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 8,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -3457,12 +3413,9 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '16-K1',
               '16-K2',
@@ -3472,83 +3425,82 @@ export const dashboardHorizontalBarDataJson = {
               '17-K2',
               '17-K3'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  63.0,
-                  56.0,
-                  76.0,
-                  68.0,
-                  85.0,
-                  83.0,
-                  83.0
-                ],
-                'amounts': [
-                  5.0,
-                  9.0,
-                  13.0,
-                  13.0,
-                  17.0,
-                  19.0,
-                  29.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  38.0,
-                  44.0,
-                  24.0,
-                  32.0,
-                  15.0,
-                  17.0,
-                  17.0
-                ],
-                'amounts': [
-                  3.0,
-                  7.0,
-                  4.0,
-                  6.0,
-                  3.0,
-                  4.0,
-                  6.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  101.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0
-                ],
-                'amounts': [
-                  8.0,
-                  16.0,
-                  17.0,
-                  19.0,
-                  20.0,
-                  23.0,
-                  35.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      63.0,
+                      56.0,
+                      76.0,
+                      68.0,
+                      85.0,
+                      83.0,
+                      83.0
+                    ],
+                    'amounts': [
+                      5.0,
+                      9.0,
+                      13.0,
+                      13.0,
+                      17.0,
+                      19.0,
+                      29.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      38.0,
+                      44.0,
+                      24.0,
+                      32.0,
+                      15.0,
+                      17.0,
+                      17.0
+                    ],
+                    'amounts': [
+                      3.0,
+                      7.0,
+                      4.0,
+                      6.0,
+                      3.0,
+                      4.0,
+                      6.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      101.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      8.0,
+                      16.0,
+                      17.0,
+                      19.0,
+                      20.0,
+                      23.0,
+                      35.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 142,
@@ -3565,9 +3517,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 9,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -3650,77 +3600,73 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '16-1H',
               '16-2H',
               '17-1H',
               '17-2H'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  58.0,
-                  72.0,
-                  84.0,
-                  83.0
-                ],
-                'amounts': [
-                  14.0,
-                  26.0,
-                  36.0,
-                  29.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  42.0,
-                  28.0,
-                  16.0,
-                  17.0
-                ],
-                'amounts': [
-                  10.0,
-                  10.0,
-                  7.0,
-                  6.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0,
-                  100.0,
-                  100.0,
-                  100.0
-                ],
-                'amounts': [
-                  24.0,
-                  36.0,
-                  43.0,
-                  35.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      58.0,
+                      72.0,
+                      84.0,
+                      83.0
+                    ],
+                    'amounts': [
+                      14.0,
+                      26.0,
+                      36.0,
+                      29.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      42.0,
+                      28.0,
+                      16.0,
+                      17.0
+                    ],
+                    'amounts': [
+                      10.0,
+                      10.0,
+                      7.0,
+                      6.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      24.0,
+                      36.0,
+                      43.0,
+                      35.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
       'id': 143,
@@ -3737,9 +3683,7 @@ export const dashboardHorizontalBarDataJson = {
       'calculateAverage': false,
       'position': 10,
       'chartData': {
-        'single': [
-
-        ],
+        'single': [],
         'multi': [
           {
             'id': 0,
@@ -3782,63 +3726,59 @@ export const dashboardHorizontalBarDataJson = {
             ]
           }
         ],
-        'multiStacked': [
-
-        ],
+        'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               '2016',
               '2017'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  67.0,
-                  83.0
-                ],
-                'amounts': [
-                  40.0,
-                  65.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  33.0,
-                  17.0
-                ],
-                'amounts': [
-                  20.0,
-                  13.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0,
-                  100.0
-                ],
-                'amounts': [
-                  60.0,
-                  78.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      67.0,
+                      83.0
+                    ],
+                    'amounts': [
+                      40.0,
+                      65.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      33.0,
+                      17.0
+                    ],
+                    'amounts': [
+                      20.0,
+                      13.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0,
+                      100.0
+                    ],
+                    'amounts': [
+                      60.0,
+                      78.0
+                    ]
+                  }
                 ]
               }
             ]
           }
         ]
       },
-      'compareLocationsTags': [
-
-      ],
-      'ignoredAnswerValues': [
-
-      ],
-      'textQuestionData': [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     }
   ]
 };

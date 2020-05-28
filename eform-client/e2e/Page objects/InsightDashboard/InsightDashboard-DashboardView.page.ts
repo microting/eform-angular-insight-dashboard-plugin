@@ -1,7 +1,6 @@
 import Page from '../Page';
-import {expect} from "chai";
+import {expect} from 'chai';
 import dashboardEditPage, {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
-import {dashboardLineDataJson} from './ChartData/DashboardLine.data';
 
 export class InsightDashboardDashboardViewPage extends Page {
   constructor() {
@@ -51,15 +50,15 @@ export class InsightDashboardDashboardViewPage extends Page {
     return $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewRawHeader`);
   }
 
-  public rawChartDataPercentValueRows(rowNum: number, rawDataNum: number) {
-    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewPercent`);
+  public rawChartDataPercentValueRows(rowNum: number, rawDataNum: number, dataItemNum: number) {
+    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewPercent${dataItemNum}`);
     return dataViewPercentRow.map(x => {
       return x.$$(`#dataViewPercentValue`);
     });
   }
 
-  public rawChartDataAmountValueRows(rowNum: number, rawDataNum: number) {
-    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewAmount`);
+  public rawChartDataAmountValueRows(rowNum: number, rawDataNum: number, dataItemNum: number) {
+    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewAmount${dataItemNum}`);
     return dataViewPercentRow.map(x => {
       return x.$$(`#dataViewAmountValue`);
     });
@@ -85,33 +84,49 @@ export class InsightDashboardDashboardViewPage extends Page {
     for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
       // raw data in item
       for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
-        const percentValueRows = dashboardsViewPage.rawChartDataPercentValueRows(itemIndex, rawDataIndex);
-        // rows in raw data
-        for (let row = 0; row < percentValueRows.length; row++) {
-          // columns in row
-          for (let value = 0; value < percentValueRows[row].length; value++) {
-            // Requires % to compare correctly
-            expect(`${dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`,
-              `Percentage is incorrect on ${itemIndex} item, ${row} row, ${value} value`)
-              .equal(percentValueRows[row][value].getText());
+        // data items in raw data
+        for (let rawDataItemIndex = 0; rawDataItemIndex < dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems.length; rawDataItemIndex++) {
+          const percentValueRows = dashboardsViewPage.rawChartDataPercentValueRows(itemIndex, rawDataIndex, rawDataItemIndex);
+          // rows in data item
+          for (let row = 0; row < percentValueRows.length; row++) {
+            // columns in row
+            for (let value = 0; value < percentValueRows[row].length; value++) {
+              // Requires % to compare correctly
+              expect(`${dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataIndex].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`,
+                `Percentage is incorrect on ${itemIndex} item, ${row} row, ${value} value`)
+                .equal(percentValueRows[row][value].getText());
+            }
           }
         }
       }
     }
   }
 
+//   export class DashboardChartRawDataModel {
+//   rawHeaders: string[];
+//   rawDataItems: DashboardChartRawDataItemsModel[];
+// }
+//
+// export class DashboardChartRawDataItemsModel {
+//   rawValueName: string;
+//   rawDataValues: DashboardChartRawDataValuesModel[];
+// }
+
   public compareAmounts(dataJson: any) {
     for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
       // raw data in item
       for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
-        const amountValueRows = dashboardsViewPage.rawChartDataAmountValueRows(itemIndex, rawDataIndex);
-        // rows in raw data
-        for (let row = 0; row < amountValueRows.length; row++) {
-          for (let amount = 0; amount < amountValueRows[row].length; amount++) {
-            // Requires cast to integer or to string
-            expect(dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataValues[row].amounts[amount],
-              `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`)
-              .equal(+amountValueRows[row][amount].getText());
+        // data items in raw data
+        for (let rawDataItemIndex = 0; rawDataItemIndex < dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems.length; rawDataItemIndex++) {
+          const amountValueRows = dashboardsViewPage.rawChartDataAmountValueRows(itemIndex, rawDataIndex, rawDataItemIndex);
+          // rows in raw data
+          for (let row = 0; row < amountValueRows.length; row++) {
+            for (let amount = 0; amount < amountValueRows[row].length; amount++) {
+              // Requires cast to integer or to string
+              expect(dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataIndex].rawDataValues[row].amounts[amount],
+                `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`)
+                .equal(+amountValueRows[row][amount].getText());
+            }
           }
         }
       }
