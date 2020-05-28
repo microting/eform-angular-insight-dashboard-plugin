@@ -202,12 +202,12 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
     if (this.dashboardItem && this.dashboardItem.period) {
       if (this.dashboardItem.period === DashboardPeriodUnitsEnum.Total) {
         this.availableCharts = [
-          ...this.allCharts.slice(DashboardChartTypesEnum.Line, DashboardChartTypesEnum.VerticalBar - 2)
+          ...this.allCharts.slice(DashboardChartTypesEnum.Line, DashboardChartTypesEnum.VerticalBar - 1)
         ];
       } else {
         this.availableCharts = [
           this.allCharts[DashboardChartTypesEnum.Line - 1],
-          ...this.allCharts.slice(DashboardChartTypesEnum.HorizontalBarStacked, DashboardChartTypesEnum.HorizontalBarStackedGrouped)
+          ...this.allCharts.slice(DashboardChartTypesEnum.HorizontalBarStacked - 1, DashboardChartTypesEnum.HorizontalBarStackedGrouped)
         ];
       }
     }
@@ -230,10 +230,10 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
         id: DashboardChartTypesEnum.Pie,
         name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.Pie])
       },
-        {
-          id: DashboardChartTypesEnum.AdvancedPie,
-          name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.AdvancedPie])
-        },
+        // {
+        //   id: DashboardChartTypesEnum.AdvancedPie,
+        //   name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.AdvancedPie])
+        // },
         {
           id: DashboardChartTypesEnum.PieGrid,
           name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.PieGrid])

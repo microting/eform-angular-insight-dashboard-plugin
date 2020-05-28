@@ -6,7 +6,7 @@ export const dashboardTotalNItems: DashboardTestItemEditModel[] = [
     filterQuestion: '',
     filterAnswer: '',
     period: 'Total',
-    chartType: 'Avanceret cirkel',
+    chartType: 'Lagkagediagram',
     calculateAverage: false,
     ignoredAnswerIds: [],
     comparedItems: []
@@ -20,102 +20,88 @@ export const dashboardTotalNItems: DashboardTestItemEditModel[] = [
     calculateAverage: false,
     ignoredAnswerIds: [],
     comparedItems: []
-  },
-  {
-    firstQuestion: 'Q1',
-    filterQuestion: '',
-    filterAnswer: '',
-    period: 'Total',
-    chartType: 'Lagkagediagram',
-    calculateAverage: false,
-    ignoredAnswerIds: [],
-    comparedItems: []
-  },
+  }
 ];
 
 export const dashboardTotalNDataJson = {
-  "id": 98,
-  "dashboardName": "Total N",
-  "surveyName": "Test-Set",
-  "surveyId": 1,
-  "locationName": null,
-  "locationId": null,
-  "tagName": "Total",
-  "tagId": 7,
-  "answerDates": {
-    "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-05-28T23:59:59",
-    "today": true
+  'id': 98,
+  'dashboardName': 'Total N',
+  'surveyName': 'Test-Set',
+  'surveyId': 1,
+  'locationName': null,
+  'locationId': null,
+  'tagName': 'Total',
+  'tagId': 7,
+  'answerDates': {
+    'dateFrom': '2016-01-01T00:00:00',
+    'dateTo': '2020-05-28T23:59:59',
+    'today': true
   },
-  "items": [
+  'items': [
     {
-      "id": 246,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 3,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 1,
-      "chartData": {
-        "single": [
+      'id': 246,
+      'firstQuestionName': 'Q1: Vil du deltage i undersøgelsen?',
+      'firstQuestionType': 'list',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 1,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 6,
+      'chartType': 3,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 1,
+      'chartData': {
+        'single': [
           {
-            "name": "Ja",
-            "value": 419.0,
-            "dataCount": 419,
-            "optionIndex": 0
+            'name': 'Ja',
+            'value': 419.0,
+            'dataCount': 419,
+            'optionIndex': 0
           },
           {
-            "name": "Nej",
-            "value": 133.0,
-            "dataCount": 133,
-            "optionIndex": 0
+            'name': 'Nej',
+            'value': 133.0,
+            'dataCount': 133,
+            'optionIndex': 0
           }
         ],
-        "multi": [
-
-        ],
-        "multiStacked": [
-
-        ],
-        "rawData": [
+        'multi': [],
+        'multiStacked': [],
+        'rawData': [
           {
-            "rawHeaders": [
-              "Samlet periode"
+            'rawHeaders': [
+              'Samlet periode'
             ],
-            "rawDataItems": [
+            'rawDataItems': [
               {
-                "rawValueName": "",
-                "rawDataValues": [
+                'rawValueName': '',
+                'rawDataValues': [
                   {
-                    "valueName": "Ja",
-                    "percents": [
+                    'valueName': 'Ja',
+                    'percents': [
                       76.0
                     ],
-                    "amounts": [
+                    'amounts': [
                       419.0
                     ]
                   },
                   {
-                    "valueName": "Nej",
-                    "percents": [
+                    'valueName': 'Nej',
+                    'percents': [
                       24.0
                     ],
-                    "amounts": [
+                    'amounts': [
                       133.0
                     ]
                   },
                   {
-                    "valueName": "Total",
-                    "percents": [
+                    'valueName': 'Total',
+                    'percents': [
                       100.0
                     ],
-                    "amounts": [
+                    'amounts': [
                       552.0
                     ]
                   }
@@ -125,84 +111,74 @@ export const dashboardTotalNDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [
-
-      ],
-      "ignoredAnswerValues": [
-
-      ],
-      "textQuestionData": [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
-      "id": 247,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 4,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 2,
-      "chartData": {
-        "single": [
+      'id': 247,
+      'firstQuestionName': 'Q1: Vil du deltage i undersøgelsen?',
+      'firstQuestionType': 'list',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 1,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 6,
+      'chartType': 4,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 2,
+      'chartData': {
+        'single': [
           {
-            "name": "Ja",
-            "value": 419.0,
-            "dataCount": 419,
-            "optionIndex": 0
+            'name': 'Ja',
+            'value': 419.0,
+            'dataCount': 419,
+            'optionIndex': 0
           },
           {
-            "name": "Nej",
-            "value": 133.0,
-            "dataCount": 133,
-            "optionIndex": 0
+            'name': 'Nej',
+            'value': 133.0,
+            'dataCount': 133,
+            'optionIndex': 0
           }
         ],
-        "multi": [
-
-        ],
-        "multiStacked": [
-
-        ],
-        "rawData": [
+        'multi': [],
+        'multiStacked': [],
+        'rawData': [
           {
-            "rawHeaders": [
-              "Samlet periode"
+            'rawHeaders': [
+              'Samlet periode'
             ],
-            "rawDataItems": [
+            'rawDataItems': [
               {
-                "rawValueName": "",
-                "rawDataValues": [
+                'rawValueName': '',
+                'rawDataValues': [
                   {
-                    "valueName": "Ja",
-                    "percents": [
+                    'valueName': 'Ja',
+                    'percents': [
                       76.0
                     ],
-                    "amounts": [
+                    'amounts': [
                       419.0
                     ]
                   },
                   {
-                    "valueName": "Nej",
-                    "percents": [
+                    'valueName': 'Nej',
+                    'percents': [
                       24.0
                     ],
-                    "amounts": [
+                    'amounts': [
                       133.0
                     ]
                   },
                   {
-                    "valueName": "Total",
-                    "percents": [
+                    'valueName': 'Total',
+                    'percents': [
                       100.0
                     ],
-                    "amounts": [
+                    'amounts': [
                       552.0
                     ]
                   }
@@ -212,102 +188,9 @@ export const dashboardTotalNDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [
-
-      ],
-      "ignoredAnswerValues": [
-
-      ],
-      "textQuestionData": [
-
-      ]
-    },
-    {
-      "id": 248,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 2,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 3,
-      "chartData": {
-        "single": [
-          {
-            "name": "Ja",
-            "value": 76.0,
-            "dataCount": 419,
-            "optionIndex": 0
-          },
-          {
-            "name": "Nej",
-            "value": 24.0,
-            "dataCount": 133,
-            "optionIndex": 0
-          }
-        ],
-        "multi": [
-
-        ],
-        "multiStacked": [
-
-        ],
-        "rawData": [
-          {
-            "rawHeaders": [
-              "Samlet periode"
-            ],
-            "rawDataItems": [
-              {
-                "rawValueName": "",
-                "rawDataValues": [
-                  {
-                    "valueName": "Ja",
-                    "percents": [
-                      76.0
-                    ],
-                    "amounts": [
-                      419.0
-                    ]
-                  },
-                  {
-                    "valueName": "Nej",
-                    "percents": [
-                      24.0
-                    ],
-                    "amounts": [
-                      133.0
-                    ]
-                  },
-                  {
-                    "valueName": "Total",
-                    "percents": [
-                      100.0
-                    ],
-                    "amounts": [
-                      552.0
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "compareLocationsTags": [
-
-      ],
-      "ignoredAnswerValues": [
-
-      ],
-      "textQuestionData": [
-
-      ]
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     }
   ]
 };
