@@ -138,7 +138,7 @@
 <div class="scrollable-y-block mb-2"
      *ngIf="itemModel.chartType === chartTypes.HorizontalBarStackedGrouped">
   <div class="d-flex" id="copyableChart{{chartPosition}}" style="background-color: #FFFFFF !important;">
-    <div [ngStyle]="{'width': multiChartView[0] + 'px', 'height': multiChartView[1] + 'px' }"
+    <div [ngStyle]="{'width': multiChartView[0] + 'px' }"
          style="background-color: #FFFFFF !important;"
          *ngFor="let itemData of itemModel.chartData.multiStacked; let first = first; let last = last;">
       <ngx-charts-bar-vertical-stacked [scheme]="colorScheme"

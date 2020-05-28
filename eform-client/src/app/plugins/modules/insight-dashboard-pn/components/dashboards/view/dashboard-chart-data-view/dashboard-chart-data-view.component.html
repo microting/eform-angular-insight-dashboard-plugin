@@ -1,7 +1,8 @@
 <!--suppress XmlDuplicatedId -->
 <div class="row p-1 mb-4 table-responsive no-gutters scrollable-xy-block">
   <table class="table table-sm text-right z-depth-1" id="dashboardViewChartData{{itemModel.position - 1}}_{{rawDataIndex}}"
-         *ngFor="let rawData of itemModel.chartData.rawData; let rawDataIndex = index">
+         [ngClass]="{'mt-2': !rawDataIndexFirst}"
+         *ngFor="let rawData of itemModel.chartData.rawData; let rawDataIndex = index; let rawDataIndexFirst = first">
     <thead id="dataViewTableHeader">
     <tr>
       <th scope="col" *ngIf="itemModel.chartType === chartTypes.HorizontalBarStackedGrouped"></th>
