@@ -653,7 +653,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         Name = x.Key.LocationTagName, // Location or tag name
                                         IsTag = x.Key.IsTag,
                                         Series = x
-                                            .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                            .GroupBy(ms => ChartHelpers.GetMonthString(ms.Finished))
                                             .Select(y => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = y.Key, // Month name
@@ -680,7 +680,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     }).ToList();
 
                                 multiStackedRawData = data
-                                    .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                    .GroupBy(ms => ChartHelpers.GetMonthString(ms.Finished))
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
                                         Name = x.Key, // Month
@@ -728,7 +728,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             IsTag = x.Key.IsTag,
                                             AnswersCount = GetAnswersCount(x),
                                             Series = x
-                                                .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                                .GroupBy(ms => ChartHelpers.GetMonthString(ms.Finished))
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = y.Key,
@@ -743,7 +743,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 else
                                 {
                                     multiData = data
-                                        .GroupBy(ms => $"{ms.Finished:yy-MMM}")
+                                        .GroupBy(ms => ChartHelpers.GetMonthString(ms.Finished))
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Name = x.Key.ToString(),
@@ -781,7 +781,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         IsTag = x.Key.IsTag,
                                         Series = x
                                             .GroupBy(item =>
-                                                $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                                $"{item.Finished:yy}_K{((item.Finished.Month - 1) / 3) + 1}")
                                             .Select(y => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = y.Key, // Quarter name
@@ -808,7 +808,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     }).ToList();
 
                                 multiStackedRawData = data
-                                    .GroupBy(ms => $"{ms.Finished:yy}-K{((ms.Finished.Month - 1) / 3) + 1}")
+                                    .GroupBy(ms => $"{ms.Finished:yy}_K{((ms.Finished.Month - 1) / 3) + 1}")
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
                                         Name = x.Key, // Quarter
@@ -856,7 +856,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             IsTag = x.Key.IsTag,
                                             AnswersCount = GetAnswersCount(x),
                                             Series = x.GroupBy(item =>
-                                                    $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                                    $"{item.Finished:yy}_K{((item.Finished.Month - 1) / 3) + 1}")
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = y.Key,
@@ -871,7 +871,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 else
                                 {
                                     multiData = data
-                                        .GroupBy(item => $"{item.Finished:yy}-K{((item.Finished.Month - 1) / 3) + 1}")
+                                        .GroupBy(item => $"{item.Finished:yy}_K{((item.Finished.Month - 1) / 3) + 1}")
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Name = x.Key,
@@ -909,7 +909,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         IsTag = x.Key.IsTag,
                                         Series = x
                                             .GroupBy(item =>
-                                                $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                                $"{item.Finished:yy}_{ChartHelpers.GetHalfOfYear(item.Finished)}H")
                                             .Select(y => new DashboardViewChartDataMultiModel
                                             {
                                                 Name = y.Key, // SixMonth name
@@ -938,7 +938,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     }).ToList();
 
                                 multiStackedRawData = data
-                                    .GroupBy(ms => $"{ms.Finished:yy}-{ChartHelpers.GetHalfOfYear(ms.Finished)}H")
+                                    .GroupBy(ms => $"{ms.Finished:yy}_{ChartHelpers.GetHalfOfYear(ms.Finished)}H")
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
                                         Name = x.Key, // Half of year 
@@ -987,7 +987,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             AnswersCount = GetAnswersCount(x),
                                             Series = x
                                                 .GroupBy(item =>
-                                                    $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                                    $"{item.Finished:yy}_{ChartHelpers.GetHalfOfYear(item.Finished)}H")
                                                 .Select(y => new DashboardViewChartDataSingleModel
                                                 {
                                                     Name = y.Key,
@@ -1003,7 +1003,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 {
                                     multiData = data
                                         .GroupBy(item =>
-                                            $"{item.Finished:yy}-{ChartHelpers.GetHalfOfYear(item.Finished)}H")
+                                            $"{item.Finished:yy}_{ChartHelpers.GetHalfOfYear(item.Finished)}H")
                                         .Select(x => new DashboardViewChartDataMultiModel
                                         {
                                             Name = x.Key,
