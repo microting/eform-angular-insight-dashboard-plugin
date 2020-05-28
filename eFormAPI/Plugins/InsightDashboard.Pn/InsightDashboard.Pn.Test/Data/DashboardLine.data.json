@@ -9,7 +9,7 @@
   "tagId": null,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-05-27T23:59:59",
+    "dateTo": "2020-05-28T23:59:59",
     "today": true
   },
   "items": [
@@ -28,7 +28,8 @@
       "calculateAverage": false,
       "position": 1,
       "chartData": {
-        "single": [],
+        "single": [
+        ],
         "multi": [
           {
             "id": 0,
@@ -37,157 +38,157 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-01",
+                "name": "16_01",
                 "value": 67.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-05",
+                "name": "16_05",
                 "value": 50.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-09",
+                "name": "16_09",
                 "value": 67.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-13",
+                "name": "16_13",
                 "value": 100.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-14",
+                "name": "16_14",
                 "value": 75.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-18",
+                "name": "16_18",
                 "value": 43.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-23",
+                "name": "16_23",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-27",
+                "name": "16_27",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-31",
+                "name": "16_31",
                 "value": 67.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-36",
+                "name": "16_36",
                 "value": 100.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "16-40",
+                "name": "16_40",
                 "value": 83.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "16-45",
+                "name": "16_45",
                 "value": 50.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-50",
+                "name": "16_50",
                 "value": 71.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "17-01",
+                "name": "17_01",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "17-02",
+                "name": "17_02",
                 "value": 100.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "17-05",
+                "name": "17_05",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-10",
+                "name": "17_10",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-15",
+                "name": "17_15",
                 "value": 75.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-19",
+                "name": "17_19",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-23",
+                "name": "17_23",
                 "value": 100.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-24",
+                "name": "17_24",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-27",
+                "name": "17_27",
                 "value": 100.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "17-28",
+                "name": "17_28",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "17-33",
+                "name": "17_33",
                 "value": 88.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "17-37",
+                "name": "17_37",
                 "value": 87.0,
                 "dataCount": 13,
                 "optionIndex": 0
               },
               {
-                "name": "17-38",
+                "name": "17_38",
                 "value": 100.0,
                 "dataCount": 5,
                 "optionIndex": 0
@@ -201,157 +202,157 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-01",
+                "name": "16_01",
                 "value": 33.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-05",
+                "name": "16_05",
                 "value": 50.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-09",
+                "name": "16_09",
                 "value": 33.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-13",
+                "name": "16_13",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "16-14",
+                "name": "16_14",
                 "value": 25.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-18",
+                "name": "16_18",
                 "value": 57.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-23",
+                "name": "16_23",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-27",
+                "name": "16_27",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-31",
+                "name": "16_31",
                 "value": 33.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-36",
+                "name": "16_36",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "16-40",
+                "name": "16_40",
                 "value": 17.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-45",
+                "name": "16_45",
                 "value": 50.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-50",
+                "name": "16_50",
                 "value": 29.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "17-01",
+                "name": "17_01",
                 "value": 100.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-02",
+                "name": "17_02",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "17-05",
+                "name": "17_05",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-10",
+                "name": "17_10",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-15",
+                "name": "17_15",
                 "value": 25.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "17-19",
+                "name": "17_19",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-23",
+                "name": "17_23",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "17-24",
+                "name": "17_24",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-27",
+                "name": "17_27",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "17-28",
+                "name": "17_28",
                 "value": 100.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "17-33",
+                "name": "17_33",
                 "value": 13.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-37",
+                "name": "17_37",
                 "value": 13.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "17-38",
+                "name": "17_38",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
@@ -359,36 +360,37 @@
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+        ],
         "rawData": [
           {
             "rawHeaders": [
-              "16-01",
-              "16-05",
-              "16-09",
-              "16-13",
-              "16-14",
-              "16-18",
-              "16-23",
-              "16-27",
-              "16-31",
-              "16-36",
-              "16-40",
-              "16-45",
-              "16-50",
-              "17-01",
-              "17-02",
-              "17-05",
-              "17-10",
-              "17-15",
-              "17-19",
-              "17-23",
-              "17-24",
-              "17-27",
-              "17-28",
-              "17-33",
-              "17-37",
-              "17-38"
+              "16_01",
+              "16_05",
+              "16_09",
+              "16_13",
+              "16_14",
+              "16_18",
+              "16_23",
+              "16_27",
+              "16_31",
+              "16_36",
+              "16_40",
+              "16_45",
+              "16_50",
+              "17_01",
+              "17_02",
+              "17_05",
+              "17_10",
+              "17_15",
+              "17_19",
+              "17_23",
+              "17_24",
+              "17_27",
+              "17_28",
+              "17_33",
+              "17_37",
+              "17_38"
             ],
             "rawDataItems": [
               {
@@ -577,9 +579,12 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+      ],
+      "ignoredAnswerValues": [
+      ],
+      "textQuestionData": [
+      ]
     },
     {
       "id": 83,
@@ -596,7 +601,8 @@
       "calculateAverage": false,
       "position": 2,
       "chartData": {
-        "single": [],
+        "single": [
+        ],
         "multi": [
           {
             "id": 0,
@@ -605,127 +611,127 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-jan",
+                "name": "16_jan",
                 "value": 67.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-feb",
+                "name": "16_feb",
                 "value": 50.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-mar",
+                "name": "16_mar",
                 "value": 67.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-apr",
+                "name": "16_apr",
                 "value": 80.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-maj",
+                "name": "16_maj",
                 "value": 43.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-jun",
+                "name": "16_jun",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-jul",
+                "name": "16_jul",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-aug",
+                "name": "16_aug",
                 "value": 67.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-sep",
+                "name": "16_sep",
                 "value": 100.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "16-okt",
+                "name": "16_okt",
                 "value": 83.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "16-nov",
+                "name": "16_nov",
                 "value": 50.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-dec",
+                "name": "16_dec",
                 "value": 71.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "17-jan",
+                "name": "17_jan",
                 "value": 83.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "17-feb",
+                "name": "17_feb",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-mar",
+                "name": "17_mar",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-apr",
+                "name": "17_apr",
                 "value": 75.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-maj",
+                "name": "17_maj",
                 "value": 86.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-jun",
+                "name": "17_jun",
                 "value": 88.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "17-jul",
+                "name": "17_jul",
                 "value": 57.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "17-aug",
+                "name": "17_aug",
                 "value": 88.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "17-sep",
+                "name": "17_sep",
                 "value": 90.0,
                 "dataCount": 18,
                 "optionIndex": 0
@@ -739,127 +745,127 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-jan",
+                "name": "16_jan",
                 "value": 33.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-feb",
+                "name": "16_feb",
                 "value": 50.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-mar",
+                "name": "16_mar",
                 "value": 33.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-apr",
+                "name": "16_apr",
                 "value": 20.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-maj",
+                "name": "16_maj",
                 "value": 57.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-jun",
+                "name": "16_jun",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-jul",
+                "name": "16_jul",
                 "value": 50.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-aug",
+                "name": "16_aug",
                 "value": 33.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "16-sep",
+                "name": "16_sep",
                 "value": 0.0,
                 "dataCount": 0,
                 "optionIndex": 0
               },
               {
-                "name": "16-okt",
+                "name": "16_okt",
                 "value": 17.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "16-nov",
+                "name": "16_nov",
                 "value": 50.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-dec",
+                "name": "16_dec",
                 "value": 29.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "17-jan",
+                "name": "17_jan",
                 "value": 17.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-feb",
+                "name": "17_feb",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-mar",
+                "name": "17_mar",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-apr",
+                "name": "17_apr",
                 "value": 25.0,
                 "dataCount": 2,
                 "optionIndex": 0
               },
               {
-                "name": "17-maj",
+                "name": "17_maj",
                 "value": 14.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-jun",
+                "name": "17_jun",
                 "value": 13.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-jul",
+                "name": "17_jul",
                 "value": 43.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "17-aug",
+                "name": "17_aug",
                 "value": 13.0,
                 "dataCount": 1,
                 "optionIndex": 0
               },
               {
-                "name": "17-sep",
+                "name": "17_sep",
                 "value": 10.0,
                 "dataCount": 2,
                 "optionIndex": 0
@@ -867,31 +873,32 @@
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+        ],
         "rawData": [
           {
             "rawHeaders": [
-              "16-jan",
-              "16-feb",
-              "16-mar",
-              "16-apr",
-              "16-maj",
-              "16-jun",
-              "16-jul",
-              "16-aug",
-              "16-sep",
-              "16-okt",
-              "16-nov",
-              "16-dec",
-              "17-jan",
-              "17-feb",
-              "17-mar",
-              "17-apr",
-              "17-maj",
-              "17-jun",
-              "17-jul",
-              "17-aug",
-              "17-sep"
+              "16_jan",
+              "16_feb",
+              "16_mar",
+              "16_apr",
+              "16_maj",
+              "16_jun",
+              "16_jul",
+              "16_aug",
+              "16_sep",
+              "16_okt",
+              "16_nov",
+              "16_dec",
+              "17_jan",
+              "17_feb",
+              "17_mar",
+              "17_apr",
+              "17_maj",
+              "17_jun",
+              "17_jul",
+              "17_aug",
+              "17_sep"
             ],
             "rawDataItems": [
               {
@@ -1050,9 +1057,12 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+      ],
+      "ignoredAnswerValues": [
+      ],
+      "textQuestionData": [
+      ]
     },
     {
       "id": 84,
@@ -1069,7 +1079,8 @@
       "calculateAverage": false,
       "position": 3,
       "chartData": {
-        "single": [],
+        "single": [
+        ],
         "multi": [
           {
             "id": 0,
@@ -1078,43 +1089,43 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-K1",
+                "name": "16_K1",
                 "value": 63.0,
                 "dataCount": 5,
                 "optionIndex": 0
               },
               {
-                "name": "16-K2",
+                "name": "16_K2",
                 "value": 56.0,
                 "dataCount": 9,
                 "optionIndex": 0
               },
               {
-                "name": "16-K3",
+                "name": "16_K3",
                 "value": 76.0,
                 "dataCount": 13,
                 "optionIndex": 0
               },
               {
-                "name": "16-K4",
+                "name": "16_K4",
                 "value": 68.0,
                 "dataCount": 13,
                 "optionIndex": 0
               },
               {
-                "name": "17-K1",
+                "name": "17_K1",
                 "value": 85.0,
                 "dataCount": 17,
                 "optionIndex": 0
               },
               {
-                "name": "17-K2",
+                "name": "17_K2",
                 "value": 83.0,
                 "dataCount": 19,
                 "optionIndex": 0
               },
               {
-                "name": "17-K3",
+                "name": "17_K3",
                 "value": 83.0,
                 "dataCount": 29,
                 "optionIndex": 0
@@ -1128,43 +1139,43 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-K1",
+                "name": "16_K1",
                 "value": 38.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "16-K2",
+                "name": "16_K2",
                 "value": 44.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "16-K3",
+                "name": "16_K3",
                 "value": 24.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "16-K4",
+                "name": "16_K4",
                 "value": 32.0,
                 "dataCount": 6,
                 "optionIndex": 0
               },
               {
-                "name": "17-K1",
+                "name": "17_K1",
                 "value": 15.0,
                 "dataCount": 3,
                 "optionIndex": 0
               },
               {
-                "name": "17-K2",
+                "name": "17_K2",
                 "value": 17.0,
                 "dataCount": 4,
                 "optionIndex": 0
               },
               {
-                "name": "17-K3",
+                "name": "17_K3",
                 "value": 17.0,
                 "dataCount": 6,
                 "optionIndex": 0
@@ -1172,17 +1183,18 @@
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+        ],
         "rawData": [
           {
             "rawHeaders": [
-              "16-K1",
-              "16-K2",
-              "16-K3",
-              "16-K4",
-              "17-K1",
-              "17-K2",
-              "17-K3"
+              "16_K1",
+              "16_K2",
+              "16_K3",
+              "16_K4",
+              "17_K1",
+              "17_K2",
+              "17_K3"
             ],
             "rawDataItems": [
               {
@@ -1257,9 +1269,12 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+      ],
+      "ignoredAnswerValues": [
+      ],
+      "textQuestionData": [
+      ]
     },
     {
       "id": 85,
@@ -1276,7 +1291,8 @@
       "calculateAverage": false,
       "position": 4,
       "chartData": {
-        "single": [],
+        "single": [
+        ],
         "multi": [
           {
             "id": 0,
@@ -1285,25 +1301,25 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-1H",
+                "name": "16_1H",
                 "value": 58.0,
                 "dataCount": 14,
                 "optionIndex": 0
               },
               {
-                "name": "16-2H",
+                "name": "16_2H",
                 "value": 72.0,
                 "dataCount": 26,
                 "optionIndex": 0
               },
               {
-                "name": "17-1H",
+                "name": "17_1H",
                 "value": 84.0,
                 "dataCount": 36,
                 "optionIndex": 0
               },
               {
-                "name": "17-2H",
+                "name": "17_2H",
                 "value": 83.0,
                 "dataCount": 29,
                 "optionIndex": 0
@@ -1317,25 +1333,25 @@
             "isTag": false,
             "series": [
               {
-                "name": "16-1H",
+                "name": "16_1H",
                 "value": 42.0,
                 "dataCount": 10,
                 "optionIndex": 0
               },
               {
-                "name": "16-2H",
+                "name": "16_2H",
                 "value": 28.0,
                 "dataCount": 10,
                 "optionIndex": 0
               },
               {
-                "name": "17-1H",
+                "name": "17_1H",
                 "value": 16.0,
                 "dataCount": 7,
                 "optionIndex": 0
               },
               {
-                "name": "17-2H",
+                "name": "17_2H",
                 "value": 17.0,
                 "dataCount": 6,
                 "optionIndex": 0
@@ -1343,14 +1359,15 @@
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+        ],
         "rawData": [
           {
             "rawHeaders": [
-              "16-1H",
-              "16-2H",
-              "17-1H",
-              "17-2H"
+              "16_1H",
+              "16_2H",
+              "17_1H",
+              "17_2H"
             ],
             "rawDataItems": [
               {
@@ -1407,9 +1424,12 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+      ],
+      "ignoredAnswerValues": [
+      ],
+      "textQuestionData": [
+      ]
     },
     {
       "id": 86,
@@ -1426,7 +1446,8 @@
       "calculateAverage": false,
       "position": 5,
       "chartData": {
-        "single": [],
+        "single": [
+        ],
         "multi": [
           {
             "id": 0,
@@ -1469,7 +1490,8 @@
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -1519,9 +1541,12 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+      ],
+      "ignoredAnswerValues": [
+      ],
+      "textQuestionData": [
+      ]
     }
   ]
 }
