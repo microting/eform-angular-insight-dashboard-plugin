@@ -31,7 +31,7 @@ export class DashboardChartViewComponent {
   gradient = false;
   showLegend = true;
   legendTitle = 'Legend';
-  legendPosition = 'right';
+  legendPosition = 'below';
   legendAdvanced = false;
   showXAxisLabel = true;
   tooltipDisabled = false;
@@ -41,26 +41,8 @@ export class DashboardChartViewComponent {
   yAxisLabel = 'Percents';
   showGridLines = true;
   innerPadding = '10%';
-  barPadding = 8;
-  groupPadding = 16;
-  roundDomains = false;
-  maxRadius = 10;
-  minRadius = 3;
-  showSeriesOnHover = true;
-  roundEdges: boolean = true;
+  barPadding = 20;
   animations: boolean = true;
-  xScaleMin: any;
-  xScaleMax: any;
-  yScaleMin: number;
-  yScaleMax: number;
-  showDataLabel = false;
-  noBarWhenZero = true;
-  barWidth = 7;
-  trimXAxisTicks = true;
-  trimYAxisTicks = true;
-  rotateXAxisTicks = true;
-  maxXAxisTickLength = 16;
-  maxYAxisTickLength = 16;
 
   customColors = [
     {

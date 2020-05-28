@@ -7,6 +7,10 @@ export class DashboardChartDataModel {
 
 export class DashboardChartRawDataModel {
   rawHeaders: string[];
+  rawDataItems: DashboardChartRawDataItemsModel[];
+}
+
+export class DashboardChartRawDataItemsModel {
   rawValueName: string;
   rawDataValues: DashboardChartRawDataValuesModel[];
 }

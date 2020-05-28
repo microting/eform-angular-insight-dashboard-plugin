@@ -54,7 +54,7 @@ export const dashboardTotalDataJson = {
   'tagId': null,
   'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-05-15T23:59:59',
+    'dateTo': '2020-05-27T23:59:59',
     'today': true
   },
   'items': [
@@ -91,36 +91,40 @@ export const dashboardTotalDataJson = {
         'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               'Samlet periode'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  76.0
-                ],
-                'amounts': [
-                  105.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  24.0
-                ],
-                'amounts': [
-                  33.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0
-                ],
-                'amounts': [
-                  138.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      76.0
+                    ],
+                    'amounts': [
+                      105.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      24.0
+                    ],
+                    'amounts': [
+                      33.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0
+                    ],
+                    'amounts': [
+                      138.0
+                    ]
+                  }
                 ]
               }
             ]
@@ -164,36 +168,40 @@ export const dashboardTotalDataJson = {
         'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               'Samlet periode'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  76.0
-                ],
-                'amounts': [
-                  105.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  24.0
-                ],
-                'amounts': [
-                  33.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0
-                ],
-                'amounts': [
-                  138.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      76.0
+                    ],
+                    'amounts': [
+                      105.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      24.0
+                    ],
+                    'amounts': [
+                      33.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0
+                    ],
+                    'amounts': [
+                      138.0
+                    ]
+                  }
                 ]
               }
             ]
@@ -237,36 +245,40 @@ export const dashboardTotalDataJson = {
         'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               'Samlet periode'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  76.0
-                ],
-                'amounts': [
-                  105.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  24.0
-                ],
-                'amounts': [
-                  33.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0
-                ],
-                'amounts': [
-                  138.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      76.0
+                    ],
+                    'amounts': [
+                      105.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      24.0
+                    ],
+                    'amounts': [
+                      33.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0
+                    ],
+                    'amounts': [
+                      138.0
+                    ]
+                  }
                 ]
               }
             ]
@@ -310,36 +322,40 @@ export const dashboardTotalDataJson = {
         'multiStacked': [],
         'rawData': [
           {
-            'rawValueName': '',
             'rawHeaders': [
               'Samlet periode'
             ],
-            'rawDataValues': [
+            'rawDataItems': [
               {
-                'valueName': 'Ja',
-                'percents': [
-                  76.0
-                ],
-                'amounts': [
-                  105.0
-                ]
-              },
-              {
-                'valueName': 'Nej',
-                'percents': [
-                  24.0
-                ],
-                'amounts': [
-                  33.0
-                ]
-              },
-              {
-                'valueName': 'Total',
-                'percents': [
-                  100.0
-                ],
-                'amounts': [
-                  138.0
+                'rawValueName': '',
+                'rawDataValues': [
+                  {
+                    'valueName': 'Ja',
+                    'percents': [
+                      76.0
+                    ],
+                    'amounts': [
+                      105.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Nej',
+                    'percents': [
+                      24.0
+                    ],
+                    'amounts': [
+                      33.0
+                    ]
+                  },
+                  {
+                    'valueName': 'Total',
+                    'percents': [
+                      100.0
+                    ],
+                    'amounts': [
+                      138.0
+                    ]
+                  }
                 ]
               }
             ]

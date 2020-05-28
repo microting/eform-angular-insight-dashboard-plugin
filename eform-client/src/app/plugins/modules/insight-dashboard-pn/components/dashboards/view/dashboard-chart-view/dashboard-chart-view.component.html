@@ -1,12 +1,13 @@
 <div id="copyableChart{{chartPosition}}"
      *ngIf="itemModel.chartType !== chartTypes.HorizontalBarStackedGrouped"
      [ngStyle]="{'width': view[0] + 'px' }" style="background-color: #FFFFFF !important;">
-  <div [ngStyle]="{'width': view[0] + 'px', 'height': view[1] + 'px' }">
+  <div [ngStyle]="{'width': view[0] + 'px'}">
     <ngx-charts-line-chart *ngIf="itemModel.chartType === chartTypes.Line"
                            [view]="view"
                            [scheme]="colorScheme"
                            [customColors]="customColors"
                            [results]="itemModel.chartData.multi"
+                           [legendPosition]="legendPosition"
                            [gradient]="false"
                            [xAxis]="true"
                            [yAxis]="true"
@@ -20,6 +21,7 @@
     <ngx-charts-pie-chart *ngIf="itemModel.chartType === chartTypes.Pie"
                           [view]="view"
                           [scheme]="colorScheme"
+                          [legendPosition]="legendPosition"
                           [customColors]="customColors"
                           [results]="itemModel.chartData.single"
                           [legend]="true"
@@ -46,6 +48,8 @@
                                [scheme]="colorScheme"
                                [results]="itemModel.chartData.single"
                                [customColors]="customColors"
+                               [barPadding]="barPadding"
+                               [legendPosition]="legendPosition"
                                [gradient]="false"
                                [xAxis]="true"
                                [yAxis]="true"
@@ -59,6 +63,8 @@
                                        [scheme]="colorScheme"
                                        [results]="itemModel.chartData.multi"
                                        [customColors]="customColors"
+                                       [legendPosition]="legendPosition"
+                                       [barPadding]="barPadding"
                                        [gradient]="false"
                                        [xAxis]="true"
                                        [yAxis]="true"
@@ -72,6 +78,8 @@
                                   [scheme]="colorScheme"
                                   [results]="itemModel.chartData.multi"
                                   [customColors]="customColors"
+                                  [legendPosition]="legendPosition"
+                                  [barPadding]="barPadding"
                                   [gradient]="false"
                                   [xAxis]="true"
                                   [yAxis]="true"
@@ -85,6 +93,8 @@
                              [scheme]="colorScheme"
                              [results]="itemModel.chartData.single"
                              [customColors]="customColors"
+                             [legendPosition]="legendPosition"
+                             [barPadding]="barPadding"
                              [gradient]="false"
                              [xAxis]="true"
                              [yAxis]="true"
@@ -98,6 +108,7 @@
                                      [scheme]="colorScheme"
                                      [results]="itemModel.chartData.multi"
                                      [customColors]="customColors"
+                                     [legendPosition]="legendPosition"
                                      [gradient]="false"
                                      [xAxis]="true"
                                      [yAxis]="true"
@@ -111,6 +122,8 @@
                                 [scheme]="colorScheme"
                                 [results]="itemModel.chartData.multi"
                                 [customColors]="customColors"
+                                [legendPosition]="legendPosition"
+                                [barPadding]="barPadding"
                                 [gradient]="false"
                                 [xAxis]="true"
                                 [yAxis]="true"
@@ -119,38 +132,6 @@
                                 [showYAxisLabel]="true"
                                 [yAxisLabel]="'Percents' | translate" [yScaleMax]="100">
     </ngx-charts-bar-vertical-2d>
-    <!--  <ngx-charts-bar-vertical-2d-stacked *ngIf="itemModel.chartType === chartTypes.HorizontalBarStackedGrouped"-->
-    <!--                              [view]="view"-->
-    <!--                              [scheme]="colorScheme"-->
-    <!--                              [results]="itemModel.chartData.multiStacked"-->
-    <!--                              [customColors]="customColors"-->
-    <!--                                      [animations]="animations"-->
-    <!--                                      [gradient]="gradient"-->
-    <!--                                      [barWidth]="12"-->
-    <!--                                      [tooltipDisabled]="tooltipDisabled"-->
-    <!--                                      [xAxis]="showXAxis"-->
-    <!--                                      [yAxis]="showYAxis"-->
-    <!--                                      [showXAxisLineTop]=false-->
-    <!--                                      [showYAxisLineLeft]=true-->
-    <!--                                      [showYAxisLineRight]=false-->
-    <!--                                      [legend]="showLegend"-->
-    <!--                                      [legendTitle]="legendTitle"-->
-    <!--                                      [legendPosition]="legendPosition"-->
-    <!--                                      [showXAxisLabel]="showXAxisLabel"-->
-    <!--                                      [showYAxisLabel]="showYAxisLabel"-->
-    <!--                                      [xAxisLabel]="xAxisLabel"-->
-    <!--                                      [yAxisLabel]="yAxisLabel"-->
-    <!--                                      [showGridLines]="showGridLines"-->
-    <!--                                      [barPadding]="barPadding"-->
-    <!--                                      [roundDomains]="roundDomains"-->
-    <!--                                      [showDataLabel]="showDataLabel"-->
-    <!--                                      [noBarWhenZero]="noBarWhenZero"-->
-    <!--                                      [trimXAxisTicks]="trimXAxisTicks"-->
-    <!--                                      [trimYAxisTicks]="trimYAxisTicks"-->
-    <!--                                      [rotateXAxisTicks]="rotateXAxisTicks"-->
-    <!--                                      [maxXAxisTickLength]="maxXAxisTickLength"-->
-    <!--                                      [maxYAxisTickLength]="maxYAxisTickLength">-->
-    <!--  </ngx-charts-bar-vertical-2d-stacked>-->
   </div>
 </div>
 
@@ -162,8 +143,10 @@
          *ngFor="let itemData of itemModel.chartData.multiStacked; let first = first; let last = last;">
       <ngx-charts-bar-vertical-stacked [scheme]="colorScheme"
                                        [view]="multiChartView"
+                                       [legendPosition]="legendPosition"
                                        [results]="itemData.series"
                                        [customColors]="customColors"
+                                       [barPadding]="barPadding"
                                        [gradient]="false"
                                        [xAxis]="true"
                                        [yAxis]="true"
