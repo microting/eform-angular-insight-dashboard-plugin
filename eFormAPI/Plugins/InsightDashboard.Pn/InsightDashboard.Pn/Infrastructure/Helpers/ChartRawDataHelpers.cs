@@ -95,13 +95,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 {
                     var rawDataList = new List<DashboardViewChartRawDataValuesModel>();
 
-                    // Get element with max rows (locations)
-                    var maxObject = dataMultiStackedModel.Series
-                        .OrderByDescending(item => item.Series.Count)
-                        .First();
-
                     // column count + total column
-                    var columnCount = maxObject.Series.Count + 1;
+                    var columnCount = maxOptionObject.Count + 1;
                     var lastColumnArrayIndex = columnCount - 1;
 
                     // Get row names
