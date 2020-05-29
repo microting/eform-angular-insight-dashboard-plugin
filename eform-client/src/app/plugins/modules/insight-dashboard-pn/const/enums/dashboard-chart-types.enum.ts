@@ -1,7 +1,7 @@
 export enum DashboardChartTypesEnum {
   Line = 1,
-  Pie,
-  AdvancedPie,
+  // Pie = 2,
+  Pie = 3,
   PieGrid,
   HorizontalBar,
   HorizontalBarStacked,

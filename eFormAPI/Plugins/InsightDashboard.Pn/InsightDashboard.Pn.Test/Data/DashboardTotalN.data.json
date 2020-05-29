@@ -9,7 +9,7 @@
   "tagId": 1,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-05-27T23:59:59",
+    "dateTo": "2020-05-28T23:59:59",
     "today": true
   },
   "items": [
@@ -42,8 +42,12 @@
             "optionIndex": 0
           }
         ],
-        "multi": [],
-        "multiStacked": [],
+        "multi": [
+
+        ],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -86,9 +90,15 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+
+      ],
+      "ignoredAnswerValues": [
+
+      ],
+      "textQuestionData": [
+
+      ]
     },
     {
       "id": 247,
@@ -119,8 +129,12 @@
             "optionIndex": 0
           }
         ],
-        "multi": [],
-        "multiStacked": [],
+        "multi": [
+
+        ],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -163,9 +177,15 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+
+      ],
+      "ignoredAnswerValues": [
+
+      ],
+      "textQuestionData": [
+
+      ]
     },
     {
       "id": 248,
@@ -196,8 +216,12 @@
             "optionIndex": 0
           }
         ],
-        "multi": [],
-        "multiStacked": [],
+        "multi": [
+
+        ],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -240,9 +264,15 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+
+      ],
+      "ignoredAnswerValues": [
+
+      ],
+      "textQuestionData": [
+
+      ]
     }
   ]
 }

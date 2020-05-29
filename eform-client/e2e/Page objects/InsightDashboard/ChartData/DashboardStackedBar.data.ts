@@ -67,7 +67,7 @@ export const dashboardStackedBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 10,
             'isTag': false,
             'series': [
@@ -87,7 +87,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 10,
             'isTag': false,
             'series': [
@@ -107,7 +107,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 10,
             'isTag': false,
             'series': [
@@ -127,7 +127,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -147,7 +147,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 16,
             'isTag': false,
             'series': [
@@ -167,7 +167,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 25,
             'isTag': false,
             'series': [
@@ -187,7 +187,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 18,
             'isTag': false,
             'series': [
@@ -207,7 +207,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 16,
             'isTag': false,
             'series': [
@@ -227,7 +227,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 23,
             'isTag': false,
             'series': [
@@ -247,7 +247,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 28,
             'isTag': false,
             'series': [
@@ -267,7 +267,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 26,
             'isTag': false,
             'series': [
@@ -287,7 +287,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 22,
             'isTag': false,
             'series': [
@@ -307,7 +307,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 30,
             'isTag': false,
             'series': [
@@ -327,7 +327,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-01',
+            'name': '17_01',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -341,7 +341,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 20,
             'isTag': false,
             'series': [
@@ -361,7 +361,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 29,
             'isTag': false,
             'series': [
@@ -381,7 +381,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 28,
             'isTag': false,
             'series': [
@@ -401,7 +401,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 33,
             'isTag': false,
             'series': [
@@ -421,7 +421,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 26,
             'isTag': false,
             'series': [
@@ -441,7 +441,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -455,7 +455,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 28,
             'isTag': false,
             'series': [
@@ -475,7 +475,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 15,
             'isTag': false,
             'series': [
@@ -495,7 +495,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 15,
             'isTag': false,
             'series': [
@@ -515,7 +515,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 30,
             'isTag': false,
             'series': [
@@ -535,7 +535,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 60,
             'isTag': false,
             'series': [
@@ -555,7 +555,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 22,
             'isTag': false,
             'series': [
@@ -578,32 +578,32 @@ export const dashboardStackedBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-01',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_01',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {
@@ -815,7 +815,7 @@ export const dashboardStackedBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -853,7 +853,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -891,7 +891,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -929,7 +929,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -967,7 +967,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1005,7 +1005,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1043,7 +1043,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1081,7 +1081,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1119,7 +1119,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1157,7 +1157,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1195,7 +1195,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1233,7 +1233,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1271,7 +1271,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1309,7 +1309,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1347,7 +1347,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1385,7 +1385,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1423,7 +1423,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1461,7 +1461,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1499,7 +1499,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1537,7 +1537,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1575,7 +1575,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1613,7 +1613,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1651,7 +1651,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1689,7 +1689,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1727,7 +1727,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -1768,31 +1768,31 @@ export const dashboardStackedBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {
@@ -2175,7 +2175,7 @@ export const dashboardStackedBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2213,7 +2213,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2251,7 +2251,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2289,7 +2289,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2327,7 +2327,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2365,7 +2365,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2403,7 +2403,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2441,7 +2441,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2479,7 +2479,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2517,7 +2517,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2555,7 +2555,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2593,7 +2593,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2631,7 +2631,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2669,7 +2669,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2707,7 +2707,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2745,7 +2745,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2783,7 +2783,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2821,7 +2821,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2859,7 +2859,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2897,7 +2897,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2935,7 +2935,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -2973,7 +2973,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -3011,7 +3011,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -3049,7 +3049,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -3087,7 +3087,7 @@ export const dashboardStackedBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 0,
             'isTag': false,
             'series': [
@@ -3128,31 +3128,31 @@ export const dashboardStackedBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {

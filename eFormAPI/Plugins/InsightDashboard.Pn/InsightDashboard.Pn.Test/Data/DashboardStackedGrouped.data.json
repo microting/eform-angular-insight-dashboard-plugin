@@ -28,8 +28,10 @@
       "calculateAverage": false,
       "position": 1,
       "chartData": {
-        "single": [],
-        "multi": [],
+        "single": [
+        ],
+        "multi": [
+        ],
         "multiStacked": [
           {
             "id": 1,
@@ -945,7 +947,8 @@
           "name": "Ved ikke"
         }
       ],
-      "textQuestionData": []
+      "textQuestionData": [
+      ]
     }
   ]
 }

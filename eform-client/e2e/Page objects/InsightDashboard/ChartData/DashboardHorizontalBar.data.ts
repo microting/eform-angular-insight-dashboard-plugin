@@ -55,7 +55,7 @@ export const dashboardHorizontalBarItems: DashboardTestItemEditModel[] = [
 
 export const dashboardHorizontalBarDataJson = {
   'id': 44,
-  'dashboardName': 'Horizontal bar',
+  'dashboardName': 'Horisontal bar',
   'surveyName': 'Test-Set',
   'surveyId': 1,
   'locationName': 'Location 1',
@@ -64,7 +64,7 @@ export const dashboardHorizontalBarDataJson = {
   'tagId': null,
   'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-05-27T23:59:59',
+    'dateTo': '2020-05-28T23:59:59',
     'today': true
   },
   'items': [
@@ -87,7 +87,7 @@ export const dashboardHorizontalBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -107,7 +107,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 2,
             'isTag': false,
             'series': [
@@ -127,7 +127,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -147,7 +147,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -161,7 +161,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -181,7 +181,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -201,7 +201,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -221,7 +221,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -241,7 +241,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -261,7 +261,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -275,7 +275,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -295,7 +295,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -315,7 +315,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -335,7 +335,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-01',
+            'name': '17_01',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -349,7 +349,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -363,7 +363,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -383,7 +383,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -403,7 +403,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -423,7 +423,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -443,7 +443,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -457,7 +457,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -477,7 +477,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -491,7 +491,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -505,7 +505,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -525,7 +525,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 15,
             'isTag': false,
             'series': [
@@ -545,7 +545,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -562,32 +562,32 @@ export const dashboardHorizontalBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-01',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_01',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {
@@ -799,7 +799,7 @@ export const dashboardHorizontalBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-jan',
+            'name': '16_jan',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -819,7 +819,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-feb',
+            'name': '16_feb',
             'answersCount': 2,
             'isTag': false,
             'series': [
@@ -839,7 +839,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-mar',
+            'name': '16_mar',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -859,7 +859,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-apr',
+            'name': '16_apr',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -879,7 +879,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-maj',
+            'name': '16_maj',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -899,7 +899,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-jun',
+            'name': '16_jun',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -919,7 +919,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-jul',
+            'name': '16_jul',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -939,7 +939,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-aug',
+            'name': '16_aug',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -959,7 +959,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-sep',
+            'name': '16_sep',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -973,7 +973,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-okt',
+            'name': '16_okt',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -993,7 +993,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-nov',
+            'name': '16_nov',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -1013,7 +1013,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-dec',
+            'name': '16_dec',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1033,7 +1033,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-jan',
+            'name': '17_jan',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -1053,7 +1053,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-feb',
+            'name': '17_feb',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1073,7 +1073,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-mar',
+            'name': '17_mar',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1093,7 +1093,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-apr',
+            'name': '17_apr',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -1113,7 +1113,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-maj',
+            'name': '17_maj',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1133,7 +1133,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-jun',
+            'name': '17_jun',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -1153,7 +1153,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-jul',
+            'name': '17_jul',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1173,7 +1173,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-aug',
+            'name': '17_aug',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -1193,7 +1193,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-sep',
+            'name': '17_sep',
             'answersCount': 20,
             'isTag': false,
             'series': [
@@ -1216,27 +1216,27 @@ export const dashboardHorizontalBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-jan',
-              '16-feb',
-              '16-mar',
-              '16-apr',
-              '16-maj',
-              '16-jun',
-              '16-jul',
-              '16-aug',
-              '16-sep',
-              '16-okt',
-              '16-nov',
-              '16-dec',
-              '17-jan',
-              '17-feb',
-              '17-mar',
-              '17-apr',
-              '17-maj',
-              '17-jun',
-              '17-jul',
-              '17-aug',
-              '17-sep'
+              '16_jan',
+              '16_feb',
+              '16_mar',
+              '16_apr',
+              '16_maj',
+              '16_jun',
+              '16_jul',
+              '16_aug',
+              '16_sep',
+              '16_okt',
+              '16_nov',
+              '16_dec',
+              '17_jan',
+              '17_feb',
+              '17_mar',
+              '17_apr',
+              '17_maj',
+              '17_jun',
+              '17_jul',
+              '17_aug',
+              '17_sep'
             ],
             'rawDataItems': [
               {
@@ -1418,7 +1418,7 @@ export const dashboardHorizontalBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-K1',
+            'name': '16_K1',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -1438,7 +1438,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-K2',
+            'name': '16_K2',
             'answersCount': 16,
             'isTag': false,
             'series': [
@@ -1458,7 +1458,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-K3',
+            'name': '16_K3',
             'answersCount': 17,
             'isTag': false,
             'series': [
@@ -1478,7 +1478,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-K4',
+            'name': '16_K4',
             'answersCount': 19,
             'isTag': false,
             'series': [
@@ -1498,7 +1498,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-K1',
+            'name': '17_K1',
             'answersCount': 20,
             'isTag': false,
             'series': [
@@ -1518,7 +1518,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-K2',
+            'name': '17_K2',
             'answersCount': 23,
             'isTag': false,
             'series': [
@@ -1538,7 +1538,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-K3',
+            'name': '17_K3',
             'answersCount': 35,
             'isTag': false,
             'series': [
@@ -1561,13 +1561,13 @@ export const dashboardHorizontalBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-K1',
-              '16-K2',
-              '16-K3',
-              '16-K4',
-              '17-K1',
-              '17-K2',
-              '17-K3'
+              '16_K1',
+              '16_K2',
+              '16_K3',
+              '16_K4',
+              '17_K1',
+              '17_K2',
+              '17_K3'
             ],
             'rawDataItems': [
               {
@@ -1665,7 +1665,7 @@ export const dashboardHorizontalBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-1H',
+            'name': '16_1H',
             'answersCount': 24,
             'isTag': false,
             'series': [
@@ -1685,7 +1685,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-2H',
+            'name': '16_2H',
             'answersCount': 36,
             'isTag': false,
             'series': [
@@ -1705,7 +1705,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-1H',
+            'name': '17_1H',
             'answersCount': 43,
             'isTag': false,
             'series': [
@@ -1725,7 +1725,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-2H',
+            'name': '17_2H',
             'answersCount': 35,
             'isTag': false,
             'series': [
@@ -1748,10 +1748,10 @@ export const dashboardHorizontalBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-1H',
-              '16-2H',
-              '17-1H',
-              '17-2H'
+              '16_1H',
+              '16_2H',
+              '17_1H',
+              '17_2H'
             ],
             'rawDataItems': [
               {
@@ -1943,7 +1943,7 @@ export const dashboardHorizontalBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -1963,7 +1963,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 2,
             'isTag': false,
             'series': [
@@ -1983,7 +1983,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -2003,7 +2003,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -2017,7 +2017,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2037,7 +2037,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2057,7 +2057,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2077,7 +2077,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2097,7 +2097,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -2117,7 +2117,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2131,7 +2131,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -2151,7 +2151,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -2171,7 +2171,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2191,7 +2191,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-01',
+            'name': '17_01',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -2205,7 +2205,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -2219,7 +2219,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2239,7 +2239,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2259,7 +2259,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -2279,7 +2279,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2299,7 +2299,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -2313,7 +2313,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2333,7 +2333,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2347,7 +2347,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -2361,7 +2361,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -2381,7 +2381,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 15,
             'isTag': false,
             'series': [
@@ -2401,7 +2401,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -2418,32 +2418,32 @@ export const dashboardHorizontalBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-01',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_01',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {
@@ -2655,7 +2655,7 @@ export const dashboardHorizontalBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-jan',
+            'name': '16_jan',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -2675,7 +2675,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-feb',
+            'name': '16_feb',
             'answersCount': 2,
             'isTag': false,
             'series': [
@@ -2695,7 +2695,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-mar',
+            'name': '16_mar',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -2715,7 +2715,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-apr',
+            'name': '16_apr',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -2735,7 +2735,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-maj',
+            'name': '16_maj',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2755,7 +2755,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-jun',
+            'name': '16_jun',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2775,7 +2775,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-jul',
+            'name': '16_jul',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2795,7 +2795,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-aug',
+            'name': '16_aug',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -2815,7 +2815,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-sep',
+            'name': '16_sep',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2829,7 +2829,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-okt',
+            'name': '16_okt',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -2849,7 +2849,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-nov',
+            'name': '16_nov',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -2869,7 +2869,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-dec',
+            'name': '16_dec',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2889,7 +2889,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-jan',
+            'name': '17_jan',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -2909,7 +2909,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-feb',
+            'name': '17_feb',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2929,7 +2929,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-mar',
+            'name': '17_mar',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2949,7 +2949,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-apr',
+            'name': '17_apr',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -2969,7 +2969,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-maj',
+            'name': '17_maj',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2989,7 +2989,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-jun',
+            'name': '17_jun',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -3009,7 +3009,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-jul',
+            'name': '17_jul',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -3029,7 +3029,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-aug',
+            'name': '17_aug',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -3049,7 +3049,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-sep',
+            'name': '17_sep',
             'answersCount': 20,
             'isTag': false,
             'series': [
@@ -3072,27 +3072,27 @@ export const dashboardHorizontalBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-jan',
-              '16-feb',
-              '16-mar',
-              '16-apr',
-              '16-maj',
-              '16-jun',
-              '16-jul',
-              '16-aug',
-              '16-sep',
-              '16-okt',
-              '16-nov',
-              '16-dec',
-              '17-jan',
-              '17-feb',
-              '17-mar',
-              '17-apr',
-              '17-maj',
-              '17-jun',
-              '17-jul',
-              '17-aug',
-              '17-sep'
+              '16_jan',
+              '16_feb',
+              '16_mar',
+              '16_apr',
+              '16_maj',
+              '16_jun',
+              '16_jul',
+              '16_aug',
+              '16_sep',
+              '16_okt',
+              '16_nov',
+              '16_dec',
+              '17_jan',
+              '17_feb',
+              '17_mar',
+              '17_apr',
+              '17_maj',
+              '17_jun',
+              '17_jul',
+              '17_aug',
+              '17_sep'
             ],
             'rawDataItems': [
               {
@@ -3274,7 +3274,7 @@ export const dashboardHorizontalBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-K1',
+            'name': '16_K1',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -3294,7 +3294,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-K2',
+            'name': '16_K2',
             'answersCount': 16,
             'isTag': false,
             'series': [
@@ -3314,7 +3314,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-K3',
+            'name': '16_K3',
             'answersCount': 17,
             'isTag': false,
             'series': [
@@ -3334,7 +3334,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-K4',
+            'name': '16_K4',
             'answersCount': 19,
             'isTag': false,
             'series': [
@@ -3354,7 +3354,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-K1',
+            'name': '17_K1',
             'answersCount': 20,
             'isTag': false,
             'series': [
@@ -3374,7 +3374,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-K2',
+            'name': '17_K2',
             'answersCount': 23,
             'isTag': false,
             'series': [
@@ -3394,7 +3394,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-K3',
+            'name': '17_K3',
             'answersCount': 35,
             'isTag': false,
             'series': [
@@ -3417,13 +3417,13 @@ export const dashboardHorizontalBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-K1',
-              '16-K2',
-              '16-K3',
-              '16-K4',
-              '17-K1',
-              '17-K2',
-              '17-K3'
+              '16_K1',
+              '16_K2',
+              '16_K3',
+              '16_K4',
+              '17_K1',
+              '17_K2',
+              '17_K3'
             ],
             'rawDataItems': [
               {
@@ -3521,7 +3521,7 @@ export const dashboardHorizontalBarDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-1H',
+            'name': '16_1H',
             'answersCount': 24,
             'isTag': false,
             'series': [
@@ -3541,7 +3541,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '16-2H',
+            'name': '16_2H',
             'answersCount': 36,
             'isTag': false,
             'series': [
@@ -3561,7 +3561,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-1H',
+            'name': '17_1H',
             'answersCount': 43,
             'isTag': false,
             'series': [
@@ -3581,7 +3581,7 @@ export const dashboardHorizontalBarDataJson = {
           },
           {
             'id': 0,
-            'name': '17-2H',
+            'name': '17_2H',
             'answersCount': 35,
             'isTag': false,
             'series': [
@@ -3604,10 +3604,10 @@ export const dashboardHorizontalBarDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-1H',
-              '16-2H',
-              '17-1H',
-              '17-2H'
+              '16_1H',
+              '16_2H',
+              '17_1H',
+              '17_2H'
             ],
             'rawDataItems': [
               {

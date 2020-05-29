@@ -64,7 +64,7 @@ export const dashboardMultiChartDataJson = {
   'tagId': null,
   'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-05-27T23:59:59',
+    'dateTo': '2020-05-28T23:59:59',
     'today': true
   },
   'items': [
@@ -92,157 +92,157 @@ export const dashboardMultiChartDataJson = {
             'isTag': false,
             'series': [
               {
-                'name': '16-01',
+                'name': '16_01',
                 'value': 100.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-05',
+                'name': '16_05',
                 'value': 50.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-09',
+                'name': '16_09',
                 'value': 67.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-13',
+                'name': '16_13',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '16-14',
+                'name': '16_14',
                 'value': 75.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-18',
+                'name': '16_18',
                 'value': 86.0,
                 'dataCount': 6,
                 'optionIndex': 0
               },
               {
-                'name': '16-23',
+                'name': '16_23',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '16-27',
+                'name': '16_27',
                 'value': 50.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-31',
+                'name': '16_31',
                 'value': 50.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-36',
+                'name': '16_36',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-40',
+                'name': '16_40',
                 'value': 50.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-45',
+                'name': '16_45',
                 'value': 67.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '16-50',
+                'name': '16_50',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-01',
+                'name': '17_01',
                 'value': 100.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '17-02',
+                'name': '17_02',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '17-05',
+                'name': '17_05',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-10',
+                'name': '17_10',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-15',
+                'name': '17_15',
                 'value': 50.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-19',
+                'name': '17_19',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-23',
+                'name': '17_23',
                 'value': 100.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '17-24',
+                'name': '17_24',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-27',
+                'name': '17_27',
                 'value': 75.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-28',
+                'name': '17_28',
                 'value': 67.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-33',
+                'name': '17_33',
                 'value': 25.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-37',
+                'name': '17_37',
                 'value': 20.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-38',
+                'name': '17_38',
                 'value': 80.0,
                 'dataCount': 4,
                 'optionIndex': 0
@@ -256,157 +256,157 @@ export const dashboardMultiChartDataJson = {
             'isTag': false,
             'series': [
               {
-                'name': '16-01',
+                'name': '16_01',
                 'value': 100.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-05',
+                'name': '16_05',
                 'value': 50.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-09',
+                'name': '16_09',
                 'value': 33.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-13',
+                'name': '16_13',
                 'value': 100.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-14',
+                'name': '16_14',
                 'value': 50.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-18',
+                'name': '16_18',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '16-23',
+                'name': '16_23',
                 'value': 25.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-27',
+                'name': '16_27',
                 'value': 50.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-31',
+                'name': '16_31',
                 'value': 67.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '16-36',
+                'name': '16_36',
                 'value': 86.0,
                 'dataCount': 6,
                 'optionIndex': 0
               },
               {
-                'name': '16-40',
+                'name': '16_40',
                 'value': 50.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-45',
+                'name': '16_45',
                 'value': 67.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '16-50',
+                'name': '16_50',
                 'value': 29.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-01',
+                'name': '17_01',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '17-02',
+                'name': '17_02',
                 'value': 80.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-05',
+                'name': '17_05',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-10',
+                'name': '17_10',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-15',
+                'name': '17_15',
                 'value': 63.0,
                 'dataCount': 5,
                 'optionIndex': 0
               },
               {
-                'name': '17-19',
+                'name': '17_19',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-23',
+                'name': '17_23',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '17-24',
+                'name': '17_24',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-27',
+                'name': '17_27',
                 'value': 25.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '17-28',
+                'name': '17_28',
                 'value': 67.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-33',
+                'name': '17_33',
                 'value': 50.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-37',
+                'name': '17_37',
                 'value': 60.0,
                 'dataCount': 9,
                 'optionIndex': 0
               },
               {
-                'name': '17-38',
+                'name': '17_38',
                 'value': 100.0,
                 'dataCount': 5,
                 'optionIndex': 0
@@ -420,157 +420,157 @@ export const dashboardMultiChartDataJson = {
             'isTag': false,
             'series': [
               {
-                'name': '16-01',
+                'name': '16_01',
                 'value': 33.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-05',
+                'name': '16_05',
                 'value': 50.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-09',
+                'name': '16_09',
                 'value': 33.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-13',
+                'name': '16_13',
                 'value': 100.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-14',
+                'name': '16_14',
                 'value': 50.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-18',
+                'name': '16_18',
                 'value': 14.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-23',
+                'name': '16_23',
                 'value': 100.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '16-27',
+                'name': '16_27',
                 'value': 75.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-31',
+                'name': '16_31',
                 'value': 17.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-36',
+                'name': '16_36',
                 'value': 71.0,
                 'dataCount': 5,
                 'optionIndex': 0
               },
               {
-                'name': '16-40',
+                'name': '16_40',
                 'value': 67.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '16-45',
+                'name': '16_45',
                 'value': 50.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-50',
+                'name': '16_50',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-01',
+                'name': '17_01',
                 'value': 100.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '17-02',
+                'name': '17_02',
                 'value': 40.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-05',
+                'name': '17_05',
                 'value': 29.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-10',
+                'name': '17_10',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-15',
+                'name': '17_15',
                 'value': 13.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '17-19',
+                'name': '17_19',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-23',
+                'name': '17_23',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '17-24',
+                'name': '17_24',
                 'value': 86.0,
                 'dataCount': 6,
                 'optionIndex': 0
               },
               {
-                'name': '17-27',
+                'name': '17_27',
                 'value': 25.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '17-28',
+                'name': '17_28',
                 'value': 67.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-33',
+                'name': '17_33',
                 'value': 38.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-37',
+                'name': '17_37',
                 'value': 40.0,
                 'dataCount': 6,
                 'optionIndex': 0
               },
               {
-                'name': '17-38',
+                'name': '17_38',
                 'value': 60.0,
                 'dataCount': 3,
                 'optionIndex': 0
@@ -584,157 +584,157 @@ export const dashboardMultiChartDataJson = {
             'isTag': false,
             'series': [
               {
-                'name': '16-01',
+                'name': '16_01',
                 'value': 33.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-05',
+                'name': '16_05',
                 'value': 100.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-09',
+                'name': '16_09',
                 'value': 33.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-13',
+                'name': '16_13',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '16-14',
+                'name': '16_14',
                 'value': 50.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-18',
+                'name': '16_18',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '16-23',
+                'name': '16_23',
                 'value': 75.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-27',
+                'name': '16_27',
                 'value': 50.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-31',
+                'name': '16_31',
                 'value': 33.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-36',
+                'name': '16_36',
                 'value': 71.0,
                 'dataCount': 5,
                 'optionIndex': 0
               },
               {
-                'name': '16-40',
+                'name': '16_40',
                 'value': 50.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-45',
+                'name': '16_45',
                 'value': 83.0,
                 'dataCount': 5,
                 'optionIndex': 0
               },
               {
-                'name': '16-50',
+                'name': '16_50',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-01',
+                'name': '17_01',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '17-02',
+                'name': '17_02',
                 'value': 60.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-05',
+                'name': '17_05',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-10',
+                'name': '17_10',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-15',
+                'name': '17_15',
                 'value': 63.0,
                 'dataCount': 5,
                 'optionIndex': 0
               },
               {
-                'name': '17-19',
+                'name': '17_19',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-23',
+                'name': '17_23',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '17-24',
+                'name': '17_24',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-27',
+                'name': '17_27',
                 'value': 75.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-28',
+                'name': '17_28',
                 'value': 67.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-33',
+                'name': '17_33',
                 'value': 25.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-37',
+                'name': '17_37',
                 'value': 53.0,
                 'dataCount': 8,
                 'optionIndex': 0
               },
               {
-                'name': '17-38',
+                'name': '17_38',
                 'value': 80.0,
                 'dataCount': 4,
                 'optionIndex': 0
@@ -748,157 +748,157 @@ export const dashboardMultiChartDataJson = {
             'isTag': false,
             'series': [
               {
-                'name': '16-01',
+                'name': '16_01',
                 'value': 100.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-05',
+                'name': '16_05',
                 'value': 50.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-09',
+                'name': '16_09',
                 'value': 67.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-13',
+                'name': '16_13',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '16-14',
+                'name': '16_14',
                 'value': 50.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-18',
+                'name': '16_18',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-23',
+                'name': '16_23',
                 'value': 25.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-27',
+                'name': '16_27',
                 'value': 25.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '16-31',
+                'name': '16_31',
                 'value': 33.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-36',
+                'name': '16_36',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '16-40',
+                'name': '16_40',
                 'value': 33.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '16-45',
+                'name': '16_45',
                 'value': 67.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '16-50',
+                'name': '16_50',
                 'value': 57.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-01',
+                'name': '17_01',
                 'value': 100.0,
                 'dataCount': 1,
                 'optionIndex': 0
               },
               {
-                'name': '17-02',
+                'name': '17_02',
                 'value': 40.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-05',
+                'name': '17_05',
                 'value': 29.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-10',
+                'name': '17_10',
                 'value': 71.0,
                 'dataCount': 5,
                 'optionIndex': 0
               },
               {
-                'name': '17-15',
+                'name': '17_15',
                 'value': 88.0,
                 'dataCount': 7,
                 'optionIndex': 0
               },
               {
-                'name': '17-19',
+                'name': '17_19',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-23',
+                'name': '17_23',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '17-24',
+                'name': '17_24',
                 'value': 43.0,
                 'dataCount': 3,
                 'optionIndex': 0
               },
               {
-                'name': '17-27',
+                'name': '17_27',
                 'value': 100.0,
                 'dataCount': 4,
                 'optionIndex': 0
               },
               {
-                'name': '17-28',
+                'name': '17_28',
                 'value': 0.0,
                 'dataCount': 0,
                 'optionIndex': 0
               },
               {
-                'name': '17-33',
+                'name': '17_33',
                 'value': 25.0,
                 'dataCount': 2,
                 'optionIndex': 0
               },
               {
-                'name': '17-37',
+                'name': '17_37',
                 'value': 53.0,
                 'dataCount': 8,
                 'optionIndex': 0
               },
               {
-                'name': '17-38',
+                'name': '17_38',
                 'value': 80.0,
                 'dataCount': 4,
                 'optionIndex': 0
@@ -910,32 +910,32 @@ export const dashboardMultiChartDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-01',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_01',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {
@@ -1324,7 +1324,7 @@ export const dashboardMultiChartDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -1362,7 +1362,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 2,
             'isTag': false,
             'series': [
@@ -1400,7 +1400,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -1438,7 +1438,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -1458,7 +1458,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -1496,7 +1496,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1534,7 +1534,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -1566,7 +1566,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -1604,7 +1604,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -1642,7 +1642,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1680,7 +1680,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -1718,7 +1718,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -1756,7 +1756,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1794,7 +1794,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-01',
+            'name': '17_01',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -1820,7 +1820,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -1852,7 +1852,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1890,7 +1890,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -1928,7 +1928,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -1966,7 +1966,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2004,7 +2004,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -2018,7 +2018,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2056,7 +2056,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2094,7 +2094,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -2126,7 +2126,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -2164,7 +2164,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 15,
             'isTag': false,
             'series': [
@@ -2202,7 +2202,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -2243,32 +2243,32 @@ export const dashboardMultiChartDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-01',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_01',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {
@@ -2657,7 +2657,7 @@ export const dashboardMultiChartDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -2695,7 +2695,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 2,
             'isTag': false,
             'series': [
@@ -2733,7 +2733,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -2771,7 +2771,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -2791,7 +2791,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2829,7 +2829,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -2867,7 +2867,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2899,7 +2899,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -2937,7 +2937,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -2975,7 +2975,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -3013,7 +3013,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -3051,7 +3051,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -3089,7 +3089,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -3127,7 +3127,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-01',
+            'name': '17_01',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -3153,7 +3153,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -3185,7 +3185,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -3223,7 +3223,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -3261,7 +3261,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -3299,7 +3299,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -3337,7 +3337,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -3351,7 +3351,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -3389,7 +3389,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -3427,7 +3427,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -3459,7 +3459,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -3497,7 +3497,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 15,
             'isTag': false,
             'series': [
@@ -3535,7 +3535,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -3576,32 +3576,32 @@ export const dashboardMultiChartDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-01',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_01',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {
@@ -3990,7 +3990,7 @@ export const dashboardMultiChartDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -4028,7 +4028,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 2,
             'isTag': false,
             'series': [
@@ -4066,7 +4066,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -4104,7 +4104,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -4124,7 +4124,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -4162,7 +4162,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -4200,7 +4200,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -4232,7 +4232,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -4270,7 +4270,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -4308,7 +4308,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -4346,7 +4346,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -4384,7 +4384,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -4422,7 +4422,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -4460,7 +4460,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-01',
+            'name': '17_01',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -4486,7 +4486,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -4518,7 +4518,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -4556,7 +4556,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -4594,7 +4594,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -4632,7 +4632,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -4670,7 +4670,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -4684,7 +4684,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -4722,7 +4722,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -4760,7 +4760,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -4792,7 +4792,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -4830,7 +4830,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 15,
             'isTag': false,
             'series': [
@@ -4868,7 +4868,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -4909,32 +4909,32 @@ export const dashboardMultiChartDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-01',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_01',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {
@@ -5323,7 +5323,7 @@ export const dashboardMultiChartDataJson = {
         'multi': [
           {
             'id': 0,
-            'name': '16-01',
+            'name': '16_01',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -5361,7 +5361,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-05',
+            'name': '16_05',
             'answersCount': 2,
             'isTag': false,
             'series': [
@@ -5399,7 +5399,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-09',
+            'name': '16_09',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -5437,7 +5437,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-13',
+            'name': '16_13',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -5457,7 +5457,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-14',
+            'name': '16_14',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -5495,7 +5495,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-18',
+            'name': '16_18',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -5533,7 +5533,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-23',
+            'name': '16_23',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -5565,7 +5565,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-27',
+            'name': '16_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -5603,7 +5603,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-31',
+            'name': '16_31',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -5641,7 +5641,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-36',
+            'name': '16_36',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -5679,7 +5679,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-40',
+            'name': '16_40',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -5717,7 +5717,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-45',
+            'name': '16_45',
             'answersCount': 6,
             'isTag': false,
             'series': [
@@ -5755,7 +5755,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '16-50',
+            'name': '16_50',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -5793,7 +5793,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-01',
+            'name': '17_01',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -5819,7 +5819,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-02',
+            'name': '17_02',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -5851,7 +5851,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-05',
+            'name': '17_05',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -5889,7 +5889,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-10',
+            'name': '17_10',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -5927,7 +5927,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-15',
+            'name': '17_15',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -5965,7 +5965,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-19',
+            'name': '17_19',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -6003,7 +6003,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-23',
+            'name': '17_23',
             'answersCount': 1,
             'isTag': false,
             'series': [
@@ -6017,7 +6017,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-24',
+            'name': '17_24',
             'answersCount': 7,
             'isTag': false,
             'series': [
@@ -6055,7 +6055,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-27',
+            'name': '17_27',
             'answersCount': 4,
             'isTag': false,
             'series': [
@@ -6093,7 +6093,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-28',
+            'name': '17_28',
             'answersCount': 3,
             'isTag': false,
             'series': [
@@ -6125,7 +6125,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-33',
+            'name': '17_33',
             'answersCount': 8,
             'isTag': false,
             'series': [
@@ -6163,7 +6163,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-37',
+            'name': '17_37',
             'answersCount': 15,
             'isTag': false,
             'series': [
@@ -6201,7 +6201,7 @@ export const dashboardMultiChartDataJson = {
           },
           {
             'id': 0,
-            'name': '17-38',
+            'name': '17_38',
             'answersCount': 5,
             'isTag': false,
             'series': [
@@ -6242,32 +6242,32 @@ export const dashboardMultiChartDataJson = {
         'rawData': [
           {
             'rawHeaders': [
-              '16-01',
-              '16-05',
-              '16-09',
-              '16-13',
-              '16-14',
-              '16-18',
-              '16-23',
-              '16-27',
-              '16-31',
-              '16-36',
-              '16-40',
-              '16-45',
-              '16-50',
-              '17-01',
-              '17-02',
-              '17-05',
-              '17-10',
-              '17-15',
-              '17-19',
-              '17-23',
-              '17-24',
-              '17-27',
-              '17-28',
-              '17-33',
-              '17-37',
-              '17-38'
+              '16_01',
+              '16_05',
+              '16_09',
+              '16_13',
+              '16_14',
+              '16_18',
+              '16_23',
+              '16_27',
+              '16_31',
+              '16_36',
+              '16_40',
+              '16_45',
+              '16_50',
+              '17_01',
+              '17_02',
+              '17_05',
+              '17_10',
+              '17_15',
+              '17_19',
+              '17_23',
+              '17_24',
+              '17_27',
+              '17_28',
+              '17_33',
+              '17_37',
+              '17_38'
             ],
             'rawDataItems': [
               {

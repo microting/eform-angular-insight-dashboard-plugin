@@ -174,7 +174,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 CalendarWeekRule.FirstFourDayWeek,
                 DayOfWeek.Monday);
 
-            return $"{dateTime:yy}-{weekNumber:D2}";
+            return $"{dateTime:yy}_{weekNumber:D2}";
+        }
+
+        public static string GetMonthString(DateTime dateTime)
+        {
+            return $"{dateTime:yy}_{dateTime:MMM}";
         }
 
         public static int GetHalfOfYear(DateTime dateTime)

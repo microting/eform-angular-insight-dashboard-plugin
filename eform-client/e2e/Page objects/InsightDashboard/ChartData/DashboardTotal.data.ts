@@ -6,7 +6,7 @@ export const dashboardTotalItems: DashboardTestItemEditModel[] = [
     filterQuestion: '',
     filterAnswer: '',
     period: 'Total',
-    chartType: 'Avanceret cirkel',
+    chartType: 'Lagkagediagram',
     calculateAverage: false,
     ignoredAnswerIds: [],
     comparedItems: []
@@ -54,7 +54,7 @@ export const dashboardTotalDataJson = {
   'tagId': null,
   'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-05-27T23:59:59',
+    'dateTo': '2020-05-28T23:59:59',
     'today': true
   },
   'items': [
