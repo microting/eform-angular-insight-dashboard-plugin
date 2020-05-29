@@ -1,5 +1,5 @@
 <div class="row p-1 table-responsive no-gutters scrollable-block">
-  <table class="table table-sm table-striped text-center z-depth-1">
+  <table mdbTable striped="true" hover="true" small="true" class="z-depth-1 text-center">
     <thead>
     <tr>
       <th scope="col">
@@ -31,7 +31,7 @@
 
 <button mdbBtn
         id="exportInterviewsToCsvBtn"
-        class="btn btn-success btn-sm ml-auto"
+        class="btn-success btn-sm ml-auto btn-icon"
         mdbTooltip="{{ 'Export to CSV' | translate }}"
         (click)="exportToCsv()">
   <fa-icon icon="file-csv" [fixedWidth]="true"></fa-icon>
