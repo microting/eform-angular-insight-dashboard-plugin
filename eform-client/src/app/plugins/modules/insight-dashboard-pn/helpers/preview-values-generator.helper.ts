@@ -86,7 +86,7 @@ function getChartDataByQuarter(chartType: DashboardChartTypesEnum, questionType:
     case DashboardChartTypesEnum.HorizontalBarStackedGrouped:
       return stackedGroupedSmileyDataByQuarter;
   }
-}
+} 
 
 function getChartDataBySixMonth(chartType: DashboardChartTypesEnum, questionType: DashboardItemQuestionTypesEnum) {
   switch (chartType) {
@@ -118,11 +118,10 @@ function getChartDataByYear(chartType: DashboardChartTypesEnum, questionType: Da
 
 function getChartDataByTotal(chartType: DashboardChartTypesEnum, questionType: DashboardItemQuestionTypesEnum) {
   switch (chartType) {
-    case DashboardChartTypesEnum.Pie:
     case DashboardChartTypesEnum.HorizontalBar:
     case DashboardChartTypesEnum.VerticalBar:
       return questionType !== DashboardItemQuestionTypesEnum.Smiley ? barChartData : barChartSmileyData;
-    case DashboardChartTypesEnum.AdvancedPie:
+    case DashboardChartTypesEnum.Pie:
       return questionType !== DashboardItemQuestionTypesEnum.Smiley ? advancedPieData : advancedPieSmileyData;
     case DashboardChartTypesEnum.PieGrid:
       return questionType !== DashboardItemQuestionTypesEnum.Smiley ? pieGridData : pieGridSmileyData;
