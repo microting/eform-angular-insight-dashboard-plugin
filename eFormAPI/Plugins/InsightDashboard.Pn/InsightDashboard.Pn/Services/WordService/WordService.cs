@@ -139,7 +139,7 @@ namespace InsightDashboard.Pn.Services.WordService
                     }
                     if (!string.IsNullOrEmpty(dashboardItem.FilterAnswerName))
                     {
-                        itemsHtml += $@"<p><b>{_localizationService.GetString("FilterAnswer")}/b> {dashboardItem.FilterAnswerName}</p>";
+                        itemsHtml += $@"<p><b>{_localizationService.GetString("FilterAnswer")}</b> {dashboardItem.FilterAnswerName}</p>";
                     }
 
                     if (isText)
@@ -232,7 +232,7 @@ namespace InsightDashboard.Pn.Services.WordService
                                         if (i == 0)
                                         {
                                             var rowCount = dataModel.RawDataValues.Count;
-                                            itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
+                                            itemsHtml += $@"<td rowspan=""{rowCount}"" style=""background-color:#fff"">{dataModel.RawValueName}</td>";
                                         }
 
                                         // location or year name
