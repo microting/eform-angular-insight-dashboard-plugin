@@ -30,6 +30,7 @@ namespace InsightDashboard.Pn.Services.WordService
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Text;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
     using DashboardService;
@@ -243,7 +244,7 @@ namespace InsightDashboard.Pn.Services.WordService
 
                                         // location or year name
                                         itemsHtml +=
-                                            $@"<td {GrayBackground(isEven)}>{dataValue.ValueName}</td>";
+                                            $@"<td {AddStyles(false, isEven)}>{dataValue.ValueName}</td>";
 
                                         // for percents
                                         for (var percentIndex = 0;
@@ -254,11 +255,11 @@ namespace InsightDashboard.Pn.Services.WordService
 
                                             if (percentIndex == dataValue.Percents.Length - 1)
                                             {
-                                                itemsHtml += $@"<td {GrayBackground(isEven)} style=""font-weight:bold"">{valuePercent}%</td>";
+                                                itemsHtml += $@"<td {AddStyles(true, isEven)}>{valuePercent}%</td>";
                                             }
                                             else
                                             {
-                                                itemsHtml += $@"<td {GrayBackground(isEven)}>{valuePercent}%</td>";
+                                                itemsHtml += $@"<td {AddStyles(false, isEven)}>{valuePercent}%</td>";
                                             }
                                         }
 
@@ -269,11 +270,11 @@ namespace InsightDashboard.Pn.Services.WordService
 
                                             if (amountIndex == dataValue.Amounts.Length - 1)
                                             {
-                                                itemsHtml += $@"<td {GrayBackground(isEven)} style=""font-weight:bold"">{amountPercent}</td>";
+                                                itemsHtml += $@"<td {AddStyles(true, isEven)}>{amountPercent}</td>";
                                             }
                                             else
                                             {
-                                                itemsHtml += $@"<td {GrayBackground(isEven)}>{amountPercent}</td>";
+                                                itemsHtml += $@"<td {AddStyles(false, isEven)}>{amountPercent}</td>";
                                             }
                                         }
 
@@ -392,16 +393,31 @@ namespace InsightDashboard.Pn.Services.WordService
         }
 
 
-        private static string GrayBackground(bool condition = true)
+        private static string AddStyles(bool bold, bool grayBackground)
         {
-            if (condition)
+            var sb = new StringBuilder();
+
+            sb.Append(@"style=""");
+
+            if (grayBackground)
             {
-                return @"style=""background-color:#f5f5f5""";
+                sb.Append(@"background-color:#f5f5f5;");
             }
-            else
+
+            if (bold)
             {
-                return string.Empty;
+                sb.Append(@"font-weight:bold;");
             }
+
+
+            sb.Append(@"""");
+
+            if (bold || grayBackground)
+            {
+                return sb.ToString();
+            }
+
+            return string.Empty;
         }
     }
 }
