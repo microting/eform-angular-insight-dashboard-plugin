@@ -23,6 +23,7 @@ describe('InSight Dashboard - Dashboards - Delete', function () {
     const rowNumsBeforeDelete = dashboardsPage.rowNum;
     dashboardsPage.deleteDashboard(dashboardsPage.getDashboard(rowNumsBeforeDelete));
     insightDashboardPage.goToDashboards();
+    
     expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum + 1);
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   });
