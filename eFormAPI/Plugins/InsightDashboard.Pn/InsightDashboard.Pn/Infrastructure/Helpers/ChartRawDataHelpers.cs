@@ -118,12 +118,33 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var dataMultiModel = dataMultiStackedModel.Series[i];
 
                         // by Item
-                        for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                        for (var y = 0; y < maxOptionObject.Count; y++)
                         {
-                            var dataSingleModel = dataMultiModel.Series[y];
-                            rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
-                            rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
+                            var maxObjectSingleModel = maxOptionObject[y];
+
+                            var singleModel = dataMultiModel.Series
+                                .Where(x => x.OptionIndex == maxObjectSingleModel.OptionIndex)
+                                .FirstOrDefault(x => x.Name == maxObjectSingleModel.Name);
+
+                            if (singleModel == null)
+                            {
+                                rawDataList[i].Percents[y] = 0;
+                                rawDataList[i].Amounts[y] = 0;
+                            }
+                            else
+                            {
+                                rawDataList[i].Percents[y] = (decimal)singleModel.Value;
+                                rawDataList[i].Amounts[y] = singleModel.DataCount;
+                            }
                         }
+
+                        // by Item
+                        //for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                        //{
+                        //    var dataSingleModel = dataMultiModel.Series[y];
+                        //    rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
+                        //    rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
+                        //}
 
                         // calculate total
                         rawDataList[i].Percents[lastColumnArrayIndex] = dataMultiModel.Series
@@ -193,12 +214,33 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var dataMultiModel = dataMultiStackedModel.Series[i];
 
                         // by Item
-                        for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                        for (var y = 0; y < maxOptionObject.Count; y++)
                         {
-                            var dataSingleModel = dataMultiModel.Series[y];
-                            rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
-                            rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
+                            var maxObjectSingleModel = maxOptionObject[y];
+
+                            var singleModel = dataMultiModel.Series
+                                .Where(x => x.OptionIndex == maxObjectSingleModel.OptionIndex)
+                                .FirstOrDefault(x => x.Name == maxObjectSingleModel.Name);
+
+                            if (singleModel == null)
+                            {
+                                rawDataList[i].Percents[y] = 0;
+                                rawDataList[i].Amounts[y] = 0;
+                            }
+                            else
+                            {
+                                rawDataList[i].Percents[y] = (decimal)singleModel.Value;
+                                rawDataList[i].Amounts[y] = singleModel.DataCount;
+                            }
                         }
+
+                        // by Item
+                        //for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                        //{
+                        //    var dataSingleModel = dataMultiModel.Series[y];
+                        //    rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
+                        //    rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
+                        //}
 
                         // calculate total
                         rawDataList[i].Percents[lastColumnArrayIndex] = dataMultiModel.Series
