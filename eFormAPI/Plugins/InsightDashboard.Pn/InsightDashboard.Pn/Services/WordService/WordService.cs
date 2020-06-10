@@ -201,7 +201,7 @@ namespace InsightDashboard.Pn.Services.WordService
                         // Tables
                         foreach (var rawDataItem in dashboardItem.ChartData.RawData)
                         {
-                            itemsHtml += @"<table style=""background-color:#f5f5f5"" width=""100%"" border=""1"">";
+                            itemsHtml += @"<table style=""background-color:#fff"" width=""100%"" border=""1"">";
                             
                             // multiStacked data chart with inverted values
                             if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)

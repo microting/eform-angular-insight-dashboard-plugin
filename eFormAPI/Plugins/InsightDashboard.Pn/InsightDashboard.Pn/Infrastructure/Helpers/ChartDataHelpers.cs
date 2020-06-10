@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics;
+
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
@@ -486,6 +488,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     tmpDataModel.Name = smileyLabels.Single(z => z.Key == labelNumber).Value;
                                     tmpDataModel.Value = chartDataSingleModel.Value;
                                     tmpDataModel.DataCount = chartDataSingleModel.DataCount;
+                                    tmpDataModel.OptionIndex = chartDataSingleModel.OptionIndex;
                                 }
                             }
                         }
@@ -1210,6 +1213,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     Name = groupedItem.Name,
                                                     Value = item.Value,
                                                     DataCount = item.DataCount,
+                                                    OptionIndex = item.OptionIndex
                                                 };
                                                 multiItem.Series.Add(singleItem);
                                             }
@@ -1293,6 +1297,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         {
                                                             modelSeries.Value = series.Value;
                                                             modelSeries.DataCount = series.DataCount;
+                                                            modelSeries.OptionIndex = series.OptionIndex;
                                                         }
                                                     }
                                                 }
@@ -1336,6 +1341,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         {
                                                             modelSeries.Value = series.Value;
                                                             modelSeries.DataCount = series.DataCount;
+                                                            modelSeries.OptionIndex = series.OptionIndex;
                                                         }
                                                     }
                                                 }
@@ -1398,6 +1404,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 Name = groupedItem.Name,
                                                 Value = item.Value,
                                                 DataCount = item.DataCount,
+                                                OptionIndex = item.OptionIndex
                                             };
                                             multiItem.Series.Add(singleItem);
                                         }
@@ -1482,6 +1489,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     {
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
+                                                        modelSeries.OptionIndex = series.OptionIndex;
                                                     }
                                                 }
                                             }
@@ -1525,6 +1533,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     {
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
+                                                        modelSeries.OptionIndex = series.OptionIndex;
                                                     }
                                                 }
                                             }
@@ -1639,6 +1648,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                     {
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
+                                                        modelSeries.OptionIndex = series.OptionIndex;
                                                     }
                                                 }
                                             }
@@ -1812,6 +1822,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 {
                                                     newInnerSeriesModel.Value = innerSeries.Value;
                                                     newInnerSeriesModel.DataCount = innerSeries.DataCount;
+                                                    newInnerSeriesModel.OptionIndex = innerSeries.OptionIndex;
                                                 }
                                             }
                                         }

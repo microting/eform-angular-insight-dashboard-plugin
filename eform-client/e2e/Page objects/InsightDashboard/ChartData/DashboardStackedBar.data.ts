@@ -44,7 +44,7 @@ export const dashboardStackedBarDataJson = {
   'tagId': 7,
   'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-05-28T23:59:59',
+    'dateTo': '2020-06-10T23:59:59',
     'today': true
   },
   'items': [
@@ -625,7 +625,7 @@ export const dashboardStackedBarDataJson = {
                       73.0,
                       82.0,
                       67.0,
-                      100.0,
+                      0.0,
                       75.0,
                       76.0,
                       82.0,
@@ -653,7 +653,7 @@ export const dashboardStackedBarDataJson = {
                       19.0,
                       18.0,
                       20.0,
-                      1.0,
+                      0.0,
                       15.0,
                       22.0,
                       23.0,
@@ -684,7 +684,7 @@ export const dashboardStackedBarDataJson = {
                       27.0,
                       18.0,
                       33.0,
-                      0.0,
+                      100.0,
                       25.0,
                       24.0,
                       18.0,
@@ -712,7 +712,7 @@ export const dashboardStackedBarDataJson = {
                       7.0,
                       4.0,
                       10.0,
-                      0.0,
+                      1.0,
                       5.0,
                       7.0,
                       5.0,
@@ -829,7 +829,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 50.0,
                 'dataCount': 4,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -847,7 +847,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 13.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -885,7 +885,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 14.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -905,7 +905,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 56.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -981,19 +981,19 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 58.0,
                 'dataCount': 7,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 8.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
                 'value': 8.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -1019,13 +1019,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 27.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 9.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -1037,7 +1037,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 9.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -1057,19 +1057,19 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 15.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 8.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
                 'value': 8.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -1133,7 +1133,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 17.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1145,7 +1145,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Sur',
                 'value': 6.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -1171,13 +1171,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 53.0,
                 'dataCount': 10,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 5.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -1209,7 +1209,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 47.0,
                 'dataCount': 9,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1221,7 +1221,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Sur',
                 'value': 5.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -1247,7 +1247,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 50.0,
                 'dataCount': 9,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1285,13 +1285,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 5.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 11.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -1323,7 +1323,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 21.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1341,7 +1341,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 7.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -1361,7 +1361,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 15.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1373,7 +1373,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Sur',
                 'value': 5.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -1399,13 +1399,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 35.0,
                 'dataCount': 8,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -1437,7 +1437,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1449,13 +1449,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Sur',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -1475,13 +1475,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 25.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 5.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -1513,7 +1513,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 80.0,
                 'dataCount': 4,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1551,7 +1551,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 21.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1563,7 +1563,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Sur',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -1589,7 +1589,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 46.0,
                 'dataCount': 6,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1627,7 +1627,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 40.0,
                 'dataCount': 4,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1665,13 +1665,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 19.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -1703,13 +1703,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 17.0,
                 'dataCount': 8,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 10.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -1741,7 +1741,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 33.0,
                 'dataCount': 7,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -1919,26 +1919,26 @@ export const dashboardStackedBarDataJson = {
                       0.0,
                       0.0,
                       0.0,
-                      8.0,
-                      9.0,
-                      8.0,
-                      0.0,
-                      0.0,
-                      5.0,
-                      0.0,
-                      0.0,
-                      11.0,
-                      0.0,
-                      0.0,
-                      4.0,
-                      0.0,
-                      5.0,
                       0.0,
                       0.0,
                       0.0,
                       0.0,
-                      4.0,
-                      10.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       0.0
                     ],
                     'amounts': [
@@ -1946,26 +1946,26 @@ export const dashboardStackedBarDataJson = {
                       0.0,
                       0.0,
                       0.0,
-                      1.0,
-                      1.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      2.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
                       0.0,
                       0.0,
                       0.0,
                       0.0,
-                      1.0,
-                      5.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       0.0
                     ]
                   },
@@ -1976,22 +1976,22 @@ export const dashboardStackedBarDataJson = {
                       0.0,
                       0.0,
                       0.0,
-                      8.0,
-                      0.0,
-                      8.0,
-                      0.0,
-                      6.0,
-                      0.0,
-                      5.0,
                       0.0,
                       0.0,
                       0.0,
-                      5.0,
-                      0.0,
-                      4.0,
                       0.0,
                       0.0,
-                      4.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       0.0,
                       0.0,
                       0.0,
@@ -2003,22 +2003,22 @@ export const dashboardStackedBarDataJson = {
                       0.0,
                       0.0,
                       0.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
                       0.0,
                       0.0,
                       0.0,
-                      1.0,
-                      0.0,
-                      1.0,
                       0.0,
                       0.0,
-                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       0.0,
                       0.0,
                       0.0,
@@ -2189,7 +2189,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 50.0,
                 'dataCount': 4,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -2207,7 +2207,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 13.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2227,7 +2227,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 14.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -2245,7 +2245,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 14.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2265,13 +2265,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 56.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 11.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2303,13 +2303,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 25.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 25.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2341,13 +2341,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 42.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 17.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2359,7 +2359,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 8.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2379,13 +2379,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 27.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 18.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2397,7 +2397,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 18.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2417,13 +2417,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 31.0,
                 'dataCount': 4,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 15.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2435,7 +2435,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 15.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2455,13 +2455,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 44.0,
                 'dataCount': 4,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 22.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2493,13 +2493,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 33.0,
                 'dataCount': 6,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 11.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2511,7 +2511,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 6.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2531,13 +2531,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 42.0,
                 'dataCount': 8,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 16.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2569,13 +2569,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 32.0,
                 'dataCount': 6,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 21.0,
                 'dataCount': 4,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2587,7 +2587,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 11.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2607,13 +2607,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 56.0,
                 'dataCount': 10,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 6.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2625,7 +2625,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Meget sur',
                 'value': 6.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2645,19 +2645,19 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 17.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 6.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
                 'value': 11.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -2683,25 +2683,25 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 13.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 7.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
                 'value': 13.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
                 'value': 13.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2721,7 +2721,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 30.0,
                 'dataCount': 6,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -2759,25 +2759,25 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 43.0,
                 'dataCount': 10,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 13.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -2797,13 +2797,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 30.0,
                 'dataCount': 7,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2835,19 +2835,19 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 35.0,
                 'dataCount': 7,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 10.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
                 'value': 5.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -2873,13 +2873,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 60.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 20.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2911,13 +2911,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 21.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -2949,7 +2949,7 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 33.0,
                 'dataCount': 4,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
@@ -2987,13 +2987,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 50.0,
                 'dataCount': 5,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 10.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -3025,19 +3025,19 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 32.0,
                 'dataCount': 8,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 8.0,
                 'dataCount': 2,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
                 'value': 4.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
@@ -3063,25 +3063,25 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 39.0,
                 'dataCount': 19,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 16.0,
                 'dataCount': 8,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
                 'value': 2.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 3
               },
               {
                 'name': 'Meget sur',
                 'value': 2.0,
                 'dataCount': 1,
-                'optionIndex': 0
+                'optionIndex': 4
               }
             ]
           },
@@ -3101,13 +3101,13 @@ export const dashboardStackedBarDataJson = {
                 'name': 'Glad',
                 'value': 38.0,
                 'dataCount': 8,
-                'optionIndex': 0
+                'optionIndex': 1
               },
               {
                 'name': 'Neutral',
                 'value': 14.0,
                 'dataCount': 3,
-                'optionIndex': 0
+                'optionIndex': 2
               },
               {
                 'name': 'Sur',
@@ -3277,56 +3277,56 @@ export const dashboardStackedBarDataJson = {
                     'percents': [
                       0.0,
                       0.0,
-                      11.0,
-                      25.0,
-                      17.0,
-                      18.0,
-                      15.0,
-                      22.0,
-                      11.0,
-                      16.0,
-                      21.0,
-                      6.0,
-                      6.0,
-                      7.0,
                       0.0,
-                      13.0,
-                      4.0,
-                      10.0,
-                      20.0,
-                      4.0,
                       0.0,
-                      10.0,
-                      8.0,
-                      16.0,
-                      14.0
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
                     ],
                     'amounts': [
                       0.0,
                       0.0,
-                      1.0,
-                      1.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      3.0,
-                      4.0,
-                      1.0,
-                      1.0,
-                      1.0,
                       0.0,
-                      3.0,
-                      1.0,
-                      2.0,
-                      1.0,
-                      1.0,
                       0.0,
-                      1.0,
-                      2.0,
-                      8.0,
-                      3.0
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
                     ]
                   },
                   {
@@ -3344,18 +3344,18 @@ export const dashboardStackedBarDataJson = {
                       0.0,
                       0.0,
                       0.0,
-                      11.0,
-                      13.0,
-                      0.0,
-                      4.0,
-                      0.0,
-                      5.0,
                       0.0,
                       0.0,
                       0.0,
                       0.0,
-                      4.0,
-                      2.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       0.0
                     ],
                     'amounts': [
@@ -3371,18 +3371,18 @@ export const dashboardStackedBarDataJson = {
                       0.0,
                       0.0,
                       0.0,
-                      2.0,
-                      2.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
                       0.0,
                       0.0,
                       0.0,
                       0.0,
-                      1.0,
-                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       0.0
                     ]
                   },
