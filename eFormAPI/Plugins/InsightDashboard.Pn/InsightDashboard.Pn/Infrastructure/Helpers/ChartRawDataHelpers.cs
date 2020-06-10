@@ -138,14 +138,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
                         }
 
-                        // by Item
-                        //for (var y = 0; y < dataMultiModel.Series.Count; y++)
-                        //{
-                        //    var dataSingleModel = dataMultiModel.Series[y];
-                        //    rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
-                        //    rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
-                        //}
-
                         // calculate total
                         rawDataList[i].Percents[lastColumnArrayIndex] = dataMultiModel.Series
                             .Where(x => x.Value != null)
@@ -233,14 +225,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 rawDataList[i].Amounts[y] = singleModel.DataCount;
                             }
                         }
-
-                        // by Item
-                        //for (var y = 0; y < dataMultiModel.Series.Count; y++)
-                        //{
-                        //    var dataSingleModel = dataMultiModel.Series[y];
-                        //    rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
-                        //    rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
-                        //}
 
                         // calculate total
                         rawDataList[i].Percents[lastColumnArrayIndex] = dataMultiModel.Series

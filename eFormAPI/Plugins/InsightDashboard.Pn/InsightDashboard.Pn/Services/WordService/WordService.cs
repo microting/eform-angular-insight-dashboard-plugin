@@ -217,9 +217,14 @@ namespace InsightDashboard.Pn.Services.WordService
 
                                 itemsHtml += @"</tr>";
 
+                                //var totalRows = rawDataItem.RawDataItems
+                                //    .Sum(x => x.RawDataValues.Count);
+
                                 // Table elements
-                                foreach (var dataModel in rawDataItem.RawDataItems)
+                                for (var y = 0; y < rawDataItem.RawDataItems.Count; y++)
                                 {
+                                    var dataModel = rawDataItem.RawDataItems[y]; 
+                                    
                                     // Table percents and average
                                     for (var i = 0; i < dataModel.RawDataValues.Count; i++)
                                     {
@@ -228,18 +233,38 @@ namespace InsightDashboard.Pn.Services.WordService
                                         // open
                                         itemsHtml += @"<tr>";
 
+                                        var totalItemNumber = y * i;
+
+                                        var isOdd = totalItemNumber % 2 != 0;
+
+                                        //    var x = 5; // count of years
+                                        //    var y = 4; // count of locations
+
+                                        //   var dataItemCount = rawDataItem.RawDataItems.Count;
+
+
                                         // add first table text (year/location)
                                         if (i == 0)
                                         {
                                             var rowCount = dataModel.RawDataValues.Count;
-                                            itemsHtml += $@"<td rowspan=""{rowCount}"" style=""background-color:#fff"">{dataModel.RawValueName}</td>";
+                                            itemsHtml +=
+                                                $@"<td rowspan=""{rowCount}"" style=""background-color:#fff"">{dataModel.RawValueName}</td>";
                                         }
 
                                         // location or year name
-                                        itemsHtml += $@"<td>{dataValue.ValueName}</td>";
+                                        if (isOdd)
+                                        {
+                                            itemsHtml += $@"<td  style=""background-color:#f5f5f5"">{dataValue.ValueName}</td>";
+                                        }
+                                        else
+                                        {
+                                            itemsHtml += $@"<td>{dataValue.ValueName}</td>";
+                                        }
 
                                         // for percents
-                                        for (var percentIndex = 0; percentIndex < dataValue.Percents.Length; percentIndex++)
+                                        for (var percentIndex = 0;
+                                            percentIndex < dataValue.Percents.Length;
+                                            percentIndex++)
                                         {
                                             var valuePercent = dataValue.Percents[percentIndex];
 
