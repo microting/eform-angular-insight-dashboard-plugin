@@ -26,7 +26,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using Models.Dashboards;
     using Models.Dashboards.RawData;
@@ -119,11 +118,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var dataMultiModel = dataMultiStackedModel.Series[i];
 
                         // by Item
-                        for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                        for (var y = 0; y < maxOptionObject.Count; y++)
                         {
-                            var dataSingleModel = dataMultiModel.Series[y];
-                            rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
-                            rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
+                            var maxObjectSingleModel = maxOptionObject[y];
+
+                            var singleModel = dataMultiModel.Series
+                                .Where(x => x.OptionIndex == maxObjectSingleModel.OptionIndex)
+                                .FirstOrDefault(x => x.Name == maxObjectSingleModel.Name);
+
+                            if (singleModel == null)
+                            {
+                                rawDataList[i].Percents[y] = 0;
+                                rawDataList[i].Amounts[y] = 0;
+                            }
+                            else
+                            {
+                                rawDataList[i].Percents[y] = (decimal)singleModel.Value;
+                                rawDataList[i].Amounts[y] = singleModel.DataCount;
+                            }
                         }
 
                         // calculate total
@@ -194,11 +206,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var dataMultiModel = dataMultiStackedModel.Series[i];
 
                         // by Item
-                        for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                        for (var y = 0; y < maxOptionObject.Count; y++)
                         {
-                            var dataSingleModel = dataMultiModel.Series[y];
-                            rawDataList[i].Percents[y] = (decimal)dataSingleModel.Value;
-                            rawDataList[i].Amounts[y] = dataSingleModel.DataCount;
+                            var maxObjectSingleModel = maxOptionObject[y];
+
+                            var singleModel = dataMultiModel.Series
+                                .Where(x => x.OptionIndex == maxObjectSingleModel.OptionIndex)
+                                .FirstOrDefault(x => x.Name == maxObjectSingleModel.Name);
+
+                            if (singleModel == null)
+                            {
+                                rawDataList[i].Percents[y] = 0;
+                                rawDataList[i].Amounts[y] = 0;
+                            }
+                            else
+                            {
+                                rawDataList[i].Percents[y] = (decimal)singleModel.Value;
+                                rawDataList[i].Amounts[y] = singleModel.DataCount;
+                            }
                         }
 
                         // calculate total
@@ -370,11 +395,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     var dataMultiModel = multiData[i];
 
                     // by Item
-                    for (var y = 0; y < dataMultiModel.Series.Count; y++)
+                    for (var y = 0; y < maxObject.Series.Count; y++)
                     {
-                        var dataSingleModel = dataMultiModel.Series[y];
-                        rawDataList[y].Percents[i] = (decimal) dataSingleModel.Value;
-                        rawDataList[y].Amounts[i] = dataSingleModel.DataCount;
+                        var maxObjectSingleModel = maxObject.Series[y];
+
+                        var singleModel = dataMultiModel.Series
+                            .Where(x => x.OptionIndex == maxObjectSingleModel.OptionIndex)
+                            .FirstOrDefault(x => x.Name == maxObjectSingleModel.Name);
+
+                        if (singleModel == null)
+                        {
+                            rawDataList[y].Percents[i] = 0;
+                            rawDataList[y].Amounts[i] = 0;
+                        }
+                        else
+                        {
+                            rawDataList[y].Percents[i] = (decimal)singleModel.Value;
+                            rawDataList[y].Amounts[i] = singleModel.DataCount;
+                        }
                     }
 
                     // calculate total

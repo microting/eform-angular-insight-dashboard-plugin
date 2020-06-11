@@ -23,7 +23,8 @@
           </p>
           <p>
             <strong>{{'Dimension' | translate}}: </strong>
-            {{dashboardViewModel.locationName ? dashboardViewModel.locationName : dashboardViewModel.tagName}}
+            {{dashboardViewModel.locationName ? dashboardViewModel.locationName : dashboardViewModel.tagName}},
+            {{periodUnits[itemModel.period] | translate}}, {{chartTypes[itemModel.chartType] | translate}}
           </p>
           <p *ngIf="itemModel.firstQuestionType === questionType.Text">
             <strong>{{'Number of interviews' | translate}}: </strong>

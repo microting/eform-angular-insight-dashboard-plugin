@@ -30,6 +30,7 @@ namespace InsightDashboard.Pn.Services.WordService
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Text;
     using System.Threading.Tasks;
     using Common.InsightDashboardLocalizationService;
     using DashboardService;
@@ -139,7 +140,7 @@ namespace InsightDashboard.Pn.Services.WordService
                     }
                     if (!string.IsNullOrEmpty(dashboardItem.FilterAnswerName))
                     {
-                        itemsHtml += $@"<p><b>{_localizationService.GetString("FilterAnswer")}/b> {dashboardItem.FilterAnswerName}</p>";
+                        itemsHtml += $@"<p><b>{_localizationService.GetString("FilterAnswer")}</b> {dashboardItem.FilterAnswerName}</p>";
                     }
 
                     if (isText)
@@ -200,7 +201,7 @@ namespace InsightDashboard.Pn.Services.WordService
                         // Tables
                         foreach (var rawDataItem in dashboardItem.ChartData.RawData)
                         {
-                            itemsHtml += @"<table style=""background-color:#f5f5f5"" width=""100%"" border=""1"">";
+                            itemsHtml += @"<table style=""background-color:#fff"" width=""100%"" border=""1"">";
                             
                             // multiStacked data chart with inverted values
                             if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)
@@ -217,6 +218,7 @@ namespace InsightDashboard.Pn.Services.WordService
 
                                 itemsHtml += @"</tr>";
 
+                                var totalItemNumber = 0;
                                 // Table elements
                                 foreach (var dataModel in rawDataItem.RawDataItems)
                                 {
@@ -225,6 +227,10 @@ namespace InsightDashboard.Pn.Services.WordService
                                     {
                                         var dataValue = dataModel.RawDataValues[i];
 
+                                        // add row counter
+                                        totalItemNumber++;
+                                        var isEven = totalItemNumber % 2 == 0;
+
                                         // open
                                         itemsHtml += @"<tr>";
 
@@ -232,24 +238,28 @@ namespace InsightDashboard.Pn.Services.WordService
                                         if (i == 0)
                                         {
                                             var rowCount = dataModel.RawDataValues.Count;
-                                            itemsHtml += $@"<td rowspan=""{rowCount}"">{dataModel.RawValueName}</td>";
+                                            itemsHtml +=
+                                                $@"<td rowspan=""{rowCount}"" style=""background-color:#fff"">{dataModel.RawValueName}</td>";
                                         }
 
                                         // location or year name
-                                        itemsHtml += $@"<td>{dataValue.ValueName}</td>";
+                                        itemsHtml +=
+                                            $@"<td {AddStyles(false, isEven)}>{dataValue.ValueName}</td>";
 
                                         // for percents
-                                        for (var percentIndex = 0; percentIndex < dataValue.Percents.Length; percentIndex++)
+                                        for (var percentIndex = 0;
+                                            percentIndex < dataValue.Percents.Length;
+                                            percentIndex++)
                                         {
                                             var valuePercent = dataValue.Percents[percentIndex];
 
                                             if (percentIndex == dataValue.Percents.Length - 1)
                                             {
-                                                itemsHtml += $@"<td style=""font-weight:bold"">{valuePercent}%</td>";
+                                                itemsHtml += $@"<td {AddStyles(true, isEven)}>{valuePercent}%</td>";
                                             }
                                             else
                                             {
-                                                itemsHtml += $@"<td>{valuePercent}%</td>";
+                                                itemsHtml += $@"<td {AddStyles(false, isEven)}>{valuePercent}%</td>";
                                             }
                                         }
 
@@ -260,11 +270,11 @@ namespace InsightDashboard.Pn.Services.WordService
 
                                             if (amountIndex == dataValue.Amounts.Length - 1)
                                             {
-                                                itemsHtml += $@"<td style=""font-weight:bold"">{amountPercent}</td>";
+                                                itemsHtml += $@"<td {AddStyles(true, isEven)}>{amountPercent}</td>";
                                             }
                                             else
                                             {
-                                                itemsHtml += $@"<td>{amountPercent}</td>";
+                                                itemsHtml += $@"<td {AddStyles(false, isEven)}>{amountPercent}</td>";
                                             }
                                         }
 
@@ -380,6 +390,34 @@ namespace InsightDashboard.Pn.Services.WordService
                     false,
                     _localizationService.GetString("ErrorWhileCreatingWordFile"));
             }
+        }
+
+
+        private static string AddStyles(bool bold, bool grayBackground)
+        {
+            var sb = new StringBuilder();
+
+            sb.Append(@"style=""");
+
+            if (grayBackground)
+            {
+                sb.Append(@"background-color:#f5f5f5;");
+            }
+
+            if (bold)
+            {
+                sb.Append(@"font-weight:bold;");
+            }
+
+
+            sb.Append(@"""");
+
+            if (bold || grayBackground)
+            {
+                return sb.ToString();
+            }
+
+            return string.Empty;
         }
     }
 }

@@ -30,7 +30,7 @@ export const dashboardStackedGroupedDataJson = {
   'tagId': 7,
   'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-05-28T23:59:59',
+    'dateTo': '2020-06-10T23:59:59',
     'today': true
   },
   'items': [
@@ -73,25 +73,25 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 32.0,
                     'dataCount': 53,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 4.0,
                     'dataCount': 6,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
                     'value': 2.0,
                     'dataCount': 4,
-                    'optionIndex': 0
+                    'optionIndex': 3
                   },
                   {
                     'name': 'Meget sur',
                     'value': 2.0,
                     'dataCount': 3,
-                    'optionIndex': 0
+                    'optionIndex': 4
                   }
                 ]
               },
@@ -111,25 +111,25 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 24.0,
                     'dataCount': 59,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 3.0,
                     'dataCount': 8,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
                     'value': 1.0,
                     'dataCount': 3,
-                    'optionIndex': 0
+                    'optionIndex': 3
                   },
                   {
                     'name': 'Meget sur',
                     'value': 1.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 4
                   }
                 ]
               }
@@ -156,19 +156,19 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 33.0,
                     'dataCount': 13,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 8.0,
                     'dataCount': 3,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
                     'value': 5.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 3
                   },
                   {
                     'name': 'Meget sur',
@@ -194,13 +194,13 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 27.0,
                     'dataCount': 17,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 3.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
@@ -212,7 +212,7 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Meget sur',
                     'value': 2.0,
                     'dataCount': 1,
-                    'optionIndex': 0
+                    'optionIndex': 4
                   }
                 ]
               }
@@ -239,13 +239,13 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 47.0,
                     'dataCount': 20,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 2.0,
                     'dataCount': 1,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
@@ -257,7 +257,7 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Meget sur',
                     'value': 2.0,
                     'dataCount': 1,
-                    'optionIndex': 0
+                    'optionIndex': 4
                   }
                 ]
               },
@@ -277,19 +277,19 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 21.0,
                     'dataCount': 13,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 3.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
                     'value': 2.0,
                     'dataCount': 1,
-                    'optionIndex': 0
+                    'optionIndex': 3
                   },
                   {
                     'name': 'Meget sur',
@@ -322,13 +322,13 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 21.0,
                     'dataCount': 9,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 5.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
@@ -340,7 +340,7 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Meget sur',
                     'value': 2.0,
                     'dataCount': 1,
-                    'optionIndex': 0
+                    'optionIndex': 4
                   }
                 ]
               },
@@ -360,13 +360,13 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 25.0,
                     'dataCount': 15,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 3.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
@@ -405,7 +405,7 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 28.0,
                     'dataCount': 11,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
@@ -417,13 +417,13 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Sur',
                     'value': 5.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 3
                   },
                   {
                     'name': 'Meget sur',
                     'value': 3.0,
                     'dataCount': 1,
-                    'optionIndex': 0
+                    'optionIndex': 4
                   }
                 ]
               },
@@ -443,25 +443,25 @@ export const dashboardStackedGroupedDataJson = {
                     'name': 'Glad',
                     'value': 24.0,
                     'dataCount': 14,
-                    'optionIndex': 0
+                    'optionIndex': 1
                   },
                   {
                     'name': 'Neutral',
                     'value': 3.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 2
                   },
                   {
                     'name': 'Sur',
                     'value': 3.0,
                     'dataCount': 2,
-                    'optionIndex': 0
+                    'optionIndex': 3
                   },
                   {
                     'name': 'Meget sur',
                     'value': 2.0,
                     'dataCount': 1,
-                    'optionIndex': 0
+                    'optionIndex': 4
                   }
                 ]
               }
@@ -532,16 +532,16 @@ export const dashboardStackedGroupedDataJson = {
                       49.0,
                       47.0,
                       2.0,
-                      2.0,
                       0.0,
+                      2.0,
                       100.0
                     ],
                     'amounts': [
                       21.0,
                       20.0,
                       1.0,
-                      1.0,
                       0.0,
+                      1.0,
                       43.0
                     ]
                   },
@@ -551,16 +551,16 @@ export const dashboardStackedGroupedDataJson = {
                       72.0,
                       21.0,
                       5.0,
-                      2.0,
                       0.0,
+                      2.0,
                       100.0
                     ],
                     'amounts': [
                       31.0,
                       9.0,
                       2.0,
-                      1.0,
                       0.0,
+                      1.0,
                       43.0
                     ]
                   },
@@ -569,17 +569,17 @@ export const dashboardStackedGroupedDataJson = {
                     'percents': [
                       65.0,
                       28.0,
+                      0.0,
                       5.0,
                       3.0,
-                      0.0,
                       101.0
                     ],
                     'amounts': [
                       26.0,
                       11.0,
+                      0.0,
                       2.0,
                       1.0,
-                      0.0,
                       40.0
                     ]
                   }
@@ -613,16 +613,16 @@ export const dashboardStackedGroupedDataJson = {
                       69.0,
                       27.0,
                       3.0,
-                      2.0,
                       0.0,
+                      2.0,
                       101.0
                     ],
                     'amounts': [
                       44.0,
                       17.0,
                       2.0,
-                      1.0,
                       0.0,
+                      1.0,
                       64.0
                     ]
                   },

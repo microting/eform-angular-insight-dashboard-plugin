@@ -19,7 +19,10 @@ export class DashboardChartViewComponent {
   line: any[];
   multi: any[];
   pie: any[];
-  view: any[] = [1200, 400];
+  verticalView: any[] = [1200, 400];
+  horizontalView: any[] = [1200, 800];
+  pieView: any[] = [1200, 400];
+  stackedView = [60, 400];
   multiChartView: any[] = [800, 400];
 
   colorScheme = {

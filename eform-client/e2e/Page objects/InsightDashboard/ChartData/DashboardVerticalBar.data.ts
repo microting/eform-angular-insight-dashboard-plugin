@@ -64,7 +64,7 @@ export const dashboardVerticalBarDataJson = {
   'tagId': null,
   'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-05-28T23:59:59',
+    'dateTo': '2020-06-10T23:59:59',
     'today': true
   },
   'items': [
@@ -609,7 +609,7 @@ export const dashboardVerticalBarDataJson = {
                       83.0,
                       50.0,
                       71.0,
-                      100.0,
+                      0.0,
                       100.0,
                       86.0,
                       86.0,
@@ -618,7 +618,7 @@ export const dashboardVerticalBarDataJson = {
                       100.0,
                       86.0,
                       100.0,
-                      100.0,
+                      0.0,
                       88.0,
                       87.0,
                       100.0
@@ -637,7 +637,7 @@ export const dashboardVerticalBarDataJson = {
                       5.0,
                       3.0,
                       5.0,
-                      1.0,
+                      0.0,
                       5.0,
                       6.0,
                       6.0,
@@ -646,7 +646,7 @@ export const dashboardVerticalBarDataJson = {
                       1.0,
                       6.0,
                       4.0,
-                      3.0,
+                      0.0,
                       7.0,
                       13.0,
                       5.0
@@ -668,7 +668,7 @@ export const dashboardVerticalBarDataJson = {
                       17.0,
                       50.0,
                       29.0,
-                      0.0,
+                      100.0,
                       0.0,
                       14.0,
                       14.0,
@@ -677,7 +677,7 @@ export const dashboardVerticalBarDataJson = {
                       0.0,
                       14.0,
                       0.0,
-                      0.0,
+                      100.0,
                       13.0,
                       13.0,
                       0.0
@@ -696,7 +696,7 @@ export const dashboardVerticalBarDataJson = {
                       1.0,
                       3.0,
                       2.0,
-                      0.0,
+                      1.0,
                       0.0,
                       1.0,
                       1.0,
@@ -705,7 +705,7 @@ export const dashboardVerticalBarDataJson = {
                       0.0,
                       1.0,
                       0.0,
-                      0.0,
+                      3.0,
                       1.0,
                       2.0,
                       0.0
