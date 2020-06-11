@@ -450,12 +450,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     var count = data.Count;
 
                     var groupedData = data
-                        .GroupBy(x => x.Name)
+                        .GroupBy(x => new {x.Name, x.OptionIndex })
                         .Select(x => new DashboardViewChartDataSingleModel
                         {
-                            Name = x.Key,
+                            Name = x.Key.Name,
                             DataCount = x.Count(),
                             Value = GetDataPercentage(x.Count(), count),
+                            OptionIndex = x.Key.OptionIndex
                         })
                         .ToList();
 
@@ -495,6 +496,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                         groupedData = tmpData;
                     }
+
+                    groupedData = groupedData.OrderBy(x => x.OptionIndex).ToList();
 
                     var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
 
