@@ -497,6 +497,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         groupedData = tmpData;
                     }
 
+                    groupedData = groupedData.OrderBy(x => x.OptionIndex).ToList();
+
                     var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
 
                     // Convert data for pie chart
