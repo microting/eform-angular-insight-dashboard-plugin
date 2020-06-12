@@ -464,8 +464,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 DataCount = x.Count(),
                                 Value = GetDataPercentage(x.Count(), answerDataCount),
                                 OptionIndex = x.Key.OptionIndex
-
-                                // Math.Round((decimal)x.Count() / (decimal)answerDataCount * 100m, 0, MidpointRounding.AwayFromZero)
                             })
                             .ToList();
                     }
