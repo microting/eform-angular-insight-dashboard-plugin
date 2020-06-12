@@ -341,21 +341,23 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     foreach (var rowData in rawDataList)
                     {
                         totalValue += rowData.Percents[i];
-                       // totalAmounts += rowData.Amounts[i];
+                        totalAmounts += rowData.Amounts[i];
                     }
 
                     // find total
-                    foreach (var dataMultiModel in multiData)
+                    if (isMulti)
                     {
-                        var seriesItem = dataMultiModel.Series[i];
-
-                        if (seriesItem.AnswersDataCount > 0)
+                        foreach (var dataMultiModel in multiData)
                         {
-                            totalAmounts = seriesItem.AnswersDataCount;
-                            break;
+                            var seriesItem = dataMultiModel.Series[i];
+
+                            if (seriesItem.AnswersDataCount > 0)
+                            {
+                                totalAmounts = seriesItem.AnswersDataCount;
+                                break;
+                            }
                         }
                     }
-
                     rawDataList[lastRow].Percents[i] = totalValue;
                     rawDataList[lastRow].Amounts[i] = totalAmounts;
                 }
