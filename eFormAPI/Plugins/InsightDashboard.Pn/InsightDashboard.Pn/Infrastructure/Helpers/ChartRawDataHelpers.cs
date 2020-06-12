@@ -344,6 +344,20 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         totalAmounts += rowData.Amounts[i];
                     }
 
+                    // find total
+                    if (isMulti)
+                    {
+                        foreach (var dataMultiModel in multiData)
+                        {
+                            var seriesItem = dataMultiModel.Series[i];
+
+                            if (seriesItem.AnswersDataCount > 0)
+                            {
+                                totalAmounts = seriesItem.AnswersDataCount;
+                                break;
+                            }
+                        }
+                    }
                     rawDataList[lastRow].Percents[i] = totalValue;
                     rawDataList[lastRow].Amounts[i] = totalAmounts;
                 }
@@ -443,7 +457,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static List<DashboardViewChartRawDataModel> ConvertSingleData(
             IInsightDashboardLocalizationService localizationService,
-            List<DashboardViewChartDataSingleModel> singleData)
+            List<DashboardViewChartDataSingleModel> singleData,
+            bool isMulti,
+            int answersCount)
         {
             const int columnsCount = 1;
             var result = new List<DashboardViewChartRawDataModel>();
@@ -483,22 +499,41 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             rawDataList.Add(totalRow);
 
             // by Item
-            for (var y = 0; y < singleData.Count; y++)
+            if (isMulti)
             {
-                var dataSingleModel = singleData[y];
-                rawDataList[y].Percents[0] = (decimal) dataSingleModel.Value;
-                rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
+                var percentageList = new List<decimal>();
+                for (var y = 0; y < singleData.Count; y++)
+                {
+                    var dataSingleModel = singleData[y];
+                    decimal percentage = Math.Round((decimal)dataSingleModel.DataCount / (decimal)answersCount * 100m, 0, MidpointRounding.AwayFromZero);
+                    percentageList.Add(percentage);
+                    rawDataList[y].Percents[0] = percentage;
+                    rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
+                }
+                // calculate total
+                var lastRow = singleData.Count;
+
+                rawDataList[lastRow].Percents[0] = percentageList.Sum(x => x);
+                rawDataList[lastRow].Amounts[0] = answersCount;
             }
+            else
+            {
+                for (var y = 0; y < singleData.Count; y++)
+                {
+                    var dataSingleModel = singleData[y];
+                    rawDataList[y].Percents[0] = (decimal)dataSingleModel.Value;
+                    rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
+                }
+                // calculate total
+                var lastRow = singleData.Count;
 
-            // calculate total
-            var lastRow = singleData.Count;
+                rawDataList[lastRow].Percents[0] = singleData
+                    .Where(x => x.Value != null)
+                    .Sum(x => (decimal)x.Value);
 
-            rawDataList[lastRow].Percents[0] = singleData
-                .Where(x => x.Value != null)
-                .Sum(x => (decimal) x.Value);
-
-            rawDataList[lastRow].Amounts[0] = singleData
-                .Sum(x => x.DataCount);
+                rawDataList[lastRow].Amounts[0] = singleData
+                    .Sum(x => x.DataCount);
+            }
 
             chartRawDataModel.RawDataValues = rawDataList;
             data.RawDataItems.Add(chartRawDataModel);

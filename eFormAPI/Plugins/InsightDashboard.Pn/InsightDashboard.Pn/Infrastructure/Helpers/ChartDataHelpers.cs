@@ -22,12 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Diagnostics;
-
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
@@ -427,6 +426,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 var isSmiley = questionTypeData.IsSmiley;
                 var isMulti = questionTypeData.IsMulti;
 
+                // Count of answers
+                var answerDataCount = data.Select(u => u.AnswerId)
+                    .Distinct()
+                    .Count();
+
                 List<string> lines;
                 if (dashboardItem.CalculateAverage)
                 {
@@ -449,16 +453,37 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 {
                     var count = data.Count;
 
-                    var groupedData = data
-                        .GroupBy(x => new {x.Name, x.OptionIndex })
-                        .Select(x => new DashboardViewChartDataSingleModel
-                        {
-                            Name = x.Key.Name,
-                            DataCount = x.Count(),
-                            Value = GetDataPercentage(x.Count(), count),
-                            OptionIndex = x.Key.OptionIndex
-                        })
-                        .ToList();
+                    var groupedData = new List<DashboardViewChartDataSingleModel>();
+                    if (isMulti)
+                    {
+                        groupedData = data
+                            .GroupBy(x => new { x.Name, x.OptionIndex })
+                            .Select(x => new DashboardViewChartDataSingleModel
+                            {
+                                Name = x.Key.Name,
+                                DataCount = x.Count(),
+                                Value = GetDataPercentage(x.Count(), answerDataCount),
+                                OptionIndex = x.Key.OptionIndex
+                            })
+                            .ToList();
+                    }
+                    else
+                    {
+                        groupedData = data
+                            .GroupBy(x => new { x.Name, x.OptionIndex })
+                            .Select(x => new DashboardViewChartDataSingleModel
+                            {
+                                Name = x.Key.Name,
+                                DataCount = x.Count(),
+                                Value = GetDataPercentage(x.Count(), count),
+                                OptionIndex = x.Key.OptionIndex
+                            })
+                            .ToList();
+                    }
+
+
+
+
 
                     if (isSmiley)
                     {
@@ -499,7 +524,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                     groupedData = groupedData.OrderBy(x => x.OptionIndex).ToList();
 
-                    var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
+                    var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData, isMulti, answerDataCount);
 
                     // Convert data for pie chart
                     if (dashboardItem.ChartType == DashboardChartTypes.AdvancedPie ||
@@ -1409,6 +1434,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 DataCount = item.DataCount,
                                                 OptionIndex = item.OptionIndex
                                             };
+
+                                            var count = multiData
+                                                .Where(x => x.Name == groupedItem.Name)
+                                                .Select(x => x.AnswersCount)
+                                                .FirstOrDefault();
+
+                                            if (count > 0)
+                                            {
+                                                singleItem.AnswersDataCount = count;
+                                            }
+
                                             multiItem.Series.Add(singleItem);
                                         }
                                     }
@@ -1493,6 +1529,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
                                                         modelSeries.OptionIndex = series.OptionIndex;
+                                                        modelSeries.AnswersDataCount = series.AnswersDataCount;
                                                     }
                                                 }
                                             }
@@ -1537,6 +1574,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
                                                         modelSeries.OptionIndex = series.OptionIndex;
+                                                        modelSeries.AnswersDataCount = series.AnswersDataCount;
                                                     }
                                                 }
                                             }
