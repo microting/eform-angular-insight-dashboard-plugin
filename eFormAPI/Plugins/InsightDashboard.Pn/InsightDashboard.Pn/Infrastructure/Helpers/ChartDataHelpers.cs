@@ -426,11 +426,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 var isSmiley = questionTypeData.IsSmiley;
                 var isMulti = questionTypeData.IsMulti;
 
-
-                var dat = data.GroupBy(e => e.AnswerId).Select(x => x.Key).ToList();
-
-                Debugger.Break();
-
                 List<string> lines;
                 if (dashboardItem.CalculateAverage)
                 {
@@ -454,11 +449,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     var count = data.Count;
 
                     var groupedData = data
-                        .GroupBy(x => new {x.Name, x.OptionIndex })
+                        .GroupBy(x => new {x.Name, x.OptionIndex, x.AnswerId })
                         .Select(x => new DashboardViewChartDataSingleModel
                         {
                             Name = x.Key.Name,
                             DataCount = x.Count(),
+                            AnswersDataCount = GetAnswersCount(x),
                             Value = GetDataPercentage(x.Count(), count),
                             OptionIndex = x.Key.OptionIndex
                         })
@@ -502,6 +498,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
 
                     groupedData = groupedData.OrderBy(x => x.OptionIndex).ToList();
+
+                    Debugger.Break();
 
                     var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
 
