@@ -452,8 +452,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 if (singleData)
                 {
                     var count = data.Count;
-
-
                     var groupedData = data
                         .GroupBy(x => new {x.Name, x.OptionIndex })
                         .Select(x => new DashboardViewChartDataSingleModel
@@ -505,8 +503,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
 
                     groupedData = groupedData.OrderBy(x => x.OptionIndex).ToList();
-
-                    Debugger.Break();
 
                     var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData, isMulti, answerDataCount);
 
@@ -1502,6 +1498,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
                                                         modelSeries.OptionIndex = series.OptionIndex;
+
+                                                        modelSeries.AnswersDataCount = multiData
+                                                            .Where(x => x.Name == modelSeries.Name)
+                                                            .Select(x => x.AnswersCount)
+                                                            .FirstOrDefault();
                                                     }
                                                 }
                                             }
@@ -1546,6 +1547,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
                                                         modelSeries.OptionIndex = series.OptionIndex;
+
+                                                        modelSeries.AnswersDataCount = multiData
+                                                            .Where(x => x.Name == modelSeries.Name)
+                                                            .Select(x => x.AnswersCount)
+                                                            .FirstOrDefault();
                                                     }
                                                 }
                                             }
