@@ -22,12 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Diagnostics;
-
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
@@ -426,6 +425,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                 var isSmiley = questionTypeData.IsSmiley;
                 var isMulti = questionTypeData.IsMulti;
+
+
+                var dat = data.GroupBy(e => e.AnswerId).Select(x => x.Key).ToList();
+
+                Debugger.Break();
 
                 List<string> lines;
                 if (dashboardItem.CalculateAverage)
