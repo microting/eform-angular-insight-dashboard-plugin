@@ -452,16 +452,38 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 if (singleData)
                 {
                     var count = data.Count;
-                    var groupedData = data
-                        .GroupBy(x => new {x.Name, x.OptionIndex })
-                        .Select(x => new DashboardViewChartDataSingleModel
-                        {
-                            Name = x.Key.Name,
-                            DataCount = x.Count(),
-                            Value = GetDataPercentage(x.Count(), count),
-                            OptionIndex = x.Key.OptionIndex
-                        })
-                        .ToList();
+
+                    var groupedData = new List<DashboardViewChartDataSingleModel>();
+                    if (isMulti)
+                    {
+                        groupedData = data
+                            .GroupBy(x => new { x.Name, x.OptionIndex })
+                            .Select(x => new DashboardViewChartDataSingleModel
+                            {
+                                Name = x.Key.Name,
+                                DataCount = x.Count(),
+                                Value = GetDataPercentage(x.Count(), answerDataCount),
+                                OptionIndex = x.Key.OptionIndex
+
+                                // Math.Round((decimal)x.Count() / (decimal)answerDataCount * 100m, 0, MidpointRounding.AwayFromZero)
+                            })
+                            .ToList();
+                    }
+                    else
+                    {
+                        groupedData = data
+                            .GroupBy(x => new { x.Name, x.OptionIndex })
+                            .Select(x => new DashboardViewChartDataSingleModel
+                            {
+                                Name = x.Key.Name,
+                                DataCount = x.Count(),
+                                Value = GetDataPercentage(x.Count(), count),
+                                OptionIndex = x.Key.OptionIndex
+                            })
+                            .ToList();
+                    }
+
+
 
 
 
