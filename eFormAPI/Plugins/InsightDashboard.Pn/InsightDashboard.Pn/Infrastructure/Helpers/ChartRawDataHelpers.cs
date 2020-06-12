@@ -486,21 +486,21 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             // by Item
             if (isMulti)
             {
+                var percentageList = new List<decimal>();
                 for (var y = 0; y < singleData.Count; y++)
                 {
                     var dataSingleModel = singleData[y];
-                    rawDataList[y].Percents[0] = (decimal)dataSingleModel.Value;
-                    rawDataList[y].Amounts[0] = dataSingleModel.AnswersDataCount;
+                    decimal percentage = Math.Round((decimal)dataSingleModel.DataCount / (decimal)dataSingleModel.AnswersDataCount * 100m, 0, MidpointRounding.AwayFromZero);
+                    percentageList.Add(percentage);
+                    rawDataList[y].Percents[0] = percentage;
+                    rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
                 }
                 // calculate total
                 var lastRow = singleData.Count;
 
-                rawDataList[lastRow].Percents[0] = singleData
-                    .Where(x => x.Value != null)
-                    .Sum(x => (decimal)x.Value);
+                rawDataList[lastRow].Percents[0] = percentageList.Sum(x => x);
 
-                rawDataList[lastRow].Amounts[0] = singleData
-                    .Sum(x => x.AnswersDataCount);
+                rawDataList[lastRow].Amounts[0] = singleData.FirstOrDefault().AnswersDataCount;
             }
             else
             {

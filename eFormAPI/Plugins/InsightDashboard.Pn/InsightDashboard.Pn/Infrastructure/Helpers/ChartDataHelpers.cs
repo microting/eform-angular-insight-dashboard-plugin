@@ -447,6 +447,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 if (singleData)
                 {
                     var count = data.Count;
+                    var answerDataCount = data.Select(u => u.AnswerId)
+                                              .Distinct()
+                                              .Count();
 
                     var groupedData = data
                         .GroupBy(x => new {x.Name, x.OptionIndex })
@@ -454,13 +457,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         {
                             Name = x.Key.Name,
                             DataCount = x.Count(),
-                            AnswersDataCount = x.GroupBy(u => u.AnswerId)
-                                .Select(u => u.Key)
-                                .Count(),
+                            AnswersDataCount = answerDataCount,
                             Value = GetDataPercentage(x.Count(), count),
                             OptionIndex = x.Key.OptionIndex
                         })
                         .ToList();
+
+
 
                     if (isSmiley)
                     {
