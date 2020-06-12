@@ -444,7 +444,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
         public static List<DashboardViewChartRawDataModel> ConvertSingleData(
             IInsightDashboardLocalizationService localizationService,
             List<DashboardViewChartDataSingleModel> singleData,
-            bool isMulti)
+            bool isMulti,
+            int answersCount)
         {
             const int columnsCount = 1;
             var result = new List<DashboardViewChartRawDataModel>();
@@ -490,7 +491,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 for (var y = 0; y < singleData.Count; y++)
                 {
                     var dataSingleModel = singleData[y];
-                    decimal percentage = Math.Round((decimal)dataSingleModel.DataCount / (decimal)dataSingleModel.AnswersDataCount * 100m, 0, MidpointRounding.AwayFromZero);
+                    decimal percentage = Math.Round((decimal)dataSingleModel.DataCount / (decimal)answersCount * 100m, 0, MidpointRounding.AwayFromZero);
                     percentageList.Add(percentage);
                     rawDataList[y].Percents[0] = percentage;
                     rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
@@ -499,8 +500,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 var lastRow = singleData.Count;
 
                 rawDataList[lastRow].Percents[0] = percentageList.Sum(x => x);
-
-                rawDataList[lastRow].Amounts[0] = singleData.FirstOrDefault().AnswersDataCount;
+                rawDataList[lastRow].Amounts[0] = answersCount;
             }
             else
             {

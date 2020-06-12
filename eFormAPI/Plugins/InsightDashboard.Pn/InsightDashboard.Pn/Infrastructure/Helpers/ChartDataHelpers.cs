@@ -426,6 +426,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 var isSmiley = questionTypeData.IsSmiley;
                 var isMulti = questionTypeData.IsMulti;
 
+                // Count of answers
+                var answerDataCount = data.Select(u => u.AnswerId)
+                    .Distinct()
+                    .Count();
+
                 List<string> lines;
                 if (dashboardItem.CalculateAverage)
                 {
@@ -447,9 +452,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 if (singleData)
                 {
                     var count = data.Count;
-                    var answerDataCount = data.Select(u => u.AnswerId)
-                                              .Distinct()
-                                              .Count();
+
 
                     var groupedData = data
                         .GroupBy(x => new {x.Name, x.OptionIndex })
@@ -457,7 +460,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         {
                             Name = x.Key.Name,
                             DataCount = x.Count(),
-                            AnswersDataCount = answerDataCount,
                             Value = GetDataPercentage(x.Count(), count),
                             OptionIndex = x.Key.OptionIndex
                         })
@@ -506,7 +508,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                     Debugger.Break();
 
-                    var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData, isMulti);
+                    var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData, isMulti, answerDataCount);
 
                     // Convert data for pie chart
                     if (dashboardItem.ChartType == DashboardChartTypes.AdvancedPie ||
