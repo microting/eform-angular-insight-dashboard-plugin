@@ -449,12 +449,14 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     var count = data.Count;
 
                     var groupedData = data
-                        .GroupBy(x => new {x.Name, x.OptionIndex, x.AnswerId })
+                        .GroupBy(x => new {x.Name, x.OptionIndex })
                         .Select(x => new DashboardViewChartDataSingleModel
                         {
                             Name = x.Key.Name,
                             DataCount = x.Count(),
-                            AnswersDataCount = GetAnswersCount(x),
+                            AnswersDataCount = x.GroupBy(u => u.AnswerId)
+                                .Select(u => u.Key)
+                                .Count(),
                             Value = GetDataPercentage(x.Count(), count),
                             OptionIndex = x.Key.OptionIndex
                         })
