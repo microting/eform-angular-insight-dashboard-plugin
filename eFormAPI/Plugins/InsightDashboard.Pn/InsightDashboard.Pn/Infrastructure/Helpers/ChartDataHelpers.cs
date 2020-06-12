@@ -1414,6 +1414,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 DataCount = item.DataCount,
                                                 OptionIndex = item.OptionIndex
                                             };
+
+                                            singleItem.AnswersDataCount = multiData
+                                                .Where(x => x.Name == groupedItem.Name)
+                                                .Select(x => x.AnswersCount)
+                                                .FirstOrDefault();
                                             multiItem.Series.Add(singleItem);
                                         }
                                     }
@@ -1498,11 +1503,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
                                                         modelSeries.OptionIndex = series.OptionIndex;
-
-                                                        modelSeries.AnswersDataCount = multiData
-                                                            .Where(x => x.Name == modelSeries.Name)
-                                                            .Select(x => x.AnswersCount)
-                                                            .FirstOrDefault();
+                                                        modelSeries.AnswersDataCount = series.AnswersDataCount;
                                                     }
                                                 }
                                             }
@@ -1547,11 +1548,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                         modelSeries.Value = series.Value;
                                                         modelSeries.DataCount = series.DataCount;
                                                         modelSeries.OptionIndex = series.OptionIndex;
-
-                                                        modelSeries.AnswersDataCount = multiData
-                                                            .Where(x => x.Name == modelSeries.Name)
-                                                            .Select(x => x.AnswersCount)
-                                                            .FirstOrDefault();
+                                                        modelSeries.AnswersDataCount = series.AnswersDataCount;
                                                     }
                                                 }
                                             }
