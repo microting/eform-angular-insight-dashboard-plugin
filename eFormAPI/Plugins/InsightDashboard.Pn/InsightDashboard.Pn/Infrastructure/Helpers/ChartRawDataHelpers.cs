@@ -443,7 +443,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static List<DashboardViewChartRawDataModel> ConvertSingleData(
             IInsightDashboardLocalizationService localizationService,
-            List<DashboardViewChartDataSingleModel> singleData)
+            List<DashboardViewChartDataSingleModel> singleData,
+            bool isMulti)
         {
             const int columnsCount = 1;
             var result = new List<DashboardViewChartRawDataModel>();
@@ -483,22 +484,42 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             rawDataList.Add(totalRow);
 
             // by Item
-            for (var y = 0; y < singleData.Count; y++)
+            if (isMulti)
             {
-                var dataSingleModel = singleData[y];
-                rawDataList[y].Percents[0] = (decimal) dataSingleModel.Value;
-                rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
+                for (var y = 0; y < singleData.Count; y++)
+                {
+                    var dataSingleModel = singleData[y];
+                    rawDataList[y].Percents[0] = (decimal)dataSingleModel.Value;
+                    rawDataList[y].Amounts[0] = dataSingleModel.AnswersDataCount;
+                }
+                // calculate total
+                var lastRow = singleData.Count;
+
+                rawDataList[lastRow].Percents[0] = singleData
+                    .Where(x => x.Value != null)
+                    .Sum(x => (decimal)x.Value);
+
+                rawDataList[lastRow].Amounts[0] = singleData
+                    .Sum(x => x.AnswersDataCount);
             }
+            else
+            {
+                for (var y = 0; y < singleData.Count; y++)
+                {
+                    var dataSingleModel = singleData[y];
+                    rawDataList[y].Percents[0] = (decimal)dataSingleModel.Value;
+                    rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
+                }
+                // calculate total
+                var lastRow = singleData.Count;
 
-            // calculate total
-            var lastRow = singleData.Count;
+                rawDataList[lastRow].Percents[0] = singleData
+                    .Where(x => x.Value != null)
+                    .Sum(x => (decimal)x.Value);
 
-            rawDataList[lastRow].Percents[0] = singleData
-                .Where(x => x.Value != null)
-                .Sum(x => (decimal) x.Value);
-
-            rawDataList[lastRow].Amounts[0] = singleData
-                .Sum(x => x.DataCount);
+                rawDataList[lastRow].Amounts[0] = singleData
+                    .Sum(x => x.DataCount);
+            }
 
             chartRawDataModel.RawDataValues = rawDataList;
             data.RawDataItems.Add(chartRawDataModel);

@@ -503,7 +503,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                     Debugger.Break();
 
-                    var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData);
+                    var rawData = ChartRawDataHelpers.ConvertSingleData(localizationService, groupedData, isMulti);
 
                     // Convert data for pie chart
                     if (dashboardItem.ChartType == DashboardChartTypes.AdvancedPie ||
