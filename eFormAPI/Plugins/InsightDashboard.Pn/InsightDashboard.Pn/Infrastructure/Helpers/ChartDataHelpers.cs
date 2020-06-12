@@ -1415,10 +1415,16 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 OptionIndex = item.OptionIndex
                                             };
 
-                                            singleItem.AnswersDataCount = multiData
+                                            var count = multiData
                                                 .Where(x => x.Name == groupedItem.Name)
                                                 .Select(x => x.AnswersCount)
                                                 .FirstOrDefault();
+
+                                            if (count > 0)
+                                            {
+                                                singleItem.AnswersDataCount = count;
+                                            }
+
                                             multiItem.Series.Add(singleItem);
                                         }
                                     }
