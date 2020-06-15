@@ -3,13 +3,13 @@
     <button
       mdbBtn
       id="dashboardUpdateSaveBtn"
-      class="btn btn-success" [disabled]="!dashboardEditModel.locationId && !dashboardEditModel.tagId"
+      class="btn btn-success btn-small-height" [disabled]="!dashboardEditModel.locationId && !dashboardEditModel.tagId"
       (click)="updateDashboard()">{{ 'Save' | translate }}
     </button>
     <button
       mdbBtn
       id="dashboardUpdateSaveCancelBtn"
-      class="btn-accent text-black-50"
+      class="btn-accent text-black-50 btn-small-height"
       [routerLink]="['../../../dashboards']">{{ 'Cancel' | translate }}
     </button>
   </div>

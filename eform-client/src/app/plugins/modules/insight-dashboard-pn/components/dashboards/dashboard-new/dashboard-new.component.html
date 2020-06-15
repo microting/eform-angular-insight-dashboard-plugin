@@ -31,12 +31,12 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button mdbBtn class=" btn-success" (click)="createDashboard()"
+        <button mdbBtn class=" btn-success btn-small-height" (click)="createDashboard()"
                 [disabled]="!dashboardName && !selectedSurveyId"
                 id="dashboardCreateSaveBtn">
           {{ 'Save' | translate }}
         </button>
-        <button mdbBtn class=" btn-accent text-black-50" (click)="frame.hide()" id="dashboardCreateSaveCancelBtn">
+        <button mdbBtn class=" btn-accent text-black-50 btn-small-height" (click)="frame.hide()" id="dashboardCreateSaveCancelBtn">
           {{ 'Cancel' | translate }}
         </button>
       </div>

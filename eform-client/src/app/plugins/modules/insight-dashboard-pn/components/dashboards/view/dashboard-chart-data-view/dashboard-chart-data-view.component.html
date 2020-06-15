@@ -1,7 +1,6 @@
 <!--suppress XmlDuplicatedId -->
 <div class="row p-1 mb-4 table-responsive no-gutters scrollable-xy-block">
-  <table class="table table-sm text-right z-depth-1"
-         id="dashboardViewChartData{{itemModel.position - 1}}_{{rawDataIndex}}"
+  <table mdbTable striped="true" hover="true" small="true" class="z-depth-1 text-center" id="dashboardViewChartData{{itemModel.position - 1}}_{{rawDataIndex}}"
          [ngClass]="{'mt-2': !rawDataIndexFirst}"
          *ngFor="let rawData of itemModel.chartData.rawData; let rawDataIndex = index; let rawDataIndexFirst = first">
     <thead id="dataViewTableHeader">
@@ -54,8 +53,7 @@
           </td>
         </tr>
 
-        <tr *ngFor="let dataValue of dataItem.rawDataValues; let i = index;" id="dataViewPercent"
-            [ngStyle]="{'background-color': i % 2 !== 0 ? '#f2f2f2': 'white'}">
+        <tr *ngFor="let dataValue of dataItem.rawDataValues; let i = index;" id="dataViewPercent">
           <td id="dataViewPercentName">
             {{dataValue.valueName}}
           </td>
