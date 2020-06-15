@@ -122,8 +122,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         {
                             var maxObjectSingleModel = maxOptionObject[y];
 
+                            // TODO: FIX
                             var singleModel = dataMultiModel.Series
-                                .Where(x => x.OptionIndex == maxObjectSingleModel.OptionIndex)
                                 .FirstOrDefault(x => x.Name == maxObjectSingleModel.Name);
 
                             if (singleModel == null)
@@ -209,9 +209,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         for (var y = 0; y < maxOptionObject.Count; y++)
                         {
                             var maxObjectSingleModel = maxOptionObject[y];
-
+                            
+                            // TODO: FIX
                             var singleModel = dataMultiModel.Series
-                                .Where(x => x.OptionIndex == maxObjectSingleModel.OptionIndex)
                                 .FirstOrDefault(x => x.Name == maxObjectSingleModel.Name);
 
                             if (singleModel == null)
@@ -413,8 +413,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     {
                         var maxObjectSingleModel = maxObject.Series[y];
 
+                        // TODO: FIX
                         var singleModel = dataMultiModel.Series
-                            .Where(x => x.OptionIndex == maxObjectSingleModel.OptionIndex)
                             .FirstOrDefault(x => x.Name == maxObjectSingleModel.Name);
 
                         if (singleModel == null)

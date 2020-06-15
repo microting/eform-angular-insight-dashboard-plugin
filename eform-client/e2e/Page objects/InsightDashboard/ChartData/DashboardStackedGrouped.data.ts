@@ -20,477 +20,531 @@ export const dashboardStackedGroupedItems: DashboardTestItemEditModel[] = [
 ];
 
 export const dashboardStackedGroupedDataJson = {
-  'id': 99,
-  'dashboardName': 'Stacked Grouped',
-  'surveyName': 'Test-Set',
-  'surveyId': 1,
-  'locationName': null,
-  'locationId': null,
-  'tagName': 'Total',
-  'tagId': 7,
-  'answerDates': {
-    'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-06-10T23:59:59',
-    'today': true
+  "id": 99,
+  "dashboardName": "Stacked Grouped",
+  "surveyName": "Test-Set",
+  "surveyId": 1,
+  "locationName": null,
+  "locationId": null,
+  "tagName": "Total",
+  "tagId": 7,
+  "answerDates": {
+    "dateFrom": "2016-01-01T00:00:00",
+    "dateTo": "2020-06-15T23:59:59",
+    "today": true
   },
-  'items': [
+  "items": [
     {
-      'id': 287,
-      'firstQuestionName': 'Q2: Er personalet på afsnittet venligt og imødekommende?',
-      'firstQuestionType': 'smiley2',
-      'filterQuestionName': null,
-      'filterAnswerName': null,
-      'firstQuestionId': 2,
-      'filterQuestionId': null,
-      'filterAnswerId': null,
-      'period': 5,
-      'chartType': 11,
-      'compareEnabled': true,
-      'calculateAverage': false,
-      'position': 1,
-      'chartData': {
-        'single': [],
-        'multi': [],
-        'multiStacked': [
+      "id": 287,
+      "firstQuestionName": "Q2: Er personalet på afsnittet venligt og imødekommende?",
+      "firstQuestionType": "smiley2",
+      "filterQuestionName": null,
+      "filterAnswerName": null,
+      "firstQuestionId": 2,
+      "filterQuestionId": null,
+      "filterAnswerId": null,
+      "period": 5,
+      "chartType": 11,
+      "compareEnabled": true,
+      "calculateAverage": false,
+      "position": 1,
+      "chartData": {
+        "single": [
+
+        ],
+        "multi": [
+
+        ],
+        "multiStacked": [
           {
-            'id': 7,
-            'name': 'Total',
-            'isTag': true,
-            'series': [
+            "id": 7,
+            "name": "Total",
+            "isTag": true,
+            "series": [
               {
-                'id': 0,
-                'name': '2016',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2016",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 60.0,
-                    'dataCount': 100,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 60.0,
+                    "dataCount": 100,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 32.0,
-                    'dataCount': 53,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 32.0,
+                    "dataCount": 53,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 4.0,
-                    'dataCount': 6,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 4.0,
+                    "dataCount": 6,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 2.0,
-                    'dataCount': 4,
-                    'optionIndex': 3
+                    "name": "Sur",
+                    "value": 2.0,
+                    "dataCount": 4,
+                    "answersDataCount": 0,
+                    "optionIndex": 3
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 2.0,
-                    'dataCount': 3,
-                    'optionIndex': 4
+                    "name": "Meget sur",
+                    "value": 2.0,
+                    "dataCount": 3,
+                    "answersDataCount": 0,
+                    "optionIndex": 4
                   }
                 ]
               },
               {
-                'id': 0,
-                'name': '2017',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2017",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 71.0,
-                    'dataCount': 175,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 71.0,
+                    "dataCount": 175,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 24.0,
-                    'dataCount': 59,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 24.0,
+                    "dataCount": 59,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 3.0,
-                    'dataCount': 8,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 3.0,
+                    "dataCount": 8,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 1.0,
-                    'dataCount': 3,
-                    'optionIndex': 3
+                    "name": "Sur",
+                    "value": 1.0,
+                    "dataCount": 3,
+                    "answersDataCount": 0,
+                    "optionIndex": 3
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 1.0,
-                    'dataCount': 2,
-                    'optionIndex': 4
+                    "name": "Meget sur",
+                    "value": 1.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 4
                   }
                 ]
               }
             ]
           },
           {
-            'id': 1,
-            'name': 'Location 1',
-            'isTag': false,
-            'series': [
+            "id": 1,
+            "name": "Location 1",
+            "isTag": false,
+            "series": [
               {
-                'id': 0,
-                'name': '2016',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2016",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 55.0,
-                    'dataCount': 22,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 55.0,
+                    "dataCount": 22,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 33.0,
-                    'dataCount': 13,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 33.0,
+                    "dataCount": 13,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 8.0,
-                    'dataCount': 3,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 8.0,
+                    "dataCount": 3,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 5.0,
-                    'dataCount': 2,
-                    'optionIndex': 3
+                    "name": "Sur",
+                    "value": 5.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 3
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 0.0,
-                    'dataCount': 0,
-                    'optionIndex': 0
+                    "name": "Meget sur",
+                    "value": 0.0,
+                    "dataCount": 0,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   }
                 ]
               },
               {
-                'id': 0,
-                'name': '2017',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2017",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 69.0,
-                    'dataCount': 44,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 69.0,
+                    "dataCount": 44,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 27.0,
-                    'dataCount': 17,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 27.0,
+                    "dataCount": 17,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 3.0,
-                    'dataCount': 2,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 3.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 0.0,
-                    'dataCount': 0,
-                    'optionIndex': 0
+                    "name": "Sur",
+                    "value": 0.0,
+                    "dataCount": 0,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 2.0,
-                    'dataCount': 1,
-                    'optionIndex': 4
+                    "name": "Meget sur",
+                    "value": 2.0,
+                    "dataCount": 1,
+                    "answersDataCount": 0,
+                    "optionIndex": 4
                   }
                 ]
               }
             ]
           },
           {
-            'id': 2,
-            'name': 'Location 2',
-            'isTag': false,
-            'series': [
+            "id": 2,
+            "name": "Location 2",
+            "isTag": false,
+            "series": [
               {
-                'id': 0,
-                'name': '2016',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2016",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 49.0,
-                    'dataCount': 21,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 49.0,
+                    "dataCount": 21,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 47.0,
-                    'dataCount': 20,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 47.0,
+                    "dataCount": 20,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 2.0,
-                    'dataCount': 1,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 2.0,
+                    "dataCount": 1,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 0.0,
-                    'dataCount': 0,
-                    'optionIndex': 0
+                    "name": "Sur",
+                    "value": 0.0,
+                    "dataCount": 0,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 2.0,
-                    'dataCount': 1,
-                    'optionIndex': 4
+                    "name": "Meget sur",
+                    "value": 2.0,
+                    "dataCount": 1,
+                    "answersDataCount": 0,
+                    "optionIndex": 4
                   }
                 ]
               },
               {
-                'id': 0,
-                'name': '2017',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2017",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 75.0,
-                    'dataCount': 47,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 75.0,
+                    "dataCount": 47,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 21.0,
-                    'dataCount': 13,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 21.0,
+                    "dataCount": 13,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 3.0,
-                    'dataCount': 2,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 3.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 2.0,
-                    'dataCount': 1,
-                    'optionIndex': 3
+                    "name": "Sur",
+                    "value": 2.0,
+                    "dataCount": 1,
+                    "answersDataCount": 0,
+                    "optionIndex": 3
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 0.0,
-                    'dataCount': 0,
-                    'optionIndex': 0
+                    "name": "Meget sur",
+                    "value": 0.0,
+                    "dataCount": 0,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   }
                 ]
               }
             ]
           },
           {
-            'id': 3,
-            'name': 'Location 3',
-            'isTag': false,
-            'series': [
+            "id": 3,
+            "name": "Location 3",
+            "isTag": false,
+            "series": [
               {
-                'id': 0,
-                'name': '2016',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2016",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 72.0,
-                    'dataCount': 31,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 72.0,
+                    "dataCount": 31,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 21.0,
-                    'dataCount': 9,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 21.0,
+                    "dataCount": 9,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 5.0,
-                    'dataCount': 2,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 5.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 0.0,
-                    'dataCount': 0,
-                    'optionIndex': 0
+                    "name": "Sur",
+                    "value": 0.0,
+                    "dataCount": 0,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 2.0,
-                    'dataCount': 1,
-                    'optionIndex': 4
+                    "name": "Meget sur",
+                    "value": 2.0,
+                    "dataCount": 1,
+                    "answersDataCount": 0,
+                    "optionIndex": 4
                   }
                 ]
               },
               {
-                'id': 0,
-                'name': '2017',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2017",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 72.0,
-                    'dataCount': 44,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 72.0,
+                    "dataCount": 44,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 25.0,
-                    'dataCount': 15,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 25.0,
+                    "dataCount": 15,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 3.0,
-                    'dataCount': 2,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 3.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 0.0,
-                    'dataCount': 0,
-                    'optionIndex': 0
+                    "name": "Sur",
+                    "value": 0.0,
+                    "dataCount": 0,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 0.0,
-                    'dataCount': 0,
-                    'optionIndex': 0
+                    "name": "Meget sur",
+                    "value": 0.0,
+                    "dataCount": 0,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   }
                 ]
               }
             ]
           },
           {
-            'id': 4,
-            'name': 'Location 4',
-            'isTag': false,
-            'series': [
+            "id": 4,
+            "name": "Location 4",
+            "isTag": false,
+            "series": [
               {
-                'id': 0,
-                'name': '2016',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2016",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 65.0,
-                    'dataCount': 26,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 65.0,
+                    "dataCount": 26,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 28.0,
-                    'dataCount': 11,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 28.0,
+                    "dataCount": 11,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 0.0,
-                    'dataCount': 0,
-                    'optionIndex': 0
+                    "name": "Neutral",
+                    "value": 0.0,
+                    "dataCount": 0,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Sur',
-                    'value': 5.0,
-                    'dataCount': 2,
-                    'optionIndex': 3
+                    "name": "Sur",
+                    "value": 5.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 3
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 3.0,
-                    'dataCount': 1,
-                    'optionIndex': 4
+                    "name": "Meget sur",
+                    "value": 3.0,
+                    "dataCount": 1,
+                    "answersDataCount": 0,
+                    "optionIndex": 4
                   }
                 ]
               },
               {
-                'id': 0,
-                'name': '2017',
-                'answersCount': 0,
-                'isTag': false,
-                'series': [
+                "id": 0,
+                "name": "2017",
+                "answersCount": 0,
+                "isTag": false,
+                "series": [
                   {
-                    'name': 'Meget glad',
-                    'value': 68.0,
-                    'dataCount': 40,
-                    'optionIndex': 0
+                    "name": "Meget glad",
+                    "value": 68.0,
+                    "dataCount": 40,
+                    "answersDataCount": 0,
+                    "optionIndex": 0
                   },
                   {
-                    'name': 'Glad',
-                    'value': 24.0,
-                    'dataCount': 14,
-                    'optionIndex': 1
+                    "name": "Glad",
+                    "value": 24.0,
+                    "dataCount": 14,
+                    "answersDataCount": 0,
+                    "optionIndex": 1
                   },
                   {
-                    'name': 'Neutral',
-                    'value': 3.0,
-                    'dataCount': 2,
-                    'optionIndex': 2
+                    "name": "Neutral",
+                    "value": 3.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 2
                   },
                   {
-                    'name': 'Sur',
-                    'value': 3.0,
-                    'dataCount': 2,
-                    'optionIndex': 3
+                    "name": "Sur",
+                    "value": 3.0,
+                    "dataCount": 2,
+                    "answersDataCount": 0,
+                    "optionIndex": 3
                   },
                   {
-                    'name': 'Meget sur',
-                    'value': 2.0,
-                    'dataCount': 1,
-                    'optionIndex': 4
+                    "name": "Meget sur",
+                    "value": 2.0,
+                    "dataCount": 1,
+                    "answersDataCount": 0,
+                    "optionIndex": 4
                   }
                 ]
               }
             ]
           }
         ],
-        'rawData': [
+        "rawData": [
           {
-            'rawHeaders': [
-              'Meget glad',
-              'Glad',
-              'Neutral',
-              'Sur',
-              'Meget sur',
-              '%',
-              'Meget glad',
-              'Glad',
-              'Neutral',
-              'Sur',
-              'Meget sur',
-              'n'
+            "rawHeaders": [
+              "Meget glad",
+              "Glad",
+              "Neutral",
+              "Sur",
+              "Meget sur",
+              "%",
+              "Meget glad",
+              "Glad",
+              "Neutral",
+              "Sur",
+              "Meget sur",
+              "n"
             ],
-            'rawDataItems': [
+            "rawDataItems": [
               {
-                'rawValueName': '2016',
-                'rawDataValues': [
+                "rawValueName": "2016",
+                "rawDataValues": [
                   {
-                    'valueName': 'Total',
-                    'percents': [
+                    "valueName": "Total",
+                    "percents": [
                       60.0,
                       32.0,
                       4.0,
@@ -498,7 +552,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       100.0,
                       53.0,
                       6.0,
@@ -508,8 +562,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': 'Location 1',
-                    'percents': [
+                    "valueName": "Location 1",
+                    "percents": [
                       55.0,
                       33.0,
                       8.0,
@@ -517,7 +571,7 @@ export const dashboardStackedGroupedDataJson = {
                       0.0,
                       101.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       22.0,
                       13.0,
                       3.0,
@@ -527,8 +581,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': 'Location 2',
-                    'percents': [
+                    "valueName": "Location 2",
+                    "percents": [
                       49.0,
                       47.0,
                       2.0,
@@ -536,7 +590,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       21.0,
                       20.0,
                       1.0,
@@ -546,8 +600,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': 'Location 3',
-                    'percents': [
+                    "valueName": "Location 3",
+                    "percents": [
                       72.0,
                       21.0,
                       5.0,
@@ -555,7 +609,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       31.0,
                       9.0,
                       2.0,
@@ -565,8 +619,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': 'Location 4',
-                    'percents': [
+                    "valueName": "Location 4",
+                    "percents": [
                       65.0,
                       28.0,
                       0.0,
@@ -574,7 +628,7 @@ export const dashboardStackedGroupedDataJson = {
                       3.0,
                       101.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       26.0,
                       11.0,
                       0.0,
@@ -586,11 +640,11 @@ export const dashboardStackedGroupedDataJson = {
                 ]
               },
               {
-                'rawValueName': '2017',
-                'rawDataValues': [
+                "rawValueName": "2017",
+                "rawDataValues": [
                   {
-                    'valueName': 'Total',
-                    'percents': [
+                    "valueName": "Total",
+                    "percents": [
                       71.0,
                       24.0,
                       3.0,
@@ -598,7 +652,7 @@ export const dashboardStackedGroupedDataJson = {
                       1.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       175.0,
                       59.0,
                       8.0,
@@ -608,8 +662,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': 'Location 1',
-                    'percents': [
+                    "valueName": "Location 1",
+                    "percents": [
                       69.0,
                       27.0,
                       3.0,
@@ -617,7 +671,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       101.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       44.0,
                       17.0,
                       2.0,
@@ -627,8 +681,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': 'Location 2',
-                    'percents': [
+                    "valueName": "Location 2",
+                    "percents": [
                       75.0,
                       21.0,
                       3.0,
@@ -636,7 +690,7 @@ export const dashboardStackedGroupedDataJson = {
                       0.0,
                       101.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       47.0,
                       13.0,
                       2.0,
@@ -646,8 +700,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': 'Location 3',
-                    'percents': [
+                    "valueName": "Location 3",
+                    "percents": [
                       72.0,
                       25.0,
                       3.0,
@@ -655,7 +709,7 @@ export const dashboardStackedGroupedDataJson = {
                       0.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       44.0,
                       15.0,
                       2.0,
@@ -665,8 +719,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': 'Location 4',
-                    'percents': [
+                    "valueName": "Location 4",
+                    "percents": [
                       68.0,
                       24.0,
                       3.0,
@@ -674,7 +728,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       40.0,
                       14.0,
                       2.0,
@@ -688,27 +742,27 @@ export const dashboardStackedGroupedDataJson = {
             ]
           },
           {
-            'rawHeaders': [
-              'Meget glad',
-              'Glad',
-              'Neutral',
-              'Sur',
-              'Meget sur',
-              '%',
-              'Meget glad',
-              'Glad',
-              'Neutral',
-              'Sur',
-              'Meget sur',
-              'n'
+            "rawHeaders": [
+              "Meget glad",
+              "Glad",
+              "Neutral",
+              "Sur",
+              "Meget sur",
+              "%",
+              "Meget glad",
+              "Glad",
+              "Neutral",
+              "Sur",
+              "Meget sur",
+              "n"
             ],
-            'rawDataItems': [
+            "rawDataItems": [
               {
-                'rawValueName': 'Total',
-                'rawDataValues': [
+                "rawValueName": "Total",
+                "rawDataValues": [
                   {
-                    'valueName': '2016',
-                    'percents': [
+                    "valueName": "2016",
+                    "percents": [
                       60.0,
                       32.0,
                       4.0,
@@ -716,7 +770,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       100.0,
                       53.0,
                       6.0,
@@ -726,8 +780,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': '2017',
-                    'percents': [
+                    "valueName": "2017",
+                    "percents": [
                       71.0,
                       24.0,
                       3.0,
@@ -735,7 +789,7 @@ export const dashboardStackedGroupedDataJson = {
                       1.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       175.0,
                       59.0,
                       8.0,
@@ -747,11 +801,11 @@ export const dashboardStackedGroupedDataJson = {
                 ]
               },
               {
-                'rawValueName': 'Location 1',
-                'rawDataValues': [
+                "rawValueName": "Location 1",
+                "rawDataValues": [
                   {
-                    'valueName': '2016',
-                    'percents': [
+                    "valueName": "2016",
+                    "percents": [
                       55.0,
                       33.0,
                       8.0,
@@ -759,7 +813,7 @@ export const dashboardStackedGroupedDataJson = {
                       0.0,
                       101.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       22.0,
                       13.0,
                       3.0,
@@ -769,8 +823,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': '2017',
-                    'percents': [
+                    "valueName": "2017",
+                    "percents": [
                       69.0,
                       27.0,
                       3.0,
@@ -778,7 +832,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       101.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       44.0,
                       17.0,
                       2.0,
@@ -790,11 +844,11 @@ export const dashboardStackedGroupedDataJson = {
                 ]
               },
               {
-                'rawValueName': 'Location 2',
-                'rawDataValues': [
+                "rawValueName": "Location 2",
+                "rawDataValues": [
                   {
-                    'valueName': '2016',
-                    'percents': [
+                    "valueName": "2016",
+                    "percents": [
                       49.0,
                       47.0,
                       2.0,
@@ -802,7 +856,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       21.0,
                       20.0,
                       1.0,
@@ -812,8 +866,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': '2017',
-                    'percents': [
+                    "valueName": "2017",
+                    "percents": [
                       75.0,
                       21.0,
                       3.0,
@@ -821,7 +875,7 @@ export const dashboardStackedGroupedDataJson = {
                       0.0,
                       101.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       47.0,
                       13.0,
                       2.0,
@@ -833,11 +887,11 @@ export const dashboardStackedGroupedDataJson = {
                 ]
               },
               {
-                'rawValueName': 'Location 3',
-                'rawDataValues': [
+                "rawValueName": "Location 3",
+                "rawDataValues": [
                   {
-                    'valueName': '2016',
-                    'percents': [
+                    "valueName": "2016",
+                    "percents": [
                       72.0,
                       21.0,
                       5.0,
@@ -845,7 +899,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       31.0,
                       9.0,
                       2.0,
@@ -855,8 +909,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': '2017',
-                    'percents': [
+                    "valueName": "2017",
+                    "percents": [
                       72.0,
                       25.0,
                       3.0,
@@ -864,7 +918,7 @@ export const dashboardStackedGroupedDataJson = {
                       0.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       44.0,
                       15.0,
                       2.0,
@@ -876,11 +930,11 @@ export const dashboardStackedGroupedDataJson = {
                 ]
               },
               {
-                'rawValueName': 'Location 4',
-                'rawDataValues': [
+                "rawValueName": "Location 4",
+                "rawDataValues": [
                   {
-                    'valueName': '2016',
-                    'percents': [
+                    "valueName": "2016",
+                    "percents": [
                       65.0,
                       28.0,
                       0.0,
@@ -888,7 +942,7 @@ export const dashboardStackedGroupedDataJson = {
                       3.0,
                       101.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       26.0,
                       11.0,
                       0.0,
@@ -898,8 +952,8 @@ export const dashboardStackedGroupedDataJson = {
                     ]
                   },
                   {
-                    'valueName': '2017',
-                    'percents': [
+                    "valueName": "2017",
+                    "percents": [
                       68.0,
                       24.0,
                       3.0,
@@ -907,7 +961,7 @@ export const dashboardStackedGroupedDataJson = {
                       2.0,
                       100.0
                     ],
-                    'amounts': [
+                    "amounts": [
                       40.0,
                       14.0,
                       2.0,
@@ -922,51 +976,53 @@ export const dashboardStackedGroupedDataJson = {
           }
         ]
       },
-      'compareLocationsTags': [
+      "compareLocationsTags": [
         {
-          'id': 130,
-          'locationId': null,
-          'tagId': 7,
-          'position': 1,
-          'name': 'Total'
+          "id": 130,
+          "locationId": null,
+          "tagId": 7,
+          "position": 1,
+          "name": "Total"
         },
         {
-          'id': 131,
-          'locationId': 1,
-          'tagId': null,
-          'position': 2,
-          'name': 'Location 1'
+          "id": 131,
+          "locationId": 1,
+          "tagId": null,
+          "position": 2,
+          "name": "Location 1"
         },
         {
-          'id': 132,
-          'locationId': 2,
-          'tagId': null,
-          'position': 3,
-          'name': 'Location 2'
+          "id": 132,
+          "locationId": 2,
+          "tagId": null,
+          "position": 3,
+          "name": "Location 2"
         },
         {
-          'id': 133,
-          'locationId': 3,
-          'tagId': null,
-          'position': 4,
-          'name': 'Location 3'
+          "id": 133,
+          "locationId": 3,
+          "tagId": null,
+          "position": 4,
+          "name": "Location 3"
         },
         {
-          'id': 134,
-          'locationId': 4,
-          'tagId': null,
-          'position': 5,
-          'name': 'Location 4'
+          "id": 134,
+          "locationId": 4,
+          "tagId": null,
+          "position": 5,
+          "name": "Location 4"
         }
       ],
-      'ignoredAnswerValues': [
+      "ignoredAnswerValues": [
         {
-          'id': 128,
-          'answerId': 8,
-          'name': 'Ved ikke'
+          "id": 128,
+          "answerId": 8,
+          "name": "Ved ikke"
         }
       ],
-      'textQuestionData': []
+      "textQuestionData": [
+
+      ]
     }
   ]
 };

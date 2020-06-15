@@ -18,7 +18,7 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
-  before(function () {
+  before(function () { 
     loginPage.open('/auth');
     loginPage.login();
 

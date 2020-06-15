@@ -1,6 +1,7 @@
 <!--suppress XmlDuplicatedId -->
 <div class="row p-1 mb-4 table-responsive no-gutters scrollable-xy-block">
-  <table mdbTable striped="true" hover="true" small="true" class="z-depth-1 text-center" id="dashboardViewChartData{{itemModel.position - 1}}_{{rawDataIndex}}"
+  <table mdbTable hover="true" small="true" class="z-depth-1 text-center"
+         id="dashboardViewChartData{{itemModel.position - 1}}_{{rawDataIndex}}"
          [ngClass]="{'mt-2': !rawDataIndexFirst}"
          *ngFor="let rawData of itemModel.chartData.rawData; let rawDataIndex = index; let rawDataIndexFirst = first">
     <thead id="dataViewTableHeader">
@@ -16,7 +17,9 @@
     <tbody>
     <ng-container *ngFor="let dataItem of rawData.rawDataItems; let rawDataItemIndex = index;">
       <ng-container *ngIf="itemModel.chartType !== chartTypes.HorizontalBarStackedGrouped">
-        <tr *ngFor="let dataValue of dataItem.rawDataValues; let last = last; let i = index;" id="dataViewPercent{{rawDataItemIndex}}">
+        <tr *ngFor="let dataValue of dataItem.rawDataValues; let last = last; let i = index;"
+            [ngStyle]="{'background-color': i % 2 !== 0 ? '#f2f2f2': 'white'}"
+            id="dataViewPercent{{rawDataItemIndex}}">
           <td [ngClass]="{'font-bold': last}" id="dataViewPercentName">
             {{dataValue.valueName}}
           </td>
@@ -34,7 +37,9 @@
           <td></td>
           <td *ngFor="let header of rawData.rawHeaders"></td>
         </tr>
-        <tr *ngFor="let dataValue of dataItem.rawDataValues; let last = last; let i = index" id="dataViewAmount{{rawDataItemIndex}}">
+        <tr *ngFor="let dataValue of dataItem.rawDataValues; let last = last; let i = index"
+            [ngStyle]="{'background-color': i % 2 !== 0 ? '#f2f2f2': 'white'}"
+            id="dataViewAmount{{rawDataItemIndex}}">
           <td [ngClass]="{'font-bold': last}" id="dataViewAmountName">
             {{dataValue.valueName}}
           </td>
@@ -51,7 +56,8 @@
           </td>
         </tr>
 
-        <tr *ngFor="let dataValue of dataItem.rawDataValues; let i = index;" id="dataViewPercent">
+        <tr *ngFor="let dataValue of dataItem.rawDataValues; let i = index;" id="dataViewPercent"
+            [ngStyle]="{'background-color': i % 2 !== 0 ? '#f2f2f2': 'white'}">
           <td id="dataViewPercentName">
             {{dataValue.valueName}}
           </td>
