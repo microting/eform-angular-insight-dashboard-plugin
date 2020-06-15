@@ -6,10 +6,10 @@
   "locationName": null,
   "locationId": null,
   "tagName": "Total",
-  "tagId": 1,
+  "tagId": 7,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-06-10T23:59:59",
+    "dateTo": "2020-06-15T23:59:59",
     "today": true
   },
   "items": [
@@ -28,7 +28,9 @@
       "calculateAverage": false,
       "position": 1,
       "chartData": {
-        "single": [],
+        "single": [
+
+        ],
         "multi": [
           {
             "id": 0,
@@ -40,12 +42,14 @@
                 "name": "Ja",
                 "value": 80.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 20.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -60,12 +64,14 @@
                 "name": "Ja",
                 "value": 70.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 30.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -80,12 +86,14 @@
                 "name": "Ja",
                 "value": 90.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 10.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -100,12 +108,14 @@
                 "name": "Ja",
                 "value": 67.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 33.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -120,12 +130,14 @@
                 "name": "Ja",
                 "value": 75.0,
                 "dataCount": 12,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 25.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -140,12 +152,14 @@
                 "name": "Ja",
                 "value": 44.0,
                 "dataCount": 11,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 56.0,
                 "dataCount": 14,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -160,12 +174,14 @@
                 "name": "Ja",
                 "value": 72.0,
                 "dataCount": 13,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 28.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -180,12 +196,14 @@
                 "name": "Ja",
                 "value": 56.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 44.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -200,12 +218,14 @@
                 "name": "Ja",
                 "value": 78.0,
                 "dataCount": 18,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 22.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -220,12 +240,14 @@
                 "name": "Ja",
                 "value": 68.0,
                 "dataCount": 19,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 32.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -240,12 +262,14 @@
                 "name": "Ja",
                 "value": 73.0,
                 "dataCount": 19,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 27.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -260,12 +284,14 @@
                 "name": "Ja",
                 "value": 82.0,
                 "dataCount": 18,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 18.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -280,12 +306,14 @@
                 "name": "Ja",
                 "value": 67.0,
                 "dataCount": 20,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 33.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -300,6 +328,7 @@
                 "name": "Nej",
                 "value": 100.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -314,12 +343,14 @@
                 "name": "Ja",
                 "value": 75.0,
                 "dataCount": 15,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 25.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -334,12 +365,14 @@
                 "name": "Ja",
                 "value": 76.0,
                 "dataCount": 22,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 24.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -354,12 +387,14 @@
                 "name": "Ja",
                 "value": 82.0,
                 "dataCount": 23,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 18.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -374,12 +409,14 @@
                 "name": "Ja",
                 "value": 70.0,
                 "dataCount": 23,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 30.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -394,12 +431,14 @@
                 "name": "Ja",
                 "value": 77.0,
                 "dataCount": 20,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 23.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -414,6 +453,7 @@
                 "name": "Ja",
                 "value": 100.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -428,12 +468,14 @@
                 "name": "Ja",
                 "value": 86.0,
                 "dataCount": 24,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 14.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -448,12 +490,14 @@
                 "name": "Ja",
                 "value": 87.0,
                 "dataCount": 13,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 13.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -468,12 +512,14 @@
                 "name": "Ja",
                 "value": 67.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 33.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -488,12 +534,14 @@
                 "name": "Ja",
                 "value": 87.0,
                 "dataCount": 26,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 13.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -508,12 +556,14 @@
                 "name": "Ja",
                 "value": 83.0,
                 "dataCount": 50,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 17.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
@@ -528,18 +578,22 @@
                 "name": "Ja",
                 "value": 95.0,
                 "dataCount": 21,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
                 "value": 5.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 1
               }
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -757,9 +811,15 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+
+      ],
+      "ignoredAnswerValues": [
+
+      ],
+      "textQuestionData": [
+
+      ]
     },
     {
       "id": 251,
@@ -776,7 +836,9 @@
       "calculateAverage": false,
       "position": 2,
       "chartData": {
-        "single": [],
+        "single": [
+
+        ],
         "multi": [
           {
             "id": 0,
@@ -788,30 +850,35 @@
                 "name": "Meget glad",
                 "value": 38.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 50.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 13.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -826,30 +893,35 @@
                 "name": "Meget glad",
                 "value": 86.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 14.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -864,30 +936,35 @@
                 "name": "Meget glad",
                 "value": 44.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 56.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -902,30 +979,35 @@
                 "name": "Meget glad",
                 "value": 100.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -940,30 +1022,35 @@
                 "name": "Meget glad",
                 "value": 25.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 58.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 8.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 8.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -978,30 +1065,35 @@
                 "name": "Meget glad",
                 "value": 55.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 27.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 9.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 9.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -1016,30 +1108,35 @@
                 "name": "Meget glad",
                 "value": 69.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 15.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 8.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 8.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1054,30 +1151,35 @@
                 "name": "Meget glad",
                 "value": 100.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1092,30 +1194,35 @@
                 "name": "Meget glad",
                 "value": 78.0,
                 "dataCount": 14,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 17.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 6.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1130,30 +1237,35 @@
                 "name": "Meget glad",
                 "value": 42.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 53.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 5.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1168,30 +1280,35 @@
                 "name": "Meget glad",
                 "value": 47.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 47.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 5.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1206,30 +1323,35 @@
                 "name": "Meget glad",
                 "value": 50.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 50.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1244,30 +1366,35 @@
                 "name": "Meget glad",
                 "value": 84.0,
                 "dataCount": 16,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 5.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 11.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1282,30 +1409,35 @@
                 "name": "Meget glad",
                 "value": 71.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 21.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 7.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -1320,30 +1452,35 @@
                 "name": "Meget glad",
                 "value": 80.0,
                 "dataCount": 16,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 15.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 5.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1358,30 +1495,35 @@
                 "name": "Meget glad",
                 "value": 61.0,
                 "dataCount": 14,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 35.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1396,30 +1538,35 @@
                 "name": "Meget glad",
                 "value": 87.0,
                 "dataCount": 20,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -1434,30 +1581,35 @@
                 "name": "Meget glad",
                 "value": 70.0,
                 "dataCount": 14,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 25.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 5.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1472,30 +1624,35 @@
                 "name": "Meget glad",
                 "value": 20.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 80.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1510,30 +1667,35 @@
                 "name": "Meget glad",
                 "value": 75.0,
                 "dataCount": 18,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 21.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1548,30 +1710,35 @@
                 "name": "Meget glad",
                 "value": 54.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 46.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1586,30 +1753,35 @@
                 "name": "Meget glad",
                 "value": 60.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 40.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1624,30 +1796,35 @@
                 "name": "Meget glad",
                 "value": 77.0,
                 "dataCount": 20,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 19.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1662,30 +1839,35 @@
                 "name": "Meget glad",
                 "value": 73.0,
                 "dataCount": 35,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 17.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 10.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -1700,36 +1882,43 @@
                 "name": "Meget glad",
                 "value": 67.0,
                 "dataCount": 14,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 33.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -1884,26 +2073,26 @@
                       0.0,
                       0.0,
                       0.0,
+                      8.0,
+                      9.0,
+                      8.0,
+                      0.0,
+                      0.0,
+                      5.0,
+                      0.0,
+                      0.0,
+                      11.0,
+                      0.0,
+                      0.0,
+                      4.0,
+                      0.0,
+                      5.0,
                       0.0,
                       0.0,
                       0.0,
                       0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
+                      4.0,
+                      10.0,
                       0.0
                     ],
                     "amounts": [
@@ -1911,26 +2100,26 @@
                       0.0,
                       0.0,
                       0.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      2.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
                       0.0,
                       0.0,
                       0.0,
                       0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
+                      1.0,
+                      5.0,
                       0.0
                     ]
                   },
@@ -1941,22 +2130,22 @@
                       0.0,
                       0.0,
                       0.0,
+                      8.0,
+                      0.0,
+                      8.0,
+                      0.0,
+                      6.0,
+                      0.0,
+                      5.0,
                       0.0,
                       0.0,
                       0.0,
+                      5.0,
+                      0.0,
+                      4.0,
                       0.0,
                       0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
+                      4.0,
                       0.0,
                       0.0,
                       0.0,
@@ -1968,22 +2157,22 @@
                       0.0,
                       0.0,
                       0.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
                       0.0,
                       0.0,
                       0.0,
+                      1.0,
+                      0.0,
+                      1.0,
                       0.0,
                       0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
+                      1.0,
                       0.0,
                       0.0,
                       0.0,
@@ -2111,7 +2300,9 @@
           }
         ]
       },
-      "compareLocationsTags": [],
+      "compareLocationsTags": [
+
+      ],
       "ignoredAnswerValues": [
         {
           "id": 134,
@@ -2119,7 +2310,9 @@
           "name": "Ved ikke"
         }
       ],
-      "textQuestionData": []
+      "textQuestionData": [
+
+      ]
     },
     {
       "id": 252,
@@ -2136,7 +2329,9 @@
       "calculateAverage": false,
       "position": 3,
       "chartData": {
-        "single": [],
+        "single": [
+
+        ],
         "multi": [
           {
             "id": 0,
@@ -2148,30 +2343,35 @@
                 "name": "Meget glad",
                 "value": 38.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 50.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 13.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2186,30 +2386,35 @@
                 "name": "Meget glad",
                 "value": 71.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 14.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 14.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2224,30 +2429,35 @@
                 "name": "Meget glad",
                 "value": 33.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 56.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 11.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2262,30 +2472,35 @@
                 "name": "Meget glad",
                 "value": 50.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 25.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 25.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2300,30 +2515,35 @@
                 "name": "Meget glad",
                 "value": 33.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 42.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 17.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 8.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2338,30 +2558,35 @@
                 "name": "Meget glad",
                 "value": 36.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 27.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 18.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 18.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2376,30 +2601,35 @@
                 "name": "Meget glad",
                 "value": 38.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 31.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 15.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 15.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2414,30 +2644,35 @@
                 "name": "Meget glad",
                 "value": 33.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 44.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 22.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2452,30 +2687,35 @@
                 "name": "Meget glad",
                 "value": 50.0,
                 "dataCount": 9,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 33.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 11.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 6.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2490,30 +2730,35 @@
                 "name": "Meget glad",
                 "value": 42.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 42.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 16.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2528,30 +2773,35 @@
                 "name": "Meget glad",
                 "value": 37.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 32.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 21.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 11.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2566,30 +2816,35 @@
                 "name": "Meget glad",
                 "value": 33.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 56.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 6.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 6.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2604,30 +2859,35 @@
                 "name": "Meget glad",
                 "value": 67.0,
                 "dataCount": 12,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 17.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 6.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 11.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2642,30 +2902,35 @@
                 "name": "Meget glad",
                 "value": 53.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 13.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 7.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 13.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 13.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2680,30 +2945,35 @@
                 "name": "Meget glad",
                 "value": 70.0,
                 "dataCount": 14,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 30.0,
                 "dataCount": 6,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2718,30 +2988,35 @@
                 "name": "Meget glad",
                 "value": 35.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 43.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 13.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -2756,30 +3031,35 @@
                 "name": "Meget glad",
                 "value": 65.0,
                 "dataCount": 15,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 30.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2794,30 +3074,35 @@
                 "name": "Meget glad",
                 "value": 50.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 35.0,
                 "dataCount": 7,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 10.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 5.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2832,30 +3117,35 @@
                 "name": "Meget glad",
                 "value": 20.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 60.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 20.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2870,30 +3160,35 @@
                 "name": "Meget glad",
                 "value": 75.0,
                 "dataCount": 18,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 21.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2908,30 +3203,35 @@
                 "name": "Meget glad",
                 "value": 67.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 33.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2946,30 +3246,35 @@
                 "name": "Meget glad",
                 "value": 40.0,
                 "dataCount": 4,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 50.0,
                 "dataCount": 5,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 10.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -2984,30 +3289,35 @@
                 "name": "Meget glad",
                 "value": 56.0,
                 "dataCount": 14,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 32.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 8.0,
                 "dataCount": 2,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 4.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
@@ -3022,30 +3332,35 @@
                 "name": "Meget glad",
                 "value": 41.0,
                 "dataCount": 20,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 39.0,
                 "dataCount": 19,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 16.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 2.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
                 "value": 2.0,
                 "dataCount": 1,
+                "answersDataCount": 0,
                 "optionIndex": 4
               }
             ]
@@ -3060,36 +3375,43 @@
                 "name": "Meget glad",
                 "value": 48.0,
                 "dataCount": 10,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
                 "value": 38.0,
                 "dataCount": 8,
+                "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
                 "value": 14.0,
                 "dataCount": 3,
+                "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
                 "value": 0.0,
                 "dataCount": 0,
+                "answersDataCount": 0,
                 "optionIndex": 0
               }
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -3242,56 +3564,56 @@
                     "percents": [
                       0.0,
                       0.0,
+                      11.0,
+                      25.0,
+                      17.0,
+                      18.0,
+                      15.0,
+                      22.0,
+                      11.0,
+                      16.0,
+                      21.0,
+                      6.0,
+                      6.0,
+                      7.0,
                       0.0,
+                      13.0,
+                      4.0,
+                      10.0,
+                      20.0,
+                      4.0,
                       0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0
+                      10.0,
+                      8.0,
+                      16.0,
+                      14.0
                     ],
                     "amounts": [
                       0.0,
                       0.0,
+                      1.0,
+                      1.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      3.0,
+                      4.0,
+                      1.0,
+                      1.0,
+                      1.0,
                       0.0,
+                      3.0,
+                      1.0,
+                      2.0,
+                      1.0,
+                      1.0,
                       0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0
+                      1.0,
+                      2.0,
+                      8.0,
+                      3.0
                     ]
                   },
                   {
@@ -3309,18 +3631,18 @@
                       0.0,
                       0.0,
                       0.0,
+                      11.0,
+                      13.0,
+                      0.0,
+                      4.0,
+                      0.0,
+                      5.0,
                       0.0,
                       0.0,
                       0.0,
                       0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
+                      4.0,
+                      2.0,
                       0.0
                     ],
                     "amounts": [
@@ -3336,18 +3658,18 @@
                       0.0,
                       0.0,
                       0.0,
+                      2.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
                       0.0,
                       0.0,
                       0.0,
                       0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
+                      1.0,
+                      1.0,
                       0.0
                     ]
                   },
@@ -3471,7 +3793,9 @@
           }
         ]
       },
-      "compareLocationsTags": [],
+      "compareLocationsTags": [
+
+      ],
       "ignoredAnswerValues": [
         {
           "id": 135,
@@ -3479,7 +3803,9 @@
           "name": "Ved ikke"
         }
       ],
-      "textQuestionData": []
+      "textQuestionData": [
+
+      ]
     }
   ]
 }
