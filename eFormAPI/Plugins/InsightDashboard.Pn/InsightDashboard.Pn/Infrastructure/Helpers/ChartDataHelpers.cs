@@ -290,7 +290,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     .FirstOrDefault(),
                                 IsTag = true,
                                 Weight = x.Option.WeightValue,
-                                OptionIndex = x.Option.OptionsIndex,
+                                OptionIndex = x.Option.OptionIndex,
                                 AnswerId = x.AnswerId,
                             })
                             .ToListAsync();
@@ -335,7 +335,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             LocationTagId = x.Answer.SiteId,
                             IsTag = false,
                             Weight = x.Option.WeightValue,
-                            OptionIndex = x.Option.OptionsIndex,
+                            OptionIndex = x.Option.OptionIndex,
                             AnswerId = x.AnswerId,
                         })
                         .ToListAsync();
@@ -367,7 +367,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 LocationTagId = x.Answer.SiteId,
                                 IsTag = false,
                                 Weight = x.Option.WeightValue,
-                                OptionIndex = x.Option.OptionsIndex,
+                                OptionIndex = x.Option.OptionIndex,
                                 AnswerId = x.AnswerId
                             })
                             .OrderBy(t => t.Finished)
@@ -401,7 +401,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     .FirstOrDefault(),
                                 IsTag = true,
                                 Weight = x.Option.WeightValue,
-                                OptionIndex = x.Option.OptionsIndex,
+                                OptionIndex = x.Option.OptionIndex,
                                 
                                 AnswerId = x.AnswerId,
                             })
