@@ -14,21 +14,21 @@
       <div class="ml-auto">
         <div class="d-flex flex-row-reverse align-items-center">
           <div class="text-black-50">
-            <button mdbBtn class="btn-icon mb-2"
+            <button mdbBtn class="btn-success btn-icon mb-2"
                     mdbTooltip="{{ 'Add block' | translate }}">
               <fa-icon icon="plus-circle"
                        id="createItemBtn"
                        (click)="addNew(dashboardItem.position)"
                        size="lg"></fa-icon>
             </button>
-            <button mdbBtn class="btn-icon mb-2"
+            <button mdbBtn class="btn-success btn-icon mb-2"
                     mdbTooltip="{{ 'Copy block' | translate }}">
             <fa-icon icon="copy"
                      id="copyItemBtn"
                      (click)="copy(dashboardItem)"
                      size="lg"></fa-icon>
             </button>
-            <button mdbBtn class="btn-icon mb-2"
+            <button mdbBtn class="btn-danger btn-icon mb-2"
                       mdbTooltip="{{ 'Delete block' | translate }}">
             <fa-icon icon="trash"
                      id="deleteItemBtn"
