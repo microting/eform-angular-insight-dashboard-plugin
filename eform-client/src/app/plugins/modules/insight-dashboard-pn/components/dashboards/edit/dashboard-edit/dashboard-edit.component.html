@@ -26,17 +26,32 @@
           <button
             mdbBtn
             id="initialItemCreateBtn"
-            class="btn-success btn-small-height" *ngIf="dashboardEditModel.items.length === 0"
+            class="btn btn-success mb-1 mt-1" *ngIf="dashboardEditModel.items.length === 0"
             (click)="onAddNewBlock(1)">{{ 'Add new item' | translate }}
           </button>
           <ng-container *ngIf="dashboardEditModel.items.length > 0">
 
             <button mdbBtn class="btn-icon mb-2 float-right"
-                    (click)="toggleCollapse();">
-
-              <fa-icon icon="angle-double-right" size="lg" [fixedWidth]="true" *ngIf="isItemsCollapsed"></fa-icon>
-              <fa-icon icon="angle-double-down" size="lg" [fixedWidth]="true" *ngIf="!isItemsCollapsed"></fa-icon>
+                    mdbTooltip="{{'Expand all' | translate}}"
+                    (click)="toggleCollapse();"
+                    *ngIf="isItemsCollapsed">
+              <fa-icon icon="angle-double-right" size="lg" [fixedWidth]="true"></fa-icon>
             </button>
+
+            <button mdbBtn class="btn-icon mb-2 float-right"
+                    mdbTooltip="{{'Collapse all' | translate}}"
+                    (click)="toggleCollapse();"
+                    *ngIf="!isItemsCollapsed">
+              <fa-icon icon="angle-double-down" size="lg" [fixedWidth]="true" ></fa-icon>
+            </button>
+<!--            <a class="float-right page-link mb-2"  *ngIf="isItemsCollapsed"-->
+<!--               (click)="toggleCollapse()" >-->
+<!--              <fa-icon icon="angle-double-right" size="lg" [fixedWidth]="true"></fa-icon>-->
+<!--            </a>-->
+<!--            <a class="float-right page-link mb-2" *ngIf="!isItemsCollapsed"-->
+<!--               (click)="toggleCollapse()" >-->
+<!--              <fa-icon icon="angle-double-down" size="lg" [fixedWidth]="true"></fa-icon>-->
+<!--            </a>-->
           </ng-container>
         </div>
       </div>

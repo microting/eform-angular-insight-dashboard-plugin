@@ -14,32 +14,38 @@
       <div class="ml-auto">
         <div class="d-flex flex-row-reverse align-items-center">
           <div class="text-black-50">
-            <button mdbBtn class="btn-icon mb-2">
+            <button mdbBtn class="btn-icon mb-2"
+                    mdbTooltip="{{ 'Add block' | translate }}">
               <fa-icon icon="plus-circle"
                        id="createItemBtn"
-                       mdbTooltip="{{ 'Add block' | translate }}"
                        (click)="addNew(dashboardItem.position)"
                        size="lg"></fa-icon>
             </button>
-            <button mdbBtn class="btn-icon mb-2">
+            <button mdbBtn class="btn-icon mb-2"
+                    mdbTooltip="{{ 'Copy block' | translate }}">
             <fa-icon icon="copy"
                      id="copyItemBtn"
-                     mdbTooltip="{{ 'Copy block' | translate }}"
                      (click)="copy(dashboardItem)"
                      size="lg"></fa-icon>
             </button>
-              <button mdbBtn class="btn-icon mb-2">
+            <button mdbBtn class="btn-icon mb-2"
+                      mdbTooltip="{{ 'Delete block' | translate }}">
             <fa-icon icon="trash"
                      id="deleteItemBtn"
-                     mdbTooltip="{{ 'Delete block' | translate }}"
                      (click)="delete(dashboardItem.position)"
                      size="lg"></fa-icon>
               </button>
             <button mdbBtn class="btn-icon mb-2"
+                    mdbTooltip="{{ 'Expand' | translate }}"
+                    *ngIf="dashboardItem.collapsed"
                     (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed);">
-
-              <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="dashboardItem.collapsed"></fa-icon>
-              <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!dashboardItem.collapsed"></fa-icon>
+              <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" ></fa-icon>
+            </button>
+            <button mdbBtn class="btn-icon mb-2"
+                    mdbTooltip="{{ 'Collapse' | translate }}"
+                    *ngIf="!dashboardItem.collapsed"
+                    (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed);">
+              <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" ></fa-icon>
             </button>
           </div>
         </div>
