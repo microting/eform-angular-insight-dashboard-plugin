@@ -13,25 +13,34 @@
       </div>
       <div class="ml-auto">
         <div class="d-flex flex-row-reverse align-items-center">
-          <div
-            (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed);"
-            style="cursor: pointer">
-            <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="dashboardItem.collapsed"></fa-icon>
-            <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!dashboardItem.collapsed"></fa-icon>
-          </div>
           <div class="text-black-50">
-            <fa-icon icon="plus-circle" [className]="'pr-2'"
-                     id="createItemBtn"
-                     mdbTooltip="{{ 'Add block' | translate }}"
-                     size="2x" style="cursor: pointer" (click)="addNew(dashboardItem.position)"></fa-icon>
-            <fa-icon icon="copy" [className]="'pr-2'"
+            <button mdbBtn class="btn-icon mb-2">
+              <fa-icon icon="plus-circle"
+                       id="createItemBtn"
+                       mdbTooltip="{{ 'Add block' | translate }}"
+                       (click)="addNew(dashboardItem.position)"
+                       size="lg"></fa-icon>
+            </button>
+            <button mdbBtn class="btn-icon mb-2">
+            <fa-icon icon="copy"
                      id="copyItemBtn"
                      mdbTooltip="{{ 'Copy block' | translate }}"
-                     size="2x" style="cursor: pointer" (click)="copy(dashboardItem)"></fa-icon>
-            <fa-icon icon="trash" [className]="'pr-2'"
+                     (click)="copy(dashboardItem)"
+                     size="lg"></fa-icon>
+            </button>
+              <button mdbBtn class="btn-icon mb-2">
+            <fa-icon icon="trash"
                      id="deleteItemBtn"
                      mdbTooltip="{{ 'Delete block' | translate }}"
-                     size="2x" style="cursor: pointer" (click)="delete(dashboardItem.position)"></fa-icon>
+                     (click)="delete(dashboardItem.position)"
+                     size="lg"></fa-icon>
+              </button>
+            <button mdbBtn class="btn-icon mb-2"
+                    (click)="collapse.toggle(); fieldChanged(!dashboardItem.collapsed, itemFields.collapsed);">
+
+              <fa-icon icon="angle-right" size="lg" [fixedWidth]="true" *ngIf="dashboardItem.collapsed"></fa-icon>
+              <fa-icon icon="angle-down" size="lg" [fixedWidth]="true" *ngIf="!dashboardItem.collapsed"></fa-icon>
+            </button>
           </div>
         </div>
       </div>
