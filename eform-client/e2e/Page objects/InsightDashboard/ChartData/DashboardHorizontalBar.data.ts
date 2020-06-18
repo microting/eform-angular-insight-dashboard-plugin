@@ -25,7 +25,7 @@ export const dashboardHorizontalBarItems: DashboardTestItemEditModel[] = [
     firstQuestion: 'Q1',
     filterQuestion: '',
     filterAnswer: '',
-    period: 'Kvarter',
+    period: 'Kvartal',
     chartType: 'Vandret Stablet Søjlediagram',
     calculateAverage: false,
     ignoredAnswerIds: [],

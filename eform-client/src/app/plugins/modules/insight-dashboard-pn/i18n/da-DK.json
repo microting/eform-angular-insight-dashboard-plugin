@@ -53,7 +53,7 @@
   "VerticalBarGrouped": "Lodret Grupperet Søjlediagram",
   "Week": "Uge",
   "Month": "Måned",
-  "Quarter": "Kvarter",
+  "Quarter": "Kvartal",
   "SixMonth": "Seks måned",
   "Year": "År",
   "Total": "Total",
@@ -70,6 +70,9 @@
 
   "Date From": "Dato Fra",
   "Date To": "Dato Til",
+  "Date": "Dato",
+  "Comments": "Kommentar",
+  "Tag": "Tag",
   "Today": "I dag",
   "Expand all": "Udvid alle",
   "Collapse all": "Skjul alle",
