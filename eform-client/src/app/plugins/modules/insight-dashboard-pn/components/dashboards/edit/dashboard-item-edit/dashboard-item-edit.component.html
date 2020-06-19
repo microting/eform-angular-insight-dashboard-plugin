@@ -112,9 +112,9 @@
                          (click)="fieldChanged($event.target.checked, itemFields.calculateAverage)"
                          [value]="dashboardItem.calculateAverage">
                   <label for="calcAverageCheckbox{{dashboardItem.position}}" id="calculateAverageCheckbox{{dashboardItem.position}}"
-                         [ngClass]="{'text-muted' : dashboardItem.firstQuestionType !== questionTypes.Smiley}">
+                         [ngClass]="{'text-muted' : dashboardItem.firstQuestionType !== questionTypes.Smiley}"
+                         mdbTooltip="{{ 'When you want to show the average score for the options' | translate }}">
                     {{'Calculate average' | translate}}
-                    mdbTooltip="{{ 'When you want to show the average score for the options' | translate }}"
                   </label>
                 </div>
               </div>
@@ -160,9 +160,9 @@
                          (ngModelChange)="fieldChanged($event, itemFields.compareEnabled)"
                          [disabled]="!dashboardItem.firstQuestionId"
                          [value]="dashboardItem.compareEnabled">
-                  <label for="enableCompare{{dashboardItem.position}}" id="enableCompareLabel{{dashboardItem.position}}">
+                  <label for="enableCompare{{dashboardItem.position}}" id="enableCompareLabel{{dashboardItem.position}}"
+                         mdbTooltip="{{ 'When you want to compare locations (eg. center, department etc.' | translate }}">
                     {{'Compare Location/Report tag' | translate}}
-                    mdbTooltip="{{ 'When you want to compare locations (eg. center, department etc.' | translate }}"
                   </label>
                 </div>
               </div>
