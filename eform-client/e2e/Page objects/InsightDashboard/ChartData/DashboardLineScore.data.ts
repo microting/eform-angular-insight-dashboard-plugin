@@ -35,7 +35,7 @@ export const dashboardLineScoreItems: DashboardTestItemEditModel[] = [
     firstQuestion: 'Q2',
     filterQuestion: '',
     filterAnswer: '',
-    period: 'Seks måned',
+    period: 'Halvår',
     chartType: 'Linje',
     calculateAverage: true,
     ignoredAnswerIds: [8],
