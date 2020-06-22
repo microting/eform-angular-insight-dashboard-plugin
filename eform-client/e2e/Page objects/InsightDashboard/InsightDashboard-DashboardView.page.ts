@@ -85,7 +85,8 @@ export class InsightDashboardDashboardViewPage extends Page {
       // raw data in item
       for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
         // data items in raw data
-        for (let rawDataItemIndex = 0; rawDataItemIndex < dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems.length; rawDataItemIndex++) {
+        for (let rawDataItemIndex = 0; rawDataItemIndex < dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems.length;
+             rawDataItemIndex++) {
           const percentValueRows = dashboardsViewPage.rawChartDataPercentValueRows(itemIndex, rawDataIndex, rawDataItemIndex);
           // rows in data item
           for (let row = 0; row < percentValueRows.length; row++) {

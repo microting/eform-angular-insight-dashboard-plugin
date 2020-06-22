@@ -92,11 +92,17 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public calculateAverageCheckbox(rowNum: number) {
-    return $(`#calculateAverageCheckbox${rowNum}`);
+    const ele = $(`#calculateAverageCheckbox${rowNum}`);
+    ele.waitForDisplayed({timeout: 30000});
+    ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
   public enableCompareCheckbox(rowNum: number) {
-    return $(`#enableCompareLabel${rowNum}`);
+    const ele = $(`#enableCompareLabel${rowNum}`);
+    ele.waitForDisplayed({timeout: 30000});
+    ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
   public enableIgnoreCheckbox(rowNum: number) {
@@ -261,10 +267,12 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   getFirstItemObject(): InsightDashboardEditRowObject {
+    browser.pause(500);
     return new InsightDashboardEditRowObject(1);
   }
 
   getDashboardItem(num): InsightDashboardEditRowObject {
+    browser.pause(500);
     return new InsightDashboardEditRowObject(num);
   }
 }
