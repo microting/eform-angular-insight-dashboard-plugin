@@ -231,12 +231,18 @@ export class InsightDashboardDashboardEditPage extends Page {
     // Select calculate average
     if (itemObject.calculateAverage) {
       $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-      this.calculateAverageCheckbox(rowNum).click();
+      const ele = this.calculateAverageCheckbox(rowNum);
+      ele.waitForDisplayed({timeout: 20000});
+      ele.waitForClickable({timeout: 20000});
+      ele.click();
     }
 
     // Ignored answers
     for (const ignoredAnswerId of itemObject.ignoredAnswerIds) {
-      this.answerIgnoreCheckbox(rowNum, ignoredAnswerId).click();
+      const ele = this.answerIgnoreCheckbox(rowNum, ignoredAnswerId);
+      ele.waitForDisplayed({timeout: 20000});
+      ele.waitForClickable({timeout: 20000});
+      ele.click();
     }
 
     // Compared items
