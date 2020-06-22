@@ -94,7 +94,6 @@ export class InsightDashboardDashboardEditPage extends Page {
   public calculateAverageCheckbox(rowNum: number) {
     const ele = $(`#calculateAverageCheckbox${rowNum}`);
     ele.waitForDisplayed({timeout: 30000});
-    ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
