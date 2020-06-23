@@ -179,7 +179,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static string GetMonthString(DateTime dateTime)
         {
-            return $"{dateTime:yy}_{dateTime:MMM}";
+            // TODO! C# formats all months as with a trailing ., but not for May month in danish?
+            // eg. jan. feb. mar. apr. maj jun. jul. aug. sep. okt. nov. dec.
+            // so we remove the trailing . for all dates.
+            // Issue tracked at https://github.com/dotnet/sdk/issues/12143
+            return $"{dateTime:yy}_{dateTime:MMM}".Replace(".", "");
         }
 
         public static int GetHalfOfYear(DateTime dateTime)
