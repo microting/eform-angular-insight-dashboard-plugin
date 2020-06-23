@@ -223,7 +223,7 @@ export class InsightDashboardDashboardEditPage extends Page {
 
     // Select period
     this.periodSearchField(rowNum).addValue(itemObject.period);
-    const periodChoice = itemObject.period === 'År' ? this.periodListOfOptions(rowNum)[1] : this.periodListOfOptions(rowNum)[0];
+    const periodChoice = itemObject.period === 'År' ? this.periodListOfOptions(rowNum)[2] : this.periodListOfOptions(rowNum)[0];
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     periodChoice.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
