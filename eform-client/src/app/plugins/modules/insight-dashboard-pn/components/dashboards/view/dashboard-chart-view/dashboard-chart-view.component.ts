@@ -117,6 +117,11 @@ export class DashboardChartViewComponent {
         console.error('Chart could not be copied', error);
       }), 100);
   }
+
+  percentageFormatting(c) {
+    console.log('c is : ' + c);
+    return Math.round(c);
+  }
 }
 
 const pie = [
