@@ -481,10 +481,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             .ToList();
                     }
 
-
-
-
-
                     if (isSmiley)
                     {
                         var tmpData = new List<DashboardViewChartDataSingleModel>();
@@ -501,6 +497,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "999", Value = 0});
 
+                        var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                            .ToList();
+
                         foreach (var tmpDataModel in tmpData)
                         {
                             var chartDataSingleModel = groupedData
@@ -515,6 +514,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     tmpDataModel.Value = chartDataSingleModel.Value;
                                     tmpDataModel.DataCount = chartDataSingleModel.DataCount;
                                     tmpDataModel.OptionIndex = chartDataSingleModel.OptionIndex;
+                                }
+                            }
+                            else
+                            {
+                                var parseResult = int.TryParse(tmpDataModel.Name, out var labelNumber);
+                                if (parseResult)
+                                {
+                                    tmpDataModel.Name = smileyLabels.Single(z => z.Key == labelNumber).Value;
+                                    tmpDataModel.Value = 0;
+                                    tmpDataModel.DataCount = 0;
+                                    tmpDataModel.OptionIndex = options.Single(x => x.WeightValue == labelNumber).OptionIndex;
                                 }
                             }
                         }
