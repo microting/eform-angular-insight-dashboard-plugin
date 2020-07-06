@@ -62,7 +62,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 var core = await _coreHelper.GetCore();
                 var result = new SurveyConfigsListModel();
                 await core.GetAllQuestionSets();
-                // await core.GetAllSurveyConfigurations();
+                await core.GetAllSurveyConfigurations();
                 await core.GetAllAnswers();
                 //await AddTextAnswers(); 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
