@@ -546,7 +546,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     Name = optionName,
                                     Value = 0
                                 };
-                                tmpData.Add(dashboardViewChartDataSingleModel);
+                                if (ignoreOptions.SingleOrDefault(x => x.Id == option.Id) == null)
+                                {
+                                    tmpData.Add(dashboardViewChartDataSingleModel);
+                                }
                             }
                         }
                         groupedData = tmpData;
