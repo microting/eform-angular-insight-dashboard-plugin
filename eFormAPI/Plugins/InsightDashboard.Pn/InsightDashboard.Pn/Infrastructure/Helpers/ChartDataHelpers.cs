@@ -481,6 +481,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             .ToList();
                     }
 
+                    var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                        .ToList();
                     if (isSmiley)
                     {
                         var tmpData = new List<DashboardViewChartDataSingleModel>();
@@ -496,9 +498,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "0", Value = 0});
                         if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "999", Value = 0});
-
-                        var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
-                            .ToList();
 
                         foreach (var tmpDataModel in tmpData)
                         {
@@ -529,6 +528,27 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
                         }
 
+                        groupedData = tmpData;
+                    }
+                    else
+                    {
+                        var tmpData = groupedData;
+                        foreach (options option in options)
+                        {
+                            var optionName = option.OptionTranslationses.First().Name;
+                            if (!groupedData.Any(x => x.Name.Contains(optionName)))
+                            {
+                                DashboardViewChartDataSingleModel dashboardViewChartDataSingleModel = new DashboardViewChartDataSingleModel()
+                                {
+                                    AnswersDataCount = 0,
+                                    DataCount = 0,
+                                    OptionIndex = option.OptionIndex,
+                                    Name = optionName,
+                                    Value = 0
+                                };
+                                tmpData.Add(dashboardViewChartDataSingleModel);
+                            }
+                        }
                         groupedData = tmpData;
                     }
 
