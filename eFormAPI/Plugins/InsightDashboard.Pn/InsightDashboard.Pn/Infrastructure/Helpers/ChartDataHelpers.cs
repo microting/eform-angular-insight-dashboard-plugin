@@ -1686,10 +1686,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             var newLineData = new List<DashboardViewChartDataMultiModel>();
 
+                            var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                .ToList();
                             if (isSmiley)
                             {
-                                var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
-                                    .ToList();
                                 foreach (var columnName in columnNames)
                                 {
                                     var model = new DashboardViewChartDataMultiModel {Name = columnName};
@@ -1763,7 +1763,45 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             }
                             else
                             {
-                                newLineData = multiData;
+                                foreach (var columnName in columnNames)
+                                {
+                                    var model = new DashboardViewChartDataMultiModel {Name = columnName};
+                                    foreach (options option in options.OrderBy(x => x.OptionIndex))
+                                    {
+                                        model.Series.Add(new DashboardViewChartDataSingleModel
+                                        {
+                                            Name = option.OptionTranslationses.First().Name,
+                                            Value = 0,
+                                            DataCount = 0,
+                                            OptionIndex = 0,
+                                            AnswersDataCount = 0
+                                        });
+                                    }
+                                    newLineData.Add(model);
+                                }
+
+                                foreach (var model in multiData)
+                                {
+                                    foreach (var newModel in newLineData)
+                                    {
+                                        if (model.Name == newModel.Name)
+                                        {
+                                            foreach (var newModelSeries in newModel.Series)
+                                            {
+                                                foreach (var modelSeries in model.Series)
+                                                {
+                                                    if (newModelSeries.Name == modelSeries.Name)
+                                                    {
+                                                        newModelSeries.Value = modelSeries.Value;
+                                                        newModelSeries.DataCount = modelSeries.DataCount;
+                                                        newModelSeries.OptionIndex = modelSeries.OptionIndex;
+                                                        newModelSeries.AnswersDataCount = modelSeries.AnswersDataCount;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
 
                             // Sort by location position
