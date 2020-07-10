@@ -202,7 +202,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         LocationName = x.Answer.Site.Name,
                         Commentary = x.Value,
                         Id = x.Answer.Id,
-                    })
+                    }).Where(y => !string.IsNullOrEmpty(y.Commentary))
                     .OrderBy(t => t.Date)
                     .ToListAsync();
 
