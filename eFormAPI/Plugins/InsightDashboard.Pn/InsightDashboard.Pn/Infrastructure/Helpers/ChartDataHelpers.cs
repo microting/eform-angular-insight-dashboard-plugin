@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using Microting.eFormApi.BasePn.Infrastructure.Helpers;
+
 namespace InsightDashboard.Pn.Infrastructure.Helpers
 {
     using System;
@@ -486,17 +488,17 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     if (isSmiley)
                     {
                         var tmpData = new List<DashboardViewChartDataSingleModel>();
-                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null && options.Any(x => x.WeightValue == 100))
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "100", Value = 0});
-                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null && options.Any(x => x.WeightValue == 75))
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "75", Value = 0});
-                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null && options.Any(x => x.WeightValue == 50))
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "50", Value = 0});
-                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null && options.Any(x => x.WeightValue == 25))
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "25", Value = 0});
-                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null && options.Any(x => x.WeightValue == 0))
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "0", Value = 0});
-                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                        if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null && options.Any(x => x.WeightValue == 999))
                             tmpData.Add(new DashboardViewChartDataSingleModel { Name = "999", Value = 0});
 
                         foreach (var tmpDataModel in tmpData)
@@ -523,7 +525,11 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     tmpDataModel.Name = smileyLabels.Single(z => z.Key == labelNumber).Value;
                                     tmpDataModel.Value = 0;
                                     tmpDataModel.DataCount = 0;
-                                    tmpDataModel.OptionIndex = options.Single(x => x.WeightValue == labelNumber).OptionIndex;
+                                    var option = options.SingleOrDefault(x => x.WeightValue == labelNumber);
+                                    if (option == null) {
+                                        Log.LogException($"ChartDataHelpers. we could not find a OptionsIndex for option with labelNumber {labelNumber} for question {dashboardItem.FirstQuestionId}");
+                                    }
+                                    tmpDataModel.OptionIndex = option != null ? options.Single(x => x.WeightValue == labelNumber).OptionIndex : 0;
                                 }
                             }
                         }
@@ -1312,22 +1318,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                 if (isSmiley)
                                 {
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                    var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                        .ToList();
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null && options.Any(x => x.WeightValue == 100))
                                         newLineData.Add(new DashboardViewChartDataMultiModel
                                         { Name = smileyLabels.Single(z => z.Key == 100).Value });
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null && options.Any(x => x.WeightValue == 75))
                                         newLineData.Add(new DashboardViewChartDataMultiModel
                                         { Name = smileyLabels.Single(z => z.Key == 75).Value });
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null && options.Any(x => x.WeightValue == 50))
                                         newLineData.Add(new DashboardViewChartDataMultiModel
                                         { Name = smileyLabels.Single(z => z.Key == 50).Value });
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null && options.Any(x => x.WeightValue == 25))
                                         newLineData.Add(new DashboardViewChartDataMultiModel
                                         { Name = smileyLabels.Single(z => z.Key == 25).Value });
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null && options.Any(x => x.WeightValue == 0))
                                         newLineData.Add(new DashboardViewChartDataMultiModel
                                         { Name = smileyLabels.Single(z => z.Key == 0).Value });
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null && options.Any(x => x.WeightValue == 999))
                                         newLineData.Add(new DashboardViewChartDataMultiModel
                                         { Name = smileyLabels.Single(z => z.Key == 999).Value });
 
@@ -1515,22 +1523,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             if (isSmiley)
                             {
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                    .ToList();
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null && options.Any(x => x.WeightValue == 100))
                                     newLineData.Add(new DashboardViewChartDataMultiModel
                                     { Name = smileyLabels.Single(z => z.Key == 100).Value});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null && options.Any(x => x.WeightValue == 75))
                                     newLineData.Add(new DashboardViewChartDataMultiModel
                                     { Name = smileyLabels.Single(z => z.Key == 75).Value});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null && options.Any(x => x.WeightValue == 50))
                                     newLineData.Add(new DashboardViewChartDataMultiModel
                                     { Name = smileyLabels.Single(z => z.Key == 50).Value});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null && options.Any(x => x.WeightValue == 25))
                                     newLineData.Add(new DashboardViewChartDataMultiModel
                                     { Name = smileyLabels.Single(z => z.Key == 25).Value});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null && options.Any(x => x.WeightValue == 0))
                                     newLineData.Add(new DashboardViewChartDataMultiModel
                                     { Name = smileyLabels.Single(z => z.Key == 0).Value});
-                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null && options.Any(x => x.WeightValue == 999))
                                     newLineData.Add(new DashboardViewChartDataMultiModel
                                     { Name = smileyLabels.Single(z => z.Key == 999).Value});
 
@@ -1678,10 +1688,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             if (isSmiley)
                             {
+                                var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                    .ToList();
                                 foreach (var columnName in columnNames)
                                 {
                                     var model = new DashboardViewChartDataMultiModel {Name = columnName};
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null && options.Any(x => x.WeightValue == 100))
                                     {
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                         {
@@ -1690,19 +1702,19 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                         });
                                     }
                                         
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null && options.Any(x => x.WeightValue == 75))
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                             {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 50) == null && options.Any(x => x.WeightValue == 50))
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                             {Name = smileyLabels.Single(z => z.Key == 50).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 25) == null && options.Any(x => x.WeightValue == 25))
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                             {Name = smileyLabels.Single(z => z.Key == 25).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 0) == null && options.Any(x => x.WeightValue == 0))
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                             {Name = smileyLabels.Single(z => z.Key == 0).Value, Value = 0});
-                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null)
+                                    if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 999) == null && options.Any(x => x.WeightValue == 999))
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                             {Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                     newLineData.Add(model);
