@@ -164,6 +164,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.QuestionSetId == surveyId)
+                            .OrderBy(x => x.QuestionIndex)
                             .Select(x => new QuestionDictionaryModel()
                             {
                                 Id = x.Id,
@@ -177,6 +178,12 @@ namespace InsightDashboard.Pn.Services.DictionaryService
 
                         if (questions.Any())
                         {
+                            int i = 1;
+                            foreach (var question in questions)
+                            {
+                                question.Name = $"{i} - {question.Name}";
+                                i += 1;
+                            }
                             questionsResult.AddRange(questions);
                             break;
                         }
