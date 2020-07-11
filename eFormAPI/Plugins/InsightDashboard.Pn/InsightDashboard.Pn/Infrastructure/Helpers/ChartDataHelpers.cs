@@ -280,7 +280,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(qt => qt.Name)
                                                 .FirstOrDefault()}_{z.Name}")
                                             .FirstOrDefault()
-                                        : x.Value,
+                                        : x.Question.QuestionType == Constants.QuestionTypes.List
+                                          || x.Question.QuestionType == Constants.QuestionTypes.Buttons
+                                            ? x.Option.OptionTranslationses
+                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                                .Select(z => z.Name)
+                                                .FirstOrDefault()
+                                            : x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.SiteTags
                                     .Where(y => y.TagId == tagId)
@@ -331,7 +337,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             .Select(qt => qt.Name)
                                             .FirstOrDefault()}_{z.Name}")
                                         .FirstOrDefault()
-                                    : x.Value,
+                                    : x.Question.QuestionType == Constants.QuestionTypes.List
+                                      || x.Question.QuestionType == Constants.QuestionTypes.Buttons
+                                        ? x.Option.OptionTranslationses
+                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(z => z.Name)
+                                            .FirstOrDefault()
+                                        : x.Value,
                             Finished = x.Answer.FinishedAt,
                             LocationTagName = x.Answer.Site.Name,
                             LocationTagId = x.Answer.SiteId,
@@ -363,7 +375,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(qt => qt.Name)
                                                 .FirstOrDefault()}_{z.Name}")
                                             .FirstOrDefault()
-                                        : x.Value,
+                                        : x.Question.QuestionType == Constants.QuestionTypes.List
+                                          || x.Question.QuestionType == Constants.QuestionTypes.Buttons
+                                            ? x.Option.OptionTranslationses
+                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                                .Select(z => z.Name)
+                                                .FirstOrDefault()
+                                            : x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.Name,
                                 LocationTagId = x.Answer.SiteId,
@@ -391,7 +409,13 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                                 .Select(qt => qt.Name)
                                                 .FirstOrDefault()}_{z.Name}")
                                             .FirstOrDefault()
-                                        : x.Value,
+                                        : x.Question.QuestionType == Constants.QuestionTypes.List
+                                          || x.Question.QuestionType == Constants.QuestionTypes.Buttons
+                                            ? x.Option.OptionTranslationses
+                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                                .Select(z => z.Name)
+                                                .FirstOrDefault()
+                                            : x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.SiteTags
                                     .Where(y => y.TagId == dashboardLocationTagId)
@@ -541,7 +565,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var tmpData = groupedData;
                         foreach (options option in options)
                         {
-                            var optionName = option.OptionTranslationses.First().Name;
+                            var optionName = option.OptionTranslationses.Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed).First().Name;
                             if (!groupedData.Any(x => x.Name.Contains(optionName)))
                             {
                                 DashboardViewChartDataSingleModel dashboardViewChartDataSingleModel = new DashboardViewChartDataSingleModel()
@@ -1770,7 +1794,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     {
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                         {
-                                            Name = option.OptionTranslationses.First().Name,
+                                            Name = option.OptionTranslationses.Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed).First().Name,
                                             Value = 0,
                                             DataCount = 0,
                                             OptionIndex = 0,
