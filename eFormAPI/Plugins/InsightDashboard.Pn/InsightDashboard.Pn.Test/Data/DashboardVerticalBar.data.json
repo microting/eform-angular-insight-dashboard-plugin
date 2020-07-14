@@ -14,716 +14,514 @@
   },
   "items": [
     {
-      "id": 128,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 1,
-      "chartType": 9,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 1,
-      "chartData": {
-        "single": [],
-        "multi": [
-          {
-            "id": 0,
-            "name": "16_01",
-            "answersCount": 3,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 67.0,
-                "dataCount": 2,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 33.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_05",
-            "answersCount": 2,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 50.0,
-                "dataCount": 1,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 50.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_09",
-            "answersCount": 3,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 67.0,
-                "dataCount": 2,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 33.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_13",
-            "answersCount": 1,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 100.0,
-                "dataCount": 1,
-                "optionIndex": 0
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_14",
-            "answersCount": 4,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 75.0,
-                "dataCount": 3,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 25.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_18",
-            "answersCount": 7,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 43.0,
-                "dataCount": 3,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 57.0,
-                "dataCount": 4,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_23",
-            "answersCount": 4,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 50.0,
-                "dataCount": 2,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 50.0,
-                "dataCount": 2,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_27",
-            "answersCount": 4,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 50.0,
-                "dataCount": 2,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 50.0,
-                "dataCount": 2,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_31",
-            "answersCount": 6,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 67.0,
-                "dataCount": 4,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 33.0,
-                "dataCount": 2,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_36",
-            "answersCount": 7,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 100.0,
-                "dataCount": 7,
-                "optionIndex": 0
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_40",
-            "answersCount": 6,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 83.0,
-                "dataCount": 5,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 17.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_45",
-            "answersCount": 6,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 50.0,
-                "dataCount": 3,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 50.0,
-                "dataCount": 3,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "16_50",
-            "answersCount": 7,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 71.0,
-                "dataCount": 5,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 29.0,
-                "dataCount": 2,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_01",
-            "answersCount": 1,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Nej",
-                "value": 100.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_02",
-            "answersCount": 5,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 100.0,
-                "dataCount": 5,
-                "optionIndex": 0
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_05",
-            "answersCount": 7,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 86.0,
-                "dataCount": 6,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 14.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_10",
-            "answersCount": 7,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 86.0,
-                "dataCount": 6,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 14.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_15",
-            "answersCount": 8,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 75.0,
-                "dataCount": 6,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 25.0,
-                "dataCount": 2,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_19",
-            "answersCount": 7,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 86.0,
-                "dataCount": 6,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 14.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_23",
-            "answersCount": 1,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 100.0,
-                "dataCount": 1,
-                "optionIndex": 0
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_24",
-            "answersCount": 7,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 86.0,
-                "dataCount": 6,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 14.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_27",
-            "answersCount": 4,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 100.0,
-                "dataCount": 4,
-                "optionIndex": 0
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_28",
-            "answersCount": 3,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Nej",
-                "value": 100.0,
-                "dataCount": 3,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_33",
-            "answersCount": 8,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 88.0,
-                "dataCount": 7,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 13.0,
-                "dataCount": 1,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_37",
-            "answersCount": 15,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 87.0,
-                "dataCount": 13,
-                "optionIndex": 0
-              },
-              {
-                "name": "Nej",
-                "value": 13.0,
-                "dataCount": 2,
-                "optionIndex": 1
-              }
-            ]
-          },
-          {
-            "id": 0,
-            "name": "17_38",
-            "answersCount": 5,
-            "isTag": false,
-            "series": [
-              {
-                "name": "Ja",
-                "value": 100.0,
-                "dataCount": 5,
-                "optionIndex": 0
-              }
-            ]
-          }
-        ],
-        "multiStacked": [],
-        "rawData": [
-          {
-            "rawHeaders": [
-              "16_01",
-              "16_05",
-              "16_09",
-              "16_13",
-              "16_14",
-              "16_18",
-              "16_23",
-              "16_27",
-              "16_31",
-              "16_36",
-              "16_40",
-              "16_45",
-              "16_50",
-              "17_01",
-              "17_02",
-              "17_05",
-              "17_10",
-              "17_15",
-              "17_19",
-              "17_23",
-              "17_24",
-              "17_27",
-              "17_28",
-              "17_33",
-              "17_37",
-              "17_38"
-            ],
-            "rawDataItems": [
-              {
-                "rawValueName": "",
-                "rawDataValues": [
-                  {
-                    "valueName": "Ja",
-                    "percents": [
-                      67.0,
-                      50.0,
-                      67.0,
-                      100.0,
-                      75.0,
-                      43.0,
-                      50.0,
-                      50.0,
-                      67.0,
-                      100.0,
-                      83.0,
-                      50.0,
-                      71.0,
-                      0.0,
-                      100.0,
-                      86.0,
-                      86.0,
-                      75.0,
-                      86.0,
-                      100.0,
-                      86.0,
-                      100.0,
-                      0.0,
-                      88.0,
-                      87.0,
-                      100.0
-                    ],
-                    "amounts": [
-                      2.0,
-                      1.0,
-                      2.0,
-                      1.0,
-                      3.0,
-                      3.0,
-                      2.0,
-                      2.0,
-                      4.0,
-                      7.0,
-                      5.0,
-                      3.0,
-                      5.0,
-                      0.0,
-                      5.0,
-                      6.0,
-                      6.0,
-                      6.0,
-                      6.0,
-                      1.0,
-                      6.0,
-                      4.0,
-                      0.0,
-                      7.0,
-                      13.0,
-                      5.0
-                    ]
-                  },
-                  {
-                    "valueName": "Nej",
-                    "percents": [
-                      33.0,
-                      50.0,
-                      33.0,
-                      0.0,
-                      25.0,
-                      57.0,
-                      50.0,
-                      50.0,
-                      33.0,
-                      0.0,
-                      17.0,
-                      50.0,
-                      29.0,
-                      100.0,
-                      0.0,
-                      14.0,
-                      14.0,
-                      25.0,
-                      14.0,
-                      0.0,
-                      14.0,
-                      0.0,
-                      100.0,
-                      13.0,
-                      13.0,
-                      0.0
-                    ],
-                    "amounts": [
-                      1.0,
-                      1.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      4.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      0.0,
-                      1.0,
-                      3.0,
-                      2.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      1.0,
-                      2.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      3.0,
-                      1.0,
-                      2.0,
-                      0.0
-                    ]
-                  },
-                  {
-                    "valueName": "Total",
-                    "percents": [
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      101.0,
-                      100.0,
-                      100.0
-                    ],
-                    "amounts": [
-                      3.0,
-                      2.0,
-                      3.0,
-                      1.0,
-                      4.0,
-                      7.0,
-                      4.0,
-                      4.0,
-                      6.0,
-                      7.0,
-                      6.0,
-                      6.0,
-                      7.0,
-                      1.0,
-                      5.0,
-                      7.0,
-                      7.0,
-                      8.0,
-                      7.0,
-                      1.0,
-                      7.0,
-                      4.0,
-                      3.0,
-                      8.0,
-                      15.0,
-                      5.0
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+      "Id": 128,
+      "FirstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
+      "FirstQuestionType": "list",
+      "FilterQuestionName": null,
+      "FilterAnswerName": null,
+      "FirstQuestionId": 1,
+      "FilterQuestionId": null,
+      "FilterAnswerId": null,
+      "Period": 1,
+      "ChartType": 9,
+      "CompareEnabled": false,
+      "CalculateAverage": false,
+      "Position": 1,
+      "ChartData": {
+        "Single": [],
+        "Multi": [{
+          "Id": 0,
+          "Name": "16_01",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 67.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 33.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_05",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 50.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 50.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_09",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 67.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 33.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_13",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 100.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 0.0,
+            "DataCount": 0,
+            "AnswersDataCount": 0,
+            "OptionIndex": 0
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_14",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 75.0,
+            "DataCount": 3,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 25.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_18",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 43.0,
+            "DataCount": 3,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 57.0,
+            "DataCount": 4,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_23",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 50.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 50.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_27",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 50.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 50.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_31",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 67.0,
+            "DataCount": 4,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 33.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_36",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 100.0,
+            "DataCount": 7,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 0.0,
+            "DataCount": 0,
+            "AnswersDataCount": 0,
+            "OptionIndex": 0
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_40",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 83.0,
+            "DataCount": 5,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 17.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_45",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 50.0,
+            "DataCount": 3,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 50.0,
+            "DataCount": 3,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "16_50",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 71.0,
+            "DataCount": 5,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 29.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_01",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 0.0,
+            "DataCount": 0,
+            "AnswersDataCount": 0,
+            "OptionIndex": 0
+          }, {
+            "Name": "Nej",
+            "Value": 100.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_02",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 100.0,
+            "DataCount": 5,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 0.0,
+            "DataCount": 0,
+            "AnswersDataCount": 0,
+            "OptionIndex": 0
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_05",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 86.0,
+            "DataCount": 6,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 14.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_10",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 86.0,
+            "DataCount": 6,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 14.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_15",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 75.0,
+            "DataCount": 6,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 25.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_19",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 86.0,
+            "DataCount": 6,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 14.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_23",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 100.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 0.0,
+            "DataCount": 0,
+            "AnswersDataCount": 0,
+            "OptionIndex": 0
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_24",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 86.0,
+            "DataCount": 6,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 14.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_27",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 100.0,
+            "DataCount": 4,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 0.0,
+            "DataCount": 0,
+            "AnswersDataCount": 0,
+            "OptionIndex": 0
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_28",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 0.0,
+            "DataCount": 0,
+            "AnswersDataCount": 0,
+            "OptionIndex": 0
+          }, {
+            "Name": "Nej",
+            "Value": 100.0,
+            "DataCount": 3,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_33",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 88.0,
+            "DataCount": 7,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 13.0,
+            "DataCount": 1,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_37",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 87.0,
+            "DataCount": 13,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 13.0,
+            "DataCount": 2,
+            "AnswersDataCount": 0,
+            "OptionIndex": 2
+          }]
+        }, {
+          "Id": 0,
+          "Name": "17_38",
+          "AnswersCount": 0,
+          "IsTag": false,
+          "Series": [{
+            "Name": "Ja",
+            "Value": 100.0,
+            "DataCount": 5,
+            "AnswersDataCount": 0,
+            "OptionIndex": 1
+          }, {
+            "Name": "Nej",
+            "Value": 0.0,
+            "DataCount": 0,
+            "AnswersDataCount": 0,
+            "OptionIndex": 0
+          }]
+        }],
+        "MultiStacked": [],
+        "RawData": [{
+          "RawHeaders": ["16_01", "16_05", "16_09", "16_13", "16_14", "16_18", "16_23", "16_27", "16_31", "16_36", "16_40", "16_45", "16_50", "17_01", "17_02", "17_05", "17_10", "17_15", "17_19", "17_23", "17_24", "17_27", "17_28", "17_33", "17_37", "17_38"],
+          "RawDataItems": [{
+            "RawValueName": "",
+            "RawDataValues": [{
+              "ValueName": "Ja",
+              "Percents": [67.0, 50.0, 67.0, 100.0, 75.0, 43.0, 50.0, 50.0, 67.0, 100.0, 83.0, 50.0, 71.0, 0.0, 100.0, 86.0, 86.0, 75.0, 86.0, 100.0, 86.0, 100.0, 0.0, 88.0, 87.0, 100.0],
+              "Amounts": [2.0, 1.0, 2.0, 1.0, 3.0, 3.0, 2.0, 2.0, 4.0, 7.0, 5.0, 3.0, 5.0, 0.0, 5.0, 6.0, 6.0, 6.0, 6.0, 1.0, 6.0, 4.0, 0.0, 7.0, 13.0, 5.0]
+            }, {
+              "ValueName": "Nej",
+              "Percents": [33.0, 50.0, 33.0, 0.0, 25.0, 57.0, 50.0, 50.0, 33.0, 0.0, 17.0, 50.0, 29.0, 100.0, 0.0, 14.0, 14.0, 25.0, 14.0, 0.0, 14.0, 0.0, 100.0, 13.0, 13.0, 0.0],
+              "Amounts": [1.0, 1.0, 1.0, 0.0, 1.0, 4.0, 2.0, 2.0, 2.0, 0.0, 1.0, 3.0, 2.0, 1.0, 0.0, 1.0, 1.0, 2.0, 1.0, 0.0, 1.0, 0.0, 3.0, 1.0, 2.0, 0.0]
+            }, {
+              "ValueName": "Total",
+              "Percents": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 101.0, 100.0, 100.0],
+              "Amounts": [3.0, 2.0, 3.0, 1.0, 4.0, 7.0, 4.0, 4.0, 6.0, 7.0, 6.0, 6.0, 7.0, 1.0, 5.0, 7.0, 7.0, 8.0, 7.0, 1.0, 7.0, 4.0, 3.0, 8.0, 15.0, 5.0]
+            }]
+          }]
+        }]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "CompareLocationsTags": [],
+      "IgnoredAnswerValues": [],
+      "TextQuestionData": []
     },
     {
       "id": 129,
