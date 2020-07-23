@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -42,12 +42,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\InsightDashboard.Pn\InsightDashboard.Pn.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Microting.InsightDashboardBase">
-        <HintPath>..\..\..\..\..\eform-insight-dashboard-base\Microting.InsightDashboardBase\bin\Debug\netcoreapp2.2\Microting.InsightDashboardBase.dll</HintPath>
-      </Reference>
     </ItemGroup>
 
 </Project>
