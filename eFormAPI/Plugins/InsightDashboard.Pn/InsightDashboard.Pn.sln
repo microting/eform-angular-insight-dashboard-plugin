@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{6D5A051C-8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsightDashboard.Pn.Test", "InsightDashboard.Pn.Test\InsightDashboard.Pn.Test.csproj", "{04865C42-B758-4A27-96BA-771990F3DDF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microting.InsightDashboardBase", "..\..\..\..\eform-insight-dashboard-base\Microting.InsightDashboardBase\Microting.InsightDashboardBase.csproj", "{82860D74-7283-471C-B60D-6CEC825F195A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
