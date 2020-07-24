@@ -22,6 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Reflection;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microting.eFormApi.BasePn.Infrastructure.Helpers;
 
 namespace InsightDashboard.Pn.Infrastructure.Helpers
@@ -273,13 +276,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 Name = x.Question.IsSmiley()
                                     ? x.Option.WeightValue.ToString()
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
-                                        ? x.Option.OptionTranslationses
-                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                            .Select(z => $@"{x.Question.QuestionTranslationses
-                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                                .Select(qt => qt.Name)
-                                                .FirstOrDefault()}_{z.Name}")
-                                            .FirstOrDefault()
+                                        ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Join(sdkContext.options,
+                                                option_translations => option_translations.OptionId,
+                                                options => options.Id,
+                                                (option_translations, options) => new
+                                                {
+                                                    option_translations.Name,
+                                                    options.QuestionId
+                                                }).Join(sdkContext.QuestionTranslations,
+                                                pre_translations => pre_translations.QuestionId,
+                                                question_translations => question_translations.QuestionId,
+                                                (pre_translations, question_translations) => new
+                                                {
+                                                    optionname = pre_translations.Name,
+                                                    qtname = question_translations.Name,
+                                                    question_translations.WorkflowState
+                                                }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(z => $"{z.qtname}_{z.optionname}").First()
                                         : x.Question.QuestionType == Constants.QuestionTypes.List
                                           || x.Question.QuestionType == Constants.QuestionTypes.Buttons
                                             ? x.Option.OptionTranslationses
@@ -330,13 +344,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             Name = x.Question.IsSmiley()
                                 ? x.Option.WeightValue.ToString()
                                 : x.Question.QuestionType == Constants.QuestionTypes.Multi
-                                    ? x.Option.OptionTranslationses
-                                        .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                        .Select(z => $@"{x.Question.QuestionTranslationses
-                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                            .Select(qt => qt.Name)
-                                            .FirstOrDefault()}_{z.Name}")
-                                        .FirstOrDefault()
+                                    ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Join(sdkContext.options,
+                                            option_translations => option_translations.OptionId,
+                                            options => options.Id,
+                                            (option_translations, options) => new
+                                            {
+                                                option_translations.Name,
+                                                options.QuestionId
+                                            }).Join(sdkContext.QuestionTranslations,
+                                            pre_translations => pre_translations.QuestionId,
+                                            question_translations => question_translations.QuestionId,
+                                            (pre_translations, question_translations) => new
+                                            {
+                                                optionname = pre_translations.Name,
+                                                qtname = question_translations.Name,
+                                                question_translations.WorkflowState
+                                            }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Select(z => $"{z.qtname}_{z.optionname}").First()
                                     : x.Question.QuestionType == Constants.QuestionTypes.List
                                       || x.Question.QuestionType == Constants.QuestionTypes.Buttons
                                         ? x.Option.OptionTranslationses
@@ -368,14 +393,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 Name = x.Question.IsSmiley()
                                     ? x.Option.WeightValue.ToString()
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
-                                    ? "hej"
-                                        // ? x.Option.OptionTranslationses
-                                        //     .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                        //     .Select(z => $@"{x.Question.QuestionTranslationses
-                                        //         .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                        //         .Select(qt => qt.Name)
-                                        //         .FirstOrDefault()}_{z.Name}")
-                                        //     .First()
+                                    ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Join(sdkContext.options,
+                                            option_translations => option_translations.OptionId,
+                                            options => options.Id,
+                                            (option_translations, options) => new
+                                            {
+                                                option_translations.Name,
+                                                options.QuestionId
+                                            }).Join(sdkContext.QuestionTranslations,
+                                            pre_translations => pre_translations.QuestionId,
+                                            question_translations => question_translations.QuestionId,
+                                            (pre_translations, question_translations) => new
+                                            {
+                                                optionname = pre_translations.Name,
+                                                qtname = question_translations.Name,
+                                                question_translations.WorkflowState
+                                            }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Select(z => $"{z.qtname}_{z.optionname}").First()
                                         : x.Question.QuestionType == Constants.QuestionTypes.List
                                           || x.Question.QuestionType == Constants.QuestionTypes.Buttons
                                             ? x.Option.OptionTranslationses
@@ -403,13 +438,24 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 Name = x.Question.IsSmiley()
                                     ? x.Option.WeightValue.ToString()
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
-                                        ? x.Option.OptionTranslationses
-                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                            .Select(z => $@"{x.Question.QuestionTranslationses
-                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                                .Select(qt => qt.Name)
-                                                .FirstOrDefault()}_{z.Name}")
-                                            .FirstOrDefault()
+                                        ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Join(sdkContext.options,
+                                                option_translations => option_translations.OptionId,
+                                                options => options.Id,
+                                                (option_translations, options) => new
+                                                {
+                                                    option_translations.Name,
+                                                    options.QuestionId
+                                                }).Join(sdkContext.QuestionTranslations,
+                                                pre_translations => pre_translations.QuestionId,
+                                                question_translations => question_translations.QuestionId,
+                                                (pre_translations, question_translations) => new
+                                                {
+                                                    optionname = pre_translations.Name,
+                                                    qtname = question_translations.Name,
+                                                    question_translations.WorkflowState
+                                                }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(z => $"{z.qtname}_{z.optionname}").First()
                                         : x.Question.QuestionType == Constants.QuestionTypes.List
                                           || x.Question.QuestionType == Constants.QuestionTypes.Buttons
                                             ? x.Option.OptionTranslationses
