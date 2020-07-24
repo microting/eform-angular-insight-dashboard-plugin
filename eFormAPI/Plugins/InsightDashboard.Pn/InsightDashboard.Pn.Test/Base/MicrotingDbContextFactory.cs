@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+
 namespace InsightDashboard.Pn.Test.Base
 {
     using System;
@@ -34,24 +36,14 @@ namespace InsightDashboard.Pn.Test.Base
     {
         public MicrotingDbContext CreateDbContext(string[] args)
         {
+            var defaultCs = "Server = localhost; port = 3306; Database = insight-pn; user = root; Convert Zero Datetime = true;";
             var optionsBuilder = new DbContextOptionsBuilder<MicrotingDbContext>();
-            if (args.Any())
+            optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, mysqlOptions =>
             {
-                if (args.FirstOrDefault().ToLower().Contains("convert zero datetime"))
-                {
-                    optionsBuilder.UseMySql(args.FirstOrDefault());
-                }
-                else
-                {
-                    optionsBuilder.UseSqlServer(args.FirstOrDefault());
-                }
-            }
-            else
-            {
-                throw new ArgumentNullException("Connection string not present");
-            }
-
+                mysqlOptions.ServerVersion(new Version(10, 5, 0), ServerType.MariaDb);
+            });
             optionsBuilder.UseLazyLoadingProxies(true);
+
             return new MicrotingDbContext(optionsBuilder.Options);
         }
     }

@@ -368,13 +368,14 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 Name = x.Question.IsSmiley()
                                     ? x.Option.WeightValue.ToString()
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
-                                        ? x.Option.OptionTranslationses
-                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                            .Select(z => $@"{x.Question.QuestionTranslationses
-                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                                                .Select(qt => qt.Name)
-                                                .FirstOrDefault()}_{z.Name}")
-                                            .FirstOrDefault()
+                                    ? "hej"
+                                        // ? x.Option.OptionTranslationses
+                                        //     .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                        //     .Select(z => $@"{x.Question.QuestionTranslationses
+                                        //         .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                        //         .Select(qt => qt.Name)
+                                        //         .FirstOrDefault()}_{z.Name}")
+                                        //     .First()
                                         : x.Question.QuestionType == Constants.QuestionTypes.List
                                           || x.Question.QuestionType == Constants.QuestionTypes.Buttons
                                             ? x.Option.OptionTranslationses
