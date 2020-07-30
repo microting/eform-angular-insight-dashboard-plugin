@@ -30,8 +30,4 @@
     <EmbeddedResource Include="Resources\Templates\WordExport\page.html" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\eform-insight-dashboard-base\Microting.InsightDashboardBase\Microting.InsightDashboardBase.csproj" />
-  </ItemGroup>
-
 </Project>
