@@ -123,7 +123,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         TagId = x.TagId,
                         DashboardName = x.Name,
                         DateFrom = x.DateFrom,
-                        DateTo = x.DateTo,
+                        DateTo = x.Today ? DateTime.UtcNow : x.DateTo,
                     })
                     .ToListAsync();
 
@@ -1062,7 +1062,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         AnswerDates = new DashboardEditAnswerDates
                         {
                             DateFrom = x.DateFrom,
-                            DateTo = x.DateTo,
+                            DateTo = x.Today ? DateTime.UtcNow : x.DateTo,
                             Today = x.Today,
                         },
                         Items = x.DashboardItems
