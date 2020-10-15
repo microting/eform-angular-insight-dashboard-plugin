@@ -60,7 +60,11 @@ export class DashboardItemEditComponent implements OnInit, OnDestroy, OnChanges 
   get dashboardItemFullName() {
     let fullName = '';
     if (this.dashboardItem.firstQuestionId && this.questions.length > 0) {
-      fullName = this.questions.find(x => x.id === this.dashboardItem.firstQuestionId).name;
+      if (this.questions.find(x => x.id === this.dashboardItem.firstQuestionId) === undefined) {
+        fullName = 'Removed';
+      } else {
+        fullName = this.questions.find(x => x.id === this.dashboardItem.firstQuestionId).name;
+      }
     }
     if (this.dashboardItem.period && this.firstQuestionType !== DashboardItemQuestionTypesEnum.Text) {
       fullName += ' - ' + this.translateService.instant(this.periodUnits[this.dashboardItem.period]);

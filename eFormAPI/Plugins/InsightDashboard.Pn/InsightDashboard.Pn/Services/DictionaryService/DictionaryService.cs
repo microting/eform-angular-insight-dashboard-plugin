@@ -162,13 +162,14 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                         // TODO take by language
                         var questions = await sdkContext.questions
                             .AsNoTracking()
-                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.QuestionSetId == surveyId)
                             .OrderBy(x => x.QuestionIndex)
                             .Select(x => new QuestionDictionaryModel()
                             {
                                 Id = x.Id,
                                 Type = x.GetQuestionType(),
+                                WorkflowState = x.WorkflowState,
                                 Name = x.QuestionTranslationses
                                     .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
                                     .Where(qt => qt.Language.Id == language.Id)
@@ -183,6 +184,11 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                             {
                                 question.Name = $"{i} - {question.Name}";
                                 i += 1;
+                                if (question.WorkflowState == Constants.WorkflowStates.Removed)
+                                {
+                                    var qt = sdkContext.QuestionTranslations.First(x => x.QuestionId == question.Id);
+                                    question.Name = $"{qt.Name} - removed - questionId({question.Id})";
+                                }
                             }
                             questionsResult.AddRange(questions);
                             break;
