@@ -1,4 +1,4 @@
-/*
+﻿/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2019 Microting A/S
@@ -34,9 +34,11 @@ namespace InsightDashboard.Pn
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microting.eFormApi.BasePn;
+    using Microting.eFormApi.BasePn.Infrastructure.Consts;
     using Microting.eFormApi.BasePn.Infrastructure.Database.Extensions;
     using Microting.eFormApi.BasePn.Infrastructure.Helpers;
     using Microting.eFormApi.BasePn.Infrastructure.Models.Application;
+    using Microting.eFormApi.BasePn.Infrastructure.Models.Application.NavigationMenu;
     using Microting.eFormApi.BasePn.Infrastructure.Settings;
     using Microting.InsightDashboardBase.Infrastructure.Consts;
     using Microting.InsightDashboardBase.Infrastructure.Data;
@@ -106,6 +108,161 @@ namespace InsightDashboard.Pn
 
             // Seed database
             SeedDatabase(connectionString);
+        }
+
+        public List<PluginMenuItemModel> GetNavigationMenu(IServiceProvider serviceProvider)
+        {
+            var pluginMenu = new List<PluginMenuItemModel>()
+                {
+                    new PluginMenuItemModel
+                    {
+                        Name = "Dropdown",
+                        E2EId = "insight-dashboard-pn",
+                        Link = "",
+                        Type = MenuItemTypeEnum.Dropdown,
+                        Position = 0,
+                        Translations = new List<PluginMenuTranslationModel>()
+                        {
+                            new PluginMenuTranslationModel
+                            {
+                                 LocaleName = LocaleNames.English,
+                                 Name = "InSight Dashboard",
+                                 Language = LanguageNames.English,
+                            },
+                            new PluginMenuTranslationModel
+                            {
+                                 LocaleName = LocaleNames.German,
+                                 Name = "InSight Dashboard",
+                                 Language = LanguageNames.German,
+                            },
+                            new PluginMenuTranslationModel
+                            {
+                                 LocaleName = LocaleNames.Danish,
+                                 Name = "InSight Dashboard",
+                                 Language = LanguageNames.Danish,
+                            }
+                        },
+                        ChildItems = new List<PluginMenuItemModel>()
+                        {
+                            new PluginMenuItemModel
+                            {
+                                Name ="Surveys configurations",
+                                E2EId = "insight-dashboard-pn-surveys-configs",
+                                Link = "/plugins/insight-dashboard-pn/surveys-configs",
+                                Type = MenuItemTypeEnum.Link,
+                                Position = 0,
+                                MenuTemplate = new PluginMenuTemplateModel()
+                                {
+                                    Name ="Surveys configurations",
+                                    E2EId = "insight-dashboard-pn-surveys-configs",
+                                    DefaultLink = "/plugins/insight-dashboard-pn/surveys-configs",
+                                    Permissions = new List<PluginMenuTemplatePermissionModel>(),
+                                    Translations = new List<PluginMenuTranslationModel>
+                                    {
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.English,
+                                            Name = "Surveys configurations",
+                                            Language = LanguageNames.English,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.German,
+                                            Name = "Surveys configurations",
+                                            Language = LanguageNames.German,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.Danish,
+                                            Name = "Undersøgelsesconfigurationer",
+                                            Language = LanguageNames.Danish,
+                                        },
+                                    }
+                                },
+                                Translations = new List<PluginMenuTranslationModel>
+                                    {
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.English,
+                                            Name = "Surveys configurations",
+                                            Language = LanguageNames.English,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.German,
+                                            Name = "Surveys configurations",
+                                            Language = LanguageNames.German,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.Danish,
+                                            Name = "Undersøgelsesconfigurationer",
+                                            Language = LanguageNames.Danish,
+                                        },
+                                    }
+                            },
+                            new PluginMenuItemModel
+                            {
+                                Name = "Dashboards",
+                                E2EId = "insight-dashboard-pn-dashboards",
+                                Link = "/plugins/insight-dashboard-pn/dashboards",
+                                Type = MenuItemTypeEnum.Link,
+                                Position = 1,
+                                MenuTemplate = new PluginMenuTemplateModel()
+                                {
+                                    Name = "Dashboards",
+                                    E2EId = "insight-dashboard-pn-dashboards",
+                                    DefaultLink = "/plugins/insight-dashboard-pn/dashboards",
+                                    Permissions = new List<PluginMenuTemplatePermissionModel>(),
+                                    Translations = new List<PluginMenuTranslationModel>
+                                    {
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.English,
+                                            Name = "Dashboards",
+                                            Language = LanguageNames.English,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.German,
+                                            Name = "Dashboards",
+                                            Language = LanguageNames.German,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.Danish,
+                                            Name = "Dashboards",
+                                            Language = LanguageNames.Danish,
+                                        },
+                                    }
+                                },
+                                Translations = new List<PluginMenuTranslationModel>
+                                {
+                                    new PluginMenuTranslationModel
+                                    {
+                                        LocaleName = LocaleNames.English,
+                                        Name = "Dashboards",
+                                        Language = LanguageNames.English,
+                                    },
+                                    new PluginMenuTranslationModel
+                                    {
+                                        LocaleName = LocaleNames.German,
+                                        Name = "Dashboards",
+                                        Language = LanguageNames.German,
+                                    },
+                                    new PluginMenuTranslationModel
+                                    {
+                                        LocaleName = LocaleNames.Danish,
+                                        Name = "Dashboards",
+                                        Language = LanguageNames.Danish,
+                                    },
+                                }
+                            }
+                        }
+                    }
+                };
+
+            return pluginMenu;
         }
 
         public MenuModel HeaderMenu(IServiceProvider serviceProvider)
