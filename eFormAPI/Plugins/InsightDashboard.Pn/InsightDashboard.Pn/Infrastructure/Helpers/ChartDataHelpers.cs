@@ -34,6 +34,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
+    using DocumentFormat.OpenXml.Wordprocessing;
     using Microsoft.EntityFrameworkCore;
     using Microting.eForm.Infrastructure;
     using Microting.eForm.Infrastructure.Constants;
@@ -2077,7 +2078,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         private static int GetAverageDataPercentage(double averageValue)
         {
-            var value = Math.Round((decimal)averageValue, 0, MidpointRounding.AwayFromZero);
+            var value = Math.Round((decimal)averageValue, 2, MidpointRounding.AwayFromZero);
             return decimal.ToInt32(value);
         }
 
@@ -2091,7 +2092,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
         public static int GetDataPercentage(int subCount, int totalCount)
         {
-            var value = Math.Round(((decimal) subCount * 100) / totalCount, 0, MidpointRounding.AwayFromZero);
+            var value = Math.Round(((decimal) subCount * 100) / totalCount, 2, MidpointRounding.AwayFromZero);
             return decimal.ToInt32(value);
         }
     }
