@@ -9,13 +9,13 @@
   "tagId": 1,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-05-28T23:59:59",
+    "dateTo": "2020-12-02T23:59:59",
     "today": true
   },
   "items": [
     {
-      "id": 246,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
+      "id": 45,
+      "firstQuestionName": "Q1",
       "firstQuestionType": "list",
       "filterQuestionName": null,
       "filterAnswerName": null,
@@ -31,23 +31,21 @@
         "single": [
           {
             "name": "Ja",
-            "value": 419.0,
+            "value": 419,
             "dataCount": 419,
-            "optionIndex": 0
+            "answersDataCount": 0,
+            "optionIndex": 1
           },
           {
             "name": "Nej",
-            "value": 133.0,
+            "value": 133,
             "dataCount": 133,
-            "optionIndex": 0
+            "answersDataCount": 0,
+            "optionIndex": 2
           }
         ],
-        "multi": [
-
-        ],
-        "multiStacked": [
-
-        ],
+        "multi": [],
+        "multiStacked": [],
         "rawData": [
           {
             "rawHeaders": [
@@ -60,28 +58,28 @@
                   {
                     "valueName": "Ja",
                     "percents": [
-                      76.0
+                      75.91
                     ],
                     "amounts": [
-                      419.0
+                      419
                     ]
                   },
                   {
                     "valueName": "Nej",
                     "percents": [
-                      24.0
+                      24.09
                     ],
                     "amounts": [
-                      133.0
+                      133
                     ]
                   },
                   {
                     "valueName": "Total",
                     "percents": [
-                      100.0
+                      100
                     ],
                     "amounts": [
-                      552.0
+                      552
                     ]
                   }
                 ]
@@ -90,19 +88,13 @@
           }
         ]
       },
-      "compareLocationsTags": [
-
-      ],
-      "ignoredAnswerValues": [
-
-      ],
-      "textQuestionData": [
-
-      ]
+      "compareLocationsTags": [],
+      "ignoredAnswerValues": [],
+      "textQuestionData": []
     },
     {
-      "id": 247,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
+      "id": 46,
+      "firstQuestionName": "Q1",
       "firstQuestionType": "list",
       "filterQuestionName": null,
       "filterAnswerName": null,
@@ -118,23 +110,21 @@
         "single": [
           {
             "name": "Ja",
-            "value": 419.0,
+            "value": 419,
             "dataCount": 419,
-            "optionIndex": 0
+            "answersDataCount": 0,
+            "optionIndex": 1
           },
           {
             "name": "Nej",
-            "value": 133.0,
+            "value": 133,
             "dataCount": 133,
-            "optionIndex": 0
+            "answersDataCount": 0,
+            "optionIndex": 2
           }
         ],
-        "multi": [
-
-        ],
-        "multiStacked": [
-
-        ],
+        "multi": [],
+        "multiStacked": [],
         "rawData": [
           {
             "rawHeaders": [
@@ -147,28 +137,28 @@
                   {
                     "valueName": "Ja",
                     "percents": [
-                      76.0
+                      75.91
                     ],
                     "amounts": [
-                      419.0
+                      419
                     ]
                   },
                   {
                     "valueName": "Nej",
                     "percents": [
-                      24.0
+                      24.09
                     ],
                     "amounts": [
-                      133.0
+                      133
                     ]
                   },
                   {
                     "valueName": "Total",
                     "percents": [
-                      100.0
+                      100
                     ],
                     "amounts": [
-                      552.0
+                      552
                     ]
                   }
                 ]
@@ -177,102 +167,9 @@
           }
         ]
       },
-      "compareLocationsTags": [
-
-      ],
-      "ignoredAnswerValues": [
-
-      ],
-      "textQuestionData": [
-
-      ]
-    },
-    {
-      "id": 248,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 2,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 3,
-      "chartData": {
-        "single": [
-          {
-            "name": "Ja",
-            "value": 76.0,
-            "dataCount": 419,
-            "optionIndex": 0
-          },
-          {
-            "name": "Nej",
-            "value": 24.0,
-            "dataCount": 133,
-            "optionIndex": 0
-          }
-        ],
-        "multi": [
-
-        ],
-        "multiStacked": [
-
-        ],
-        "rawData": [
-          {
-            "rawHeaders": [
-              "Samlet periode"
-            ],
-            "rawDataItems": [
-              {
-                "rawValueName": "",
-                "rawDataValues": [
-                  {
-                    "valueName": "Ja",
-                    "percents": [
-                      76.0
-                    ],
-                    "amounts": [
-                      419.0
-                    ]
-                  },
-                  {
-                    "valueName": "Nej",
-                    "percents": [
-                      24.0
-                    ],
-                    "amounts": [
-                      133.0
-                    ]
-                  },
-                  {
-                    "valueName": "Total",
-                    "percents": [
-                      100.0
-                    ],
-                    "amounts": [
-                      552.0
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "compareLocationsTags": [
-
-      ],
-      "ignoredAnswerValues": [
-
-      ],
-      "textQuestionData": [
-
-      ]
+      "compareLocationsTags": [],
+      "ignoredAnswerValues": [],
+      "textQuestionData": []
     }
   ]
 }
