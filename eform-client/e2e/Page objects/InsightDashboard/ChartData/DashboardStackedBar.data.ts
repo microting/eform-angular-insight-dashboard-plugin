@@ -34,23 +34,23 @@ export const dashboardStackedBarItems: DashboardTestItemEditModel[] = [
 ];
 
 export const dashboardStackedBarDataJson = {
-  "id": 100,
+  "id": 17,
   "dashboardName": "Stacked Bar",
   "surveyName": "Test-Set",
   "surveyId": 1,
   "locationName": null,
   "locationId": null,
   "tagName": "Total",
-  "tagId": 7,
+  "tagId": 1,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-06-15T23:59:59",
+    "dateTo": "2020-12-02T23:59:59",
     "today": true
   },
   "items": [
     {
-      "id": 250,
-      "firstQuestionName": "Q1: Vil du deltage i undersøgelsen?",
+      "id": 41,
+      "firstQuestionName": "Q1",
       "firstQuestionType": "list",
       "filterQuestionName": null,
       "filterAnswerName": null,
@@ -63,431 +63,443 @@ export const dashboardStackedBarDataJson = {
       "calculateAverage": false,
       "position": 1,
       "chartData": {
-        "single": [
-
-        ],
+        "single": [],
         "multi": [
           {
             "id": 0,
             "name": "16_01",
-            "answersCount": 10,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 80.0,
+                "value": 80,
                 "dataCount": 8,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 20.0,
+                "value": 20,
                 "dataCount": 2,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_05",
-            "answersCount": 10,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 70.0,
+                "value": 70,
                 "dataCount": 7,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 30.0,
+                "value": 30,
                 "dataCount": 3,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_09",
-            "answersCount": 10,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 90.0,
+                "value": 90,
                 "dataCount": 9,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 10.0,
+                "value": 10,
                 "dataCount": 1,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_13",
-            "answersCount": 6,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 67.0,
+                "value": 66.67,
                 "dataCount": 4,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 2,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_14",
-            "answersCount": 16,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 75.0,
+                "value": 75,
                 "dataCount": 12,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 25.0,
+                "value": 25,
                 "dataCount": 4,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_18",
-            "answersCount": 25,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 44.0,
+                "value": 44,
                 "dataCount": 11,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 56.0,
+                "value": 56,
                 "dataCount": 14,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_23",
-            "answersCount": 18,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 72.0,
+                "value": 72.22,
                 "dataCount": 13,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 28.0,
+                "value": 27.78,
                 "dataCount": 5,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_27",
-            "answersCount": 16,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 56.0,
+                "value": 56.25,
                 "dataCount": 9,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 44.0,
+                "value": 43.75,
                 "dataCount": 7,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_31",
-            "answersCount": 23,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 78.0,
+                "value": 78.26,
                 "dataCount": 18,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 22.0,
+                "value": 21.74,
                 "dataCount": 5,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_36",
-            "answersCount": 28,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 68.0,
+                "value": 67.86,
                 "dataCount": 19,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 32.0,
+                "value": 32.14,
                 "dataCount": 9,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_40",
-            "answersCount": 26,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 73.0,
+                "value": 73.08,
                 "dataCount": 19,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 27.0,
+                "value": 26.92,
                 "dataCount": 7,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_45",
-            "answersCount": 22,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 82.0,
+                "value": 81.82,
                 "dataCount": 18,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 18.0,
+                "value": 18.18,
                 "dataCount": 4,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "16_50",
-            "answersCount": 30,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 67.0,
+                "value": 66.67,
                 "dataCount": 20,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 10,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_01",
-            "answersCount": 1,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
+                "name": "Ja",
+                "value": 0,
+                "dataCount": 0,
+                "answersDataCount": 0,
+                "optionIndex": 0
+              },
+              {
                 "name": "Nej",
-                "value": 100.0,
+                "value": 100,
                 "dataCount": 1,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_02",
-            "answersCount": 20,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 75.0,
+                "value": 75,
                 "dataCount": 15,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 25.0,
+                "value": 25,
                 "dataCount": 5,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_05",
-            "answersCount": 29,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 76.0,
+                "value": 75.86,
                 "dataCount": 22,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 24.0,
+                "value": 24.14,
                 "dataCount": 7,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_10",
-            "answersCount": 28,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 82.0,
+                "value": 82.14,
                 "dataCount": 23,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 18.0,
+                "value": 17.86,
                 "dataCount": 5,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_15",
-            "answersCount": 33,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 70.0,
+                "value": 69.7,
                 "dataCount": 23,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 30.0,
+                "value": 30.3,
                 "dataCount": 10,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_19",
-            "answersCount": 26,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 77.0,
+                "value": 76.92,
                 "dataCount": 20,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 23.0,
+                "value": 23.08,
                 "dataCount": 6,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_23",
-            "answersCount": 5,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 100.0,
+                "value": 100,
                 "dataCount": 5,
+                "answersDataCount": 0,
+                "optionIndex": 1
+              },
+              {
+                "name": "Nej",
+                "value": 0,
+                "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               }
@@ -496,139 +508,137 @@ export const dashboardStackedBarDataJson = {
           {
             "id": 0,
             "name": "17_24",
-            "answersCount": 28,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 86.0,
+                "value": 85.71,
                 "dataCount": 24,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 14.0,
+                "value": 14.29,
                 "dataCount": 4,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_27",
-            "answersCount": 15,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 87.0,
+                "value": 86.67,
                 "dataCount": 13,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 13.0,
+                "value": 13.33,
                 "dataCount": 2,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_28",
-            "answersCount": 15,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 67.0,
+                "value": 66.67,
                 "dataCount": 10,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 5,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_33",
-            "answersCount": 30,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 87.0,
+                "value": 86.67,
                 "dataCount": 26,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 13.0,
+                "value": 13.33,
                 "dataCount": 4,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_37",
-            "answersCount": 60,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 83.0,
+                "value": 83.33,
                 "dataCount": 50,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 17.0,
+                "value": 16.67,
                 "dataCount": 10,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           },
           {
             "id": 0,
             "name": "17_38",
-            "answersCount": 22,
+            "answersCount": 0,
             "isTag": false,
             "series": [
               {
                 "name": "Ja",
-                "value": 95.0,
+                "value": 95.45,
                 "dataCount": 21,
                 "answersDataCount": 0,
-                "optionIndex": 0
+                "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 5.0,
+                "value": 4.55,
                 "dataCount": 1,
                 "answersDataCount": 0,
-                "optionIndex": 1
+                "optionIndex": 2
               }
             ]
           }
         ],
-        "multiStacked": [
-
-        ],
+        "multiStacked": [],
         "rawData": [
           {
             "rawHeaders": [
@@ -666,178 +676,178 @@ export const dashboardStackedBarDataJson = {
                   {
                     "valueName": "Ja",
                     "percents": [
-                      80.0,
-                      70.0,
-                      90.0,
-                      67.0,
-                      75.0,
-                      44.0,
-                      72.0,
-                      56.0,
-                      78.0,
-                      68.0,
-                      73.0,
-                      82.0,
-                      67.0,
-                      0.0,
-                      75.0,
-                      76.0,
-                      82.0,
-                      70.0,
-                      77.0,
-                      100.0,
-                      86.0,
-                      87.0,
-                      67.0,
-                      87.0,
-                      83.0,
-                      95.0
+                      80,
+                      70,
+                      90,
+                      66.67,
+                      75,
+                      44,
+                      72.22,
+                      56.25,
+                      78.26,
+                      67.86,
+                      73.08,
+                      81.82,
+                      66.67,
+                      0,
+                      75,
+                      75.86,
+                      82.14,
+                      69.7,
+                      76.92,
+                      100,
+                      85.71,
+                      86.67,
+                      66.67,
+                      86.67,
+                      83.33,
+                      95.45
                     ],
                     "amounts": [
-                      8.0,
-                      7.0,
-                      9.0,
-                      4.0,
-                      12.0,
-                      11.0,
-                      13.0,
-                      9.0,
-                      18.0,
-                      19.0,
-                      19.0,
-                      18.0,
-                      20.0,
-                      0.0,
-                      15.0,
-                      22.0,
-                      23.0,
-                      23.0,
-                      20.0,
-                      5.0,
-                      24.0,
-                      13.0,
-                      10.0,
-                      26.0,
-                      50.0,
-                      21.0
+                      8,
+                      7,
+                      9,
+                      4,
+                      12,
+                      11,
+                      13,
+                      9,
+                      18,
+                      19,
+                      19,
+                      18,
+                      20,
+                      0,
+                      15,
+                      22,
+                      23,
+                      23,
+                      20,
+                      5,
+                      24,
+                      13,
+                      10,
+                      26,
+                      50,
+                      21
                     ]
                   },
                   {
                     "valueName": "Nej",
                     "percents": [
-                      20.0,
-                      30.0,
-                      10.0,
-                      33.0,
-                      25.0,
-                      56.0,
-                      28.0,
-                      44.0,
-                      22.0,
-                      32.0,
-                      27.0,
-                      18.0,
-                      33.0,
-                      100.0,
-                      25.0,
-                      24.0,
-                      18.0,
-                      30.0,
-                      23.0,
-                      0.0,
-                      14.0,
-                      13.0,
-                      33.0,
-                      13.0,
-                      17.0,
-                      5.0
+                      20,
+                      30,
+                      10,
+                      33.33,
+                      25,
+                      56,
+                      27.78,
+                      43.75,
+                      21.74,
+                      32.14,
+                      26.92,
+                      18.18,
+                      33.33,
+                      100,
+                      25,
+                      24.14,
+                      17.86,
+                      30.3,
+                      23.08,
+                      0,
+                      14.29,
+                      13.33,
+                      33.33,
+                      13.33,
+                      16.67,
+                      4.55
                     ],
                     "amounts": [
-                      2.0,
-                      3.0,
-                      1.0,
-                      2.0,
-                      4.0,
-                      14.0,
-                      5.0,
-                      7.0,
-                      5.0,
-                      9.0,
-                      7.0,
-                      4.0,
-                      10.0,
-                      1.0,
-                      5.0,
-                      7.0,
-                      5.0,
-                      10.0,
-                      6.0,
-                      0.0,
-                      4.0,
-                      2.0,
-                      5.0,
-                      4.0,
-                      10.0,
-                      1.0
+                      2,
+                      3,
+                      1,
+                      2,
+                      4,
+                      14,
+                      5,
+                      7,
+                      5,
+                      9,
+                      7,
+                      4,
+                      10,
+                      1,
+                      5,
+                      7,
+                      5,
+                      10,
+                      6,
+                      0,
+                      4,
+                      2,
+                      5,
+                      4,
+                      10,
+                      1
                     ]
                   },
                   {
                     "valueName": "Total",
                     "percents": [
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100
                     ],
                     "amounts": [
-                      10.0,
-                      10.0,
-                      10.0,
-                      6.0,
-                      16.0,
-                      25.0,
-                      18.0,
-                      16.0,
-                      23.0,
-                      28.0,
-                      26.0,
-                      22.0,
-                      30.0,
-                      1.0,
-                      20.0,
-                      29.0,
-                      28.0,
-                      33.0,
-                      26.0,
-                      5.0,
-                      28.0,
-                      15.0,
-                      15.0,
-                      30.0,
-                      60.0,
-                      22.0
+                      10,
+                      10,
+                      10,
+                      6,
+                      16,
+                      25,
+                      18,
+                      16,
+                      23,
+                      28,
+                      26,
+                      22,
+                      30,
+                      1,
+                      20,
+                      29,
+                      28,
+                      33,
+                      26,
+                      5,
+                      28,
+                      15,
+                      15,
+                      30,
+                      60,
+                      22
                     ]
                   }
                 ]
@@ -846,19 +856,13 @@ export const dashboardStackedBarDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [
-
-      ],
-      "ignoredAnswerValues": [
-
-      ],
-      "textQuestionData": [
-
-      ]
+      "compareLocationsTags": [],
+      "ignoredAnswerValues": [],
+      "textQuestionData": []
     },
     {
-      "id": 251,
-      "firstQuestionName": "Q2: Er personalet på afsnittet venligt og imødekommende?",
+      "id": 42,
+      "firstQuestionName": "Q2",
       "firstQuestionType": "smiley2",
       "filterQuestionName": null,
       "filterAnswerName": null,
@@ -871,9 +875,7 @@ export const dashboardStackedBarDataJson = {
       "calculateAverage": false,
       "position": 2,
       "chartData": {
-        "single": [
-
-        ],
+        "single": [],
         "multi": [
           {
             "id": 0,
@@ -883,35 +885,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 38.0,
+                "value": 37.5,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 50.0,
+                "value": 50,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 13.0,
+                "value": 12.5,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -926,35 +928,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 86.0,
+                "value": 85.71,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 14.0,
+                "value": 14.29,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -969,35 +971,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 44.0,
+                "value": 44.44,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 56.0,
+                "value": 55.56,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1012,35 +1014,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 100.0,
+                "value": 100,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1055,35 +1057,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 25.0,
+                "value": 25,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 58.0,
+                "value": 58.33,
                 "dataCount": 7,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 8.0,
+                "value": 8.33,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 8.0,
+                "value": 8.33,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1098,35 +1100,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 55.0,
+                "value": 54.55,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 27.0,
+                "value": 27.27,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 9.0,
+                "value": 9.09,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 9.0,
+                "value": 9.09,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -1141,35 +1143,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 69.0,
+                "value": 69.23,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 15.0,
+                "value": 15.38,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 8.0,
+                "value": 7.69,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 8.0,
+                "value": 7.69,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1184,35 +1186,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 100.0,
+                "value": 100,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1227,35 +1229,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 78.0,
+                "value": 77.78,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 17.0,
+                "value": 16.67,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 6.0,
+                "value": 5.56,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1270,35 +1272,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 42.0,
+                "value": 42.11,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 53.0,
+                "value": 52.63,
                 "dataCount": 10,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 5.0,
+                "value": 5.26,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1313,35 +1315,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 47.0,
+                "value": 47.37,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 47.0,
+                "value": 47.37,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 5.0,
+                "value": 5.26,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1356,35 +1358,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 50.0,
+                "value": 50,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 50.0,
+                "value": 50,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1399,35 +1401,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 84.0,
+                "value": 84.21,
                 "dataCount": 16,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 5.0,
+                "value": 5.26,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 11.0,
+                "value": 10.53,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1442,35 +1444,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 71.0,
+                "value": 71.43,
                 "dataCount": 10,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 21.0,
+                "value": 21.43,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 7.0,
+                "value": 7.14,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -1485,35 +1487,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 80.0,
+                "value": 80,
                 "dataCount": 16,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 15.0,
+                "value": 15,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 5.0,
+                "value": 5,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1528,35 +1530,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 61.0,
+                "value": 60.87,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 35.0,
+                "value": 34.78,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 4.0,
+                "value": 4.35,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1571,35 +1573,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 87.0,
+                "value": 86.96,
                 "dataCount": 20,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 4.0,
+                "value": 4.35,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 4.0,
+                "value": 4.35,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 4.0,
+                "value": 4.35,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -1614,35 +1616,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 70.0,
+                "value": 70,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 25.0,
+                "value": 25,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 5.0,
+                "value": 5,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1657,35 +1659,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 20.0,
+                "value": 20,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 80.0,
+                "value": 80,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1700,35 +1702,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 75.0,
+                "value": 75,
                 "dataCount": 18,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 21.0,
+                "value": 20.83,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 4.0,
+                "value": 4.17,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1743,35 +1745,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 54.0,
+                "value": 53.85,
                 "dataCount": 7,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 46.0,
+                "value": 46.15,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1786,35 +1788,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 60.0,
+                "value": 60,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 40.0,
+                "value": 40,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1829,35 +1831,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 77.0,
+                "value": 76.92,
                 "dataCount": 20,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 19.0,
+                "value": 19.23,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 4.0,
+                "value": 3.85,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1872,35 +1874,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 73.0,
+                "value": 72.92,
                 "dataCount": 35,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 17.0,
+                "value": 16.67,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 10.0,
+                "value": 10.42,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1915,35 +1917,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 67.0,
+                "value": 66.67,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 7,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1951,9 +1953,7 @@ export const dashboardStackedBarDataJson = {
             ]
           }
         ],
-        "multiStacked": [
-
-        ],
+        "multiStacked": [],
         "rawData": [
           {
             "rawHeaders": [
@@ -1990,343 +1990,343 @@ export const dashboardStackedBarDataJson = {
                   {
                     "valueName": "Meget glad",
                     "percents": [
-                      38.0,
-                      86.0,
-                      44.0,
-                      100.0,
-                      25.0,
-                      55.0,
-                      69.0,
-                      100.0,
-                      78.0,
-                      42.0,
-                      47.0,
-                      50.0,
-                      84.0,
-                      71.0,
-                      80.0,
-                      61.0,
-                      87.0,
-                      70.0,
-                      20.0,
-                      75.0,
-                      54.0,
-                      60.0,
-                      77.0,
-                      73.0,
-                      67.0
+                      37.5,
+                      85.71,
+                      44.44,
+                      100,
+                      25,
+                      54.55,
+                      69.23,
+                      100,
+                      77.78,
+                      42.11,
+                      47.37,
+                      50,
+                      84.21,
+                      71.43,
+                      80,
+                      60.87,
+                      86.96,
+                      70,
+                      20,
+                      75,
+                      53.85,
+                      60,
+                      76.92,
+                      72.92,
+                      66.67
                     ],
                     "amounts": [
-                      3.0,
-                      6.0,
-                      4.0,
-                      4.0,
-                      3.0,
-                      6.0,
-                      9.0,
-                      9.0,
-                      14.0,
-                      8.0,
-                      9.0,
-                      9.0,
-                      16.0,
-                      10.0,
-                      16.0,
-                      14.0,
-                      20.0,
-                      14.0,
-                      1.0,
-                      18.0,
-                      7.0,
-                      6.0,
-                      20.0,
-                      35.0,
-                      14.0
+                      3,
+                      6,
+                      4,
+                      4,
+                      3,
+                      6,
+                      9,
+                      9,
+                      14,
+                      8,
+                      9,
+                      9,
+                      16,
+                      10,
+                      16,
+                      14,
+                      20,
+                      14,
+                      1,
+                      18,
+                      7,
+                      6,
+                      20,
+                      35,
+                      14
                     ]
                   },
                   {
                     "valueName": "Glad",
                     "percents": [
-                      50.0,
-                      0.0,
-                      56.0,
-                      0.0,
-                      58.0,
-                      27.0,
-                      15.0,
-                      0.0,
-                      17.0,
-                      53.0,
-                      47.0,
-                      50.0,
-                      5.0,
-                      21.0,
-                      15.0,
-                      35.0,
-                      4.0,
-                      25.0,
-                      80.0,
-                      21.0,
-                      46.0,
-                      40.0,
-                      19.0,
-                      17.0,
-                      33.0
+                      50,
+                      0,
+                      55.56,
+                      0,
+                      58.33,
+                      27.27,
+                      15.38,
+                      0,
+                      16.67,
+                      52.63,
+                      47.37,
+                      50,
+                      5.26,
+                      21.43,
+                      15,
+                      34.78,
+                      4.35,
+                      25,
+                      80,
+                      20.83,
+                      46.15,
+                      40,
+                      19.23,
+                      16.67,
+                      33.33
                     ],
                     "amounts": [
-                      4.0,
-                      0.0,
-                      5.0,
-                      0.0,
-                      7.0,
-                      3.0,
-                      2.0,
-                      0.0,
-                      3.0,
-                      10.0,
-                      9.0,
-                      9.0,
-                      1.0,
-                      3.0,
-                      3.0,
-                      8.0,
-                      1.0,
-                      5.0,
-                      4.0,
-                      5.0,
-                      6.0,
-                      4.0,
-                      5.0,
-                      8.0,
-                      7.0
+                      4,
+                      0,
+                      5,
+                      0,
+                      7,
+                      3,
+                      2,
+                      0,
+                      3,
+                      10,
+                      9,
+                      9,
+                      1,
+                      3,
+                      3,
+                      8,
+                      1,
+                      5,
+                      4,
+                      5,
+                      6,
+                      4,
+                      5,
+                      8,
+                      7
                     ]
                   },
                   {
                     "valueName": "Neutral",
                     "percents": [
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      8.0,
-                      9.0,
-                      8.0,
-                      0.0,
-                      0.0,
-                      5.0,
-                      0.0,
-                      0.0,
-                      11.0,
-                      0.0,
-                      0.0,
-                      4.0,
-                      0.0,
-                      5.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      4.0,
-                      10.0,
-                      0.0
+                      0,
+                      0,
+                      0,
+                      0,
+                      8.33,
+                      9.09,
+                      7.69,
+                      0,
+                      0,
+                      5.26,
+                      0,
+                      0,
+                      10.53,
+                      0,
+                      0,
+                      4.35,
+                      0,
+                      5,
+                      0,
+                      0,
+                      0,
+                      0,
+                      3.85,
+                      10.42,
+                      0
                     ],
                     "amounts": [
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      1.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      2.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      5.0,
-                      0.0
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      1,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      2,
+                      0,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      5,
+                      0
                     ]
                   },
                   {
                     "valueName": "Sur",
                     "percents": [
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      8.0,
-                      0.0,
-                      8.0,
-                      0.0,
-                      6.0,
-                      0.0,
-                      5.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      5.0,
-                      0.0,
-                      4.0,
-                      0.0,
-                      0.0,
-                      4.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0
+                      0,
+                      0,
+                      0,
+                      0,
+                      8.33,
+                      0,
+                      7.69,
+                      0,
+                      5.56,
+                      0,
+                      5.26,
+                      0,
+                      0,
+                      0,
+                      5,
+                      0,
+                      4.35,
+                      0,
+                      0,
+                      4.17,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0
                     ],
                     "amounts": [
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0
                     ]
                   },
                   {
                     "valueName": "Meget sur",
                     "percents": [
-                      13.0,
-                      14.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      9.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      7.0,
-                      0.0,
-                      0.0,
-                      4.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0
+                      12.5,
+                      14.29,
+                      0,
+                      0,
+                      0,
+                      9.09,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      7.14,
+                      0,
+                      0,
+                      4.35,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0
                     ],
                     "amounts": [
-                      1.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0
+                      1,
+                      1,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0
                     ]
                   },
                   {
                     "valueName": "Total",
                     "percents": [
-                      101.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      99.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      101.0,
-                      100.0,
-                      99.0,
-                      100.0,
-                      100.0,
-                      99.0,
-                      100.0,
-                      100.0,
-                      99.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0
+                      100,
+                      100,
+                      100,
+                      100,
+                      99.99,
+                      100,
+                      99.99,
+                      100,
+                      100.01,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100.01,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100.01,
+                      100
                     ],
                     "amounts": [
-                      8.0,
-                      7.0,
-                      9.0,
-                      4.0,
-                      12.0,
-                      11.0,
-                      13.0,
-                      9.0,
-                      18.0,
-                      19.0,
-                      19.0,
-                      18.0,
-                      19.0,
-                      14.0,
-                      20.0,
-                      23.0,
-                      23.0,
-                      20.0,
-                      5.0,
-                      24.0,
-                      13.0,
-                      10.0,
-                      26.0,
-                      48.0,
-                      21.0
+                      8,
+                      7,
+                      9,
+                      4,
+                      12,
+                      11,
+                      13,
+                      9,
+                      18,
+                      19,
+                      19,
+                      18,
+                      19,
+                      14,
+                      20,
+                      23,
+                      23,
+                      20,
+                      5,
+                      24,
+                      13,
+                      10,
+                      26,
+                      48,
+                      21
                     ]
                   }
                 ]
@@ -2335,23 +2335,19 @@ export const dashboardStackedBarDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [
-
-      ],
+      "compareLocationsTags": [],
       "ignoredAnswerValues": [
         {
-          "id": 134,
+          "id": 6,
           "answerId": 8,
           "name": "Ved ikke"
         }
       ],
-      "textQuestionData": [
-
-      ]
+      "textQuestionData": []
     },
     {
-      "id": 252,
-      "firstQuestionName": "Q3: Oplever du, at personalet er forberedt til samtaler med dig om din udredning/behandling?",
+      "id": 43,
+      "firstQuestionName": "Q3",
       "firstQuestionType": "smiley2",
       "filterQuestionName": null,
       "filterAnswerName": null,
@@ -2364,9 +2360,7 @@ export const dashboardStackedBarDataJson = {
       "calculateAverage": false,
       "position": 3,
       "chartData": {
-        "single": [
-
-        ],
+        "single": [],
         "multi": [
           {
             "id": 0,
@@ -2376,35 +2370,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 38.0,
+                "value": 37.5,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 50.0,
+                "value": 50,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 13.0,
+                "value": 12.5,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2419,35 +2413,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 71.0,
+                "value": 71.43,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 14.0,
+                "value": 14.29,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 14.0,
+                "value": 14.29,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2462,35 +2456,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 56.0,
+                "value": 55.56,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 11.0,
+                "value": 11.11,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2505,35 +2499,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 50.0,
+                "value": 50,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 25.0,
+                "value": 25,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 25.0,
+                "value": 25,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2548,35 +2542,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 42.0,
+                "value": 41.67,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 17.0,
+                "value": 16.67,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 8.0,
+                "value": 8.33,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2591,35 +2585,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 36.0,
+                "value": 36.36,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 27.0,
+                "value": 27.27,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 18.0,
+                "value": 18.18,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 18.0,
+                "value": 18.18,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2634,35 +2628,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 38.0,
+                "value": 38.46,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 31.0,
+                "value": 30.77,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 15.0,
+                "value": 15.38,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 15.0,
+                "value": 15.38,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2677,35 +2671,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 44.0,
+                "value": 44.44,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 22.0,
+                "value": 22.22,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2720,35 +2714,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 50.0,
+                "value": 50,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 11.0,
+                "value": 11.11,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 6.0,
+                "value": 5.56,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2763,35 +2757,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 42.0,
+                "value": 42.11,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 42.0,
+                "value": 42.11,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 16.0,
+                "value": 15.79,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2806,35 +2800,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 37.0,
+                "value": 36.84,
                 "dataCount": 7,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 32.0,
+                "value": 31.58,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 21.0,
+                "value": 21.05,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 11.0,
+                "value": 10.53,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2849,35 +2843,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 56.0,
+                "value": 55.56,
                 "dataCount": 10,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 6.0,
+                "value": 5.56,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 6.0,
+                "value": 5.56,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2892,35 +2886,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 67.0,
+                "value": 66.67,
                 "dataCount": 12,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 17.0,
+                "value": 16.67,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 6.0,
+                "value": 5.56,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 11.0,
+                "value": 11.11,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2935,35 +2929,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 53.0,
+                "value": 53.33,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 13.0,
+                "value": 13.33,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 7.0,
+                "value": 6.67,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 13.0,
+                "value": 13.33,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 13.0,
+                "value": 13.33,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -2978,35 +2972,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 70.0,
+                "value": 70,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 30.0,
+                "value": 30,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3021,35 +3015,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 35.0,
+                "value": 34.78,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 43.0,
+                "value": 43.48,
                 "dataCount": 10,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 13.0,
+                "value": 13.04,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 4.0,
+                "value": 4.35,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 4.0,
+                "value": 4.35,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -3064,35 +3058,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 65.0,
+                "value": 65.22,
                 "dataCount": 15,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 30.0,
+                "value": 30.43,
                 "dataCount": 7,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 4.0,
+                "value": 4.35,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3107,35 +3101,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 50.0,
+                "value": 50,
                 "dataCount": 10,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 35.0,
+                "value": 35,
                 "dataCount": 7,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 10.0,
+                "value": 10,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 5.0,
+                "value": 5,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3150,35 +3144,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 20.0,
+                "value": 20,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 60.0,
+                "value": 60,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 20.0,
+                "value": 20,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3193,35 +3187,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 75.0,
+                "value": 75,
                 "dataCount": 18,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 21.0,
+                "value": 20.83,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 4.0,
+                "value": 4.17,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3236,35 +3230,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 67.0,
+                "value": 66.67,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 33.0,
+                "value": 33.33,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3279,35 +3273,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 40.0,
+                "value": 40,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 50.0,
+                "value": 50,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 10.0,
+                "value": 10,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3322,35 +3316,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 56.0,
+                "value": 56,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 32.0,
+                "value": 32,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 8.0,
+                "value": 8,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 4.0,
+                "value": 4,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3365,35 +3359,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 41.0,
+                "value": 40.82,
                 "dataCount": 20,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 39.0,
+                "value": 38.78,
                 "dataCount": 19,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 16.0,
+                "value": 16.33,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 2.0,
+                "value": 2.04,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 2.0,
+                "value": 2.04,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 4
@@ -3408,35 +3402,35 @@ export const dashboardStackedBarDataJson = {
             "series": [
               {
                 "name": "Meget glad",
-                "value": 48.0,
+                "value": 47.62,
                 "dataCount": 10,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 38.0,
+                "value": 38.1,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 14.0,
+                "value": 14.29,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0.0,
+                "value": 0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3444,9 +3438,7 @@ export const dashboardStackedBarDataJson = {
             ]
           }
         ],
-        "multiStacked": [
-
-        ],
+        "multiStacked": [],
         "rawData": [
           {
             "rawHeaders": [
@@ -3483,343 +3475,343 @@ export const dashboardStackedBarDataJson = {
                   {
                     "valueName": "Meget glad",
                     "percents": [
-                      38.0,
-                      71.0,
-                      33.0,
-                      50.0,
-                      33.0,
-                      36.0,
-                      38.0,
-                      33.0,
-                      50.0,
-                      42.0,
-                      37.0,
-                      33.0,
-                      67.0,
-                      53.0,
-                      70.0,
-                      35.0,
-                      65.0,
-                      50.0,
-                      20.0,
-                      75.0,
-                      67.0,
-                      40.0,
-                      56.0,
-                      41.0,
-                      48.0
+                      37.5,
+                      71.43,
+                      33.33,
+                      50,
+                      33.33,
+                      36.36,
+                      38.46,
+                      33.33,
+                      50,
+                      42.11,
+                      36.84,
+                      33.33,
+                      66.67,
+                      53.33,
+                      70,
+                      34.78,
+                      65.22,
+                      50,
+                      20,
+                      75,
+                      66.67,
+                      40,
+                      56,
+                      40.82,
+                      47.62
                     ],
                     "amounts": [
-                      3.0,
-                      5.0,
-                      3.0,
-                      2.0,
-                      4.0,
-                      4.0,
-                      5.0,
-                      3.0,
-                      9.0,
-                      8.0,
-                      7.0,
-                      6.0,
-                      12.0,
-                      8.0,
-                      14.0,
-                      8.0,
-                      15.0,
-                      10.0,
-                      1.0,
-                      18.0,
-                      8.0,
-                      4.0,
-                      14.0,
-                      20.0,
-                      10.0
+                      3,
+                      5,
+                      3,
+                      2,
+                      4,
+                      4,
+                      5,
+                      3,
+                      9,
+                      8,
+                      7,
+                      6,
+                      12,
+                      8,
+                      14,
+                      8,
+                      15,
+                      10,
+                      1,
+                      18,
+                      8,
+                      4,
+                      14,
+                      20,
+                      10
                     ]
                   },
                   {
                     "valueName": "Glad",
                     "percents": [
-                      50.0,
-                      14.0,
-                      56.0,
-                      25.0,
-                      42.0,
-                      27.0,
-                      31.0,
-                      44.0,
-                      33.0,
-                      42.0,
-                      32.0,
-                      56.0,
-                      17.0,
-                      13.0,
-                      30.0,
-                      43.0,
-                      30.0,
-                      35.0,
-                      60.0,
-                      21.0,
-                      33.0,
-                      50.0,
-                      32.0,
-                      39.0,
-                      38.0
+                      50,
+                      14.29,
+                      55.56,
+                      25,
+                      41.67,
+                      27.27,
+                      30.77,
+                      44.44,
+                      33.33,
+                      42.11,
+                      31.58,
+                      55.56,
+                      16.67,
+                      13.33,
+                      30,
+                      43.48,
+                      30.43,
+                      35,
+                      60,
+                      20.83,
+                      33.33,
+                      50,
+                      32,
+                      38.78,
+                      38.1
                     ],
                     "amounts": [
-                      4.0,
-                      1.0,
-                      5.0,
-                      1.0,
-                      5.0,
-                      3.0,
-                      4.0,
-                      4.0,
-                      6.0,
-                      8.0,
-                      6.0,
-                      10.0,
-                      3.0,
-                      2.0,
-                      6.0,
-                      10.0,
-                      7.0,
-                      7.0,
-                      3.0,
-                      5.0,
-                      4.0,
-                      5.0,
-                      8.0,
-                      19.0,
-                      8.0
+                      4,
+                      1,
+                      5,
+                      1,
+                      5,
+                      3,
+                      4,
+                      4,
+                      6,
+                      8,
+                      6,
+                      10,
+                      3,
+                      2,
+                      6,
+                      10,
+                      7,
+                      7,
+                      3,
+                      5,
+                      4,
+                      5,
+                      8,
+                      19,
+                      8
                     ]
                   },
                   {
                     "valueName": "Neutral",
                     "percents": [
-                      0.0,
-                      0.0,
-                      11.0,
-                      25.0,
-                      17.0,
-                      18.0,
-                      15.0,
-                      22.0,
-                      11.0,
-                      16.0,
-                      21.0,
-                      6.0,
-                      6.0,
-                      7.0,
-                      0.0,
-                      13.0,
-                      4.0,
-                      10.0,
-                      20.0,
-                      4.0,
-                      0.0,
-                      10.0,
-                      8.0,
-                      16.0,
-                      14.0
+                      0,
+                      0,
+                      11.11,
+                      25,
+                      16.67,
+                      18.18,
+                      15.38,
+                      22.22,
+                      11.11,
+                      15.79,
+                      21.05,
+                      5.56,
+                      5.56,
+                      6.67,
+                      0,
+                      13.04,
+                      4.35,
+                      10,
+                      20,
+                      4.17,
+                      0,
+                      10,
+                      8,
+                      16.33,
+                      14.29
                     ],
                     "amounts": [
-                      0.0,
-                      0.0,
-                      1.0,
-                      1.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      3.0,
-                      4.0,
-                      1.0,
-                      1.0,
-                      1.0,
-                      0.0,
-                      3.0,
-                      1.0,
-                      2.0,
-                      1.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      2.0,
-                      8.0,
-                      3.0
+                      0,
+                      0,
+                      1,
+                      1,
+                      2,
+                      2,
+                      2,
+                      2,
+                      2,
+                      3,
+                      4,
+                      1,
+                      1,
+                      1,
+                      0,
+                      3,
+                      1,
+                      2,
+                      1,
+                      1,
+                      0,
+                      1,
+                      2,
+                      8,
+                      3
                     ]
                   },
                   {
                     "valueName": "Sur",
                     "percents": [
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      11.0,
-                      13.0,
-                      0.0,
-                      4.0,
-                      0.0,
-                      5.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      4.0,
-                      2.0,
-                      0.0
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      11.11,
+                      13.33,
+                      0,
+                      4.35,
+                      0,
+                      5,
+                      0,
+                      0,
+                      0,
+                      0,
+                      4,
+                      2.04,
+                      0
                     ],
                     "amounts": [
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      2.0,
-                      2.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      1.0,
-                      0.0
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      2,
+                      2,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      1,
+                      0
                     ]
                   },
                   {
                     "valueName": "Meget sur",
                     "percents": [
-                      13.0,
-                      14.0,
-                      0.0,
-                      0.0,
-                      8.0,
-                      18.0,
-                      15.0,
-                      0.0,
-                      6.0,
-                      0.0,
-                      11.0,
-                      6.0,
-                      0.0,
-                      13.0,
-                      0.0,
-                      4.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      2.0,
-                      0.0
+                      12.5,
+                      14.29,
+                      0,
+                      0,
+                      8.33,
+                      18.18,
+                      15.38,
+                      0,
+                      5.56,
+                      0,
+                      10.53,
+                      5.56,
+                      0,
+                      13.33,
+                      0,
+                      4.35,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      2.04,
+                      0
                     ],
                     "amounts": [
-                      1.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      2.0,
-                      2.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      2.0,
-                      1.0,
-                      0.0,
-                      2.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      1.0,
-                      0.0
+                      1,
+                      1,
+                      0,
+                      0,
+                      1,
+                      2,
+                      2,
+                      0,
+                      1,
+                      0,
+                      2,
+                      1,
+                      0,
+                      2,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0
                     ]
                   },
                   {
                     "valueName": "Total",
                     "percents": [
-                      101.0,
-                      99.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      99.0,
-                      99.0,
-                      99.0,
-                      100.0,
-                      100.0,
-                      101.0,
-                      101.0,
-                      101.0,
-                      99.0,
-                      100.0,
-                      99.0,
-                      99.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0
+                      100,
+                      100.01,
+                      100,
+                      100,
+                      100,
+                      99.99,
+                      99.99,
+                      99.99,
+                      100,
+                      100.01,
+                      100,
+                      100.01,
+                      100.01,
+                      99.99,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100.01,
+                      100.01
                     ],
                     "amounts": [
-                      8.0,
-                      7.0,
-                      9.0,
-                      4.0,
-                      12.0,
-                      11.0,
-                      13.0,
-                      9.0,
-                      18.0,
-                      19.0,
-                      19.0,
-                      18.0,
-                      18.0,
-                      15.0,
-                      20.0,
-                      23.0,
-                      23.0,
-                      20.0,
-                      5.0,
-                      24.0,
-                      12.0,
-                      10.0,
-                      25.0,
-                      49.0,
-                      21.0
+                      8,
+                      7,
+                      9,
+                      4,
+                      12,
+                      11,
+                      13,
+                      9,
+                      18,
+                      19,
+                      19,
+                      18,
+                      18,
+                      15,
+                      20,
+                      23,
+                      23,
+                      20,
+                      5,
+                      24,
+                      12,
+                      10,
+                      25,
+                      49,
+                      21
                     ]
                   }
                 ]
@@ -3828,19 +3820,15 @@ export const dashboardStackedBarDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [
-
-      ],
+      "compareLocationsTags": [],
       "ignoredAnswerValues": [
         {
-          "id": 135,
+          "id": 7,
           "answerId": 14,
           "name": "Ved ikke"
         }
       ],
-      "textQuestionData": [
-
-      ]
+      "textQuestionData": []
     }
   ]
 };

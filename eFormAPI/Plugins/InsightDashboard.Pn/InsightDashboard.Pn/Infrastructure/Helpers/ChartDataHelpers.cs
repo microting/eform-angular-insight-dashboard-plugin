@@ -2076,10 +2076,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             }
         }
 
-        private static int GetAverageDataPercentage(double averageValue)
+        private static decimal GetAverageDataPercentage(double averageValue)
         {
             var value = Math.Round((decimal)averageValue, 2, MidpointRounding.AwayFromZero);
-            return decimal.ToInt32(value);
+            return value;
         }
 
         private static int GetAnswersCount(IGrouping<object, ChartDataItem> grouping)
@@ -2090,10 +2090,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             return value;
         }
 
-        public static int GetDataPercentage(int subCount, int totalCount)
+        public static decimal GetDataPercentage(int subCount, int totalCount)
         {
             var value = Math.Round(((decimal) subCount * 100) / totalCount, 2, MidpointRounding.AwayFromZero);
-            return decimal.ToInt32(value);
+            return value;
         }
     }
 }

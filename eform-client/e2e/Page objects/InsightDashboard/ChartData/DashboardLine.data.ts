@@ -54,7 +54,7 @@ export const dashboardLineDataItems: DashboardTestItemEditModel[] = [
 ];
 
 export const dashboardLineDataJson = {
-  'id': 40,
+  'id': 11,
   'dashboardName': 'Line',
   'surveyName': 'Test-Set',
   'surveyId': 1,
@@ -64,13 +64,13 @@ export const dashboardLineDataJson = {
   'tagId': null,
   'answerDates': {
     'dateFrom': '2016-01-01T00:00:00',
-    'dateTo': '2020-05-28T23:59:59',
+    'dateTo': '2020-12-02T23:59:59',
     'today': true
   },
   'items': [
     {
-      'id': 82,
-      'firstQuestionName': 'Q1: Vil du deltage i undersøgelsen?',
+      'id': 12,
+      'firstQuestionName': 'Q1',
       'firstQuestionType': 'list',
       'filterQuestionName': null,
       'filterAnswerName': null,
@@ -93,159 +93,185 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '16_01',
-                'value': 67.0,
+                'value': 66.67,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 1
               },
               {
                 'name': '16_05',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 2,
+                'optionIndex': 1
               },
               {
                 'name': '16_09',
-                'value': 67.0,
+                'value': 66.67,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 1
               },
               {
                 'name': '16_13',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 1,
+                'optionIndex': 1
               },
               {
                 'name': '16_14',
-                'value': 75.0,
+                'value': 75,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 1
               },
               {
                 'name': '16_18',
-                'value': 43.0,
+                'value': 42.86,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '16_23',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 1
               },
               {
                 'name': '16_27',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 1
               },
               {
                 'name': '16_31',
-                'value': 67.0,
+                'value': 66.67,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 1
               },
               {
                 'name': '16_36',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 7,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '16_40',
-                'value': 83.0,
+                'value': 83.33,
                 'dataCount': 5,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 1
               },
               {
                 'name': '16_45',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 1
               },
               {
                 'name': '16_50',
-                'value': 71.0,
+                'value': 71.43,
                 'dataCount': 5,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_01',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               },
               {
                 'name': '17_02',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 5,
-                'optionIndex': 0
+                'answersDataCount': 5,
+                'optionIndex': 1
               },
               {
                 'name': '17_05',
-                'value': 86.0,
+                'value': 85.71,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_10',
-                'value': 86.0,
+                'value': 85.71,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_15',
-                'value': 75.0,
+                'value': 75,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 1
               },
               {
                 'name': '17_19',
-                'value': 86.0,
+                'value': 85.71,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_23',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 1,
+                'optionIndex': 1
               },
               {
                 'name': '17_24',
-                'value': 86.0,
+                'value': 85.71,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_27',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 1
               },
               {
                 'name': '17_28',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               },
               {
                 'name': '17_33',
-                'value': 88.0,
+                'value': 87.5,
                 'dataCount': 7,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 1
               },
               {
                 'name': '17_37',
-                'value': 87.0,
+                'value': 86.67,
                 'dataCount': 13,
-                'optionIndex': 0
+                'answersDataCount': 15,
+                'optionIndex': 1
               },
               {
                 'name': '17_38',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 5,
-                'optionIndex': 0
+                'answersDataCount': 5,
+                'optionIndex': 1
               }
             ]
           },
@@ -257,158 +283,184 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '16_01',
-                'value': 33.0,
+                'value': 33.33,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 2
               },
               {
                 'name': '16_05',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 2,
+                'optionIndex': 2
               },
               {
                 'name': '16_09',
-                'value': 33.0,
+                'value': 33.33,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 2
               },
               {
                 'name': '16_13',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               },
               {
                 'name': '16_14',
-                'value': 25.0,
+                'value': 25,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 2
               },
               {
                 'name': '16_18',
-                'value': 57.0,
+                'value': 57.14,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '16_23',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 2
               },
               {
                 'name': '16_27',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 2
               },
               {
                 'name': '16_31',
-                'value': 33.0,
+                'value': 33.33,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 2
               },
               {
                 'name': '16_36',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               },
               {
                 'name': '16_40',
-                'value': 17.0,
+                'value': 16.67,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 2
               },
               {
                 'name': '16_45',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 2
               },
               {
                 'name': '16_50',
-                'value': 29.0,
+                'value': 28.57,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_01',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 1,
+                'optionIndex': 2
               },
               {
                 'name': '17_02',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               },
               {
                 'name': '17_05',
-                'value': 14.0,
+                'value': 14.29,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_10',
-                'value': 14.0,
+                'value': 14.29,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_15',
-                'value': 25.0,
+                'value': 25,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 2
               },
               {
                 'name': '17_19',
-                'value': 14.0,
+                'value': 14.29,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_23',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               },
               {
                 'name': '17_24',
-                'value': 14.0,
+                'value': 14.29,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_27',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               },
               {
                 'name': '17_28',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 2
               },
               {
                 'name': '17_33',
-                'value': 13.0,
+                'value': 12.5,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 2
               },
               {
                 'name': '17_37',
-                'value': 13.0,
+                'value': 13.33,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 15,
+                'optionIndex': 2
               },
               {
                 'name': '17_38',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               }
             ]
@@ -452,178 +504,178 @@ export const dashboardLineDataJson = {
                   {
                     'valueName': 'Ja',
                     'percents': [
-                      67.0,
-                      50.0,
-                      67.0,
-                      100.0,
-                      75.0,
-                      43.0,
-                      50.0,
-                      50.0,
-                      67.0,
-                      100.0,
-                      83.0,
-                      50.0,
-                      71.0,
-                      0.0,
-                      100.0,
-                      86.0,
-                      86.0,
-                      75.0,
-                      86.0,
-                      100.0,
-                      86.0,
-                      100.0,
-                      0.0,
-                      88.0,
-                      87.0,
-                      100.0
+                      66.67,
+                      50,
+                      66.67,
+                      100,
+                      75,
+                      42.86,
+                      50,
+                      50,
+                      66.67,
+                      100,
+                      83.33,
+                      50,
+                      71.43,
+                      0,
+                      100,
+                      85.71,
+                      85.71,
+                      75,
+                      85.71,
+                      100,
+                      85.71,
+                      100,
+                      0,
+                      87.5,
+                      86.67,
+                      100
                     ],
                     'amounts': [
-                      2.0,
-                      1.0,
-                      2.0,
-                      1.0,
-                      3.0,
-                      3.0,
-                      2.0,
-                      2.0,
-                      4.0,
-                      7.0,
-                      5.0,
-                      3.0,
-                      5.0,
-                      0.0,
-                      5.0,
-                      6.0,
-                      6.0,
-                      6.0,
-                      6.0,
-                      1.0,
-                      6.0,
-                      4.0,
-                      0.0,
-                      7.0,
-                      13.0,
-                      5.0
+                      2,
+                      1,
+                      2,
+                      1,
+                      3,
+                      3,
+                      2,
+                      2,
+                      4,
+                      7,
+                      5,
+                      3,
+                      5,
+                      0,
+                      5,
+                      6,
+                      6,
+                      6,
+                      6,
+                      1,
+                      6,
+                      4,
+                      0,
+                      7,
+                      13,
+                      5
                     ]
                   },
                   {
                     'valueName': 'Nej',
                     'percents': [
-                      33.0,
-                      50.0,
-                      33.0,
-                      0.0,
-                      25.0,
-                      57.0,
-                      50.0,
-                      50.0,
-                      33.0,
-                      0.0,
-                      17.0,
-                      50.0,
-                      29.0,
-                      100.0,
-                      0.0,
-                      14.0,
-                      14.0,
-                      25.0,
-                      14.0,
-                      0.0,
-                      14.0,
-                      0.0,
-                      100.0,
-                      13.0,
-                      13.0,
-                      0.0
+                      33.33,
+                      50,
+                      33.33,
+                      0,
+                      25,
+                      57.14,
+                      50,
+                      50,
+                      33.33,
+                      0,
+                      16.67,
+                      50,
+                      28.57,
+                      100,
+                      0,
+                      14.29,
+                      14.29,
+                      25,
+                      14.29,
+                      0,
+                      14.29,
+                      0,
+                      100,
+                      12.5,
+                      13.33,
+                      0
                     ],
                     'amounts': [
-                      1.0,
-                      1.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      4.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      0.0,
-                      1.0,
-                      3.0,
-                      2.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      1.0,
-                      2.0,
-                      1.0,
-                      0.0,
-                      1.0,
-                      0.0,
-                      3.0,
-                      1.0,
-                      2.0,
-                      0.0
+                      1,
+                      1,
+                      1,
+                      0,
+                      1,
+                      4,
+                      2,
+                      2,
+                      2,
+                      0,
+                      1,
+                      3,
+                      2,
+                      1,
+                      0,
+                      1,
+                      1,
+                      2,
+                      1,
+                      0,
+                      1,
+                      0,
+                      3,
+                      1,
+                      2,
+                      0
                     ]
                   },
                   {
                     'valueName': 'Total',
                     'percents': [
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      101.0,
-                      100.0,
-                      100.0
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100
                     ],
                     'amounts': [
-                      3.0,
-                      2.0,
-                      3.0,
-                      1.0,
-                      4.0,
-                      7.0,
-                      4.0,
-                      4.0,
-                      6.0,
-                      7.0,
-                      6.0,
-                      6.0,
-                      7.0,
-                      1.0,
-                      5.0,
-                      7.0,
-                      7.0,
-                      8.0,
-                      7.0,
-                      1.0,
-                      7.0,
-                      4.0,
-                      3.0,
-                      8.0,
-                      15.0,
-                      5.0
+                      3,
+                      2,
+                      3,
+                      1,
+                      4,
+                      7,
+                      4,
+                      4,
+                      6,
+                      7,
+                      6,
+                      6,
+                      7,
+                      1,
+                      5,
+                      7,
+                      7,
+                      8,
+                      7,
+                      1,
+                      7,
+                      4,
+                      3,
+                      8,
+                      15,
+                      5
                     ]
                   }
                 ]
@@ -637,8 +689,8 @@ export const dashboardLineDataJson = {
       'textQuestionData': []
     },
     {
-      'id': 83,
-      'firstQuestionName': 'Q1: Vil du deltage i undersøgelsen?',
+      'id': 13,
+      'firstQuestionName': 'Q1',
       'firstQuestionType': 'list',
       'filterQuestionName': null,
       'filterAnswerName': null,
@@ -661,129 +713,150 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '16_jan',
-                'value': 67.0,
+                'value': 66.67,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 1
               },
               {
                 'name': '16_feb',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 2,
+                'optionIndex': 1
               },
               {
                 'name': '16_mar',
-                'value': 67.0,
+                'value': 66.67,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 1
               },
               {
                 'name': '16_apr',
-                'value': 80.0,
+                'value': 80,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 5,
+                'optionIndex': 1
               },
               {
                 'name': '16_maj',
-                'value': 43.0,
+                'value': 42.86,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '16_jun',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 1
               },
               {
                 'name': '16_jul',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 1
               },
               {
                 'name': '16_aug',
-                'value': 67.0,
+                'value': 66.67,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 1
               },
               {
                 'name': '16_sep',
-                'value': 100.0,
+                'value': 100,
                 'dataCount': 7,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '16_okt',
-                'value': 83.0,
+                'value': 83.33,
                 'dataCount': 5,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 1
               },
               {
                 'name': '16_nov',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 1
               },
               {
                 'name': '16_dec',
-                'value': 71.0,
+                'value': 71.43,
                 'dataCount': 5,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_jan',
-                'value': 83.0,
+                'value': 83.33,
                 'dataCount': 5,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 1
               },
               {
                 'name': '17_feb',
-                'value': 86.0,
+                'value': 85.71,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_mar',
-                'value': 86.0,
+                'value': 85.71,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_apr',
-                'value': 75.0,
+                'value': 75,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 1
               },
               {
                 'name': '17_maj',
-                'value': 86.0,
+                'value': 85.71,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_jun',
-                'value': 88.0,
+                'value': 87.5,
                 'dataCount': 7,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 1
               },
               {
                 'name': '17_jul',
-                'value': 57.0,
+                'value': 57.14,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 1
               },
               {
                 'name': '17_aug',
-                'value': 88.0,
+                'value': 87.5,
                 'dataCount': 7,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 1
               },
               {
                 'name': '17_sep',
-                'value': 90.0,
+                'value': 90,
                 'dataCount': 18,
-                'optionIndex': 0
+                'answersDataCount': 20,
+                'optionIndex': 1
               }
             ]
           },
@@ -795,129 +868,150 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '16_jan',
-                'value': 33.0,
+                'value': 33.33,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 2
               },
               {
                 'name': '16_feb',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 2,
+                'optionIndex': 2
               },
               {
                 'name': '16_mar',
-                'value': 33.0,
+                'value': 33.33,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 3,
+                'optionIndex': 2
               },
               {
                 'name': '16_apr',
-                'value': 20.0,
+                'value': 20,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 5,
+                'optionIndex': 2
               },
               {
                 'name': '16_maj',
-                'value': 57.0,
+                'value': 57.14,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '16_jun',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 2
               },
               {
                 'name': '16_jul',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 4,
+                'optionIndex': 2
               },
               {
                 'name': '16_aug',
-                'value': 33.0,
+                'value': 33.33,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 2
               },
               {
                 'name': '16_sep',
-                'value': 0.0,
+                'value': 0,
                 'dataCount': 0,
+                'answersDataCount': 0,
                 'optionIndex': 0
               },
               {
                 'name': '16_okt',
-                'value': 17.0,
+                'value': 16.67,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 2
               },
               {
                 'name': '16_nov',
-                'value': 50.0,
+                'value': 50,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 2
               },
               {
                 'name': '16_dec',
-                'value': 29.0,
+                'value': 28.57,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_jan',
-                'value': 17.0,
+                'value': 16.67,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 6,
+                'optionIndex': 2
               },
               {
                 'name': '17_feb',
-                'value': 14.0,
+                'value': 14.29,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_mar',
-                'value': 14.0,
+                'value': 14.29,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_apr',
-                'value': 25.0,
+                'value': 25,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 2
               },
               {
                 'name': '17_maj',
-                'value': 14.0,
+                'value': 14.29,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_jun',
-                'value': 13.0,
+                'value': 12.5,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 2
               },
               {
                 'name': '17_jul',
-                'value': 43.0,
+                'value': 42.86,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 7,
+                'optionIndex': 2
               },
               {
                 'name': '17_aug',
-                'value': 13.0,
+                'value': 12.5,
                 'dataCount': 1,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 2
               },
               {
                 'name': '17_sep',
-                'value': 10.0,
+                'value': 10,
                 'dataCount': 2,
-                'optionIndex': 0
+                'answersDataCount': 20,
+                'optionIndex': 2
               }
             ]
           }
@@ -955,148 +1049,148 @@ export const dashboardLineDataJson = {
                   {
                     'valueName': 'Ja',
                     'percents': [
-                      67.0,
-                      50.0,
-                      67.0,
-                      80.0,
-                      43.0,
-                      50.0,
-                      50.0,
-                      67.0,
-                      100.0,
-                      83.0,
-                      50.0,
-                      71.0,
-                      83.0,
-                      86.0,
-                      86.0,
-                      75.0,
-                      86.0,
-                      88.0,
-                      57.0,
-                      88.0,
-                      90.0
+                      66.67,
+                      50,
+                      66.67,
+                      80,
+                      42.86,
+                      50,
+                      50,
+                      66.67,
+                      100,
+                      83.33,
+                      50,
+                      71.43,
+                      83.33,
+                      85.71,
+                      85.71,
+                      75,
+                      85.71,
+                      87.5,
+                      57.14,
+                      87.5,
+                      90
                     ],
                     'amounts': [
-                      2.0,
-                      1.0,
-                      2.0,
-                      4.0,
-                      3.0,
-                      2.0,
-                      2.0,
-                      4.0,
-                      7.0,
-                      5.0,
-                      3.0,
-                      5.0,
-                      5.0,
-                      6.0,
-                      6.0,
-                      6.0,
-                      6.0,
-                      7.0,
-                      4.0,
-                      7.0,
-                      18.0
+                      2,
+                      1,
+                      2,
+                      4,
+                      3,
+                      2,
+                      2,
+                      4,
+                      7,
+                      5,
+                      3,
+                      5,
+                      5,
+                      6,
+                      6,
+                      6,
+                      6,
+                      7,
+                      4,
+                      7,
+                      18
                     ]
                   },
                   {
                     'valueName': 'Nej',
                     'percents': [
-                      33.0,
-                      50.0,
-                      33.0,
-                      20.0,
-                      57.0,
-                      50.0,
-                      50.0,
-                      33.0,
-                      0.0,
-                      17.0,
-                      50.0,
-                      29.0,
-                      17.0,
-                      14.0,
-                      14.0,
-                      25.0,
-                      14.0,
-                      13.0,
-                      43.0,
-                      13.0,
-                      10.0
+                      33.33,
+                      50,
+                      33.33,
+                      20,
+                      57.14,
+                      50,
+                      50,
+                      33.33,
+                      0,
+                      16.67,
+                      50,
+                      28.57,
+                      16.67,
+                      14.29,
+                      14.29,
+                      25,
+                      14.29,
+                      12.5,
+                      42.86,
+                      12.5,
+                      10
                     ],
                     'amounts': [
-                      1.0,
-                      1.0,
-                      1.0,
-                      1.0,
-                      4.0,
-                      2.0,
-                      2.0,
-                      2.0,
-                      0.0,
-                      1.0,
-                      3.0,
-                      2.0,
-                      1.0,
-                      1.0,
-                      1.0,
-                      2.0,
-                      1.0,
-                      1.0,
-                      3.0,
-                      1.0,
-                      2.0
+                      1,
+                      1,
+                      1,
+                      1,
+                      4,
+                      2,
+                      2,
+                      2,
+                      0,
+                      1,
+                      3,
+                      2,
+                      1,
+                      1,
+                      1,
+                      2,
+                      1,
+                      1,
+                      3,
+                      1,
+                      2
                     ]
                   },
                   {
                     'valueName': 'Total',
                     'percents': [
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      101.0,
-                      100.0,
-                      101.0,
-                      100.0
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100
                     ],
                     'amounts': [
-                      3.0,
-                      2.0,
-                      3.0,
-                      5.0,
-                      7.0,
-                      4.0,
-                      4.0,
-                      6.0,
-                      7.0,
-                      6.0,
-                      6.0,
-                      7.0,
-                      6.0,
-                      7.0,
-                      7.0,
-                      8.0,
-                      7.0,
-                      8.0,
-                      7.0,
-                      8.0,
-                      20.0
+                      3,
+                      2,
+                      3,
+                      5,
+                      7,
+                      4,
+                      4,
+                      6,
+                      7,
+                      6,
+                      6,
+                      7,
+                      6,
+                      7,
+                      7,
+                      8,
+                      7,
+                      8,
+                      7,
+                      8,
+                      20
                     ]
                   }
                 ]
@@ -1110,8 +1204,8 @@ export const dashboardLineDataJson = {
       'textQuestionData': []
     },
     {
-      'id': 84,
-      'firstQuestionName': 'Q1: Vil du deltage i undersøgelsen?',
+      'id': 14,
+      'firstQuestionName': 'Q1',
       'firstQuestionType': 'list',
       'filterQuestionName': null,
       'filterAnswerName': null,
@@ -1134,45 +1228,52 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '16_K1',
-                'value': 63.0,
+                'value': 62.5,
                 'dataCount': 5,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 1
               },
               {
                 'name': '16_K2',
-                'value': 56.0,
+                'value': 56.25,
                 'dataCount': 9,
-                'optionIndex': 0
+                'answersDataCount': 16,
+                'optionIndex': 1
               },
               {
                 'name': '16_K3',
-                'value': 76.0,
+                'value': 76.47,
                 'dataCount': 13,
-                'optionIndex': 0
+                'answersDataCount': 17,
+                'optionIndex': 1
               },
               {
                 'name': '16_K4',
-                'value': 68.0,
+                'value': 68.42,
                 'dataCount': 13,
-                'optionIndex': 0
+                'answersDataCount': 19,
+                'optionIndex': 1
               },
               {
                 'name': '17_K1',
-                'value': 85.0,
+                'value': 85,
                 'dataCount': 17,
-                'optionIndex': 0
+                'answersDataCount': 20,
+                'optionIndex': 1
               },
               {
                 'name': '17_K2',
-                'value': 83.0,
+                'value': 82.61,
                 'dataCount': 19,
-                'optionIndex': 0
+                'answersDataCount': 23,
+                'optionIndex': 1
               },
               {
                 'name': '17_K3',
-                'value': 83.0,
+                'value': 82.86,
                 'dataCount': 29,
-                'optionIndex': 0
+                'answersDataCount': 35,
+                'optionIndex': 1
               }
             ]
           },
@@ -1184,45 +1285,52 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '16_K1',
-                'value': 38.0,
+                'value': 37.5,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 8,
+                'optionIndex': 2
               },
               {
                 'name': '16_K2',
-                'value': 44.0,
+                'value': 43.75,
                 'dataCount': 7,
-                'optionIndex': 0
+                'answersDataCount': 16,
+                'optionIndex': 2
               },
               {
                 'name': '16_K3',
-                'value': 24.0,
+                'value': 23.53,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 17,
+                'optionIndex': 2
               },
               {
                 'name': '16_K4',
-                'value': 32.0,
+                'value': 31.58,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 19,
+                'optionIndex': 2
               },
               {
                 'name': '17_K1',
-                'value': 15.0,
+                'value': 15,
                 'dataCount': 3,
-                'optionIndex': 0
+                'answersDataCount': 20,
+                'optionIndex': 2
               },
               {
                 'name': '17_K2',
-                'value': 17.0,
+                'value': 17.39,
                 'dataCount': 4,
-                'optionIndex': 0
+                'answersDataCount': 23,
+                'optionIndex': 2
               },
               {
                 'name': '17_K3',
-                'value': 17.0,
+                'value': 17.14,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 35,
+                'optionIndex': 2
               }
             ]
           }
@@ -1246,64 +1354,64 @@ export const dashboardLineDataJson = {
                   {
                     'valueName': 'Ja',
                     'percents': [
-                      63.0,
-                      56.0,
-                      76.0,
-                      68.0,
-                      85.0,
-                      83.0,
-                      83.0
+                      62.5,
+                      56.25,
+                      76.47,
+                      68.42,
+                      85,
+                      82.61,
+                      82.86
                     ],
                     'amounts': [
-                      5.0,
-                      9.0,
-                      13.0,
-                      13.0,
-                      17.0,
-                      19.0,
-                      29.0
+                      5,
+                      9,
+                      13,
+                      13,
+                      17,
+                      19,
+                      29
                     ]
                   },
                   {
                     'valueName': 'Nej',
                     'percents': [
-                      38.0,
-                      44.0,
-                      24.0,
-                      32.0,
-                      15.0,
-                      17.0,
-                      17.0
+                      37.5,
+                      43.75,
+                      23.53,
+                      31.58,
+                      15,
+                      17.39,
+                      17.14
                     ],
                     'amounts': [
-                      3.0,
-                      7.0,
-                      4.0,
-                      6.0,
-                      3.0,
-                      4.0,
-                      6.0
+                      3,
+                      7,
+                      4,
+                      6,
+                      3,
+                      4,
+                      6
                     ]
                   },
                   {
                     'valueName': 'Total',
                     'percents': [
-                      101.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100,
+                      100
                     ],
                     'amounts': [
-                      8.0,
-                      16.0,
-                      17.0,
-                      19.0,
-                      20.0,
-                      23.0,
-                      35.0
+                      8,
+                      16,
+                      17,
+                      19,
+                      20,
+                      23,
+                      35
                     ]
                   }
                 ]
@@ -1317,8 +1425,8 @@ export const dashboardLineDataJson = {
       'textQuestionData': []
     },
     {
-      'id': 85,
-      'firstQuestionName': 'Q1: Vil du deltage i undersøgelsen?',
+      'id': 15,
+      'firstQuestionName': 'Q1',
       'firstQuestionType': 'list',
       'filterQuestionName': null,
       'filterAnswerName': null,
@@ -1341,27 +1449,31 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '16_1H',
-                'value': 58.0,
+                'value': 58.33,
                 'dataCount': 14,
-                'optionIndex': 0
+                'answersDataCount': 24,
+                'optionIndex': 1
               },
               {
                 'name': '16_2H',
-                'value': 72.0,
+                'value': 72.22,
                 'dataCount': 26,
-                'optionIndex': 0
+                'answersDataCount': 36,
+                'optionIndex': 1
               },
               {
                 'name': '17_1H',
-                'value': 84.0,
+                'value': 83.72,
                 'dataCount': 36,
-                'optionIndex': 0
+                'answersDataCount': 43,
+                'optionIndex': 1
               },
               {
                 'name': '17_2H',
-                'value': 83.0,
+                'value': 82.86,
                 'dataCount': 29,
-                'optionIndex': 0
+                'answersDataCount': 35,
+                'optionIndex': 1
               }
             ]
           },
@@ -1373,27 +1485,31 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '16_1H',
-                'value': 42.0,
+                'value': 41.67,
                 'dataCount': 10,
-                'optionIndex': 0
+                'answersDataCount': 24,
+                'optionIndex': 2
               },
               {
                 'name': '16_2H',
-                'value': 28.0,
+                'value': 27.78,
                 'dataCount': 10,
-                'optionIndex': 0
+                'answersDataCount': 36,
+                'optionIndex': 2
               },
               {
                 'name': '17_1H',
-                'value': 16.0,
+                'value': 16.28,
                 'dataCount': 7,
-                'optionIndex': 0
+                'answersDataCount': 43,
+                'optionIndex': 2
               },
               {
                 'name': '17_2H',
-                'value': 17.0,
+                'value': 17.14,
                 'dataCount': 6,
-                'optionIndex': 0
+                'answersDataCount': 35,
+                'optionIndex': 2
               }
             ]
           }
@@ -1414,46 +1530,46 @@ export const dashboardLineDataJson = {
                   {
                     'valueName': 'Ja',
                     'percents': [
-                      58.0,
-                      72.0,
-                      84.0,
-                      83.0
+                      58.33,
+                      72.22,
+                      83.72,
+                      82.86
                     ],
                     'amounts': [
-                      14.0,
-                      26.0,
-                      36.0,
-                      29.0
+                      14,
+                      26,
+                      36,
+                      29
                     ]
                   },
                   {
                     'valueName': 'Nej',
                     'percents': [
-                      42.0,
-                      28.0,
-                      16.0,
-                      17.0
+                      41.67,
+                      27.78,
+                      16.28,
+                      17.14
                     ],
                     'amounts': [
-                      10.0,
-                      10.0,
-                      7.0,
-                      6.0
+                      10,
+                      10,
+                      7,
+                      6
                     ]
                   },
                   {
                     'valueName': 'Total',
                     'percents': [
-                      100.0,
-                      100.0,
-                      100.0,
-                      100.0
+                      100,
+                      100,
+                      100,
+                      100
                     ],
                     'amounts': [
-                      24.0,
-                      36.0,
-                      43.0,
-                      35.0
+                      24,
+                      36,
+                      43,
+                      35
                     ]
                   }
                 ]
@@ -1467,8 +1583,8 @@ export const dashboardLineDataJson = {
       'textQuestionData': []
     },
     {
-      'id': 86,
-      'firstQuestionName': 'Q1: Vil du deltage i undersøgelsen?',
+      'id': 16,
+      'firstQuestionName': 'Q1',
       'firstQuestionType': 'list',
       'filterQuestionName': null,
       'filterAnswerName': null,
@@ -1491,15 +1607,17 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '2016',
-                'value': 67.0,
+                'value': 66.67,
                 'dataCount': 40,
-                'optionIndex': 0
+                'answersDataCount': 60,
+                'optionIndex': 1
               },
               {
                 'name': '2017',
-                'value': 83.0,
+                'value': 83.33,
                 'dataCount': 65,
-                'optionIndex': 0
+                'answersDataCount': 78,
+                'optionIndex': 1
               }
             ]
           },
@@ -1511,15 +1629,17 @@ export const dashboardLineDataJson = {
             'series': [
               {
                 'name': '2016',
-                'value': 33.0,
+                'value': 33.33,
                 'dataCount': 20,
-                'optionIndex': 0
+                'answersDataCount': 60,
+                'optionIndex': 2
               },
               {
                 'name': '2017',
-                'value': 17.0,
+                'value': 16.67,
                 'dataCount': 13,
-                'optionIndex': 0
+                'answersDataCount': 78,
+                'optionIndex': 2
               }
             ]
           }
@@ -1538,34 +1658,34 @@ export const dashboardLineDataJson = {
                   {
                     'valueName': 'Ja',
                     'percents': [
-                      67.0,
-                      83.0
+                      66.67,
+                      83.33
                     ],
                     'amounts': [
-                      40.0,
-                      65.0
+                      40,
+                      65
                     ]
                   },
                   {
                     'valueName': 'Nej',
                     'percents': [
-                      33.0,
-                      17.0
+                      33.33,
+                      16.67
                     ],
                     'amounts': [
-                      20.0,
-                      13.0
+                      20,
+                      13
                     ]
                   },
                   {
                     'valueName': 'Total',
                     'percents': [
-                      100.0,
-                      100.0
+                      100,
+                      100
                     ],
                     'amounts': [
-                      60.0,
-                      78.0
+                      60,
+                      78
                     ]
                   }
                 ]
