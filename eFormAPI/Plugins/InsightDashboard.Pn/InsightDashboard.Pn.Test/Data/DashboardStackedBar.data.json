@@ -9,12 +9,12 @@
   "tagId": 7,
   "answerDates": {
     "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-12-02T23:59:59",
+    "dateTo": "2020-12-18T23:59:59",
     "today": true
   },
   "items": [
     {
-      "id": 41,
+      "id": 1,
       "firstQuestionName": "Q1",
       "firstQuestionType": "list",
       "filterQuestionName": null,
@@ -28,7 +28,9 @@
       "calculateAverage": false,
       "position": 1,
       "chartData": {
-        "single": [],
+        "single": [
+
+        ],
         "multi": [
           {
             "id": 0,
@@ -38,14 +40,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 80,
+                "value": 80.0,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 20,
+                "value": 20.0,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
@@ -60,14 +62,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 70,
+                "value": 70.0,
                 "dataCount": 7,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 30,
+                "value": 30.0,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 2
@@ -82,14 +84,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 90,
+                "value": 90.0,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 10,
+                "value": 10.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
@@ -126,14 +128,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 75,
+                "value": 75.0,
                 "dataCount": 12,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 25,
+                "value": 25.0,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 2
@@ -148,14 +150,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 44,
+                "value": 44.0,
                 "dataCount": 11,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 56,
+                "value": 56.0,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 2
@@ -324,14 +326,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Nej",
-                "value": 100,
+                "value": 100.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
@@ -346,14 +348,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 75,
+                "value": 75.0,
                 "dataCount": 15,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 25,
+                "value": 25.0,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 2
@@ -412,14 +414,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 69.7,
+                "value": 69.70,
                 "dataCount": 23,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 30.3,
+                "value": 30.30,
                 "dataCount": 10,
                 "answersDataCount": 0,
                 "optionIndex": 2
@@ -456,14 +458,14 @@
             "series": [
               {
                 "name": "Ja",
-                "value": 100,
+                "value": 100.0,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Nej",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -603,7 +605,9 @@
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -641,12 +645,12 @@
                   {
                     "valueName": "Ja",
                     "percents": [
-                      80,
-                      70,
-                      90,
+                      80.0,
+                      70.0,
+                      90.0,
                       66.67,
-                      75,
-                      44,
+                      75.0,
+                      44.0,
                       72.22,
                       56.25,
                       78.26,
@@ -654,13 +658,13 @@
                       73.08,
                       81.82,
                       66.67,
-                      0,
-                      75,
+                      0.0,
+                      75.0,
                       75.86,
                       82.14,
-                      69.7,
+                      69.70,
                       76.92,
-                      100,
+                      100.0,
                       85.71,
                       86.67,
                       66.67,
@@ -669,43 +673,43 @@
                       95.45
                     ],
                     "amounts": [
-                      8,
-                      7,
-                      9,
-                      4,
-                      12,
-                      11,
-                      13,
-                      9,
-                      18,
-                      19,
-                      19,
-                      18,
-                      20,
-                      0,
-                      15,
-                      22,
-                      23,
-                      23,
-                      20,
-                      5,
-                      24,
-                      13,
-                      10,
-                      26,
-                      50,
-                      21
+                      8.0,
+                      7.0,
+                      9.0,
+                      4.0,
+                      12.0,
+                      11.0,
+                      13.0,
+                      9.0,
+                      18.0,
+                      19.0,
+                      19.0,
+                      18.0,
+                      20.0,
+                      0.0,
+                      15.0,
+                      22.0,
+                      23.0,
+                      23.0,
+                      20.0,
+                      5.0,
+                      24.0,
+                      13.0,
+                      10.0,
+                      26.0,
+                      50.0,
+                      21.0
                     ]
                   },
                   {
                     "valueName": "Nej",
                     "percents": [
-                      20,
-                      30,
-                      10,
+                      20.0,
+                      30.0,
+                      10.0,
                       33.33,
-                      25,
-                      56,
+                      25.0,
+                      56.0,
                       27.78,
                       43.75,
                       21.74,
@@ -713,13 +717,13 @@
                       26.92,
                       18.18,
                       33.33,
-                      100,
-                      25,
+                      100.0,
+                      25.0,
                       24.14,
                       17.86,
-                      30.3,
+                      30.30,
                       23.08,
-                      0,
+                      0.0,
                       14.29,
                       13.33,
                       33.33,
@@ -728,91 +732,91 @@
                       4.55
                     ],
                     "amounts": [
-                      2,
-                      3,
-                      1,
-                      2,
-                      4,
-                      14,
-                      5,
-                      7,
-                      5,
-                      9,
-                      7,
-                      4,
-                      10,
-                      1,
-                      5,
-                      7,
-                      5,
-                      10,
-                      6,
-                      0,
-                      4,
-                      2,
-                      5,
-                      4,
-                      10,
-                      1
+                      2.0,
+                      3.0,
+                      1.0,
+                      2.0,
+                      4.0,
+                      14.0,
+                      5.0,
+                      7.0,
+                      5.0,
+                      9.0,
+                      7.0,
+                      4.0,
+                      10.0,
+                      1.0,
+                      5.0,
+                      7.0,
+                      5.0,
+                      10.0,
+                      6.0,
+                      0.0,
+                      4.0,
+                      2.0,
+                      5.0,
+                      4.0,
+                      10.0,
+                      1.0
                     ]
                   },
                   {
                     "valueName": "Total",
                     "percents": [
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100
+                      100.0,
+                      100.0,
+                      100.0,
+                      100.00,
+                      100.0,
+                      100.0,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.0,
+                      100.0,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.0,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.00,
+                      100.00
                     ],
                     "amounts": [
-                      10,
-                      10,
-                      10,
-                      6,
-                      16,
-                      25,
-                      18,
-                      16,
-                      23,
-                      28,
-                      26,
-                      22,
-                      30,
-                      1,
-                      20,
-                      29,
-                      28,
-                      33,
-                      26,
-                      5,
-                      28,
-                      15,
-                      15,
-                      30,
-                      60,
-                      22
+                      10.0,
+                      10.0,
+                      10.0,
+                      6.0,
+                      16.0,
+                      25.0,
+                      18.0,
+                      16.0,
+                      23.0,
+                      28.0,
+                      26.0,
+                      22.0,
+                      30.0,
+                      1.0,
+                      20.0,
+                      29.0,
+                      28.0,
+                      33.0,
+                      26.0,
+                      5.0,
+                      28.0,
+                      15.0,
+                      15.0,
+                      30.0,
+                      60.0,
+                      22.0
                     ]
                   }
                 ]
@@ -821,12 +825,18 @@
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      "compareLocationsTags": [
+
+      ],
+      "ignoredAnswerValues": [
+
+      ],
+      "textQuestionData": [
+
+      ]
     },
     {
-      "id": 42,
+      "id": 2,
       "firstQuestionName": "Q2",
       "firstQuestionType": "smiley2",
       "filterQuestionName": null,
@@ -840,7 +850,9 @@
       "calculateAverage": false,
       "position": 2,
       "chartData": {
-        "single": [],
+        "single": [
+
+        ],
         "multi": [
           {
             "id": 0,
@@ -857,21 +869,21 @@
               },
               {
                 "name": "Glad",
-                "value": 50,
+                "value": 50.0,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -900,21 +912,21 @@
               },
               {
                 "name": "Glad",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -950,21 +962,21 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -979,35 +991,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 100,
+                "value": 100.0,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1022,7 +1034,7 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 25,
+                "value": 25.0,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1050,7 +1062,7 @@
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1086,7 +1098,7 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1136,7 +1148,7 @@
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1151,35 +1163,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 100,
+                "value": 100.0,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1208,7 +1220,7 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1222,7 +1234,7 @@
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1258,14 +1270,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1294,7 +1306,7 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1308,7 +1320,7 @@
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1323,35 +1335,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 50,
+                "value": 50.0,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 50,
+                "value": 50.0,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1387,14 +1399,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1423,14 +1435,14 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1452,35 +1464,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 80,
+                "value": 80.0,
                 "dataCount": 16,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 15,
+                "value": 15.0,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 5,
+                "value": 5.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1516,14 +1528,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1552,7 +1564,7 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1581,35 +1593,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 70,
+                "value": 70.0,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 25,
+                "value": 25.0,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 5,
+                "value": 5.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1624,35 +1636,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 20,
+                "value": 20.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 80,
+                "value": 80.0,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1667,7 +1679,7 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 75,
+                "value": 75.0,
                 "dataCount": 18,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1681,7 +1693,7 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1695,7 +1707,7 @@
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1724,21 +1736,21 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1753,35 +1765,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 60,
+                "value": 60.0,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 40,
+                "value": 40.0,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1817,14 +1829,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1860,14 +1872,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1896,21 +1908,21 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -1918,7 +1930,9 @@
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -1958,226 +1972,226 @@
                       37.5,
                       85.71,
                       44.44,
-                      100,
-                      25,
+                      100.0,
+                      25.0,
                       54.55,
                       69.23,
-                      100,
+                      100.0,
                       77.78,
                       42.11,
                       47.37,
-                      50,
+                      50.0,
                       84.21,
                       71.43,
-                      80,
+                      80.0,
                       60.87,
                       86.96,
-                      70,
-                      20,
-                      75,
+                      70.0,
+                      20.0,
+                      75.0,
                       53.85,
-                      60,
+                      60.0,
                       76.92,
                       72.92,
                       66.67
                     ],
                     "amounts": [
-                      3,
-                      6,
-                      4,
-                      4,
-                      3,
-                      6,
-                      9,
-                      9,
-                      14,
-                      8,
-                      9,
-                      9,
-                      16,
-                      10,
-                      16,
-                      14,
-                      20,
-                      14,
-                      1,
-                      18,
-                      7,
-                      6,
-                      20,
-                      35,
-                      14
+                      3.0,
+                      6.0,
+                      4.0,
+                      4.0,
+                      3.0,
+                      6.0,
+                      9.0,
+                      9.0,
+                      14.0,
+                      8.0,
+                      9.0,
+                      9.0,
+                      16.0,
+                      10.0,
+                      16.0,
+                      14.0,
+                      20.0,
+                      14.0,
+                      1.0,
+                      18.0,
+                      7.0,
+                      6.0,
+                      20.0,
+                      35.0,
+                      14.0
                     ]
                   },
                   {
                     "valueName": "Glad",
                     "percents": [
-                      50,
-                      0,
+                      50.0,
+                      0.0,
                       55.56,
-                      0,
+                      0.0,
                       58.33,
                       27.27,
                       15.38,
-                      0,
+                      0.0,
                       16.67,
                       52.63,
                       47.37,
-                      50,
+                      50.0,
                       5.26,
                       21.43,
-                      15,
+                      15.0,
                       34.78,
                       4.35,
-                      25,
-                      80,
+                      25.0,
+                      80.0,
                       20.83,
                       46.15,
-                      40,
+                      40.0,
                       19.23,
                       16.67,
                       33.33
                     ],
                     "amounts": [
-                      4,
-                      0,
-                      5,
-                      0,
-                      7,
-                      3,
-                      2,
-                      0,
-                      3,
-                      10,
-                      9,
-                      9,
-                      1,
-                      3,
-                      3,
-                      8,
-                      1,
-                      5,
-                      4,
-                      5,
-                      6,
-                      4,
-                      5,
-                      8,
-                      7
+                      4.0,
+                      0.0,
+                      5.0,
+                      0.0,
+                      7.0,
+                      3.0,
+                      2.0,
+                      0.0,
+                      3.0,
+                      10.0,
+                      9.0,
+                      9.0,
+                      1.0,
+                      3.0,
+                      3.0,
+                      8.0,
+                      1.0,
+                      5.0,
+                      4.0,
+                      5.0,
+                      6.0,
+                      4.0,
+                      5.0,
+                      8.0,
+                      7.0
                     ]
                   },
                   {
                     "valueName": "Neutral",
                     "percents": [
-                      0,
-                      0,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       8.33,
                       9.09,
                       7.69,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
                       5.26,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
                       10.53,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
                       4.35,
-                      0,
-                      5,
-                      0,
-                      0,
-                      0,
-                      0,
+                      0.0,
+                      5.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       3.85,
                       10.42,
-                      0
+                      0.0
                     ],
                     "amounts": [
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      1,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      2,
-                      0,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      5,
-                      0
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      2.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      5.0,
+                      0.0
                     ]
                   },
                   {
                     "valueName": "Sur",
                     "percents": [
-                      0,
-                      0,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       8.33,
-                      0,
+                      0.0,
                       7.69,
-                      0,
+                      0.0,
                       5.56,
-                      0,
+                      0.0,
                       5.26,
-                      0,
-                      0,
-                      0,
-                      5,
-                      0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      5.0,
+                      0.0,
                       4.35,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
                       4.17,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
                     ],
                     "amounts": [
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
                     ]
                   },
                   {
@@ -2185,113 +2199,113 @@
                     "percents": [
                       12.5,
                       14.29,
-                      0,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
+                      0.0,
                       9.09,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       7.14,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
                       4.35,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
                     ],
                     "amounts": [
-                      1,
-                      1,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0
+                      1.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
                     ]
                   },
                   {
                     "valueName": "Total",
                     "percents": [
-                      100,
-                      100,
-                      100,
-                      100,
+                      100.0,
+                      100.00,
+                      100.00,
+                      100.0,
                       99.99,
-                      100,
+                      100.00,
                       99.99,
-                      100,
+                      100.0,
                       100.01,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
+                      100.00,
+                      100.00,
+                      100.0,
+                      100.00,
+                      100.00,
+                      100.0,
+                      100.00,
                       100.01,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
+                      100.0,
+                      100.0,
+                      100.00,
+                      100.00,
+                      100.0,
+                      100.00,
                       100.01,
-                      100
+                      100.00
                     ],
                     "amounts": [
-                      8,
-                      7,
-                      9,
-                      4,
-                      12,
-                      11,
-                      13,
-                      9,
-                      18,
-                      19,
-                      19,
-                      18,
-                      19,
-                      14,
-                      20,
-                      23,
-                      23,
-                      20,
-                      5,
-                      24,
-                      13,
-                      10,
-                      26,
-                      48,
-                      21
+                      8.0,
+                      7.0,
+                      9.0,
+                      4.0,
+                      12.0,
+                      11.0,
+                      13.0,
+                      9.0,
+                      18.0,
+                      19.0,
+                      19.0,
+                      18.0,
+                      19.0,
+                      14.0,
+                      20.0,
+                      23.0,
+                      23.0,
+                      20.0,
+                      5.0,
+                      24.0,
+                      13.0,
+                      10.0,
+                      26.0,
+                      48.0,
+                      21.0
                     ]
                   }
                 ]
@@ -2300,18 +2314,22 @@
           }
         ]
       },
-      "compareLocationsTags": [],
+      "compareLocationsTags": [
+
+      ],
       "ignoredAnswerValues": [
         {
-          "id": 6,
+          "id": 1,
           "answerId": 8,
           "name": "Ved ikke"
         }
       ],
-      "textQuestionData": []
+      "textQuestionData": [
+
+      ]
     },
     {
-      "id": 43,
+      "id": 3,
       "firstQuestionName": "Q3",
       "firstQuestionType": "smiley2",
       "filterQuestionName": null,
@@ -2325,7 +2343,9 @@
       "calculateAverage": false,
       "position": 3,
       "chartData": {
-        "single": [],
+        "single": [
+
+        ],
         "multi": [
           {
             "id": 0,
@@ -2342,21 +2362,21 @@
               },
               {
                 "name": "Glad",
-                "value": 50,
+                "value": 50.0,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2392,14 +2412,14 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2442,14 +2462,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2464,35 +2484,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 50,
+                "value": 50.0,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 25,
+                "value": 25.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 25,
+                "value": 25.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2528,7 +2548,7 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2571,7 +2591,7 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2614,7 +2634,7 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2657,14 +2677,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2679,7 +2699,7 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 50,
+                "value": 50.0,
                 "dataCount": 9,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2700,7 +2720,7 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2743,14 +2763,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2786,7 +2806,7 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2829,7 +2849,7 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2879,7 +2899,7 @@
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -2937,35 +2957,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 70,
+                "value": 70.0,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 30,
+                "value": 30.0,
                 "dataCount": 6,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3044,14 +3064,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3066,35 +3086,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 50,
+                "value": 50.0,
                 "dataCount": 10,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 35,
+                "value": 35.0,
                 "dataCount": 7,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 10,
+                "value": 10.0,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 5,
+                "value": 5.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3109,35 +3129,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 20,
+                "value": 20.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 60,
+                "value": 60.0,
                 "dataCount": 3,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 20,
+                "value": 20.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3152,7 +3172,7 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 75,
+                "value": 75.0,
                 "dataCount": 18,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3173,14 +3193,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3209,21 +3229,21 @@
               },
               {
                 "name": "Neutral",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3238,35 +3258,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 40,
+                "value": 40.0,
                 "dataCount": 4,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 50,
+                "value": 50.0,
                 "dataCount": 5,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 10,
+                "value": 10.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3281,35 +3301,35 @@
             "series": [
               {
                 "name": "Meget glad",
-                "value": 56,
+                "value": 56.0,
                 "dataCount": 14,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Glad",
-                "value": 32,
+                "value": 32.0,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 1
               },
               {
                 "name": "Neutral",
-                "value": 8,
+                "value": 8.0,
                 "dataCount": 2,
                 "answersDataCount": 0,
                 "optionIndex": 2
               },
               {
                 "name": "Sur",
-                "value": 4,
+                "value": 4.0,
                 "dataCount": 1,
                 "answersDataCount": 0,
                 "optionIndex": 3
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3374,7 +3394,7 @@
               },
               {
                 "name": "Glad",
-                "value": 38.1,
+                "value": 38.10,
                 "dataCount": 8,
                 "answersDataCount": 0,
                 "optionIndex": 1
@@ -3388,14 +3408,14 @@
               },
               {
                 "name": "Sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
               },
               {
                 "name": "Meget sur",
-                "value": 0,
+                "value": 0.0,
                 "dataCount": 0,
                 "answersDataCount": 0,
                 "optionIndex": 0
@@ -3403,7 +3423,9 @@
             ]
           }
         ],
-        "multiStacked": [],
+        "multiStacked": [
+
+        ],
         "rawData": [
           {
             "rawHeaders": [
@@ -3443,64 +3465,64 @@
                       37.5,
                       71.43,
                       33.33,
-                      50,
+                      50.0,
                       33.33,
                       36.36,
                       38.46,
                       33.33,
-                      50,
+                      50.0,
                       42.11,
                       36.84,
                       33.33,
                       66.67,
                       53.33,
-                      70,
+                      70.0,
                       34.78,
                       65.22,
-                      50,
-                      20,
-                      75,
+                      50.0,
+                      20.0,
+                      75.0,
                       66.67,
-                      40,
-                      56,
+                      40.0,
+                      56.0,
                       40.82,
                       47.62
                     ],
                     "amounts": [
-                      3,
-                      5,
-                      3,
-                      2,
-                      4,
-                      4,
-                      5,
-                      3,
-                      9,
-                      8,
-                      7,
-                      6,
-                      12,
-                      8,
-                      14,
-                      8,
-                      15,
-                      10,
-                      1,
-                      18,
-                      8,
-                      4,
-                      14,
-                      20,
-                      10
+                      3.0,
+                      5.0,
+                      3.0,
+                      2.0,
+                      4.0,
+                      4.0,
+                      5.0,
+                      3.0,
+                      9.0,
+                      8.0,
+                      7.0,
+                      6.0,
+                      12.0,
+                      8.0,
+                      14.0,
+                      8.0,
+                      15.0,
+                      10.0,
+                      1.0,
+                      18.0,
+                      8.0,
+                      4.0,
+                      14.0,
+                      20.0,
+                      10.0
                     ]
                   },
                   {
                     "valueName": "Glad",
                     "percents": [
-                      50,
+                      50.0,
                       14.29,
                       55.56,
-                      25,
+                      25.0,
                       41.67,
                       27.27,
                       30.77,
@@ -3511,53 +3533,53 @@
                       55.56,
                       16.67,
                       13.33,
-                      30,
+                      30.0,
                       43.48,
                       30.43,
-                      35,
-                      60,
+                      35.0,
+                      60.0,
                       20.83,
                       33.33,
-                      50,
-                      32,
+                      50.0,
+                      32.0,
                       38.78,
-                      38.1
+                      38.10
                     ],
                     "amounts": [
-                      4,
-                      1,
-                      5,
-                      1,
-                      5,
-                      3,
-                      4,
-                      4,
-                      6,
-                      8,
-                      6,
-                      10,
-                      3,
-                      2,
-                      6,
-                      10,
-                      7,
-                      7,
-                      3,
-                      5,
-                      4,
-                      5,
-                      8,
-                      19,
-                      8
+                      4.0,
+                      1.0,
+                      5.0,
+                      1.0,
+                      5.0,
+                      3.0,
+                      4.0,
+                      4.0,
+                      6.0,
+                      8.0,
+                      6.0,
+                      10.0,
+                      3.0,
+                      2.0,
+                      6.0,
+                      10.0,
+                      7.0,
+                      7.0,
+                      3.0,
+                      5.0,
+                      4.0,
+                      5.0,
+                      8.0,
+                      19.0,
+                      8.0
                     ]
                   },
                   {
                     "valueName": "Neutral",
                     "percents": [
-                      0,
-                      0,
+                      0.0,
+                      0.0,
                       11.11,
-                      25,
+                      25.0,
                       16.67,
                       18.18,
                       15.38,
@@ -3568,101 +3590,101 @@
                       5.56,
                       5.56,
                       6.67,
-                      0,
+                      0.0,
                       13.04,
                       4.35,
-                      10,
-                      20,
+                      10.0,
+                      20.0,
                       4.17,
-                      0,
-                      10,
-                      8,
+                      0.0,
+                      10.0,
+                      8.0,
                       16.33,
                       14.29
                     ],
                     "amounts": [
-                      0,
-                      0,
-                      1,
-                      1,
-                      2,
-                      2,
-                      2,
-                      2,
-                      2,
-                      3,
-                      4,
-                      1,
-                      1,
-                      1,
-                      0,
-                      3,
-                      1,
-                      2,
-                      1,
-                      1,
-                      0,
-                      1,
-                      2,
-                      8,
-                      3
+                      0.0,
+                      0.0,
+                      1.0,
+                      1.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      3.0,
+                      4.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      0.0,
+                      3.0,
+                      1.0,
+                      2.0,
+                      1.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      2.0,
+                      8.0,
+                      3.0
                     ]
                   },
                   {
                     "valueName": "Sur",
                     "percents": [
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       11.11,
                       13.33,
-                      0,
+                      0.0,
                       4.35,
-                      0,
-                      5,
-                      0,
-                      0,
-                      0,
-                      0,
-                      4,
+                      0.0,
+                      5.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      4.0,
                       2.04,
-                      0
+                      0.0
                     ],
                     "amounts": [
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      2,
-                      2,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      1,
-                      0
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      2.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      1.0,
+                      0.0
                     ]
                   },
                   {
@@ -3670,113 +3692,113 @@
                     "percents": [
                       12.5,
                       14.29,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
                       8.33,
                       18.18,
                       15.38,
-                      0,
+                      0.0,
                       5.56,
-                      0,
+                      0.0,
                       10.53,
                       5.56,
-                      0,
+                      0.0,
                       13.33,
-                      0,
+                      0.0,
                       4.35,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       2.04,
-                      0
+                      0.0
                     ],
                     "amounts": [
-                      1,
-                      1,
-                      0,
-                      0,
-                      1,
-                      2,
-                      2,
-                      0,
-                      1,
-                      0,
-                      2,
-                      1,
-                      0,
-                      2,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0
+                      1.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      2.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      2.0,
+                      1.0,
+                      0.0,
+                      2.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0
                     ]
                   },
                   {
                     "valueName": "Total",
                     "percents": [
-                      100,
+                      100.0,
                       100.01,
-                      100,
-                      100,
-                      100,
+                      100.00,
+                      100.0,
+                      100.00,
                       99.99,
                       99.99,
                       99.99,
-                      100,
+                      100.00,
                       100.01,
-                      100,
+                      100.00,
                       100.01,
                       100.01,
                       99.99,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
-                      100,
+                      100.0,
+                      100.00,
+                      100.00,
+                      100.0,
+                      100.0,
+                      100.00,
+                      100.00,
+                      100.0,
+                      100.0,
                       100.01,
                       100.01
                     ],
                     "amounts": [
-                      8,
-                      7,
-                      9,
-                      4,
-                      12,
-                      11,
-                      13,
-                      9,
-                      18,
-                      19,
-                      19,
-                      18,
-                      18,
-                      15,
-                      20,
-                      23,
-                      23,
-                      20,
-                      5,
-                      24,
-                      12,
-                      10,
-                      25,
-                      49,
-                      21
+                      8.0,
+                      7.0,
+                      9.0,
+                      4.0,
+                      12.0,
+                      11.0,
+                      13.0,
+                      9.0,
+                      18.0,
+                      19.0,
+                      19.0,
+                      18.0,
+                      18.0,
+                      15.0,
+                      20.0,
+                      23.0,
+                      23.0,
+                      20.0,
+                      5.0,
+                      24.0,
+                      12.0,
+                      10.0,
+                      25.0,
+                      49.0,
+                      21.0
                     ]
                   }
                 ]
@@ -3785,15 +3807,19 @@
           }
         ]
       },
-      "compareLocationsTags": [],
+      "compareLocationsTags": [
+
+      ],
       "ignoredAnswerValues": [
         {
-          "id": 7,
+          "id": 2,
           "answerId": 14,
           "name": "Ved ikke"
         }
       ],
-      "textQuestionData": []
+      "textQuestionData": [
+
+      ]
     }
   ]
 }
