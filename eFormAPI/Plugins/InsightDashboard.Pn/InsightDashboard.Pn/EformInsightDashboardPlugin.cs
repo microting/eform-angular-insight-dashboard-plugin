@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using InsightDashboard.Pn.Services.AnswersService;
+
 namespace InsightDashboard.Pn
 {
     using System;
@@ -78,6 +80,7 @@ namespace InsightDashboard.Pn
             services.AddScoped<IDashboardService, DashboardService>();
             services.AddScoped<IDictionaryService, DictionaryService>();
             services.AddScoped<IInterviewsService, InterviewsService>();
+            services.AddScoped<IAnswersService, AnswersService>();
             services.AddTransient<IInterviewsExcelService, InterviewsExcelService>();
             services.AddTransient<IWordService, WordService>();
         }
