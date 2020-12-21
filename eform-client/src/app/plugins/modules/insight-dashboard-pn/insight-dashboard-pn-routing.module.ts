@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {InsightDashboardPnLayoutComponent} from './layouts';
 import {AdminGuard, AuthGuard, PermissionGuard} from '../../../common/guards';
 import {
+  AnswerPageComponent,
   DashboardEditComponent,
   DashboardsPageComponent,
   DashboardViewComponent,
@@ -37,6 +38,11 @@ export const routes: Routes = [
         path: 'surveys-configs',
         canActivate: [AuthGuard],
         component: SurveyConfigurationsPageComponent
+      },
+      {
+        path: 'answers',
+        canActivate: [AdminGuard],
+        component: AnswerPageComponent
       },
       {
         path: 'settings',
