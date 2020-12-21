@@ -23,14 +23,13 @@ SOFTWARE.
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microting.eForm.Infrastructure.Constants;
 
 namespace InsightDashboard.Pn.Services.AnswersService
 {
+    using System;
+    using System.Linq;
+    using Microsoft.EntityFrameworkCore;
+    using Microting.eForm.Infrastructure.Constants;
     using Common.InsightDashboardLocalizationService;
     using Microsoft.Extensions.Logging;
     using Microting.eFormApi.BasePn.Abstractions;
@@ -64,18 +63,18 @@ namespace InsightDashboard.Pn.Services.AnswersService
                 await using(var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var answersQueryable = sdkContext.answers
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed &&
-                                    x.MicrotingUid == microtingUid)
+                        //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.MicrotingUid == microtingUid)
                         .AsNoTracking()
                         .AsQueryable();
 
                     result = answersQueryable.Select(answers => new AnswerViewModel()
                     {
-                        MicrotingUUID = (int)answers.MicrotingUid,
+                        MicrotingUId = (int)answers.MicrotingUid,
                         Id = answers.Id,
-                        AnswerValues = sdkContext.answer_values
-                            .Where(answerValues => answerValues.WorkflowState != Constants.WorkflowStates.Removed &&
-                                                   answerValues.AnswerId == answers.Id)
+                        Values = sdkContext.answer_values
+                            .Where(answerValues => answerValues.AnswerId == answers.Id)
+                            //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .AsQueryable()
                             .Select(a => new AnswerValuesViewModel()
                             {
@@ -94,6 +93,20 @@ namespace InsightDashboard.Pn.Services.AnswersService
                     }).FirstOrDefault();
                 }
 
+                if(result == null)
+                {
+                    return new OperationDataResult<AnswerViewModel>(
+                        false,
+                        _localizationService.GetString("AnswerNotFound"));
+                }
+
+                if(result.Values == null)
+                {
+                    return new OperationDataResult<AnswerViewModel>(
+                        false,
+                        _localizationService.GetString("AnswerValuesNotFound"));
+                }
+
                 return new OperationDataResult<AnswerViewModel>(true, result);
             }
             catch(Exception e)
@@ -101,7 +114,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
                 return new OperationDataResult<AnswerViewModel>(false,
-                    _localizationService.GetString("ErrorWhileObtainingAnswerViewModel"));
+                    _localizationService.GetString("ErrorWhileObtainingGetAnswer"));
             }
         }
 
@@ -133,7 +146,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                     {
                         return new OperationResult(
                             false,
-                            _localizationService.GetString("answersValuesNotFound"));
+                            _localizationService.GetString("AnswerValuesNotFound"));
                     }
 
                     foreach(var answersValue in answersValues)
@@ -145,7 +158,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
 
                     return new OperationResult(
                     true,
-                    _localizationService.GetString("AnswerHasBeenRemoved"));
+                    _localizationService.GetString("AnswerAndAnswerValuesHasBeenRemoved"));
                 }
             }
             catch(Exception e)
@@ -154,7 +167,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                 _logger.LogError(e.Message);
                 return new OperationResult(
                     false,
-                    _localizationService.GetString("ErrorWhileRemovingAnswer"));
+                    _localizationService.GetString("ErrorWhileRemovingAnswerAndAnswerValues"));
             }
 
         }

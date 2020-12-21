@@ -260,6 +260,63 @@ namespace InsightDashboard.Pn
                                         Language = LanguageNames.Danish,
                                     },
                                 }
+                            },
+                            new PluginMenuItemModel
+                            {
+                                Name = "Answers",
+                                E2EId = "insight-dashboard-pn-answers",
+                                Link = "/plugins/insight-dashboard-pn/answers",
+                                Type = MenuItemTypeEnum.Link,
+                                Position = 2,
+                                MenuTemplate = new PluginMenuTemplateModel()
+                                {
+                                    Name = "Answers",
+                                    E2EId = "insight-dashboard-pn-Answers",
+                                    DefaultLink = "/plugins/insight-dashboard-pn/answers",
+                                    Permissions = new List<PluginMenuTemplatePermissionModel>(),
+                                    Translations = new List<PluginMenuTranslationModel>
+                                    {
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.English,
+                                            Name = "Answers",
+                                            Language = LanguageNames.English,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.German,
+                                            Name = "Antwort",
+                                            Language = LanguageNames.German,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.Danish,
+                                            Name = "Svar",
+                                            Language = LanguageNames.Danish,
+                                        },
+                                    }
+                                },
+                                Translations = new List<PluginMenuTranslationModel>
+                                {
+                                    new PluginMenuTranslationModel
+                                    {
+                                        LocaleName = LocaleNames.English,
+                                        Name = "Answers",
+                                        Language = LanguageNames.English,
+                                    },
+                                    new PluginMenuTranslationModel
+                                    {
+                                        LocaleName = LocaleNames.German,
+                                        Name = "Antwort",
+                                        Language = LanguageNames.German,
+                                    },
+                                    new PluginMenuTranslationModel
+                                    {
+                                        LocaleName = LocaleNames.Danish,
+                                        Name = "Svar",
+                                        Language = LanguageNames.Danish,
+                                    },
+                                }
                             }
                         }
                     }
@@ -295,6 +352,13 @@ namespace InsightDashboard.Pn
                         E2EId = "insight-dashboard-pn-dashboards",
                         Link = "/plugins/insight-dashboard-pn/dashboards",
                         Position = 1
+                    },
+                    new MenuItemModel()
+                    {
+                        Name = localizationService.GetString("Answers"),
+                        E2EId = "insight-dashboard-pn-answers",
+                        Link = "/plugins/insight-dashboard-pn/answers",
+                        Position = 2
                     },
                 }
             });

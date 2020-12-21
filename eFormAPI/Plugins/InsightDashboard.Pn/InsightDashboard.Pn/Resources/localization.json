@@ -397,5 +397,47 @@
       "da": "Ingen data",
       "en-US": "No data"
     }
+  },
+  {
+    "Key": "AnswerNotFound",
+    "LocalizedValue": {
+      "da": "Svar ikke fundet",
+      "en-US": "Answer not found"
+    }
+  },
+  {
+    "Key": "ErrorWhileObtainingGetAnswer",
+    "LocalizedValue": {
+      "da": "Fejl under opnåelse få svar",
+      "en-US": "Error while obtaining get answer"
+    }
+  },
+  {
+    "Key": "AnswerValuesNotFound",
+    "LocalizedValue": {
+      "da": "Svar værdier ikke fundet",
+      "en-US": "Answer values not found"
+    }
+  },
+  {
+    "Key": "AnswerAndAnswerValuesHasBeenRemoved",
+    "LocalizedValue": {
+      "da": "Svar og svar værdier er blevet fjernet",
+      "en-US": "Answer and answer values has been removed"
+    }
+  },
+  {
+    "Key": "ErrorWhileRemovingAnswerAndAnswerValues",
+    "LocalizedValue": {
+      "da": "Fejl under fjernelse svar og svar værdier",
+      "en-US": "Error while removing answer and answer values"
+    }
+  },
+  {
+    "Key": "AnswerValuesNotFound",
+    "LocalizedValue": {
+      "da": "Svar værdier ikke fundet",
+      "en-US": "Answer values not found"
+    }
   }
 ]

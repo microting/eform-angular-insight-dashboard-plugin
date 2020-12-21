@@ -30,8 +30,8 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Answers
     public class AnswerViewModel
     {
         public int Id { get; set; }
-        public int MicrotingUUID { get; set; }
-        public List<AnswerValuesViewModel> AnswerValues { get; set; }
+        public int MicrotingUId { get; set; }
+        public List<AnswerValuesViewModel> Values { get; set; }
             = new List<AnswerValuesViewModel>();
     }
 }
