@@ -60,7 +60,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
             {
                 var core = await _coreHelper.GetCore();
                 AnswerViewModel result;
-                await using(var sdkContext = core.dbContextHelper.GetDbContext())
+                await using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var answersQueryable = sdkContext.Answers
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
@@ -93,14 +93,14 @@ namespace InsightDashboard.Pn.Services.AnswersService
                     }).FirstOrDefault();
                 }
 
-                if(result == null)
+                if (result == null)
                 {
                     return new OperationDataResult<AnswerViewModel>(
                         false,
                         _localizationService.GetString("AnswerNotFound"));
                 }
 
-                if(result.Values == null)
+                if (result.Values == null)
                 {
                     return new OperationDataResult<AnswerViewModel>(
                         false,
@@ -109,7 +109,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
 
                 return new OperationDataResult<AnswerViewModel>(true, result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
@@ -124,32 +124,38 @@ namespace InsightDashboard.Pn.Services.AnswersService
             {
                 var core = await _coreHelper.GetCore();
 
-                using(var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var answer = await sdkContext.Answers
                         .Where(x => x.MicrotingUid == microtingUid)
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .FirstOrDefaultAsync();
 
                     var answersValues = await sdkContext.AnswerValues
                         .Where(x => x.AnswerId == answer.Id)
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .ToListAsync();
-                    if(answer == null)
+
+                    if (answer == null)
                     {
                         return new OperationResult(
                             false,
                             _localizationService.GetString("AnswerNotFound"));
                     }
 
-                    if(answersValues == null)
+                    if (answer.WorkflowState == Constants.WorkflowStates.Removed)
+                    {
+                        return new OperationResult(
+                           false,
+                           _localizationService.GetString("AnswerRemoved"));
+                    }
+
+                    if (answersValues == null)
                     {
                         return new OperationResult(
                             false,
                             _localizationService.GetString("AnswerValuesNotFound"));
                     }
 
-                    foreach(var answersValue in answersValues)
+                    foreach (var answersValue in answersValues)
                     {
                         await answersValue.Delete(sdkContext);
                     }
@@ -161,7 +167,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                     _localizationService.GetString("AnswerAndAnswerValuesHasBeenRemoved"));
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
