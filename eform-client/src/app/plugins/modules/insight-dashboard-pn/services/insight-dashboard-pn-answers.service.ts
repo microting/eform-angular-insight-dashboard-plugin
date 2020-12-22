@@ -24,7 +24,7 @@ export class InsightDashboardPnAnswersService extends BaseService {
   getAnswer(
     microtingUUID: number
   ): Observable<OperationDataResult<AnswerModel>> {
-    return this.get(DashboardAnswersMethods.Answers, microtingUUID);
+    return this.get(DashboardAnswersMethods.Answers + '/' + microtingUUID);
   }
 
   deleteAnswer(microtingUUID: number): Observable<any> {

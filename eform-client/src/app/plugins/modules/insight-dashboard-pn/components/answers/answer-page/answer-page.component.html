@@ -33,7 +33,7 @@
             container="body"
             [mdbTooltip]="'Delete answer' | translate"
             [disabled]="!searchAnswerMicrotingUId || (searchAnswerMicrotingUId !== answer.microtingUId)"
-            (click)="getAnswer()"
+            (click)="openAnswerDeleteModal()"
           >
             <fa-icon icon="trash-alt" size="lg" [fixedWidth]="true"></fa-icon>
           </button>

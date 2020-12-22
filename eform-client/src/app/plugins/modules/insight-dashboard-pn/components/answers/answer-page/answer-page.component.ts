@@ -28,6 +28,7 @@ export class AnswerPageComponent implements OnInit, OnDestroy {
   }
 
   getAnswer() {
+    this.answer = new AnswerModel();
     this.answerSub$ = this.answersService
       .getAnswer(this.searchAnswerMicrotingUId)
       .subscribe((data) => {
