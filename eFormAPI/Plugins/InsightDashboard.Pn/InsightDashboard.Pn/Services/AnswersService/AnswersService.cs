@@ -63,7 +63,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                 await using(var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var answersQueryable = sdkContext.answers
-                        //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.MicrotingUid == microtingUid)
                         .AsNoTracking()
                         .AsQueryable();
@@ -74,7 +74,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                         Id = answers.Id,
                         Values = sdkContext.answer_values
                             .Where(answerValues => answerValues.AnswerId == answers.Id)
-                            //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .AsQueryable()
                             .Select(a => new AnswerValuesViewModel()
                             {

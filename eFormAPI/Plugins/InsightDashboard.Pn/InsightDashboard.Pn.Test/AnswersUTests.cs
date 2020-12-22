@@ -96,22 +96,37 @@ namespace InsightDashboard.Pn.Test
         [Test]
         public async Task Delete_Answer()
         {
-            var answerQuery = DbContext.answers
+            var answer = await DbContext.answers
                 .Where(x => x.MicrotingUid == 1413005)
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed);
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .FirstOrDefaultAsync();
 
-            var answersValuesQuery = DbContext.answer_values
-                .Where(x => x.AnswerId == 1)
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed);
-            var answersValues = answersValuesQuery.AsNoTracking().ToList();
-            foreach(var answerValue in answersValues)
+            var answersValues = await DbContext.answer_values
+                .Where(x => x.AnswerId == answer.Id)
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .ToListAsync();
+            Assert.IsNotEmpty(answersValues);
+
+            foreach(var answersValue in answersValues)
             {
-                await answerValue.Delete(DbContext);
+                await answersValue.Delete(DbContext);
             }
-            var answer = answerQuery.AsNoTracking().FirstOrDefault();
-            await answer?.Delete(DbContext);
-            Assert.IsEmpty(answersValuesQuery.AsNoTracking().ToList());
-            Assert.AreEqual(answerQuery.AsNoTracking().FirstOrDefault(), default);
+
+            Assert.AreNotEqual(answer, default);
+            await answer.Delete(DbContext);
+
+            var answerAfterDelete = await DbContext.answers
+                .Where(x => x.MicrotingUid == 1413005)
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .FirstOrDefaultAsync();
+
+            var answersValuesAfterDelete = DbContext.answer_values
+                .Where(x => x.AnswerId == answer.Id)
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .ToList();
+
+            Assert.IsEmpty(answersValuesAfterDelete);
+            Assert.AreEqual(answerAfterDelete, default);
 
         }
     }
