@@ -133,7 +133,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 }
             }
 
-            var answerQueryable = sdkContext.answer_values
+            var answerQueryable = sdkContext.AnswerValues
                 .AsNoTracking()
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .AsQueryable();
@@ -230,7 +230,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     }
                 }
 
-                var ignoreOptions = new List<options>();
+                var ignoreOptions = new List<Option>();
 
                 if (dashboardItem.IgnoredAnswerValues
                     .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
@@ -243,7 +243,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     answerQueryable = answerQueryable
                         .Where(x => !optionIds.Contains(x.OptionId));
 
-                    ignoreOptions = await sdkContext.options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
+                    ignoreOptions = await sdkContext.Options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
                 }
 
                 var data = new List<ChartDataItem>();
@@ -278,7 +278,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     ? x.Option.WeightValue.ToString()
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
                                         ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
-                                            .Join(sdkContext.options,
+                                            .Join(sdkContext.Options,
                                                 option_translations => option_translations.OptionId,
                                                 options => options.Id,
                                                 (option_translations, options) => new
@@ -346,7 +346,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 ? x.Option.WeightValue.ToString()
                                 : x.Question.QuestionType == Constants.QuestionTypes.Multi
                                     ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
-                                        .Join(sdkContext.options,
+                                        .Join(sdkContext.Options,
                                             option_translations => option_translations.OptionId,
                                             options => options.Id,
                                             (option_translations, options) => new
@@ -395,7 +395,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     ? x.Option.WeightValue.ToString()
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
                                     ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
-                                        .Join(sdkContext.options,
+                                        .Join(sdkContext.Options,
                                             option_translations => option_translations.OptionId,
                                             options => options.Id,
                                             (option_translations, options) => new
@@ -440,7 +440,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     ? x.Option.WeightValue.ToString()
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
                                         ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
-                                            .Join(sdkContext.options,
+                                            .Join(sdkContext.Options,
                                                 option_translations => option_translations.OptionId,
                                                 options => options.Id,
                                                 (option_translations, options) => new
@@ -485,7 +485,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 }
 
                 // Get question type
-                var questionTypeData = await sdkContext.questions
+                var questionTypeData = await sdkContext.Questions
                     .AsNoTracking()
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .Where(x => x.Id == dashboardItem.FirstQuestionId)
@@ -555,7 +555,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                             .ToList();
                     }
 
-                    var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                    var options = sdkContext.Options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
                         .ToList();
                     if (isSmiley)
                     {
@@ -599,7 +599,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     tmpDataModel.DataCount = 0;
                                     var option = options.SingleOrDefault(x => x.WeightValue == labelNumber);
                                     if (option == null) {
-                                        Log.LogException($"ChartDataHelpers. we could not find a OptionsIndex for option with labelNumber {labelNumber} for question {dashboardItem.FirstQuestionId}");
+                                        //Log.LogException($"ChartDataHelpers. we could not find a OptionsIndex for option with labelNumber {labelNumber} for question {dashboardItem.FirstQuestionId}");
                                     }
                                     tmpDataModel.OptionIndex = option != null ? options.Single(x => x.WeightValue == labelNumber).OptionIndex : 0;
                                 }
@@ -611,7 +611,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     else
                     {
                         var tmpData = groupedData;
-                        foreach (options option in options)
+                        foreach (Option option in options)
                         {
                             var optionName = option.OptionTranslationses.Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed).First().Name;
                             if (!groupedData.Any(x => x.Name.Contains(optionName)))
@@ -1390,7 +1390,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                                 if (isSmiley)
                                 {
-                                    var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                    var options = sdkContext.Options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
                                         .ToList();
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null && options.Any(x => x.WeightValue == 100))
                                         newLineData.Add(new DashboardViewChartDataMultiModel
@@ -1595,7 +1595,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             if (isSmiley)
                             {
-                                var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                                var options = sdkContext.Options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
                                     .ToList();
                                 if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 100) == null && options.Any(x => x.WeightValue == 100))
                                     newLineData.Add(new DashboardViewChartDataMultiModel
@@ -1758,7 +1758,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
                             var newLineData = new List<DashboardViewChartDataMultiModel>();
 
-                            var options = sdkContext.options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
+                            var options = sdkContext.Options.Where(x => x.QuestionId == dashboardItem.FirstQuestionId)
                                 .ToList();
                             if (isSmiley)
                             {
@@ -1838,7 +1838,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 foreach (var columnName in columnNames)
                                 {
                                     var model = new DashboardViewChartDataMultiModel {Name = columnName};
-                                    foreach (options option in options.OrderBy(x => x.OptionIndex))
+                                    foreach (Option option in options.OrderBy(x => x.OptionIndex))
                                     {
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                         {
