@@ -32,7 +32,7 @@ namespace InsightDashboard.Pn.Test
     using Microting.eForm.Infrastructure.Constants;
     using Newtonsoft.Json;
     using System.Threading.Tasks;
-    using InsightDashboard.Pn.Test.Helpers;
+    using Helpers;
     using Microsoft.EntityFrameworkCore;
 
     [TestFixture]
@@ -45,7 +45,7 @@ namespace InsightDashboard.Pn.Test
         }
 
         [Test]
-        public void Get_Answer()
+        public void Answer_Get()
         {
             var answer = DbContext.answers
                 .Where(x=>x.MicrotingUid == 1413005)
