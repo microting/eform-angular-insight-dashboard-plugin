@@ -47,14 +47,14 @@ namespace InsightDashboard.Pn.Test
         [Test]
         public void Answer_Get()
         {
-            var answer = DbContext.answers
+            var answer = DbContext.Answers
                 .Where(x=>x.MicrotingUid == 1413005)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .Select(answers => new AnswerViewModel()
                 {
                     MicrotingUId = (int)answers.MicrotingUid,
                     Id = answers.Id,
-                    Values = DbContext.answer_values
+                    Values = DbContext.AnswerValues
                         .Where(answerValues => answerValues.AnswerId == answers.Id)
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Select(a => new AnswerValuesViewModel()
@@ -68,7 +68,7 @@ namespace InsightDashboard.Pn.Test
                                 {
                                     Value = translations.Name,
                                     LanguageId = translations.LanguageId,
-                                    LanguageName = DbContext.languages.FirstOrDefault(x => x.Id == translations.LanguageId).Name
+                                    LanguageName = DbContext.Languages.FirstOrDefault(x => x.Id == translations.LanguageId).Name
                                 }).ToList()
                         }).ToList()
                 }).FirstOrDefault();
@@ -96,12 +96,12 @@ namespace InsightDashboard.Pn.Test
         [Test]
         public async Task Delete_Answer()
         {
-            var answer = await DbContext.answers
+            var answer = await DbContext.Answers
                 .Where(x => x.MicrotingUid == 1413005)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .FirstOrDefaultAsync();
 
-            var answersValues = await DbContext.answer_values
+            var answersValues = await DbContext.AnswerValues
                 .Where(x => x.AnswerId == answer.Id)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .ToListAsync();
@@ -115,12 +115,12 @@ namespace InsightDashboard.Pn.Test
             Assert.AreNotEqual(answer, default);
             await answer.Delete(DbContext);
 
-            var answerAfterDelete = await DbContext.answers
+            var answerAfterDelete = await DbContext.Answers
                 .Where(x => x.MicrotingUid == 1413005)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .FirstOrDefaultAsync();
 
-            var answersValuesAfterDelete = DbContext.answer_values
+            var answersValuesAfterDelete = DbContext.AnswerValues
                 .Where(x => x.AnswerId == answer.Id)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .ToList();

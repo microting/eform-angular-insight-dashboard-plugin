@@ -62,7 +62,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                 AnswerViewModel result;
                 await using(var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var answersQueryable = sdkContext.answers
+                    var answersQueryable = sdkContext.Answers
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.MicrotingUid == microtingUid)
                         .AsNoTracking()
@@ -72,7 +72,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                     {
                         MicrotingUId = (int)answers.MicrotingUid,
                         Id = answers.Id,
-                        Values = sdkContext.answer_values
+                        Values = sdkContext.AnswerValues
                             .Where(answerValues => answerValues.AnswerId == answers.Id)
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .AsQueryable()
@@ -87,7 +87,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                                     {
                                         Value = translations.Name,
                                         LanguageId = translations.LanguageId,
-                                        LanguageName = sdkContext.languages.FirstOrDefault(x => x.Id == translations.LanguageId).Name
+                                        LanguageName = sdkContext.Languages.FirstOrDefault(x => x.Id == translations.LanguageId).Name
                                     }).ToList()
                             }).ToList()
                     }).FirstOrDefault();
@@ -126,12 +126,12 @@ namespace InsightDashboard.Pn.Services.AnswersService
 
                 using(var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var answer = await sdkContext.answers
+                    var answer = await sdkContext.Answers
                         .Where(x => x.MicrotingUid == microtingUid)
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .FirstOrDefaultAsync();
 
-                    var answersValues = await sdkContext.answer_values
+                    var answersValues = await sdkContext.AnswerValues
                         .Where(x => x.AnswerId == answer.Id)
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .ToListAsync();
