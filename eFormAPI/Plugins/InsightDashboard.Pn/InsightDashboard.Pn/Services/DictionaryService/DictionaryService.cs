@@ -64,7 +64,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveys = await sdkContext.question_sets
+                    var surveys = await sdkContext.QuestionSets
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Select(x => new CommonDictionaryModel()
@@ -91,7 +91,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveys = await sdkContext.tags
+                    var surveys = await sdkContext.Tags
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Select(x => new CommonDictionaryModel()
@@ -119,7 +119,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 var core = await _coreHelper.GetCore();
                 using (var dbContext = core.dbContextHelper.GetDbContext())
                 {
-                    var sites = await dbContext.site_survey_configurations
+                    var sites = await dbContext.SiteSurveyConfigurations
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.Site.WorkflowState != Constants.WorkflowStates.Removed)
@@ -155,12 +155,12 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var languages = await sdkContext.languages.ToListAsync();
+                    var languages = await sdkContext.Languages.ToListAsync();
                     var questionsResult = new List<QuestionDictionaryModel>();
                     foreach (var language in languages)
                     {
                         // TODO take by language
-                        var questions = await sdkContext.questions
+                        var questions = await sdkContext.Questions
                             .AsNoTracking()
                             //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.QuestionSetId == surveyId)
@@ -217,18 +217,18 @@ namespace InsightDashboard.Pn.Services.DictionaryService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var languages = await sdkContext.languages.ToListAsync();
+                    var languages = await sdkContext.Languages.ToListAsync();
                     var answersResult = new List<CommonDictionaryModel>();
                     bool isSmileyQuestion = false;
                     foreach (var language in languages)
                     {
-                        isSmileyQuestion = await sdkContext.questions
+                        isSmileyQuestion = await sdkContext.Questions
                             .Where(x => x.Id == requestModel.FilterQuestionId)
                             .Select(x => x.IsSmiley())
                             .FirstOrDefaultAsync();
 
                         // TODO take by language
-                        var answers = await sdkContext.options
+                        var answers = await sdkContext.Options
                             .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.QuestionId == requestModel.FilterQuestionId)

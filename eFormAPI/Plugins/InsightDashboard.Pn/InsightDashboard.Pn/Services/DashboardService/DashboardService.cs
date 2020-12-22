@@ -131,7 +131,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 {
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
                     {
-                        dashboardModel.SurveyName = await sdkContext.question_sets
+                        dashboardModel.SurveyName = await sdkContext.QuestionSets
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboardModel.SurveyId)
                             .Select(x => x.Name)
@@ -139,7 +139,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                         if (dashboardModel.LocationId != null)
                         {
-                            dashboardModel.LocationName = await sdkContext.sites
+                            dashboardModel.LocationName = await sdkContext.Sites
                                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.Id == dashboardModel.LocationId)
                                 .Select(x => x.Name)
@@ -148,7 +148,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                         if (dashboardModel.TagId != null)
                         {
-                            dashboardModel.TagName = await sdkContext.tags
+                            dashboardModel.TagName = await sdkContext.Sites
                                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                 .Where(x => x.Id == dashboardModel.TagId)
                                 .Select(x => x.Name)
@@ -178,7 +178,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 {
 
                     if (!await sdkContext
-                        .question_sets
+                        .QuestionSets
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .AnyAsync(x=>x.Id == createModel.SurveyId))
                     {
@@ -377,7 +377,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     if (editModel.LocationId != null)
                     {
                         if (!await sdkContext
-                            .sites
+                            .Sites
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .AnyAsync(x => x.Id == editModel.LocationId))
                         {
@@ -390,7 +390,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     if (editModel.TagId != null)
                     {
                         if (!await sdkContext
-                            .tags
+                            .Tags
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .AnyAsync(x => x.Id == editModel.TagId))
                         {
@@ -528,7 +528,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 int answersCount;
                                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                                 {
-                                    answersCount = await sdkContext.options
+                                    answersCount = await sdkContext.Options
                                         .AsNoTracking()
                                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                         .Where(x => x.QuestionId == dashboardItemModel.FirstQuestionId)
@@ -590,7 +590,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             int answersCount;
                             using (var sdkContext = core.dbContextHelper.GetDbContext())
                             {
-                                answersCount = await sdkContext.options
+                                answersCount = await sdkContext.Options
                                     .AsNoTracking()
                                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                     .Where(x => x.QuestionId == dashboardItemModel.FirstQuestionId)
@@ -800,7 +800,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    result.SurveyName = await sdkContext.question_sets
+                    result.SurveyName = await sdkContext.QuestionSets
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.Id == dashboard.SurveyId)
@@ -809,7 +809,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                     if (dashboard.LocationId != null)
                     {
-                        result.LocationName = await sdkContext.sites
+                        result.LocationName = await sdkContext.Sites
                             .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboard.LocationId)
@@ -819,7 +819,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                     if (dashboard.TagId != null)
                     {
-                        result.TagName = await sdkContext.tags
+                        result.TagName = await sdkContext.Tags
                             .AsNoTracking()
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboard.TagId)
@@ -827,7 +827,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             .FirstOrDefaultAsync();
                     }
 
-                    sites = await sdkContext.sites
+                    sites = await sdkContext.Sites
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Select(x => new CommonDictionaryModel
@@ -836,7 +836,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             Name = x.Name,
                         }).ToListAsync();
 
-                    tags = await sdkContext.tags
+                    tags = await sdkContext.Tags
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Select(x => new CommonDictionaryModel
@@ -845,7 +845,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             Name = x.Name,
                         }).ToListAsync();
 
-                    options = await sdkContext.options
+                    options = await sdkContext.Options
                         .AsNoTracking()
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Select(x => new CommonDictionaryModel
@@ -944,7 +944,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                     using (var sdkContext = core.dbContextHelper.GetDbContext())
                     {
-                        var languages = await sdkContext.languages.ToListAsync();
+                        var languages = await sdkContext.Languages.ToListAsync();
                         foreach (var language in languages)
                         {
                             var firstQuestion = await sdkContext.QuestionTranslations
@@ -998,7 +998,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 dashboardItemModel.FilterAnswerName = await sdkContext.OptionTranslations
                                     .AsNoTracking()
                                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                    .Where(x => x.option.WorkflowState != Constants.WorkflowStates.Removed)
+                                    .Where(x => x.Option.WorkflowState != Constants.WorkflowStates.Removed)
                                     .Where(x => x.Language.WorkflowState != Constants.WorkflowStates.Removed)
                                     .Where(x => x.OptionId == dashboardItem.FilterAnswerId)
                                     .Where(x => x.Language.Id == language.Id)
@@ -1111,7 +1111,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    dashboard.SurveyName = await sdkContext.question_sets
+                    dashboard.SurveyName = await sdkContext.QuestionSets
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .Where(x => x.Id == dashboard.SurveyId)
                         .Select(x => x.Name)
@@ -1119,7 +1119,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                     if (dashboard.LocationId != null)
                     {
-                        dashboard.LocationName = await sdkContext.sites
+                        dashboard.LocationName = await sdkContext.Sites
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboard.LocationId)
                             .Select(x => x.Name)
@@ -1128,7 +1128,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                     if (dashboard.TagId != null)
                     {
-                        dashboard.TagName = await sdkContext.tags
+                        dashboard.TagName = await sdkContext.Tags
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboard.TagId)
                             .Select(x => x.Name)
@@ -1137,7 +1137,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                     foreach (var dashboardItemModel in dashboard.Items)
                     {
-                        var question = await sdkContext.questions
+                        var question = await sdkContext.Questions
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboardItemModel.FirstQuestionId)
                             .FirstOrDefaultAsync();

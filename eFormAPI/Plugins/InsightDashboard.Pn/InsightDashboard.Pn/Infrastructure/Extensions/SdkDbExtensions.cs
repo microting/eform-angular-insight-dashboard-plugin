@@ -27,7 +27,7 @@ namespace InsightDashboard.Pn.Infrastructure.Extensions
 
     public static class SdkDbExtensions
     {
-        public static string GetQuestionType(this questions questions)
+        public static string GetQuestionType(this Question questions)
         {
             var isSmiley = questions.IsSmiley();
 

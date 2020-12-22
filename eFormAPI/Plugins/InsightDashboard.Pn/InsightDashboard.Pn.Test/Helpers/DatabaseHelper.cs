@@ -35,11 +35,11 @@ namespace InsightDashboard.Pn.Test.Helpers
     {
         public static async Task AddTotalTag(MicrotingDbContext dbContext)
         {
-            if (!await dbContext.tags.AnyAsync(
+            if (!await dbContext.Tags.AnyAsync(
                 x => x.Name == "Total"
                      && x.Id == 1))
             {
-                var tag = new tags()
+                var tag = new Tag()
                 {
                     Name = "Total",
                 };
@@ -51,24 +51,24 @@ namespace InsightDashboard.Pn.Test.Helpers
                 Assert.Fail("Total tag already exists in database");
             }
 
-            var locations = new List<site_tags>()
+            var locations = new List<SiteTag>()
             {
-                new site_tags()
+                new SiteTag()
                 {
                     SiteId = 1,
                     TagId = 1,
                 },
-                new site_tags()
+                new SiteTag()
                 {
                     SiteId = 2,
                     TagId = 1,
                 },
-                new site_tags()
+                new SiteTag()
                 {
                     SiteId = 3,
                     TagId = 1,
                 },
-                new site_tags()
+                new SiteTag()
                 {
                     SiteId = 4,
                     TagId = 1,

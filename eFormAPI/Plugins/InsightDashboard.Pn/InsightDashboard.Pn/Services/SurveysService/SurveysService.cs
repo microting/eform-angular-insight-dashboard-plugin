@@ -67,7 +67,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 //await AddTextAnswers(); 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveysQueryable = sdkContext.survey_configurations
+                    var surveysQueryable = sdkContext.SurveyConfigurations
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .AsNoTracking()
                         .AsQueryable();
@@ -166,7 +166,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                     {
                         try
                         {
-                            var surveyConfig = new survey_configurations
+                            var surveyConfig = new SurveyConfiguration()
                             {
                                 QuestionSetId = createModel.SurveyId,
                             };
@@ -175,7 +175,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
 
                             foreach (var locationsId in createModel.LocationsIds)
                             {
-                                var siteSurveyConfig = new site_survey_configurations
+                                var siteSurveyConfig = new SiteSurveyConfiguration()
                                 {
                                     SurveyConfigurationId = surveyConfig.Id,
                                     SiteId = locationsId,
@@ -219,7 +219,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                     {
                         try
                         {
-                            var surveyConfiguration = await sdkContext.survey_configurations
+                            var surveyConfiguration = await sdkContext.SurveyConfigurations
                                 .Include(x => x.SiteSurveyConfigurations)
                                 .Where(x => x.Id == updateModel.Id)
                                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
@@ -250,7 +250,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                             foreach (var siteIdForRemove in forRemove)
                             {
                                 var siteSurveyConfigurations = await sdkContext
-                                    .site_survey_configurations
+                                    .SiteSurveyConfigurations
                                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                                     .FirstOrDefaultAsync(
                                         x => x.SurveyConfigurationId == surveyConfiguration.Id
@@ -268,7 +268,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
 
                             foreach (var siteIdForCreate in forCreate)
                             {
-                                var siteSurveyConfigurations = new site_survey_configurations()
+                                var siteSurveyConfigurations = new SiteSurveyConfiguration()
                                 {
                                     SurveyConfigurationId = surveyConfiguration.Id,
                                     SiteId = siteIdForCreate
@@ -308,7 +308,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveyConfiguration = await sdkContext.survey_configurations
+                    var surveyConfiguration = await sdkContext.SurveyConfigurations
                         .Where(x => x.Id == configUpdateStatusModel.Id)
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .FirstOrDefaultAsync();
@@ -347,7 +347,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var surveyConfiguration = await sdkContext.survey_configurations
+                    var surveyConfiguration = await sdkContext.SurveyConfigurations
                         .Where(x => x.Id == id)
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .FirstOrDefaultAsync();
@@ -385,18 +385,18 @@ namespace InsightDashboard.Pn.Services.SurveysService
             int naOptionId = 1;
             if (dbContext.QuestionTranslations.SingleOrDefault(x => x.Name == "Enter you opinion about the question") == null)
             {
-                questions textQuestion = new questions()
+                Question textQuestion = new Question()
                 {
                     QuestionType = Constants.QuestionTypes.Text,
-                    QuestionSetId = dbContext.question_sets.First().Id
+                    QuestionSetId = dbContext.QuestionSets.First().Id
                 };
                 await textQuestion.Create(dbContext, true);
                 questionId = textQuestion.Id;
-                question_translations questionTranslation = new question_translations()
+                QuestionTranslation questionTranslation = new QuestionTranslation()
                 {
                     Name = "Enter you opinion about the question",
                     QuestionId = textQuestion.Id,
-                    LanguageId = dbContext.languages.First().Id
+                    LanguageId = dbContext.Languages.First().Id
                 };
                 await questionTranslation.Create(dbContext);
             }
@@ -409,12 +409,12 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 naOptionId = questionTranslation.Question.Options.Last().Id;
             }
             int i = 1;
-            foreach (answers answer in dbContext.answers.ToList())
+            foreach (Answer answer in dbContext.Answers.ToList())
             {
-                if (dbContext.answer_values.SingleOrDefault(x =>
+                if (dbContext.AnswerValues.SingleOrDefault(x =>
                         x.AnswerId == answer.Id && x.QuestionId == questionId) == null)
                 {
-                    answer_values answerValue = new answer_values()
+                    AnswerValue answerValue = new AnswerValue()
                     {
                         QuestionId = questionId,
                         AnswerId = answer.Id,
