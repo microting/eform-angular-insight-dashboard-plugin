@@ -40,7 +40,6 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             var answersQueryable = dbContext.Answers
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .Where(x => x.MicrotingUid == microtingUid)
-                .AsNoTracking()
                 .AsQueryable()
                 .Select(answers => new AnswerViewModel()
                 {
@@ -73,8 +72,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             MicrotingDbContext dbContext)
         {
             var answerQuery = dbContext.Answers
-                .Where(x => x.MicrotingUid == microtingUid)
-                .AsNoTracking();
+                .Where(x => x.MicrotingUid == microtingUid);
 
             return answerQuery;
         }
@@ -83,8 +81,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             MicrotingDbContext dbContext)
         {
             var answersValuesQuery = dbContext.AnswerValues
-                .Where(x => x.AnswerId == answerId)
-                .AsNoTracking();
+                .Where(x => x.AnswerId == answerId);
 
             return answersValuesQuery;
         }
