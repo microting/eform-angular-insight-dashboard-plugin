@@ -1,24 +1,27 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {TranslateModule} from '@ngx-translate/core';
-import {CollapseModule, MDBBootstrapModule} from 'angular-bootstrap-md';
-import {NgSelectModule} from '@ng-select/ng-select';
-import {SharedPnModule} from '../shared/shared-pn.module';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {EformSharedModule} from '../../../common/modules/eform-shared/eform-shared.module';
-import {InsightDashboardPnLayoutComponent} from './layouts';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { CollapseModule, MDBBootstrapModule } from 'angular-bootstrap-md';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SharedPnModule } from '../shared/shared-pn.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EformSharedModule } from '../../../common/modules/eform-shared/eform-shared.module';
+import { InsightDashboardPnLayoutComponent } from './layouts';
 
-import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.module';
-import {CasesModule} from '../../../modules';
+import { InsightDashboardPnRoutingModule } from './insight-dashboard-pn-routing.module';
+import { CasesModule } from '../../../modules';
 import {
+  InsightDashboardPnAnswersService,
   InsightDashboardPnDashboardDictionariesService,
   InsightDashboardPnDashboardItemsService,
   InsightDashboardPnDashboardsService,
   InsightDashboardPnSettingsService,
-  InsightDashboardPnSurveyConfigsService
+  InsightDashboardPnSurveyConfigsService,
 } from './services';
 import {
+  AnswerPageComponent,
+  AnswerValuesTableComponent,
   DashboardBlockViewComponent,
   DashboardChartDataEditComponent,
   DashboardChartDataViewComponent,
@@ -39,11 +42,12 @@ import {
   SurveyConfigurationEditComponent,
   SurveyConfigurationNewComponent,
   SurveyConfigurationsPageComponent,
-  SurveyConfigurationStatusComponent
+  SurveyConfigurationStatusComponent,
 } from './components';
-import {DragulaModule} from 'ng2-dragula';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {OwlDateTimeModule} from 'ng-pick-datetime-ex';
+import { DragulaModule } from 'ng2-dragula';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { OwlDateTimeModule } from 'ng-pick-datetime-ex';
+import { AnswerDeleteModalComponent } from './components/answers/answer-delete-modal/answer-delete-modal.component';
 
 @NgModule({
   imports: [
@@ -60,7 +64,7 @@ import {OwlDateTimeModule} from 'ng-pick-datetime-ex';
     DragulaModule,
     CollapseModule,
     NgxChartsModule,
-    OwlDateTimeModule
+    OwlDateTimeModule,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
@@ -84,11 +88,18 @@ import {OwlDateTimeModule} from 'ng-pick-datetime-ex';
     DashboardInterviewsEditComponent,
     DashboardChartDataEditComponent,
     DashboardChartDataViewComponent,
-    DashboardInterviewsViewComponent
+    DashboardInterviewsViewComponent,
+    AnswerPageComponent,
+    AnswerValuesTableComponent,
+    AnswerDeleteModalComponent,
   ],
-  providers: [InsightDashboardPnSettingsService, InsightDashboardPnDashboardsService,
-    InsightDashboardPnSurveyConfigsService, InsightDashboardPnDashboardDictionariesService, InsightDashboardPnDashboardItemsService]
+  providers: [
+    InsightDashboardPnSettingsService,
+    InsightDashboardPnDashboardsService,
+    InsightDashboardPnSurveyConfigsService,
+    InsightDashboardPnDashboardDictionariesService,
+    InsightDashboardPnDashboardItemsService,
+    InsightDashboardPnAnswersService,
+  ],
 })
-
-export class InsightDashboardPnModule {
-}
+export class InsightDashboardPnModule {}

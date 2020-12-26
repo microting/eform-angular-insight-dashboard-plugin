@@ -1,0 +1,32 @@
+<div class="row p-1 table-responsive no-gutters">
+  <table
+    mdbTable
+    striped="true"
+    hover="true"
+    small="true"
+    class="z-depth-1 text-center"
+  >
+    <thead>
+      <tr>
+        <th scope="col">{{ 'ID' }}</th>
+        <th scope="col">{{ 'Value' | translate }}</th>
+        <th scope="col">{{ 'Language' | translate }}</th>
+        <th scope="col">{{ 'Translation' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <ng-container *ngFor="let answerValue of answerValues">
+        <tr *ngFor="let answerValueTranslation of answerValue.translations">
+          <td id="answerValueId" scope="row">{{ answerValue.id }}</td>
+          <td id="answerValueValue" scope="row">{{ answerValue.value }}</td>
+          <td id="answerValueLanguage" scope="row">
+            {{ answerValueTranslation.languageName }}
+          </td>
+          <td id="answerValueTranslation" scope="row">
+            {{ answerValueTranslation.value }}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
