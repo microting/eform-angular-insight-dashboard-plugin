@@ -31,7 +31,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
 
     public interface IAnswersService
     {
-        Task<OperationDataResult<AnswerViewModel>> GetAnswersByMicrotingUid(int microtingUid);
-        Task<OperationResult> DeleteByMicrotingUid(int microtingUid);
+        Task<OperationDataResult<AnswerViewModel>> GetAnswerByMicrotingUid(int microtingUid);
+        Task<OperationResult> DeleteAnswerByMicrotingUid(int microtingUid);
     }
 }

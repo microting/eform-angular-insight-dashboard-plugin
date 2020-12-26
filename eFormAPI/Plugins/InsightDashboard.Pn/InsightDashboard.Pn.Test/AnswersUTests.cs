@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-
 namespace InsightDashboard.Pn.Test
 {
     using Base;
@@ -34,6 +33,7 @@ namespace InsightDashboard.Pn.Test
     using System.Threading.Tasks;
     using Helpers;
     using Microsoft.EntityFrameworkCore;
+    using InsightDashboard.Pn.Infrastructure.Helpers;
 
     [TestFixture]
     public class AnswersUTests : DbTestFixture
@@ -47,31 +47,7 @@ namespace InsightDashboard.Pn.Test
         [Test]
         public void Answer_Get()
         {
-            var answer = DbContext.Answers
-                .Where(x=>x.MicrotingUid == 1413005)
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .Select(answers => new AnswerViewModel()
-                {
-                    MicrotingUId = (int)answers.MicrotingUid,
-                    Id = answers.Id,
-                    Values = DbContext.AnswerValues
-                        .Where(answerValues => answerValues.AnswerId == answers.Id)
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Select(a => new AnswerValuesViewModel()
-                        {
-                            Value = a.Value,
-                            Id = a.Id,
-                            Translations = DbContext.OptionTranslations
-                                .Where(x => x.OptionId == a.OptionId)
-                                .AsQueryable()
-                                .Select(translations => new AnswerValueTranslationModel()
-                                {
-                                    Value = translations.Name,
-                                    LanguageId = translations.LanguageId,
-                                    LanguageName = DbContext.Languages.FirstOrDefault(x => x.Id == translations.LanguageId).Name
-                                }).ToList()
-                        }).ToList()
-                }).FirstOrDefault();
+            var answer = AnswerHelper.GetAnswerQueryByMicrotingUid(1413005, DbContext).FirstOrDefault();
 
             Assert.NotNull(answer);
             Assert.AreEqual(answer.Id, _answerForTest.Id);
@@ -96,38 +72,39 @@ namespace InsightDashboard.Pn.Test
         [Test]
         public async Task Delete_Answer()
         {
-            var answer = await DbContext.Answers
-                .Where(x => x.MicrotingUid == 1413005)
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            var answerBeforeDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(1413005, DbContext)
                 .FirstOrDefaultAsync();
 
-            var answersValues = await DbContext.AnswerValues
-                .Where(x => x.AnswerId == answer.Id)
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            var answersValuesBeforeDelete = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(1413005, DbContext)
                 .ToListAsync();
-            Assert.IsNotEmpty(answersValues);
+            Assert.IsNotEmpty(answersValuesBeforeDelete);
 
-            foreach(var answersValue in answersValues)
+            foreach(var answersValue in answersValuesBeforeDelete)
             {
                 await answersValue.Delete(DbContext);
             }
+            
+            Assert.AreNotEqual(answerBeforeDelete, default);
+            await answerBeforeDelete.Delete(DbContext);
 
-            Assert.AreNotEqual(answer, default);
-            await answer.Delete(DbContext);
-
-            var answerAfterDelete = await DbContext.Answers
-                .Where(x => x.MicrotingUid == 1413005)
+            var answerAfterDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(1413005, DbContext)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .FirstOrDefaultAsync();
 
-            var answersValuesAfterDelete = DbContext.AnswerValues
-                .Where(x => x.AnswerId == answer.Id)
+            var answersValuesAfterDelete = AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(1413005, DbContext)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .ToList();
 
             Assert.IsEmpty(answersValuesAfterDelete);
             Assert.AreEqual(answerAfterDelete, default);
 
+            DbContext.Answers.Update(answerBeforeDelete);
+            foreach(var answerValue in answersValuesBeforeDelete)
+            {
+                DbContext.AnswerValues.Update(answerValue);
+            }
+
+            await DbContext.SaveChangesAsync();
         }
     }
 }

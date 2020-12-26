@@ -46,14 +46,14 @@ namespace InsightDashboard.Pn.Controllers
         [Route("api/insight-dashboard-pn/answers/{microtingUid}")]
         public async Task<OperationDataResult<AnswerViewModel>> GetAnswersByMicrotingUid(int microtingUid)
         {
-            return await _answersService.GetAnswersByMicrotingUid(microtingUid);
+            return await _answersService.GetAnswerByMicrotingUid(microtingUid);
         }
 
         [HttpDelete]
         [Route("api/insight-dashboard-pn/answers/{microtingUid}")]
         public async Task<OperationResult> DeleteAnswersByMicrotingUid(int microtingUid)
         {
-            return await _answersService.DeleteByMicrotingUid(microtingUid);
+            return await _answersService.DeleteAnswerByMicrotingUid(microtingUid);
         }
     }
 }

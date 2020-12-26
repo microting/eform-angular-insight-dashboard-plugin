@@ -37,6 +37,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
     using Infrastructure.Models.Answers;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using System.Diagnostics;
+    using Infrastructure.Helpers;
 
     public class AnswersService : IAnswersService
     {
@@ -54,7 +55,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
             _coreHelper = coreHelper;
         }
 
-        public async Task<OperationDataResult<AnswerViewModel>> GetAnswersByMicrotingUid(int microtingUid)
+        public async Task<OperationDataResult<AnswerViewModel>> GetAnswerByMicrotingUid(int microtingUid)
         {
             try
             {
@@ -62,35 +63,9 @@ namespace InsightDashboard.Pn.Services.AnswersService
                 AnswerViewModel result;
                 await using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var answersQueryable = sdkContext.Answers
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.MicrotingUid == microtingUid)
-                        .AsNoTracking()
-                        .AsQueryable();
+                    var answersQueryable = AnswerHelper.GetAnswerQueryByMicrotingUid(microtingUid, sdkContext);
 
-                    result = answersQueryable.Select(answers => new AnswerViewModel()
-                    {
-                        MicrotingUId = (int)answers.MicrotingUid,
-                        Id = answers.Id,
-                        Values = sdkContext.AnswerValues
-                            .Where(answerValues => answerValues.AnswerId == answers.Id)
-                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .AsQueryable()
-                            .Select(a => new AnswerValuesViewModel()
-                            {
-                                Value = a.Value,
-                                Id = a.Id,
-                                Translations = sdkContext.OptionTranslations
-                                    .Where(x => x.OptionId == a.OptionId)
-                                    .AsQueryable()
-                                    .Select(translations => new AnswerValueTranslationModel()
-                                    {
-                                        Value = translations.Name,
-                                        LanguageId = translations.LanguageId,
-                                        LanguageName = sdkContext.Languages.FirstOrDefault(x => x.Id == translations.LanguageId).Name
-                                    }).ToList()
-                            }).ToList()
-                    }).FirstOrDefault();
+                    result = answersQueryable.FirstOrDefault();
                 }
 
                 if (result == null)
@@ -118,7 +93,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
             }
         }
 
-        public async Task<OperationResult> DeleteByMicrotingUid(int microtingUid)
+        public async Task<OperationResult> DeleteAnswerByMicrotingUid(int microtingUid)
         {
             try
             {
@@ -126,13 +101,8 @@ namespace InsightDashboard.Pn.Services.AnswersService
 
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    var answer = await sdkContext.Answers
-                        .Where(x => x.MicrotingUid == microtingUid)
+                    var answer = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(microtingUid, sdkContext)
                         .FirstOrDefaultAsync();
-
-                    var answersValues = await sdkContext.AnswerValues
-                        .Where(x => x.AnswerId == answer.Id)
-                        .ToListAsync();
 
                     if (answer == null)
                     {
@@ -141,11 +111,14 @@ namespace InsightDashboard.Pn.Services.AnswersService
                             _localizationService.GetString("AnswerNotFound"));
                     }
 
+                    var answersValues = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(answer.Id, sdkContext)
+                        .ToListAsync();
+
                     if (answer.WorkflowState == Constants.WorkflowStates.Removed)
                     {
                         return new OperationResult(
-                           false,
-                           _localizationService.GetString("AnswerRemoved"));
+                            false,
+                            _localizationService.GetString("AnswerRemoved"));
                     }
 
                     if (answersValues == null)
@@ -163,8 +136,8 @@ namespace InsightDashboard.Pn.Services.AnswersService
                     await answer.Delete(sdkContext);
 
                     return new OperationResult(
-                    true,
-                    _localizationService.GetString("AnswerAndAnswerValuesHasBeenRemoved"));
+                        true,
+                        _localizationService.GetString("AnswerAndAnswerValuesHasBeenRemoved"));
                 }
             }
             catch (Exception e)
@@ -175,7 +148,6 @@ namespace InsightDashboard.Pn.Services.AnswersService
                     false,
                     _localizationService.GetString("ErrorWhileRemovingAnswerAndAnswerValues"));
             }
-
         }
     }
 }
