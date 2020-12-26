@@ -98,9 +98,11 @@ namespace InsightDashboard.Pn.Test
             Assert.IsEmpty(answersValuesAfterDelete);
             Assert.AreEqual(answerAfterDelete, default);
 
+            answerBeforeDelete.WorkflowState = Constants.WorkflowStates.Created;
             DbContext.Answers.Update(answerBeforeDelete);
             foreach(var answerValue in answersValuesBeforeDelete)
             {
+                answerValue.WorkflowState = Constants.WorkflowStates.Created;
                 DbContext.AnswerValues.Update(answerValue);
             }
 

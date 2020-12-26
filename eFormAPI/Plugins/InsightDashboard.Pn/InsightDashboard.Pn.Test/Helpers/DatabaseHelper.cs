@@ -46,10 +46,6 @@ namespace InsightDashboard.Pn.Test.Helpers
 
                 await tag.Create(dbContext);
             }
-            else
-            {
-                Assert.Fail("Total tag already exists in database");
-            }
 
             var locations = new List<SiteTag>()
             {
@@ -82,10 +78,6 @@ namespace InsightDashboard.Pn.Test.Helpers
                          && x.TagId == siteTag.TagId))
                 {
                     await siteTag.Create(dbContext);
-                }
-                else
-                {
-                    Assert.Fail("Site tag already exists in database");
                 }
             }
         }
