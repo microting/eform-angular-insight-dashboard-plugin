@@ -24,3 +24,4 @@ export * from './surveys/survey-configurations-page/survey-configurations-page.c
 export * from './surveys/survey-configuration-activate/survey-configuration-status.component';
 export * from './surveys/survey-configuration-delete/survey-configuration-delete.component';
 
+export * from './answers';

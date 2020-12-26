@@ -19,9 +19,11 @@
       <None Remove="Data\DashboardTotal.data.json" />
       <None Remove="Data\DashboardTotalN.data.json" />
       <None Remove="Data\DashboardVerticalBar.data.json" />
+      <None Remove="Data\TestAnswer.json" />
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Data\TestAnswer.json" />
       <EmbeddedResource Include="Data\DashboardHorizontalBar.data.json" />
       <EmbeddedResource Include="Data\DashboardMultiChart.data.json" />
       <EmbeddedResource Include="Data\DashboardStackedGrouped.data.json" />
@@ -42,6 +44,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\InsightDashboard.Pn\InsightDashboard.Pn.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Data\TestAnswer.json" />
     </ItemGroup>
 
 </Project>
