@@ -401,8 +401,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     }
                 }
 
-                using (var transactions = await _dbContext.Database.BeginTransactionAsync())
-                {
+                // using (var transactions = await _dbContext.Database.BeginTransactionAsync())
+                // {
                     try
                     {
                         var dashboard = await _dbContext.Dashboards
@@ -542,7 +542,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                                 if (answersCount == modelAnswersCount)
                                 {
-                                    transactions.Rollback();
+                                    //transactions.Rollback();
                                     return new OperationResult(
                                         false,
                                         _localizationService.GetString("SelectAtLeastOneValueThatShouldNotBeIgnored"));
@@ -604,7 +604,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                             if (answersCount == modelAnswersCount)
                             {
-                                transactions.Rollback();
+                                //transactions.Rollback();
                                 return new OperationResult(
                                     false,
                                     _localizationService.GetString("SelectAtLeastOneValueThatShouldNotBeIgnored"));
@@ -658,17 +658,17 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         }
 
 
-                        transactions.Commit();
+                        //transactions.Commit();
                         return new OperationResult(
                             true,
                             _localizationService.GetString("DashboardUpdatedSuccessfully"));
                     }
                     catch
                     {
-                        transactions.Rollback();
+                        //transactions.Rollback();
                         throw;
                     }
-                }
+                //}
             }
             catch (Exception e)
             {
