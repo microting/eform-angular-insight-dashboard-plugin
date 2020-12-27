@@ -11,8 +11,8 @@ ARG GITVERSION
 ARG PLUGINVERSION
 
 # Copy csproj and restore as distinct layers
-COPY eFormAPI/eFormAPI.Web ./eFormAPI.Web
-COPY eFormAPI/Plugins/InsightDashboard.Pn ./InsightDashboard.Pn
+COPY eform-angular-frontend/eFormAPI/eFormAPI.Web ./eFormAPI.Web
+COPY main/eFormAPI/Plugins/InsightDashboard.Pn ./InsightDashboard.Pn
 RUN dotnet publish eFormAPI.Web -o eFormAPI.Web/out /p:Version=$GITVERSION --runtime linux-x64 --configuration Release
 RUN dotnet publish InsightDashboard.Pn -o InsightDashboard.Pn/out /p:Version=$PLUGINVERSION --runtime linux-x64 --configuration Release
 
