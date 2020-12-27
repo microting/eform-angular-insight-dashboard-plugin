@@ -112,8 +112,10 @@ jobs:
       run: |
         mkdir -p eform-angular-insight-dashboard-plugin/frontend/eform-client
         mkdir -p eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
-        cp -a eform-angular-frontend/eform-client eform-angular-insight-dashboard-plugin/frontend/eform-client
-        cp -a eform-angular-frontend/eFormAPI/eFormAPI.Web eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
+        cp -av eform-angular-frontend/eform-client eform-angular-insight-dashboard-plugin/frontend/eform-client
+        cp -av eform-angular-frontend/eFormAPI/eFormAPI.Web eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
+        pwd
+        ls -lah
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
