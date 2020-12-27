@@ -77,22 +77,22 @@ jobs:
         mkdir -p eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins
         cp -av eform-angular-insight-dashboard-plugin/eFormAPI/eFormAPI.Web/Plugins/InsightDashboard eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins/InsightDashboard
         cd eform-angular-frontend/eform-client && ../../eform-angular-insight-dashboard-plugin/testinginstallpn.sh
-    - name: Build frontend
-      run: dotnet build eform-angular-frontend/eFormAPI/eFormAPI.sln > dotnet_log 2>&1 &
-    - name: NPM install
-      run: cd eform-angular-frontend/eform-client && npm install
-    - name: NPM start
-      run: cd eform-angular-frontend/eform-client && npm start > npm_log 2>&1 &
-    - name: Sleep 75 seconds
-      run: sleep 75
-    - name: Dotnet run
-      run: dotnet run --project eform-angular-frontend/eFormAPI/eFormAPI.Web/eFormAPI.Web.csproj > dotnet_log 2>&1 &
-    - name: Sleep 75 seconds
-      run: sleep 75
-    - name: Configuration testing
-      run: cd eform-angular-frontend/eform-client && npm run testheadless
-    - name: Plugin testing
-      run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin
+    #- name: Build frontend
+    #  run: dotnet build eform-angular-frontend/eFormAPI/eFormAPI.sln > dotnet_log 2>&1 &
+    #- name: NPM install
+    #  run: cd eform-angular-frontend/eform-client && npm install
+    #- name: NPM start
+    #  run: cd eform-angular-frontend/eform-client && npm start > npm_log 2>&1 &
+    #- name: Sleep 75 seconds
+    #  run: sleep 75
+    #- name: Dotnet run
+    #  run: dotnet run --project eform-angular-frontend/eFormAPI/eFormAPI.Web/eFormAPI.Web.csproj > dotnet_log 2>&1 &
+    #- name: Sleep 75 seconds
+    #  run: sleep 75
+    #- name: Configuration testing
+    #  run: cd eform-angular-frontend/eform-client && npm run testheadless
+    #- name: Plugin testing
+    #  run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin
     - name: The job has failed
       if: ${{ failure() }}
       run: |
@@ -112,8 +112,8 @@ jobs:
       run: |
         mkdir -p eform-angular-insight-dashboard-plugin/frontend/eform-client
         mkdir -p eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
-        cp -av eform-angular-frontend/eform-client eform-angular-insight-dashboard-plugin/frontend/eform-client
-        cp -av eform-angular-frontend/eFormAPI/eFormAPI.Web eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
+        cp -a eform-angular-frontend/eform-client eform-angular-insight-dashboard-plugin/frontend/eform-client
+        cp -a eform-angular-frontend/eFormAPI/eFormAPI.Web eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
         pwd
         ls -lah
     - name: Build and push
