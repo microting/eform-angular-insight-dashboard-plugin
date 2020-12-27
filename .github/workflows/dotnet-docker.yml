@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        path: main
+        path: eform-angular-insight-dashboard-plugin
     - uses: getong/mariadb-action@v1.1
       with:
         host port: 3306 # Optional, default value is 3306. The port of host
@@ -51,7 +51,7 @@ jobs:
         ref: ${{ github.base_ref }}
         path: eform-angular-frontend
     - name: Install dependencies
-      run: dotnet restore main/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
+      run: dotnet restore eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
     - name: Get the version
       id: get_version
       run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3 | cut -d "v" -f 2)
@@ -59,24 +59,24 @@ jobs:
       id: get_frontend_version
       run: echo ::set-output name=FRONTENDVERSION::$(cd eform-angular-frontend && git describe --abbrev=0 --tags | cut -d "v" -f 2)
     - name: Build
-      run: dotnet build main/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
+      run: dotnet build eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
     - name: Load DB dump
       run: |
         mysql -u root -h 127.0.0.1 --password=secretpassword -e 'create database `420_SDK`'
-        mysql -u root -h 127.0.0.1 --password=secretpassword 420_SDK < main/420_SDK.sql
+        mysql -u root -h 127.0.0.1 --password=secretpassword 420_SDK < eform-angular-insight-dashboard-plugin/420_SDK.sql
     - name: Unit Tests
-      run: dotnet test --no-restore -c Release -v n main/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.Test/InsightDashboard.Pn.Test.csproj
+      run: dotnet test --no-restore -c Release -v n eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.Test/InsightDashboard.Pn.Test.csproj
     - name: Copy dependencies
       run: |
-        cp -av main/eform-client/src/app/plugins/modules/insight-dashboard-pn eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn
-        cp -av main/eform-client/e2e/Tests/insight-dashboard-settings eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-settings
-        cp -av main/eform-client/e2e/Tests/insight-dashboard-general eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-general
-        cp -av main/eform-client/e2e/Page\ objects/InsightDashboard eform-angular-frontend/eform-client/e2e/Page\ objects/InsightDashboard
-        cp -av main/eform-client/wdio-headless-plugin-step2.conf.js eform-angular-frontend/eform-client/wdio-headless-plugin-step2.conf.js
-        cp -av main/eform-client/wdio-plugin-step2.conf.js eform-angular-frontend/eform-client/wdio-plugin-step2.conf.js
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/src/app/plugins/modules/insight-dashboard-pn eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-settings eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-settings
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-general eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-general
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Page\ objects/InsightDashboard eform-angular-frontend/eform-client/e2e/Page\ objects/InsightDashboard
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2.conf.js eform-angular-frontend/eform-client/wdio-headless-plugin-step2.conf.js
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-plugin-step2.conf.js eform-angular-frontend/eform-client/wdio-plugin-step2.conf.js
         mkdir -p eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins
-        cp -av main/eFormAPI/eFormAPI.Web/Plugins/InsightDashboard eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins/InsightDashboard
-        cd eform-angular-frontend/eform-client && ../../main/testinginstallpn.sh
+        cp -av eform-angular-insight-dashboard-plugin/eFormAPI/eFormAPI.Web/Plugins/InsightDashboard eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins/InsightDashboard
+        cd eform-angular-frontend/eform-client && ../../eform-angular-insight-dashboard-plugin/testinginstallpn.sh
     - name: Build frontend
       run: dotnet build eform-angular-frontend/eFormAPI/eFormAPI.sln > dotnet_log 2>&1 &
     - name: NPM install
@@ -109,7 +109,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Move Dockerfile ..
-      run: mv main/Dockerfile ..
+      run: mv eform-angular-insight-dashboard-plugin/Dockerfile ..
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
