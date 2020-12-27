@@ -108,13 +108,16 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Move Dockerfile ..
-      run: mv eform-angular-insight-dashboard-plugin/Dockerfile ..
+    - name: Copy frontendfiles
+      run: |
+        mkdir -p eform-angular-insight-dashboard-plugin/frontend/eform-client
+        mkdir -p eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
+        cp -a eform-angular-frontend/eform-client eform-angular-insight-dashboard-plugin/frontend/eform-client
+        cp -a eform-angular-frontend/eFormAPI/eFormAPI.Web eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
       with:
-        file: ../Dockerfile
         build-args: |
           GITVERSION=${{ steps.get_frontend_version.outputs.FRONTENDVERSION }}
           PLUGINVERSION=${{ steps.get_version.outputs.VERSION }}
