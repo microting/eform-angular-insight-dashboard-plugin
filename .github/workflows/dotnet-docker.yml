@@ -110,10 +110,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Copy frontendfiles
       run: |
-      #  mkdir -p eform-angular-insight-dashboard-plugin/frontend/eform-client
-      #  mkdir -p eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
-      #  cp -a eform-angular-frontend/eform-client eform-angular-insight-dashboard-plugin/frontend/eform-client
-      #  cp -a eform-angular-frontend/eFormAPI/eFormAPI.Web eform-angular-insight-dashboard-plugin/frontend/eFormAPI/eFormAPI.Web
         pwd
         ls -lah
     - name: Build and push
