@@ -1,7 +1,7 @@
 FROM node:12.16.2 as node-env
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY frontend/eform-client ./
+COPY eform-angular-frontend/eform-client ./
 RUN npm install
 RUN npm run build
 
@@ -11,8 +11,8 @@ ARG GITVERSION
 ARG PLUGINVERSION
 
 # Copy csproj and restore as distinct layers
-COPY frontend/eFormAPI/eFormAPI.Web ./eFormAPI.Web
-COPY eFormAPI/Plugins/InsightDashboard.Pn ./InsightDashboard.Pn
+COPY eform-angular-frontend/eFormAPI/eFormAPI.Web ./eFormAPI.Web
+COPY eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn ./InsightDashboard.Pn
 RUN dotnet publish eFormAPI.Web -o eFormAPI.Web/out /p:Version=$GITVERSION --runtime linux-x64 --configuration Release
 RUN dotnet publish InsightDashboard.Pn -o InsightDashboard.Pn/out /p:Version=$PLUGINVERSION --runtime linux-x64 --configuration Release
 
