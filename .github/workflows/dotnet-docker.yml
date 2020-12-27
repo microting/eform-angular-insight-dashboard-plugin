@@ -112,6 +112,7 @@ jobs:
       run: |
         pwd
         ls -lah
+        ls -lah eform-angular-insight-dashboard-plugin
     - name: Build the tagged Docker image
       run: docker build . -t microtingas/insight-dashboard:latest -t microtingas/insight-dashboard:${{ steps.get_frontend_version.outputs.FRONTENDVERSION }} --build-arg GITVERSION=${{ steps.get_frontend_version.outputs.FRONTENDVERSION }} --build-arg PLUGINVERSION=${{ steps.get_version.outputs.VERSION }}
     - name: Push the tagged Docker image
