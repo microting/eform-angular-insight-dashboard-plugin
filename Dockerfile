@@ -19,7 +19,7 @@ RUN dotnet publish InsightDashboard.Pn -o InsightDashboard.Pn/out /p:Version=$PL
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
-COPY --from=build-env /app/eFormAPI/out .
+COPY --from=build-env /app/eFormAPI.Web/out .
 RUN mkdir -p ./Plugins/InsightDashboard.Pn
 COPY --from=build-env /app/InsightDashboard.Pn/out ./Plugins/InsightDashboard.Pn
 COPY --from=node-env /app/dist wwwroot
