@@ -112,14 +112,11 @@ jobs:
       run: |
         pwd
         ls -lah
-    - name: Build and push
-      id: docker_build
-      uses: docker/build-push-action@v2
-      with:
-        build-args: |
-          GITVERSION=${{ steps.get_frontend_version.outputs.FRONTENDVERSION }}
-          PLUGINVERSION=${{ steps.get_version.outputs.VERSION }}
-        push: true
-        tags: microtingas/insight-dashboard:latest,microtingas/insight-dashboard:${{ steps.get_frontend_version.outputs.FRONTENDVERSION }}
+    - name: Build the tagged Docker image
+      run: docker build . --file Dockerfile -t microtingas/insight-dashboard:latest -t microtingas/insight-dashboard:${{ steps.get_frontend_version.outputs.FRONTENDVERSION }} --build-arg GITVERSION=${{ steps.get_frontend_version.outputs.FRONTENDVERSION }} --build-arg PLUGINVERSION=${{ steps.get_version.outputs.VERSION }}
+    - name: Push the tagged Docker image
+      run: docker push microtingas/insight-dashboard:${{ steps.get_frontend_version.outputs.FRONTENDVERSION }}
+    - name: Push the latest Docker image
+      run: docker push microtingas/insight-dashboard:latest
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
