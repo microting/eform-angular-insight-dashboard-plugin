@@ -43,7 +43,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
     using Microting.InsightDashboardBase.Infrastructure.Enums;
     using Models.Dashboards;
     using Services.Common.InsightDashboardLocalizationService;
-    
+
     public static class ChartDataHelpers
     {
         public static async Task CalculateDashboardItem(
@@ -476,7 +476,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 IsTag = true,
                                 Weight = x.Option.WeightValue,
                                 OptionIndex = x.Option.OptionIndex,
-                                
+
                                 AnswerId = x.AnswerId,
                             })
                             .OrderBy(t => t.Finished)
@@ -1083,7 +1083,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     .GroupBy(ms => $"{ms.Finished:yy}_{ChartHelpers.GetHalfOfYear(ms.Finished)}H")
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
-                                        Name = x.Key, // Half of year 
+                                        Name = x.Key, // Half of year
                                         Series = x
                                             .GroupBy(ms => new {ms.LocationTagName, ms.IsTag})
                                             .Select(y => new DashboardViewChartDataMultiModel
@@ -1214,7 +1214,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     .GroupBy(ms => $"{ms.Finished:yyyy}")
                                     .Select(x => new DashboardViewChartDataMultiStackedModel
                                     {
-                                        Name = x.Key, // Year 
+                                        Name = x.Key, // Year
                                         Series = x
                                             .GroupBy(ms => new { ms.LocationTagName, ms.IsTag })
                                             .Select(y => new DashboardViewChartDataMultiModel
@@ -1773,7 +1773,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             Value = 0
                                         });
                                     }
-                                        
+
                                     if (ignoreOptions.SingleOrDefault(x => x.WeightValue == 75) == null && options.Any(x => x.WeightValue == 75))
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                             {Name = smileyLabels.Single(z => z.Key == 75).Value, Value = 0});
@@ -1840,9 +1840,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     var model = new DashboardViewChartDataMultiModel {Name = columnName};
                                     foreach (Option option in options.OrderBy(x => x.OptionIndex))
                                     {
+                                        string optionTranslationName = sdkContext.OptionTranslations
+                                            .First(ws => ws.WorkflowState != Constants.WorkflowStates.Removed
+                                                         && ws.OptionId == option.Id).Name;
                                         model.Series.Add(new DashboardViewChartDataSingleModel
                                         {
-                                            Name = option.OptionTranslationses.Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed).First().Name,
+                                            Name = optionTranslationName,
                                             Value = 0,
                                             DataCount = 0,
                                             OptionIndex = 0,
@@ -1978,7 +1981,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                             { Name = smileyLabels.Single(z => z.Key == 999).Value, Value = 0});
                                         model.Series.Add(innerModel);
                                     }
-                                  
+
                                     foreach (var modelSeries in stackedModel.Series)
                                     {
                                         // var innerModel = new DashboardViewChartDataMultiModel() {Name = modelSeries.Name};

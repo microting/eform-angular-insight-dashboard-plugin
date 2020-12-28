@@ -75,7 +75,7 @@ namespace InsightDashboard.Pn.Test
             var answerBeforeDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(1413005, DbContext)
                 .FirstOrDefaultAsync();
 
-            var answersValuesBeforeDelete = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(1413005, DbContext)
+            var answersValuesBeforeDelete = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(1, DbContext)
                 .ToListAsync();
             Assert.IsNotEmpty(answersValuesBeforeDelete);
 
@@ -83,24 +83,26 @@ namespace InsightDashboard.Pn.Test
             {
                 await answersValue.Delete(DbContext);
             }
-            
+
             Assert.AreNotEqual(answerBeforeDelete, default);
             await answerBeforeDelete.Delete(DbContext);
 
             var answerAfterDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(1413005, DbContext)
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed).AsNoTracking()
                 .FirstOrDefaultAsync();
 
-            var answersValuesAfterDelete = AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(1413005, DbContext)
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .ToList();
+            var answersValuesAfterDelete = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(1, DbContext)
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed).AsNoTracking()
+                .ToListAsync();
 
             Assert.IsEmpty(answersValuesAfterDelete);
             Assert.AreEqual(answerAfterDelete, default);
 
+            answerBeforeDelete.WorkflowState = Constants.WorkflowStates.Created;
             DbContext.Answers.Update(answerBeforeDelete);
             foreach(var answerValue in answersValuesBeforeDelete)
             {
+                answerValue.WorkflowState = Constants.WorkflowStates.Created;
                 DbContext.AnswerValues.Update(answerValue);
             }
 

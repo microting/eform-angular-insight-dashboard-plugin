@@ -18,12 +18,13 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
-  before(function () { 
+  before(function () {
     loginPage.open('/auth');
     loginPage.login();
 
     // Create and assign total tag
     loginPage.open('/advanced/sites');
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     sitesPage.createAndAssignTag(dashboardConfig.locationTagName, [1, 2, 3, 4]);
 
     // Create dashboard with items

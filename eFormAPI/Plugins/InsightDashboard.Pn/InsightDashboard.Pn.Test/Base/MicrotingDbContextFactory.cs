@@ -42,7 +42,7 @@ namespace InsightDashboard.Pn.Test.Base
             {
                 mysqlOptions.ServerVersion(new Version(10, 5, 0), ServerType.MariaDb);
             });
-            optionsBuilder.UseLazyLoadingProxies(true);
+            //optionsBuilder.UseLazyLoadingProxies(true);
 
             return new MicrotingDbContext(optionsBuilder.Options);
         }

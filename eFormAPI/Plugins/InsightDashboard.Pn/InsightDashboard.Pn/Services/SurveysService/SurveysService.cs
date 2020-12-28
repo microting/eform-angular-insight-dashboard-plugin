@@ -64,7 +64,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 await core.GetAllQuestionSets();
                 await core.GetAllSurveyConfigurations();
                 await core.GetAllAnswers();
-                //await AddTextAnswers(); 
+                //await AddTextAnswers();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
                     var surveysQueryable = sdkContext.SurveyConfigurations
@@ -162,8 +162,8 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    using (var transaction = await sdkContext.Database.BeginTransactionAsync())
-                    {
+                    // using (var transaction = await sdkContext.Database.BeginTransactionAsync())
+                    // {
                         try
                         {
                             var surveyConfig = new SurveyConfiguration()
@@ -184,17 +184,17 @@ namespace InsightDashboard.Pn.Services.SurveysService
                                 await siteSurveyConfig.Create(sdkContext);
                             }
 
-                            transaction.Commit();
+                            //transaction.Commit();
                             return new OperationResult(
                                 true,
                                 _localizationService.GetString("SurveyConfigurationCreatedSuccessfully"));
                         }
                         catch (Exception)
                         {
-                            transaction.Rollback();
+                            //transaction.Rollback();
                             throw;
                         }
-                    }
+                    //}
                 }
             }
             catch (Exception e)
@@ -215,8 +215,8 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 var core = await _coreHelper.GetCore();
                 using (var sdkContext = core.dbContextHelper.GetDbContext())
                 {
-                    using (var transaction = await sdkContext.Database.BeginTransactionAsync())
-                    {
+                    // using (var transaction = await sdkContext.Database.BeginTransactionAsync())
+                    // {
                         try
                         {
                             var surveyConfiguration = await sdkContext.SurveyConfigurations
@@ -227,7 +227,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
 
                             if (surveyConfiguration == null)
                             {
-                                transaction.Commit();
+                                //transaction.Commit();
                                 return new OperationResult(
                                     false,
                                     _localizationService.GetString("SurveyConfigurationNotFound"));
@@ -278,17 +278,17 @@ namespace InsightDashboard.Pn.Services.SurveysService
                             }
 
 
-                            transaction.Commit();
+                            //transaction.Commit();
                             return new OperationResult(
                                 true,
                                 _localizationService.GetString("SurveyConfigurationUpdatedSuccessfully"));
                         }
                         catch (Exception)
                         {
-                            transaction.Rollback();
+                            //transaction.Rollback();
                             throw;
                         }
-                    }
+                    //}
                 }
             }
             catch (Exception e)
