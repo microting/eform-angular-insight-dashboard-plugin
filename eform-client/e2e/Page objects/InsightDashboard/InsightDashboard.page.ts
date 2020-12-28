@@ -5,17 +5,25 @@ export class InsightDashboardPage extends Page {
     super();
   }
   public InsightDashboardDropDown() {
-    $(`//*[contains(@class, 'dropdown')]//*[contains(text(), 'InSight Dashboard')]`).click();
+    $(`#insight-dashboard-pn`).click();
   }
   public get SurveysConfigsBtn() {
-    $('#insight-dashboard-pn-surveys-configs').waitForDisplayed({timeout: 30000});
-    $('#insight-dashboard-pn-surveys-configs').waitForClickable({timeout: 20000});
-    return $('#insight-dashboard-pn-surveys-configs');
+    const insightDashboardPnSurveysConfigs = $('#insight-dashboard-pn-surveys-configs');
+    insightDashboardPnSurveysConfigs.waitForDisplayed({timeout: 30000});
+    insightDashboardPnSurveysConfigs.waitForClickable({timeout: 20000});
+    return insightDashboardPnSurveysConfigs;
   }
   public get DashboardsBtn() {
-    $('#insight-dashboard-pn-dashboards').waitForDisplayed({timeout: 30000});
-    $('#insight-dashboard-pn-dashboards').waitForClickable({timeout: 20000});
-    return $('#insight-dashboard-pn-dashboards');
+    const insightDashboardPnDashboards = $('#insight-dashboard-pn-dashboards');
+    insightDashboardPnDashboards.waitForDisplayed({timeout: 30000});
+    insightDashboardPnDashboards.waitForClickable({timeout: 20000});
+    return insightDashboardPnDashboards;
+  }
+  public get AnswersBtn() {
+    const answersBtn = $('#insight-dashboard-pn-answers');
+    answersBtn.waitForDisplayed({timeout: 30000});
+    answersBtn.waitForClickable({timeout: 20000});
+    return answersBtn;
   }
   goToSurveysConfigs() {
     this.InsightDashboardDropDown();
@@ -27,6 +35,12 @@ export class InsightDashboardPage extends Page {
     this.InsightDashboardDropDown();
     browser.pause(1000);
     this.DashboardsBtn.click();
+    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  }
+  goToAnswers() {
+    this.InsightDashboardDropDown();
+    browser.pause(1000);
+    this.AnswersBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
   }
 }
