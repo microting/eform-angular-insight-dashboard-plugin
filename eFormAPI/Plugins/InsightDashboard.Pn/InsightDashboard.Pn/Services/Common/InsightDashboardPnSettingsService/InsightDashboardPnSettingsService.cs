@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2019 Microting A/S
+Copyright (c) 2007 - 2021 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,7 @@ namespace InsightDashboard.Pn.Services.Common.InsightDashboardPnSettingsService
         private readonly InsightDashboardPnDbContext _dbContext;
         private readonly IPluginDbOptions<InsightDashboardBaseSettings> _options;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        
+
         public InsightDashboardPnSettingsService(ILogger<InsightDashboardPnSettingsService> logger,
             IInsightDashboardLocalizationService localizationService,
             InsightDashboardPnDbContext dbContext,
@@ -58,7 +58,7 @@ namespace InsightDashboard.Pn.Services.Common.InsightDashboardPnSettingsService
             _httpContextAccessor = httpContextAccessor;
             _localizationService = localizationService;
         }
-        
+
         public async Task<OperationDataResult<InsightDashboardBaseSettings>> GetSettings()
         {
             try
@@ -106,7 +106,7 @@ namespace InsightDashboard.Pn.Services.Common.InsightDashboardPnSettingsService
                 return new OperationResult(false, _localizationService.GetString("ErrorWhileUpdatingSettings"));
             }
         }
-        
+
         public int UserId
         {
             get
