@@ -20,7 +20,7 @@
     <PackageReference Include="Microting.eFormApi.BasePn" Version="2.0.57" />
     <PackageReference Include="EPPlus.Core" Version="1.5.4" />
     <PackageReference Include="HtmlToOpenXml.dll" Version="2.1.0" />
-    <PackageReference Include="Microting.InsightDashboardBase" Version="2.0.55" />
+    <PackageReference Include="Microting.InsightDashboardBase" Version="2.0.56" />
   </ItemGroup>
 
   <ItemGroup>

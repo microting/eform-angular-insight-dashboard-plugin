@@ -272,7 +272,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 CompareEnabled = dashboardItem.CompareEnabled,
                             };
 
-                            await newDashboardItem.Save(_dbContext);
+                            await newDashboardItem.Create(_dbContext);
 
                             // Compare
                             foreach (var dashboardItemCompare in dashboardItem.CompareLocationsTags.Where(x =>
@@ -288,7 +288,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     TagId = dashboardItemCompare.TagId,
                                 };
 
-                                await newDashboardItemCompare.Save(_dbContext);
+                                await newDashboardItemCompare.Create(_dbContext);
                             }
 
                             // Ignore
@@ -305,7 +305,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     AnswerId = dashboardItemIgnoredAnswer.AnswerId,
                                 };
 
-                                await newDashboardItemIgnoredAnswer.Save(_dbContext);
+                                await newDashboardItemIgnoredAnswer.Create(_dbContext);
                             }
                         }
 
@@ -401,8 +401,8 @@ namespace InsightDashboard.Pn.Services.DashboardService
                     }
                 }
 
-                using (var transactions = await _dbContext.Database.BeginTransactionAsync())
-                {
+                // using (var transactions = await _dbContext.Database.BeginTransactionAsync())
+                // {
                     try
                     {
                         var dashboard = await _dbContext.Dashboards
@@ -521,7 +521,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         TagId = dashboardItemCompareModel.TagId,
                                     };
 
-                                    await dashboardItemCompare.Save(_dbContext);
+                                    await dashboardItemCompare.Create(_dbContext);
                                 }
 
                                 // Check ignore values
@@ -542,7 +542,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                                 if (answersCount == modelAnswersCount)
                                 {
-                                    transactions.Rollback();
+                                    //transactions.Rollback();
                                     return new OperationResult(
                                         false,
                                         _localizationService.GetString("SelectAtLeastOneValueThatShouldNotBeIgnored"));
@@ -579,7 +579,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                         AnswerId = dashboardItemIgnoredAnswerModel.AnswerId,
                                     };
 
-                                    await dashboardItemIgnoredAnswer.Save(_dbContext);
+                                    await dashboardItemIgnoredAnswer.Create(_dbContext);
                                 }
                             }
                         }
@@ -604,7 +604,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                             if (answersCount == modelAnswersCount)
                             {
-                                transactions.Rollback();
+                                //transactions.Rollback();
                                 return new OperationResult(
                                     false,
                                     _localizationService.GetString("SelectAtLeastOneValueThatShouldNotBeIgnored"));
@@ -624,7 +624,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 CompareEnabled = dashboardItemModel.CompareEnabled,
                             };
 
-                            await dashboardItem.Save(_dbContext);
+                            await dashboardItem.Create(_dbContext);
 
                             // Compare
                             foreach (var dashboardItemCompareModel in dashboardItemModel.CompareLocationsTags)
@@ -639,7 +639,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     TagId = dashboardItemCompareModel.TagId,
                                 };
 
-                                await dashboardItemCompare.Save(_dbContext);
+                                await dashboardItemCompare.Create(_dbContext);
                             }
 
                             // Ignore
@@ -653,22 +653,22 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                     AnswerId = dashboardItemIgnoredAnswerModel.AnswerId,
                                 };
 
-                                await dashboardItemIgnoredAnswer.Save(_dbContext);
+                                await dashboardItemIgnoredAnswer.Create(_dbContext);
                             }
                         }
 
 
-                        transactions.Commit();
+                        //transactions.Commit();
                         return new OperationResult(
                             true,
                             _localizationService.GetString("DashboardUpdatedSuccessfully"));
                     }
                     catch
                     {
-                        transactions.Rollback();
+                        //transactions.Rollback();
                         throw;
                     }
-                }
+                //}
             }
             catch (Exception e)
             {

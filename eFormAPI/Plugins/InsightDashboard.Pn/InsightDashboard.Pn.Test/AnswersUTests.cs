@@ -38,6 +38,7 @@ namespace InsightDashboard.Pn.Test
     [TestFixture]
     public class AnswersUTests : DbTestFixture
     {
+        private const int MicrotingUid = 1413005;
         private AnswerViewModel _answerForTest;
         protected override void DoSetup()
         {
@@ -47,7 +48,7 @@ namespace InsightDashboard.Pn.Test
         [Test]
         public void Answer_Get()
         {
-            var answer = AnswerHelper.GetAnswerQueryByMicrotingUid(1413005, DbContext).FirstOrDefault();
+            var answer = AnswerHelper.GetAnswerQueryByMicrotingUid(MicrotingUid, DbContext).FirstOrDefault();
 
             Assert.NotNull(answer);
             Assert.AreEqual(answer.Id, _answerForTest.Id);
@@ -72,10 +73,17 @@ namespace InsightDashboard.Pn.Test
         [Test]
         public async Task Delete_Answer()
         {
-            var answerBeforeDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(1413005, DbContext)
+            var answerBeforeDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(MicrotingUid, DbContext)
+                .FirstOrDefaultAsync();
+
+            var answerForBackup = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(MicrotingUid, DbContext)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             var answersValuesBeforeDelete = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(1, DbContext)
+                .ToListAsync();
+            var answerValuesForBackup = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(1, DbContext)
+                .AsNoTracking()
                 .ToListAsync();
             Assert.IsNotEmpty(answersValuesBeforeDelete);
 
@@ -87,7 +95,7 @@ namespace InsightDashboard.Pn.Test
             Assert.AreNotEqual(answerBeforeDelete, default);
             await answerBeforeDelete.Delete(DbContext);
 
-            var answerAfterDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(1413005, DbContext)
+            var answerAfterDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(MicrotingUid, DbContext)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed).AsNoTracking()
                 .FirstOrDefaultAsync();
 
@@ -98,12 +106,16 @@ namespace InsightDashboard.Pn.Test
             Assert.IsEmpty(answersValuesAfterDelete);
             Assert.AreEqual(answerAfterDelete, default);
 
-            answerBeforeDelete.WorkflowState = Constants.WorkflowStates.Created;
+            answerBeforeDelete.Version = answerForBackup.Version;
+            answerBeforeDelete.WorkflowState = answerForBackup.WorkflowState;
+            answerBeforeDelete.UpdatedAt = answerForBackup.UpdatedAt;
             DbContext.Answers.Update(answerBeforeDelete);
-            foreach(var answerValue in answersValuesBeforeDelete)
+            for (var i = 0; i < answersValuesBeforeDelete.Count; i++)
             {
-                answerValue.WorkflowState = Constants.WorkflowStates.Created;
-                DbContext.AnswerValues.Update(answerValue);
+                answersValuesBeforeDelete[i].Version = answerValuesForBackup[i].Version;
+                answersValuesBeforeDelete[i].WorkflowState = answerValuesForBackup[i].WorkflowState;
+                answersValuesBeforeDelete[i].UpdatedAt = answerValuesForBackup[i].UpdatedAt;
+                DbContext.AnswerValues.Update(answersValuesBeforeDelete[i]);
             }
 
             await DbContext.SaveChangesAsync();

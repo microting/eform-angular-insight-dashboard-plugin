@@ -24,6 +24,7 @@
             container="body"
             [disabled]="!searchAnswerMicrotingUId"
             (click)="getAnswer()"
+            id="searchMicrotingUIdBtn"
           >
             <fa-icon icon="search" size="lg" [fixedWidth]="true"></fa-icon>
           </button>
@@ -34,6 +35,7 @@
             [mdbTooltip]="'Delete answer' | translate"
             [disabled]="!searchAnswerMicrotingUId || (searchAnswerMicrotingUId !== answer.microtingUId)"
             (click)="openAnswerDeleteModal()"
+            id="deleteByMicrotingUIdBtn"
           >
             <fa-icon icon="trash-alt" size="lg" [fixedWidth]="true"></fa-icon>
           </button>
