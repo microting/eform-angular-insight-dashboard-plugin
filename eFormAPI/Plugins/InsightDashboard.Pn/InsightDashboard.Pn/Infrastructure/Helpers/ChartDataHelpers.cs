@@ -613,7 +613,9 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         var tmpData = groupedData;
                         foreach (Option option in options)
                         {
-                            var optionName = option.OptionTranslationses.Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed).First().Name;
+                            OptionTranslation optionTranslation = await sdkContext.OptionTranslations.FirstAsync(x =>
+                                x.OptionId == option.Id && x.WorkflowState != Constants.WorkflowStates.Removed);
+                            var optionName = optionTranslation.Name;
                             if (!groupedData.Any(x => x.Name.Contains(optionName)))
                             {
                                 DashboardViewChartDataSingleModel dashboardViewChartDataSingleModel = new DashboardViewChartDataSingleModel()
