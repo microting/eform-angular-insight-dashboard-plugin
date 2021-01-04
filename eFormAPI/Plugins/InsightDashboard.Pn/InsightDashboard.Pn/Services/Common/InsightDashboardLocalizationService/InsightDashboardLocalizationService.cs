@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2019 Microting A/S
+Copyright (c) 2007 - 2021 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,13 +31,13 @@ namespace InsightDashboard.Pn.Services.Common.InsightDashboardLocalizationServic
     public class InsightDashboardLocalizationService : IInsightDashboardLocalizationService
     {
         private readonly IStringLocalizer _localizer;
-        
+
         // ReSharper disable once SuggestBaseTypeForParameter
         public InsightDashboardLocalizationService(IEformLocalizerFactory factory)
         {
             _localizer = factory.Create(typeof(EformInsightDashboardPlugin));
         }
-        
+
         public string GetString(string key)
         {
             var str = _localizer[key];

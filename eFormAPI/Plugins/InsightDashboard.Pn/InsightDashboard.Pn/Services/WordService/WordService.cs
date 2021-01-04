@@ -1,7 +1,7 @@
 ﻿/*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2019 Microting A/S
+Copyright (c) 2007 - 2021 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -202,7 +202,7 @@ namespace InsightDashboard.Pn.Services.WordService
                         foreach (var rawDataItem in dashboardItem.ChartData.RawData)
                         {
                             itemsHtml += @"<table style=""background-color:#fff"" width=""100%"" border=""1"">";
-                            
+
                             // multiStacked data chart with inverted values
                             if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)
                             {
