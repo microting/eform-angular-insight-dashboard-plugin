@@ -65,7 +65,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 await core.GetAllSurveyConfigurations();
                 await core.GetAllAnswers();
                 //await AddTextAnswers();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var surveysQueryable = sdkContext.SurveyConfigurations
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
@@ -160,7 +160,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
             {
 
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     // using (var transaction = await sdkContext.Database.BeginTransactionAsync())
                     // {
@@ -213,7 +213,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     // using (var transaction = await sdkContext.Database.BeginTransactionAsync())
                     // {
@@ -306,7 +306,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var surveyConfiguration = await sdkContext.SurveyConfigurations
                         .Where(x => x.Id == configUpdateStatusModel.Id)
@@ -345,7 +345,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var surveyConfiguration = await sdkContext.SurveyConfigurations
                         .Where(x => x.Id == id)
@@ -379,7 +379,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
         private async Task AddTextAnswers()
         {
             var core = await _coreHelper.GetCore();
-            var dbContext = core.dbContextHelper.GetDbContext();
+            var dbContext = core.DbContextHelper.GetDbContext();
             int questionId;
             int answerOptionId = 1;
             int naOptionId = 1;

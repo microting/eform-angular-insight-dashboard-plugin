@@ -36,7 +36,7 @@ namespace InsightDashboard.Pn.Test.Helpers
             var coreMock = new Mock<Core>();
 
             coreMock
-                .Setup(x => x.dbContextHelper.GetDbContext())
+                .Setup(x => x.DbContextHelper.GetDbContext())
                 .Returns(new MicrotingDbContext());
 
             return coreMock.Object;

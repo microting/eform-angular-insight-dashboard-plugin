@@ -129,7 +129,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                 foreach (var dashboardModel in dashboards)
                 {
-                    using (var sdkContext = core.dbContextHelper.GetDbContext())
+                    using (var sdkContext = core.DbContextHelper.GetDbContext())
                     {
                         dashboardModel.SurveyName = await sdkContext.QuestionSets
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
@@ -174,7 +174,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
 
                     if (!await sdkContext
@@ -372,7 +372,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 }
 
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     if (editModel.LocationId != null)
                     {
@@ -526,7 +526,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                                 // Check ignore values
                                 int answersCount;
-                                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                                using (var sdkContext = core.DbContextHelper.GetDbContext())
                                 {
                                     answersCount = await sdkContext.Options
                                         .AsNoTracking()
@@ -588,7 +588,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         foreach (var dashboardItemModel in forCreate)
                         {
                             int answersCount;
-                            using (var sdkContext = core.dbContextHelper.GetDbContext())
+                            using (var sdkContext = core.DbContextHelper.GetDbContext())
                             {
                                 answersCount = await sdkContext.Options
                                     .AsNoTracking()
@@ -798,7 +798,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 List<CommonDictionaryModel> tags;
                 List<CommonDictionaryModel> options;
 
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     result.SurveyName = await sdkContext.QuestionSets
                         .AsNoTracking()
@@ -942,7 +942,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         }
                     }
 
-                    using (var sdkContext = core.dbContextHelper.GetDbContext())
+                    using (var sdkContext = core.DbContextHelper.GetDbContext())
                     {
                         var languages = await sdkContext.Languages.ToListAsync();
                         foreach (var language in languages)
@@ -1109,7 +1109,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         _localizationService.GetString("DashboardNotFound"));
                 }
 
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     dashboard.SurveyName = await sdkContext.QuestionSets
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
