@@ -62,7 +62,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var surveys = await sdkContext.QuestionSets
                         .AsNoTracking()
@@ -89,7 +89,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var surveys = await sdkContext.Tags
                         .AsNoTracking()
@@ -117,7 +117,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var dbContext = core.dbContextHelper.GetDbContext())
+                using (var dbContext = core.DbContextHelper.GetDbContext())
                 {
                     var sites = await dbContext.SiteSurveyConfigurations
                         .AsNoTracking()
@@ -153,7 +153,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var languages = await sdkContext.Languages.ToListAsync();
                     var questionsResult = new List<QuestionDictionaryModel>();
@@ -215,7 +215,7 @@ namespace InsightDashboard.Pn.Services.DictionaryService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var languages = await sdkContext.Languages.ToListAsync();
                     var answersResult = new List<CommonDictionaryModel>();

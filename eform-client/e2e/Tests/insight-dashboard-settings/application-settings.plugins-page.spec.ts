@@ -22,7 +22,7 @@ describe('Application settings page - site header section', function () {
 
   });
   it('should activate the plugin', function () {
-    let plugin = pluginsPage.getFirstPluginRowObj();
+    const plugin = pluginsPage.getFirstPluginRowObj();
     // pluginPage.pluginSettingsBtn.click();
     plugin.activateBtn.click();
     $('#pluginOKBtn').waitForDisplayed({timeout: 40000});
@@ -35,7 +35,7 @@ describe('Application settings page - site header section', function () {
     myEformsPage.Navbar.clickOnSubMenuItem('Plugins');
     $('#plugin-name').waitForDisplayed({timeout: 50000});
 
-    let pluginToFind = pluginsPage.getFirstPluginRowObj();
+    const pluginToFind = pluginsPage.getFirstPluginRowObj();
     expect(pluginToFind.id).equal(1);
     expect(pluginToFind.name).equal('Microting InSight Dashboard Plugin');
     expect(pluginToFind.version).equal('1.0.0.0');

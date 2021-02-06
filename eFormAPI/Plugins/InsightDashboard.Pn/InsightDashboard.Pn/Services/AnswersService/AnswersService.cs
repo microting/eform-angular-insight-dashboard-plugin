@@ -61,7 +61,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
             {
                 var core = await _coreHelper.GetCore();
                 AnswerViewModel result;
-                await using (var sdkContext = core.dbContextHelper.GetDbContext())
+                await using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var answersQueryable = AnswerHelper.GetAnswerQueryByMicrotingUid(microtingUid, sdkContext);
 
@@ -99,7 +99,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
             {
                 var core = await _coreHelper.GetCore();
 
-                using (var sdkContext = core.dbContextHelper.GetDbContext())
+                using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var answer = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(microtingUid, sdkContext)
                         .FirstOrDefaultAsync();
