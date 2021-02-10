@@ -16,11 +16,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microting.eForm" Version="4.3.14" />
-    <PackageReference Include="Microting.eFormApi.BasePn" Version="2.0.92" />
+    <PackageReference Include="Microting.eForm" Version="4.3.15" />
+    <PackageReference Include="Microting.eFormApi.BasePn" Version="2.0.93" />
     <PackageReference Include="EPPlus.Core" Version="1.5.4" />
     <PackageReference Include="Microting.HtmlToOpenXml.dll" Version="2.2.0" />
-    <PackageReference Include="Microting.InsightDashboardBase" Version="2.0.89" />
+    <PackageReference Include="Microting.InsightDashboardBase" Version="2.0.90" />
   </ItemGroup>
 
   <ItemGroup>
