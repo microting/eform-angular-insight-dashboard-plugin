@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microting.eForm" Version="4.3.12" />
+    <PackageReference Include="Microting.eForm" Version="4.3.14" />
     <PackageReference Include="Microting.eFormApi.BasePn" Version="2.0.91" />
     <PackageReference Include="EPPlus.Core" Version="1.5.4" />
     <PackageReference Include="Microting.HtmlToOpenXml.dll" Version="2.2.0" />
