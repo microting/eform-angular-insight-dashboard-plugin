@@ -8,5 +8,6 @@ export enum DashboardItemFieldsEnum {
   calculateAverage = 'calculateAverage',
   ignoredAnswerValues = 'ignoredAnswerValues',
   compareLocationsTags = 'compareLocationsTags',
-  compareEnabled = 'compareEnabled'
+  compareEnabled = 'compareEnabled',
+  calculateByWeight = 'calculateByWeight'
 }

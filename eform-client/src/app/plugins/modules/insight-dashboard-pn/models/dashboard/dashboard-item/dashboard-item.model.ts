@@ -18,6 +18,7 @@ export class DashboardItemModel {
   compareLocationsTags: DashboardItemCompareModel[];
 
   calculateAverage: boolean;
+  calculateByWeight: boolean;
 
   position: number;
   answersLength = 0;
