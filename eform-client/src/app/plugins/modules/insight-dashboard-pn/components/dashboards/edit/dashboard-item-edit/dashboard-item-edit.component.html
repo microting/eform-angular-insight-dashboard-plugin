@@ -121,7 +121,7 @@
               <div class="row ml-1 mb-2">
                 <div class="mat-checkbox mb-1">
                   <input id="calcByWeight{{dashboardItem.position}}" type="checkbox"
-                         [disabled]="dashboardItem.calculateByWeight === questionTypes.Smiley"
+                         [disabled]="dashboardItem.firstQuestionType === questionTypes.Smiley"
                          [checked]="dashboardItem.calculateByWeight"
                          (click)="fieldChanged($event.target.checked, itemFields.calculateByWeight)"
                          [value]="dashboardItem.calculateByWeight">
