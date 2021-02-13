@@ -1012,7 +1012,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                             }
                         }
 
-                        await ChartDataHelpers.CalculateDashboardItem(
+                        await ChartDataHelpers.CalculateDashboard(
                             dashboardItemModel,
                             sdkContext,
                             dashboardItem,

@@ -29,7 +29,6 @@ namespace InsightDashboard.Pn.Test.Helpers
     using Microsoft.EntityFrameworkCore;
     using Microting.eForm.Infrastructure;
     using Microting.eForm.Infrastructure.Data.Entities;
-    using NUnit.Framework;
 
     public static class DatabaseHelper
     {
