@@ -1077,6 +1077,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 Period = i.Period,
                                 Position = i.Position,
                                 CalculateAverage = i.CalculateAverage,
+                                CalculateByWeight = i.CalculateByWeight,
                                 CompareEnabled = i.CompareEnabled,
                                 CompareLocationsTags = i.CompareLocationsTags
                                     .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)

@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2021 Microting A/S
@@ -30,15 +30,27 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
     public class DashboardItemModel
     {
         public int? Id { get; set; }
+
         public int FirstQuestionId { get; set; }
+
         public string FirstQuestionType { get; set; }
+
         public bool IsFirstQuestionSmiley { get; set; }
+
         public int? FilterQuestionId { get; set; }
+
         public int? FilterAnswerId { get; set; }
+
         public DashboardPeriodUnits Period { get; set; }
+
         public DashboardChartTypes ChartType { get; set; }
+
         public bool CompareEnabled { get; set; }
+
         public bool CalculateAverage { get; set; }
+
+        public bool CalculateByWeight { get; set; }
+        
         public int Position { get; set; }
 
         public DashboardViewChartDataModel ChartData { get; set; }
