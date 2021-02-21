@@ -15,6 +15,6 @@ describe('InSight Dashboard - Answers - View', function () {
     answersPage.searchMicrotingUIdBtn.click();
     const spinnerAnimation = $('#spinner-animation');
     spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
-    expect(answersPage.rowNum).eq(18);
+    expect(answersPage.rowNum).eq(19);
   });
 });
