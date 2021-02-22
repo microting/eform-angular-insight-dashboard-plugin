@@ -134,6 +134,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
 
             var answerQueryable = sdkContext.AnswerValues
                 .AsNoTracking()
+                .Include(x => x.Question)
+                .Include(x => x.Option)
+                .Include(x => x.Answer)
+                .Include(x => x.Option.OptionTranslationses)
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .AsQueryable();
 
@@ -341,7 +345,34 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         .Where(x => siteIds.Contains(x.Answer.SiteId))
                         .Select(x => new ChartDataItem
                         {
-                            Name = GetNameAnswerValue(x, sdkContext),
+                            Name = x.Question.IsSmiley()
+                                ? x.Option.WeightValue.ToString()
+                                : x.Question.QuestionType == Constants.QuestionTypes.Multi
+                                    ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Join(sdkContext.Options,
+                                            option_translations => option_translations.OptionId,
+                                            options => options.Id,
+                                            (option_translations, options) => new
+                                            {
+                                                option_translations.Name,
+                                                options.QuestionId
+                                            }).Join(sdkContext.QuestionTranslations,
+                                            pre_translations => pre_translations.QuestionId,
+                                            question_translations => question_translations.QuestionId,
+                                            (pre_translations, question_translations) => new
+                                            {
+                                                optionname = pre_translations.Name,
+                                                qtname = question_translations.Name,
+                                                question_translations.WorkflowState
+                                            }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Select(z => $"{z.qtname}_{z.optionname}").First()
+                                    : x.Question.QuestionType == Constants.QuestionTypes.List
+                                      || x.Question.QuestionType == Constants.QuestionTypes.Buttons
+                                        ? x.Option.OptionTranslationses
+                                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(z => z.Name)
+                                            .FirstOrDefault()
+                                        : x.Value,
                             Finished = x.Answer.FinishedAt,
                             LocationTagName = x.Answer.Site.Name,
                             LocationTagId = x.Answer.SiteId,
@@ -363,7 +394,34 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         data = await answerQueryable
                             .Select(x => new ChartDataItem
                             {
-                                Name = GetNameAnswerValue(x, sdkContext),
+                                Name = x.Question.IsSmiley()
+                                    ? x.Option.WeightValue.ToString()
+                                    : x.Question.QuestionType == Constants.QuestionTypes.Multi
+                                    ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Join(sdkContext.Options,
+                                            option_translations => option_translations.OptionId,
+                                            options => options.Id,
+                                            (option_translations, options) => new
+                                            {
+                                                option_translations.Name,
+                                                options.QuestionId
+                                            }).Join(sdkContext.QuestionTranslations,
+                                            pre_translations => pre_translations.QuestionId,
+                                            question_translations => question_translations.QuestionId,
+                                            (pre_translations, question_translations) => new
+                                            {
+                                                optionname = pre_translations.Name,
+                                                qtname = question_translations.Name,
+                                                question_translations.WorkflowState
+                                            }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
+                                        .Select(z => $"{z.qtname}_{z.optionname}").First()
+                                        : x.Question.QuestionType == Constants.QuestionTypes.List
+                                          || x.Question.QuestionType == Constants.QuestionTypes.Buttons
+                                            ? x.Option.OptionTranslationses
+                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                                .Select(z => z.Name)
+                                                .FirstOrDefault()
+                                            : x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.Name,
                                 LocationTagId = x.Answer.SiteId,
@@ -381,7 +439,34 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         data = await answerQueryable
                             .Select(x => new ChartDataItem
                             {
-                                Name = GetNameAnswerValue(x, sdkContext),
+                                Name = x.Question.IsSmiley()
+                                    ? x.Option.WeightValue.ToString()
+                                    : x.Question.QuestionType == Constants.QuestionTypes.Multi
+                                        ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Join(sdkContext.Options,
+                                                option_translations => option_translations.OptionId,
+                                                options => options.Id,
+                                                (option_translations, options) => new
+                                                {
+                                                    option_translations.Name,
+                                                    options.QuestionId
+                                                }).Join(sdkContext.QuestionTranslations,
+                                                pre_translations => pre_translations.QuestionId,
+                                                question_translations => question_translations.QuestionId,
+                                                (pre_translations, question_translations) => new
+                                                {
+                                                    optionname = pre_translations.Name,
+                                                    qtname = question_translations.Name,
+                                                    question_translations.WorkflowState
+                                                }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
+                                            .Select(z => $"{z.qtname}_{z.optionname}").First()
+                                        : x.Question.QuestionType == Constants.QuestionTypes.List
+                                          || x.Question.QuestionType == Constants.QuestionTypes.Buttons
+                                            ? x.Option.OptionTranslationses
+                                                .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                                                .Select(z => z.Name)
+                                                .FirstOrDefault()
+                                            : x.Value,
                                 Finished = x.Answer.FinishedAt,
                                 LocationTagName = x.Answer.Site.SiteTags
                                     .Where(y => y.TagId == dashboardLocationTagId)
