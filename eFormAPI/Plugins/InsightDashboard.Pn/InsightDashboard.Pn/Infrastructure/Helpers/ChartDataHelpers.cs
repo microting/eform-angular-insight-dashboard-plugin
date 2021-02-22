@@ -2113,6 +2113,10 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             var answerQueryable = sdkContext.AnswerValues
                 .AsNoTracking()
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .Include(x => x.Question)
+                .Include(x => x.Option)
+                .Include(x => x.Answer)
+                .Include(x => x.Option.OptionTranslationses)
                 .AsQueryable();
 
             if (answerDates.Today)
@@ -3863,12 +3867,19 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             }
         }
 
+        // do not use the ternary operator half-screen, please, it's not readable
         private static string GetNameAnswerValue(AnswerValue x, MicrotingDbContext sdkContext)
         {
-            return x.Question.IsSmiley()
-                ? x.Option.WeightValue.ToString()
-                : x.Question.QuestionType == Constants.QuestionTypes.Multi
-                    ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
+
+            if (x.Question.IsSmiley())
+            {
+                return x.Option.WeightValue.ToString();
+            }
+
+            switch (x.Question.QuestionType)
+            {
+                case Constants.QuestionTypes.Multi:
+                    return x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
                         .Join(sdkContext.Options,
                             option_translations => option_translations.OptionId,
                             options => options.Id,
@@ -3885,14 +3896,16 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 qtname = question_translations.Name,
                                 question_translations.WorkflowState
                             }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Select(z => $"{z.qtname}_{z.optionname}").First()
-                    : x.Question.QuestionType == Constants.QuestionTypes.List
-                      || x.Question.QuestionType == Constants.QuestionTypes.Buttons
-                        ? x.Option.OptionTranslationses
-                            .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Select(z => z.Name)
-                            .FirstOrDefault()
-                        : x.Value;
+                        .Select(z => $"{z.qtname}_{z.optionname}").First();
+                case Constants.QuestionTypes.List:
+                case Constants.QuestionTypes.Buttons:
+                    return x.Option.OptionTranslationses
+                        .Where(ws => ws.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Select(z => z.Name)
+                        .FirstOrDefault();
+                default:
+                    return x.Value;
+            }
         }
 
         public static async Task CalculateDashboard(DashboardItemViewModel dashboardItemModel,

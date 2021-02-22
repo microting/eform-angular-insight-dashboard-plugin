@@ -269,6 +269,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 Period = dashboardItem.Period,
                                 Position = dashboardItem.Position,
                                 CalculateAverage = dashboardItem.CalculateAverage,
+                                CalculateByWeight = dashboardItem.CalculateByWeight,
                                 CompareEnabled = dashboardItem.CompareEnabled,
                             };
 
@@ -486,6 +487,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                                 dashboardItem.Position = dashboardItemModel.Position;
                                 dashboardItem.CalculateAverage = dashboardItemModel.CalculateAverage;
                                 dashboardItem.CompareEnabled = dashboardItemModel.CompareEnabled;
+                                dashboardItem.CalculateByWeight = dashboardItemModel.CalculateByWeight;
 
                                 await dashboardItem.Update(_dbContext);
 
