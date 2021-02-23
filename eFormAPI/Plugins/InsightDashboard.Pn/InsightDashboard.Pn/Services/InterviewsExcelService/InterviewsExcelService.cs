@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 namespace InsightDashboard.Pn.Services.InterviewsExcelService
 {
     using System;
@@ -35,7 +36,7 @@ namespace InsightDashboard.Pn.Services.InterviewsExcelService
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Microting.eFormApi.BasePn.Infrastructure.Helpers;
-    using OfficeOpenXml;
+    using ClosedXML.Excel;
 
     public class InterviewsExcelService : IInterviewsExcelService
     {
@@ -52,11 +53,9 @@ namespace InsightDashboard.Pn.Services.InterviewsExcelService
 
         public bool WriteInterviewsExportToExcelFile(List<InterviewsExportModel> excelModel, string destFile)
         {
-            var file = new FileInfo(destFile);
-            using (var package = new ExcelPackage(file))
-            {
-                var worksheet = package.Workbook.Worksheets[ExcelConsts.Interviews.TemplateSheetNumber];
-                var colCount = worksheet.Dimension.Columns;
+            var wb = new XLWorkbook(destFile);
+                var worksheet = wb.Worksheets.Worksheet(ExcelConsts.Interviews.TemplateSheetNumber);
+                var colCount = worksheet.Worksheet.ColumnCount();
                 var rowIndex = ExcelConsts.Interviews.StartRow;
                 excelModel.ForEach(excelRow =>
                 {
@@ -66,24 +65,24 @@ namespace InsightDashboard.Pn.Services.InterviewsExcelService
                         if (columnIndex > 0)
                         {
                             var columnName = columnIndex.ToString();
-                            if (columnName != null)
+                            if (!string.IsNullOrEmpty(columnName))
                             {
                                 var value = excelRow?.GetType().GetProperty(columnName)?.GetValue(excelRow, null);
                                 if (value != null)
                                 {
                                     if (value is DateTime dateTime)
                                     {
-                                        worksheet.Cells[rowIndex, col].Value =
+                                        worksheet.Cell(rowIndex, col).Value =
                                             dateTime.ToString(CultureInfo.InvariantCulture);
                                     }
                                     else if (value is decimal decimalValue)
                                     {
-                                        worksheet.Cells[rowIndex, col].Style.Numberformat.Format = "0.00";
-                                        worksheet.Cells[rowIndex, col].Value = decimalValue;
+                                        worksheet.Cell(rowIndex, col).Style.NumberFormat.Format = "0.00";
+                                        worksheet.Cell(rowIndex, col).Value = decimalValue;
                                     }
                                     else
                                     {
-                                        worksheet.Cells[rowIndex, col].Value = value;
+                                        worksheet.Cell(rowIndex, col).Value = value;
                                     }
                                 }
                             }
@@ -92,8 +91,8 @@ namespace InsightDashboard.Pn.Services.InterviewsExcelService
 
                     rowIndex++;
                 });
-                package.Save();
-            }
+                wb.Save();
+                wb.Dispose();
 
             return true;
         }

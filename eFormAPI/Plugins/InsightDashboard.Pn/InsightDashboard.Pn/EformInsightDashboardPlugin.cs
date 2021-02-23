@@ -100,7 +100,7 @@ namespace InsightDashboard.Pn
             }
             else
             {
-                services.AddDbContext<InsightDashboardPnDbContext>(o => o.UseSqlServer(connectionString,
+                services.AddDbContext<InsightDashboardPnDbContext>(o => o.UseMySql(connectionString,
                     b => b.MigrationsAssembly(PluginAssembly().FullName)));
             }
 

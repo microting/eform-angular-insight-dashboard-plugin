@@ -42,7 +42,7 @@ namespace InsightDashboard.Pn.Test
         public async Task ChartData_Calculate_Correct()
         {
             // Settings
-            CultureInfo.CurrentCulture = new CultureInfo("da-DK");
+            CultureInfo.CurrentCulture = new CultureInfo("da");
 
             // Add total tag
             await DatabaseHelper.AddTotalTag(DbContext);
