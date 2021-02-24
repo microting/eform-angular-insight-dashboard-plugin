@@ -55,6 +55,8 @@ jobs:
       run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3 | cut -d "v" -f 2)
     - name: Build
       run: dotnet build main/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
+    - name: Sleep 15 seconds
+      run: sleep 15
     - name: Load DB dump
       run: |
         mysql -u root -h 127.0.0.1 --password=secretpassword -e 'create database `420_SDK`'
