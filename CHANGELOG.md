@@ -1,11 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/HEAD)
+## [v3.0.78](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.78) (2021-02-24)
 
-[Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.77...HEAD)
+[Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.77...v3.0.78)
+
+**Implemented enhancements:**
+
+- Bump Microting.InsightDashboardBase from 2.1.4 to 2.1.5 [\#117](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/117)
+- Bump Microting.eFormApi.BasePn from 2.0.97 to 2.0.98 [\#116](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/116)
+- Bump Microting.eForm from 4.4.1 to 4.4.2 [\#115](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/115)
 
 **Merged pull requests:**
 
+- Bump Microsoft.NET.Test.Sdk from 16.8.3 to 16.9.1 in /eFormAPI/Plugins/InsightDashboard.Pn [\#113](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/113) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Added new type of dashboards [\#112](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/112) ([Gid733](https://github.com/Gid733))
 
 ## [v3.0.77](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.77) (2021-02-18)
@@ -197,6 +204,10 @@
 ## [v3.0.40](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.40) (2020-12-21)
 
 [Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.39...v3.0.40)
+
+**Merged pull requests:**
+
+- Updates for data in chart test [\#84](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/84) ([Gid733](https://github.com/Gid733))
 
 ## [v3.0.39](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.39) (2020-12-17)
 
@@ -480,7 +491,6 @@
 
 **Merged pull requests:**
 
-- Updates for data in chart test [\#84](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/84) ([Gid733](https://github.com/Gid733))
 - Update on option index [\#78](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/78) ([Gid733](https://github.com/Gid733))
 - Minor bugfixing [\#77](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/77) ([Gid733](https://github.com/Gid733))
 - Bugfix [\#64](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/64) ([Gid733](https://github.com/Gid733))
@@ -509,7 +519,6 @@
 **Merged pull requests:**
 
 - Fixes [\#56](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/56) ([Gid733](https://github.com/Gid733))
-- Added new pie chart types [\#53](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/53) ([Gid733](https://github.com/Gid733))
 
 ## [v1.0.20](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v1.0.20) (2020-05-11)
 
@@ -527,6 +536,10 @@
 ## [v1.0.18](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v1.0.18) (2020-04-29)
 
 [Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v1.0.17...v1.0.18)
+
+**Merged pull requests:**
+
+- Added new pie chart types [\#53](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/53) ([Gid733](https://github.com/Gid733))
 
 ## [v1.0.17](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v1.0.17) (2020-04-29)
 
