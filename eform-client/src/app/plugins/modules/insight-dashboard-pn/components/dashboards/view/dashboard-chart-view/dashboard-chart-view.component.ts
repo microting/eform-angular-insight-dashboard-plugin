@@ -11,6 +11,7 @@ import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-vie
 export class DashboardChartViewComponent {
   @Input() chartPosition: number;
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel;
+  darkTHeme: boolean;
 
   get chartTypes() {
     return DashboardChartTypesEnum;
@@ -78,6 +79,7 @@ export class DashboardChartViewComponent {
     Object.assign(this, {line});
     Object.assign(this, {multi});
     Object.assign(this, {pie});
+    this.darkTHeme = localStorage.getItem('darkTheme') === 'true';
   }
 
   copyChart() {

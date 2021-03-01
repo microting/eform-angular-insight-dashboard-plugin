@@ -24,6 +24,7 @@ export class DashboardChartEditComponent implements OnChanges {
   @Input() answers: CommonDictionaryModel[] = [];
   @Input() chartGeneratedPreviewData: DashboardChartDataModel;
   chartData: any[];
+  darkTHeme: boolean;
 
   get chartTypes() {
     return DashboardChartTypesEnum;
@@ -87,7 +88,7 @@ export class DashboardChartEditComponent implements OnChanges {
   ];
 
   constructor() {
-
+    this.darkTHeme = localStorage.getItem('darkTheme') === 'true';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
