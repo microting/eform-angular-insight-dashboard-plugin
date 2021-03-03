@@ -29,6 +29,9 @@ export class AnswerPageComponent implements OnInit, OnDestroy {
 
   getAnswer() {
     this.answer = new AnswerModel();
+    let value = this.searchAnswerMicrotingUId.toString();
+    value = value.replace('.', '');
+    this.searchAnswerMicrotingUId = parseInt(value);
     this.answerSub$ = this.answersService
       .getAnswer(this.searchAnswerMicrotingUId)
       .subscribe((data) => {
@@ -40,7 +43,7 @@ export class AnswerPageComponent implements OnInit, OnDestroy {
 
   deleteAnswer() {
     this.deleteAnswerSub$ = this.answersService
-      .deleteAnswer(this.answer.microtingUId)
+      .deleteAnswer(this.answer.microtingUid)
       .subscribe(() => {
         this.answer = new AnswerModel();
         this.searchAnswerMicrotingUId = null;

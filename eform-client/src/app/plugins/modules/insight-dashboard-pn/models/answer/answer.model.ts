@@ -1,7 +1,10 @@
 export class AnswerModel {
   id: number;
-  microtingUId: number;
-  values: AnswerValuesModel[] = [];
+  microtingUid: number;
+  finishedAt: dateFns;
+  answerDuration: number;
+  siteName: string;
+  unitId: number;  answerValues: AnswerValuesModel[] = [];
 }
 
 export class AnswerValuesModel {

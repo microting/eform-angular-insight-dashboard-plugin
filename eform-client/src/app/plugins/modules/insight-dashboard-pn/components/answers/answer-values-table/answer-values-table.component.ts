@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AnswerValuesModel} from '../../../models/answer';
+import {AnswerModel, AnswerValuesModel} from '../../../models/answer';
 
 @Component({
   selector: 'app-answer-values-table',
@@ -7,7 +7,7 @@ import {AnswerValuesModel} from '../../../models/answer';
   styleUrls: ['./answer-values-table.component.scss']
 })
 export class AnswerValuesTableComponent implements OnInit {
-  @Input() answerValues: AnswerValuesModel[] = [];
+  @Input() answerModel: AnswerModel;
   constructor() { }
 
   ngOnInit(): void {

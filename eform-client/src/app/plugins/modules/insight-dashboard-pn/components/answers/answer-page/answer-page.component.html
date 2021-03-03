@@ -33,7 +33,7 @@
             class="btn-danger btn-icon mb-0"
             container="body"
             [mdbTooltip]="'Delete answer' | translate"
-            [disabled]="!searchAnswerMicrotingUId || (searchAnswerMicrotingUId !== answer.microtingUId)"
+            [disabled]="!searchAnswerMicrotingUId || (searchAnswerMicrotingUId !== answer.microtingUid)"
             (click)="openAnswerDeleteModal()"
             id="deleteByMicrotingUIdBtn"
           >
@@ -45,7 +45,7 @@
   </div>
 
   <app-answer-values-table
-    [answerValues]="answer.values"
+    [answerModel]="answer"
   ></app-answer-values-table>
 </div>
 

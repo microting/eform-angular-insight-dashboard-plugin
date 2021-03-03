@@ -9,15 +9,23 @@
     <thead>
       <tr>
         <th scope="col">{{ 'ID' }}</th>
+        <th scope="col">{{ 'FinishedAt' }}</th>
+        <th scope="col">{{ 'Duration' }}</th>
+        <th scope="col">{{ 'Site' }}</th>
+        <th scope="col">{{ 'UnitId' }}</th>
         <th scope="col">{{ 'Value' | translate }}</th>
         <th scope="col">{{ 'Language' | translate }}</th>
         <th scope="col">{{ 'Translation' | translate }}</th>
       </tr>
     </thead>
     <tbody id="tableBody">
-      <ng-container *ngFor="let answerValue of answerValues">
+      <ng-container *ngFor="let answerValue of answerModel.answerValues">
         <tr *ngFor="let answerValueTranslation of answerValue.translations">
-          <td id="answerValueId" scope="row">{{ answerValue.id }}</td>
+          <td id="answerValueId" scope="row">{{ answerModel.microtingUid }}</td>
+          <td scope="row">{{ answerModel.finishedAt }}</td>
+          <td scope="row">{{ answerModel.answerDuration }}</td>
+          <td scope="row">{{ answerModel.siteName }}</td>
+          <td scope="row">{{ answerModel.unitId }}</td>
           <td id="answerValueValue" scope="row">{{ answerValue.value }}</td>
           <td id="answerValueLanguage" scope="row">
             {{ answerValueTranslation.languageName }}

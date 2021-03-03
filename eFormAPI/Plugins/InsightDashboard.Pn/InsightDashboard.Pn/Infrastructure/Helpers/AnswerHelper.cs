@@ -37,15 +37,44 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
         public static IQueryable<AnswerViewModel> GetAnswerQueryByMicrotingUid(int microtingUid,
             MicrotingDbContext dbContext)
         {
-            var answersQueryable = dbContext.Answers
+            var answersQueryable = dbContext.Answers.Join(dbContext.Sites,
+                    answer => answer.SiteId,
+                    site => site.Id,
+                    (newAnswer, site) => new
+                    {
+                        newAnswer.WorkflowState,
+                        newAnswer.MicrotingUid,
+                        newAnswer.UnitId,
+                        newAnswer.FinishedAt,
+                        newAnswer.AnswerDuration,
+                        newAnswer.Id,
+                        site.Name
+                    }).Join(dbContext.Units,
+                    answer => answer.UnitId,
+                    unit => unit.Id,
+                    (answer, unit) => new
+                    {
+                        answer.WorkflowState,
+                        answer.MicrotingUid,
+                        answer.Id,
+                        answer.UnitId,
+                        answer.FinishedAt,
+                        answer.AnswerDuration,
+                        answer.Name,
+                        UnitUid = unit.MicrotingUid
+                    })
                 .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .Where(x => x.MicrotingUid == microtingUid)
                 .AsQueryable()
                 .Select(answers => new AnswerViewModel()
                 {
-                    MicrotingUId = (int)answers.MicrotingUid,
                     Id = answers.Id,
-                    Values = dbContext.AnswerValues
+                    MicrotingUid = (int)answers.MicrotingUid,
+                    UnitId = (int)answers.UnitUid,
+                    FinishedAt = answers.FinishedAt,
+                    AnswerDuration = answers.AnswerDuration,
+                    SiteName = answers.Name,
+                    AnswerValues = dbContext.AnswerValues
                         .Where(answerValues => answerValues.AnswerId == answers.Id)
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .AsQueryable()
