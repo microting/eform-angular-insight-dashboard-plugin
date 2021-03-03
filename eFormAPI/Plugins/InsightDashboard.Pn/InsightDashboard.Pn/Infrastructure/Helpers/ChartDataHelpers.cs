@@ -282,20 +282,20 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
                                         ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
                                             .Join(sdkContext.Options,
-                                                option_translations => option_translations.OptionId,
+                                                optionTranslations => optionTranslations.OptionId,
                                                 options => options.Id,
-                                                (option_translations, options) => new
+                                                (optionTranslations, options) => new
                                                 {
-                                                    option_translations.Name,
+                                                    optionTranslations.Name,
                                                     options.QuestionId
                                                 }).Join(sdkContext.QuestionTranslations,
-                                                pre_translations => pre_translations.QuestionId,
-                                                question_translations => question_translations.QuestionId,
-                                                (pre_translations, question_translations) => new
+                                                preTranslations => preTranslations.QuestionId,
+                                                questionTranslations => questionTranslations.QuestionId,
+                                                (preTranslations, questionTranslations) => new
                                                 {
-                                                    optionname = pre_translations.Name,
-                                                    qtname = question_translations.Name,
-                                                    question_translations.WorkflowState
+                                                    optionname = preTranslations.Name,
+                                                    qtname = questionTranslations.Name,
+                                                    questionTranslations.WorkflowState
                                                 }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
                                             .Select(z => $"{z.qtname}_{z.optionname}").First()
                                         : x.Question.QuestionType == Constants.QuestionTypes.List
@@ -350,20 +350,20 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 : x.Question.QuestionType == Constants.QuestionTypes.Multi
                                     ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
                                         .Join(sdkContext.Options,
-                                            option_translations => option_translations.OptionId,
+                                            optionTranslations => optionTranslations.OptionId,
                                             options => options.Id,
-                                            (option_translations, options) => new
+                                            (optionTranslations, options) => new
                                             {
-                                                option_translations.Name,
+                                                optionTranslations.Name,
                                                 options.QuestionId
                                             }).Join(sdkContext.QuestionTranslations,
-                                            pre_translations => pre_translations.QuestionId,
-                                            question_translations => question_translations.QuestionId,
-                                            (pre_translations, question_translations) => new
+                                            preTranslations => preTranslations.QuestionId,
+                                            questionTranslations => questionTranslations.QuestionId,
+                                            (preTranslations, questionTranslations) => new
                                             {
-                                                optionname = pre_translations.Name,
-                                                qtname = question_translations.Name,
-                                                question_translations.WorkflowState
+                                                optionname = preTranslations.Name,
+                                                qtname = questionTranslations.Name,
+                                                questionTranslations.WorkflowState
                                             }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
                                         .Select(z => $"{z.qtname}_{z.optionname}").First()
                                     : x.Question.QuestionType == Constants.QuestionTypes.List
@@ -399,20 +399,20 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
                                     ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
                                         .Join(sdkContext.Options,
-                                            option_translations => option_translations.OptionId,
+                                            optionTranslations => optionTranslations.OptionId,
                                             options => options.Id,
-                                            (option_translations, options) => new
+                                            (optionTranslations, options) => new
                                             {
-                                                option_translations.Name,
+                                                optionTranslations.Name,
                                                 options.QuestionId
                                             }).Join(sdkContext.QuestionTranslations,
-                                            pre_translations => pre_translations.QuestionId,
-                                            question_translations => question_translations.QuestionId,
-                                            (pre_translations, question_translations) => new
+                                            preTranslations => preTranslations.QuestionId,
+                                            questionTranslations => questionTranslations.QuestionId,
+                                            (preTranslations, questionTranslations) => new
                                             {
-                                                optionname = pre_translations.Name,
-                                                qtname = question_translations.Name,
-                                                question_translations.WorkflowState
+                                                optionname = preTranslations.Name,
+                                                qtname = questionTranslations.Name,
+                                                questionTranslations.WorkflowState
                                             }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
                                         .Select(z => $"{z.qtname}_{z.optionname}").First()
                                         : x.Question.QuestionType == Constants.QuestionTypes.List
@@ -444,20 +444,20 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                     : x.Question.QuestionType == Constants.QuestionTypes.Multi
                                         ? x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
                                             .Join(sdkContext.Options,
-                                                option_translations => option_translations.OptionId,
+                                                optionTranslations => optionTranslations.OptionId,
                                                 options => options.Id,
-                                                (option_translations, options) => new
+                                                (optionTranslations, options) => new
                                                 {
-                                                    option_translations.Name,
+                                                    optionTranslations.Name,
                                                     options.QuestionId
                                                 }).Join(sdkContext.QuestionTranslations,
-                                                pre_translations => pre_translations.QuestionId,
-                                                question_translations => question_translations.QuestionId,
-                                                (pre_translations, question_translations) => new
+                                                preTranslations => preTranslations.QuestionId,
+                                                questionTranslations => questionTranslations.QuestionId,
+                                                (preTranslations, questionTranslations) => new
                                                 {
-                                                    optionname = pre_translations.Name,
-                                                    qtname = question_translations.Name,
-                                                    question_translations.WorkflowState
+                                                    optionname = preTranslations.Name,
+                                                    qtname = questionTranslations.Name,
+                                                    questionTranslations.WorkflowState
                                                 }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
                                             .Select(z => $"{z.qtname}_{z.optionname}").First()
                                         : x.Question.QuestionType == Constants.QuestionTypes.List
@@ -3966,20 +3966,20 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 case Constants.QuestionTypes.Multi:
                     return x.Option.OptionTranslationses.Where(ot => ot.WorkflowState != Constants.WorkflowStates.Removed)
                         .Join(sdkContext.Options,
-                            option_translations => option_translations.OptionId,
+                            optionTranslations => optionTranslations.OptionId,
                             options => options.Id,
-                            (option_translations, options) => new
+                            (optionTranslations, options) => new
                             {
-                                option_translations.Name,
+                                optionTranslations.Name,
                                 options.QuestionId
                             }).Join(sdkContext.QuestionTranslations,
-                            pre_translations => pre_translations.QuestionId,
-                            question_translations => question_translations.QuestionId,
-                            (pre_translations, question_translations) => new
+                            preTranslations => preTranslations.QuestionId,
+                            questionTranslations => questionTranslations.QuestionId,
+                            (preTranslations, questionTranslations) => new
                             {
-                                optionname = pre_translations.Name,
-                                qtname = question_translations.Name,
-                                question_translations.WorkflowState
+                                optionname = preTranslations.Name,
+                                qtname = questionTranslations.Name,
+                                questionTranslations.WorkflowState
                             }).Where(z => z.WorkflowState != Constants.WorkflowStates.Removed)
                         .Select(z => $"{z.qtname}_{z.optionname}").First();
                 case Constants.QuestionTypes.List:
