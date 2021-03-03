@@ -31,6 +31,7 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Answers
     {
         public int Id { get; set; }
         public string Value { get; set; }
+        public string Question { get; set; }
         public List<AnswerValueTranslationModel> Translations { get; set; }
             = new List<AnswerValueTranslationModel>();
     }

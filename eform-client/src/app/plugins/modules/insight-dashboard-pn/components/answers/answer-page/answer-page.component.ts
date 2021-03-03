@@ -18,6 +18,7 @@ export class AnswerPageComponent implements OnInit, OnDestroy {
   answerSub$: Subscription;
   deleteAnswerSub$: Subscription;
   answer: AnswerModel = new AnswerModel();
+  searchAnswerId: string;
 
   constructor(private answersService: InsightDashboardPnAnswersService) {}
 
@@ -29,9 +30,8 @@ export class AnswerPageComponent implements OnInit, OnDestroy {
 
   getAnswer() {
     this.answer = new AnswerModel();
-    let value = this.searchAnswerMicrotingUId.toString();
-    value = value.replace('.', '');
-    this.searchAnswerMicrotingUId = parseInt(value);
+    this.searchAnswerId = this.searchAnswerId.replace(/\./g, '');
+    this.searchAnswerMicrotingUId = parseInt(this.searchAnswerId, 10);
     this.answerSub$ = this.answersService
       .getAnswer(this.searchAnswerMicrotingUId)
       .subscribe((data) => {

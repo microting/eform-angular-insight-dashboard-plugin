@@ -74,7 +74,18 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                     FinishedAt = answers.FinishedAt,
                     AnswerDuration = answers.AnswerDuration,
                     SiteName = answers.Name,
-                    AnswerValues = dbContext.AnswerValues
+                    AnswerValues = dbContext.AnswerValues.Join(dbContext.QuestionTranslations,
+                            value => value.QuestionId,
+                            questionTranslation => questionTranslation.Id,
+                            (value, questionTranslation) => new
+                            {
+                                value.AnswerId,
+                                value.WorkflowState,
+                                value.Value,
+                                value.Id,
+                                value.OptionId,
+                                questionTranslation.Name
+                            })
                         .Where(answerValues => answerValues.AnswerId == answers.Id)
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .AsQueryable()
@@ -82,6 +93,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         {
                             Value = a.Value,
                             Id = a.Id,
+                            Question = a.Name,
                             Translations = dbContext.OptionTranslations
                                 .Where(x => x.OptionId == a.OptionId)
                                 .AsQueryable()

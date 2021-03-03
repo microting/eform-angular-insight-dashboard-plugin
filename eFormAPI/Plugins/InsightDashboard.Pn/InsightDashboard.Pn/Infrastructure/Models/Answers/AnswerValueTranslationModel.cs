@@ -29,5 +29,6 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Answers
         public int LanguageId { get; set; }
         public string Value { set; get; }
         public string LanguageName { get; set; }
+        public string Question { get; set; }
     }
 }

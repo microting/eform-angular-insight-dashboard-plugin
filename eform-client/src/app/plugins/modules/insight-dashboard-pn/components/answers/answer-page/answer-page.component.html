@@ -8,8 +8,8 @@
           mdbInput
           name="searchMicrotingUIdInput"
           required
-          [(ngModel)]="searchAnswerMicrotingUId"
-          type="number"
+          [(ngModel)]="searchAnswerId"
+          type="text"
           class="form-control input-sm"
           id="searchMicrotingUIdInput"
         />
@@ -22,7 +22,7 @@
             [mdbTooltip]="'Search answer' | translate"
             class="btn-success btn-icon mb-0"
             container="body"
-            [disabled]="!searchAnswerMicrotingUId"
+            [disabled]="searchAnswerId === null"
             (click)="getAnswer()"
             id="searchMicrotingUIdBtn"
           >

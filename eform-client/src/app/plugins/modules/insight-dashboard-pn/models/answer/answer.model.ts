@@ -11,6 +11,7 @@ export class AnswerValuesModel {
   id: number;
   value: string;
   translations: AnswerValueTranslationModel[];
+  question: string;
 }
 
 export class AnswerValueTranslationModel {
