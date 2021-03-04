@@ -23,7 +23,8 @@
       <ng-container *ngFor="let answerValue of answerModel.answerValues">
         <tr *ngFor="let answerValueTranslation of answerValue.translations">
           <td id="answerValueId" scope="row">{{ answerModel.microtingUid }}</td>
-          <td scope="row">{{ answerModel.finishedAt }}</td>
+          <td scope="row">
+            <date-formatter [date]="answerModel.finishedAt" [Format]="'datetime'"></date-formatter></td>
           <td scope="row">{{ answerModel.answerDuration }}</td>
           <td scope="row">{{ answerModel.siteName }}</td>
           <td scope="row">{{ answerModel.unitId }}</td>
