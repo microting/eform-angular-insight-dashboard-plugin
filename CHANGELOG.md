@@ -1,5 +1,23 @@
 # Changelog
 
+## [v3.0.80](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.80) (2021-03-16)
+
+[Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.79...v3.0.80)
+
+**Implemented enhancements:**
+
+- Bump Microting.InsightDashboardBase from 2.1.5 to 2.1.8 [\#134](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/134)
+- Bump Microting.eFormApi.BasePn from 2.0.98 to 2.0.103 [\#133](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/133)
+- Bump Microting.eForm from 4.4.2 to 4.4.8 [\#132](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/132)
+
+## [v3.0.79](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.79) (2021-03-05)
+
+[Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.78...v3.0.79)
+
+**Merged pull requests:**
+
+- Bump Moq from 4.16.0 to 4.16.1 in /eFormAPI/Plugins/InsightDashboard.Pn [\#114](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/114) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
 ## [v3.0.78](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.78) (2021-02-24)
 
 [Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.77...v3.0.78)
@@ -43,6 +61,7 @@
 
 - fix name dbContextHelper to DbContextHelper [\#104](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/104) ([Gid733](https://github.com/Gid733))
 - Bump NUnit from 3.13.0 to 3.13.1 in /eFormAPI/Plugins/InsightDashboard.Pn [\#103](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/103) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Updates for data in chart test [\#84](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/84) ([Gid733](https://github.com/Gid733))
 
 ## [v3.0.71](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.71) (2021-02-05)
 
@@ -204,10 +223,6 @@
 ## [v3.0.40](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.40) (2020-12-21)
 
 [Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.39...v3.0.40)
-
-**Merged pull requests:**
-
-- Updates for data in chart test [\#84](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/84) ([Gid733](https://github.com/Gid733))
 
 ## [v3.0.39](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.39) (2020-12-17)
 
