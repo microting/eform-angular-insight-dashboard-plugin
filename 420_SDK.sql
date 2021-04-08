@@ -1,8 +1,8 @@
--- MariaDB dump 10.18  Distrib 10.5.8-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.5.9-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: 420_SDK
 -- ------------------------------------------------------
--- Server version	10.5.8-MariaDB-1:10.5.8+maria~focal
+-- Server version	10.5.9-MariaDB-1:10.5.9+maria~focal
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -733,6 +733,91 @@ LOCK TABLES `EntityItems` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ExtraFieldValueVersions`
+--
+
+DROP TABLE IF EXISTS `ExtraFieldValueVersions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ExtraFieldValueVersions` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Version` int(11) DEFAULT NULL,
+  `WorkflowState` varchar(255) DEFAULT NULL,
+  `CreatedAt` datetime(6) DEFAULT NULL,
+  `UpdatedAt` datetime(6) DEFAULT NULL,
+  `ExtraFieldValueId` int(11) NOT NULL,
+  `DoneAt` datetime(6) DEFAULT NULL,
+  `Date` datetime(6) DEFAULT NULL,
+  `WorkerId` int(11) DEFAULT NULL,
+  `CaseId` int(11) DEFAULT NULL,
+  `CheckListId` int(11) DEFAULT NULL,
+  `CheckListDuplicateId` int(11) DEFAULT NULL,
+  `CheckListValueId` int(11) DEFAULT NULL,
+  `UploadedDataId` int(11) DEFAULT NULL,
+  `Value` longtext DEFAULT NULL,
+  `Latitude` varchar(255) DEFAULT NULL,
+  `Longitude` varchar(255) DEFAULT NULL,
+  `Altitude` varchar(255) DEFAULT NULL,
+  `Heading` varchar(255) DEFAULT NULL,
+  `Accuracy` varchar(255) DEFAULT NULL,
+  `FieldType` longtext DEFAULT NULL,
+  `FieldTypeId` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ExtraFieldValueVersions`
+--
+
+LOCK TABLES `ExtraFieldValueVersions` WRITE;
+/*!40000 ALTER TABLE `ExtraFieldValueVersions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ExtraFieldValueVersions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ExtraFieldValues`
+--
+
+DROP TABLE IF EXISTS `ExtraFieldValues`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ExtraFieldValues` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Version` int(11) DEFAULT NULL,
+  `WorkflowState` varchar(255) DEFAULT NULL,
+  `CreatedAt` datetime(6) DEFAULT NULL,
+  `UpdatedAt` datetime(6) DEFAULT NULL,
+  `DoneAt` datetime(6) DEFAULT NULL,
+  `Date` datetime(6) DEFAULT NULL,
+  `WorkerId` int(11) DEFAULT NULL,
+  `CaseId` int(11) DEFAULT NULL,
+  `CheckListId` int(11) DEFAULT NULL,
+  `CheckListDuplicateId` int(11) DEFAULT NULL,
+  `CheckListValueId` int(11) DEFAULT NULL,
+  `UploadedDataId` int(11) DEFAULT NULL,
+  `Value` longtext DEFAULT NULL,
+  `Latitude` varchar(255) DEFAULT NULL,
+  `Longitude` varchar(255) DEFAULT NULL,
+  `Altitude` varchar(255) DEFAULT NULL,
+  `Heading` varchar(255) DEFAULT NULL,
+  `Accuracy` varchar(255) DEFAULT NULL,
+  `FieldType` longtext DEFAULT NULL,
+  `FieldTypeId` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ExtraFieldValues`
+--
+
+LOCK TABLES `ExtraFieldValues` WRITE;
+/*!40000 ALTER TABLE `ExtraFieldValues` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ExtraFieldValues` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `FieldOptionTranslationVersions`
 --
 
@@ -1154,6 +1239,69 @@ CREATE TABLE `Fields` (
 LOCK TABLES `Fields` WRITE;
 /*!40000 ALTER TABLE `Fields` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Fields` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `FolderTranslationVersions`
+--
+
+DROP TABLE IF EXISTS `FolderTranslationVersions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `FolderTranslationVersions` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Version` int(11) DEFAULT NULL,
+  `WorkflowState` varchar(255) DEFAULT NULL,
+  `CreatedAt` datetime(6) DEFAULT NULL,
+  `UpdatedAt` datetime(6) DEFAULT NULL,
+  `Name` longtext DEFAULT NULL,
+  `Description` longtext DEFAULT NULL,
+  `MicrotingUid` int(11) NOT NULL,
+  `LanguageId` int(11) NOT NULL,
+  `FolderId` int(11) NOT NULL,
+  `FolderTranslationId` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FolderTranslationVersions`
+--
+
+LOCK TABLES `FolderTranslationVersions` WRITE;
+/*!40000 ALTER TABLE `FolderTranslationVersions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `FolderTranslationVersions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `FolderTranslations`
+--
+
+DROP TABLE IF EXISTS `FolderTranslations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `FolderTranslations` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Version` int(11) DEFAULT NULL,
+  `WorkflowState` varchar(255) DEFAULT NULL,
+  `CreatedAt` datetime(6) DEFAULT NULL,
+  `UpdatedAt` datetime(6) DEFAULT NULL,
+  `Name` longtext DEFAULT NULL,
+  `Description` longtext DEFAULT NULL,
+  `MicrotingUid` int(11) NOT NULL,
+  `LanguageId` int(11) NOT NULL,
+  `FolderId` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FolderTranslations`
+--
+
+LOCK TABLES `FolderTranslations` WRITE;
+/*!40000 ALTER TABLE `FolderTranslations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `FolderTranslations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1987,7 +2135,7 @@ CREATE TABLE `SiteVersions` (
   `SiteId` int(11) DEFAULT NULL,
   `LanguageId` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1996,7 +2144,7 @@ CREATE TABLE `SiteVersions` (
 
 LOCK TABLES `SiteVersions` WRITE;
 /*!40000 ALTER TABLE `SiteVersions` DISABLE KEYS */;
-INSERT INTO `SiteVersions` VALUES (1,'2020-02-07 11:01:29.835784','2020-02-07 11:01:29.835788','Location 1',618520,1,'created',1,0),(2,'2020-02-07 11:01:30.955132','2020-02-07 11:01:30.955135','Location 2',924368,1,'created',2,0),(3,'2020-02-07 11:01:31.789799','2020-02-07 11:01:31.789803','Location 3',806692,1,'created',3,0),(4,'2020-02-07 11:01:32.619537','2020-02-07 11:01:32.619539','Location 4',965822,1,'created',4,0);
+INSERT INTO `SiteVersions` VALUES (1,'2020-02-07 11:01:29.835784','2020-02-07 11:01:29.835788','Location 1',618520,1,'created',1,0),(2,'2020-02-07 11:01:30.955132','2020-02-07 11:01:30.955135','Location 2',924368,1,'created',2,0),(3,'2020-02-07 11:01:31.789799','2020-02-07 11:01:31.789803','Location 3',806692,1,'created',3,0),(4,'2020-02-07 11:01:32.619537','2020-02-07 11:01:32.619539','Location 4',965822,1,'created',4,0),(5,'2020-02-07 11:01:29.835784','2021-04-08 19:38:50.811017','Location 1',618520,2,'created',1,1),(6,'2020-02-07 11:01:30.955132','2021-04-08 19:38:51.180651','Location 2',924368,2,'created',2,1),(7,'2020-02-07 11:01:31.789799','2021-04-08 19:38:51.490704','Location 3',806692,2,'created',3,1),(8,'2020-02-07 11:01:32.619537','2021-04-08 19:38:51.649711','Location 4',965822,2,'created',4,1);
 /*!40000 ALTER TABLE `SiteVersions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2089,7 +2237,7 @@ CREATE TABLE `Sites` (
 
 LOCK TABLES `Sites` WRITE;
 /*!40000 ALTER TABLE `Sites` DISABLE KEYS */;
-INSERT INTO `Sites` VALUES (1,'2020-02-07 11:01:29.835784','2020-02-07 11:01:29.835788','Location 1',618520,1,'created',0),(2,'2020-02-07 11:01:30.955132','2020-02-07 11:01:30.955135','Location 2',924368,1,'created',0),(3,'2020-02-07 11:01:31.789799','2020-02-07 11:01:31.789803','Location 3',806692,1,'created',0),(4,'2020-02-07 11:01:32.619537','2020-02-07 11:01:32.619539','Location 4',965822,1,'created',0);
+INSERT INTO `Sites` VALUES (1,'2020-02-07 11:01:29.835784','2021-04-08 19:38:50.811017','Location 1',618520,2,'created',1),(2,'2020-02-07 11:01:30.955132','2021-04-08 19:38:51.180651','Location 2',924368,2,'created',1),(3,'2020-02-07 11:01:31.789799','2021-04-08 19:38:51.490704','Location 3',806692,2,'created',1),(4,'2020-02-07 11:01:32.619537','2021-04-08 19:38:51.649711','Location 4',965822,2,'created',1);
 /*!40000 ALTER TABLE `Sites` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2537,7 +2685,7 @@ CREATE TABLE `__EFMigrationsHistory` (
 
 LOCK TABLES `__EFMigrationsHistory` WRITE;
 /*!40000 ALTER TABLE `__EFMigrationsHistory` DISABLE KEYS */;
-INSERT INTO `__EFMigrationsHistory` VALUES ('20180810124416_InitialCreate','2.2.6-servicing-10079'),('20190116110009_AddingOriginalId','2.2.6-servicing-10079'),('20190315092242_AddingModelseForInsight','2.2.6-servicing-10079'),('20190318122928_FixingNamingOfSurveyConfigurationSites','2.2.6-servicing-10079'),('20190319130214_AddingMissingForeignKeys','2.2.6-servicing-10079'),('20190408081151_AddingFolders','2.2.6-servicing-10079'),('20190408084408_AddingMissingParentId','2.2.6-servicing-10079'),('20190509074123_RefactoringidtoId','2.2.6-servicing-10079'),('20190514053645_RefactoringAttributeNames','2.2.6-servicing-10079'),('20190515064952_FixingNamingForFieldValues','2.2.6-servicing-10079'),('20190531092007_AddingMissingAIonLogs','2.2.6-servicing-10079'),('20190711053344_AddingJasperDocxEnabledAttributesToCheckList','2.2.6-servicing-10079'),('20190828054730_AddingNewVersionClasses','2.2.6-servicing-10079'),('20190828074017_AddingMissingClasses','2.2.6-servicing-10079'),('20190923100451_ChangeStringToInt','2.2.6-servicing-10079'),('20190924172326_AddingNewIndexOnCases','2.2.6-servicing-10079'),('20200116074236_AddingSiteTaggins','2.2.6-servicing-10079'),('20200120093951_CleanupInSight','2.2.6-servicing-10079'),('20200120164857_AddingTranslationsToInSight','2.2.6-servicing-10079'),('20200120171433_AddingMicrotingUidToInSight','2.2.6-servicing-10079'),('20200122103229_ChangingValueToBeStringForAnswerValue','2.2.6-servicing-10079'),('20200222140656_AddinDisplayIndexToOptions','2.2.6-servicing-10079'),('20200224084023_AddingAttributesToUnits','2.2.6-servicing-10079'),('20200224092512_AddingMoreAttributesToUnits','2.2.6-servicing-10079'),('20200226182616_MakingNextQuestionIdNullable','2.2.6-servicing-10079'),('20200318150742_MakingUnitIdNullableForAnswers','2.2.6-servicing-10079'),('20200427095029_AdjustTimeToUTC','3.1.8'),('20200513142551_AddingFolderIdToCasesAndCheckListSites','3.1.8'),('20200617160004_ChangingOptionsIndexToOptionIndex','3.1.8'),('20200620171527_AddingExcelExportEnabledToCheckList','3.1.8'),('20200701101500_LettingSurveyConfigurationIdBeNullable','3.1.8'),('20201116164405_AddingDescriptionToEntityGroup','3.1.8'),('20201130204234_FixingSplitScreen','3.1.8'),('20201220194822_FixingTableColumnNames','3.1.8'),('20201220201427_FixingQuestionSet','3.1.8'),('20201222125152_HugheTableRenaming','3.1.8'),('20201223104631_AddingTranslations','3.1.8'),('20201225165255_FixingBrokenTableNames','3.1.8'),('20201231062732_ChangingDescriptToLanguageCode','3.1.8');
+INSERT INTO `__EFMigrationsHistory` VALUES ('20180810124416_InitialCreate','2.2.6-servicing-10079'),('20190116110009_AddingOriginalId','2.2.6-servicing-10079'),('20190315092242_AddingModelseForInsight','2.2.6-servicing-10079'),('20190318122928_FixingNamingOfSurveyConfigurationSites','2.2.6-servicing-10079'),('20190319130214_AddingMissingForeignKeys','2.2.6-servicing-10079'),('20190408081151_AddingFolders','2.2.6-servicing-10079'),('20190408084408_AddingMissingParentId','2.2.6-servicing-10079'),('20190509074123_RefactoringidtoId','2.2.6-servicing-10079'),('20190514053645_RefactoringAttributeNames','2.2.6-servicing-10079'),('20190515064952_FixingNamingForFieldValues','2.2.6-servicing-10079'),('20190531092007_AddingMissingAIonLogs','2.2.6-servicing-10079'),('20190711053344_AddingJasperDocxEnabledAttributesToCheckList','2.2.6-servicing-10079'),('20190828054730_AddingNewVersionClasses','2.2.6-servicing-10079'),('20190828074017_AddingMissingClasses','2.2.6-servicing-10079'),('20190923100451_ChangeStringToInt','2.2.6-servicing-10079'),('20190924172326_AddingNewIndexOnCases','2.2.6-servicing-10079'),('20200116074236_AddingSiteTaggins','2.2.6-servicing-10079'),('20200120093951_CleanupInSight','2.2.6-servicing-10079'),('20200120164857_AddingTranslationsToInSight','2.2.6-servicing-10079'),('20200120171433_AddingMicrotingUidToInSight','2.2.6-servicing-10079'),('20200122103229_ChangingValueToBeStringForAnswerValue','2.2.6-servicing-10079'),('20200222140656_AddinDisplayIndexToOptions','2.2.6-servicing-10079'),('20200224084023_AddingAttributesToUnits','2.2.6-servicing-10079'),('20200224092512_AddingMoreAttributesToUnits','2.2.6-servicing-10079'),('20200226182616_MakingNextQuestionIdNullable','2.2.6-servicing-10079'),('20200318150742_MakingUnitIdNullableForAnswers','2.2.6-servicing-10079'),('20200427095029_AdjustTimeToUTC','3.1.8'),('20200513142551_AddingFolderIdToCasesAndCheckListSites','3.1.8'),('20200617160004_ChangingOptionsIndexToOptionIndex','3.1.8'),('20200620171527_AddingExcelExportEnabledToCheckList','3.1.8'),('20200701101500_LettingSurveyConfigurationIdBeNullable','3.1.8'),('20201116164405_AddingDescriptionToEntityGroup','3.1.8'),('20201130204234_FixingSplitScreen','3.1.8'),('20201220194822_FixingTableColumnNames','3.1.8'),('20201220201427_FixingQuestionSet','3.1.8'),('20201222125152_HugheTableRenaming','3.1.8'),('20201223104631_AddingTranslations','3.1.8'),('20201225165255_FixingBrokenTableNames','3.1.8'),('20201231062732_ChangingDescriptToLanguageCode','3.1.8'),('20210405153325_AddingExtraFieldValues','3.1.8'),('20210407134630_AddingFolderTranslations','3.1.8');
 /*!40000 ALTER TABLE `__EFMigrationsHistory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -2550,4 +2698,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-15 13:47:19
+-- Dump completed on 2021-04-08 19:39:11
