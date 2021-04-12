@@ -1,37 +1,42 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {SurveyConfigsListModel} from '../../../models';
-import {insightDashboardPnSettings, SurveyConfigsSortColumns} from '../../../const';
-import {SurveyConfigModel} from '../../../models/survey/survey-config.model';
-import {SurveyConfigsRequestModel} from '../../../models/survey/survey-configs-request.model';
-import {PageSettingsModel} from '../../../../../../common/models/settings';
-import {Subject, Subscription} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
-import {SharedPnService} from '../../../../shared/services';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { SurveyConfigsListModel } from '../../../models';
+import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import {
   SurveyConfigurationDeleteComponent,
   SurveyConfigurationEditComponent,
   SurveyConfigurationNewComponent,
-  SurveyConfigurationStatusComponent
+  SurveyConfigurationStatusComponent,
 } from '../..';
-import {InsightDashboardPnDashboardDictionariesService, InsightDashboardPnSurveyConfigsService} from '../../../services';
-import {CommonDictionaryModel} from '../../../../../../common/models/common';
-import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
-import {SitesService} from '../../../../../../common/services/advanced';
+import {
+  InsightDashboardPnDashboardDictionariesService,
+  InsightDashboardPnSurveyConfigsService,
+} from '../../../services';
+import {
+  CommonDictionaryModel,
+  TableHeaderElementModel,
+} from '../../../../../../common/models/common';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { SitesService } from 'src/app/common/services';
+import { SurveysStateService } from '../state/surveys-state-service';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'app-insight-dashboard-surveys',
   templateUrl: './survey-configurations-page.component.html',
-  styleUrls: ['./survey-configurations-page.component.scss']
+  styleUrls: ['./survey-configurations-page.component.scss'],
 })
 export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('newSurveyConfigModal', { static: true }) newSurveyConfigModal: SurveyConfigurationNewComponent;
-  @ViewChild('editSurveyConfigModal', { static: true }) editSurveyConfigModal: SurveyConfigurationEditComponent;
-  @ViewChild('statusSurveyConfigModal', { static: true }) statusSurveyConfigModal: SurveyConfigurationStatusComponent;
-  @ViewChild('deleteSurveyConfigModal', { static: true }) deleteSurveyConfigModal: SurveyConfigurationDeleteComponent;
+  @ViewChild('newSurveyConfigModal', { static: true })
+  newSurveyConfigModal: SurveyConfigurationNewComponent;
+  @ViewChild('editSurveyConfigModal', { static: true })
+  editSurveyConfigModal: SurveyConfigurationEditComponent;
+  @ViewChild('statusSurveyConfigModal', { static: true })
+  statusSurveyConfigModal: SurveyConfigurationStatusComponent;
+  @ViewChild('deleteSurveyConfigModal', { static: true })
+  deleteSurveyConfigModal: SurveyConfigurationDeleteComponent;
   surveyConfigurationsListModel: SurveyConfigsListModel = new SurveyConfigsListModel();
-  localPageSettings: PageSettingsModel = new PageSettingsModel();
-  surveyConfigurationsRequestModel: SurveyConfigsRequestModel = new SurveyConfigsRequestModel();
   availableSurveys: CommonDictionaryModel[] = [];
   locations: CommonDictionaryModel[] = [];
   searchSubject = new Subject();
@@ -39,34 +44,44 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   getSurveysSub$: Subscription;
   getLocationsSub$: Subscription;
 
-  get sortCols() {
-    return SurveyConfigsSortColumns;
-  }
+  tableHeaders: TableHeaderElementModel[] = [
+    { name: 'Id', elementId: 'idTableHeader', sortable: true },
+    {
+      name: 'SurveyName',
+      elementId: 'surveyNameTableHeader',
+      sortable: true,
+      visibleName: 'Survey Name',
+    },
+    {
+      name: 'LocationName',
+      elementId: 'locationNameTableHeader',
+      sortable: false,
+      visibleName: 'Location Name',
+    },
+    { name: 'Actions', elementId: '', sortable: false },
+  ];
 
-  constructor(private sharedPnService: SharedPnService,
-              private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-              private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-              private sitesService: SitesService) {
-    this.searchSubject.pipe(
-      debounceTime(500)
-    ).subscribe(val => {
-      this.surveyConfigurationsRequestModel.searchString = val.toString();
+  constructor(
+    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
+    private dictionariesService: InsightDashboardPnDashboardDictionariesService,
+    private sitesService: SitesService,
+    public surveysStateService: SurveysStateService
+  ) {
+    this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
+      this.surveysStateService.updateNameFilter(val);
       this.getSurveyConfigsList();
     });
   }
 
   ngOnInit() {
-    this.getLocalPageSettings();
+    this.getSurveyConfigsList();
     this.getLocations();
     this.getSurveys();
   }
 
   getSurveyConfigsList() {
-    this.surveyConfigurationsRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
-    this.surveyConfigurationsRequestModel.sort = this.localPageSettings.sort;
-    this.surveyConfigurationsRequestModel.pageSize = this.localPageSettings.pageSize;
-
-    this.getSurveyConfigsSub$ = this.surveyConfigsService.getAll(this.surveyConfigurationsRequestModel)
+    this.getSurveyConfigsSub$ = this.surveysStateService
+      .getAll()
       .subscribe((data) => {
         if (data && data.success) {
           this.surveyConfigurationsListModel = data.model;
@@ -75,7 +90,8 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   getSurveys() {
-    this.getSurveysSub$ = this.dictionariesService.getSurveys()
+    this.getSurveysSub$ = this.dictionariesService
+      .getSurveys()
       .subscribe((data) => {
         if (data && data.success) {
           this.availableSurveys = data.model;
@@ -84,47 +100,27 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   getLocations() {
-    this.getLocationsSub$ = this.sitesService.getAllSitesDictionary().subscribe((data) => {
-      if (data && data.success) {
-        this.locations = data.model;
-      }
-    });
-  }
-
-  getLocalPageSettings() {
-    this.localPageSettings = this.sharedPnService
-      .getLocalPageSettings(insightDashboardPnSettings, 'SurveyConfigs')
-      .settings;
-    this.getSurveyConfigsList();
+    this.getLocationsSub$ = this.sitesService
+      .getAllSitesDictionary()
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.locations = data.model;
+        }
+      });
   }
 
   sortTable(sort: string) {
-    if (this.localPageSettings.sort === sort) {
-      this.localPageSettings.isSortDsc = !this.localPageSettings.isSortDsc;
-    } else {
-      this.localPageSettings.isSortDsc = false;
-      this.localPageSettings.sort = sort;
-    }
-    this.updateLocalPageSettings();
+    this.surveysStateService.onSortTable(sort);
+    this.getSurveyConfigsList();
   }
 
-  changePage(e: any) {
-    if (e || e === 0) {
-      this.surveyConfigurationsRequestModel.offset = e;
-      this.getSurveyConfigsList();
-    }
+  changePage(offset: any) {
+    this.surveysStateService.changePage(offset);
+    this.getSurveyConfigsList();
   }
 
-  onSearchInputChanged(e: any) {
-    this.searchSubject.next(e.target.value);
-  }
-
-  getSortIcon(sort: string): string {
-    if (this.surveyConfigurationsRequestModel.sort === sort) {
-      return this.surveyConfigurationsRequestModel.isSortDsc ? 'expand_more' : 'expand_less';
-    } else {
-      return 'unfold_more';
-    }
+  onSearchInputChanged(searchValue: string) {
+    this.searchSubject.next(searchValue);
   }
 
   openEditModal(surveyConfig: SurveyConfigModel) {
@@ -143,15 +139,15 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
     this.statusSurveyConfigModal.show(surveyConfig);
   }
 
-  updateLocalPageSettings() {
-    this.sharedPnService.updateLocalPageSettings(
-      insightDashboardPnSettings,
-      this.localPageSettings,
-      'SurveyConfigs'
-    );
+  ngOnDestroy(): void {}
+
+  onPageSizeChanged(pageSize: number) {
+    this.surveysStateService.updatePageSize(pageSize);
     this.getSurveyConfigsList();
   }
 
-  ngOnDestroy(): void {
+  surveyConfigDeleted() {
+    this.surveysStateService.checkOffset();
+    this.getSurveyConfigsList();
   }
 }
