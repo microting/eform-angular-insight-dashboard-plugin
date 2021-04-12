@@ -1,4 +1,4 @@
-<subheader-pn [title]="'Answers' | translate"> </subheader-pn>
+<eform-subheader [title]="'Answers' | translate"> </eform-subheader>
 
 <div class="container-fluid">
   <div class="row pl-1">
@@ -33,7 +33,10 @@
             class="btn-danger btn-icon mb-0"
             container="body"
             [mdbTooltip]="'Delete answer' | translate"
-            [disabled]="!searchAnswerMicrotingUId || (searchAnswerMicrotingUId !== answer.microtingUid)"
+            [disabled]="
+              !searchAnswerMicrotingUId ||
+              searchAnswerMicrotingUId !== answer.microtingUid
+            "
             (click)="openAnswerDeleteModal()"
             id="deleteByMicrotingUIdBtn"
           >
@@ -44,9 +47,7 @@
     </div>
   </div>
 
-  <app-answer-values-table
-    [answerModel]="answer"
-  ></app-answer-values-table>
+  <app-answer-values-table [answerModel]="answer"></app-answer-values-table>
 </div>
 
 <app-answer-delete-modal
