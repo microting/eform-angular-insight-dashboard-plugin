@@ -51,15 +51,7 @@ namespace InsightDashboard.Pn.Test.Base
         [SetUp]
         public void Setup()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                _connectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=420_SDK;Integrated Security=true";
-                // _connectionString = @"host= localhost;Database=420_SDK;Uid=root;Pwd=111111;port=3306;Convert Zero Datetime = true;SslMode=none;";
-            }
-            else
-            {
-                _connectionString = @"Server = localhost; port = 3306; Database = 420_SDK; user = root; password=secretpassword; Convert Zero Datetime = true;";
-            }
+            _connectionString = @"Server = localhost; port = 3306; Database = 420_SDK; user = root; password=secretpassword; Convert Zero Datetime = true;";
 
             GetContext(_connectionString);
 
@@ -90,33 +82,36 @@ namespace InsightDashboard.Pn.Test.Base
         {
             var modelNames = new List<string>();
 
+            bool firstRunNotDone = true;
+
             foreach (var modelName in modelNames)
             {
                 try
                 {
-                    string sqlCmd;
-                    if (DbContext.Database.IsMySql())
+                    if (firstRunNotDone)
                     {
-                        sqlCmd = $"SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `insight-dashboard-base-tests`.`{modelName}`";
+                        DbContext.Database.ExecuteSqlRaw(
+                            $"SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `insight-dashboard-base-tests`.`{modelName}`");
                     }
-                    else
-                    {
-                        sqlCmd = $"DELETE FROM [{modelName}]";
-                    }
-                    DbContext.Database.ExecuteSqlCommand(sqlCmd);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    if (ex.Message == "Unknown database 'insight-dashboard-base-tests'")
+                    {
+                        firstRunNotDone = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
             }
         }
 
-
         private void ClearFile()
         {
             _path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-            _path = Path.GetDirectoryName(_path).Replace(@"file:\", "");
+            _path = Path.GetDirectoryName(_path)?.Replace(@"file:\", "");
 
             string picturePath = _path + @"\output\dataFolder\picture\Deleted";
 
@@ -129,7 +124,10 @@ namespace InsightDashboard.Pn.Test.Base
                     file.Delete();
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 
         protected virtual void DoSetup() { }

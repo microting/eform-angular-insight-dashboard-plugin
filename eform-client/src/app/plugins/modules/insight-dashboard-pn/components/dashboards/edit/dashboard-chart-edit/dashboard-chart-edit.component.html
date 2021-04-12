@@ -1,7 +1,7 @@
 <div [ngStyle]="{'width': view[0] + 50 + 'px', 'height': view[1] + 40 + 'px' }"
      id="copyableChart"
      *ngIf="dashboardItem.chartType !== chartTypes.HorizontalBarStackedGrouped"
-     style="background-color: #FFFFFF !important;"
+     style="background-color: {{darkTHeme ? '' : '#FFFFFF'}}  !important;"
 >
   <ngx-charts-line-chart *ngIf="dashboardItem.chartType === chartTypes.Line"
                          [view]="view"

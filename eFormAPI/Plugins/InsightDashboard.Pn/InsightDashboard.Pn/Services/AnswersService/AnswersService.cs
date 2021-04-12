@@ -59,7 +59,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
         {
             try
             {
-                var core = await _coreHelper.GetCore();
+                    var core = await _coreHelper.GetCore();
                 AnswerViewModel result;
                 await using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
@@ -75,7 +75,7 @@ namespace InsightDashboard.Pn.Services.AnswersService
                         _localizationService.GetString("AnswerNotFound"));
                 }
 
-                if (result.Values == null)
+                if (result.AnswerValues == null)
                 {
                     return new OperationDataResult<AnswerViewModel>(
                         false,

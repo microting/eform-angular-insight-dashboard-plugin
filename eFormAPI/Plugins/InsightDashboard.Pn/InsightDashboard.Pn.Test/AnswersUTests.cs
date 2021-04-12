@@ -52,11 +52,11 @@ namespace InsightDashboard.Pn.Test
 
             Assert.NotNull(answer);
             Assert.AreEqual(answer.Id, _answerForTest.Id);
-            Assert.AreEqual(answer.MicrotingUId, _answerForTest.MicrotingUId);
-            for(var i = 0; i < _answerForTest.Values.Count; i++)
+            Assert.AreEqual(answer.MicrotingUid, _answerForTest.MicrotingUid);
+            for(var i = 0; i < _answerForTest.AnswerValues.Count; i++)
             {
-                var answerValues = answer.Values[i];
-                var answerValuesForTest = _answerForTest.Values[i];
+                var answerValues = answer.AnswerValues[i];
+                var answerValuesForTest = _answerForTest.AnswerValues[i];
                 Assert.AreEqual(answerValues.Id, answerValuesForTest.Id);
                 Assert.AreEqual(answerValues.Value, answerValuesForTest.Value);
                 for(var j = 0; j < answerValuesForTest.Translations.Count; j++)

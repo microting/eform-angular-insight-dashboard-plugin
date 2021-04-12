@@ -43,9 +43,9 @@ namespace InsightDashboard.Pn.Test.Helpers
                 .AsQueryable()
                 .Select(answers => new AnswerViewModel()
                 {
-                    MicrotingUId = (int)answers.MicrotingUid,
+                    MicrotingUid = (int)answers.MicrotingUid,
                     Id = answers.Id,
-                    Values = dbContext.AnswerValues
+                    AnswerValues = dbContext.AnswerValues
                         .Where(answerValues => answerValues.AnswerId == answers.Id)
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .AsQueryable()

@@ -31,14 +31,14 @@
           </button>
           <ng-container *ngIf="dashboardEditModel.items.length > 0">
 
-            <button mdbBtn class="btn-icon mb-2 float-right"
+            <button mdbBtn class="btn-icon mb-2 float-right text-black-50"
                     mdbTooltip="{{'Expand all' | translate}}"
                     (click)="toggleCollapse();"
                     *ngIf="isItemsCollapsed">
               <fa-icon icon="angle-double-right" size="lg" [fixedWidth]="true"></fa-icon>
             </button>
 
-            <button mdbBtn class="btn-icon mb-2 float-right"
+            <button mdbBtn class="btn-icon mb-2 float-right text-black-50"
                     mdbTooltip="{{'Collapse all' | translate}}"
                     (click)="toggleCollapse();"
                     *ngIf="!isItemsCollapsed">

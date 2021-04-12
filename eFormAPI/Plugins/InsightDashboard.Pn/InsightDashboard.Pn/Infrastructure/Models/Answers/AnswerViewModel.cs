@@ -23,6 +23,8 @@ SOFTWARE.
 */
 
 
+using System;
+
 namespace InsightDashboard.Pn.Infrastructure.Models.Answers
 {
 
@@ -30,8 +32,12 @@ namespace InsightDashboard.Pn.Infrastructure.Models.Answers
     public class AnswerViewModel
     {
         public int Id { get; set; }
-        public int MicrotingUId { get; set; }
-        public List<AnswerValuesViewModel> Values { get; set; }
+        public int MicrotingUid { get; set; }
+        public int UnitId { get; set; }
+        public DateTime FinishedAt { get; set; }
+        public int AnswerDuration { get; set; }
+        public string SiteName { get; set; }
+        public List<AnswerValuesViewModel> AnswerValues { get; set; }
             = new List<AnswerValuesViewModel>();
     }
 }

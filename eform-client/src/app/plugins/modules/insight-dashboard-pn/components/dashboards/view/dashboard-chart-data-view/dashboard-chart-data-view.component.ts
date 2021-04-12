@@ -9,12 +9,14 @@ import {DashboardChartTypesEnum} from 'src/app/plugins/modules/insight-dashboard
 })
 export class DashboardChartDataViewComponent implements OnInit {
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
+  darkTHeme: boolean;
 
   get chartTypes() {
     return DashboardChartTypesEnum;
   }
 
-  constructor() { }
+  constructor() {
+    this.darkTHeme = localStorage.getItem('darkTheme') === 'true'; }
 
   ngOnInit() {
   }

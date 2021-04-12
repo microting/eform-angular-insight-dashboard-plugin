@@ -2,7 +2,7 @@
 <div id="copyableChart{{chartPosition}}"
      *ngIf="itemModel.chartType === chartTypes.Pie ||
             itemModel.chartType === chartTypes.PieGrid"
-     [ngStyle]="{'width': pieView[0] + 'px' }" style="background-color: #FFFFFF !important;">
+     [ngStyle]="{'width': pieView[0] + 'px' }" style="background-color: {{darkTHeme ? '' : '#FFFFFF'}}  !important;">
   <div [ngStyle]="{'width': pieView[0] + 'px', 'height': pieView[1] + 'px'}">
     <!--    <ngx-charts-pie-chart *ngIf="itemModel.chartType === chartTypes.Pie"-->
     <!--                          [view]="view"-->
@@ -37,7 +37,7 @@
      *ngIf="itemModel.chartType === chartTypes.HorizontalBar ||
             itemModel.chartType === chartTypes.HorizontalBarGrouped ||
             itemModel.chartType === chartTypes.HorizontalBarStacked "
-     [ngStyle]="{'width': horizontalView[0] + 'px' }" style="background-color: #FFFFFF !important;">
+     [ngStyle]="{'width': horizontalView[0] + 'px' }" style="background-color: {{darkTHeme ? '' : '#FFFFFF'}}  !important;">
   <div [ngStyle]="{'width': horizontalView[0] + 'px' }">
     <ngx-charts-bar-horizontal *ngIf="itemModel.chartType === chartTypes.HorizontalBar"
                                [view]="horizontalView"
@@ -92,7 +92,7 @@
             itemModel.chartType === chartTypes.VerticalBarGrouped ||
             itemModel.chartType === chartTypes.Line ||
             itemModel.chartType === chartTypes.VerticalBarStacked"
-     [ngStyle]="{'width': verticalView[0] + 'px' }" style="background-color: #FFFFFF !important;">
+     [ngStyle]="{'width': verticalView[0] + 'px' }" style="background-color: {{darkTHeme ? '' : '#FFFFFF'}}  !important;">
   <div [ngStyle]="{'width': verticalView[0] + 'px' }">
     <ngx-charts-line-chart *ngIf="itemModel.chartType === chartTypes.Line"
                            [view]="verticalView"
@@ -159,7 +159,7 @@
 
 <div class="scrollable-y-block mb-2"
      *ngIf="itemModel.chartType === chartTypes.HorizontalBarStackedGrouped">
-  <div class="d-flex" id="copyableChart{{chartPosition}}" style="background-color: #FFFFFF !important;">
+  <div class="d-flex" id="copyableChart{{chartPosition}}" style="background-color: {{darkTHeme ? '' : '#FFFFFF'}}  !important;">
     <div [ngStyle]="{'width': multiChartView[0] + 'px' }"
          style="background-color: #FFFFFF !important;"
          *ngFor="let itemData of itemModel.chartData.multiStacked; let first = first; let last = last;">

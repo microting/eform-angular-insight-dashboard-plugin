@@ -1,6 +1,8 @@
 # eform-angular-insight-dashboard-plugin
+[![.NET Core](https://github.com/microting/eform-angular-insight-dashboard-plugin/actions/workflows/dotnet-docker.yml/badge.svg)](https://github.com/microting/eform-angular-insight-dashboard-plugin/actions/workflows/dotnet-docker.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8383c9b8c88ecc7d82c5/maintainability)](https://codeclimate.com/github/microting/eform-angular-insight-dashboard-plugin/maintainability)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b5ff8e16d0b0422d9d52bc9bde2669de)](https://www.codacy.com/gh/microting/eform-angular-insight-dashboard-plugin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=microting/eform-angular-insight-dashboard-plugin&amp;utm_campaign=Badge_Grade)
 
-![.NET Core](https://github.com/microting/eform-angular-insight-dashboard-plugin/workflows/.NET%20Core/badge.svg)
 ## NOTICE! this is not a standalone project and needs to be used with eForm Angular Frontend.
 
 ## Translating eform-angular-insight-dashboard-plugin
