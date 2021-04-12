@@ -6,11 +6,11 @@ import { CollapseModule, MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedPnModule } from '../shared/shared-pn.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { EformSharedModule } from '../../../common/modules/eform-shared/eform-shared.module';
+import { EformSharedModule } from 'src/app/common/modules/eform-shared/eform-shared.module';
 import { InsightDashboardPnLayoutComponent } from './layouts';
 
 import { InsightDashboardPnRoutingModule } from './insight-dashboard-pn-routing.module';
-import { CasesModule } from '../../../modules';
+import { CasesModule } from 'src/app/modules';
 import {
   InsightDashboardPnAnswersService,
   InsightDashboardPnDashboardDictionariesService,
@@ -43,11 +43,13 @@ import {
   SurveyConfigurationNewComponent,
   SurveyConfigurationsPageComponent,
   SurveyConfigurationStatusComponent,
+  AnswerDeleteModalComponent,
 } from './components';
 import { DragulaModule } from 'ng2-dragula';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { OwlDateTimeModule } from 'ng-pick-datetime-ex';
-import { AnswerDeleteModalComponent } from './components/answers/answer-delete-modal/answer-delete-modal.component';
+import { DashboardsStateService } from './components/dashboards/state/dashboards-state-service';
+import { SurveysStateService } from './components/surveys/state/surveys-state-service';
 
 @NgModule({
   imports: [
@@ -100,6 +102,8 @@ import { AnswerDeleteModalComponent } from './components/answers/answer-delete-m
     InsightDashboardPnDashboardDictionariesService,
     InsightDashboardPnDashboardItemsService,
     InsightDashboardPnAnswersService,
+    DashboardsStateService,
+    SurveysStateService,
   ],
 })
 export class InsightDashboardPnModule {}

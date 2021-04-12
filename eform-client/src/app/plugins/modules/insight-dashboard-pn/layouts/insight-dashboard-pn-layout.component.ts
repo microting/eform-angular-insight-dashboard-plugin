@@ -1,28 +1,25 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {LocaleService} from '../../../../common/services/auth';
-import {TranslateService} from '@ngx-translate/core';
-import {SharedPnService} from '../../shared/services';
-import {InsightDashboardPnLocalSettings, insightDashboardPnSettings} from '../const';
-declare var require: any;
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { LocaleService } from 'src/app/common/services';
+import { TranslateService } from '@ngx-translate/core';
+import { translates } from '../i18n/translates';
 
 @Component({
   selector: 'app-insight-dashboard-pn-layout',
-  template: '<router-outlet></router-outlet>'
+  template: '<router-outlet></router-outlet>',
 })
-export class InsightDashboardPnLayoutComponent implements  AfterViewInit, OnInit {
-  constructor(private localeService: LocaleService,
-              private translateService: TranslateService,
-              private sharedPnService: SharedPnService) {
-  }
+export class InsightDashboardPnLayoutComponent
+  implements AfterViewInit, OnInit {
+  constructor(
+    private localeService: LocaleService,
+    private translateService: TranslateService
+  ) {}
 
-  ngOnInit(): void {
-    this.sharedPnService.initLocalPageSettings(insightDashboardPnSettings, InsightDashboardPnLocalSettings);
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     setTimeout(() => {
       const lang = this.localeService.getCurrentUserLocale();
-      const i18n = require(`../i18n/${lang}.json`);
+      const i18n = translates[lang];
       this.translateService.setTranslation(lang, i18n, true);
     }, 1000);
   }

@@ -18,7 +18,8 @@
         <input
           mdbInput
           type="text"
-          (input)="onSearchInputChanged($event)"
+          [ngModel]="dashboardsStateService.getNameFilter() | async"
+          (ngModelChange)="onSearchInputChanged($event)"
           class="form-control input-sm"
           id="searchInput"
         />
@@ -38,59 +39,13 @@
         small="true"
         class="z-depth-1 text-center"
       >
-        <thead>
-          <tr>
-            <th
-              scope="col"
-              class="table-header-sortable"
-              id="idTableHeader"
-              (click)="sortTable(sortCols.id)"
-            >
-              <div class="d-flex align-items-center justify-content-center">
-                ID
-                <i class="material-icons text-black-50">{{
-                  getSortIcon(sortCols.id)
-                }}</i>
-              </div>
-            </th>
-            <th
-              scope="col"
-              class="table-header-sortable"
-              id="dashboardNameTableHeader"
-              (click)="sortTable(sortCols.dashboardName)"
-            >
-              <div class="d-flex align-items-center justify-content-center">
-                {{ 'Dashboard name' | translate }}
-                <i class="material-icons text-black-50">{{
-                  getSortIcon(sortCols.dashboardName)
-                }}</i>
-              </div>
-            </th>
-            <th scope="col" id="surveyNameTableHeader">
-              <div class="d-flex align-items-center justify-content-center">
-                {{ 'Survey name' | translate }}
-              </div>
-            </th>
-            <th scope="col" id="locationNameTableHeader">
-              <div class="d-flex align-items-center justify-content-center">
-                {{ 'Location/Tag name' | translate }}
-              </div>
-            </th>
-            <th scope="col" id="dateFromTableHeader">
-              <div class="d-flex align-items-center justify-content-center">
-                {{ 'Date From' | translate }}
-              </div>
-            </th>
-            <th scope="col" id="dateToTableHeader">
-              <div class="d-flex align-items-center justify-content-center">
-                {{ 'Date To' | translate }}
-              </div>
-            </th>
-            <th scope="col">
-              {{ 'Actions' | translate }}
-            </th>
-          </tr>
-        </thead>
+        <thead
+          table-headers
+          [tableHeaders]="tableHeaders"
+          [currentSortName]="dashboardsStateService.getSort() | async"
+          (sortChanged)="sortTable($event)"
+          [isSortDsc]="dashboardsStateService.getIsSortDsc() | async"
+        ></thead>
         <tbody id="tableBody">
           <tr
             *ngFor="
@@ -203,19 +158,14 @@
   <div class="row justify-content-between mr-2 ml-2">
     <div class="col-md-1">
       <eform-page-size
-        [pageSize]="localPageSettings.pageSize"
-        (onPageSizeChanged)="
-          localPageSettings.pageSize = $event;
-          dashboardsRequestModel.offset = 0;
-          updateLocalPageSettings()
-        "
+        [pageSize]="dashboardsStateService.getPageSize() | async"
+        (onPageSizeChanged)="onPageSizeChanged($event)"
       ></eform-page-size>
     </div>
     <eform-pagination
-      *ngIf="dashboardsListModel?.total > dashboardsRequestModel.pageSize"
-      [limit]="dashboardsRequestModel.pageSize"
+      [limit]="dashboardsStateService.getPageSize() | async"
       [size]="dashboardsListModel.total"
-      [offset]="dashboardsRequestModel.offset"
+      [offset]="dashboardsStateService.getOffset() | async"
       (onPageChanged)="changePage($event)"
     ></eform-pagination>
   </div>
@@ -232,5 +182,5 @@
 ></app-dashboard-new>
 <app-dashboard-delete
   #deleteDashboardModal
-  (dashboardDeleted)="getDashboardsList()"
+  (dashboardDeleted)="onDashboardDeleted()"
 ></app-dashboard-delete>
