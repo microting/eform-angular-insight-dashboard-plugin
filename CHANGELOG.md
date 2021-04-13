@@ -1,5 +1,15 @@
 # Changelog
 
+## [v3.0.92](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.92) (2021-04-13)
+
+[Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.91...v3.0.92)
+
+**Implemented enhancements:**
+
+- Bump Microting.InsightDashboardBase from 2.1.20 to 2.1.21 [\#189](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/189)
+- Bump Microting.eFormApi.BasePn from 2.0.118 to 2.0.120 [\#188](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/188)
+- Bump Microting.eForm from 4.4.27 to 4.4.29 [\#187](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/187)
+
 ## [v3.0.91](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.91) (2021-04-12)
 
 [Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.90...v3.0.91)
@@ -774,6 +784,7 @@
 - Minor fixes [\#12](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/12) ([Gid733](https://github.com/Gid733))
 - Fix for test [\#11](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/11) ([Gid733](https://github.com/Gid733))
 - Fix tests [\#10](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/10) ([Gid733](https://github.com/Gid733))
+- Updates [\#9](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/9) ([Gid733](https://github.com/Gid733))
 - Added chart type [\#8](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/8) ([Gid733](https://github.com/Gid733))
 - Updates [\#7](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/7) ([Gid733](https://github.com/Gid733))
 - Added initial tests [\#6](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/6) ([Gid733](https://github.com/Gid733))
@@ -789,7 +800,6 @@
 
 **Merged pull requests:**
 
-- Updates [\#9](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/9) ([Gid733](https://github.com/Gid733))
 - Updates for filter question/value [\#4](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/4) ([Gid733](https://github.com/Gid733))
 - Updates [\#3](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/3) ([Gid733](https://github.com/Gid733))
 - Plugin finished except filter question filter answer [\#2](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/2) ([Gid733](https://github.com/Gid733))
