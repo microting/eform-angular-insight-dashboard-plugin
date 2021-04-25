@@ -19,7 +19,7 @@ import {
 } from '../../../../../../common/models/common';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { SitesService } from 'src/app/common/services';
-import { SurveysStateService } from '../state/surveys-state-service';
+import { SurveysStateService } from '../store/surveys-state-service';
 
 @AutoUnsubscribe()
 @Component({

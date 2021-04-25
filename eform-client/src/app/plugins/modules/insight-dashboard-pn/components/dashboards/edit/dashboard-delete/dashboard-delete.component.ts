@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { DashboardModel } from '../../../../models';
 import { InsightDashboardPnDashboardsService } from '../../../../services';
-import { DashboardsStateService } from 'src/app/plugins/modules/insight-dashboard-pn/components/dashboards/state/dashboards-state-service';
 
 @Component({
   selector: 'app-dashboard-delete',

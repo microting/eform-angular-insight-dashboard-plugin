@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { InsightDashboardPnAnswersService } from '../../../services';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
@@ -51,6 +51,5 @@ export class AnswerPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 }

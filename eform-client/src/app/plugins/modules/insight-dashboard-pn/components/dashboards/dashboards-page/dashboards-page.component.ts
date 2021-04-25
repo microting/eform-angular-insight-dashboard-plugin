@@ -19,7 +19,7 @@ import {
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SitesService } from 'src/app/common/services';
-import { DashboardsStateService } from '../state/dashboards-state-service';
+import { DashboardsStateService } from '../store/dashboards-state-service';
 import { debounceTime } from 'rxjs/operators';
 
 @AutoUnsubscribe()

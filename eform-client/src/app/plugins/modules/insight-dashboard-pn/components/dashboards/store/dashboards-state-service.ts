@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DashboardsStore } from './dashboards-store.service';
+import { DashboardsStore } from './dashboards-store';
 import { Observable } from 'rxjs';
 import { OperationDataResult } from 'src/app/common/models';
 import { updateTableSort } from 'src/app/common/helpers';
 import { getOffset } from 'src/app/common/helpers/pagination.helper';
 import { map } from 'rxjs/operators';
 import { DashboardsQuery } from './dashboards-query';
-import { InsightDashboardPnDashboardsService } from 'src/app/plugins/modules/insight-dashboard-pn/services';
-import { DashboardsListModel } from 'src/app/plugins/modules/insight-dashboard-pn/models';
+import { InsightDashboardPnDashboardsService } from '../../../services';
+import { DashboardsListModel } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardsStateService {
@@ -22,11 +22,11 @@ export class DashboardsStateService {
   getAll(): Observable<OperationDataResult<DashboardsListModel>> {
     return this.service
       .getAll({
-        isSortDsc: this.query.pageSetting.isSortDsc,
-        offset: this.query.pageSetting.offset,
-        pageSize: this.query.pageSetting.pageSize,
-        sort: this.query.pageSetting.sort,
-        searchString: this.query.pageSetting.nameFilter,
+        isSortDsc: this.query.pageSetting.pagination.isSortDsc,
+        offset: this.query.pageSetting.pagination.offset,
+        pageSize: this.query.pageSetting.pagination.pageSize,
+        sort: this.query.pageSetting.pagination.sort,
+        searchString: this.query.pageSetting.pagination.nameFilter,
       })
       .pipe(
         map((response) => {
@@ -39,11 +39,22 @@ export class DashboardsStateService {
   }
 
   updateNameFilter(nameFilter: string) {
-    this.store.update({ nameFilter: nameFilter, offset: 0 });
+    this.store.update((state) => ({
+      pagination: {
+        ...state.pagination,
+        nameFilter: nameFilter,
+        offset: 0,
+      },
+    }));
   }
 
   updatePageSize(pageSize: number) {
-    this.store.update({ pageSize: pageSize });
+    this.store.update((state) => ({
+      pagination: {
+        ...state.pagination,
+        pageSize: pageSize,
+      },
+    }));
     this.checkOffset();
   }
 
@@ -68,9 +79,12 @@ export class DashboardsStateService {
   }
 
   changePage(offset: number) {
-    this.store.update({
-      offset: offset,
-    });
+    this.store.update((state) => ({
+      pagination: {
+        ...state.pagination,
+        offset: offset,
+      },
+    }));
   }
 
   onDelete() {
@@ -81,25 +95,31 @@ export class DashboardsStateService {
   onSortTable(sort: string) {
     const localPageSettings = updateTableSort(
       sort,
-      this.query.pageSetting.sort,
-      this.query.pageSetting.isSortDsc
+      this.query.pageSetting.pagination.sort,
+      this.query.pageSetting.pagination.isSortDsc
     );
-    this.store.update({
-      isSortDsc: localPageSettings.isSortDsc,
-      sort: localPageSettings.sort,
-    });
+    this.store.update((state) => ({
+      pagination: {
+        ...state.pagination,
+        isSortDsc: localPageSettings.isSortDsc,
+        sort: localPageSettings.sort,
+      },
+    }));
   }
 
   checkOffset() {
     const newOffset = getOffset(
-      this.query.pageSetting.pageSize,
-      this.query.pageSetting.offset,
+      this.query.pageSetting.pagination.pageSize,
+      this.query.pageSetting.pagination.offset,
       this.total
     );
-    if (newOffset !== this.query.pageSetting.offset) {
-      this.store.update({
-        offset: newOffset,
-      });
+    if (newOffset !== this.query.pageSetting.pagination.offset) {
+      this.store.update((state) => ({
+        pagination: {
+          ...state.pagination,
+          offset: newOffset,
+        },
+      }));
     }
   }
 }

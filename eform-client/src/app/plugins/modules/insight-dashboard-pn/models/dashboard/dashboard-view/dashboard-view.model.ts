@@ -1,5 +1,5 @@
-import {DashboardViewItemModel} from './dashboard-view-item.model';
-import {DashboardAnswerDatesModel} from '../dashboard-answer-dates.model';
+import { DashboardViewItemModel } from './dashboard-view-item.model';
+import { DashboardAnswerDatesModel } from '../dashboard-answer-dates.model';
 
 export class DashboardViewModel {
   id: number;

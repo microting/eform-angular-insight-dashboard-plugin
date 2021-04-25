@@ -8,9 +8,8 @@ describe('DashboardBlockComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardItemEditComponent ]
-    })
-    .compileComponents();
+      declarations: [DashboardItemEditComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
