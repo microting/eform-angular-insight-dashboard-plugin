@@ -38,9 +38,10 @@ namespace InsightDashboard.Pn.Test.Base
         {
             var defaultCs = "Server = localhost; port = 3306; Database = insight-pn; user = root; password=secretpassword; Convert Zero Datetime = true;";
             var optionsBuilder = new DbContextOptionsBuilder<MicrotingDbContext>();
-            optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, mysqlOptions =>
+            optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, new MariaDbServerVersion(
+                new Version(10, 4, 0)), mySqlOptionsAction: builder =>
             {
-                mysqlOptions.ServerVersion(new Version(10, 5, 0), ServerType.MariaDb);
+                builder.EnableRetryOnFailure();
             });
             //optionsBuilder.UseLazyLoadingProxies(true);
 

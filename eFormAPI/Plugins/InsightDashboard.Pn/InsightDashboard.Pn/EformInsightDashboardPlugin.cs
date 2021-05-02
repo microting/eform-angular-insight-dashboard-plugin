@@ -93,7 +93,8 @@ namespace InsightDashboard.Pn
 
         public void ConfigureDbContext(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<InsightDashboardPnDbContext>(o => o.UseMySql(connectionString, new MariaDbServerVersion(
+            services.AddDbContext<InsightDashboardPnDbContext>(o =>
+                o.UseMySql(connectionString, new MariaDbServerVersion(
                 new Version(10, 4, 0)), mySqlOptionsAction: builder =>
             {
                 builder.EnableRetryOnFailure();
