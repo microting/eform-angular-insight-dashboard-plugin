@@ -1,5 +1,15 @@
 # Changelog
 
+## [v3.0.102](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.102) (2021-05-04)
+
+[Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.101...v3.0.102)
+
+**Implemented enhancements:**
+
+- Bump Microting.InsightDashboardBase from 3.0.2 to 3.0.3 [\#238](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/238)
+- Bump Microting.eFormApi.BasePn from 3.0.3 to 3.0.4 [\#237](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/237)
+- Bump Microting.eForm from 5.0.4 to 5.1.0 [\#236](https://github.com/microting/eform-angular-insight-dashboard-plugin/issues/236)
+
 ## [v3.0.101](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.101) (2021-05-03)
 
 [Full Changelog](https://github.com/microting/eform-angular-insight-dashboard-plugin/compare/v3.0.100...v3.0.101)
@@ -348,7 +358,6 @@
 
 **Merged pull requests:**
 
-- Bump Moq from 4.14.5 to 4.16.0 in /eFormAPI/Plugins/InsightDashboard.Pn [\#97](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/97) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Bump Microting.HtmlToOpenXml.dll from 2.1.1 to 2.2.0 in /eFormAPI/Plugins/InsightDashboard.Pn [\#94](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/94) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Bump NUnit from 3.12.0 to 3.13.0 in /eFormAPI/Plugins/InsightDashboard.Pn [\#92](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/92) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Bump Microsoft.NET.Test.Sdk from 16.7.1 to 16.8.3 in /eFormAPI/Plugins/InsightDashboard.Pn [\#88](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/88) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
@@ -383,6 +392,7 @@
 
 **Merged pull requests:**
 
+- Bump Moq from 4.14.5 to 4.16.0 in /eFormAPI/Plugins/InsightDashboard.Pn [\#97](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/97) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Added new tests [\#86](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/86) ([Gid733](https://github.com/Gid733))
 
 ## [v3.0.53](https://github.com/microting/eform-angular-insight-dashboard-plugin/tree/v3.0.53) (2021-01-02)
@@ -888,7 +898,6 @@
 - Minor fixes [\#12](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/12) ([Gid733](https://github.com/Gid733))
 - Fix for test [\#11](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/11) ([Gid733](https://github.com/Gid733))
 - Fix tests [\#10](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/10) ([Gid733](https://github.com/Gid733))
-- Updates [\#9](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/9) ([Gid733](https://github.com/Gid733))
 - Added chart type [\#8](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/8) ([Gid733](https://github.com/Gid733))
 - Updates [\#7](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/7) ([Gid733](https://github.com/Gid733))
 - Added initial tests [\#6](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/6) ([Gid733](https://github.com/Gid733))
@@ -904,6 +913,7 @@
 
 **Merged pull requests:**
 
+- Updates [\#9](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/9) ([Gid733](https://github.com/Gid733))
 - Updates for filter question/value [\#4](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/4) ([Gid733](https://github.com/Gid733))
 - Updates [\#3](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/3) ([Gid733](https://github.com/Gid733))
 - Plugin finished except filter question filter answer [\#2](https://github.com/microting/eform-angular-insight-dashboard-plugin/pull/2) ([Gid733](https://github.com/Gid733))
