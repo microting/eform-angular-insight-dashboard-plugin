@@ -10,6 +10,7 @@ import {
   dashboardTotalNDataJson,
   dashboardTotalNItems,
 } from '../../../../Page objects/InsightDashboard/ChartData/DashboardTotalN.data';
+import myEformsPage from '../../../../Page objects/MyEforms.page';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Total',
@@ -24,11 +25,9 @@ describe('InSight Dashboard - Dashboards - Total N', function () {
     loginPage.login();
 
     // Create and assign total tag
-    if (
-      !sitesPage
-        .getFirstRowObject()
-        .tags.includes(dashboardConfig.locationTagName)
-    ) {
+    myEformsPage.Navbar.goToSites();
+    const site = sitesPage.getFirstRowObject();
+    if (!site.tags || !site.tags.includes(dashboardConfig.locationTagName)) {
       sitesPage.createTag([dashboardConfig.locationTagName]);
       for (let i = 1; i < 5; i++) {
         sitesPage.getSite(i).edit({ tags: [dashboardConfig.locationTagName] });
