@@ -42,9 +42,8 @@
         <thead
           table-headers
           [tableHeaders]="tableHeaders"
-          [currentSortName]="dashboardsStateService.getSort() | async"
+          [sort]="dashboardsStateService.getSort() | async"
           (sortChanged)="sortTable($event)"
-          [isSortDsc]="dashboardsStateService.getIsSortDsc() | async"
         ></thead>
         <tbody id="tableBody">
           <tr
@@ -163,9 +162,7 @@
       ></eform-page-size>
     </div>
     <eform-pagination
-      [limit]="dashboardsStateService.getPageSize() | async"
-      [size]="dashboardsListModel.total"
-      [offset]="dashboardsStateService.getOffset() | async"
+      [pagination]="dashboardsStateService.getPagination() | async"
       (onPageChanged)="changePage($event)"
     ></eform-pagination>
   </div>

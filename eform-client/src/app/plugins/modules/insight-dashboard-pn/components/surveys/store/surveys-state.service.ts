@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { SurveysStore } from './surveys-store';
 import { Observable } from 'rxjs';
-import { OperationDataResult } from 'src/app/common/models';
-import { updateTableSort } from 'src/app/common/helpers';
-import { getOffset } from 'src/app/common/helpers/pagination.helper';
+import {
+  OperationDataResult,
+  PaginationModel,
+  SortModel,
+} from 'src/app/common/models';
+import { updateTableSort, getOffset } from 'src/app/common/helpers';
 import { map } from 'rxjs/operators';
-import { SurveysQuery } from './surveys-query';
+import { SurveysQuery, SurveysStore } from './';
 import { InsightDashboardPnSurveyConfigsService } from '../../../services';
 import { SurveyConfigsListModel } from '../../../models';
 
@@ -17,21 +19,19 @@ export class SurveysStateService {
     private query: SurveysQuery
   ) {}
 
-  private total: number;
-
   getAll(): Observable<OperationDataResult<SurveyConfigsListModel>> {
     return this.service
       .getAll({
-        isSortDsc: this.query.pageSetting.pagination.isSortDsc,
-        offset: this.query.pageSetting.pagination.offset,
-        pageSize: this.query.pageSetting.pagination.pageSize,
-        sort: this.query.pageSetting.pagination.sort,
-        searchString: this.query.pageSetting.pagination.nameFilter,
+        ...this.query.pageSetting.pagination,
+        ...this.query.pageSetting.filters,
+        searchString: this.query.pageSetting.filters.nameFilter,
       })
       .pipe(
         map((response) => {
           if (response && response.success && response.model) {
-            this.total = response.model.total;
+            this.store.update(() => ({
+              total: response.model.total,
+            }));
           }
           return response;
         })
@@ -40,9 +40,12 @@ export class SurveysStateService {
 
   updateNameFilter(nameFilter: string) {
     this.store.update((state) => ({
+      filters: {
+        ...state.filters,
+        nameFilter: nameFilter,
+      },
       pagination: {
         ...state.pagination,
-        nameFilter: nameFilter,
         offset: 0,
       },
     }));
@@ -58,20 +61,12 @@ export class SurveysStateService {
     this.checkOffset();
   }
 
-  getOffset(): Observable<number> {
-    return this.query.selectOffset$;
-  }
-
   getPageSize(): Observable<number> {
     return this.query.selectPageSize$;
   }
 
-  getSort(): Observable<string> {
+  getSort(): Observable<SortModel> {
     return this.query.selectSort$;
-  }
-
-  getIsSortDsc(): Observable<boolean> {
-    return this.query.selectIsSortDsc$;
   }
 
   getNameFilter(): Observable<string> {
@@ -88,7 +83,9 @@ export class SurveysStateService {
   }
 
   onDelete() {
-    this.total -= 1;
+    this.store.update((state) => ({
+      total: state.total - 1,
+    }));
     this.checkOffset();
   }
 
@@ -111,7 +108,7 @@ export class SurveysStateService {
     const newOffset = getOffset(
       this.query.pageSetting.pagination.pageSize,
       this.query.pageSetting.pagination.offset,
-      this.total
+      this.query.pageSetting.total
     );
     if (newOffset !== this.query.pageSetting.pagination.offset) {
       this.store.update((state) => ({
@@ -121,5 +118,9 @@ export class SurveysStateService {
         },
       }));
     }
+  }
+
+  getPagination(): Observable<PaginationModel> {
+    return this.query.selectPagination$;
   }
 }

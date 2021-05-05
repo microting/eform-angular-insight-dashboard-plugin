@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { persistState, Store, StoreConfig } from '@datorama/akita';
-import { CommonPaginationState } from 'src/app/common/models/common-pagination-state';
+import {
+  CommonPaginationState,
+  FiltrationStateModel,
+} from 'src/app/common/models';
 
 export interface SurveysState {
   pagination: CommonPaginationState;
+  filters: FiltrationStateModel;
+  total: number;
 }
 
 export function createInitialState(): SurveysState {
@@ -12,19 +17,22 @@ export function createInitialState(): SurveysState {
       pageSize: 10,
       sort: 'Id',
       isSortDsc: false,
-      nameFilter: '',
       offset: 0,
     },
+    filters: {
+      nameFilter: '',
+    },
+    total: 0,
   };
 }
 
 const surveysPersistStorage = persistState({
-  include: ['insightDashboardPnSurveys'],
-  key: 'pluginsStore',
+  include: ['surveys'],
+  key: 'insightDashboardPn',
 });
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'insightDashboardPnSurveys' })
+@StoreConfig({ name: 'surveys' })
 export class SurveysStore extends Store<SurveysState> {
   constructor() {
     super(createInitialState());

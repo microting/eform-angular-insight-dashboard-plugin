@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { SurveyConfigsListModel } from '../../../models';
-import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
+import { SurveyConfigsListModel, SurveyConfigModel } from '../../../models';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import {
@@ -16,10 +15,10 @@ import {
 import {
   CommonDictionaryModel,
   TableHeaderElementModel,
-} from '../../../../../../common/models/common';
+} from '../../../../../../common/models';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { SitesService } from 'src/app/common/services';
-import { SurveysStateService } from '../store/surveys-state-service';
+import { SurveysStateService } from '../store';
 
 @AutoUnsubscribe()
 @Component({

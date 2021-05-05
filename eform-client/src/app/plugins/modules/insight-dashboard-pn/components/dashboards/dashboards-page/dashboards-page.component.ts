@@ -7,19 +7,14 @@ import {
   DashboardEditComponent,
   DashboardNewComponent,
 } from '../..';
-import {
-  InsightDashboardPnDashboardDictionariesService,
-  InsightDashboardPnDashboardsService,
-  InsightDashboardPnSurveyConfigsService,
-} from '../../../services';
+import { InsightDashboardPnDashboardDictionariesService } from '../../../services';
 import {
   CommonDictionaryModel,
   TableHeaderElementModel,
-} from '../../../../../../common/models/common';
+} from '../../../../../../common/models';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SitesService } from 'src/app/common/services';
-import { DashboardsStateService } from '../store/dashboards-state-service';
+import { DashboardsStateService } from '../store';
 import { debounceTime } from 'rxjs/operators';
 
 @AutoUnsubscribe()
@@ -42,7 +37,6 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   availableSurveys: CommonDictionaryModel[] = [];
   getAllSub$: Subscription;
   getSurveysSub$: Subscription;
-  getTagsSub$: Subscription;
 
   tableHeaders: TableHeaderElementModel[] = [
     { name: 'Id', elementId: 'idTableHeader', sortable: true },
@@ -60,10 +54,7 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private dashboardService: InsightDashboardPnDashboardsService,
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
     private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-    private sitesService: SitesService,
     private router: Router,
     private route: ActivatedRoute,
     public dashboardsStateService: DashboardsStateService
