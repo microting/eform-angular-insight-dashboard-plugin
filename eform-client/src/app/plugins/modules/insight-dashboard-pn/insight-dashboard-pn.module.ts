@@ -47,9 +47,9 @@ import {
 } from './components';
 import { DragulaModule } from 'ng2-dragula';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { OwlDateTimeModule } from 'ng-pick-datetime-ex';
-import { DashboardsStateService } from './components/dashboards/store/dashboards-state-service';
-import { SurveysStateService } from './components/surveys/store/surveys-state-service';
+import { DashboardsStateService } from './components/dashboards/state/dashboards-state-service';
+import { SurveysStateService } from './components/surveys/state/surveys-state-service';
+import {OwlDateTimeModule} from '@danielmoncada/angular-datetime-picker';
 import { dashboardsPersistProvider } from './components/dashboards/store/dashboards-store';
 import { surveysPersistProvider } from './components/surveys/store/surveys-store';
 

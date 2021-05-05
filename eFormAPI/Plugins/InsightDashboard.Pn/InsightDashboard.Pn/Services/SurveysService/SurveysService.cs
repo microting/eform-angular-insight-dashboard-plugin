@@ -65,7 +65,7 @@ namespace InsightDashboard.Pn.Services.SurveysService
                 await core.GetAllSurveyConfigurations();
                 await core.GetAllAnswers();
                 //await AddTextAnswers();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
+                await using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     var surveysQueryable = sdkContext.SurveyConfigurations
                         .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
@@ -158,44 +158,29 @@ namespace InsightDashboard.Pn.Services.SurveysService
         {
             try
             {
-
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
+                await using var sdkContext = core.DbContextHelper.GetDbContext();
+                var surveyConfig = new SurveyConfiguration()
                 {
-                    // using (var transaction = await sdkContext.Database.BeginTransactionAsync())
-                    // {
-                        try
-                        {
-                            var surveyConfig = new SurveyConfiguration()
-                            {
-                                QuestionSetId = createModel.SurveyId,
-                            };
+                    QuestionSetId = createModel.SurveyId,
+                };
 
-                            await surveyConfig.Create(sdkContext);
+                await surveyConfig.Create(sdkContext);
 
-                            foreach (var locationsId in createModel.LocationsIds)
-                            {
-                                var siteSurveyConfig = new SiteSurveyConfiguration()
-                                {
-                                    SurveyConfigurationId = surveyConfig.Id,
-                                    SiteId = locationsId,
-                                };
+                foreach (var locationsId in createModel.LocationsIds)
+                {
+                    var siteSurveyConfig = new SiteSurveyConfiguration()
+                    {
+                        SurveyConfigurationId = surveyConfig.Id,
+                        SiteId = locationsId,
+                    };
 
-                                await siteSurveyConfig.Create(sdkContext);
-                            }
-
-                            //transaction.Commit();
-                            return new OperationResult(
-                                true,
-                                _localizationService.GetString("SurveyConfigurationCreatedSuccessfully"));
-                        }
-                        catch (Exception)
-                        {
-                            //transaction.Rollback();
-                            throw;
-                        }
-                    //}
+                    await siteSurveyConfig.Create(sdkContext);
                 }
+
+                return new OperationResult(
+                    true,
+                    _localizationService.GetString("SurveyConfigurationCreatedSuccessfully"));
             }
             catch (Exception e)
             {
@@ -213,83 +198,68 @@ namespace InsightDashboard.Pn.Services.SurveysService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
+                await using var sdkContext = core.DbContextHelper.GetDbContext();
+                var surveyConfiguration = await sdkContext.SurveyConfigurations
+                    .Include(x => x.SiteSurveyConfigurations)
+                    .Where(x => x.Id == updateModel.Id)
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .FirstOrDefaultAsync();
+
+                if (surveyConfiguration == null)
                 {
-                    // using (var transaction = await sdkContext.Database.BeginTransactionAsync())
-                    // {
-                        try
-                        {
-                            var surveyConfiguration = await sdkContext.SurveyConfigurations
-                                .Include(x => x.SiteSurveyConfigurations)
-                                .Where(x => x.Id == updateModel.Id)
-                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                .FirstOrDefaultAsync();
-
-                            if (surveyConfiguration == null)
-                            {
-                                //transaction.Commit();
-                                return new OperationResult(
-                                    false,
-                                    _localizationService.GetString("SurveyConfigurationNotFound"));
-                            }
-
-                            surveyConfiguration.QuestionSetId = updateModel.SurveyId;
-                            await surveyConfiguration.Update(sdkContext);
-
-                            // Locations
-                            var siteIds = surveyConfiguration.SiteSurveyConfigurations
-                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Select(x => x.SiteId)
-                                .ToList();
-
-                            var forRemove = siteIds
-                                .Where(x => !updateModel.LocationsIds.Contains(x))
-                                .ToList();
-
-                            foreach (var siteIdForRemove in forRemove)
-                            {
-                                var siteSurveyConfigurations = await sdkContext
-                                    .SiteSurveyConfigurations
-                                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                    .FirstOrDefaultAsync(
-                                        x => x.SurveyConfigurationId == surveyConfiguration.Id
-                                             && x.SiteId == siteIdForRemove);
-
-                                if (siteSurveyConfigurations != null)
-                                {
-                                    await siteSurveyConfigurations.Delete(sdkContext);
-                                }
-                            }
-
-                            var forCreate = updateModel.LocationsIds
-                                .Where(x => !siteIds.Contains(x))
-                                .ToList();
-
-                            foreach (var siteIdForCreate in forCreate)
-                            {
-                                var siteSurveyConfigurations = new SiteSurveyConfiguration()
-                                {
-                                    SurveyConfigurationId = surveyConfiguration.Id,
-                                    SiteId = siteIdForCreate
-                                };
-
-                                await siteSurveyConfigurations.Create(sdkContext);
-                            }
-
-
-                            //transaction.Commit();
-                            return new OperationResult(
-                                true,
-                                _localizationService.GetString("SurveyConfigurationUpdatedSuccessfully"));
-                        }
-                        catch (Exception)
-                        {
-                            //transaction.Rollback();
-                            throw;
-                        }
-                    //}
+                    //transaction.Commit();
+                    return new OperationResult(
+                        false,
+                        _localizationService.GetString("SurveyConfigurationNotFound"));
                 }
+
+                surveyConfiguration.QuestionSetId = updateModel.SurveyId;
+                await surveyConfiguration.Update(sdkContext);
+
+                // Locations
+                var siteIds = surveyConfiguration.SiteSurveyConfigurations
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Select(x => x.SiteId)
+                    .ToList();
+
+                var forRemove = siteIds
+                    .Where(x => !updateModel.LocationsIds.Contains(x))
+                    .ToList();
+
+                foreach (var siteIdForRemove in forRemove)
+                {
+                    var siteSurveyConfigurations = await sdkContext
+                        .SiteSurveyConfigurations
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .FirstOrDefaultAsync(
+                            x => x.SurveyConfigurationId == surveyConfiguration.Id
+                                 && x.SiteId == siteIdForRemove);
+
+                    if (siteSurveyConfigurations != null)
+                    {
+                        await siteSurveyConfigurations.Delete(sdkContext);
+                    }
+                }
+
+                var forCreate = updateModel.LocationsIds
+                    .Where(x => !siteIds.Contains(x))
+                    .ToList();
+
+                foreach (var siteIdForCreate in forCreate)
+                {
+                    var siteSurveyConfigurations = new SiteSurveyConfiguration()
+                    {
+                        SurveyConfigurationId = surveyConfiguration.Id,
+                        SiteId = siteIdForCreate
+                    };
+
+                    await siteSurveyConfigurations.Create(sdkContext);
+                }
+
+                return new OperationResult(
+                    true,
+                    _localizationService.GetString("SurveyConfigurationUpdatedSuccessfully"));
             }
             catch (Exception e)
             {
@@ -306,29 +276,27 @@ namespace InsightDashboard.Pn.Services.SurveysService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
+                await using var sdkContext = core.DbContextHelper.GetDbContext();
+                var surveyConfiguration = await sdkContext.SurveyConfigurations
+                    .Where(x => x.Id == configUpdateStatusModel.Id)
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .FirstOrDefaultAsync();
+
+                if (surveyConfiguration == null)
                 {
-                    var surveyConfiguration = await sdkContext.SurveyConfigurations
-                        .Where(x => x.Id == configUpdateStatusModel.Id)
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .FirstOrDefaultAsync();
-
-                    if (surveyConfiguration == null)
-                    {
-                        return new OperationResult(
-                            false,
-                            _localizationService.GetString("SurveyConfigurationNotFound"));
-                    }
-
-                    // TODO Change status
-                    var message = configUpdateStatusModel.IsActive
-                        ? "SurveyConfigurationHasBeenActivated"
-                        : "SurveyConfigurationHasBeenDeactivated";
-
                     return new OperationResult(
-                        true,
-                        _localizationService.GetString(message));
+                        false,
+                        _localizationService.GetString("SurveyConfigurationNotFound"));
                 }
+
+                // TODO Change status
+                var message = configUpdateStatusModel.IsActive
+                    ? "SurveyConfigurationHasBeenActivated"
+                    : "SurveyConfigurationHasBeenDeactivated";
+
+                return new OperationResult(
+                    true,
+                    _localizationService.GetString(message));
             }
             catch (Exception e)
             {
@@ -345,26 +313,24 @@ namespace InsightDashboard.Pn.Services.SurveysService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
+                await using var sdkContext = core.DbContextHelper.GetDbContext();
+                var surveyConfiguration = await sdkContext.SurveyConfigurations
+                    .Where(x => x.Id == id)
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .FirstOrDefaultAsync();
+
+                if (surveyConfiguration == null)
                 {
-                    var surveyConfiguration = await sdkContext.SurveyConfigurations
-                        .Where(x => x.Id == id)
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .FirstOrDefaultAsync();
-
-                    if (surveyConfiguration == null)
-                    {
-                        return new OperationResult(
-                            false,
-                            _localizationService.GetString("SurveyConfigurationNotFound"));
-                    }
-
-                    await surveyConfiguration.Delete(sdkContext);
-
                     return new OperationResult(
-                        true,
-                        _localizationService.GetString("SurveyConfigurationHasBeenRemoved"));
+                        false,
+                        _localizationService.GetString("SurveyConfigurationNotFound"));
                 }
+
+                await surveyConfiguration.Delete(sdkContext);
+
+                return new OperationResult(
+                    true,
+                    _localizationService.GetString("SurveyConfigurationHasBeenRemoved"));
             }
             catch (Exception e)
             {
