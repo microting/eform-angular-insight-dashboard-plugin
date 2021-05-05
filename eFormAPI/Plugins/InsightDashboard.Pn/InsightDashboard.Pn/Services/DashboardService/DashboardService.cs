@@ -129,31 +129,29 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                 foreach (var dashboardModel in dashboards)
                 {
-                    using (var sdkContext = core.DbContextHelper.GetDbContext())
+                    await using var sdkContext = core.DbContextHelper.GetDbContext();
+                    dashboardModel.SurveyName = await sdkContext.QuestionSets
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.Id == dashboardModel.SurveyId)
+                        .Select(x => x.Name)
+                        .FirstOrDefaultAsync();
+
+                    if (dashboardModel.LocationId != null)
                     {
-                        dashboardModel.SurveyName = await sdkContext.QuestionSets
+                        dashboardModel.LocationName = await sdkContext.Sites
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.Id == dashboardModel.SurveyId)
+                            .Where(x => x.Id == dashboardModel.LocationId)
                             .Select(x => x.Name)
                             .FirstOrDefaultAsync();
+                    }
 
-                        if (dashboardModel.LocationId != null)
-                        {
-                            dashboardModel.LocationName = await sdkContext.Sites
-                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(x => x.Id == dashboardModel.LocationId)
-                                .Select(x => x.Name)
-                                .FirstOrDefaultAsync();
-                        }
-
-                        if (dashboardModel.TagId != null)
-                        {
-                            dashboardModel.TagName = await sdkContext.Sites
-                                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                                .Where(x => x.Id == dashboardModel.TagId)
-                                .Select(x => x.Name)
-                                .FirstOrDefaultAsync();
-                        }
+                    if (dashboardModel.TagId != null)
+                    {
+                        dashboardModel.TagName = await sdkContext.Sites
+                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                            .Where(x => x.Id == dashboardModel.TagId)
+                            .Select(x => x.Name)
+                            .FirstOrDefaultAsync();
                     }
                 }
 
@@ -174,7 +172,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
             try
             {
                 var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
+                await using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
 
                     if (!await sdkContext
@@ -215,103 +213,100 @@ namespace InsightDashboard.Pn.Services.DashboardService
         {
             try
             {
-                using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+                var dashboard = await _dbContext.Dashboards
+                    .Include(x => x.DashboardItems)
+                    .ThenInclude<Dashboard, DashboardItem, List<DashboardItemCompare>>(x => x.CompareLocationsTags)
+                    .Include(x => x.DashboardItems)
+                    .ThenInclude<Dashboard, DashboardItem, List<DashboardItemIgnoredAnswer>>(x => x.IgnoredAnswerValues)
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .FirstOrDefaultAsync(x => x.Id == dashboardId);
+
+                if (dashboard == null)
                 {
-                    var dashboard = await _dbContext.Dashboards
-                        .Include(x => x.DashboardItems)
-                        .ThenInclude<Dashboard, DashboardItem, List<DashboardItemCompare>>(x => x.CompareLocationsTags)
-                        .Include(x => x.DashboardItems)
-                        .ThenInclude<Dashboard, DashboardItem, List<DashboardItemIgnoredAnswer>>(x => x.IgnoredAnswerValues)
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .FirstOrDefaultAsync(x => x.Id == dashboardId);
+                    return new OperationResult(
+                        false,
+                        _localizationService.GetString("DashboardNotFound"));
+                }
 
-                    if (dashboard == null)
-                    {
-                        return new OperationResult(
-                            false,
-                            _localizationService.GetString("DashboardNotFound"));
-                    }
+                var newDashboard = new Dashboard
+                {
+                    Name = dashboard.Name,
+                    SurveyId = dashboard.SurveyId,
+                    CreatedByUserId = UserId,
+                    UpdatedByUserId = UserId,
+                };
 
-                    var newDashboard = new Dashboard
+                await newDashboard.Create(_dbContext);
+
+                newDashboard.LocationId = dashboard.LocationId;
+                newDashboard.TagId = dashboard.TagId;
+                newDashboard.DateFrom = dashboard.DateFrom;
+                newDashboard.DateTo = dashboard.DateTo;
+                newDashboard.Today = dashboard.Today;
+                newDashboard.UpdatedByUserId = UserId;
+
+                await newDashboard.Update(_dbContext);
+
+                foreach (var dashboardItem in dashboard
+                    .DashboardItems
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                {
+                    var newDashboardItem = new DashboardItem
                     {
-                        Name = dashboard.Name,
-                        SurveyId = dashboard.SurveyId,
+                        DashboardId = newDashboard.Id,
                         CreatedByUserId = UserId,
                         UpdatedByUserId = UserId,
+                        ChartType = dashboardItem.ChartType,
+                        FilterAnswerId = dashboardItem.FilterAnswerId,
+                        FilterQuestionId = dashboardItem.FilterQuestionId,
+                        FirstQuestionId = dashboardItem.FirstQuestionId,
+                        Period = dashboardItem.Period,
+                        Position = dashboardItem.Position,
+                        CalculateAverage = dashboardItem.CalculateAverage,
+                        CalculateByWeight = dashboardItem.CalculateByWeight,
+                        CompareEnabled = dashboardItem.CompareEnabled,
                     };
 
-                    await newDashboard.Create(_dbContext);
+                    await newDashboardItem.Create(_dbContext);
 
-                    newDashboard.LocationId = dashboard.LocationId;
-                    newDashboard.TagId = dashboard.TagId;
-                    newDashboard.DateFrom = dashboard.DateFrom;
-                    newDashboard.DateTo = dashboard.DateTo;
-                    newDashboard.Today = dashboard.Today;
-                    newDashboard.UpdatedByUserId = UserId;
-
-                    await newDashboard.Update(_dbContext);
-
-                    foreach (var dashboardItem in dashboard
-                        .DashboardItems
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+                    // Compare
+                    foreach (var dashboardItemCompare in dashboardItem.CompareLocationsTags.Where(x =>
+                        x.WorkflowState != Constants.WorkflowStates.Removed))
                     {
-                        var newDashboardItem = new DashboardItem
+                        var newDashboardItemCompare = new DashboardItemCompare
                         {
-                            DashboardId = newDashboard.Id,
                             CreatedByUserId = UserId,
                             UpdatedByUserId = UserId,
-                            ChartType = dashboardItem.ChartType,
-                            FilterAnswerId = dashboardItem.FilterAnswerId,
-                            FilterQuestionId = dashboardItem.FilterQuestionId,
-                            FirstQuestionId = dashboardItem.FirstQuestionId,
-                            Period = dashboardItem.Period,
-                            Position = dashboardItem.Position,
-                            CalculateAverage = dashboardItem.CalculateAverage,
-                            CalculateByWeight = dashboardItem.CalculateByWeight,
-                            CompareEnabled = dashboardItem.CompareEnabled,
+                            DashboardItemId = newDashboardItem.Id,
+                            LocationId = dashboardItemCompare.LocationId,
+                            Position = dashboardItemCompare.Position,
+                            TagId = dashboardItemCompare.TagId,
                         };
 
-                        await newDashboardItem.Create(_dbContext);
-
-                        // Compare
-                        foreach (var dashboardItemCompare in dashboardItem.CompareLocationsTags.Where(x =>
-                            x.WorkflowState != Constants.WorkflowStates.Removed))
-                        {
-                            var newDashboardItemCompare = new DashboardItemCompare
-                            {
-                                CreatedByUserId = UserId,
-                                UpdatedByUserId = UserId,
-                                DashboardItemId = newDashboardItem.Id,
-                                LocationId = dashboardItemCompare.LocationId,
-                                Position = dashboardItemCompare.Position,
-                                TagId = dashboardItemCompare.TagId,
-                            };
-
-                            await newDashboardItemCompare.Create(_dbContext);
-                        }
-
-                        // Ignore
-                        foreach (var dashboardItemIgnoredAnswer in dashboardItem
-                            .IgnoredAnswerValues
-                            .Where(x =>
-                                x.WorkflowState != Constants.WorkflowStates.Removed))
-                        {
-                            var newDashboardItemIgnoredAnswer = new DashboardItemIgnoredAnswer
-                            {
-                                CreatedByUserId = UserId,
-                                UpdatedByUserId = UserId,
-                                DashboardItemId = newDashboardItem.Id,
-                                AnswerId = dashboardItemIgnoredAnswer.AnswerId,
-                            };
-
-                            await newDashboardItemIgnoredAnswer.Create(_dbContext);
-                        }
+                        await newDashboardItemCompare.Create(_dbContext);
                     }
 
-                    return new OperationResult(
-                        true,
-                        _localizationService.GetString("DashboardCopiedSuccessfully"));
+                    // Ignore
+                    foreach (var dashboardItemIgnoredAnswer in dashboardItem
+                        .IgnoredAnswerValues
+                        .Where(x =>
+                            x.WorkflowState != Constants.WorkflowStates.Removed))
+                    {
+                        var newDashboardItemIgnoredAnswer = new DashboardItemIgnoredAnswer
+                        {
+                            CreatedByUserId = UserId,
+                            UpdatedByUserId = UserId,
+                            DashboardItemId = newDashboardItem.Id,
+                            AnswerId = dashboardItemIgnoredAnswer.AnswerId,
+                        };
+
+                        await newDashboardItemIgnoredAnswer.Create(_dbContext);
+                    }
                 }
+
+                return new OperationResult(
+                    true,
+                    _localizationService.GetString("DashboardCopiedSuccessfully"));
             }
             catch (Exception e)
             {
