@@ -1,4 +1,7 @@
-import {DashboardAnswerDatesModel, DashboardItemModel} from 'src/app/plugins/modules/insight-dashboard-pn/models';
+import {
+  DashboardAnswerDatesModel,
+  DashboardItemModel,
+} from 'src/app/plugins/modules/insight-dashboard-pn/models';
 
 export class DashboardItemPreviewRequestModel {
   item: DashboardItemModel;
@@ -9,5 +12,5 @@ export class DashboardPreviewInfoModel {
   dashboardId: number;
   locationId: number;
   tagId: number;
-  answerDates: DashboardAnswerDatesModel = new DashboardAnswerDatesModel;
+  answerDates: DashboardAnswerDatesModel = new DashboardAnswerDatesModel();
 }

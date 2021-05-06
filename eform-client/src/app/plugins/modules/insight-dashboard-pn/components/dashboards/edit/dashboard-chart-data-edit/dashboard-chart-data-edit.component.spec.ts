@@ -8,9 +8,8 @@ describe('DashboardChartDataEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardChartDataEditComponent ]
-    })
-    .compileComponents();
+      declarations: [DashboardChartDataEditComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

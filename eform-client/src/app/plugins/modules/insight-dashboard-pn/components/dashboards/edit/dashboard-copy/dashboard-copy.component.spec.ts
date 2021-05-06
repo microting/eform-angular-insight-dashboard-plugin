@@ -8,9 +8,8 @@ describe('DashboardCopyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardCopyComponent ]
-    })
-    .compileComponents();
+      declarations: [DashboardCopyComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

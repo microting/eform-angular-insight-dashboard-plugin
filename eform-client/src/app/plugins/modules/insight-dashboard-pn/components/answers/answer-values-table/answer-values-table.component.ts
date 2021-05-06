@@ -1,16 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AnswerModel, AnswerValuesModel} from '../../../models/answer';
+import { Component, Input, OnInit } from '@angular/core';
+import { AnswerModel } from '../../../models/answer';
 
 @Component({
   selector: 'app-answer-values-table',
   templateUrl: './answer-values-table.component.html',
-  styleUrls: ['./answer-values-table.component.scss']
+  styleUrls: ['./answer-values-table.component.scss'],
 })
 export class AnswerValuesTableComponent implements OnInit {
   @Input() answerModel: AnswerModel;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -8,9 +8,8 @@ describe('SurveyConfigurationDeleteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SurveyConfigurationDeleteComponent ]
-    })
-    .compileComponents();
+      declarations: [SurveyConfigurationDeleteComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

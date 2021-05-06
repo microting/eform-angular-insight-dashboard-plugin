@@ -1,14 +1,18 @@
-import {Injectable} from '@angular/core';
-import {BaseService} from '../../../../common/services/base.service';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
-import {Observable} from 'rxjs';
-import {OperationDataResult, OperationResult} from '../../../../common/models';
-import {DashboardCreateModel, DashboardsListModel, DashboardViewModel, SurveyConfigsListModel} from '../models';
-import {DashboardsRequestModel} from '../models/dashboard/dashboards-request.model';
-import {DashboardEditModel} from '../models/dashboard/dashboard-edit.model';
-import {DashboardViewExportDocModel} from '../models/dashboard/dashboard-view/dashboard-view-export-doc.model';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import {
+  OperationDataResult,
+  OperationResult,
+} from '../../../../common/models';
+import {
+  DashboardCreateModel,
+  DashboardsListModel,
+  DashboardViewModel,
+  DashboardViewExportDocModel,
+  DashboardEditModel,
+  DashboardsRequestModel,
+} from '../models';
+import { ApiBaseService } from 'src/app/common/services';
 
 export let DashboardMethods = {
   Get: 'api/insight-dashboard-pn/dashboards',
@@ -21,40 +25,55 @@ export let DashboardMethods = {
   ExportDoc: 'api/insight-dashboard-pn/dashboards/export-doc',
 };
 @Injectable()
-export class InsightDashboardPnDashboardsService extends BaseService {
-  constructor(private _http: HttpClient, router: Router, toastrService: ToastrService) {
-    super(_http, router, toastrService);
+export class InsightDashboardPnDashboardsService {
+  constructor(private apiBaseService: ApiBaseService) {}
+
+  getAll(
+    model: DashboardsRequestModel
+  ): Observable<OperationDataResult<DashboardsListModel>> {
+    return this.apiBaseService.post(DashboardMethods.Get, model);
   }
 
-  getAll(model: DashboardsRequestModel): Observable<OperationDataResult<DashboardsListModel>> {
-    return this.post(DashboardMethods.Get, model);
+  getSingleForView(
+    id: number
+  ): Observable<OperationDataResult<DashboardViewModel>> {
+    return this.apiBaseService.get(DashboardMethods.GetForView + '/' + id);
   }
 
-  getSingleForView(id: number): Observable<OperationDataResult<DashboardViewModel>> {
-    return this.get(DashboardMethods.GetForView + '/' + id);
-  }
-
-  getSingleForEdit(id: number): Observable<OperationDataResult<DashboardEditModel>> {
-    return this.get(DashboardMethods.GetForEdit + '/' + id);
+  getSingleForEdit(
+    id: number
+  ): Observable<OperationDataResult<DashboardEditModel>> {
+    return this.apiBaseService.get(DashboardMethods.GetForEdit + '/' + id);
   }
 
   create(model: DashboardCreateModel): Observable<OperationDataResult<number>> {
-    return this.post(DashboardMethods.Create, model);
+    return this.apiBaseService.post(DashboardMethods.Create, model);
   }
 
   copy(dashboardId: number): Observable<OperationResult> {
-    return this.post(DashboardMethods.Copy + '/' + dashboardId, {});
+    return this.apiBaseService.post(
+      DashboardMethods.Copy + '/' + dashboardId,
+      {}
+    );
   }
 
   update(model: DashboardEditModel): Observable<OperationResult> {
-    return this.post(DashboardMethods.Update, model);
+    return this.apiBaseService.post(DashboardMethods.Update, model);
   }
 
   remove(dashboardId: number): Observable<OperationResult> {
-    return this.post(DashboardMethods.Delete + '/' + dashboardId, {});
+    return this.apiBaseService.post(
+      DashboardMethods.Delete + '/' + dashboardId,
+      {}
+    );
   }
 
   exportToDoc(model: DashboardViewExportDocModel): Observable<any> {
-    return this.uploadFiles(DashboardMethods.ExportDoc + '/' + model.dashboardId, model.files, {}, 'blob');
+    return this.apiBaseService.uploadFiles(
+      DashboardMethods.ExportDoc + '/' + model.dashboardId,
+      model.files,
+      {},
+      'blob'
+    );
   }
 }

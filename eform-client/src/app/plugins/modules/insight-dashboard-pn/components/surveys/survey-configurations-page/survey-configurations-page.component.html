@@ -42,9 +42,8 @@
         <thead
           table-headers
           [tableHeaders]="tableHeaders"
-          [currentSortName]="surveysStateService.getSort() | async"
+          [sort]="surveysStateService.getSort() | async"
           (sortChanged)="sortTable($event)"
-          [isSortDsc]="surveysStateService.getIsSortDsc() | async"
         ></thead>
         <tbody id="tableBody">
           <tr
@@ -137,9 +136,7 @@
       ></eform-page-size>
     </div>
     <eform-pagination
-      [limit]="surveysStateService.getPageSize() | async"
-      [size]="surveyConfigurationsListModel.total"
-      [offset]="surveysStateService.getOffset() | async"
+      [pagination]="surveysStateService.getPagination() | async"
       (onPageChanged)="changePage($event)"
     ></eform-pagination>
   </div>

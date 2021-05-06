@@ -20,6 +20,7 @@ import {
   InsightDashboardPnSurveyConfigsService,
 } from './services';
 import {
+  AnswerDeleteModalComponent,
   AnswerPageComponent,
   AnswerValuesTableComponent,
   DashboardBlockViewComponent,
@@ -43,13 +44,18 @@ import {
   SurveyConfigurationNewComponent,
   SurveyConfigurationsPageComponent,
   SurveyConfigurationStatusComponent,
-  AnswerDeleteModalComponent,
 } from './components';
 import { DragulaModule } from 'ng2-dragula';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { DashboardsStateService } from './components/dashboards/state/dashboards-state-service';
-import { SurveysStateService } from './components/surveys/state/surveys-state-service';
-import {OwlDateTimeModule} from '@danielmoncada/angular-datetime-picker';
+import {
+  DashboardsStateService,
+  dashboardsPersistProvider,
+} from './components/dashboards/store';
+import {
+  SurveysStateService,
+  surveysPersistProvider,
+} from './components/surveys/store';
+import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 @NgModule({
   imports: [
@@ -104,6 +110,8 @@ import {OwlDateTimeModule} from '@danielmoncada/angular-datetime-picker';
     InsightDashboardPnAnswersService,
     DashboardsStateService,
     SurveysStateService,
+    dashboardsPersistProvider,
+    surveysPersistProvider,
   ],
 })
 export class InsightDashboardPnModule {}

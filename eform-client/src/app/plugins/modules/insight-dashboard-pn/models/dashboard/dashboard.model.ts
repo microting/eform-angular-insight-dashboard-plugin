@@ -1,5 +1,3 @@
-import {CommonDictionaryModel} from '../../../../../common/models/common';
-
 export class DashboardModel {
   id: number;
   dashboardName: string;

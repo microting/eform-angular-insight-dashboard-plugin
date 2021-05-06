@@ -8,9 +8,8 @@ describe('SurveyConfigurationEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SurveyConfigurationEditComponent ]
-    })
-    .compileComponents();
+      declarations: [SurveyConfigurationEditComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
