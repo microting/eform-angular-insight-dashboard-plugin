@@ -1,68 +1,77 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {PageSettingsModel} from '../../../../../../common/models/settings';
-import {SharedPnService} from '../../../../shared/services';
-import {DashboardModel, DashboardsListModel} from '../../../models';
-import {DashboardsRequestModel} from '../../../models/dashboard/dashboards-request.model';
-import {Subject, Subscription} from 'rxjs';
-import {DashboardSortColumns, insightDashboardPnSettings} from '../../../const';
-import {DashboardCopyComponent, DashboardDeleteComponent, DashboardEditComponent, DashboardNewComponent} from '../..';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DashboardModel, DashboardsListModel } from '../../../models';
+import { Subject, Subscription } from 'rxjs';
 import {
-  InsightDashboardPnDashboardDictionariesService,
-  InsightDashboardPnDashboardsService,
-  InsightDashboardPnSurveyConfigsService
-} from '../../../services';
-import {CommonDictionaryModel} from '../../../../../../common/models/common';
-import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SitesService} from '../../../../../../common/services/advanced';
-import {CommonDictionaryExtendedModel} from '../../../models/common-dictionary-extended.model';
+  DashboardCopyComponent,
+  DashboardDeleteComponent,
+  DashboardEditComponent,
+  DashboardNewComponent,
+} from '../..';
+import { InsightDashboardPnDashboardDictionariesService } from '../../../services';
+import {
+  CommonDictionaryModel,
+  TableHeaderElementModel,
+} from '../../../../../../common/models';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DashboardsStateService } from '../store';
+import { debounceTime } from 'rxjs/operators';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'app-insight-dashboard-dashboards',
   templateUrl: './dashboards-page.component.html',
-  styleUrls: ['./dashboards-page.component.scss']
+  styleUrls: ['./dashboards-page.component.scss'],
 })
 export class DashboardsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('newDashboardModal', { static: true }) newDashboardModal: DashboardNewComponent;
-  @ViewChild('copyDashboardModal', { static: true }) copyDashboardModal: DashboardCopyComponent;
-  @ViewChild('editDashboardModal', { static: true }) editDashboardModal: DashboardEditComponent;
-  @ViewChild('deleteDashboardModal', { static: true }) deleteDashboardModal: DashboardDeleteComponent;
+  @ViewChild('newDashboardModal', { static: true })
+  newDashboardModal: DashboardNewComponent;
+  @ViewChild('copyDashboardModal', { static: true })
+  copyDashboardModal: DashboardCopyComponent;
+  @ViewChild('editDashboardModal', { static: true })
+  editDashboardModal: DashboardEditComponent;
+  @ViewChild('deleteDashboardModal', { static: true })
+  deleteDashboardModal: DashboardDeleteComponent;
   dashboardsListModel: DashboardsListModel = new DashboardsListModel();
-  dashboardsRequestModel: DashboardsRequestModel = new DashboardsRequestModel();
-  localPageSettings: PageSettingsModel = new PageSettingsModel();
   searchSubject = new Subject();
   availableSurveys: CommonDictionaryModel[] = [];
-  availableLocationsTags: CommonDictionaryExtendedModel[] = [];
   getAllSub$: Subscription;
   getSurveysSub$: Subscription;
-  getTagsSub$: Subscription;
-  getLocationsSub$: Subscription;
 
-  get sortCols() {
-    return DashboardSortColumns;
-  }
+  tableHeaders: TableHeaderElementModel[] = [
+    { name: 'Id', elementId: 'idTableHeader', sortable: true },
+    {
+      name: 'Name',
+      elementId: 'dashboardNameTableHeader',
+      sortable: true,
+      visibleName: 'Dashboard name',
+    },
+    { name: 'Survey name', elementId: '', sortable: false },
+    { name: 'Location/Tag name', elementId: '', sortable: false },
+    { name: 'Date From', elementId: '', sortable: false },
+    { name: 'Date To', elementId: '', sortable: false },
+    { name: 'Actions', elementId: '', sortable: false },
+  ];
 
-  constructor(private sharedPnService: SharedPnService,
-              private dashboardService: InsightDashboardPnDashboardsService,
-              private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-              private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-              private sitesService: SitesService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor(
+    private dictionariesService: InsightDashboardPnDashboardDictionariesService,
+    private router: Router,
+    private route: ActivatedRoute,
+    public dashboardsStateService: DashboardsStateService
+  ) {
+    this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
+      this.dashboardsStateService.updateNameFilter(val);
+      this.getDashboardsList();
+    });
   }
 
   ngOnInit() {
-    this.getLocalPageSettings();
+    this.getDashboardsList();
     this.getSurveys();
   }
 
   getDashboardsList() {
-    this.dashboardsRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
-    this.dashboardsRequestModel.sort = this.localPageSettings.sort;
-    this.dashboardsRequestModel.pageSize = this.localPageSettings.pageSize;
-
-    this.getAllSub$ = this.dashboardService.getAll(this.dashboardsRequestModel).subscribe((data) => {
+    this.getAllSub$ = this.dashboardsStateService.getAll().subscribe((data) => {
       if (data && data.success) {
         this.dashboardsListModel = data.model;
       }
@@ -70,70 +79,43 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   getSurveys() {
-    this.getSurveysSub$ = this.dictionariesService.getSurveys().subscribe((data) => {
-      if (data && data.success) {
-        this.availableSurveys = data.model;
-      }
-    });
+    this.getSurveysSub$ = this.dictionariesService
+      .getSurveys()
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.availableSurveys = data.model;
+        }
+      });
   }
-
 
   sortTable(sort: string) {
-    if (this.localPageSettings.sort === sort) {
-      this.localPageSettings.isSortDsc = !this.localPageSettings.isSortDsc;
-    } else {
-      this.localPageSettings.isSortDsc = false;
-      this.localPageSettings.sort = sort;
-    }
-    this.updateLocalPageSettings();
-  }
-
-  changePage(e: any) {
-    if (e || e === 0) {
-      this.dashboardsRequestModel.offset = e;
-      this.getDashboardsList();
-    }
-  }
-
-  onSearchInputChanged(e: any) {
-    this.searchSubject.next(e.target.value);
-  }
-
-  getSortIcon(sort: string): string {
-    if (this.dashboardsRequestModel.sort === sort) {
-      return this.dashboardsRequestModel.isSortDsc ? 'expand_more' : 'expand_less';
-    } else {
-      return 'unfold_more';
-    }
-  }
-
-  getLocalPageSettings() {
-    this.localPageSettings = this.sharedPnService
-      .getLocalPageSettings(insightDashboardPnSettings, 'Dashboards')
-      .settings;
+    this.dashboardsStateService.onSortTable(sort);
     this.getDashboardsList();
   }
 
-  updateLocalPageSettings() {
-    this.sharedPnService.updateLocalPageSettings(
-      insightDashboardPnSettings,
-      this.localPageSettings,
-      'Dashboards'
-    );
+  changePage(offset: any) {
+    this.dashboardsStateService.changePage(offset);
     this.getDashboardsList();
   }
 
+  onSearchInputChanged(searchValue: string) {
+    this.searchSubject.next(searchValue);
+  }
 
   openCreateModal() {
     this.newDashboardModal.show();
   }
 
   openEditPage(dashboard: DashboardModel) {
-    this.router.navigate(['/plugins/insight-dashboard-pn/dashboard/edit/', dashboard.id]).then();
+    this.router
+      .navigate(['/plugins/insight-dashboard-pn/dashboard/edit/', dashboard.id])
+      .then();
   }
 
   openViewPage(dashboard: DashboardModel) {
-    this.router.navigate(['/plugins/insight-dashboard-pn/dashboard/', dashboard.id]).then();
+    this.router
+      .navigate(['/plugins/insight-dashboard-pn/dashboard/', dashboard.id])
+      .then();
   }
 
   openCopyModal(model: DashboardModel) {
@@ -144,10 +126,23 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     this.deleteDashboardModal.show(model);
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   navigateToNewDashboard(newDashboardId: number) {
-    this.router.navigate(['../dashboard/edit', newDashboardId], {relativeTo: this.route}).then();
+    this.router
+      .navigate(['../dashboard/edit', newDashboardId], {
+        relativeTo: this.route,
+      })
+      .then();
+  }
+
+  onPageSizeChanged(pageSize: number) {
+    this.dashboardsStateService.updatePageSize(pageSize);
+    this.getDashboardsList();
+  }
+
+  onDashboardDeleted() {
+    this.dashboardsStateService.onDelete();
+    this.getDashboardsList();
   }
 }

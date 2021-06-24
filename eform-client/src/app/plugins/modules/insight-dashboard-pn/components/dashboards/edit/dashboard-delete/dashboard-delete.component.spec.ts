@@ -8,9 +8,8 @@ describe('DashboardDeleteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardDeleteComponent ]
-    })
-    .compileComponents();
+      declarations: [DashboardDeleteComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

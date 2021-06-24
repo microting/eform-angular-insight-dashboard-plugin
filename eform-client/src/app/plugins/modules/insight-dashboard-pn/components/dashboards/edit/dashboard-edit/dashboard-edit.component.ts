@@ -1,19 +1,26 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
-import {Subscription} from 'rxjs';
-import {InsightDashboardPnDashboardDictionariesService, InsightDashboardPnDashboardsService} from '../../../../services';
-import {ActivatedRoute, Router} from '@angular/router';
-import {DashboardEditModel, DashboardItemModel, DashboardItemQuestionModel} from '../../../../models';
-import {DragulaService} from 'ng2-dragula';
-import {ToastrService} from 'ngx-toastr';
-import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
-import {DashboardItemQuestionTypesEnum} from '../../../../const/enums';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { Subscription } from 'rxjs';
+import {
+  InsightDashboardPnDashboardDictionariesService,
+  InsightDashboardPnDashboardsService,
+} from '../../../../services';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  DashboardEditModel,
+  DashboardItemModel,
+  DashboardItemQuestionModel,
+} from '../../../../models';
+import { DragulaService } from 'ng2-dragula';
+import { ToastrService } from 'ngx-toastr';
+import { InsightDashboardPnCollapseService } from '../../../../services/insight-dashboard-pn-collapse.service';
+import { DashboardItemQuestionTypesEnum } from '../../../../const/enums';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-edit-configuration',
   templateUrl: './dashboard-edit.component.html',
-  styleUrls: ['./dashboard-edit.component.scss']
+  styleUrls: ['./dashboard-edit.component.scss'],
 })
 export class DashboardEditComponent implements OnInit, OnDestroy {
   updateDashboardSub$: Subscription;
@@ -29,24 +36,25 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   selectedDashboardId: number;
   dragulaGroupName = 'ITEMS';
 
-  constructor(private dashboardsService: InsightDashboardPnDashboardsService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private dictionaryService: InsightDashboardPnDashboardDictionariesService,
-              private dragulaService: DragulaService,
-              private toastrService: ToastrService,
-              private collapseService: InsightDashboardPnCollapseService) {
-  }
+  constructor(
+    private dashboardsService: InsightDashboardPnDashboardsService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private dictionaryService: InsightDashboardPnDashboardDictionariesService,
+    private dragulaService: DragulaService,
+    private toastrService: ToastrService,
+    private collapseService: InsightDashboardPnCollapseService
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.selectedDashboardId = params['dashboardId'];
       this.getDashboardForEdit(this.selectedDashboardId);
     });
 
     // create rule to disable dragula dnd if items is not collapsed
     this.dragulaService.createGroup(this.dragulaGroupName, {
-      moves: (el, source, handle, sibling) => !el.classList.contains('no-drag')
+      moves: (el, source, handle, sibling) => !el.classList.contains('no-drag'),
     });
 
     this.collapseSub$ = this.collapseService.collapse.subscribe((data) => {
@@ -55,24 +63,41 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   updateDashboard() {
-    if (this.dashboardEditModel.items.find(x => (x.firstQuestionId === null || x.period == null || x.chartType === null)
-      && x.firstQuestionType !== DashboardItemQuestionTypesEnum.Text)) {
-      this.toastrService.error('First question, period and chart type in item could not be empty!', 'Error', {timeOut: 10000});
+    if (
+      this.dashboardEditModel.items.find(
+        (x) =>
+          (x.firstQuestionId === null ||
+            x.period == null ||
+            x.chartType === null) &&
+          x.firstQuestionType !== DashboardItemQuestionTypesEnum.Text
+      )
+    ) {
+      this.toastrService.error(
+        'First question, period and chart type in item could not be empty!',
+        'Error',
+        { timeOut: 10000 }
+      );
     } else {
-      this.updateDashboardSub$ = this.dashboardsService.update(this.dashboardEditModel)
+      this.updateDashboardSub$ = this.dashboardsService
+        .update(this.dashboardEditModel)
         .subscribe((data) => {
           if (data && data.success) {
-            this.router.navigate(['../../', this.dashboardEditModel.id], {relativeTo: this.route}).then();
+            this.router
+              .navigate(['../../', this.dashboardEditModel.id], {
+                relativeTo: this.route,
+              })
+              .then();
           }
         });
     }
   }
 
   getDashboardForEdit(dashboardId: number) {
-    this.getDashboardSub$ = this.dashboardsService.getSingleForEdit(dashboardId)
+    this.getDashboardSub$ = this.dashboardsService
+      .getSingleForEdit(dashboardId)
       .subscribe((data) => {
         if (data && data.success) {
-          this.dashboardEditModel = {...data.model};
+          this.dashboardEditModel = { ...data.model };
         }
         this.getFilterQuestions(data.model.surveyId);
         this.getLocationTags(data.model.surveyId);
@@ -80,7 +105,8 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   getFilterQuestions(surveyId: number) {
-    this.filterQuestionsSub$ = this.dictionaryService.getQuestions(surveyId)
+    this.filterQuestionsSub$ = this.dictionaryService
+      .getQuestions(surveyId)
       .subscribe((data) => {
         if (data && data.success) {
           this.questions = data.model;
@@ -89,22 +115,30 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   getLocationTags(surveyId: number) {
-    this.getLocationsSub$ = this.dictionaryService.getLocationBySurveyId(surveyId).subscribe((data) => {
-      if (data && data.success) {
-        this.getTags();
-        this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-          return {value: x.id, label: x.name, isTag: false};
-        })];
-      }
-    });
+    this.getLocationsSub$ = this.dictionaryService
+      .getLocationBySurveyId(surveyId)
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.getTags();
+          this.availableLocationsTags = [
+            ...this.availableLocationsTags,
+            ...data.model.map((x) => {
+              return { value: x.id, label: x.name, isTag: false };
+            }),
+          ];
+        }
+      });
   }
 
   getTags() {
     this.getTagsSub$ = this.dictionaryService.getTags().subscribe((data) => {
       if (data && data.success) {
-        this.availableLocationsTags = [...this.availableLocationsTags, ...data.model.map(x => {
-          return {value: x.id, label: x.name, isTag: true};
-        })];
+        this.availableLocationsTags = [
+          ...this.availableLocationsTags,
+          ...data.model.map((x) => {
+            return { value: x.id, label: x.name, isTag: true };
+          }),
+        ];
       }
     });
   }
@@ -116,7 +150,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   onCopyBlock(model: DashboardItemModel) {
-    const modelCopy = {...model};
+    const modelCopy = { ...model };
     delete modelCopy.id;
     this.dashboardEditModel.items.splice(model.position, 0, modelCopy);
     this.actualizeBlockPositions();
@@ -124,9 +158,9 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
 
   onDeleteBlock(position: number) {
     // Remove block on specific position
-    this.dashboardEditModel.items =
-      this.dashboardEditModel.items
-        .filter(x => x.position !== position);
+    this.dashboardEditModel.items = this.dashboardEditModel.items.filter(
+      (x) => x.position !== position
+    );
     this.actualizeBlockPositions();
   }
 
@@ -149,7 +183,9 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   onDashboardItemChanged(model: DashboardItemModel) {
-    const foundDashboardItem = this.dashboardEditModel.items.findIndex(x => x.position === model.position);
+    const foundDashboardItem = this.dashboardEditModel.items.findIndex(
+      (x) => x.position === model.position
+    );
     this.dashboardEditModel.items[foundDashboardItem] = model;
   }
 

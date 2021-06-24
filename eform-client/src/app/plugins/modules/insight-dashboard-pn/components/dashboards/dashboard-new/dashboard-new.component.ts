@@ -1,15 +1,22 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {CommonDictionaryModel} from '../../../../../../common/models/common';
-import {InsightDashboardPnDashboardsService} from '../../../services';
-import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
-import {Subscription} from 'rxjs';
-import {CommonDictionaryExtendedModel} from '../../../models/common-dictionary-extended.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { CommonDictionaryModel } from '../../../../../../common/models/common';
+import { InsightDashboardPnDashboardsService } from '../../../services';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { Subscription } from 'rxjs';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-new',
   templateUrl: './dashboard-new.component.html',
-  styleUrls: ['./dashboard-new.component.scss']
+  styleUrls: ['./dashboard-new.component.scss'],
 })
 export class DashboardNewComponent implements OnInit, OnDestroy {
   @ViewChild('frame', { static: true }) frame;
@@ -20,33 +27,31 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
   createDashboard$: Subscription;
   dashboardName: string;
 
-
-  constructor(private dashboardsService: InsightDashboardPnDashboardsService) {
-  }
+  constructor(private dashboardsService: InsightDashboardPnDashboardsService) {}
 
   show() {
     this.frame.show();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   createDashboard() {
-    this.createDashboard$ = this.dashboardsService.create({
-      name: this.dashboardName,
-      surveyId: this.selectedSurveyId,
-    }).subscribe((data) => {
-      if (data && data.success) {
-        this.frame.hide();
-        this.dashboardCreated.emit(data.model);
-      }
-    });
+    this.createDashboard$ = this.dashboardsService
+      .create({
+        name: this.dashboardName,
+        surveyId: this.selectedSurveyId,
+      })
+      .subscribe((data) => {
+        if (data && data.success) {
+          this.frame.hide();
+          this.dashboardCreated.emit(data.model);
+        }
+      });
   }
 
   onSurveySelected(surveyId: number) {
     this.surveySelected.emit(surveyId);
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 }
