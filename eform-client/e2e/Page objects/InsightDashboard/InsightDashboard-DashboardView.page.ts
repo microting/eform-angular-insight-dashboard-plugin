@@ -8,7 +8,7 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   public get rowNum(): number {
-    browser.pause(500);
+    browser.pause(1000);
     return $$('#dashboardViewItem').length;
   }
 
@@ -19,7 +19,9 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   public firstQuestion(rowNum: number) {
-    return $(`#firstQuestion${rowNum}`);
+    const ele = $(`#firstQuestion${rowNum}`);
+    ele.waitForDisplayed({timeout: 30000});
+    return ele;
   }
 
   public filterQuestion(rowNum: number) {

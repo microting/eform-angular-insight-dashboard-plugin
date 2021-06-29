@@ -37,6 +37,7 @@ describe('InSight Dashboard - Dashboards - View', function () {
     dashboardEditPage.generateItems([item]);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    browser.pause(500);
     dashboardsViewPage.compareItem(dashboardsViewPage.rowNum, item, dashboardConfig);
   });
 });
