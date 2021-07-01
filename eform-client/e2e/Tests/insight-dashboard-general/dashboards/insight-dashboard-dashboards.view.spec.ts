@@ -39,7 +39,6 @@ describe('InSight Dashboard - Dashboards - View', function () {
     dashboardEditPage.dashboardUpdateSaveBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
     browser.pause(5000);
-    $('#dashboardViewItem').waitForDisplayed({timeout: 30000});
     $('#firstQuestion1').waitForDisplayed({timeout: 30000});
     const la = dashboardsViewPage.returnToDashboards;
     dashboardsViewPage.compareItem(dashboardsViewPage.rowNum, item, dashboardConfig);
