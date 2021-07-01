@@ -37,19 +37,9 @@ describe('InSight Dashboard - Dashboards - View', function () {
     dashboardEditPage.generateItems([item]);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    let rowNum = dashboardsViewPage.rowNum;
-    if (rowNum === 0) {
-      browser.pause(5000);
-      rowNum = dashboardsViewPage.rowNum;
-    }
-    if (rowNum === 0) {
-      browser.pause(5000);
-      rowNum = dashboardsViewPage.rowNum;
-    }
-    if (rowNum === 0) {
-      browser.pause(5000);
-      rowNum = dashboardsViewPage.rowNum;
-    }
-    dashboardsViewPage.compareItem(rowNum, item, dashboardConfig);
+    $('#returnToPrevious').waitForDisplayed({timeout: 30000});
+    $('#dashboardViewItem').waitForDisplayed({timeout: 30000});
+    $('#firstQuestion1').waitForDisplayed({timeout: 30000});
+    dashboardsViewPage.compareItem(dashboardsViewPage.rowNum, item, dashboardConfig);
   });
 });
