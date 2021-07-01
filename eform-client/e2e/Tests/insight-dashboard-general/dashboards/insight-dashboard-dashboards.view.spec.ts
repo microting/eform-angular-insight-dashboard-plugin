@@ -35,11 +35,12 @@ describe('InSight Dashboard - Dashboards - View', function () {
   });
   it('should observe filled item', function () {
     dashboardEditPage.generateItems([item]);
+    browser.pause(1000);
     dashboardEditPage.dashboardUpdateSaveBtn.click();
     $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    $('#returnToPrevious').waitForDisplayed({timeout: 30000});
     $('#dashboardViewItem').waitForDisplayed({timeout: 30000});
     $('#firstQuestion1').waitForDisplayed({timeout: 30000});
+    const la = dashboardsViewPage.returnToDashboards;
     dashboardsViewPage.compareItem(dashboardsViewPage.rowNum, item, dashboardConfig);
   });
 });
