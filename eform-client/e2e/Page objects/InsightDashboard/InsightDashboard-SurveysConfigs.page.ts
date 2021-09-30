@@ -86,7 +86,7 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     await (await this.surveyConfigCreateBtn()).click();
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     const searchField = await surveyConfigsPage.getSurveysSearchField();
-    searchField.addValue(configName);
+    await searchField.addValue(configName);
     const listChoices = await surveyConfigsPage.getSurveyListOfChoices();
     const choice = listChoices[0];
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
@@ -194,7 +194,7 @@ export class SurveysConfigPageRowObject {
     if ((await $$('#surveyConfigId'))[rowNum - 1]) {
       this.id = (await $$('#surveyConfigId'))[rowNum - 1];
       try {
-        this.surveyName = (await $$('#surveyConfigName'))[rowNum - 1].getText();
+        this.surveyName = await (await $$('#surveyConfigName'))[rowNum - 1].getText();
         // this.companyAddress = $$('#companyAddressTableHeader')[rowNum - 1].getText();
         // this.companyAddress2 = $$('#companyAddress2TableHeader')[rowNum - 1].getText();
         // this.zipCode = $$('#zipCodeTableHeader')[rowNum - 1].getText();

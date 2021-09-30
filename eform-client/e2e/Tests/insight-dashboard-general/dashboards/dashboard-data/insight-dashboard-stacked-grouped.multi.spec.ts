@@ -21,35 +21,35 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Stacked Grouped', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
 
     // Create and assign total tag
-    myEformsPage.Navbar.goToSites();
-    const site = sitesPage.getFirstRowObject();
+    await myEformsPage.Navbar.goToSites();
+    const site = await sitesPage.getFirstRowObject();
     if (!site.tags || !site.tags.includes(dashboardConfig.locationTagName)) {
-      sitesPage.createTag([dashboardConfig.locationTagName]);
+      await sitesPage.createTag([dashboardConfig.locationTagName]);
       for (let i = 1; i < 5; i++) {
-        sitesPage.getSite(i).edit({ tags: [dashboardConfig.locationTagName] });
+        await (await sitesPage.getSite(i)).edit({ tags: [dashboardConfig.locationTagName] });
       }
     }
 
     // Create dashboard with items
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Stacked Grouped');
-    dashboardEditPage.setDashboardSettings(dashboardConfig);
-    dashboardEditPage.generateItems(dashboardStackedGroupedItems);
-    dashboardEditPage.dashboardUpdateSaveBtn.click();
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard('Stacked Grouped');
+    await dashboardEditPage.setDashboardSettings(dashboardConfig);
+    await dashboardEditPage.generateItems(dashboardStackedGroupedItems);
+    await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
-  it('should compare items headers', function () {
-    $('#spinner-animation').waitForDisplayed({ timeout: 30000, reverse: true });
-    dashboardsViewPage.compareHeaders(dashboardStackedGroupedDataJson);
+  it('should compare items headers', async () => {
+    await (await $('#spinner-animation')).waitForDisplayed({ timeout: 30000, reverse: true });
+    await dashboardsViewPage.compareHeaders(dashboardStackedGroupedDataJson);
   });
-  it('should compare items percentage', function () {
-    dashboardsViewPage.comparePercentage(dashboardStackedGroupedDataJson);
+  it('should compare items percentage', async () => {
+    await dashboardsViewPage.comparePercentage(dashboardStackedGroupedDataJson);
   });
-  it('should compare items amounts', function () {
-    dashboardsViewPage.compareAmounts(dashboardStackedGroupedDataJson);
+  it('should compare items amounts', async () => {
+    await dashboardsViewPage.compareAmounts(dashboardStackedGroupedDataJson);
   });
 });

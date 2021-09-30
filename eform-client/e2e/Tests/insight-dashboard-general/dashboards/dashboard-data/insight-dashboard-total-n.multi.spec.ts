@@ -20,35 +20,35 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Total N', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
 
     // Create and assign total tag
-    myEformsPage.Navbar.goToSites();
-    const site = sitesPage.getFirstRowObject();
+    await myEformsPage.Navbar.goToSites();
+    const site = await sitesPage.getFirstRowObject();
     if (!site.tags || !site.tags.includes(dashboardConfig.locationTagName)) {
-      sitesPage.createTag([dashboardConfig.locationTagName]);
+      await sitesPage.createTag([dashboardConfig.locationTagName]);
       for (let i = 1; i < 5; i++) {
-        sitesPage.getSite(i).edit({ tags: [dashboardConfig.locationTagName] });
+        await (await sitesPage.getSite(i)).edit({ tags: [dashboardConfig.locationTagName] });
       }
     }
 
     // Create dashboard with items
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Total N');
-    dashboardEditPage.setDashboardSettings(dashboardConfig);
-    dashboardEditPage.generateItems(dashboardTotalNItems);
-    dashboardEditPage.dashboardUpdateSaveBtn.click();
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard('Total N');
+    await dashboardEditPage.setDashboardSettings(dashboardConfig);
+    await dashboardEditPage.generateItems(dashboardTotalNItems);
+    await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
-  it('should compare items headers', function () {
-    $('#spinner-animation').waitForDisplayed({ timeout: 30000, reverse: true });
-    dashboardsViewPage.compareHeaders(dashboardTotalNDataJson);
+  it('should compare items headers', async () => {
+    await (await $('#spinner-animation')).waitForDisplayed({ timeout: 30000, reverse: true });
+    await dashboardsViewPage.compareHeaders(dashboardTotalNDataJson);
   });
-  it('should compare items percentage', function () {
-    dashboardsViewPage.comparePercentage(dashboardTotalNDataJson);
+  it('should compare items percentage', async () => {
+    await dashboardsViewPage.comparePercentage(dashboardTotalNDataJson);
   });
-  it('should compare items amounts', function () {
-    dashboardsViewPage.compareAmounts(dashboardTotalNDataJson);
+  it('should compare items amounts', async () => {
+    await dashboardsViewPage.compareAmounts(dashboardTotalNDataJson);
   });
 });

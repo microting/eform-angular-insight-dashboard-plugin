@@ -190,17 +190,17 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   async createItem(rowObject: InsightDashboardEditRowObject) {
-    await (await rowObject.itemCreateBtn()).click();
+    await (await rowObject.itemCreateBtn).click();
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   async deleteItem(rowObject: InsightDashboardEditRowObject) {
-    await (await rowObject.itemDeleteBtn()).click();
+    await (await rowObject.itemDeleteBtn).click();
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   async copyItem(rowObject: InsightDashboardEditRowObject) {
-    await (await rowObject.itemCopyBtn()).click();
+    await (await rowObject.itemCopyBtn).click();
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
@@ -214,7 +214,7 @@ export class InsightDashboardDashboardEditPage extends Page {
     // Select filter question
     if (itemObject.filterQuestion) {
       await (await (this.filterQuestionSearchField(rowNum))).addValue(itemObject.filterQuestion);
-      const filterQuestionChoice = await this.filterQuestionListOfOptions(rowNum)[0];
+      const filterQuestionChoice = (await this.filterQuestionListOfOptions(rowNum))[0];
       await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
       await filterQuestionChoice.click();
       await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
@@ -223,7 +223,7 @@ export class InsightDashboardDashboardEditPage extends Page {
     // Select filter answer
     if (itemObject.filterAnswer) {
       await (await this.filterAnswerSearchField(rowNum)).addValue(itemObject.filterAnswer);
-      const filterAnswerChoice = this.filterAnswerListOfOptions(rowNum)[0];
+      const filterAnswerChoice = (await this.filterAnswerListOfOptions(rowNum))[0];
       await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
       await filterAnswerChoice.click();
       await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});

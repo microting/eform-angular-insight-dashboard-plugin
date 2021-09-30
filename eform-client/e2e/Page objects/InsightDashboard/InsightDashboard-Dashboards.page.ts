@@ -146,7 +146,7 @@ export class InsightDashboardDashboardsPage extends Page {
   public async getSurveysSearchField() {
     const ele = await $('#selectSurveyCreate .ng-input > input');
     await ele .waitForDisplayed({timeout: 30000});
-    ele.waitForClickable({timeout: 20000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
@@ -184,7 +184,7 @@ export class DashboardsPageRowObject {
     if ((await $$('#dashboardId'))[rowNum - 1]) {
       this.id = (await $$('#dashboardId'))[rowNum - 1];
       try {
-        this.dashboardName = (await $$('#dashboardName'))[rowNum - 1].getText();
+        this.dashboardName = await (await $$('#dashboardName'))[rowNum - 1].getText();
         // this.companyAddress = $$('#companyAddressTableHeader')[rowNum - 1].getText();
         // this.companyAddress2 = $$('#companyAddress2TableHeader')[rowNum - 1].getText();
         // this.zipCode = $$('#zipCodeTableHeader')[rowNum - 1].getText();
