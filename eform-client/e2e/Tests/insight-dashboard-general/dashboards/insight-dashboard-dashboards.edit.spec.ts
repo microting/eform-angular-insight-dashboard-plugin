@@ -27,61 +27,61 @@ const testItem: DashboardTestItemEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Edit', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard();
-    dashboardEditPage.setDashboardSettings(dashboardConfig);
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard();
+    await dashboardEditPage.setDashboardSettings(dashboardConfig);
   });
-  it('should create initial empty item', function () {
-    $('#dashboardUpdateSaveBtn').waitForDisplayed({timeout: 10000});
-    const itemNumsBeforeInitialItem = dashboardEditPage.rowNum;
-    dashboardEditPage.createFirstItem();
-    expect(itemNumsBeforeInitialItem).equal(dashboardEditPage.rowNum - 1);
+  it('should create initial empty item', async () => {
+    await (await $('#dashboardUpdateSaveBtn')).waitForDisplayed({timeout: 10000});
+    const itemNumsBeforeInitialItem = await dashboardEditPage.rowNum();
+    await dashboardEditPage.createFirstItem();
+    expect(itemNumsBeforeInitialItem).equal(await dashboardEditPage.rowNum() - 1);
   });
-  it('should delete item', function () {
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    const itemNumsBeforeRemoveItem = dashboardEditPage.rowNum;
-    const item = dashboardEditPage.getDashboardItem(itemNumsBeforeRemoveItem);
-    dashboardEditPage.deleteItem(item);
-    expect(itemNumsBeforeRemoveItem).equal(dashboardEditPage.rowNum + 1);
+  it('should delete item', async () => {
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    const itemNumsBeforeRemoveItem = await dashboardEditPage.rowNum();
+    const item = await dashboardEditPage.getDashboardItem(itemNumsBeforeRemoveItem);
+    await dashboardEditPage.deleteItem(item);
+    expect(itemNumsBeforeRemoveItem).equal(await dashboardEditPage.rowNum() + 1);
   });
-  it('should create new item', function () {
-    const itemNumsBeforeInitialItem = dashboardEditPage.rowNum;
-    dashboardEditPage.createFirstItem();
-    expect(itemNumsBeforeInitialItem).equal(dashboardEditPage.rowNum - 1);
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
-    const item = dashboardEditPage.getDashboardItem(itemNumsBeforeCreateItem);
-    dashboardEditPage.createItem(item);
-    expect(itemNumsBeforeCreateItem).equal(dashboardEditPage.rowNum - 1);
+  it('should create new item', async () => {
+    const itemNumsBeforeInitialItem = await dashboardEditPage.rowNum();
+    await dashboardEditPage.createFirstItem();
+    expect(itemNumsBeforeInitialItem).equal(await dashboardEditPage.rowNum() - 1);
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    const itemNumsBeforeCreateItem = await dashboardEditPage.rowNum();
+    const item = await dashboardEditPage.getDashboardItem(itemNumsBeforeCreateItem);
+    await dashboardEditPage.createItem(item);
+    expect(itemNumsBeforeCreateItem).equal(await dashboardEditPage.rowNum() - 1);
   });
-  it('should copy empty item', function () {
-    const itemNumsBeforeCopyItem = dashboardEditPage.rowNum;
-    const item = dashboardEditPage.getDashboardItem(itemNumsBeforeCopyItem);
-    dashboardEditPage.copyItem(item);
-    expect(itemNumsBeforeCopyItem).equal(dashboardEditPage.rowNum - 1);
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  it('should copy empty item', async () => {
+    const itemNumsBeforeCopyItem = await dashboardEditPage.rowNum();
+    const item = await dashboardEditPage.getDashboardItem(itemNumsBeforeCopyItem);
+    await dashboardEditPage.copyItem(item);
+    expect(itemNumsBeforeCopyItem).equal(await dashboardEditPage.rowNum() - 1);
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
-  it('should save filled item', function () {
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard();
-    const itemNumsBeforeCreateItem = dashboardEditPage.rowNum;
-    dashboardEditPage.setDashboardSettings(dashboardConfig);
-    dashboardEditPage.createFirstItem();
-    dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1, testItem);
-    dashboardEditPage.dashboardUpdateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardsViewPage.returnToDashboards.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    const dashboardRowNum = dashboardsPage.rowNum;
-    const createdDashboard = dashboardsPage.getDashboard(dashboardRowNum);
-    createdDashboard.dashboardEditBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    expect(itemNumsBeforeCreateItem).equal(dashboardEditPage.rowNum - 1);
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardEditPage.dashboardUpdateSaveCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  it('should save filled item', async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard();
+    const itemNumsBeforeCreateItem = await dashboardEditPage.rowNum();
+    await dashboardEditPage.setDashboardSettings(dashboardConfig);
+    await dashboardEditPage.createFirstItem();
+    await dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1, testItem);
+    await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await dashboardsViewPage.returnToDashboards()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    const dashboardRowNum = await dashboardsPage.rowNum();
+    const createdDashboard = await dashboardsPage.getDashboard(dashboardRowNum);
+    await createdDashboard.dashboardEditBtn.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    expect(itemNumsBeforeCreateItem).equal(await dashboardEditPage.rowNum() - 1);
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await dashboardEditPage.dashboardUpdateSaveCancelBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
 });

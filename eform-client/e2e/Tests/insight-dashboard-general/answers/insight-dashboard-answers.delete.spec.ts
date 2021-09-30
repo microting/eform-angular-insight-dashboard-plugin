@@ -5,25 +5,25 @@ import answersPage from '../../../Page objects/InsightDashboard/InsightDashboard
 
 const microtingUId = 1413005;
 describe('InSight Dashboard - Answers - Delete', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToAnswers();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToAnswers();
   });
-  it('should be delete answer', function () {
-    answersPage.searchMicrotingUIdInput.setValue(microtingUId);
-    answersPage.searchMicrotingUIdBtn.click();
-    const spinnerAnimation = $('#spinner-animation');
-    spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
-    answersPage.deleteByMicrotingUIdBtn.click();
-    const saveDeleteBtn = $('#saveDeleteBtn');
-    saveDeleteBtn.waitForDisplayed({timeout: 20000});
-    saveDeleteBtn.waitForClickable({ timeout: 20000});
-    saveDeleteBtn.click();
-    spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
-    answersPage.searchMicrotingUIdInput.setValue(microtingUId);
-    answersPage.searchMicrotingUIdBtn.click();
-    spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
-    expect(answersPage.rowNum).eq(0);
+  it('should be delete answer', async () => {
+    await (await answersPage.searchMicrotingUIdInput()).setValue(microtingUId);
+    await (await answersPage.searchMicrotingUIdBtn()).click();
+    const spinnerAnimation = await $('#spinner-animation');
+    await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
+    await (await answersPage.deleteByMicrotingUIdBtn()).click();
+    const saveDeleteBtn = await $('#saveDeleteBtn');
+    await saveDeleteBtn.waitForDisplayed({timeout: 20000});
+    await saveDeleteBtn.waitForClickable({ timeout: 20000});
+    await saveDeleteBtn.click();
+    await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
+    await (await answersPage.searchMicrotingUIdInput()).setValue(microtingUId);
+    await (await answersPage.searchMicrotingUIdBtn()).click();
+    await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
+    expect(await answersPage.rowNum()).eq(0);
   });
 });

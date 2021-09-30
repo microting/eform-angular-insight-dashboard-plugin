@@ -6,25 +6,25 @@ import dashboardsPage, {
 } from '../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 
 describe('InSight Dashboard - Dashboards - Add', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToDashboards();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToDashboards();
   });
-  it('should create dashboard', function () {
-    $('#createDashboardBtn').waitForDisplayed({timeout: 10000});
-    dashboardsPage.createDashboard();
-    insightDashboardPage.goToDashboards();
-    const dashboardCountAfterCreate = dashboardsPage.rowNum;
-    const dashboard = dashboardsPage.getDashboard(dashboardCountAfterCreate);
+  it('should create dashboard', async () => {
+    await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
+    await dashboardsPage.createDashboard();
+    await insightDashboardPage.goToDashboards();
+    const dashboardCountAfterCreate = await dashboardsPage.rowNum();
+    const dashboard = await dashboardsPage.getDashboard(dashboardCountAfterCreate);
     expect(dashboard.dashboardName).equal(dashboardName);
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
-  it('should not create dashboard', function () {
-    const rowNumsBeforeCreate = dashboardsPage.rowNum;
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    $('#createDashboardBtn').waitForDisplayed({timeout: 10000});
-    dashboardsPage.createDashboard_Cancels();
-    expect(rowNumsBeforeCreate).equal(dashboardsPage.rowNum);
+  it('should not create dashboard', async () => {
+    const rowNumsBeforeCreate = await dashboardsPage.rowNum();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
+    await dashboardsPage.createDashboard_Cancels();
+    expect(rowNumsBeforeCreate).equal(await dashboardsPage.rowNum());
   });
 });

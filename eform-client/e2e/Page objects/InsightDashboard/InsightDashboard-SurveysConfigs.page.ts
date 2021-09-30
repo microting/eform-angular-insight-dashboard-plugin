@@ -7,124 +7,132 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     super();
   }
 
-  public get rowNum(): number {
-    browser.pause(500);
-    return $$('#tableBody > tr').length;
+  public async rowNum(): Promise<number> {
+    await browser.pause(500);
+    return (await $$('#tableBody > tr')).length;
   }
 
-  public get surveyConfigCreateBtn() {
-    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 30000});
-    $('#createSurveyConfigBtn').waitForClickable({timeout: 20000});
-    return $('#createSurveyConfigBtn');
-  }
-
-  public get surveyConfigCreateSaveBtn() {
-    $('#surveyConfigCreateSaveBtn').waitForDisplayed({timeout: 30000});
-    $('#surveyConfigCreateSaveBtn').waitForClickable({timeout: 20000});
-    return $('#surveyConfigCreateSaveBtn');
-  }
-
-  public get surveyConfigCreateCancelBtn() {
-    $('#surveyConfigCreateSaveCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#surveyConfigCreateSaveCancelBtn').waitForClickable({timeout: 20000});
-    return $('#surveyConfigCreateSaveCancelBtn');
-  }
-
-  public get surveyConfigEditSaveBtn() {
-    $('#surveyConfigEditSaveBtn').waitForDisplayed({timeout: 30000});
-    $('#surveyConfigEditSaveBtn').waitForClickable({timeout: 20000});
-    return $('#surveyConfigEditSaveBtn');
-  }
-
-  public get surveyConfigEditCancelBtn() {
-    $('#surveyConfigEditSaveCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#surveyConfigEditSaveCancelBtn').waitForClickable({timeout: 20000});
-    return $('#surveyConfigEditSaveCancelBtn');
-  }
-
-  private surveyConfigLocationEditCheckbox(num: number) {
-    const ele =  $(`#checkboxEdit${num}`);
-    ele.waitForDisplayed({timeout: 30000});
-    ele.waitForClickable({timeout: 30000});
+  public async surveyConfigCreateBtn() {
+    const ele = await $('#createSurveyConfigBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
-  private surveyConfigLocationCreateCheckbox(num: number) {
-    const ele = $(`#checkboxCreate${num}`);
-    ele.waitForDisplayed({timeout: 30000});
-    ele.waitForClickable({timeout: 30000});
+  public async surveyConfigCreateSaveBtn() {
+    const ele = await $('#surveyConfigCreateSaveBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
-  public get surveyConfigDeleteSaveBtn() {
-    $('#surveyConfigDeleteSaveBtn').waitForDisplayed({timeout: 30000});
-    $('#surveyConfigDeleteSaveBtn').waitForClickable({timeout: 20000});
-    return $('#surveyConfigDeleteSaveBtn');
+  public async surveyConfigCreateCancelBtn() {
+    const ele = await $('#surveyConfigCreateSaveCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get surveyConfigDeleteCancelBtn() {
-    $('#surveyConfigDeleteCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#surveyConfigDeleteCancelBtn').waitForClickable({timeout: 20000});
-    return $('#surveyConfigDeleteCancelBtn');
+  public async surveyConfigEditSaveBtn() {
+    const ele = await $('#surveyConfigEditSaveBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get installationDeleteCancelBtn() {
-    $('#surveyConfigDeleteCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#surveyConfigDeleteCancelBtn').waitForClickable({timeout: 20000});
-    return $('#surveyConfigDeleteCancelBtn');
+  public async surveyConfigEditCancelBtn() {
+    const ele = await $('#surveyConfigEditSaveCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  createSurveyConfig(configName: string) {
-    this.surveyConfigCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    const searchField = surveyConfigsPage.getSurveysSearchField();
+  private async surveyConfigLocationEditCheckbox(num: number) {
+    const ele =  await $(`#checkboxEdit${num}`);
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 30000});
+    return ele;
+  }
+
+  private async surveyConfigLocationCreateCheckbox(num: number) {
+    const ele = await $(`#checkboxCreate${num}`);
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 30000});
+    return ele;
+  }
+
+  public async surveyConfigDeleteSaveBtn() {
+    const ele = await $('#surveyConfigDeleteSaveBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  public async surveyConfigDeleteCancelBtn() {
+    const ele = await $('#surveyConfigDeleteCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  public async installationDeleteCancelBtn() {
+    const ele = await $('#surveyConfigDeleteCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  async createSurveyConfig(configName: string) {
+    await (await this.surveyConfigCreateBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    const searchField = await surveyConfigsPage.getSurveysSearchField();
     searchField.addValue(configName);
-    const listChoices = surveyConfigsPage.getSurveyListOfChoices();
+    const listChoices = await surveyConfigsPage.getSurveyListOfChoices();
     const choice = listChoices[0];
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    choice.click();
-    browser.pause(1000);
-    this.surveyConfigCreateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await choice.click();
+    await browser.pause(1000);
+    await (await this.surveyConfigCreateSaveBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  createSurveyConfig_Cancels() {
-    this.surveyConfigCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.surveyConfigCreateCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async createSurveyConfig_Cancels() {
+    await (await this.surveyConfigCreateBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.surveyConfigCreateCancelBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
-    rowObject.editSurveyConfigBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.surveyConfigLocationEditCheckbox(1).click();
-    this.surveyConfigLocationEditCheckbox(2).click();
-    browser.pause(1000);
-    this.surveyConfigEditSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
+    await rowObject.editSurveyConfigBtn.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.surveyConfigLocationEditCheckbox(1)).click();
+    await (await this.surveyConfigLocationEditCheckbox(2)).click();
+    await browser.pause(1000);
+    await (await this.surveyConfigEditSaveBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
-    rowObject.editSurveyConfigBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.surveyConfigEditCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
+    await rowObject.editSurveyConfigBtn.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.surveyConfigEditCancelBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
 
-  deleteSurveyConfig(rowObject: SurveysConfigPageRowObject) {
-    rowObject.surveyConfigDeleteBtn.click();
-    browser.pause(1000);
-    this.surveyConfigDeleteSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async deleteSurveyConfig(rowObject: SurveysConfigPageRowObject) {
+    await rowObject.surveyConfigDeleteBtn.click();
+    await browser.pause(1000);
+    await (await this.surveyConfigDeleteSaveBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
-    rowObject.surveyConfigDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.surveyConfigDeleteCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
+    await rowObject.surveyConfigDeleteBtn.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.surveyConfigDeleteCancelBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
   activateSurveyConfig() {
@@ -143,27 +151,30 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     // browser.pause(15000);
   }
 
-  public getSurveysSearchField() {
-    $('#selectSurveyCreate .ng-input > input').waitForDisplayed({timeout: 30000});
-    $('#selectSurveyCreate .ng-input > input').waitForClickable({timeout: 20000});
-    return $('#selectSurveyCreate .ng-input > input');
-  }
-
-  public getSurveyListOfChoices() {
-    const ele = $$('#selectSurveyCreate .ng-option');
-    ele[0].waitForDisplayed({timeout: 30000});
-    ele[0].waitForClickable({timeout: 30000});
+  public async getSurveysSearchField() {
+    const ele = await $('#selectSurveyCreate .ng-input > input');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
-  getFirstRowObject(): SurveysConfigPageRowObject {
-    browser.pause(500);
-    return new SurveysConfigPageRowObject(1);
+  public async getSurveyListOfChoices() {
+    const ele = await $$('#selectSurveyCreate .ng-option');
+    await ele[0].waitForDisplayed({timeout: 30000});
+    await ele[0].waitForClickable({timeout: 30000});
+    return ele;
   }
 
-  getSurveyConfig(num): SurveysConfigPageRowObject {
-    browser.pause(500);
-    return new SurveysConfigPageRowObject(num);
+  async getFirstRowObject(): Promise<SurveysConfigPageRowObject> {
+    await browser.pause(500);
+    const obj = new SurveysConfigPageRowObject();
+    return await obj.getRow(1);
+  }
+
+  async getSurveyConfig(num): Promise<SurveysConfigPageRowObject> {
+    await browser.pause(500);
+    const obj = new SurveysConfigPageRowObject();
+    return await obj.getRow(num);
   }
 }
 
@@ -171,26 +182,7 @@ const surveyConfigsPage = new InsightDashboardSurveysConfigsPage();
 export default surveyConfigsPage;
 
 export class SurveysConfigPageRowObject {
-  constructor(rowNum) {
-    if ($$('#surveyConfigId')[rowNum - 1]) {
-      this.id = $$('#surveyConfigId')[rowNum - 1];
-      try {
-        this.surveyName = $$('#surveyConfigName')[rowNum - 1].getText();
-        // this.companyAddress = $$('#companyAddressTableHeader')[rowNum - 1].getText();
-        // this.companyAddress2 = $$('#companyAddress2TableHeader')[rowNum - 1].getText();
-        // this.zipCode = $$('#zipCodeTableHeader')[rowNum - 1].getText();
-        // this.cityName = $$('#cityNameTableHeader')[rowNum - 1].getText();
-        // this.countryCode = $$('#countryCodeTableHeader')[rowNum - 1].getText();
-        // this.dateInstall = $$('#dateInstallTableHeader')[rowNum - 1].getText();
-        this.locations = $$('#surveyConfigLocation > p')[rowNum - 1];
-      } catch (e) {
-      }
-      // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
-      this.editSurveyConfigBtn = $$('#editSurveyConfigBtn')[rowNum - 1];
-      this.surveyConfigDeleteBtn = $$('#surveyConfigDeleteBtn')[rowNum - 1];
-      this.surveyConfigActivateBtn = $$('#surveyConfigActivateBtn')[rowNum - 1];
-    }
-  }
+  constructor() {}
 
   public id;
   public surveyName;
@@ -198,4 +190,25 @@ export class SurveysConfigPageRowObject {
   public editSurveyConfigBtn;
   public surveyConfigDeleteBtn;
   public surveyConfigActivateBtn;
+  async getRow(rowNum: number): Promise<SurveysConfigPageRowObject> {
+    if ((await $$('#surveyConfigId'))[rowNum - 1]) {
+      this.id = (await $$('#surveyConfigId'))[rowNum - 1];
+      try {
+        this.surveyName = (await $$('#surveyConfigName'))[rowNum - 1].getText();
+        // this.companyAddress = $$('#companyAddressTableHeader')[rowNum - 1].getText();
+        // this.companyAddress2 = $$('#companyAddress2TableHeader')[rowNum - 1].getText();
+        // this.zipCode = $$('#zipCodeTableHeader')[rowNum - 1].getText();
+        // this.cityName = $$('#cityNameTableHeader')[rowNum - 1].getText();
+        // this.countryCode = $$('#countryCodeTableHeader')[rowNum - 1].getText();
+        // this.dateInstall = $$('#dateInstallTableHeader')[rowNum - 1].getText();
+        this.locations = (await $$('#surveyConfigLocation > p'))[rowNum - 1];
+      } catch (e) {
+      }
+      // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
+      this.editSurveyConfigBtn = (await $$('#editSurveyConfigBtn'))[rowNum - 1];
+      this.surveyConfigDeleteBtn = (await $$('#surveyConfigDeleteBtn'))[rowNum - 1];
+      this.surveyConfigActivateBtn = (await $$('#surveyConfigActivateBtn'))[rowNum - 1];
+    }
+    return this;
+  }
 }

@@ -5,26 +5,26 @@ export class InsightDashboardAnswersPage extends Page {
     super();
   }
 
-  public get searchMicrotingUIdInput() {
-    const ele = $('#searchMicrotingUIdInput');
-    ele.waitForDisplayed({timeout: 20000});
+  public async searchMicrotingUIdInput() {
+    const ele = await $('#searchMicrotingUIdInput');
+    await ele.waitForDisplayed({timeout: 20000});
     return ele;
   }
-  public get searchMicrotingUIdBtn() {
-    const ele = $('#searchMicrotingUIdBtn');
-    ele.waitForDisplayed({timeout: 20000});
-    ele.waitForClickable({timeout: 20000});
+  public async searchMicrotingUIdBtn() {
+    const ele = await $('#searchMicrotingUIdBtn');
+    await ele.waitForDisplayed({timeout: 20000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
-  public get deleteByMicrotingUIdBtn() {
-    const ele = $('#deleteByMicrotingUIdBtn');
-    ele.waitForDisplayed({timeout: 20000});
-    ele.waitForClickable({ timeout: 20000});
+  public async deleteByMicrotingUIdBtn() {
+    const ele = await $('#deleteByMicrotingUIdBtn');
+    await ele.waitForDisplayed({timeout: 20000});
+    await ele.waitForClickable({ timeout: 20000});
     return ele;
   }
-  public get rowNum(): number {
-    browser.pause(500);
-    return $$('#answerValueId').length;
+  public async rowNum(): Promise<number> {
+    await browser.pause(500);
+    return (await $$('#answerValueId')).length;
   }
 }
 

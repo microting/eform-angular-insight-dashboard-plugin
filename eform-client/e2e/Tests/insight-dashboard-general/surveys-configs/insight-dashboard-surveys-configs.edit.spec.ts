@@ -4,27 +4,27 @@ import insightDashboardPage from '../../../Page objects/InsightDashboard/Insight
 import surveyConfigsPage, {configName} from '../../../Page objects/InsightDashboard/InsightDashboard-SurveysConfigs.page';
 
 describe('InSight Dashboard - Survey Configs - Edit', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToSurveysConfigs();
-    surveyConfigsPage.createSurveyConfig(configName);
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToSurveysConfigs();
+    await surveyConfigsPage.createSurveyConfig(configName);
   });
-  it('Should not update survey config', function () {
-    const surveyConfig = surveyConfigsPage.getSurveyConfig(surveyConfigsPage.rowNum);
+  it('Should not update survey config', async () => {
+    const surveyConfig = await surveyConfigsPage.getSurveyConfig(await surveyConfigsPage.rowNum());
     const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 30000});
-    surveyConfigsPage.updateSurveyConfig_Cancels(surveyConfig);
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 30000});
+    await surveyConfigsPage.updateSurveyConfig_Cancels(surveyConfig);
     const locationsAfterUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
     expect(locationsAfterUpdate).equal(locationsBeforeUpdate);
   });
-  it('Should update survey config', function () {
-    const surveyConfig = surveyConfigsPage.getSurveyConfig(surveyConfigsPage.rowNum);
+  it('Should update survey config', async () => {
+    const surveyConfig = await surveyConfigsPage.getSurveyConfig(await surveyConfigsPage.rowNum());
     const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 30000});
-    surveyConfigsPage.updateSurveyConfig(surveyConfig);
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 30000});
+    await surveyConfigsPage.updateSurveyConfig(surveyConfig);
     const locationsAfterUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
     expect(locationsAfterUpdate).equal(locationsBeforeUpdate);
   });

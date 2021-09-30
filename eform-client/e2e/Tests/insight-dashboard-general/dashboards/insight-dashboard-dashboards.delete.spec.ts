@@ -4,27 +4,27 @@ import insightDashboardPage from '../../../Page objects/InsightDashboard/Insight
 import dashboardsPage from '../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 
 describe('InSight Dashboard - Dashboards - Delete', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard();
-    insightDashboardPage.goToDashboards();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard();
+    await insightDashboardPage.goToDashboards();
   });
-  it('should not delete dashboard', function () {
-    const rowNumsBeforeDelete = dashboardsPage.rowNum;
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    $('#createDashboardBtn').waitForDisplayed({timeout: 10000});
-    dashboardsPage.deleteDashboard_Cancels(dashboardsPage.getDashboard(rowNumsBeforeDelete));
-    expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum);
+  it('should not delete dashboard', async () => {
+    const rowNumsBeforeDelete = await dashboardsPage.rowNum();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
+    await dashboardsPage.deleteDashboard_Cancels(await dashboardsPage.getDashboard(rowNumsBeforeDelete));
+    expect(rowNumsBeforeDelete).equal(await dashboardsPage.rowNum());
   });
-  it('should delete dashboard', function () {
-    $('#createDashboardBtn').waitForDisplayed({timeout: 10000});
-    const rowNumsBeforeDelete = dashboardsPage.rowNum;
-    dashboardsPage.deleteDashboard(dashboardsPage.getDashboard(rowNumsBeforeDelete));
-    insightDashboardPage.goToDashboards();
-    
-    expect(rowNumsBeforeDelete).equal(dashboardsPage.rowNum + 1);
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  it('should delete dashboard', async () => {
+    await $('#createDashboardBtn').waitForDisplayed({timeout: 10000});
+    const rowNumsBeforeDelete = await dashboardsPage.rowNum();
+    await dashboardsPage.deleteDashboard(await dashboardsPage.getDashboard(rowNumsBeforeDelete));
+    await insightDashboardPage.goToDashboards();
+
+    expect(rowNumsBeforeDelete).equal(await dashboardsPage.rowNum() + 1);
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
 });

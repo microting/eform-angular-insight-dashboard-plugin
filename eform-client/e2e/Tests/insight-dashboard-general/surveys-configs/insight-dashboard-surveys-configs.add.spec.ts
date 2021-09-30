@@ -5,22 +5,22 @@ import surveyConfigsPage, {configName} from '../../../Page objects/InsightDashbo
 
 
 describe('InSight Dashboard - Survey Config - Add', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToSurveysConfigs();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToSurveysConfigs();
   });
-  it('Should create survey config', function () {
-    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 30000});
-    surveyConfigsPage.createSurveyConfig(configName);
-    const surveyConfig = surveyConfigsPage.getFirstRowObject();
+  it('Should create survey config', async () => {
+    await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 30000});
+    await surveyConfigsPage.createSurveyConfig(configName);
+    const surveyConfig = await surveyConfigsPage.getFirstRowObject();
     expect(surveyConfig.surveyName).equal(configName);
   });
-  it('Should not create survey config', function () {
-    const rowNumsBeforeCreate = surveyConfigsPage.rowNum;
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 10000});
-    surveyConfigsPage.createSurveyConfig_Cancels();
-    expect(rowNumsBeforeCreate).equal(surveyConfigsPage.rowNum);
+  it('Should not create survey config', async () => {
+    const rowNumsBeforeCreate = await surveyConfigsPage.rowNum();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 10000});
+    await surveyConfigsPage.createSurveyConfig_Cancels();
+    expect(rowNumsBeforeCreate).equal(await surveyConfigsPage.rowNum());
   });
 });

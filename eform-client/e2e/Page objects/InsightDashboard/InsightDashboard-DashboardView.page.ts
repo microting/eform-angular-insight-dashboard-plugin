@@ -7,97 +7,98 @@ export class InsightDashboardDashboardViewPage extends Page {
     super();
   }
 
-  public get rowNum(): number {
-    browser.pause(1000);
-    return $$('#dashboardViewItem').length;
+  public async rowNum(): Promise<number> {
+    await browser.pause(1000);
+    return (await $$('#dashboardViewItem')).length;
   }
 
-  public get returnToDashboards() {
-    $('#returnToPrevious').waitForDisplayed({timeout: 30000});
-    $('#returnToPrevious').waitForClickable({timeout: 20000});
-    return $('#returnToPrevious');
-  }
-
-  public firstQuestion(rowNum: number) {
-    const ele = $(`#firstQuestion${rowNum}`);
-    ele.waitForDisplayed({timeout: 30000});
+  public async returnToDashboards() {
+    const ele = await $('#returnToPrevious');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
-  public filterQuestion(rowNum: number) {
+  public async firstQuestion(rowNum: number) {
+    const ele = await $(`#firstQuestion${rowNum}`);
+    await ele.waitForDisplayed({timeout: 30000});
+    return ele;
+  }
+
+  public async filterQuestion(rowNum: number) {
     return $(`#filterQuestion${rowNum}`);
   }
 
-  public filterAnswer(rowNum: number) {
+  public async filterAnswer(rowNum: number) {
     return $(`#filterAnswer${rowNum}`);
   }
 
-  public dateFrom(rowNum: number) {
+  public async dateFrom(rowNum: number) {
     return $(`#dateFrom${rowNum}`);
   }
 
-  public dateTo(rowNum: number) {
+  public async dateTo(rowNum: number) {
     return $(`#dateTo${rowNum}`);
   }
 
-  public period(rowNum: number) {
+  public async period(rowNum: number) {
     return $(`#period${rowNum}`);
   }
 
-  public chartType(rowNum: number) {
+  public async chartType(rowNum: number) {
     return $(`#chartType${rowNum}`);
   }
 
-  public rawChartDataHeaders(rowNum: number, rawDataNum: number) {
-    return $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewRawHeader`);
+  public async rawChartDataHeaders(rowNum: number, rawDataNum: number) {
+    return (await $(`#dashboardViewChartData${rowNum}_${rawDataNum}`)).$$(`#dataViewRawHeader`);
   }
 
-  public rawChartDataPercentValueRows(rowNum: number, rawDataNum: number, dataItemNum: number) {
-    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewPercent${dataItemNum}`);
+  public async rawChartDataPercentValueRows(rowNum: number, rawDataNum: number, dataItemNum: number) {
+    const dataViewPercentRow = await (await $(`#dashboardViewChartData${rowNum}_${rawDataNum}`)).$$(`#dataViewPercent${dataItemNum}`);
     return dataViewPercentRow.map(x => {
       return x.$$(`#dataViewPercentValue`);
     });
   }
 
-  public rawChartDataAmountValueRows(rowNum: number, rawDataNum: number, dataItemNum: number) {
-    const dataViewPercentRow = $(`#dashboardViewChartData${rowNum}_${rawDataNum}`).$$(`#dataViewAmount${dataItemNum}`);
+  public async rawChartDataAmountValueRows(rowNum: number, rawDataNum: number, dataItemNum: number) {
+    const dataViewPercentRow = await (await $(`#dashboardViewChartData${rowNum}_${rawDataNum}`)).$$(`#dataViewAmount${dataItemNum}`);
     return dataViewPercentRow.map(x => {
       return x.$$(`#dataViewAmountValue`);
     });
   }
 
-  public compareHeaders(dataJson: any) {
+  public async compareHeaders(dataJson: any) {
     // items in dashboard
-    for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
+    for (let itemIndex = 0; itemIndex < await dashboardsViewPage.rowNum(); itemIndex++) {
       // raw data in item
       for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
-        const headerArray = dashboardsViewPage.rawChartDataHeaders(itemIndex, rawDataIndex);
+        const headerArray = await dashboardsViewPage.rawChartDataHeaders(itemIndex, rawDataIndex);
         // headers in raw data
         for (let headerIndex = 0; headerIndex < headerArray.length; headerIndex++) {
           expect(dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawHeaders[headerIndex]
             , `Header is incorrect on ${itemIndex} item, ${headerIndex} header`)
-            .equal(headerArray[headerIndex].getText());
+            .equal(await headerArray[headerIndex].getText());
         }
       }
     }
   }
 
-  public comparePercentage(dataJson: any, addPercentSymbol: boolean = true) {
-    for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
+  public async comparePercentage(dataJson: any, addPercentSymbol: boolean = true) {
+    for (let itemIndex = 0; itemIndex < await dashboardsViewPage.rowNum(); itemIndex++) {
       // raw data in item
       for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
         // data items in raw data
         for (let rawDataItemIndex = 0; rawDataItemIndex < dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems.length;
              rawDataItemIndex++) {
-          const percentValueRows = dashboardsViewPage.rawChartDataPercentValueRows(itemIndex, rawDataIndex, rawDataItemIndex);
+          const percentValueRows = await dashboardsViewPage.rawChartDataPercentValueRows(itemIndex, rawDataIndex, rawDataItemIndex);
           // rows in data item
           for (let row = 0; row < percentValueRows.length; row++) {
             // columns in row
-            for (let value = 0; value < percentValueRows[row].length; value++) {
+            for (let value = 0; value < await percentValueRows[row].length; value++) {
               // Requires % to compare correctly
               expect(`${dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataIndex].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`,
                 `Percentage is incorrect on ${itemIndex} item, ${row} row, ${value} value`)
-                .equal(percentValueRows[row][value].getText());
+                .equal(await percentValueRows[row][value].getText());
             }
           }
         }
@@ -115,16 +116,16 @@ export class InsightDashboardDashboardViewPage extends Page {
 //   rawDataValues: DashboardChartRawDataValuesModel[];
 // }
 
-  public compareAmounts(dataJson: any) {
-    for (let itemIndex = 0; itemIndex < dashboardsViewPage.rowNum; itemIndex++) {
+  public async compareAmounts(dataJson: any) {
+    for (let itemIndex = 0; itemIndex < await dashboardsViewPage.rowNum(); itemIndex++) {
       // raw data in item
       for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
         // data items in raw data
         for (let rawDataItemIndex = 0; rawDataItemIndex < dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems.length; rawDataItemIndex++) {
-          const amountValueRows = dashboardsViewPage.rawChartDataAmountValueRows(itemIndex, rawDataIndex, rawDataItemIndex);
+          const amountValueRows = await dashboardsViewPage.rawChartDataAmountValueRows(itemIndex, rawDataIndex, rawDataItemIndex);
           // rows in raw data
           for (let row = 0; row < amountValueRows.length; row++) {
-            for (let amount = 0; amount < amountValueRows[row].length; amount++) {
+            for (let amount = 0; amount < await amountValueRows[row].length; amount++) {
               // Requires cast to integer or to string
               expect(dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataIndex].rawDataValues[row].amounts[amount],
                 `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`)
@@ -136,13 +137,13 @@ export class InsightDashboardDashboardViewPage extends Page {
     }
   }
 
-  compareItem(rowNum: number, originalItem: DashboardTestItemEditModel, config: DashboardTestConfigEditModel) {
+  async compareItem(rowNum: number, originalItem: DashboardTestItemEditModel, config: DashboardTestConfigEditModel) {
     browser.pause(1000);
-    expect(this.firstQuestion(rowNum).getText()).equal(originalItem.firstQuestion);
-    expect(this.filterQuestion(rowNum).getText()).equal(originalItem.filterQuestion);
-    expect(this.filterAnswer(rowNum).getText()).equal(originalItem.filterAnswer);
-    expect(this.dateFrom(rowNum).getText()).equal(config.dateFrom);
-    expect(this.dateTo(rowNum).getText()).equal(config.dateTo);
+    expect(await (await this.firstQuestion(rowNum)).getText()).equal(originalItem.firstQuestion);
+    expect(await (await this.filterQuestion(rowNum)).getText()).equal(originalItem.filterQuestion);
+    expect(await (await this.filterAnswer(rowNum)).getText()).equal(originalItem.filterAnswer);
+    expect(await (await this.dateFrom(rowNum)).getText()).equal(config.dateFrom);
+    expect(await (await this.dateTo(rowNum)).getText()).equal(config.dateTo);
   }
 }
 
