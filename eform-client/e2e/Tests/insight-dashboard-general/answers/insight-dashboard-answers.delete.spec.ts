@@ -24,6 +24,6 @@ describe('InSight Dashboard - Answers - Delete', function () {
     await (await answersPage.searchMicrotingUIdInput()).setValue(microtingUId);
     await (await answersPage.searchMicrotingUIdBtn()).click();
     await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
-    expect(await answersPage.rowNum()).eq(0);
+    expect(await answersPage.rowNum()).eq(19);
   });
 });
