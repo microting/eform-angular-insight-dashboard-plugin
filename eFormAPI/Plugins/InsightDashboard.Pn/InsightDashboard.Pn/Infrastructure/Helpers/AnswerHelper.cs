@@ -63,7 +63,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                         answer.Name,
                         UnitUid = unit.MicrotingUid
                     })
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                 .Where(x => x.MicrotingUid == microtingUid)
                 .AsQueryable()
                 .Select(answers => new AnswerViewModel()
@@ -87,7 +87,7 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                                 questionTranslation.Name
                             })
                         .Where(answerValues => answerValues.AnswerId == answers.Id)
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                         .AsQueryable()
                         .Select(a => new AnswerValuesViewModel()
                         {
