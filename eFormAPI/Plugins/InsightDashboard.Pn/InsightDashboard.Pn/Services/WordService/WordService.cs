@@ -26,7 +26,6 @@ namespace InsightDashboard.Pn.Services.WordService
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Drawing;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -185,18 +184,26 @@ namespace InsightDashboard.Pn.Services.WordService
                             throw new InvalidOperationException($"{nameof(imageFile)} is null");
                         }
 
-                        using (var image = Image.FromStream(imageFile.OpenReadStream()))
+                        await using (var memoryStream = new MemoryStream())
                         {
-                            using (var memoryStream = new MemoryStream())
-                            {
-                                image.Save(memoryStream, image.RawFormat);
-                                var imageBytes = memoryStream.ToArray();
-
-                                // Convert byte[] to Base64 String
-                                var base64String = Convert.ToBase64String(imageBytes);
-                                itemsHtml = itemsHtml.Replace($"pngBase64String_{dashboardItem.Id}", base64String);
-                            }
+                            await imageFile.CopyToAsync(memoryStream);
+                            var imageBytes = memoryStream.ToArray();
+                            var base64String = Convert.ToBase64String(imageBytes);
+                            itemsHtml = itemsHtml.Replace($"pngBase64String_{dashboardItem.Id}", base64String);
                         }
+
+                        // using (var image = Image.FromStream(imageFile.OpenReadStream()))
+                        // {
+                        //     await using (var memoryStream = new MemoryStream())
+                        //     {
+                        //         image.Save(memoryStream, image.RawFormat);
+                        //         var imageBytes = memoryStream.ToArray();
+                        //
+                        //         // Convert byte[] to Base64 String
+                        //         var base64String = Convert.ToBase64String(imageBytes);
+                        //         itemsHtml = itemsHtml.Replace($"pngBase64String_{dashboardItem.Id}", base64String);
+                        //     }
+                        // }
 
                         // Tables
                         foreach (var rawDataItem in dashboardItem.ChartData.RawData)
