@@ -19,7 +19,7 @@ exports.config = {
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.delete.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.copy.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.edit.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.view.spec.ts',
+    //'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.view.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line.multi.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-horizontal-bar.multi.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-vertical-bar.multi.spec.ts',
