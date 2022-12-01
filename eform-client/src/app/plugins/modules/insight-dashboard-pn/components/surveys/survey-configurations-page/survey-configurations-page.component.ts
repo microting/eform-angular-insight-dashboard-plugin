@@ -13,12 +13,15 @@ import {
   InsightDashboardPnSurveyConfigsService,
 } from '../../../services';
 import {
-  CommonDictionaryModel,
+  CommonDictionaryModel, PaginationModel,
   TableHeaderElementModel,
-} from '../../../../../../common/models';
+} from 'src/app/common/models';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { SitesService } from 'src/app/common/services';
 import { SurveysStateService } from '../store';
+import {Sort} from '@angular/material/sort';
+import {MtxGridColumn} from '@ng-matero/extensions/grid';
+import {TranslateService} from '@ngx-translate/core';
 
 @AutoUnsubscribe()
 @Component({
@@ -43,28 +46,67 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   getSurveysSub$: Subscription;
   getLocationsSub$: Subscription;
 
-  tableHeaders: TableHeaderElementModel[] = [
-    { name: 'Id', elementId: 'idTableHeader', sortable: true },
+
+  tableHeaders: MtxGridColumn[] = [
+    {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
+    {header: this.translateService.stream('Survey Name'), sortProp: {id: 'SurveyName'}, field: 'surveyName', sortable: true},
     {
-      name: 'SurveyName',
-      elementId: 'surveyNameTableHeader',
+      header: this.translateService.stream('Location Name'),
+      field: 'locations',
       sortable: true,
-      visibleName: 'Survey Name',
+      sortProp: {id: 'LocationName'},
+      // @ts-ignore
+      formatter: (surveyConfig: SurveyConfigModel) => surveyConfig.locations.map(location => `<p class="m-1">${location.name}</p>`).toString().replaceAll(',', '')
     },
     {
-      name: 'LocationName',
-      elementId: 'locationNameTableHeader',
-      sortable: false,
-      visibleName: 'Location Name',
+      header: this.translateService.stream('Actions'),
+      field: 'actions',
+      type: 'button',
+      buttons: [
+        {
+          color: 'accent',
+          type: 'icon',
+          icon: 'edit',
+          tooltip: this.translateService.stream('Edit Survey Config'),
+          click: (surveyConfig: SurveyConfigModel) => this.openEditModal(surveyConfig),
+          class: 'editSurveyConfigBtn',
+        },
+        {
+          color: 'primary',
+          type: 'icon',
+          icon: 'toggle_on',
+          iif: (surveyConfig: SurveyConfigModel) => !surveyConfig.isActive,
+          tooltip: this.translateService.stream('Activate Survey config'),
+          click: (surveyConfig: SurveyConfigModel) => this.openStatusModal(surveyConfig),
+          class: 'surveyConfigStatus',
+        },
+        {
+          color: 'accent',
+          type: 'icon',
+          icon: 'toggle_off',
+          iif: (surveyConfig: SurveyConfigModel) => surveyConfig.isActive,
+          tooltip: this.translateService.stream('Deactivate Survey config'),
+          click: (surveyConfig: SurveyConfigModel) => this.openStatusModal(surveyConfig),
+          class: 'surveyConfigStatus',
+        },
+        {
+          color: 'warn',
+          type: 'icon',
+          icon: 'delete',
+          tooltip: this.translateService.stream('Delete Survey'),
+          click: (surveyConfig: SurveyConfigModel) => this.openDeleteModal(surveyConfig),
+          class: 'surveyConfigDeleteBtn',
+        },
+      ]
     },
-    { name: 'Actions', elementId: '', sortable: false },
-  ];
+  ]
 
   constructor(
     private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
     private dictionariesService: InsightDashboardPnDashboardDictionariesService,
     private sitesService: SitesService,
-    public surveysStateService: SurveysStateService
+    public surveysStateService: SurveysStateService,
+    private translateService: TranslateService,
   ) {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.surveysStateService.updateNameFilter(val);
@@ -108,8 +150,9 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  sortTable(sort: string) {
-    this.surveysStateService.onSortTable(sort);
+
+  sortTable(sort: Sort) {
+    this.surveysStateService.onSortTable(sort.active);
     this.getSurveyConfigsList();
   }
 
@@ -140,8 +183,8 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {}
 
-  onPageSizeChanged(pageSize: number) {
-    this.surveysStateService.updatePageSize(pageSize);
+  onPaginationChanged(paginationModel: PaginationModel) {
+    this.surveysStateService.updatePagination(paginationModel);
     this.getSurveyConfigsList();
   }
 

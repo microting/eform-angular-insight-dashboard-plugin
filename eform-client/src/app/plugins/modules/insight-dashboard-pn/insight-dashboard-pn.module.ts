@@ -56,6 +56,9 @@ import {
   surveysPersistProvider,
 } from './components/surveys/store';
 import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import {MatButtonModule} from '@angular/material/button';
+import {MtxGridModule} from '@ng-matero/extensions/grid';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -73,6 +76,9 @@ import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
     CollapseModule,
     NgxChartsModule,
     OwlDateTimeModule,
+    MatButtonModule,
+    MtxGridModule,
+    MatInputModule,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
