@@ -6,279 +6,290 @@ export class InsightDashboardDashboardEditPage extends Page {
     super();
   }
 
-  public get rowNum(): number {
-    browser.pause(500);
-    return $$('#dashboardItem').length;
+  public async rowNum(): Promise<number> {
+    await browser.pause(500);
+    return (await $$('#dashboardItem')).length;
   }
 
-  public get initialItemCreateBtn() {
-    $('#initialItemCreateBtn').waitForDisplayed({timeout: 30000});
-    $('#initialItemCreateBtn').waitForClickable({timeout: 20000});
-    return $('#initialItemCreateBtn');
-  }
-
-  public get dashboardUpdateSaveBtn() {
-    $('#dashboardUpdateSaveBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardUpdateSaveBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardUpdateSaveBtn');
-  }
-
-  public get dashboardUpdateSaveCancelBtn() {
-    $('#dashboardUpdateSaveCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardUpdateSaveCancelBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardUpdateSaveCancelBtn');
-  }
-
-  public get dashboardName() {
-    $('#dashboardNameCreate').waitForDisplayed({timeout: 30000});
-    $('#dashboardNameCreate').waitForClickable({timeout: 20000});
-    return $('#dashboardNameCreate');
-  }
-
-  public get dashboardRangeToTodayCheckbox() {
-    $('#rangeToTodayCheckbox').waitForDisplayed({timeout: 30000});
-    $('#rangeToTodayCheckbox').waitForClickable({timeout: 20000});
-    return $('#rangeToTodayCheckbox');
-  }
-
-  public get dashboardDateFrom() {
-    $('#dateFromInput').waitForDisplayed({timeout: 30000});
-    $('#dateFromInput').waitForClickable({timeout: 20000});
-    return $('#dateFromInput');
-  }
-
-  public get dashboardDateTo() {
-    $('#dateToInput').waitForDisplayed({timeout: 30000});
-    $('#dateToInput').waitForClickable({timeout: 20000});
-    return $('#dateToInput');
-  }
-
-  public firstQuestionSearchField(rowNum: number) {
-    const ele = $(`#editFirstQuestion${rowNum} .ng-input > input`);
-    ele.waitForDisplayed({timeout: 20000});
+  public async initialItemCreateBtn() {
+    const ele = await $('#initialItemCreateBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
-  public firstQuestionListOfOptions(rowNum: number) {
+  public async dashboardUpdateSaveBtn() {
+    const ele = await $('#dashboardUpdateSaveBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  public async dashboardUpdateSaveCancelBtn() {
+    const ele = await $('#dashboardUpdateSaveCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  public async dashboardName() {
+    const ele = await $('#dashboardNameCreate');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  public async dashboardRangeToTodayCheckbox() {
+    const ele = await $('#rangeToTodayCheckbox');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  public async dashboardDateFrom() {
+    const ele = await $('#dateFromInput');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  public async dashboardDateTo() {
+    const ele = await $('#dateToInput');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
+  }
+
+  public async firstQuestionSearchField(rowNum: number) {
+    const ele = await $(`#editFirstQuestion${rowNum} .ng-input > input`);
+    await ele.waitForDisplayed({timeout: 20000});
+    return ele;
+  }
+
+  public async firstQuestionListOfOptions(rowNum: number) {
     return $$(`#editFirstQuestion${rowNum} .ng-option`);
   }
 
-  public filterQuestion(rowNum: number) {
+  public async filterQuestion(rowNum: number) {
     return $(`#editFilterQuestion${rowNum}`);
   }
 
-  public filterQuestionSearchField(rowNum: number) {
+  public async filterQuestionSearchField(rowNum: number) {
     return $(`#editFilterQuestion${rowNum} .ng-input > input`);
   }
 
-  public filterQuestionListOfOptions(rowNum: number) {
+  public async filterQuestionListOfOptions(rowNum: number) {
     return $$(`#editFilterQuestion${rowNum} .ng-option`);
   }
 
-  public filterAnswer(rowNum: number) {
+  public async filterAnswer(rowNum: number) {
     return $(`#editFilterAnswer${rowNum}`);
   }
 
-  public filterAnswerSearchField(rowNum: number) {
+  public async filterAnswerSearchField(rowNum: number) {
     return $(`#editFilterAnswer${rowNum} .ng-input > input`);
   }
 
-  public filterAnswerListOfOptions(rowNum: number) {
+  public async filterAnswerListOfOptions(rowNum: number) {
     return $$(`#editFilterAnswer${rowNum} .ng-option`);
   }
 
-  public period(rowNum: number) {
+  public async period(rowNum: number) {
     return $(`#editPeriod${rowNum}`);
   }
 
-  public calculateAverageCheckbox(rowNum: number) {
-    const ele = $(`#calculateAverageCheckbox${rowNum}`);
-    ele.waitForDisplayed({timeout: 30000});
+  public async calculateAverageCheckbox(rowNum: number) {
+    const ele = await $(`#calculateAverageCheckbox${rowNum}`);
+    await ele.waitForDisplayed({timeout: 30000});
     return ele;
   }
 
-  public enableCompareCheckbox(rowNum: number) {
-    const ele = $(`#enableCompareLabel${rowNum}`);
-    ele.waitForDisplayed({timeout: 30000});
-    ele.waitForClickable({timeout: 20000});
+  public async enableCompareCheckbox(rowNum: number) {
+    const ele = await $(`#enableCompareLabel${rowNum}`);
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
-  public enableIgnoreCheckbox(rowNum: number) {
+  public async enableIgnoreCheckbox(rowNum: number) {
     return $(`#enableIgnoreCheckbox${rowNum}`);
   }
 
-  public answerIgnoreCheckbox(rowNum: number, ignoredAnswerId: number) {
+  public async answerIgnoreCheckbox(rowNum: number, ignoredAnswerId: number) {
     return $(`#answerIgnoreCheckbox${ignoredAnswerId}_${rowNum}`);
   }
 
-  public compareItemInput(rowNum: number, compareItemIndex: number) {
+  public async compareItemInput(rowNum: number, compareItemIndex: number) {
     return $(`#locationTag${rowNum}_${compareItemIndex}`);
   }
 
-  public periodSearchField(rowNum: number) {
+  public async periodSearchField(rowNum: number) {
     return $(`#editPeriod${rowNum} .ng-input > input`);
   }
 
-  public periodListOfOptions(rowNum: number) {
+  public async periodListOfOptions(rowNum: number) {
     return $$(`#editPeriod${rowNum} .ng-option`);
   }
 
-  public chartType(rowNum: number) {
+  public async chartType(rowNum: number) {
     return $(`#editChartType${rowNum}`);
   }
 
-  public chartTypeSearchField(rowNum: number) {
+  public async chartTypeSearchField(rowNum: number) {
     return $(`#editChartType${rowNum} .ng-input > input`);
   }
 
-  public chartTypeListOfOptions(rowNum: number) {
+  public async chartTypeListOfOptions(rowNum: number) {
     return $$(`#editChartType${rowNum} .ng-option`);
   }
 
 
-  public getLocationTagSearchField() {
-    $('#selectLocationTag .ng-input > input').waitForDisplayed({timeout: 30000});
-    $('#selectLocationTag .ng-input > input').waitForClickable({timeout: 20000});
-    return $('#selectLocationTag .ng-input > input');
-  }
-
-  public getLocationTagListOfChoices() {
-    const ele = $$('#selectLocationTag .ng-option');
-    ele[0].waitForDisplayed({timeout: 30000});
-    ele[0].waitForClickable({timeout: 30000});
+  public async getLocationTagSearchField() {
+    const ele = await $('#selectLocationTag .ng-input > input');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
-  setDashboardSettings(model: DashboardTestConfigEditModel) {
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  public async getLocationTagListOfChoices() {
+    const ele = await $$('#selectLocationTag .ng-option');
+    await ele[0].waitForDisplayed({timeout: 30000});
+    await ele[0].waitForClickable({timeout: 30000});
+    return ele;
+  }
+
+  async setDashboardSettings(model: DashboardTestConfigEditModel) {
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
 
     // Set date from and date to
     if (model.dateFrom) {
-      this.dashboardDateFrom.addValue(model.dateFrom);
+      await (await this.dashboardDateFrom()).addValue(model.dateFrom);
     }
     if (model.dateTo) {
-      this.dashboardDateTo.addValue(model.dateTo);
+      await (await this.dashboardDateTo()).addValue(model.dateTo);
     }
 
     // Set today
     if (model.today) {
-      this.dashboardRangeToTodayCheckbox.click();
+      await (await this.dashboardRangeToTodayCheckbox()).click();
     }
 
-    const locationSearchField = this.getLocationTagSearchField();
-    locationSearchField.addValue(model.locationTagName);
-    const locationListChoices = this.getLocationTagListOfChoices();
+    const locationSearchField = await this.getLocationTagSearchField();
+    await locationSearchField.addValue(model.locationTagName);
+    const locationListChoices = await this.getLocationTagListOfChoices();
     const locationChoice = locationListChoices[0];
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    locationChoice.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await locationChoice.click();
 
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  createFirstItem() {
-    this.initialItemCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async createFirstItem() {
+    await (await this.initialItemCreateBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  createItem(rowObject: InsightDashboardEditRowObject) {
-    rowObject.itemCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async createItem(rowObject: InsightDashboardEditRowObject) {
+    await (await rowObject.itemCreateBtn).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  deleteItem(rowObject: InsightDashboardEditRowObject) {
-    rowObject.itemDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async deleteItem(rowObject: InsightDashboardEditRowObject) {
+    await (await rowObject.itemDeleteBtn).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  copyItem(rowObject: InsightDashboardEditRowObject) {
-    rowObject.itemCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async copyItem(rowObject: InsightDashboardEditRowObject) {
+    await (await rowObject.itemCopyBtn).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  fillItem(rowNum: number, itemObject: DashboardTestItemEditModel) {
+  async fillItem(rowNum: number, itemObject: DashboardTestItemEditModel) {
     // Select first question
-    this.firstQuestionSearchField(rowNum).addValue(itemObject.firstQuestion);
-    const firstQuestionChoice = this.firstQuestionListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    firstQuestionChoice.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.firstQuestionSearchField(rowNum)).addValue(itemObject.firstQuestion);
+    const firstQuestionChoice = (await this.firstQuestionListOfOptions(rowNum))[0];
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await firstQuestionChoice.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     // Select filter question
     if (itemObject.filterQuestion) {
-      this.filterQuestionSearchField(rowNum).addValue(itemObject.filterQuestion);
-      const filterQuestionChoice = this.filterQuestionListOfOptions(rowNum)[0];
-      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-      filterQuestionChoice.click();
-      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+      await (await (this.filterQuestionSearchField(rowNum))).addValue(itemObject.filterQuestion);
+      const filterQuestionChoice = (await this.filterQuestionListOfOptions(rowNum))[0];
+      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+      await filterQuestionChoice.click();
+      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     }
 
     // Select filter answer
     if (itemObject.filterAnswer) {
-      this.filterAnswerSearchField(rowNum).addValue(itemObject.filterAnswer);
-      const filterAnswerChoice = this.filterAnswerListOfOptions(rowNum)[0];
-      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-      filterAnswerChoice.click();
-      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+      await (await this.filterAnswerSearchField(rowNum)).addValue(itemObject.filterAnswer);
+      const filterAnswerChoice = (await this.filterAnswerListOfOptions(rowNum))[0];
+      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+      await filterAnswerChoice.click();
+      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     }
 
     // Select period
-    this.periodSearchField(rowNum).addValue(itemObject.period);
-    const periodChoice = itemObject.period === 'År' ? this.periodListOfOptions(rowNum)[2] : this.periodListOfOptions(rowNum)[0];
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    periodChoice.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.periodSearchField(rowNum)).addValue(itemObject.period);
+    // tslint:disable-next-line:max-line-length
+    const periodChoice = itemObject.period === 'År' ? (await this.periodListOfOptions(rowNum))[2] : (await this.periodListOfOptions(rowNum))[0];
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await periodChoice.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
 
     // Select calculate average
     if (itemObject.calculateAverage) {
-      $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-      const ele = this.calculateAverageCheckbox(rowNum);
-      ele.waitForDisplayed({timeout: 20000});
-      ele.waitForClickable({timeout: 20000});
-      ele.click();
+      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+      const ele = await this.calculateAverageCheckbox(rowNum);
+      await ele.waitForDisplayed({timeout: 20000});
+      await ele.waitForClickable({timeout: 20000});
+      await ele.click();
     }
 
     // Ignored answers
     for (const ignoredAnswerId of itemObject.ignoredAnswerIds) {
-      const ele = this.answerIgnoreCheckbox(rowNum, ignoredAnswerId);
-      ele.waitForDisplayed({timeout: 20000});
-      ele.waitForClickable({timeout: 20000});
-      ele.click();
+      const ele = await this.answerIgnoreCheckbox(rowNum, ignoredAnswerId);
+      await ele.waitForDisplayed({timeout: 20000});
+      await ele.waitForClickable({timeout: 20000});
+      await ele.click();
     }
 
     // Compared items
     if (itemObject.comparedItems.length) {
-      this.enableCompareCheckbox(rowNum).click();
+      await (await this.enableCompareCheckbox(rowNum)).click();
       for (const compareItem of itemObject.comparedItems) {
-        this.compareItemInput(rowNum, compareItem.itemIndex).addValue(compareItem.value);
+        await (await this.compareItemInput(rowNum, compareItem.itemIndex)).addValue(compareItem.value);
       }
     }
 
     // Select chart type
-    this.chartTypeSearchField(rowNum).addValue(itemObject.chartType);
-    const chartTypeChoice = this.chartTypeListOfOptions(rowNum)[0];
-    chartTypeChoice.waitForDisplayed({timeout: 30000});
-    chartTypeChoice.waitForClickable({timeout: 30000});
-    chartTypeChoice.click();
+    await (await this.chartTypeSearchField(rowNum)).addValue(itemObject.chartType);
+    const chartTypeChoice = (await this.chartTypeListOfOptions(rowNum))[0];
+    await chartTypeChoice.waitForDisplayed({timeout: 30000});
+    await chartTypeChoice.waitForClickable({timeout: 30000});
+    await chartTypeChoice.click();
   }
 
-  generateItems(itemsArray: DashboardTestItemEditModel[]) {
-    this.createFirstItem();
+  async generateItems(itemsArray: DashboardTestItemEditModel[]) {
+    await this.createFirstItem();
     for (let i = 0; i < itemsArray.length; i++) {
-      this.fillItem(i + 1, itemsArray[i]);
+      await this.fillItem(i + 1, itemsArray[i]);
       if (i < itemsArray.length - 1) {
-        this.createItem(this.getDashboardItem(i + 1));
+        await this.createItem(await this.getDashboardItem(i + 1));
       }
     }
   }
 
-  getFirstItemObject(): InsightDashboardEditRowObject {
-    browser.pause(500);
-    return new InsightDashboardEditRowObject(1);
+  async getFirstItemObject(): Promise<InsightDashboardEditRowObject> {
+    await browser.pause(500);
+    const obj = new InsightDashboardEditRowObject();
+    return await obj.getRow(1);
   }
 
-  getDashboardItem(num): InsightDashboardEditRowObject {
-    browser.pause(500);
-    return new InsightDashboardEditRowObject(num);
+  async getDashboardItem(num): Promise<InsightDashboardEditRowObject> {
+    await browser.pause(500);
+    const obj = new InsightDashboardEditRowObject();
+    return obj.getRow(num);
   }
 }
 
@@ -286,33 +297,7 @@ const dashboardsEditPage = new InsightDashboardDashboardEditPage();
 export default dashboardsEditPage;
 
 export class InsightDashboardEditRowObject {
-  constructor(rowNum) {
-    this.firstQuestion = $$('#editFirstQuestion')[rowNum - 1];
-    this.firstQuestionSearchField = $$('#editFirstQuestion .ng-input > input')[rowNum - 1];
-    this.firstQuestionListOfOptions = $$('#editFirstQuestion .ng-option')[rowNum - 1];
-
-    this.filterQuestion = $$('#editFilterQuestion')[rowNum - 1];
-    this.filterQuestionSearchField = $$('#editFilterQuestion .ng-input > input')[rowNum - 1];
-    this.filterQuestionListOfOptions = $$('#editFilterQuestion .ng-option')[rowNum - 1];
-
-    this.filterAnswer = $$('#editFilterAnswer')[rowNum - 1];
-    this.filterAnswerSearchField = $$('#editFilterAnswer .ng-input > input')[rowNum - 1];
-    this.filterAnswerListOfOptions = $$('#editFilterAnswer .ng-option')[rowNum - 1];
-
-    this.period = $$('#editPeriod')[rowNum - 1];
-    this.periodSearchField = $$('#editPeriod .ng-input > input')[rowNum - 1];
-    this.periodListOfOptions = $$('#editPeriod .ng-option')[rowNum - 1];
-
-    this.calcAverageCheckbox = $$('#calcAverageCheckbox')[rowNum - 1];
-
-    this.chartType = $$('#editChartType')[rowNum - 1];
-    this.chartTypeSearchField = $$('#editChartType .ng-input > input')[rowNum - 1];
-    this.chartTypeListOfOptions = $$('#editChartType .ng-option')[rowNum - 1];
-    // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
-    this.itemCreateBtn = $$('#createItemBtn')[rowNum - 1];
-    this.itemDeleteBtn = $$('#deleteItemBtn')[rowNum - 1];
-    this.itemCopyBtn = $$('#copyItemBtn')[rowNum - 1];
-  }
+  constructor() {}
 
   public firstQuestion;
   public firstQuestionSearchField;
@@ -333,6 +318,35 @@ export class InsightDashboardEditRowObject {
   public itemCreateBtn;
   public itemDeleteBtn;
   public itemCopyBtn;
+
+  async getRow(rowNum: number): Promise<InsightDashboardEditRowObject> {
+    this.firstQuestion = (await $$('#editFirstQuestion'))[rowNum - 1];
+    this.firstQuestionSearchField = (await $$('#editFirstQuestion .ng-input > input'))[rowNum - 1];
+    this.firstQuestionListOfOptions = (await $$('#editFirstQuestion .ng-option'))[rowNum - 1];
+
+    this.filterQuestion = (await $$('#editFilterQuestion'))[rowNum - 1];
+    this.filterQuestionSearchField = (await $$('#editFilterQuestion .ng-input > input'))[rowNum - 1];
+    this.filterQuestionListOfOptions = (await $$('#editFilterQuestion .ng-option'))[rowNum - 1];
+
+    this.filterAnswer = (await $$('#editFilterAnswer'))[rowNum - 1];
+    this.filterAnswerSearchField = (await $$('#editFilterAnswer .ng-input > input'))[rowNum - 1];
+    this.filterAnswerListOfOptions = (await $$('#editFilterAnswer .ng-option'))[rowNum - 1];
+
+    this.period = (await $$('#editPeriod'))[rowNum - 1];
+    this.periodSearchField = (await $$('#editPeriod .ng-input > input'))[rowNum - 1];
+    this.periodListOfOptions = (await $$('#editPeriod .ng-option'))[rowNum - 1];
+
+    this.calcAverageCheckbox = (await $$('#calcAverageCheckbox'))[rowNum - 1];
+
+    this.chartType = (await $$('#editChartType'))[rowNum - 1];
+    this.chartTypeSearchField = (await $$('#editChartType .ng-input > input'))[rowNum - 1];
+    this.chartTypeListOfOptions = (await $$('#editChartType .ng-option'))[rowNum - 1];
+    // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`))[rowNum - 1];
+    this.itemCreateBtn = (await $$('#createItemBtn'))[rowNum - 1];
+    this.itemDeleteBtn = (await $$('#deleteItemBtn'))[rowNum - 1];
+    this.itemCopyBtn = (await $$('#copyItemBtn'))[rowNum - 1];
+    return this;
+  }
 }
 
 export interface DashboardTestItemEditModel {

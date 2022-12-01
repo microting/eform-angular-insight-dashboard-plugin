@@ -75,15 +75,13 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 var result = new DashboardsListModel();
                 var dashboardsQueryable = _dbContext.Dashboards
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                    .AsNoTracking()
                     .AsQueryable();
 
                 if (!string.IsNullOrEmpty(requestModel.SearchString))
                 {
                     dashboardsQueryable = dashboardsQueryable
                         .Where(x => x.Name.Contains(
-                            requestModel.SearchString,
-                            StringComparison.CurrentCultureIgnoreCase));
+                            requestModel.SearchString));
                 }
 
                 if (!string.IsNullOrEmpty(requestModel.Sort))

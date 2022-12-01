@@ -17,23 +17,23 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Vertical Bar', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Vertical Bar');
-    dashboardEditPage.setDashboardSettings(dashboardConfig);
-    dashboardEditPage.generateItems(dashboardVerticalBarItems);
-    dashboardEditPage.dashboardUpdateSaveBtn.click();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard('Vertical Bar');
+    await dashboardEditPage.setDashboardSettings(dashboardConfig);
+    await dashboardEditPage.generateItems(dashboardVerticalBarItems);
+    await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
-  it('should compare items headers', function () {
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardsViewPage.compareHeaders(dashboardVerticalBarDataJson);
+  it('should compare items headers', async () => {
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await dashboardsViewPage.compareHeaders(dashboardVerticalBarDataJson);
   });
-  it('should compare items percentage', function () {
-    dashboardsViewPage.comparePercentage(dashboardVerticalBarDataJson);
+  it('should compare items percentage', async () => {
+    await dashboardsViewPage.comparePercentage(dashboardVerticalBarDataJson);
   });
-  it('should compare items amounts', function () {
-    dashboardsViewPage.compareAmounts(dashboardVerticalBarDataJson);
+  it('should compare items amounts', async () => {
+    await dashboardsViewPage.compareAmounts(dashboardVerticalBarDataJson);
   });
 });

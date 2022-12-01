@@ -17,23 +17,23 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Multi chart', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Multi chart');
-    dashboardEditPage.setDashboardSettings(dashboardConfig);
-    dashboardEditPage.generateItems(dashboardMultiChartItems);
-    dashboardEditPage.dashboardUpdateSaveBtn.click();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard('Multi chart');
+    await dashboardEditPage.setDashboardSettings(dashboardConfig);
+    await dashboardEditPage.generateItems(dashboardMultiChartItems);
+    await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
-  it('should compare items headers', function () {
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardsViewPage.compareHeaders(dashboardMultiChartDataJson);
+  it('should compare items headers', async () => {
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await dashboardsViewPage.compareHeaders(dashboardMultiChartDataJson);
   });
-  it('should compare items percentage', function () {
-    dashboardsViewPage.comparePercentage(dashboardMultiChartDataJson);
+  it('should compare items percentage', async () => {
+    await dashboardsViewPage.comparePercentage(dashboardMultiChartDataJson);
   });
-  it('should compare items amounts', function () {
-    dashboardsViewPage.compareAmounts(dashboardMultiChartDataJson);
+  it('should compare items amounts', async () => {
+    await dashboardsViewPage.compareAmounts(dashboardMultiChartDataJson);
   });
 });

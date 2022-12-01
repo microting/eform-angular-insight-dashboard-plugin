@@ -5,16 +5,16 @@ import answersPage from '../../../Page objects/InsightDashboard/InsightDashboard
 
 const microtingUId = 1413005;
 describe('InSight Dashboard - Answers - View', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToAnswers();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToAnswers();
   });
-  it('should be displayed 18 answers values', function () {
-    answersPage.searchMicrotingUIdInput.setValue(microtingUId);
-    answersPage.searchMicrotingUIdBtn.click();
-    const spinnerAnimation = $('#spinner-animation');
-    spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
-    expect(answersPage.rowNum).eq(19);
+  it('should be displayed 18 answers values', async () => {
+    await (await answersPage.searchMicrotingUIdInput()).setValue(microtingUId);
+    await (await answersPage.searchMicrotingUIdBtn()).click();
+    const spinnerAnimation = await $('#spinner-animation');
+    await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
+    expect(await answersPage.rowNum()).eq(19);
   });
 });

@@ -5,26 +5,26 @@ import insightDashboardPage from '../../../Page objects/InsightDashboard/Insight
 import surveyConfigsPage, {configName} from '../../../Page objects/InsightDashboard/InsightDashboard-SurveysConfigs.page';
 
 describe('InSight Dashboard - Survey Config - Delete', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToSurveysConfigs();
-    surveyConfigsPage.createSurveyConfig(configName);
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToSurveysConfigs();
+    await surveyConfigsPage.createSurveyConfig(configName);
   });
-  it('Should not delete survey config', function () {
-    const rowNumsBeforeDelete = surveyConfigsPage.rowNum;
-    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 10000});
-    surveyConfigsPage.deleteSurveyConfig_Cancels(surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    expect(rowNumsBeforeDelete).equal(surveyConfigsPage.rowNum);
+  it('Should not delete survey config', async () => {
+    const rowNumsBeforeDelete = await surveyConfigsPage.rowNum();
+    await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 10000});
+    await surveyConfigsPage.deleteSurveyConfig_Cancels(await surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    expect(rowNumsBeforeDelete).equal(await surveyConfigsPage.rowNum());
   });
-  it('Should delete survey config', function () {
-    const rowNumsBeforeDelete = surveyConfigsPage.rowNum;
-    $('#createSurveyConfigBtn').waitForDisplayed({timeout: 10000});
-    surveyConfigsPage.deleteSurveyConfig(surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    const rowsAfterDelete = surveyConfigsPage.rowNum;
+  it('Should delete survey config', async () => {
+    const rowNumsBeforeDelete = await surveyConfigsPage.rowNum();
+    await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 10000});
+    await surveyConfigsPage.deleteSurveyConfig(await surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    const rowsAfterDelete = await surveyConfigsPage.rowNum();
     expect(rowsAfterDelete).equal(rowNumsBeforeDelete - 1);
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
 });

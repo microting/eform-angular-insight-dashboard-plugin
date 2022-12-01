@@ -8,147 +8,161 @@ export class InsightDashboardDashboardsPage extends Page {
     super();
   }
 
-  public get rowNum(): number {
-    browser.pause(500);
-    return $$('#tableBody > tr').length;
+  public async rowNum(): Promise<number> {
+    await browser.pause(500);
+    return (await $$('#tableBody > tr')).length;
   }
 
-  public get dashboardCreateBtn() {
-    $('#createDashboardBtn').waitForDisplayed({timeout: 30000});
-    $('#createDashboardBtn').waitForClickable({timeout: 20000});
-    return $('#createDashboardBtn');
+  public async dashboardCreateBtn() {
+    const ele = await $('#createDashboardBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardCreateSaveBtn() {
-    $('#dashboardCreateSaveBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardCreateSaveBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardCreateSaveBtn');
+  public async dashboardCreateSaveBtn() {
+    const ele = await $('#dashboardCreateSaveBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardCreateCancelBtn() {
-    $('#dashboardCreateSaveCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardCreateSaveCancelBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardCreateSaveCancelBtn');
+  public async dashboardCreateCancelBtn() {
+    const ele = await $('#dashboardCreateSaveCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardName() {
-    $('#dashboardNameCreate').waitForDisplayed({timeout: 30000});
-    $('#dashboardNameCreate').waitForClickable({timeout: 20000});
-    return $('#dashboardNameCreate');
+  public async dashboardName() {
+    const ele = await $('#dashboardNameCreate');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardNameInput() {
-    $('#dashboardNameCreate > input').waitForDisplayed({timeout: 30000});
-    $('#dashboardNameCreate > input').waitForClickable({timeout: 20000});
-    return $('#dashboardNameCreate > input');
+  public async dashboardNameInput() {
+    const ele = await $('#dashboardNameCreate > input');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardEditSaveBtn() {
-    $('#dashboardEditSaveBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardEditSaveBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardEditSaveBtn');
+  public async dashboardEditSaveBtn() {
+    const ele = await $('#dashboardEditSaveBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardEditCancelBtn() {
-    $('#dashboardEditSaveCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardEditSaveCancelBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardEditSaveCancelBtn');
+  public async dashboardEditCancelBtn() {
+    const ele = await $('#dashboardEditSaveCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardDeleteSaveBtn() {
-    $('#dashboardDeleteSaveBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardDeleteSaveBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardDeleteSaveBtn');
+  public async dashboardDeleteSaveBtn() {
+    const ele = await $('#dashboardDeleteSaveBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardDeleteCancelBtn() {
-    $('#dashboardDeleteCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardDeleteCancelBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardDeleteCancelBtn');
+  public async dashboardDeleteCancelBtn() {
+    const ele = await $('#dashboardDeleteCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardCopySaveBtn() {
-    $('#dashboardCopySaveBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardCopySaveBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardCopySaveBtn');
+  public async dashboardCopySaveBtn() {
+    const ele = await $('#dashboardCopySaveBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public get dashboardCopySaveCancelBtn() {
-    $('#dashboardCopySaveCancelBtn').waitForDisplayed({timeout: 30000});
-    $('#dashboardCopySaveCancelBtn').waitForClickable({timeout: 20000});
-    return $('#dashboardCopySaveCancelBtn');
+  public async dashboardCopySaveCancelBtn() {
+    const ele = $('#dashboardCopySaveCancelBtn');
+    await ele.waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  createDashboard(name: string = 'NewDashboard') {
-    this.dashboardCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardName.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardName.addValue(name);
+  async createDashboard(name: string = 'NewDashboard') {
+    await (await this.dashboardCreateBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.dashboardName()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.dashboardName()).addValue(name);
     // Select survey
-    const surveySearchField = dashboardsPage.getSurveysSearchField();
-    surveySearchField.addValue(configName);
-    const surveyListChoices = dashboardsPage.getSurveyListOfChoices();
+    const surveySearchField = await dashboardsPage.getSurveysSearchField();
+    await surveySearchField.addValue(configName);
+    const surveyListChoices = await dashboardsPage.getSurveyListOfChoices();
     const surveyChoice = surveyListChoices[0];
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    surveyChoice.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardCreateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await surveyChoice.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.dashboardCreateSaveBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  createDashboard_Cancels() {
-    this.dashboardCreateBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardCreateCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async createDashboard_Cancels() {
+    await (await this.dashboardCreateBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.dashboardCreateCancelBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  deleteDashboard(rowObject: DashboardsPageRowObject) {
-    rowObject.dashboardDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardDeleteSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async deleteDashboard(rowObject: DashboardsPageRowObject) {
+    await rowObject.dashboardDeleteBtn.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.dashboardDeleteSaveBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  deleteDashboard_Cancels(rowObject: DashboardsPageRowObject) {
-    rowObject.dashboardDeleteBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardDeleteCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async deleteDashboard_Cancels(rowObject: DashboardsPageRowObject) {
+    await rowObject.dashboardDeleteBtn.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.dashboardDeleteCancelBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  copyDashboard(rowObject: DashboardsPageRowObject) {
-    rowObject.dashboardCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardCopySaveBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async copyDashboard(rowObject: DashboardsPageRowObject) {
+    await rowObject.dashboardCopyBtn.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.dashboardCopySaveBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
-    rowObject.dashboardCopyBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    this.dashboardCopySaveCancelBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
+    await rowObject.dashboardCopyBtn.click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await (await this.dashboardCopySaveCancelBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 
-  public getSurveysSearchField() {
-    $('#selectSurveyCreate .ng-input > input').waitForDisplayed({timeout: 30000});
-    $('#selectSurveyCreate .ng-input > input').waitForClickable({timeout: 20000});
-    return $('#selectSurveyCreate .ng-input > input');
+  public async getSurveysSearchField() {
+    const ele = await $('#selectSurveyCreate .ng-input > input');
+    await ele .waitForDisplayed({timeout: 30000});
+    await ele.waitForClickable({timeout: 20000});
+    return ele;
   }
 
-  public getSurveyListOfChoices() {
+  public async getSurveyListOfChoices() {
     return $$('#selectSurveyCreate .ng-option');
   }
 
-  getFirstRowObject(): DashboardsPageRowObject {
-    return new DashboardsPageRowObject(1);
+  async getFirstRowObject(): Promise<DashboardsPageRowObject> {
+    const ele = new DashboardsPageRowObject();
+    return await ele.getRow(1);
   }
 
-  getDashboard(num): DashboardsPageRowObject {
-    browser.pause(500);
-    return new DashboardsPageRowObject(num);
+  async getDashboard(num): Promise<DashboardsPageRowObject> {
+    await browser.pause(500);
+    const ele = new DashboardsPageRowObject();
+    return await ele.getRow(num);
   }
 }
 
@@ -156,27 +170,7 @@ const dashboardsPage = new InsightDashboardDashboardsPage();
 export default dashboardsPage;
 
 export class DashboardsPageRowObject {
-  constructor(rowNum) {
-    if ($$('#dashboardId')[rowNum - 1]) {
-      this.id = $$('#dashboardId')[rowNum - 1];
-      try {
-        this.dashboardName = $$('#dashboardName')[rowNum - 1].getText();
-        // this.companyAddress = $$('#companyAddressTableHeader')[rowNum - 1].getText();
-        // this.companyAddress2 = $$('#companyAddress2TableHeader')[rowNum - 1].getText();
-        // this.zipCode = $$('#zipCodeTableHeader')[rowNum - 1].getText();
-        // this.cityName = $$('#cityNameTableHeader')[rowNum - 1].getText();
-        // this.countryCode = $$('#countryCodeTableHeader')[rowNum - 1].getText();
-        // this.dateInstall = $$('#dateInstallTableHeader')[rowNum - 1].getText();
-        this.locations = $$('#dashboardLocation > p')[rowNum - 1];
-      } catch (e) {
-      }
-      // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
-      this.dashboardEditBtn = $$('#dashboardEditBtn')[rowNum - 1];
-      this.dashboardViewBtn = $$('#dashboardViewBtn')[rowNum - 1];
-      this.dashboardDeleteBtn = $$('#dashboardDeleteBtn')[rowNum - 1];
-      this.dashboardCopyBtn = $$('#dashboardCopyBtn')[rowNum - 1];
-    }
-  }
+  constructor() {}
 
   public id;
   public dashboardName;
@@ -185,4 +179,27 @@ export class DashboardsPageRowObject {
   public dashboardEditBtn;
   public dashboardDeleteBtn;
   public dashboardCopyBtn;
+
+  async getRow(rowNum: number): Promise<DashboardsPageRowObject> {
+    if ((await $$('#dashboardId'))[rowNum - 1]) {
+      this.id = (await $$('#dashboardId'))[rowNum - 1];
+      try {
+        this.dashboardName = await (await $$('#dashboardName'))[rowNum - 1].getText();
+        // this.companyAddress = $$('#companyAddressTableHeader')[rowNum - 1].getText();
+        // this.companyAddress2 = $$('#companyAddress2TableHeader')[rowNum - 1].getText();
+        // this.zipCode = $$('#zipCodeTableHeader')[rowNum - 1].getText();
+        // this.cityName = $$('#cityNameTableHeader')[rowNum - 1].getText();
+        // this.countryCode = $$('#countryCodeTableHeader')[rowNum - 1].getText();
+        // this.dateInstall = $$('#dateInstallTableHeader')[rowNum - 1].getText();
+        this.locations = (await $$('#dashboardLocation > p'))[rowNum - 1];
+      } catch (e) {
+      }
+      // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
+      this.dashboardEditBtn = (await $$('#dashboardEditBtn'))[rowNum - 1];
+      this.dashboardViewBtn = (await $$('#dashboardViewBtn'))[rowNum - 1];
+      this.dashboardDeleteBtn = (await $$('#dashboardDeleteBtn'))[rowNum - 1];
+      this.dashboardCopyBtn = (await $$('#dashboardCopyBtn'))[rowNum - 1];
+    }
+    return this;
+  }
 }

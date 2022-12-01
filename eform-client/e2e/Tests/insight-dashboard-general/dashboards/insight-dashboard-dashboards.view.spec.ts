@@ -26,17 +26,21 @@ const item = {
 };
 
 describe('InSight Dashboard - Dashboards - View', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Test View');
-    dashboardEditPage.setDashboardSettings(dashboardConfig);
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard('Test View');
+    await dashboardEditPage.setDashboardSettings(dashboardConfig);
   });
-  it('should observe filled item', function () {
-    dashboardEditPage.generateItems([item]);
-    dashboardEditPage.dashboardUpdateSaveBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardsViewPage.compareItem(dashboardsViewPage.rowNum, item, dashboardConfig);
+  it('should observe filled item', async () => {
+    await dashboardEditPage.generateItems([item]);
+    await browser.pause(1000);
+    await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await browser.pause(5000);
+    await (await $('#firstQuestion1')).waitForDisplayed({timeout: 30000});
+    const la = await dashboardsViewPage.returnToDashboards();
+    await dashboardsViewPage.compareItem(await dashboardsViewPage.rowNum(), item, dashboardConfig);
   });
 });

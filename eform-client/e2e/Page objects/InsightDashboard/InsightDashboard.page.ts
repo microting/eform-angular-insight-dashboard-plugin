@@ -7,41 +7,41 @@ export class InsightDashboardPage extends Page {
   public InsightDashboardDropDown() {
     $(`#insight-dashboard-pn`).click();
   }
-  public get SurveysConfigsBtn() {
-    const insightDashboardPnSurveysConfigs = $('#insight-dashboard-pn-surveys-configs');
-    insightDashboardPnSurveysConfigs.waitForDisplayed({timeout: 30000});
-    insightDashboardPnSurveysConfigs.waitForClickable({timeout: 20000});
+  public async SurveysConfigsBtn() {
+    const insightDashboardPnSurveysConfigs = await $('#insight-dashboard-pn-surveys-configs');
+    await insightDashboardPnSurveysConfigs.waitForDisplayed({timeout: 30000});
+    await insightDashboardPnSurveysConfigs.waitForClickable({timeout: 20000});
     return insightDashboardPnSurveysConfigs;
   }
-  public get DashboardsBtn() {
-    const insightDashboardPnDashboards = $('#insight-dashboard-pn-dashboards');
-    insightDashboardPnDashboards.waitForDisplayed({timeout: 30000});
-    insightDashboardPnDashboards.waitForClickable({timeout: 20000});
+  public async DashboardsBtn() {
+    const insightDashboardPnDashboards = await $('#insight-dashboard-pn-dashboards');
+    await insightDashboardPnDashboards.waitForDisplayed({timeout: 30000});
+    await insightDashboardPnDashboards.waitForClickable({timeout: 20000});
     return insightDashboardPnDashboards;
   }
-  public get AnswersBtn() {
-    const answersBtn = $('#insight-dashboard-pn-answers');
-    answersBtn.waitForDisplayed({timeout: 30000});
-    answersBtn.waitForClickable({timeout: 20000});
+  public async AnswersBtn() {
+    const answersBtn = await $('#insight-dashboard-pn-answers');
+    await answersBtn.waitForDisplayed({timeout: 30000});
+    await answersBtn.waitForClickable({timeout: 20000});
     return answersBtn;
   }
-  goToSurveysConfigs() {
-    this.InsightDashboardDropDown();
-    browser.pause(1000);
-    this.SurveysConfigsBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async goToSurveysConfigs() {
+    await this.InsightDashboardDropDown();
+    await browser.pause(1000);
+    await (await this.SurveysConfigsBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
-  goToDashboards() {
-    this.InsightDashboardDropDown();
-    browser.pause(1000);
-    this.DashboardsBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async goToDashboards() {
+    await this.InsightDashboardDropDown();
+    await browser.pause(1000);
+    await (await this.DashboardsBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
-  goToAnswers() {
-    this.InsightDashboardDropDown();
-    browser.pause(1000);
-    this.AnswersBtn.click();
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
+  async goToAnswers() {
+    await this.InsightDashboardDropDown();
+    await browser.pause(1000);
+    await (await this.AnswersBtn()).click();
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   }
 }
 

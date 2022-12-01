@@ -17,23 +17,23 @@ const dashboardConfig: DashboardTestConfigEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Line Score', function () {
-  before(function () {
-    loginPage.open('/auth');
-    loginPage.login();
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard('Line Score');
-    dashboardEditPage.setDashboardSettings(dashboardConfig);
-    dashboardEditPage.generateItems(dashboardLineScoreItems);
-    dashboardEditPage.dashboardUpdateSaveBtn.click();
+  before(async () => {
+    await loginPage.open('/auth');
+    await loginPage.login();
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.createDashboard('Line Score');
+    await dashboardEditPage.setDashboardSettings(dashboardConfig);
+    await dashboardEditPage.generateItems(dashboardLineScoreItems);
+    await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
-  it('should compare items headers', function () {
-    $('#spinner-animation').waitForDisplayed({timeout: 30000, reverse: true});
-    dashboardsViewPage.compareHeaders(dashboardLineScoreDataJson);
+  it('should compare items headers', async () => {
+    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await dashboardsViewPage.compareHeaders(dashboardLineScoreDataJson);
   });
-  it('should compare items average', function () {
-    dashboardsViewPage.comparePercentage(dashboardLineScoreDataJson, false);
+  it('should compare items average', async () => {
+    await dashboardsViewPage.comparePercentage(dashboardLineScoreDataJson, false);
   });
-  it('should compare items amounts', function () {
-    dashboardsViewPage.compareAmounts(dashboardLineScoreDataJson);
+  it('should compare items amounts', async () => {
+    await dashboardsViewPage.compareAmounts(dashboardLineScoreDataJson);
   });
 });

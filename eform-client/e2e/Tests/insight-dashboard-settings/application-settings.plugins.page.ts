@@ -5,14 +5,16 @@ class ApplicationSettingsPluginsPage extends PageWithNavbarPage {
         super();
     }
 
-    getFirstPluginRowObj(): PluginRowObject {
-      browser.pause(500);
-      return new PluginRowObject(1);
+    async getFirstPluginRowObj(): Promise<PluginRowObject> {
+      await browser.pause(500);
+      const obj = new PluginRowObject();
+      return await obj.getRow(1);
     }
 
-    getSecondPluginRowObj(): PluginRowObject {
-      browser.pause(500);
-      return new PluginRowObject(2);
+    async getSecondPluginRowObj(): Promise<PluginRowObject> {
+      await browser.pause(500);
+      const obj = new PluginRowObject();
+      return await obj.getRow(2);
     }
 }
 
@@ -21,16 +23,7 @@ const pluginsPage = new ApplicationSettingsPluginsPage();
 export default pluginsPage;
 
 class PluginRowObject {
-    constructor(rowNum) {
-        if ($$('#plugin-id')[rowNum - 1]) {
-            this.id = +$$('#plugin-id')[rowNum - 1].getText();
-            this.name = $$('#plugin-name')[rowNum - 1].getText();
-            this.version = $$('#plugin-version')[rowNum - 1].getText();
-            this.status = $$('#plugin-status')[rowNum - 1].getText();
-            this.settingsBtn = $$('#plugin-settings-btn')[rowNum - 1];
-            this.activateBtn = $$(`//*[@id= 'plugin-status']//button`)[rowNum - 1];
-        }
-    }
+    constructor() {}
 
     id: number;
     name;
@@ -38,4 +31,16 @@ class PluginRowObject {
     status;
     settingsBtn;
     activateBtn;
+
+    async getRow(rowNum: number): Promise<PluginRowObject> {
+      if ((await $$('#plugin-id'))[rowNum - 1]) {
+        this.id = +await (await $$('#plugin-id'))[rowNum - 1].getText();
+        this.name = await (await $$('#plugin-name'))[rowNum - 1].getText();
+        this.version = await (await $$('#plugin-version'))[rowNum - 1].getText();
+        this.status = await (await $$('#plugin-status'))[rowNum - 1].getText();
+        this.settingsBtn = (await $$('#plugin-settings-btn'))[rowNum - 1];
+        this.activateBtn = (await $$(`//*[@id= 'plugin-status']//button`))[rowNum - 1];
+      }
+      return this;
+    }
 }
