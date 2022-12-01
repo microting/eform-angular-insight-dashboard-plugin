@@ -14,7 +14,6 @@ import {
 } from '../../../services';
 import {
   CommonDictionaryModel, PaginationModel,
-  TableHeaderElementModel,
 } from 'src/app/common/models';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { SitesService } from 'src/app/common/services';
@@ -22,6 +21,9 @@ import { SurveysStateService } from '../store';
 import {Sort} from '@angular/material/sort';
 import {MtxGridColumn} from '@ng-matero/extensions/grid';
 import {TranslateService} from '@ngx-translate/core';
+import {MatDialog} from '@angular/material/dialog';
+import {Overlay} from '@angular/cdk/overlay';
+import {dialogConfigHelper} from 'src/app/common/helpers';
 
 @AutoUnsubscribe()
 @Component({
@@ -36,16 +38,15 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   editSurveyConfigModal: SurveyConfigurationEditComponent;
   @ViewChild('statusSurveyConfigModal', { static: true })
   statusSurveyConfigModal: SurveyConfigurationStatusComponent;
-  @ViewChild('deleteSurveyConfigModal', { static: true })
-  deleteSurveyConfigModal: SurveyConfigurationDeleteComponent;
   surveyConfigurationsListModel: SurveyConfigsListModel = new SurveyConfigsListModel();
   availableSurveys: CommonDictionaryModel[] = [];
   locations: CommonDictionaryModel[] = [];
   searchSubject = new Subject();
+
   getSurveyConfigsSub$: Subscription;
   getSurveysSub$: Subscription;
   getLocationsSub$: Subscription;
-
+  surveyConfigurationDeleteComponentAfterClosedSub$: Subscription;
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -107,6 +108,8 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
     private sitesService: SitesService,
     public surveysStateService: SurveysStateService,
     private translateService: TranslateService,
+    private dialog: MatDialog,
+    private overlay: Overlay,
   ) {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.surveysStateService.updateNameFilter(val);
@@ -170,7 +173,9 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   openDeleteModal(surveyConfig: SurveyConfigModel) {
-    this.deleteSurveyConfigModal.show(surveyConfig);
+    this.surveyConfigurationDeleteComponentAfterClosedSub$ = this.dialog.open(SurveyConfigurationDeleteComponent,
+      dialogConfigHelper(this.overlay, surveyConfig))
+      .afterClosed().subscribe(data => data ? this.surveyConfigDeleted() : undefined);
   }
 
   openCreateModal() {

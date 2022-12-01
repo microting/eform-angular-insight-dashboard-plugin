@@ -59,6 +59,8 @@ import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import {MatButtonModule} from '@angular/material/button';
 import {MtxGridModule} from '@ng-matero/extensions/grid';
 import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MtxSelectModule} from '@ng-matero/extensions/select';
 
 @NgModule({
   imports: [
@@ -79,6 +81,8 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonModule,
     MtxGridModule,
     MatInputModule,
+    MatDialogModule,
+    MtxSelectModule,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
