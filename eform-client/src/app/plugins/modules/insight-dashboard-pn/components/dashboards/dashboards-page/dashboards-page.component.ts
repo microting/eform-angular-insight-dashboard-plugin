@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DashboardModel, DashboardsListModel } from '../../../models';
+import {DashboardModel, DashboardsListModel,} from '../../../models';
 import { Subject, Subscription } from 'rxjs';
 import {
   DashboardCopyComponent,
@@ -9,13 +9,17 @@ import {
 } from '../..';
 import { InsightDashboardPnDashboardDictionariesService } from '../../../services';
 import {
-  CommonDictionaryModel,
-  TableHeaderElementModel,
-} from '../../../../../../common/models';
+  CommonDictionaryModel, PaginationModel,
+} from 'src/app/common/models';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardsStateService } from '../store';
 import { debounceTime } from 'rxjs/operators';
+import {Sort} from '@angular/material/sort';
+import {MtxGridColumn} from '@ng-matero/extensions/grid';
+import {TranslateService} from '@ngx-translate/core';
+import {MatDialog} from '@angular/material/dialog';
+import {Overlay} from '@angular/cdk/overlay';
 
 @AutoUnsubscribe()
 @Component({
@@ -38,26 +42,63 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   getAllSub$: Subscription;
   getSurveysSub$: Subscription;
 
-  tableHeaders: TableHeaderElementModel[] = [
-    { name: 'Id', elementId: 'idTableHeader', sortable: true },
+  tableHeaders: MtxGridColumn[] = [
+    {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
+    {header: this.translateService.stream('Dashboard name'), field: 'dashboardName', sortProp: {id: 'Name'}, sortable: true},
+    {header: this.translateService.stream('Survey Name'), field: 'surveyName'},
     {
-      name: 'Name',
-      elementId: 'dashboardNameTableHeader',
-      sortable: true,
-      visibleName: 'Dashboard name',
+      header: this.translateService.stream('Location/Tag name'),
+      field: 'locations',
+      formatter: (dashboard: DashboardModel) => dashboard.locationName ? dashboard.locationName : dashboard.tagName
     },
-    { name: 'Survey name', elementId: '', sortable: false },
-    { name: 'Location/Tag name', elementId: '', sortable: false },
-    { name: 'Date From', elementId: '', sortable: false },
-    { name: 'Date To', elementId: '', sortable: false },
-    { name: 'Actions', elementId: '', sortable: false },
-  ];
+    {header: this.translateService.stream('Date From'), field: 'dateFrom', type: 'date', typeParameter: {format: 'yyyy/MM/dd'}},
+    {header: this.translateService.stream('Date To'), field: 'dateTo', type: 'date', typeParameter: {format: 'yyyy/MM/dd'}},
+    {
+      header: this.translateService.stream('Actions'),
+      field: 'actions',
+      type: 'button',
+      buttons: [
+        {
+          type: 'icon',
+          icon: 'visibility',
+          tooltip: this.translateService.stream('View Dashboard'),
+          click: (dashboard: DashboardModel) => this.openViewPage(dashboard),
+          class: 'dashboardViewBtn',
+        },
+        {
+          color: 'accent',
+          type: 'icon',
+          icon: 'edit',
+          tooltip: this.translateService.stream('Edit Dashboard'),
+          click: (dashboard: DashboardModel) => this.openEditPage(dashboard),
+          class: 'dashboardEditBtn',
+        },
+        {
+          color: 'accent',
+          type: 'icon',
+          icon: 'content_copy',
+          tooltip: this.translateService.stream('Copy Dashboard'),
+          click: (dashboard: DashboardModel) => this.openCopyModal(dashboard),
+          class: 'dashboardCopyBtn',
+        },
+        {
+          color: 'warn',
+          type: 'icon',
+          icon: 'delete',
+          tooltip: this.translateService.stream('Delete Dashboard'),
+          click: (dashboard: DashboardModel) => this.openDeleteModal(dashboard),
+          class: 'dashboardDeleteBtn',
+        },
+      ]
+    },
+  ]
 
   constructor(
     private dictionariesService: InsightDashboardPnDashboardDictionariesService,
     private router: Router,
     private route: ActivatedRoute,
-    public dashboardsStateService: DashboardsStateService
+    public dashboardsStateService: DashboardsStateService,
+    private translateService: TranslateService,
   ) {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.dashboardsStateService.updateNameFilter(val);
@@ -88,13 +129,8 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  sortTable(sort: string) {
-    this.dashboardsStateService.onSortTable(sort);
-    this.getDashboardsList();
-  }
-
-  changePage(offset: any) {
-    this.dashboardsStateService.changePage(offset);
+  sortTable(sort: Sort) {
+    this.dashboardsStateService.onSortTable(sort.active);
     this.getDashboardsList();
   }
 
@@ -136,8 +172,8 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
       .then();
   }
 
-  onPageSizeChanged(pageSize: number) {
-    this.dashboardsStateService.updatePageSize(pageSize);
+  onPaginationChanged(paginationModel: PaginationModel) {
+    this.dashboardsStateService.updatePagination(paginationModel);
     this.getDashboardsList();
   }
 

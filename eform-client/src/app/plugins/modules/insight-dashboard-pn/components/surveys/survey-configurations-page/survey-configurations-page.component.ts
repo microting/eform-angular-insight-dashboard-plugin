@@ -156,11 +156,6 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
     this.getSurveyConfigsList();
   }
 
-  changePage(offset: any) {
-    this.surveysStateService.changePage(offset);
-    this.getSurveyConfigsList();
-  }
-
   onSearchInputChanged(searchValue: string) {
     this.searchSubject.next(searchValue);
   }
