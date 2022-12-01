@@ -32,10 +32,6 @@ import {dialogConfigHelper} from 'src/app/common/helpers';
   styleUrls: ['./survey-configurations-page.component.scss'],
 })
 export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('newSurveyConfigModal', { static: true })
-  newSurveyConfigModal: SurveyConfigurationNewComponent;
-  @ViewChild('editSurveyConfigModal', { static: true })
-  editSurveyConfigModal: SurveyConfigurationEditComponent;
   @ViewChild('statusSurveyConfigModal', { static: true })
   statusSurveyConfigModal: SurveyConfigurationStatusComponent;
   surveyConfigurationsListModel: SurveyConfigsListModel = new SurveyConfigsListModel();
@@ -48,6 +44,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   getLocationsSub$: Subscription;
   surveyConfigurationDeleteComponentAfterClosedSub$: Subscription;
   surveyConfigurationEditComponentAfterClosedSub$: Subscription;
+  surveyConfigurationNewComponentAfterClosedSub$: Subscription;
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -182,7 +179,9 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   openCreateModal() {
-    this.newSurveyConfigModal.show();
+    this.surveyConfigurationNewComponentAfterClosedSub$ = this.dialog.open(SurveyConfigurationNewComponent,
+      dialogConfigHelper(this.overlay, {locations: this.locations, surveys: this.availableSurveys}))
+      .afterClosed().subscribe(data => data ? this.getSurveyConfigsList() : undefined);
   }
 
   openStatusModal(surveyConfig: SurveyConfigModel) {
