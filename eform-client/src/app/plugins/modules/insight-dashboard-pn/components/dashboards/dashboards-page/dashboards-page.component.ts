@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DashboardModel, DashboardsListModel,} from '../../../models';
 import {Subject, Subscription} from 'rxjs';
 import {
   DashboardCopyComponent,
   DashboardDeleteComponent,
-  DashboardEditComponent,
   DashboardNewComponent,
 } from '../..';
 import {InsightDashboardPnDashboardDictionariesService} from '../../../services';
@@ -29,10 +28,6 @@ import {dialogConfigHelper} from 'src/app/common/helpers';
   styleUrls: ['./dashboards-page.component.scss'],
 })
 export class DashboardsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('newDashboardModal', {static: true})
-  newDashboardModal: DashboardNewComponent;
-  @ViewChild('editDashboardModal', {static: true})
-  editDashboardModal: DashboardEditComponent;
   dashboardsListModel: DashboardsListModel = new DashboardsListModel();
   searchSubject = new Subject();
   availableSurveys: CommonDictionaryModel[] = [];
@@ -41,6 +36,7 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   getSurveysSub$: Subscription;
   dashboardCopyComponentAfterClosedSub$: Subscription;
   dashboardDeleteComponentAfterClosedSub$: Subscription;
+  dashboardCreatedSub$: Subscription;
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -140,10 +136,6 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     this.searchSubject.next(searchValue);
   }
 
-  openCreateModal() {
-    this.newDashboardModal.show();
-  }
-
   openEditPage(dashboard: DashboardModel) {
     this.router
       .navigate(['/plugins/insight-dashboard-pn/dashboard/edit/', dashboard.id])
@@ -154,6 +146,14 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     this.router
       .navigate(['/plugins/insight-dashboard-pn/dashboard/', dashboard.id])
       .then();
+  }
+
+  openCreateModal() {
+    const newDashboardModal = this.dialog.open(DashboardNewComponent, dialogConfigHelper(this.overlay, this.availableSurveys));
+    this.dashboardCreatedSub$ = newDashboardModal.componentInstance.dashboardCreated.subscribe(x => {
+      newDashboardModal.close();
+      this.navigateToNewDashboard(x);
+    })
   }
 
   openCopyModal(model: DashboardModel) {

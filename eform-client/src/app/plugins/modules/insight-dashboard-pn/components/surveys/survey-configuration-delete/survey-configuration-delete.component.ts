@@ -2,7 +2,6 @@ import {
   Component,
   EventEmitter,
   Inject,
-  Output,
 } from '@angular/core';
 import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
 import { InsightDashboardPnSurveyConfigsService } from '../../../services';

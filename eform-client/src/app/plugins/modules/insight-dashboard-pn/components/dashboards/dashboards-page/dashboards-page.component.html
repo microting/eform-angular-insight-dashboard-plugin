@@ -49,9 +49,3 @@
     (paginationChanged)="onPaginationChanged($event)"
   ></eform-pagination>
 </ng-template>
-
-<app-dashboard-new
-  [surveys]="availableSurveys"
-  (dashboardCreated)="navigateToNewDashboard($event)"
-  #newDashboardModal
-></app-dashboard-new>
