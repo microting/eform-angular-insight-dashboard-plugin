@@ -50,10 +50,6 @@
   ></eform-pagination>
 </ng-template>
 
-<app-dashboard-copy
-  #copyDashboardModal
-  (dashboardCopied)="getDashboardsList()"
-></app-dashboard-copy>
 <app-dashboard-new
   [surveys]="availableSurveys"
   (dashboardCreated)="navigateToNewDashboard($event)"

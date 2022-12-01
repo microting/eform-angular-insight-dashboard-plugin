@@ -1,25 +1,26 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DashboardModel, DashboardsListModel,} from '../../../models';
-import { Subject, Subscription } from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {
   DashboardCopyComponent,
   DashboardDeleteComponent,
   DashboardEditComponent,
   DashboardNewComponent,
 } from '../..';
-import { InsightDashboardPnDashboardDictionariesService } from '../../../services';
+import {InsightDashboardPnDashboardDictionariesService} from '../../../services';
 import {
   CommonDictionaryModel, PaginationModel,
 } from 'src/app/common/models';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DashboardsStateService } from '../store';
-import { debounceTime } from 'rxjs/operators';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DashboardsStateService} from '../store';
+import {debounceTime} from 'rxjs/operators';
 import {Sort} from '@angular/material/sort';
 import {MtxGridColumn} from '@ng-matero/extensions/grid';
 import {TranslateService} from '@ngx-translate/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Overlay} from '@angular/cdk/overlay';
+import {dialogConfigHelper} from 'src/app/common/helpers';
 
 @AutoUnsubscribe()
 @Component({
@@ -28,19 +29,19 @@ import {Overlay} from '@angular/cdk/overlay';
   styleUrls: ['./dashboards-page.component.scss'],
 })
 export class DashboardsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('newDashboardModal', { static: true })
+  @ViewChild('newDashboardModal', {static: true})
   newDashboardModal: DashboardNewComponent;
-  @ViewChild('copyDashboardModal', { static: true })
-  copyDashboardModal: DashboardCopyComponent;
-  @ViewChild('editDashboardModal', { static: true })
+  @ViewChild('editDashboardModal', {static: true})
   editDashboardModal: DashboardEditComponent;
-  @ViewChild('deleteDashboardModal', { static: true })
+  @ViewChild('deleteDashboardModal', {static: true})
   deleteDashboardModal: DashboardDeleteComponent;
   dashboardsListModel: DashboardsListModel = new DashboardsListModel();
   searchSubject = new Subject();
   availableSurveys: CommonDictionaryModel[] = [];
+
   getAllSub$: Subscription;
   getSurveysSub$: Subscription;
+  dashboardCopyComponentAfterClosedSub$: Subscription;
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -91,7 +92,7 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
         },
       ]
     },
-  ]
+  ];
 
   constructor(
     private dictionariesService: InsightDashboardPnDashboardDictionariesService,
@@ -99,6 +100,8 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public dashboardsStateService: DashboardsStateService,
     private translateService: TranslateService,
+    private dialog: MatDialog,
+    private overlay: Overlay,
   ) {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.dashboardsStateService.updateNameFilter(val);
@@ -155,14 +158,17 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   openCopyModal(model: DashboardModel) {
-    this.copyDashboardModal.show(model);
+    this.dashboardCopyComponentAfterClosedSub$ = this.dialog.open(DashboardCopyComponent,
+      dialogConfigHelper(this.overlay, model))
+      .afterClosed().subscribe(data => data ? this.getDashboardsList() : undefined);
   }
 
   openDeleteModal(model: DashboardModel) {
     this.deleteDashboardModal.show(model);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+  }
 
   navigateToNewDashboard(newDashboardId: number) {
     this.router

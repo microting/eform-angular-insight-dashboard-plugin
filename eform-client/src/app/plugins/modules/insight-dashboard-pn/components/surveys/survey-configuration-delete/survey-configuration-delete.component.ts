@@ -14,7 +14,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./survey-configuration-delete.component.scss'],
 })
 export class SurveyConfigurationDeleteComponent {
-  @Output() surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
+  surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
