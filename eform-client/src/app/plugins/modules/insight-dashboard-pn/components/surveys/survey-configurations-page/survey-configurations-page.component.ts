@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { SurveyConfigsListModel, SurveyConfigModel } from '../../../models';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -32,8 +32,6 @@ import {dialogConfigHelper} from 'src/app/common/helpers';
   styleUrls: ['./survey-configurations-page.component.scss'],
 })
 export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('statusSurveyConfigModal', { static: true })
-  statusSurveyConfigModal: SurveyConfigurationStatusComponent;
   surveyConfigurationsListModel: SurveyConfigsListModel = new SurveyConfigsListModel();
   availableSurveys: CommonDictionaryModel[] = [];
   locations: CommonDictionaryModel[] = [];
@@ -45,6 +43,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   surveyConfigurationDeleteComponentAfterClosedSub$: Subscription;
   surveyConfigurationEditComponentAfterClosedSub$: Subscription;
   surveyConfigurationNewComponentAfterClosedSub$: Subscription;
+  surveyConfigurationStatusComponentAfterClosedSub$: Subscription;
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -185,7 +184,9 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   openStatusModal(surveyConfig: SurveyConfigModel) {
-    this.statusSurveyConfigModal.show(surveyConfig);
+    this.surveyConfigurationStatusComponentAfterClosedSub$ = this.dialog.open(SurveyConfigurationStatusComponent,
+      dialogConfigHelper(this.overlay, surveyConfig))
+      .afterClosed().subscribe(data => data ? this.getSurveyConfigsList() : undefined);
   }
 
   ngOnDestroy(): void {}
