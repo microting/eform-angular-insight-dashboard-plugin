@@ -33,8 +33,6 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   newDashboardModal: DashboardNewComponent;
   @ViewChild('editDashboardModal', {static: true})
   editDashboardModal: DashboardEditComponent;
-  @ViewChild('deleteDashboardModal', {static: true})
-  deleteDashboardModal: DashboardDeleteComponent;
   dashboardsListModel: DashboardsListModel = new DashboardsListModel();
   searchSubject = new Subject();
   availableSurveys: CommonDictionaryModel[] = [];
@@ -42,6 +40,7 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   getAllSub$: Subscription;
   getSurveysSub$: Subscription;
   dashboardCopyComponentAfterClosedSub$: Subscription;
+  dashboardDeleteComponentAfterClosedSub$: Subscription;
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -164,7 +163,9 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   openDeleteModal(model: DashboardModel) {
-    this.deleteDashboardModal.show(model);
+    this.dashboardDeleteComponentAfterClosedSub$ = this.dialog.open(DashboardDeleteComponent,
+      dialogConfigHelper(this.overlay, model))
+      .afterClosed().subscribe(data => data ? this.onDashboardDeleted() : undefined);
   }
 
   ngOnDestroy(): void {
