@@ -52,12 +52,6 @@
   #statusSurveyConfigModal
   (configStatusChanged)="getSurveyConfigsList()"
 ></app-survey-configuration-status>
-<app-survey-configuration-edit
-  [surveys]="availableSurveys"
-  [locations]="locations"
-  (configUpdated)="getSurveyConfigsList()"
-  #editSurveyConfigModal
-></app-survey-configuration-edit>
 <app-survey-configuration-new
   [surveys]="availableSurveys"
   [locations]="locations"

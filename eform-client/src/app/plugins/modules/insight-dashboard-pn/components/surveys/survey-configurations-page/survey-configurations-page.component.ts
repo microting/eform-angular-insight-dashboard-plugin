@@ -47,6 +47,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   getSurveysSub$: Subscription;
   getLocationsSub$: Subscription;
   surveyConfigurationDeleteComponentAfterClosedSub$: Subscription;
+  surveyConfigurationEditComponentAfterClosedSub$: Subscription;
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -169,7 +170,9 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   openEditModal(surveyConfig: SurveyConfigModel) {
-    this.editSurveyConfigModal.show(surveyConfig);
+    this.surveyConfigurationEditComponentAfterClosedSub$ = this.dialog.open(SurveyConfigurationEditComponent,
+      dialogConfigHelper(this.overlay, {surveyConfig, locations: this.locations, surveys: this.availableSurveys}))
+      .afterClosed().subscribe(data => data ? this.getSurveyConfigsList() : undefined);
   }
 
   openDeleteModal(surveyConfig: SurveyConfigModel) {
