@@ -1,72 +1,62 @@
-<div class="card z-depth-3 mt-4 mb-3" style="width: 100%">
-  <div class="card-body">
-    <div class="row">
-      <div class="col">
-        <div class="md-form">
-          <input mdbInput [(ngModel)]="dashboardEditModel.dashboardName"
-                 (ngModelChange)="fieldChanged(dashboardEditModel.dashboardName, dashboardFields.dashboardName);"
-                 type="text"
-                 class="form-control input-sm" id="dashboardNameInput">
-          <label for="dashboardNameInput">{{'Dashboard name' | translate}}</label>
-        </div>
-      </div>
+<mat-card>
+  <mat-card-content class="d-flex flex-column">
+    <mat-form-field>
+      <mat-label>{{'Dashboard name' | translate}}</mat-label>
+      <input
+        matInput
+        type="text"
+        id="dashboardNameInput"
+        [ngModel]="dashboardEditModel.dashboardName"
+        (ngModelChange)="fieldChanged(dashboardEditModel.dashboardName, dashboardFields.dashboardName)"
+      >
+    </mat-form-field>
+    <div class="d-flex need-wrapper align-items-center">
+      <mat-form-field [owlDateTimeTrigger]="dateFromPicker">
+        <mat-label>{{'Date From' | translate}}</mat-label>
+        <mat-icon matPrefix>calendar_today</mat-icon>
+        <input
+          matInput
+          type="text"
+          id="dateFromInput"
+          [ngModel]="selectedDateRange"
+          (ngModelChange)="fieldChanged(selectedDateRange[0], dashboardFields.dateFrom)"
+          [owlDateTime]="dateFromPicker"
+          [selectMode]="'rangeTo'"
+        >
+        <owl-date-time [pickerType]="'calendar'" [firstDayOfWeek]="1" #dateFromPicker></owl-date-time>
+      </mat-form-field>
+      <mat-form-field [owlDateTimeTrigger]="dateToPicker">
+        <mat-label>{{'Date To' | translate}}</mat-label>
+        <mat-icon matPrefix>calendar_today</mat-icon>
+        <input
+          matInput
+          type="text"
+          id="dateFromInput"
+          [ngModel]="selectedDateRange"
+          (ngModelChange)="fieldChanged(selectedDateRange[1], dashboardFields.dateFrom)"
+          [owlDateTime]="dateToPicker"
+          [selectMode]="'rangeTo'"
+          [(ngModel)]="selectedDateRange"
+          [disabled]="dashboardEditModel.answerDates.today"
+        >
+        <owl-date-time [pickerType]="'calendar'" [firstDayOfWeek]="1" #dateToPicker></owl-date-time>
+      </mat-form-field>
+      <mat-checkbox
+        [ngModel]="dashboardEditModel.answerDates.today"
+        (ngModelChange)="fieldChanged($event, dashboardFields.today)"
+        class="ml-3"
+      >{{'Today' | translate}}</mat-checkbox>
     </div>
-    <div class="row">
-      <div class="col-3">
-        <div class="md-form" [owlDateTimeTrigger]="dateFromPicker">
-          <i class="material-icons prefix">
-            calendar_today
-          </i>
-          <input mdbInput name="dateRange" [(ngModel)]="selectedDateRange"
-                 (ngModelChange)="fieldChanged(selectedDateRange[0], dashboardFields.dateFrom)"
-                 type="text" [owlDateTime]="dateFromPicker" [selectMode]="'rangeFrom'"
-                 class="form-control input-sm" id="dateFromInput">
-          <label for="dateFromInput">{{'Date From' | translate}}</label>
-        </div>
-        <owl-date-time [pickerType]="'calendar'"
-                       [firstDayOfWeek]="1" #dateFromPicker></owl-date-time>
-
-      </div>
-      <div class="col-3">
-        <div class="md-form" [owlDateTimeTrigger]="dateToPicker">
-          <i class="material-icons prefix">
-            calendar_today
-          </i>
-          <input mdbInput name="dateRange" [(ngModel)]="selectedDateRange"
-                 [disabled]="dashboardEditModel.answerDates.today"
-                 (ngModelChange)="fieldChanged(selectedDateRange[1], dashboardFields.dateTo)"
-                 type="text" [owlDateTime]="dateToPicker" [selectMode]="'rangeTo'"
-                 class="form-control input-sm" id="dateToInput">
-          <label for="dateToInput">{{'Date To' | translate}}</label>
-        </div>
-        <owl-date-time [pickerType]="'calendar'"
-                       [firstDayOfWeek]="1" #dateToPicker></owl-date-time>
-
-      </div>
-      <div class="col-3 mt-2">
-        <div class="mat-checkbox mt-4">
-          <input id="rangeToToday"
-                 [checked]="dashboardEditModel.answerDates.today"
-                 (click)="fieldChanged($event.target.checked, dashboardFields.today)"
-                 [value]="dashboardEditModel.answerDates.today"
-                 type="checkbox">
-          <label for="rangeToToday" id="rangeToTodayCheckbox">
-            {{'Today' | translate}}
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <ng-select [items]="availableLocationsTags"
-                   [placeholder]="('Select location/report tag' | translate) + '*'"
-                   required
-                   [clearable]="false"
-                   [(ngModel)]="selectedLocationTag"
-                   (change)="onLocationTagSelected($event)"
-                   id="selectLocationTag">
-        </ng-select>
-      </div>
-    </div>
-  </div>
-</div>
+    <mat-form-field>
+      <mat-label>{{'Select location/report tag' | translate}}</mat-label>
+      <mtx-select
+        [items]="availableLocationsTags"
+        required
+        [clearable]="false"
+        [(ngModel)]="selectedLocationTag"
+        (change)="onLocationTagSelected($event)"
+        id="selectLocationTag">
+      ></mtx-select>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>

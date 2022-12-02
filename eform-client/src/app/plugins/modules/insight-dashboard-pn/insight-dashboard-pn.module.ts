@@ -61,6 +61,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MtxSelectModule} from '@ng-matero/extensions/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -84,6 +88,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatDialogModule,
     MtxSelectModule,
     MatCheckboxModule,
+    MatCardModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatExpansionModule,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
