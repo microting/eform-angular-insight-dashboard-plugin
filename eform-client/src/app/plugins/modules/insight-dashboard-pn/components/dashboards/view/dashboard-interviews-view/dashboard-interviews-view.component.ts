@@ -1,16 +1,16 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DashboardViewItemModel } from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
 import { InsightDashboardPnDashboardItemsService } from '../../../../services';
 import { saveAs } from 'file-saver';
-import { DashboardViewModel } from '../../../../models';
+import { DashboardViewModel, DashboardViewItemModel} from '../../../../models';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-interviews-view',
-  templateUrl: './dashboard-interviews-view.component.html',
+  // templateUrl: './dashboard-interviews-view.component.html',
   styleUrls: ['./dashboard-interviews-view.component.scss'],
+  template: ``
 })
 export class DashboardInterviewsViewComponent implements OnInit, OnDestroy {
   @Input() dashboardViewModel: DashboardViewModel = new DashboardViewModel();

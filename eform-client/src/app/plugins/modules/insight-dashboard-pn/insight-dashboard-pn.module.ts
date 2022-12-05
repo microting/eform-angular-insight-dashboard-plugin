@@ -2,10 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {CollapseModule, MDBBootstrapModule} from 'angular-bootstrap-md';
-import {NgSelectModule} from '@ng-select/ng-select';
 import {SharedPnModule} from '../shared/shared-pn.module';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {EformSharedModule} from 'src/app/common/modules/eform-shared/eform-shared.module';
 import {InsightDashboardPnLayoutComponent} from './layouts';
 import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.module';
@@ -32,7 +29,7 @@ import {
   DashboardEditComponent,
   DashboardEditHeaderComponent,
   DashboardInterviewsEditComponent,
-  DashboardInterviewsViewComponent,
+  // DashboardInterviewsViewComponent,
   DashboardItemEditComponent,
   DashboardNewComponent,
   DashboardsPageComponent,
@@ -70,16 +67,12 @@ import {MatExpansionModule} from '@angular/material/expansion';
   imports: [
     CommonModule,
     SharedPnModule,
-    MDBBootstrapModule,
     InsightDashboardPnRoutingModule,
     TranslateModule,
     FormsModule,
-    NgSelectModule,
     EformSharedModule,
-    FontAwesomeModule,
     CasesModule,
     DragulaModule,
-    CollapseModule,
     NgxChartsModule,
     OwlDateTimeModule,
     MatButtonModule,
@@ -115,7 +108,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     DashboardInterviewsEditComponent,
     DashboardChartDataEditComponent,
     DashboardChartDataViewComponent,
-    DashboardInterviewsViewComponent,
+    // DashboardInterviewsViewComponent,
     AnswerPageComponent,
     AnswerValuesTableComponent,
     AnswerDeleteModalComponent,
