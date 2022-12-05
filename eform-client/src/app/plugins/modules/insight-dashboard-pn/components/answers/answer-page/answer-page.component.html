@@ -1,54 +1,44 @@
-<eform-subheader [title]="'Answers' | translate"> </eform-subheader>
+<eform-new-subheader [title]="'Answers' | translate" [forceStaticTitle]="true"></eform-new-subheader>
 
-<div class="container-fluid">
-  <div class="row pl-1">
-    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-      <div class="md-form input-group">
+<ng-template #toolbarTpl>
+  <div class="d-flex flex-row justify-content-start flex-nowrap align-items-baseline">
+    <div class="d-flex flex-column mr-2 ml-2">
+      <mat-form-field>
+        <mat-label>{{ 'Enter Microting UId' | translate }}</mat-label>
         <input
-          mdbInput
+          matInput
+          type="text"
           name="searchMicrotingUIdInput"
           required
           [(ngModel)]="searchAnswerId"
-          type="text"
-          class="form-control input-sm"
           id="searchMicrotingUIdInput"
         />
-        <label for="searchMicrotingUIdInput">{{
-          'Enter Microting UId' | translate
-        }}</label>
-        <div class="input-group-append">
-          <button
-            mdbBtn
-            [mdbTooltip]="'Search answer' | translate"
-            class="btn-success btn-icon mb-0"
-            container="body"
-            [disabled]="searchAnswerId === null"
-            (click)="getAnswer()"
-            id="searchMicrotingUIdBtn"
-          >
-            <fa-icon icon="search" size="lg" [fixedWidth]="true"></fa-icon>
-          </button>
-          <button
-            mdbBtn
-            class="btn-danger btn-icon mb-0"
-            container="body"
-            [mdbTooltip]="'Delete answer' | translate"
-            [disabled]="
-              !searchAnswerMicrotingUId ||
-              searchAnswerMicrotingUId !== answer.microtingUid
-            "
-            (click)="openAnswerDeleteModal()"
-            id="deleteByMicrotingUIdBtn"
-          >
-            <fa-icon icon="trash-alt" size="lg" [fixedWidth]="true"></fa-icon>
-          </button>
-        </div>
-      </div>
+      </mat-form-field>
     </div>
+    <button
+      mat-icon-button
+      (click)="getAnswer()"
+      id="searchMicrotingUIdBtn"
+      [disabled]="searchAnswerId === null"
+      [matTooltip]="'Search answer' | translate"
+      color="accent"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      [disabled]="!searchAnswerMicrotingUId || searchAnswerMicrotingUId !== answer.microtingUid"
+      (click)="openAnswerDeleteModal()"
+      id="deleteByMicrotingUIdBtn"
+      [matTooltip]="'Delete answer' | translate"
+      color="warn"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
+</ng-template>
 
-  <app-answer-values-table [answerModel]="answer"></app-answer-values-table>
-</div>
+<app-answer-values-table [toolbarTemplate]="toolbarTpl" [answerModel]="answer"></app-answer-values-table>
 
 <app-answer-delete-modal
   #answerDeleteModal
