@@ -2,9 +2,8 @@ import {
   Component,
   EventEmitter,
   OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-answer-delete-modal',
@@ -12,19 +11,18 @@ import {
   styleUrls: ['./answer-delete-modal.component.scss'],
 })
 export class AnswerDeleteModalComponent implements OnInit {
-  @Output() deleteAnswer: EventEmitter<void> = new EventEmitter<void>();
-  @ViewChild('frame', { static: true }) frame;
+  deleteAnswer: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  hide() {
-    this.frame.hide();
+  constructor(
+    public dialogRef: MatDialogRef<AnswerDeleteModalComponent>,
+  ) {
   }
 
-  show() {
-    this.frame.show();
+  ngOnInit(): void {
+  }
+
+  hide() {
+    this.dialogRef.close();
   }
 
   delete() {
