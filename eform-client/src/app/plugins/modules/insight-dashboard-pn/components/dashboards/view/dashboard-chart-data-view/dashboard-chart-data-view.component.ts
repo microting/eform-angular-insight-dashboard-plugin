@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DashboardViewItemModel } from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
-import { DashboardChartTypesEnum } from 'src/app/plugins/modules/insight-dashboard-pn/const';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {DashboardViewItemModel} from '../../../../models';
+import { DashboardChartTypesEnum } from '../../../../const';
 import { AuthStateService } from 'src/app/common/store';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';

@@ -4,8 +4,7 @@ import {
   DashboardItemQuestionTypesEnum,
   DashboardPeriodUnitsEnum,
 } from '../../../../const/enums';
-import { DashboardViewItemModel } from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
-import { DashboardViewModel } from '../../../../models';
+import { DashboardViewModel, DashboardViewItemModel} from '../../../../models';
 
 @Component({
   selector: 'app-dashboard-block-view',
