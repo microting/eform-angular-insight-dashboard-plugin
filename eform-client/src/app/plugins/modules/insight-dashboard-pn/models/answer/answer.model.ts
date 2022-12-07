@@ -1,7 +1,7 @@
 export class AnswerModel {
   id: number;
   microtingUid: number;
-  finishedAt: dateFns;
+  finishedAt: string;
   answerDuration: number;
   siteName: string;
   unitId: number;  answerValues: AnswerValuesModel[] = [];

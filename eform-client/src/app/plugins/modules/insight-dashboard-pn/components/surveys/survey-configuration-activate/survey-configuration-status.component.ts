@@ -1,12 +1,12 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
 import { InsightDashboardPnSurveyConfigsService } from '../../../services';
-import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
+import { SurveyConfigModel } from '../../../models';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-survey-configuration-status',
@@ -14,20 +14,19 @@ import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
   styleUrls: ['./survey-configuration-status.component.scss'],
 })
 export class SurveyConfigurationStatusComponent implements OnInit {
-  @ViewChild('frame', { static: true }) frame;
-  @Output()
   configStatusChanged: EventEmitter<SurveyConfigModel> = new EventEmitter<SurveyConfigModel>();
-  selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel();
 
   constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService
-  ) {}
+    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
+    public dialogRef: MatDialogRef<SurveyConfigurationStatusComponent>,
+    @Inject(MAT_DIALOG_DATA) public selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel(),
+  ) {
+  }
 
   ngOnInit() {}
 
-  show(model: SurveyConfigModel) {
-    this.selectedSurveyConfig = model;
-    this.frame.show();
+  hide(result = false) {
+    this.dialogRef.close(result);
   }
 
   changeSurveyConfigStatus() {
@@ -38,7 +37,7 @@ export class SurveyConfigurationStatusComponent implements OnInit {
       })
       .subscribe((data) => {
         if (data && data.success) {
-          this.frame.hide();
+          this.hide(true);
           this.configStatusChanged.emit();
         }
       });

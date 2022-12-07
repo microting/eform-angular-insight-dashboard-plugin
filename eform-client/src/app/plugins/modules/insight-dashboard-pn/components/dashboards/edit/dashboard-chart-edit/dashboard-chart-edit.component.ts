@@ -4,9 +4,8 @@ import {
   DashboardItemQuestionTypesEnum,
   DashboardPeriodUnitsEnum,
 } from '../../../../const/enums';
-import { DashboardItemModel } from '../../../../models';
+import { DashboardItemModel, DashboardChartDataModel} from '../../../../models';
 import { CommonDictionaryModel } from 'src/app/common/models';
-import { DashboardChartDataModel } from '../../../../models/dashboard/dashboard-chart-data.model';
 import { getChartData } from '../../../../helpers/preview-values-generator.helper';
 import { AuthStateService } from 'src/app/common/store';
 
@@ -97,7 +96,7 @@ export class DashboardChartEditComponent implements OnChanges {
     },
   ];
 
-  constructor(private authStateService: AuthStateService) {}
+  constructor(public authStateService: AuthStateService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {

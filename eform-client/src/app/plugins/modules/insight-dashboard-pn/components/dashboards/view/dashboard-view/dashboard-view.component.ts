@@ -3,14 +3,16 @@ import { InsightDashboardPnDashboardsService } from '../../../../services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
-import { DashboardViewModel } from '../../../../models';
+import { DashboardViewModel, DashboardViewExportDocModel} from '../../../../models';
 import {
   DashboardChartTypesEnum,
   DashboardItemQuestionTypesEnum,
 } from '../../../../const/enums';
 import * as domtoimage from 'dom-to-image';
-import { DashboardViewExportDocModel } from '../../../../models/dashboard/dashboard-view/dashboard-view-export-doc.model';
 import { saveAs } from 'file-saver';
+import {WordIcon} from 'src/app/common/const';
+import {MatIconRegistry} from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @AutoUnsubscribe()
 @Component({
@@ -27,8 +29,12 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
   constructor(
     private dashboardsService: InsightDashboardPnDashboardsService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+  ) {
+    iconRegistry.addSvgIconLiteral('file-word', sanitizer.bypassSecurityTrustHtml(WordIcon));
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -75,6 +81,7 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
     const promiseArray = [];
     domArray.map((target) => {
       const node = document.getElementById(target.name);
+      // noinspection JSVoidFunctionReturnValueUsed
       promiseArray.push(
         domtoimage
           .toBlob(node, {

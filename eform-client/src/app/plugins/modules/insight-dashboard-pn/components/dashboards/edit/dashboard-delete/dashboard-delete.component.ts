@@ -1,12 +1,12 @@
 import {
   Component,
   EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
+  Inject,
+  OnInit
 } from '@angular/core';
-import { DashboardModel } from '../../../../models';
-import { InsightDashboardPnDashboardsService } from '../../../../services';
+import {DashboardModel} from '../../../../models';
+import {InsightDashboardPnDashboardsService} from '../../../../services';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard-delete',
@@ -14,23 +14,26 @@ import { InsightDashboardPnDashboardsService } from '../../../../services';
   styleUrls: ['./dashboard-delete.component.scss'],
 })
 export class DashboardDeleteComponent implements OnInit {
-  @ViewChild('frame', { static: true }) frame;
-  @Output() dashboardDeleted: EventEmitter<void> = new EventEmitter<void>();
-  dashboard: DashboardModel = new DashboardModel();
+  dashboardDeleted: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private dashboardService: InsightDashboardPnDashboardsService) {}
-
-  show(model: DashboardModel) {
-    this.dashboard = model;
-    this.frame.show();
+  constructor(
+    private dashboardService: InsightDashboardPnDashboardsService,
+    public dialogRef: MatDialogRef<DashboardDeleteComponent>,
+    @Inject(MAT_DIALOG_DATA) public dashboard: DashboardModel = new DashboardModel(),
+  ) {
   }
 
-  ngOnInit() {}
+  hide(result = false) {
+    this.dialogRef.close(result);
+  }
+
+  ngOnInit() {
+  }
 
   deleteDashboard() {
     this.dashboardService.remove(this.dashboard.id).subscribe((data) => {
       if (data && data.success) {
-        this.frame.hide();
+        this.hide(true);
         this.dashboardDeleted.emit();
       }
     });

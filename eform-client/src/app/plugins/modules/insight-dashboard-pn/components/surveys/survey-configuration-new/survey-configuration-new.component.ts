@@ -1,13 +1,13 @@
 import {
   Component,
   EventEmitter,
-  Input,
+  Inject,
   OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
-import { InsightDashboardPnSurveyConfigsService } from '../../../services';
-import { CommonDictionaryModel } from '../../../../../../common/models/common';
+import {InsightDashboardPnSurveyConfigsService} from '../../../services';
+import {CommonDictionaryModel} from 'src/app/common/models';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-survey-configuration-new',
@@ -15,22 +15,27 @@ import { CommonDictionaryModel } from '../../../../../../common/models/common';
   styleUrls: ['./survey-configuration-new.component.scss'],
 })
 export class SurveyConfigurationNewComponent implements OnInit {
-  @ViewChild('frame', { static: true }) frame;
-  @Input() locations: CommonDictionaryModel[] = [];
-  @Input() surveys: CommonDictionaryModel[] = [];
-  @Output() configCreated: EventEmitter<void> = new EventEmitter<void>();
+  locations: CommonDictionaryModel[] = [];
+  surveys: CommonDictionaryModel[] = [];
+  configCreated: EventEmitter<void> = new EventEmitter<void>();
   selectedSurveyId: number;
   selectedLocations: number[] = [];
 
   constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService
-  ) {}
-
-  show() {
-    this.frame.show();
+    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
+    public dialogRef: MatDialogRef<SurveyConfigurationNewComponent>,
+    @Inject(MAT_DIALOG_DATA) model: { locations: CommonDictionaryModel[], surveys: CommonDictionaryModel[] }
+  ) {
+    this.locations = model.locations;
+    this.surveys = model.surveys;
   }
 
-  ngOnInit() {}
+  hide(result = false) {
+    this.dialogRef.close(result);
+  }
+
+  ngOnInit() {
+  }
 
   createConfig() {
     this.surveyConfigsService
@@ -40,15 +45,15 @@ export class SurveyConfigurationNewComponent implements OnInit {
       })
       .subscribe((data) => {
         if (data && data.success) {
-          this.frame.hide();
+          this.hide(true);
           this.configCreated.emit();
           this.selectedLocations = [];
         }
       });
   }
 
-  addToArray(e: any, locationId: number) {
-    if (e.target.checked) {
+  addToArray(e: MatCheckboxChange, locationId: number) {
+    if (e.checked) {
       this.selectedLocations.push(locationId);
     } else {
       this.selectedLocations = this.selectedLocations.filter(

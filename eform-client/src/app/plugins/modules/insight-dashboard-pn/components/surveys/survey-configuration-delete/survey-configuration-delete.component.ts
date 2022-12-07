@@ -1,38 +1,34 @@
 import {
   Component,
   EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
+  Inject,
 } from '@angular/core';
 import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
 import { InsightDashboardPnSurveyConfigsService } from '../../../services';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-survey-configuration-delete',
   templateUrl: './survey-configuration-delete.component.html',
   styleUrls: ['./survey-configuration-delete.component.scss'],
 })
-export class SurveyConfigurationDeleteComponent implements OnInit {
-  @Output() surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
-  surveyConfig: SurveyConfigModel = new SurveyConfigModel();
-  @ViewChild('frame', { static: true }) frame;
+export class SurveyConfigurationDeleteComponent {
+  surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService
+    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
+    public dialogRef: MatDialogRef<SurveyConfigurationDeleteComponent>,
+    @Inject(MAT_DIALOG_DATA) public surveyConfig: SurveyConfigModel = new SurveyConfigModel(),
   ) {}
 
-  show(surveyConfig: SurveyConfigModel) {
-    this.surveyConfig = surveyConfig;
-    this.frame.show();
+  hide(result = false) {
+    this.dialogRef.close(result);
   }
-
-  ngOnInit() {}
 
   deleteSurveyConfig() {
     this.surveyConfigsService.remove(this.surveyConfig.id).subscribe((data) => {
       if (data && data.success) {
-        this.frame.hide();
+        this.hide(true);
         this.surveyConfigDeleted.emit();
       }
     });

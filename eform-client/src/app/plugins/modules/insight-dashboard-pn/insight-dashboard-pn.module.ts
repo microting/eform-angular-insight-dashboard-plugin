@@ -1,16 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { CollapseModule, MDBBootstrapModule } from 'angular-bootstrap-md';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { SharedPnModule } from '../shared/shared-pn.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { EformSharedModule } from 'src/app/common/modules/eform-shared/eform-shared.module';
-import { InsightDashboardPnLayoutComponent } from './layouts';
-
-import { InsightDashboardPnRoutingModule } from './insight-dashboard-pn-routing.module';
-import { CasesModule } from 'src/app/modules';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
+import {SharedPnModule} from '../shared/shared-pn.module';
+import {EformSharedModule} from 'src/app/common/modules/eform-shared/eform-shared.module';
+import {InsightDashboardPnLayoutComponent} from './layouts';
+import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.module';
+import {CasesModule} from 'src/app/modules';
 import {
   InsightDashboardPnAnswersService,
   InsightDashboardPnDashboardDictionariesService,
@@ -33,7 +29,7 @@ import {
   DashboardEditComponent,
   DashboardEditHeaderComponent,
   DashboardInterviewsEditComponent,
-  DashboardInterviewsViewComponent,
+  // DashboardInterviewsViewComponent,
   DashboardItemEditComponent,
   DashboardNewComponent,
   DashboardsPageComponent,
@@ -45,8 +41,8 @@ import {
   SurveyConfigurationsPageComponent,
   SurveyConfigurationStatusComponent,
 } from './components';
-import { DragulaModule } from 'ng2-dragula';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {DragulaModule} from 'ng2-dragula';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {
   DashboardsStateService,
   dashboardsPersistProvider,
@@ -55,24 +51,40 @@ import {
   SurveysStateService,
   surveysPersistProvider,
 } from './components/surveys/store';
-import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import {OwlDateTimeModule} from '@danielmoncada/angular-datetime-picker';
+import {MatButtonModule} from '@angular/material/button';
+import {MtxGridModule} from '@ng-matero/extensions/grid';
+import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MtxSelectModule} from '@ng-matero/extensions/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedPnModule,
-    MDBBootstrapModule,
     InsightDashboardPnRoutingModule,
     TranslateModule,
     FormsModule,
-    NgSelectModule,
     EformSharedModule,
-    FontAwesomeModule,
     CasesModule,
     DragulaModule,
-    CollapseModule,
     NgxChartsModule,
     OwlDateTimeModule,
+    MatButtonModule,
+    MtxGridModule,
+    MatInputModule,
+    MatDialogModule,
+    MtxSelectModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatExpansionModule,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
@@ -96,7 +108,7 @@ import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
     DashboardInterviewsEditComponent,
     DashboardChartDataEditComponent,
     DashboardChartDataViewComponent,
-    DashboardInterviewsViewComponent,
+    // DashboardInterviewsViewComponent,
     AnswerPageComponent,
     AnswerValuesTableComponent,
     AnswerDeleteModalComponent,
@@ -114,4 +126,5 @@ import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
     surveysPersistProvider,
   ],
 })
-export class InsightDashboardPnModule {}
+export class InsightDashboardPnModule {
+}
