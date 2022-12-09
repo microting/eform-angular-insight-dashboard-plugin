@@ -8,7 +8,6 @@ import { CommonDictionaryModel } from 'src/app/common/models';
 import { InsightDashboardPnSurveyConfigsService } from '../../../services';
 import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AreaRuleUpdateModel} from 'src/app/plugins/modules/backend-configuration-pn/models';
 
 @Component({
   selector: 'app-survey-configuration-edit',
