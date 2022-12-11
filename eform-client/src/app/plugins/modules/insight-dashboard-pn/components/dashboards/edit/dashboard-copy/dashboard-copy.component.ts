@@ -1,12 +1,12 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
-import { InsightDashboardPnDashboardsService } from '../../../../services';
-import { DashboardModel } from '../../../../models';
+import {InsightDashboardPnDashboardsService} from '../../../../services';
+import {DashboardModel} from '../../../../models';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard-copy',
@@ -14,23 +14,26 @@ import { DashboardModel } from '../../../../models';
   styleUrls: ['./dashboard-copy.component.scss'],
 })
 export class DashboardCopyComponent implements OnInit {
-  @ViewChild('frame', { static: true }) frame;
-  @Output() dashboardCopied: EventEmitter<void> = new EventEmitter<void>();
-  dashboard: DashboardModel = new DashboardModel();
+  dashboardCopied: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private dashboardService: InsightDashboardPnDashboardsService) {}
-
-  show(model: DashboardModel) {
-    this.dashboard = model;
-    this.frame.show();
+  constructor(
+    private dashboardService: InsightDashboardPnDashboardsService,
+    public dialogRef: MatDialogRef<DashboardCopyComponent>,
+    @Inject(MAT_DIALOG_DATA) public dashboard: DashboardModel = new DashboardModel(),
+  ) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  hide(result = false) {
+    this.dialogRef.close(result);
+  }
 
   copyDashboard() {
     this.dashboardService.copy(this.dashboard.id).subscribe((data) => {
       if (data && data.success) {
-        this.frame.hide();
+        this.hide(true);
         this.dashboardCopied.emit();
       }
     });

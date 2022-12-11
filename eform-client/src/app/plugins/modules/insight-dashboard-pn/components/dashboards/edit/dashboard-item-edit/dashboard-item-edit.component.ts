@@ -19,6 +19,7 @@ import {
   DashboardAnswerDatesModel,
   DashboardItemModel,
   DashboardItemQuestionModel,
+  LabelValueExtendedModel,
 } from '../../../../models';
 import { CommonDictionaryModel } from 'src/app/common/models';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
@@ -30,7 +31,6 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { InsightDashboardPnCollapseService } from '../../../../services/insight-dashboard-pn-collapse.service';
 import { CollapseComponent } from 'angular-bootstrap-md';
-import { LabelValueExtendedModel } from 'src/app/plugins/modules/insight-dashboard-pn/models/label-value-extended.model';
 
 @AutoUnsubscribe()
 @Component({
@@ -365,11 +365,11 @@ export class DashboardItemEditComponent
     }, 1000);
   }
 
-  addToArrayIgnoredValues(e: any, answerId: number) {
+  addToArrayIgnoredValues(checked: boolean, answerId: number) {
     const foundAnswer = this.dashboardItem.ignoredAnswerValues.find(
       (x) => x.answerId === answerId
     );
-    if (e.target.checked) {
+    if (checked) {
       this.dashboardItem.ignoredAnswerValues.push({
         answerId: answerId,
         id: foundAnswer ? foundAnswer.id : null,

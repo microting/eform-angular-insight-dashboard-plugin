@@ -1,21 +1,25 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DashboardModel, DashboardsListModel } from '../../../models';
-import { Subject, Subscription } from 'rxjs';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {DashboardModel, DashboardsListModel,} from '../../../models';
+import {Subject, Subscription} from 'rxjs';
 import {
   DashboardCopyComponent,
   DashboardDeleteComponent,
-  DashboardEditComponent,
   DashboardNewComponent,
 } from '../..';
-import { InsightDashboardPnDashboardDictionariesService } from '../../../services';
+import {InsightDashboardPnDashboardDictionariesService} from '../../../services';
 import {
-  CommonDictionaryModel,
-  TableHeaderElementModel,
-} from '../../../../../../common/models';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DashboardsStateService } from '../store';
-import { debounceTime } from 'rxjs/operators';
+  CommonDictionaryModel, PaginationModel,
+} from 'src/app/common/models';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DashboardsStateService} from '../store';
+import {debounceTime} from 'rxjs/operators';
+import {Sort} from '@angular/material/sort';
+import {MtxGridColumn} from '@ng-matero/extensions/grid';
+import {TranslateService} from '@ngx-translate/core';
+import {MatDialog} from '@angular/material/dialog';
+import {Overlay} from '@angular/cdk/overlay';
+import {dialogConfigHelper} from 'src/app/common/helpers';
 
 @AutoUnsubscribe()
 @Component({
@@ -24,40 +28,75 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./dashboards-page.component.scss'],
 })
 export class DashboardsPageComponent implements OnInit, OnDestroy {
-  @ViewChild('newDashboardModal', { static: true })
-  newDashboardModal: DashboardNewComponent;
-  @ViewChild('copyDashboardModal', { static: true })
-  copyDashboardModal: DashboardCopyComponent;
-  @ViewChild('editDashboardModal', { static: true })
-  editDashboardModal: DashboardEditComponent;
-  @ViewChild('deleteDashboardModal', { static: true })
-  deleteDashboardModal: DashboardDeleteComponent;
   dashboardsListModel: DashboardsListModel = new DashboardsListModel();
   searchSubject = new Subject();
   availableSurveys: CommonDictionaryModel[] = [];
+
   getAllSub$: Subscription;
   getSurveysSub$: Subscription;
+  dashboardCopyComponentAfterClosedSub$: Subscription;
+  dashboardDeleteComponentAfterClosedSub$: Subscription;
+  dashboardCreatedSub$: Subscription;
 
-  tableHeaders: TableHeaderElementModel[] = [
-    { name: 'Id', elementId: 'idTableHeader', sortable: true },
+  tableHeaders: MtxGridColumn[] = [
+    {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
+    {header: this.translateService.stream('Dashboard name'), field: 'dashboardName', sortProp: {id: 'Name'}, sortable: true},
+    {header: this.translateService.stream('Survey Name'), field: 'surveyName'},
     {
-      name: 'Name',
-      elementId: 'dashboardNameTableHeader',
-      sortable: true,
-      visibleName: 'Dashboard name',
+      header: this.translateService.stream('Location/Tag name'),
+      field: 'locations',
+      formatter: (dashboard: DashboardModel) => dashboard.locationName ? dashboard.locationName : dashboard.tagName
     },
-    { name: 'Survey name', elementId: '', sortable: false },
-    { name: 'Location/Tag name', elementId: '', sortable: false },
-    { name: 'Date From', elementId: '', sortable: false },
-    { name: 'Date To', elementId: '', sortable: false },
-    { name: 'Actions', elementId: '', sortable: false },
+    {header: this.translateService.stream('Date From'), field: 'dateFrom', type: 'date', typeParameter: {format: 'yyyy/MM/dd'}},
+    {header: this.translateService.stream('Date To'), field: 'dateTo', type: 'date', typeParameter: {format: 'yyyy/MM/dd'}},
+    {
+      header: this.translateService.stream('Actions'),
+      field: 'actions',
+      type: 'button',
+      buttons: [
+        {
+          type: 'icon',
+          icon: 'visibility',
+          tooltip: this.translateService.stream('View Dashboard'),
+          click: (dashboard: DashboardModel) => this.openViewPage(dashboard),
+          class: 'dashboardViewBtn',
+        },
+        {
+          color: 'accent',
+          type: 'icon',
+          icon: 'edit',
+          tooltip: this.translateService.stream('Edit Dashboard'),
+          click: (dashboard: DashboardModel) => this.openEditPage(dashboard),
+          class: 'dashboardEditBtn',
+        },
+        {
+          color: 'accent',
+          type: 'icon',
+          icon: 'content_copy',
+          tooltip: this.translateService.stream('Copy Dashboard'),
+          click: (dashboard: DashboardModel) => this.openCopyModal(dashboard),
+          class: 'dashboardCopyBtn',
+        },
+        {
+          color: 'warn',
+          type: 'icon',
+          icon: 'delete',
+          tooltip: this.translateService.stream('Delete Dashboard'),
+          click: (dashboard: DashboardModel) => this.openDeleteModal(dashboard),
+          class: 'dashboardDeleteBtn',
+        },
+      ]
+    },
   ];
 
   constructor(
     private dictionariesService: InsightDashboardPnDashboardDictionariesService,
     private router: Router,
     private route: ActivatedRoute,
-    public dashboardsStateService: DashboardsStateService
+    public dashboardsStateService: DashboardsStateService,
+    private translateService: TranslateService,
+    private dialog: MatDialog,
+    private overlay: Overlay,
   ) {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.dashboardsStateService.updateNameFilter(val);
@@ -88,22 +127,13 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  sortTable(sort: string) {
-    this.dashboardsStateService.onSortTable(sort);
-    this.getDashboardsList();
-  }
-
-  changePage(offset: any) {
-    this.dashboardsStateService.changePage(offset);
+  sortTable(sort: Sort) {
+    this.dashboardsStateService.onSortTable(sort.active);
     this.getDashboardsList();
   }
 
   onSearchInputChanged(searchValue: string) {
     this.searchSubject.next(searchValue);
-  }
-
-  openCreateModal() {
-    this.newDashboardModal.show();
   }
 
   openEditPage(dashboard: DashboardModel) {
@@ -118,15 +148,28 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
       .then();
   }
 
+  openCreateModal() {
+    const newDashboardModal = this.dialog.open(DashboardNewComponent, dialogConfigHelper(this.overlay, this.availableSurveys));
+    this.dashboardCreatedSub$ = newDashboardModal.componentInstance.dashboardCreated.subscribe(x => {
+      newDashboardModal.close();
+      this.navigateToNewDashboard(x);
+    })
+  }
+
   openCopyModal(model: DashboardModel) {
-    this.copyDashboardModal.show(model);
+    this.dashboardCopyComponentAfterClosedSub$ = this.dialog.open(DashboardCopyComponent,
+      dialogConfigHelper(this.overlay, model))
+      .afterClosed().subscribe(data => data ? this.getDashboardsList() : undefined);
   }
 
   openDeleteModal(model: DashboardModel) {
-    this.deleteDashboardModal.show(model);
+    this.dashboardDeleteComponentAfterClosedSub$ = this.dialog.open(DashboardDeleteComponent,
+      dialogConfigHelper(this.overlay, model))
+      .afterClosed().subscribe(data => data ? this.onDashboardDeleted() : undefined);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+  }
 
   navigateToNewDashboard(newDashboardId: number) {
     this.router
@@ -136,8 +179,8 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
       .then();
   }
 
-  onPageSizeChanged(pageSize: number) {
-    this.dashboardsStateService.updatePageSize(pageSize);
+  onPaginationChanged(paginationModel: PaginationModel) {
+    this.dashboardsStateService.updatePagination(paginationModel);
     this.getDashboardsList();
   }
 

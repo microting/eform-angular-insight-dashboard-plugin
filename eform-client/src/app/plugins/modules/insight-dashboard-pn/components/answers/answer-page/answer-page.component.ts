@@ -1,9 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { InsightDashboardPnAnswersService } from '../../../services';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { Subscription } from 'rxjs';
-import { AnswerModel } from '../../../models/answer';
-import { AnswerDeleteModalComponent } from '../answer-delete-modal/answer-delete-modal.component';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {InsightDashboardPnAnswersService} from '../../../services';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {Subscription} from 'rxjs';
+import {AnswerModel} from '../../../models/answer';
+import {AnswerDeleteModalComponent} from '../';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {Overlay} from '@angular/cdk/overlay';
+import {dialogConfigHelper} from 'src/app/common/helpers';
 
 @AutoUnsubscribe()
 @Component({
@@ -12,20 +15,29 @@ import { AnswerDeleteModalComponent } from '../answer-delete-modal/answer-delete
   styleUrls: ['./answer-page.component.scss'],
 })
 export class AnswerPageComponent implements OnInit, OnDestroy {
-  @ViewChild('answerDeleteModal', { static: true })
-  answerDeleteModal: AnswerDeleteModalComponent;
   searchAnswerMicrotingUId: number;
-  answerSub$: Subscription;
-  deleteAnswerSub$: Subscription;
   answer: AnswerModel = new AnswerModel();
   searchAnswerId: string;
 
-  constructor(private answersService: InsightDashboardPnAnswersService) {}
+  answerSub$: Subscription;
+  deleteAnswerSub$: Subscription;
+  deleteAnswerModalSub$: Subscription;
 
-  ngOnInit(): void {}
+  constructor(
+    private answersService: InsightDashboardPnAnswersService,
+    private dialog: MatDialog,
+    private overlay: Overlay,
+  ) {
+  }
+
+  ngOnInit(): void {
+  }
 
   openAnswerDeleteModal() {
-    this.answerDeleteModal.show();
+    const answerDeleteModal = this.dialog.open(AnswerDeleteModalComponent, dialogConfigHelper(this.overlay));
+    this.deleteAnswerModalSub$ = answerDeleteModal.componentInstance.deleteAnswer.subscribe(() => {
+      this.deleteAnswer(answerDeleteModal);
+    });
   }
 
   getAnswer() {
@@ -41,15 +53,16 @@ export class AnswerPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  deleteAnswer() {
+  deleteAnswer(answerDeleteModal: MatDialogRef<AnswerDeleteModalComponent>) {
     this.deleteAnswerSub$ = this.answersService
       .deleteAnswer(this.answer.microtingUid)
       .subscribe(() => {
         this.answer = new AnswerModel();
         this.searchAnswerMicrotingUId = null;
-        this.answerDeleteModal.hide();
+        answerDeleteModal.close();
       });
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+  }
 }

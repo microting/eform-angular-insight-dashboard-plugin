@@ -1,16 +1,15 @@
 import {
   Component,
   EventEmitter,
-  Input,
+  Inject,
   OnDestroy,
   OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
-import { CommonDictionaryModel } from '../../../../../../common/models/common';
+import { CommonDictionaryModel } from 'src/app/common/models';
 import { InsightDashboardPnDashboardsService } from '../../../services';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @AutoUnsubscribe()
 @Component({
@@ -19,18 +18,20 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dashboard-new.component.scss'],
 })
 export class DashboardNewComponent implements OnInit, OnDestroy {
-  @ViewChild('frame', { static: true }) frame;
-  @Input() surveys: CommonDictionaryModel[] = [];
-  @Output() dashboardCreated: EventEmitter<number> = new EventEmitter<number>();
-  @Output() surveySelected: EventEmitter<number> = new EventEmitter<number>();
+  dashboardCreated: EventEmitter<number> = new EventEmitter<number>();
+  surveySelected: EventEmitter<number> = new EventEmitter<number>();
   selectedSurveyId: number;
   createDashboard$: Subscription;
   dashboardName: string;
 
-  constructor(private dashboardsService: InsightDashboardPnDashboardsService) {}
+  constructor(
+    private dashboardsService: InsightDashboardPnDashboardsService,
+    public dialogRef: MatDialogRef<DashboardNewComponent>,
+    @Inject(MAT_DIALOG_DATA) public surveys: CommonDictionaryModel[] = [],
+  ) {}
 
-  show() {
-    this.frame.show();
+  hide() {
+    this.dialogRef.close();
   }
 
   ngOnInit() {}
@@ -43,7 +44,6 @@ export class DashboardNewComponent implements OnInit, OnDestroy {
       })
       .subscribe((data) => {
         if (data && data.success) {
-          this.frame.hide();
           this.dashboardCreated.emit(data.model);
         }
       });

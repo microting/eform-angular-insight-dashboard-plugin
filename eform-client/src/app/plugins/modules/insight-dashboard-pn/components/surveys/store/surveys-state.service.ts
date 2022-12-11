@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import {
   OperationDataResult,
   PaginationModel,
-  SortModel,
 } from 'src/app/common/models';
 import { updateTableSort, getOffset } from 'src/app/common/helpers';
 import { map } from 'rxjs/operators';
@@ -17,7 +16,8 @@ export class SurveysStateService {
     private store: SurveysStore,
     private service: InsightDashboardPnSurveyConfigsService,
     private query: SurveysQuery
-  ) {}
+  ) {
+  }
 
   getAll(): Observable<OperationDataResult<SurveyConfigsListModel>> {
     return this.service
@@ -65,8 +65,12 @@ export class SurveysStateService {
     return this.query.selectPageSize$;
   }
 
-  getSort(): Observable<SortModel> {
-    return this.query.selectSort$;
+  getActiveSort(): Observable<string> {
+    return this.query.selectActiveSort$;
+  }
+
+  getActiveSortDirection(): Observable<'asc' | 'desc'> {
+    return this.query.selectActiveSortDirection$;
   }
 
   getNameFilter(): Observable<string> {
@@ -122,5 +126,15 @@ export class SurveysStateService {
 
   getPagination(): Observable<PaginationModel> {
     return this.query.selectPagination$;
+  }
+
+  updatePagination(pagination: PaginationModel) {
+    this.store.update((state) => ({
+      pagination: {
+        ...state.pagination,
+        pageSize: pagination.pageSize,
+        offset: pagination.offset,
+      },
+    }));
   }
 }

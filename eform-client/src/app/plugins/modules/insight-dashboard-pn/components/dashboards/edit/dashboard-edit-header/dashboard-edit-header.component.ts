@@ -7,10 +7,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { DashboardEditModel } from '../../../../models';
+import { DashboardEditModel, LabelValueExtendedModel } from '../../../../models';
 import { DashboardFieldsEnum } from '../../../../const/enums';
 import { format, parseISO } from 'date-fns';
-import { LabelValueExtendedModel } from 'src/app/plugins/modules/insight-dashboard-pn/models/label-value-extended.model';
 
 @Component({
   selector: 'app-dashboard-edit-header',

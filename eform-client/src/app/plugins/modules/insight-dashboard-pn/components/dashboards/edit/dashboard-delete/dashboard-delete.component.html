@@ -1,46 +1,32 @@
-<div mdbModal class="modal fade" #frame="mdbModal">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>{{ 'Delete Dashboard' | translate }}</h3>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6">
-              <h6>ID</h6>
-            </div>
-            <div class="col-md-6">
-              <h6><strong>{{dashboard.id}}</strong></h6>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <h6>{{'Name' | translate}}</h6>
-            </div>
-            <div class="col-md-6">
-              <h6><strong>{{dashboard.dashboardName}}</strong></h6>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <h6>{{'Survey Name' | translate}}</h6>
-            </div>
-            <div class="col-md-6">
-              <h6><strong>{{dashboard.surveyName}}</strong></h6>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button mdbBtn class=" btn-danger btn-small-height" (click)="deleteDashboard()"
-                id="dashboardDeleteSaveBtn">
-          {{ 'Delete' | translate }}
-        </button>
-        <button mdbBtn class=" btn-accent text-black-50 btn-small-height" (click)="frame.hide()" id="dashboardDeleteCancelBtn">
-          {{ 'Cancel' | translate }}
-        </button>
-      </div>
-    </div>
+<h3 mat-dialog-title>{{'Delete Dashboard' | translate}}</h3>
+<div mat-dialog-content>
+  <div class="d-flex flex-row justify-content-between">
+    <p>ID</p>
+    <strong>{{dashboard.id}}</strong>
   </div>
+  <div class="d-flex flex-row justify-content-between">
+    <p>{{'Name' | translate}}</p>
+    <strong>{{dashboard.dashboardName}}</strong>
+  </div>
+  <div class="d-flex flex-row justify-content-between">
+    <p>{{'Survey Name' | translate}}</p>
+    <strong>{{dashboard.surveyName}}</strong>
+  </div>
+</div>
+<div mat-dialog-actions class="d-flex flex-row justify-content-end">
+  <button
+    mat-raised-button
+    color="warn"
+    id="dashboardDeleteSaveBtn"
+    (click)="deleteDashboard()"
+  >
+    {{'Delete' | translate}}
+  </button>
+  <button
+    mat-raised-button
+    id="dashboardDeleteCancelBtn"
+    (click)="hide()"
+  >
+    {{'Cancel' | translate}}
+  </button>
 </div>
