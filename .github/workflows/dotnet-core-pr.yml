@@ -81,6 +81,8 @@ jobs:
       run: dotnet build eform-angular-frontend/eFormAPI/eFormAPI.sln > dotnet_log 2>&1 &
     - name: NPM install
       run: cd eform-angular-frontend/eform-client && npm install
+    - name: Create errorShots directory
+      run: mkdir eform-angular-frontend/eform-client/errorShots
     - name: NPM start
       run: cd eform-angular-frontend/eform-client && npm start > npm_log 2>&1 &
     - name: Sleep 75 seconds

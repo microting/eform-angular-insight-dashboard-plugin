@@ -1,3 +1,4 @@
+const path = require("path");
 exports.config = {
   runner: 'local',
   path: '/',
@@ -12,25 +13,25 @@ exports.config = {
   //
   specs: [
     'e2e/Tests/insight-dashboard-settings/application-settings.plugins-page.spec.ts',
-    'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.add.spec.ts',
-    'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.edit.spec.ts',
-    'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.delete.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.add.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.delete.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.copy.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.edit.spec.ts',
-    //'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.view.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-horizontal-bar.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-vertical-bar.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line-score.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-multi.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-bar.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total-n.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-grouped.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/answers/insight-dashboard-answers.view.spec.ts',
-    'e2e/Tests/insight-dashboard-general/answers/insight-dashboard-answers.delete.spec.ts',
+    //'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.add.spec.ts',
+    //'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.edit.spec.ts',
+    //'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.delete.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.add.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.delete.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.copy.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.edit.spec.ts',
+    // //'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.view.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-horizontal-bar.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-vertical-bar.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line-score.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-multi.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-bar.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total-n.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-grouped.multi.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/answers/insight-dashboard-answers.view.spec.ts',
+    // 'e2e/Tests/insight-dashboard-general/answers/insight-dashboard-answers.delete.spec.ts',
   ],
   suites: {
     settings: [
@@ -243,7 +244,7 @@ exports.config = {
    * Function to be executed after a test (in Mocha/Jasmine) or a step (in Cucumber) ends.
    * @param {Object} test test details
    */
-   afterTest(test, context, { error, result, duration, passed, retries }) {
+  afterTest: function (test, context, { error, result, duration, passed, retries }) {
     const path = require('path');
 
     // if test passed, ignore, else take and save screenshot.
@@ -267,14 +268,14 @@ exports.config = {
 
     // get current test title and clean it, to use it as file name
     const filename = encodeURIComponent(
-        `${
-            test.fullTitle.replace(/\s+/g, '-')
-        }-chrome-${timestamp}`.replace(/[/]/g, '__')
+      `chrome-${timestamp}`.replace(/[/]/g, '__')
     ).replace(/%../, '.');
 
     const filePath = path.resolve(this.screenshotPath, `${filename}.png`);
 
+    console.log('Saving screenshot to:', filePath);
     browser.saveScreenshot(filePath);
+    console.log('Saved screenshot to:', filePath);
   },
   /**
    * Hook that gets executed after the suite has ended
