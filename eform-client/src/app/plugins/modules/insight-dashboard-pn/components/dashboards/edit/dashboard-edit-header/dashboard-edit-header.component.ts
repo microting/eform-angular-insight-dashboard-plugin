@@ -10,6 +10,8 @@ import {
 import { DashboardEditModel, LabelValueExtendedModel } from '../../../../models';
 import { DashboardFieldsEnum } from '../../../../const/enums';
 import { format, parseISO } from 'date-fns';
+import {DateTimeAdapter} from "@danielmoncada/angular-datetime-picker";
+import {AuthStateService} from "src/app/common/store";
 
 @Component({
   selector: 'app-dashboard-edit-header',
@@ -31,7 +33,11 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
     return DashboardFieldsEnum;
   }
 
-  constructor() {}
+  constructor(
+    dateTimeAdapter: DateTimeAdapter<any>,
+    authStateService: AuthStateService) {
+    dateTimeAdapter.setLocale(authStateService.currentUserLocale);
+  }
 
   ngOnInit() {}
 
