@@ -27,7 +27,7 @@ export class DashboardChartViewComponent implements OnDestroy {
   pie: any[];
   verticalView: any[] = [1200, 400];
   horizontalView: any[] = [1200, 800];
-  pieView: any[] = [1200, 400];
+  pieView: any[] = [1500, 400];
   stackedView = [60, 400];
   multiChartView: any[] = [800, 400];
 
