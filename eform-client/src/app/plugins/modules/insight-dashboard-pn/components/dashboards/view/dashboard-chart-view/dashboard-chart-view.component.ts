@@ -149,7 +149,7 @@ export class DashboardChartViewComponent implements OnDestroy {
   }
 
   percentageFormatting(c) {
-    console.log('c is : ' + c);
+    //console.log('c is : ' + c);
     return Math.round(c);
   }
 

@@ -7,7 +7,7 @@
         type="text"
         id="dashboardNameInput"
         [ngModel]="dashboardEditModel.dashboardName"
-        (ngModelChange)="fieldChanged(dashboardEditModel.dashboardName, dashboardFields.dashboardName)"
+        (ngModelChange)="fieldChanged($event, dashboardFields.dashboardName)"
       >
     </mat-form-field>
     <div class="d-flex need-wrapper align-items-center">
@@ -32,7 +32,7 @@
         <input
           matInput
           type="text"
-          id="dateFromInput"
+          id="dateToInput"
           [ngModel]="selectedDateRange"
           (ngModelChange)="fieldChanged($event[1], dashboardFields.dateTo)"
           [owlDateTime]="dateToPicker"
