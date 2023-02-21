@@ -9,7 +9,7 @@ export class InsightDashboardSurveysConfigsPage extends Page {
 
   public async rowNum(): Promise<number> {
     await browser.pause(500);
-    return (await $$('#tableBody > tr')).length;
+    return (await $$('tbody > tr')).length;
   }
 
   public async surveyConfigCreateBtn() {
@@ -47,15 +47,8 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     return ele;
   }
 
-  private async surveyConfigLocationEditCheckbox(num: number) {
-    const ele =  await $(`#checkboxEdit${num}`);
-    await ele.waitForDisplayed({timeout: 30000});
-    await ele.waitForClickable({timeout: 30000});
-    return ele;
-  }
-
-  private async surveyConfigLocationCreateCheckbox(num: number) {
-    const ele = await $(`#checkboxCreate${num}`);
+  public async surveyConfigLocationCheckbox(num: number) {
+    const ele = await $(`#checkbox${num} label`);
     await ele.waitForDisplayed({timeout: 30000});
     await ele.waitForClickable({timeout: 30000});
     return ele;
@@ -84,55 +77,54 @@ export class InsightDashboardSurveysConfigsPage extends Page {
 
   async createSurveyConfig(configName: string) {
     await (await this.surveyConfigCreateBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     const searchField = await surveyConfigsPage.getSurveysSearchField();
     await searchField.addValue(configName);
     const listChoices = await surveyConfigsPage.getSurveyListOfChoices();
     const choice = listChoices[0];
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await choice.click();
     await browser.pause(1000);
     await (await this.surveyConfigCreateSaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async createSurveyConfig_Cancels() {
     await (await this.surveyConfigCreateBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.surveyConfigCreateCancelBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
     await rowObject.editSurveyConfigBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
-    await (await this.surveyConfigLocationEditCheckbox(1)).click();
-    await (await this.surveyConfigLocationEditCheckbox(2)).click();
+    await this.waitForSpinnerHide();
+    await (await this.surveyConfigLocationCheckbox(1)).click();
+    await (await this.surveyConfigLocationCheckbox(2)).click();
     await browser.pause(1000);
     await (await this.surveyConfigEditSaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     await rowObject.editSurveyConfigBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.surveyConfigEditCancelBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
-
 
   async deleteSurveyConfig(rowObject: SurveysConfigPageRowObject) {
     await rowObject.surveyConfigDeleteBtn.click();
     await browser.pause(1000);
     await (await this.surveyConfigDeleteSaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     await rowObject.surveyConfigDeleteBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.surveyConfigDeleteCancelBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   activateSurveyConfig() {
@@ -171,6 +163,10 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     return await obj.getRow(1);
   }
 
+  async getLastRowObject(): Promise<SurveysConfigPageRowObject> {
+    return await new SurveysConfigPageRowObject().getRow(await this.rowNum());
+  }
+
   async getSurveyConfig(num): Promise<SurveysConfigPageRowObject> {
     await browser.pause(500);
     const obj = new SurveysConfigPageRowObject();
@@ -182,32 +178,29 @@ const surveyConfigsPage = new InsightDashboardSurveysConfigsPage();
 export default surveyConfigsPage;
 
 export class SurveysConfigPageRowObject {
-  constructor() {}
+  constructor() {
+  }
 
-  public id;
-  public surveyName;
-  public locations;
+  public row: WebdriverIO.Element;
+  public id: number;
+  public surveyName: string;
+  public locations: string[];
   public editSurveyConfigBtn;
   public surveyConfigDeleteBtn;
   public surveyConfigActivateBtn;
+
   async getRow(rowNum: number): Promise<SurveysConfigPageRowObject> {
-    if ((await $$('#surveyConfigId'))[rowNum - 1]) {
-      this.id = (await $$('#surveyConfigId'))[rowNum - 1];
+    this.row = (await $$('tbody > tr'))[rowNum - 1];
+    if (this.row) {
       try {
-        this.surveyName = await (await $$('#surveyConfigName'))[rowNum - 1].getText();
-        // this.companyAddress = $$('#companyAddressTableHeader')[rowNum - 1].getText();
-        // this.companyAddress2 = $$('#companyAddress2TableHeader')[rowNum - 1].getText();
-        // this.zipCode = $$('#zipCodeTableHeader')[rowNum - 1].getText();
-        // this.cityName = $$('#cityNameTableHeader')[rowNum - 1].getText();
-        // this.countryCode = $$('#countryCodeTableHeader')[rowNum - 1].getText();
-        // this.dateInstall = $$('#dateInstallTableHeader')[rowNum - 1].getText();
-        this.locations = (await $$('#surveyConfigLocation > p'))[rowNum - 1];
+        this.id = +await (await this.row.$('.mat-column-id span')).getText();
+        this.surveyName = await (await this.row.$('.mat-column-surveyName span')).getText();
+        this.locations = (await (await this.row.$('.mat-column-locations')).getText()).split('\n\n');
+        this.editSurveyConfigBtn = await this.row.$$('.mat-column-actions button')[0];
+        this.surveyConfigActivateBtn = await this.row.$$('.mat-column-actions button')[1];
+        this.surveyConfigDeleteBtn = await this.row.$$('.mat-column-actions button')[2];
       } catch (e) {
       }
-      // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
-      this.editSurveyConfigBtn = (await $$('#editSurveyConfigBtn'))[rowNum - 1];
-      this.surveyConfigDeleteBtn = (await $$('#surveyConfigDeleteBtn'))[rowNum - 1];
-      this.surveyConfigActivateBtn = (await $$('#surveyConfigActivateBtn'))[rowNum - 1];
     }
     return this;
   }

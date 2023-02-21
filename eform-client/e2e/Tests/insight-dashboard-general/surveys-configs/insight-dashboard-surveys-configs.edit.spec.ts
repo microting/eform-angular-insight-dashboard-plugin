@@ -11,7 +11,7 @@ describe('InSight Dashboard - Survey Configs - Edit', function () {
     await surveyConfigsPage.createSurveyConfig(configName);
   });
   it('Should not update survey config', async () => {
-    const surveyConfig = await surveyConfigsPage.getSurveyConfig(await surveyConfigsPage.rowNum());
+    const surveyConfig = await surveyConfigsPage.getLastRowObject();
     const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 30000});
@@ -20,7 +20,7 @@ describe('InSight Dashboard - Survey Configs - Edit', function () {
     expect(locationsAfterUpdate).equal(locationsBeforeUpdate);
   });
   it('Should update survey config', async () => {
-    const surveyConfig = await surveyConfigsPage.getSurveyConfig(await surveyConfigsPage.rowNum());
+    const surveyConfig = await surveyConfigsPage.getLastRowObject();
     const locationsBeforeUpdate = surveyConfig.locations ? surveyConfig.locations.length : 0;
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 30000});
