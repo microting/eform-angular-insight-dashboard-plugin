@@ -145,7 +145,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
 
                     if (dashboardModel.TagId != null)
                     {
-                        dashboardModel.TagName = await sdkContext.Sites
+                        dashboardModel.TagName = await sdkContext.Tags
                             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                             .Where(x => x.Id == dashboardModel.TagId)
                             .Select(x => x.Name)
@@ -766,7 +766,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                 List<CommonDictionaryModel> tags;
                 List<CommonDictionaryModel> options;
 
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
+                await using (var sdkContext = core.DbContextHelper.GetDbContext())
                 {
                     result.SurveyName = await sdkContext.QuestionSets
                         .AsNoTracking()
@@ -910,7 +910,7 @@ namespace InsightDashboard.Pn.Services.DashboardService
                         }
                     }
 
-                    using (var sdkContext = core.DbContextHelper.GetDbContext())
+                    await using (var sdkContext = core.DbContextHelper.GetDbContext())
                     {
                         var languages = await sdkContext.Languages.ToListAsync();
                         foreach (var language in languages)

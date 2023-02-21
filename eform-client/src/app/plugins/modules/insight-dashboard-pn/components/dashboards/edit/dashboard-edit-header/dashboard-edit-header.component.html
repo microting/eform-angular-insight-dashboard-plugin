@@ -7,7 +7,7 @@
         type="text"
         id="dashboardNameInput"
         [ngModel]="dashboardEditModel.dashboardName"
-        (ngModelChange)="fieldChanged(dashboardEditModel.dashboardName, dashboardFields.dashboardName)"
+        (ngModelChange)="fieldChanged($event, dashboardFields.dashboardName)"
       >
     </mat-form-field>
     <div class="d-flex need-wrapper align-items-center">
@@ -19,10 +19,11 @@
           type="text"
           id="dateFromInput"
           [ngModel]="selectedDateRange"
-          (ngModelChange)="fieldChanged(selectedDateRange[0], dashboardFields.dateFrom)"
+          (ngModelChange)="fieldChanged($event[0], dashboardFields.dateFrom)"
           [owlDateTime]="dateFromPicker"
-          [selectMode]="'rangeTo'"
+          [selectMode]="'rangeFrom'"
         >
+        <!--(ngModelChange)="fieldChanged(selectedDateRange[0], dashboardFields.dateFrom)"-->
         <owl-date-time [pickerType]="'calendar'" [firstDayOfWeek]="1" #dateFromPicker></owl-date-time>
       </mat-form-field>
       <mat-form-field [owlDateTimeTrigger]="dateToPicker">
@@ -31,9 +32,9 @@
         <input
           matInput
           type="text"
-          id="dateFromInput"
+          id="dateToInput"
           [ngModel]="selectedDateRange"
-          (ngModelChange)="fieldChanged(selectedDateRange[1], dashboardFields.dateFrom)"
+          (ngModelChange)="fieldChanged($event[1], dashboardFields.dateTo)"
           [owlDateTime]="dateToPicker"
           [selectMode]="'rangeTo'"
           [(ngModel)]="selectedDateRange"

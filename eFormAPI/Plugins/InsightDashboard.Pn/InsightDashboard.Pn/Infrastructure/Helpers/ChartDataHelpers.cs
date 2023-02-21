@@ -59,12 +59,12 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
             var singleData = false;
             var smileyLabels = new List<KeyValuePair<int, string>>()
             {
-                new KeyValuePair<int, string>(100, "Meget glad"),
-                new KeyValuePair<int, string>(75, "Glad"),
-                new KeyValuePair<int, string>(50, "Neutral"),
-                new KeyValuePair<int, string>(25, "Sur"),
-                new KeyValuePair<int, string>(0, "Meget sur"),
-                new KeyValuePair<int, string>(999, "Ved ikke")
+                new(100, "Meget glad"),
+                new(75, "Glad"),
+                new(50, "Neutral"),
+                new(25, "Sur"),
+                new(0, "Meget sur"),
+                new(999, "Ved ikke")
             };
             switch (dashboardItem.ChartType)
             {
@@ -164,6 +164,8 @@ namespace InsightDashboard.Pn.Infrastructure.Helpers
                 answerQueryable = answerQueryable
                     .Where(x => x.Answer.FinishedAt <= answerDates.DateTo);
             }
+
+            Console.WriteLine($"Using QuestionSetId {dashboardSurveyId}");
 
             answerQueryable = answerQueryable
                 .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);

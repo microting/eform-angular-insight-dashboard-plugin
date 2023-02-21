@@ -1,7 +1,13 @@
 .scrollable-y-block {
-  max-width: 1300px;
+  max-width: 1500px;
   overflow: scroll;
   overflow-y: hidden;
   background-color: #FFFFFF !important;
   padding-bottom: 15px;
+}
+
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
+  font-size: 24px;
+  margin-top: 0px !important;
+  margin-left: 11px;
 }
