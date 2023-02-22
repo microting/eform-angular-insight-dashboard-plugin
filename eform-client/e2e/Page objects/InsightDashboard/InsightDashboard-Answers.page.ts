@@ -24,7 +24,7 @@ export class InsightDashboardAnswersPage extends Page {
   }
   public async rowNum(): Promise<number> {
     await browser.pause(500);
-    return (await $$('#answerValueId')).length;
+    return (await $$('tbody > tr')).length; // or (await $$(.mat-cell.mat-column-microtingUid)).length
   }
 }
 

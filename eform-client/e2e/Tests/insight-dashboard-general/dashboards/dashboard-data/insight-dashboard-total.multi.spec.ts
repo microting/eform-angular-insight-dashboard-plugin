@@ -8,8 +8,7 @@ import {dashboardTotalDataJson, dashboardTotalItems} from '../../../../Page obje
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
-  dateFrom: '2016/01/01',
-  dateTo: '2020/05/14',
+  dateRange: '1/1/2016 - 5/14/2020',
   today: true
 };
 

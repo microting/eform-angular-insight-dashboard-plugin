@@ -65,7 +65,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
   it('should save filled item', async () => {
-    await insightDashboardPage.goToDashboards();
+    await insightDashboardPage.goToDashboards(true);
     await dashboardsPage.createDashboard();
     const itemNumsBeforeCreateItem = await dashboardEditPage.rowNum();
     await dashboardEditPage.setDashboardSettings(dashboardConfig);

@@ -1,5 +1,4 @@
 import Page from '../Page';
-import dashboardsPage, {configName} from './InsightDashboard-Dashboards.page';
 
 export class InsightDashboardDashboardEditPage extends Page {
   constructor() {
@@ -40,21 +39,14 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public async dashboardRangeToTodayCheckbox() {
-    const ele = await $('#rangeToTodayCheckbox');
+    const ele = await $('#rangeToTodayCheckbox label');
     await ele.waitForDisplayed({timeout: 30000});
     await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
-  public async dashboardDateFrom() {
-    const ele = await $('#dateFromInput');
-    await ele.waitForDisplayed({timeout: 30000});
-    await ele.waitForClickable({timeout: 20000});
-    return ele;
-  }
-
-  public async dashboardDateTo() {
-    const ele = await $('#dateToInput');
+  public async dateRange() {
+    const ele = await $('#dateRange');
     await ele.waitForDisplayed({timeout: 30000});
     await ele.waitForClickable({timeout: 20000});
     return ele;
@@ -99,13 +91,13 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public async calculateAverageCheckbox(rowNum: number) {
-    const ele = await $(`#calculateAverageCheckbox${rowNum}`);
+    const ele = await $(`#calcAverageCheckbox${rowNum} label`);
     await ele.waitForDisplayed({timeout: 30000});
     return ele;
   }
 
   public async enableCompareCheckbox(rowNum: number) {
-    const ele = await $(`#enableCompareLabel${rowNum}`);
+    const ele = await $(`#enableCompare${rowNum} label`);
     await ele.waitForDisplayed({timeout: 30000});
     await ele.waitForClickable({timeout: 20000});
     return ele;
@@ -116,7 +108,7 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public async answerIgnoreCheckbox(rowNum: number, ignoredAnswerId: number) {
-    return $(`#answerIgnoreCheckbox${ignoredAnswerId}_${rowNum}`);
+    return $(`#ignoreCheckbox${ignoredAnswerId}_${rowNum} label`);
   }
 
   public async compareItemInput(rowNum: number, compareItemIndex: number) {
@@ -159,14 +151,11 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   async setDashboardSettings(model: DashboardTestConfigEditModel) {
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
 
     // Set date from and date to
-    if (model.dateFrom) {
-      await (await this.dashboardDateFrom()).addValue(model.dateFrom);
-    }
-    if (model.dateTo) {
-      await (await this.dashboardDateTo()).addValue(model.dateTo);
+    if (model.dateRange) {
+      await (await this.dateRange()).addValue(model.dateRange);
     }
 
     // Set today
@@ -178,10 +167,10 @@ export class InsightDashboardDashboardEditPage extends Page {
     await locationSearchField.addValue(model.locationTagName);
     const locationListChoices = await this.getLocationTagListOfChoices();
     const locationChoice = locationListChoices[0];
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await locationChoice.click();
 
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async createFirstItem() {
@@ -208,34 +197,34 @@ export class InsightDashboardDashboardEditPage extends Page {
     // Select first question
     await (await this.firstQuestionSearchField(rowNum)).addValue(itemObject.firstQuestion);
     const firstQuestionChoice = (await this.firstQuestionListOfOptions(rowNum))[0];
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await firstQuestionChoice.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     // Select filter question
     if (itemObject.filterQuestion) {
       await (await (this.filterQuestionSearchField(rowNum))).addValue(itemObject.filterQuestion);
       const filterQuestionChoice = (await this.filterQuestionListOfOptions(rowNum))[0];
-      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+      await this.waitForSpinnerHide();
       await filterQuestionChoice.click();
-      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+      await this.waitForSpinnerHide();
     }
 
     // Select filter answer
     if (itemObject.filterAnswer) {
       await (await this.filterAnswerSearchField(rowNum)).addValue(itemObject.filterAnswer);
       const filterAnswerChoice = (await this.filterAnswerListOfOptions(rowNum))[0];
-      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+      await this.waitForSpinnerHide();
       await filterAnswerChoice.click();
-      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+      await this.waitForSpinnerHide();
     }
 
     // Select period
     await (await this.periodSearchField(rowNum)).addValue(itemObject.period);
     // tslint:disable-next-line:max-line-length
     const periodChoice = itemObject.period === 'År' ? (await this.periodListOfOptions(rowNum))[2] : (await this.periodListOfOptions(rowNum))[0];
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await periodChoice.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
 
     // Select calculate average
     if (itemObject.calculateAverage) {
@@ -362,8 +351,7 @@ export interface DashboardTestItemEditModel {
 
 export interface DashboardTestConfigEditModel {
   locationTagName: string;
-  dateFrom: string;
-  dateTo: string;
+  dateRange: string;
   today: boolean;
 }
 

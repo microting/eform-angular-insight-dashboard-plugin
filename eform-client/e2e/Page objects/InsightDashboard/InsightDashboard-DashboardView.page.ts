@@ -1,6 +1,7 @@
 import Page from '../Page';
 import {expect} from 'chai';
-import dashboardEditPage, {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
+import {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
+import {format, parse} from 'date-fns';
 
 export class InsightDashboardDashboardViewPage extends Page {
   constructor() {
@@ -34,19 +35,11 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   public async dateFrom(rowNum: number) {
-    return $(`#dateFrom${rowNum}`);
+    return await $$(`.mat-column-dateFrom span`)[rowNum]; // 0 - it's table header
   }
 
   public async dateTo(rowNum: number) {
-    return $(`#dateTo${rowNum}`);
-  }
-
-  public async period(rowNum: number) {
-    return $(`#period${rowNum}`);
-  }
-
-  public async chartType(rowNum: number) {
-    return $(`#chartType${rowNum}`);
+    return await $$(`.mat-column-dateTo span`)[rowNum]; // 0 - it's table header
   }
 
   public async rawChartDataHeaders(rowNum: number, rawDataNum: number) {
@@ -121,12 +114,17 @@ export class InsightDashboardDashboardViewPage extends Page {
       // raw data in item
       for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
         // data items in raw data
-        for (let rawDataItemIndex = 0; rawDataItemIndex < dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems.length; rawDataItemIndex++) {
+        for (
+          let rawDataItemIndex = 0;
+          rawDataItemIndex < dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems.length;
+          rawDataItemIndex++
+        ) {
           const amountValueRows = await dashboardsViewPage.rawChartDataAmountValueRows(itemIndex, rawDataIndex, rawDataItemIndex);
           // rows in raw data
           for (let row = 0; row < amountValueRows.length; row++) {
             for (let amount = 0; amount < await amountValueRows[row].length; amount++) {
               // Requires cast to integer or to string
+              // eslint-disable-next-line max-len
               expect(dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataIndex].rawDataValues[row].amounts[amount],
                 `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`)
                 .equal(+amountValueRows[row][amount].getText());
@@ -142,8 +140,12 @@ export class InsightDashboardDashboardViewPage extends Page {
     expect(await (await this.firstQuestion(rowNum)).getText()).equal(originalItem.firstQuestion);
     expect(await (await this.filterQuestion(rowNum)).getText()).equal(originalItem.filterQuestion);
     expect(await (await this.filterAnswer(rowNum)).getText()).equal(originalItem.filterAnswer);
-    expect(await (await this.dateFrom(rowNum)).getText()).equal(config.dateFrom);
-    expect(await (await this.dateTo(rowNum)).getText()).equal(config.dateTo);
+
+    const dateFrom = parse(config.dateRange.split(' - ')[0], 'M/d/YYYY', new Date);
+    const dateTo = parse(config.dateRange.split(' - ')[1], 'M/d/YYYY', new Date);
+
+    expect(await (await this.dateFrom(rowNum)).getText()).equal(format(dateFrom, 'YYYY/MM/dd'));
+    expect(await (await this.dateTo(rowNum)).getText()).equal(format(dateTo, 'YYYY/MM/dd'));
   }
 }
 

@@ -68,12 +68,12 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     return ele;
   }
 
-  public async installationDeleteCancelBtn() {
+/*  public async installationDeleteCancelBtn() {
     const ele = await $('#surveyConfigDeleteCancelBtn');
     await ele.waitForDisplayed({timeout: 30000});
     await ele.waitForClickable({timeout: 20000});
     return ele;
-  }
+  }*/
 
   async createSurveyConfig(configName: string) {
     await (await this.surveyConfigCreateBtn()).click();
@@ -113,6 +113,7 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     await this.waitForSpinnerHide();
   }
 
+
   async deleteSurveyConfig(rowObject: SurveysConfigPageRowObject) {
     await rowObject.surveyConfigDeleteBtn.click();
     await browser.pause(1000);
@@ -125,22 +126,6 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     await this.waitForSpinnerHide();
     await (await this.surveyConfigDeleteCancelBtn()).click();
     await this.waitForSpinnerHide();
-  }
-
-  activateSurveyConfig() {
-    // const installation = installationPage.getFirstRowObject();
-    // installation.retractBtn.click();
-    // browser.pause(5000);
-    // this.installationRetractSaveBtn.click();
-    // browser.pause(15000);
-  }
-
-  activateSurveyConfig__Cancels() {
-    // const installation = installationPage.getFirstRowObject();
-    // installation.retractBtn.click();
-    // browser.pause(5000);
-    // this.installationRetractSaveBtn.click();
-    // browser.pause(15000);
   }
 
   public async getSurveysSearchField() {

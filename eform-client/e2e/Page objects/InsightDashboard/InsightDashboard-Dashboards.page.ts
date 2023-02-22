@@ -10,7 +10,7 @@ export class InsightDashboardDashboardsPage extends Page {
 
   public async rowNum(): Promise<number> {
     await browser.pause(500);
-    return (await $$('#tableBody > tr')).length;
+    return (await $$('tbody > tr')).length;
   }
 
   public async dashboardCreateBtn() {
@@ -92,71 +92,76 @@ export class InsightDashboardDashboardsPage extends Page {
 
   async createDashboard(name: string = 'NewDashboard') {
     await (await this.dashboardCreateBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.dashboardName()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.dashboardName()).addValue(name);
     // Select survey
-    const surveySearchField = await dashboardsPage.getSurveysSearchField();
+    const surveySearchField = await this.getSurveysSearchField();
     await surveySearchField.addValue(configName);
-    const surveyListChoices = await dashboardsPage.getSurveyListOfChoices();
+    const surveyListChoices = await this.getSurveyListOfChoices();
     const surveyChoice = surveyListChoices[0];
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
+    await surveyChoice.waitForDisplayed({timeout: 20000});
+    await surveyChoice.waitForClickable({timeout: 20000});
     await surveyChoice.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.dashboardCreateSaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async createDashboard_Cancels() {
     await (await this.dashboardCreateBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.dashboardCreateCancelBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async deleteDashboard(rowObject: DashboardsPageRowObject) {
     await rowObject.dashboardDeleteBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.dashboardDeleteSaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async deleteDashboard_Cancels(rowObject: DashboardsPageRowObject) {
     await rowObject.dashboardDeleteBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.dashboardDeleteCancelBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async copyDashboard(rowObject: DashboardsPageRowObject) {
     await rowObject.dashboardCopyBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.dashboardCopySaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   async copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
     await rowObject.dashboardCopyBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
     await (await this.dashboardCopySaveCancelBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await this.waitForSpinnerHide();
   }
 
   public async getSurveysSearchField() {
     const ele = await $('#selectSurveyCreate .ng-input > input');
-    await ele .waitForDisplayed({timeout: 30000});
+    await ele.waitForDisplayed({timeout: 30000});
     await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
   public async getSurveyListOfChoices() {
-    return $$('#selectSurveyCreate .ng-option');
+    return $$('.ng-option');
+  }
+
+  async getLastRowObject(): Promise<DashboardsPageRowObject> {
+    return await new DashboardsPageRowObject().getRow(await this.rowNum());
   }
 
   async getFirstRowObject(): Promise<DashboardsPageRowObject> {
-    const ele = new DashboardsPageRowObject();
-    return await ele.getRow(1);
+    return await new DashboardsPageRowObject().getRow(1);
   }
 
   async getDashboard(num): Promise<DashboardsPageRowObject> {
@@ -172,33 +177,29 @@ export default dashboardsPage;
 export class DashboardsPageRowObject {
   constructor() {}
 
-  public id;
-  public dashboardName;
+  public row: WebdriverIO.Element;
+  public id: number;
+  public dashboardName: string;
   public locations;
-  public dashboardViewBtn;
-  public dashboardEditBtn;
-  public dashboardDeleteBtn;
-  public dashboardCopyBtn;
+  public dashboardViewBtn: WebdriverIO.Element;
+  public dashboardEditBtn: WebdriverIO.Element;
+  public dashboardCopyBtn: WebdriverIO.Element;
+  public dashboardDeleteBtn: WebdriverIO.Element;
+
 
   async getRow(rowNum: number): Promise<DashboardsPageRowObject> {
-    if ((await $$('#dashboardId'))[rowNum - 1]) {
-      this.id = (await $$('#dashboardId'))[rowNum - 1];
+    this.row = (await $$('tbody > tr'))[rowNum - 1];
+    if (this.row) {
       try {
-        this.dashboardName = await (await $$('#dashboardName'))[rowNum - 1].getText();
-        // this.companyAddress = $$('#companyAddressTableHeader')[rowNum - 1].getText();
-        // this.companyAddress2 = $$('#companyAddress2TableHeader')[rowNum - 1].getText();
-        // this.zipCode = $$('#zipCodeTableHeader')[rowNum - 1].getText();
-        // this.cityName = $$('#cityNameTableHeader')[rowNum - 1].getText();
-        // this.countryCode = $$('#countryCodeTableHeader')[rowNum - 1].getText();
-        // this.dateInstall = $$('#dateInstallTableHeader')[rowNum - 1].getText();
-        this.locations = (await $$('#dashboardLocation > p'))[rowNum - 1];
+        this.id = +await (await this.row.$('.mat-column-id span')).getText();
+        this.dashboardName = await (await this.row.$('.mat-column-dashboardName span')).getText();
+        // this.locations = (await (await this.row.$('.mat-column-locations')).getText()).split('\n\n');
+        this.dashboardViewBtn = await this.row.$$('.mat-column-actions button')[0];
+        this.dashboardEditBtn = await this.row.$$('.mat-column-actions button')[1];
+        this.dashboardCopyBtn = await this.row.$$('.mat-column-actions button')[2];
+        this.dashboardDeleteBtn = await this.row.$$('.mat-column-actions button')[3];
       } catch (e) {
       }
-      // this.assignCheckbox = $$(`#assignCheckbox_${rowNum - 1}`)[rowNum - 1];
-      this.dashboardEditBtn = (await $$('#dashboardEditBtn'))[rowNum - 1];
-      this.dashboardViewBtn = (await $$('#dashboardViewBtn'))[rowNum - 1];
-      this.dashboardDeleteBtn = (await $$('#dashboardDeleteBtn'))[rowNum - 1];
-      this.dashboardCopyBtn = (await $$('#dashboardCopyBtn'))[rowNum - 1];
     }
     return this;
   }
