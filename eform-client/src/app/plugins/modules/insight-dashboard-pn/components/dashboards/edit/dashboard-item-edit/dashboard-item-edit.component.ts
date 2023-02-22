@@ -30,7 +30,6 @@ import {
 } from '../../../../services';
 import { TranslateService } from '@ngx-translate/core';
 import { InsightDashboardPnCollapseService } from '../../../../services/insight-dashboard-pn-collapse.service';
-import { CollapseComponent } from 'angular-bootstrap-md';
 
 @AutoUnsubscribe()
 @Component({
@@ -40,7 +39,6 @@ import { CollapseComponent } from 'angular-bootstrap-md';
 })
 export class DashboardItemEditComponent
   implements OnInit, OnDestroy, OnChanges {
-  @ViewChild('collapse', { static: true }) collapse: CollapseComponent;
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: DashboardItemQuestionModel[] = [];
   @Input() selectedSurveyId = 1;
@@ -127,11 +125,9 @@ export class DashboardItemEditComponent
     this.collapseSub$ = this.collapseService.collapse.subscribe((collapsed) => {
       if (!collapsed && this.dashboardItem.collapsed) {
         this.dashboardItem.collapsed = false;
-        this.collapse.toggle();
       }
       if (collapsed && !this.dashboardItem.collapsed) {
         this.dashboardItem.collapsed = true;
-        this.collapse.toggle();
       }
     });
   }

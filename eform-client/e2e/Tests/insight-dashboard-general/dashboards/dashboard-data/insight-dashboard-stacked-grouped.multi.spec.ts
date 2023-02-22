@@ -15,8 +15,7 @@ import myEformsPage from '../../../../Page objects/MyEforms.page';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Total',
-  dateFrom: '2016/01/01',
-  dateTo: '2020/05/14',
+  dateRange: '1/1/2016 - 5/14/2020',
   today: true,
 };
 

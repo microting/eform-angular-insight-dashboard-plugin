@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import {SharedPnModule} from '../shared/shared-pn.module';
 import {EformSharedModule} from 'src/app/common/modules/eform-shared/eform-shared.module';
@@ -64,28 +64,29 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedPnModule,
-    InsightDashboardPnRoutingModule,
-    TranslateModule,
-    FormsModule,
-    EformSharedModule,
-    CasesModule,
-    DragulaModule,
-    NgxChartsModule,
-    OwlDateTimeModule,
-    MatButtonModule,
-    MtxGridModule,
-    MatInputModule,
-    MatDialogModule,
-    MtxSelectModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatExpansionModule,
-  ],
+    imports: [
+        CommonModule,
+        SharedPnModule,
+        InsightDashboardPnRoutingModule,
+        TranslateModule,
+        FormsModule,
+        EformSharedModule,
+        CasesModule,
+        DragulaModule,
+        NgxChartsModule,
+        OwlDateTimeModule,
+        MatButtonModule,
+        MtxGridModule,
+        MatInputModule,
+        MatDialogModule,
+        MtxSelectModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatExpansionModule,
+        ReactiveFormsModule,
+    ],
   declarations: [
     InsightDashboardPnLayoutComponent,
     InsightDashboardSettingsComponent,
