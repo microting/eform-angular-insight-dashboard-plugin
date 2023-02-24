@@ -58,7 +58,6 @@
           </app-dashboard-chart-view>
           <app-dashboard-chart-data-view [itemModel]="itemModel"></app-dashboard-chart-data-view>
         </ng-container>
-
         <app-dashboard-interviews-view
           *ngIf="itemModel.firstQuestionType === questionType.Text"
           [dashboardViewModel]="dashboardViewModel"

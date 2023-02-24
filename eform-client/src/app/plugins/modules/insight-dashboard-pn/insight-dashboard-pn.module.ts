@@ -29,7 +29,7 @@ import {
   DashboardEditComponent,
   DashboardEditHeaderComponent,
   DashboardInterviewsEditComponent,
-  // DashboardInterviewsViewComponent,
+  DashboardInterviewsViewComponent,
   DashboardItemEditComponent,
   DashboardNewComponent,
   DashboardsPageComponent,
@@ -62,6 +62,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   imports: [
@@ -85,6 +86,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatIconModule,
     MatTooltipModule,
     MatExpansionModule,
+    MatTableModule,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
@@ -112,6 +114,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     AnswerPageComponent,
     AnswerValuesTableComponent,
     AnswerDeleteModalComponent,
+    DashboardInterviewsViewComponent,
   ],
   providers: [
     InsightDashboardPnSettingsService,
