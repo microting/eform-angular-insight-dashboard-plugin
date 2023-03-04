@@ -16,13 +16,13 @@ jobs:
         path: eform-angular-insight-dashboard-plugin
     - name: Extract branch name
       id: extract_branch
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
     - name: 'Preparing Frontend checkout'
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
         repository: microting/eform-angular-frontend
-        ref: ${{ steps.extract_branch.outputs.branch }}
+        ref: ${{ steps.extract_branch.outputs.BRANCH }}
         path: eform-angular-frontend
     - name: Copy dependencies
       run: |
@@ -46,9 +46,9 @@ jobs:
     - name: Copy Dockerfile
       run: cp eform-angular-insight-dashboard-plugin/Dockerfile .
     - name: Build the tagged Docker image
-      run: docker build . -t microtingas/insight-dashboard-container:latest -t microtingas/insight-dashboard-container:1.0.0 --build-arg GITVERSION=1.00 --build-arg PLUGINVERSION=1.0.0
+      run: docker build . -t microtingas/insight-dashboard-container:latest -t microtingas/insight-dashboard-container:1.0.0 --build-arg GITVERSION=1.0.0 --build-arg PLUGINVERSION=1.0.0
     - run: docker save microtingas/insight-dashboard-container:latest -o insight-container.tar
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: insight-container
         path: insight-container.tar
@@ -61,13 +61,13 @@ jobs:
         path: eform-angular-insight-dashboard-plugin
     - name: Extract branch name
       id: extract_branch
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
     - name: Create docker network 🖧
       run: docker network create --driver bridge data
     - name: Start MariaDB
       run: |
-        docker pull mariadb:10.8
-        docker run --name mariadbtest --network data -e MYSQL_ROOT_PASSWORD=secretpassword -p 3306:3306 -d mariadb:10.8
+        docker pull mariadb:latest
+        docker run --name mariadbtest --network data -e MYSQL_ROOT_PASSWORD=secretpassword -p 3306:3306 -d mariadb:latest
     - uses: actions/download-artifact@v3
       with:
         name: insight-container
@@ -77,10 +77,10 @@ jobs:
       with:
         node-version: '18.12.1'
     - name: 'Preparing Frontend checkout'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: microting/eform-angular-frontend
-        ref: ${{ steps.extract_branch.outputs.branch }}
+        ref: ${{ steps.extract_branch.outputs.BRANCH }}
         path: eform-angular-frontend
     - name: Sleep 15 seconds
       run: sleep 15
@@ -134,8 +134,8 @@ jobs:
       run: docker network create --driver bridge data
     - name: Start MariaDB
       run: |
-        docker pull mariadb:10.8
-        docker run --name mariadbtest --network data -e MYSQL_ROOT_PASSWORD=secretpassword -p 3306:3306 -d mariadb:10.8
+        docker pull mariadb:latest
+        docker run --name mariadbtest --network data -e MYSQL_ROOT_PASSWORD=secretpassword -p 3306:3306 -d mariadb:latest
     - name: Sleep 15 seconds
       run: sleep 15
     - name: Load DB dump
