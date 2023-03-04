@@ -10,14 +10,15 @@ import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDa
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
-  dateFrom: '2016/01/01',
-  dateTo: '2020/05/14',
+  dateRange: '1/1/2016 - 5/14/2020',
   today: false
 };
 
 const testItem: DashboardTestItemEditModel = {
   firstQuestion: 'Q2',
   filterQuestion: 'Q3',
+  firstQuestionForSelect: '2 - Q2',
+  filterQuestionForSelect: '3 - Q3',
   filterAnswer: 'Meget glad',
   period: 'Måned',
   chartType: 'Linje',

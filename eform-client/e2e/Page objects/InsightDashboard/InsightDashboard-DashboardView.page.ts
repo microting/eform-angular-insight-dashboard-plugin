@@ -141,11 +141,11 @@ export class InsightDashboardDashboardViewPage extends Page {
     expect(await (await this.filterQuestion(rowNum)).getText()).equal(originalItem.filterQuestion);
     expect(await (await this.filterAnswer(rowNum)).getText()).equal(originalItem.filterAnswer);
 
-    const dateFrom = parse(config.dateRange.split(' - ')[0], 'M/d/YYYY', new Date);
-    const dateTo = parse(config.dateRange.split(' - ')[1], 'M/d/YYYY', new Date);
+    const dateFrom = parse(config.dateRange.split(' - ')[0], 'M/d/yyyy', new Date);
+    const dateTo = parse(config.dateRange.split(' - ')[1], 'M/d/yyyy', new Date);
 
-    expect(await (await this.dateFrom(rowNum)).getText()).equal(format(dateFrom, 'YYYY/MM/dd'));
-    expect(await (await this.dateTo(rowNum)).getText()).equal(format(dateTo, 'YYYY/MM/dd'));
+    expect(await (await $(`#dateFrom${rowNum}`)).getText()).equal(format(dateFrom, 'yyyy/MM/dd'));
+    expect(await (await $(`#dateTo${rowNum}`)).getText()).equal(format(dateTo, 'yyyy/MM/dd'));
   }
 }
 
