@@ -3,6 +3,8 @@ import {DashboardTestItemEditModel} from '../InsightDashboard-DashboardEdit.page
 export const dashboardTotalItems: DashboardTestItemEditModel[] = [
   {
     firstQuestion: 'Q1',
+    firstQuestionForSelect: '1 - Q1',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'Total',
@@ -13,6 +15,8 @@ export const dashboardTotalItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q1',
+    firstQuestionForSelect: '1 - Q1',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'Total',
@@ -23,6 +27,8 @@ export const dashboardTotalItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q1',
+    firstQuestionForSelect: '1 - Q1',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'Total',
@@ -33,6 +39,8 @@ export const dashboardTotalItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q1',
+    firstQuestionForSelect: '1 - Q1',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'Total',
@@ -44,86 +52,86 @@ export const dashboardTotalItems: DashboardTestItemEditModel[] = [
 ];
 
 export const dashboardTotalDataJson = {
-  "id": 16,
-  "dashboardName": "Total",
-  "surveyName": "Test-Set",
-  "surveyId": 1,
-  "locationName": "Location 1",
-  "locationId": 1,
-  "tagName": null,
-  "tagId": null,
-  "answerDates": {
-    "dateFrom": "2016-01-01T00:00:00",
-    "dateTo": "2020-12-02T23:59:59",
-    "today": true
+  'id': 16,
+  'dashboardName': 'Total',
+  'surveyName': 'Test-Set',
+  'surveyId': 1,
+  'locationName': 'Location 1',
+  'locationId': 1,
+  'tagName': null,
+  'tagId': null,
+  'answerDates': {
+    'dateFrom': '2016-01-01T00:00:00',
+    'dateTo': '2020-12-02T23:59:59',
+    'today': true
   },
-  "items": [
+  'items': [
     {
-      "id": 37,
-      "firstQuestionName": "Q1",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 3,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 1,
-      "chartData": {
-        "single": [
+      'id': 37,
+      'firstQuestionName': 'Q1',
+      'firstQuestionType': 'list',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 1,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 6,
+      'chartType': 3,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 1,
+      'chartData': {
+        'single': [
           {
-            "name": "Ja",
-            "value": 105,
-            "dataCount": 105,
-            "answersDataCount": 0,
-            "optionIndex": 1
+            'name': 'Ja',
+            'value': 105,
+            'dataCount': 105,
+            'answersDataCount': 0,
+            'optionIndex': 1
           },
           {
-            "name": "Nej",
-            "value": 33,
-            "dataCount": 33,
-            "answersDataCount": 0,
-            "optionIndex": 2
+            'name': 'Nej',
+            'value': 33,
+            'dataCount': 33,
+            'answersDataCount': 0,
+            'optionIndex': 2
           }
         ],
-        "multi": [],
-        "multiStacked": [],
-        "rawData": [
+        'multi': [],
+        'multiStacked': [],
+        'rawData': [
           {
-            "rawHeaders": [
-              "Samlet periode"
+            'rawHeaders': [
+              'Samlet periode'
             ],
-            "rawDataItems": [
+            'rawDataItems': [
               {
-                "rawValueName": "",
-                "rawDataValues": [
+                'rawValueName': '',
+                'rawDataValues': [
                   {
-                    "valueName": "Ja",
-                    "percents": [
+                    'valueName': 'Ja',
+                    'percents': [
                       76.09
                     ],
-                    "amounts": [
+                    'amounts': [
                       105
                     ]
                   },
                   {
-                    "valueName": "Nej",
-                    "percents": [
+                    'valueName': 'Nej',
+                    'percents': [
                       23.91
                     ],
-                    "amounts": [
+                    'amounts': [
                       33
                     ]
                   },
                   {
-                    "valueName": "Total",
-                    "percents": [
+                    'valueName': 'Total',
+                    'percents': [
                       100
                     ],
-                    "amounts": [
+                    'amounts': [
                       138
                     ]
                   }
@@ -133,76 +141,76 @@ export const dashboardTotalDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
-      "id": 38,
-      "firstQuestionName": "Q1",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 4,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 2,
-      "chartData": {
-        "single": [
+      'id': 38,
+      'firstQuestionName': 'Q1',
+      'firstQuestionType': 'list',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 1,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 6,
+      'chartType': 4,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 2,
+      'chartData': {
+        'single': [
           {
-            "name": "Ja",
-            "value": 105,
-            "dataCount": 105,
-            "answersDataCount": 0,
-            "optionIndex": 1
+            'name': 'Ja',
+            'value': 105,
+            'dataCount': 105,
+            'answersDataCount': 0,
+            'optionIndex': 1
           },
           {
-            "name": "Nej",
-            "value": 33,
-            "dataCount": 33,
-            "answersDataCount": 0,
-            "optionIndex": 2
+            'name': 'Nej',
+            'value': 33,
+            'dataCount': 33,
+            'answersDataCount': 0,
+            'optionIndex': 2
           }
         ],
-        "multi": [],
-        "multiStacked": [],
-        "rawData": [
+        'multi': [],
+        'multiStacked': [],
+        'rawData': [
           {
-            "rawHeaders": [
-              "Samlet periode"
+            'rawHeaders': [
+              'Samlet periode'
             ],
-            "rawDataItems": [
+            'rawDataItems': [
               {
-                "rawValueName": "",
-                "rawDataValues": [
+                'rawValueName': '',
+                'rawDataValues': [
                   {
-                    "valueName": "Ja",
-                    "percents": [
+                    'valueName': 'Ja',
+                    'percents': [
                       76.09
                     ],
-                    "amounts": [
+                    'amounts': [
                       105
                     ]
                   },
                   {
-                    "valueName": "Nej",
-                    "percents": [
+                    'valueName': 'Nej',
+                    'percents': [
                       23.91
                     ],
-                    "amounts": [
+                    'amounts': [
                       33
                     ]
                   },
                   {
-                    "valueName": "Total",
-                    "percents": [
+                    'valueName': 'Total',
+                    'percents': [
                       100
                     ],
-                    "amounts": [
+                    'amounts': [
                       138
                     ]
                   }
@@ -212,76 +220,76 @@ export const dashboardTotalDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
-      "id": 39,
-      "firstQuestionName": "Q1",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 5,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 3,
-      "chartData": {
-        "single": [
+      'id': 39,
+      'firstQuestionName': 'Q1',
+      'firstQuestionType': 'list',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 1,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 6,
+      'chartType': 5,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 3,
+      'chartData': {
+        'single': [
           {
-            "name": "Ja",
-            "value": 76.09,
-            "dataCount": 105,
-            "answersDataCount": 0,
-            "optionIndex": 1
+            'name': 'Ja',
+            'value': 76.09,
+            'dataCount': 105,
+            'answersDataCount': 0,
+            'optionIndex': 1
           },
           {
-            "name": "Nej",
-            "value": 23.91,
-            "dataCount": 33,
-            "answersDataCount": 0,
-            "optionIndex": 2
+            'name': 'Nej',
+            'value': 23.91,
+            'dataCount': 33,
+            'answersDataCount': 0,
+            'optionIndex': 2
           }
         ],
-        "multi": [],
-        "multiStacked": [],
-        "rawData": [
+        'multi': [],
+        'multiStacked': [],
+        'rawData': [
           {
-            "rawHeaders": [
-              "Samlet periode"
+            'rawHeaders': [
+              'Samlet periode'
             ],
-            "rawDataItems": [
+            'rawDataItems': [
               {
-                "rawValueName": "",
-                "rawDataValues": [
+                'rawValueName': '',
+                'rawDataValues': [
                   {
-                    "valueName": "Ja",
-                    "percents": [
+                    'valueName': 'Ja',
+                    'percents': [
                       76.09
                     ],
-                    "amounts": [
+                    'amounts': [
                       105
                     ]
                   },
                   {
-                    "valueName": "Nej",
-                    "percents": [
+                    'valueName': 'Nej',
+                    'percents': [
                       23.91
                     ],
-                    "amounts": [
+                    'amounts': [
                       33
                     ]
                   },
                   {
-                    "valueName": "Total",
-                    "percents": [
+                    'valueName': 'Total',
+                    'percents': [
                       100
                     ],
-                    "amounts": [
+                    'amounts': [
                       138
                     ]
                   }
@@ -291,76 +299,76 @@ export const dashboardTotalDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     },
     {
-      "id": 40,
-      "firstQuestionName": "Q1",
-      "firstQuestionType": "list",
-      "filterQuestionName": null,
-      "filterAnswerName": null,
-      "firstQuestionId": 1,
-      "filterQuestionId": null,
-      "filterAnswerId": null,
-      "period": 6,
-      "chartType": 8,
-      "compareEnabled": false,
-      "calculateAverage": false,
-      "position": 4,
-      "chartData": {
-        "single": [
+      'id': 40,
+      'firstQuestionName': 'Q1',
+      'firstQuestionType': 'list',
+      'filterQuestionName': null,
+      'filterAnswerName': null,
+      'firstQuestionId': 1,
+      'filterQuestionId': null,
+      'filterAnswerId': null,
+      'period': 6,
+      'chartType': 8,
+      'compareEnabled': false,
+      'calculateAverage': false,
+      'position': 4,
+      'chartData': {
+        'single': [
           {
-            "name": "Ja",
-            "value": 76.09,
-            "dataCount": 105,
-            "answersDataCount": 0,
-            "optionIndex": 1
+            'name': 'Ja',
+            'value': 76.09,
+            'dataCount': 105,
+            'answersDataCount': 0,
+            'optionIndex': 1
           },
           {
-            "name": "Nej",
-            "value": 23.91,
-            "dataCount": 33,
-            "answersDataCount": 0,
-            "optionIndex": 2
+            'name': 'Nej',
+            'value': 23.91,
+            'dataCount': 33,
+            'answersDataCount': 0,
+            'optionIndex': 2
           }
         ],
-        "multi": [],
-        "multiStacked": [],
-        "rawData": [
+        'multi': [],
+        'multiStacked': [],
+        'rawData': [
           {
-            "rawHeaders": [
-              "Samlet periode"
+            'rawHeaders': [
+              'Samlet periode'
             ],
-            "rawDataItems": [
+            'rawDataItems': [
               {
-                "rawValueName": "",
-                "rawDataValues": [
+                'rawValueName': '',
+                'rawDataValues': [
                   {
-                    "valueName": "Ja",
-                    "percents": [
+                    'valueName': 'Ja',
+                    'percents': [
                       76.09
                     ],
-                    "amounts": [
+                    'amounts': [
                       105
                     ]
                   },
                   {
-                    "valueName": "Nej",
-                    "percents": [
+                    'valueName': 'Nej',
+                    'percents': [
                       23.91
                     ],
-                    "amounts": [
+                    'amounts': [
                       33
                     ]
                   },
                   {
-                    "valueName": "Total",
-                    "percents": [
+                    'valueName': 'Total',
+                    'percents': [
                       100
                     ],
-                    "amounts": [
+                    'amounts': [
                       138
                     ]
                   }
@@ -370,9 +378,9 @@ export const dashboardTotalDataJson = {
           }
         ]
       },
-      "compareLocationsTags": [],
-      "ignoredAnswerValues": [],
-      "textQuestionData": []
+      'compareLocationsTags': [],
+      'ignoredAnswerValues': [],
+      'textQuestionData': []
     }
   ]
 };

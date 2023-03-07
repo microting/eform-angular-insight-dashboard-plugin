@@ -3,6 +3,8 @@ import {DashboardTestItemEditModel} from '../InsightDashboard-DashboardEdit.page
 export const dashboardLineScoreItems: DashboardTestItemEditModel[] = [
   {
     firstQuestion: 'Q2',
+    firstQuestionForSelect: '2 - Q2',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'Uge',
@@ -13,6 +15,8 @@ export const dashboardLineScoreItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q2',
+    firstQuestionForSelect: '2 - Q2',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'Måned',
@@ -23,6 +27,8 @@ export const dashboardLineScoreItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q2',
+    firstQuestionForSelect: '2 - Q2',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'Kvartal',
@@ -33,6 +39,8 @@ export const dashboardLineScoreItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q2',
+    firstQuestionForSelect: '2 - Q2',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'Halvår',
@@ -43,6 +51,8 @@ export const dashboardLineScoreItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q2',
+    firstQuestionForSelect: '2 - Q2',
+    filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
     period: 'År',
