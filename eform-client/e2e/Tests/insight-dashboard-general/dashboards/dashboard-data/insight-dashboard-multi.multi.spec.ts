@@ -35,4 +35,8 @@ describe('InSight Dashboard - Dashboards - Multi chart', function () {
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardMultiChartDataJson);
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

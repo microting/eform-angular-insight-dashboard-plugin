@@ -24,4 +24,7 @@ describe('InSight Dashboard - Dashboards - Delete', function () {
     await insightDashboardPage.goToDashboards(true);
     expect(rowNumsBeforeDelete).equal(await dashboardsPage.rowNum() + 1);
   });
+  after(async () => {
+    await dashboardsPage.clearTable();
+  })
 });

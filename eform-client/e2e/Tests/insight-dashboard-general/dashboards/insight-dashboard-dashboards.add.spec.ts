@@ -25,4 +25,7 @@ describe('InSight Dashboard - Dashboards - Add', function () {
     await dashboardsPage.createDashboard_Cancels();
     expect(rowNumsBeforeCreate).equal(await dashboardsPage.rowNum());
   });
+  after(async () => {
+    await dashboardsPage.clearTable();
+  });
 });

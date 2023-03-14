@@ -24,4 +24,7 @@ describe('InSight Dashboard - Dashboards - Copy', function () {
     await insightDashboardPage.goToDashboards(true);
     expect(rowNumsBeforeCopy).equal(await dashboardsPage.rowNum() - 1);
   });
+  after(async () => {
+    await dashboardsPage.clearTable();
+  })
 });

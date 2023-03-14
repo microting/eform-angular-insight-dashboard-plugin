@@ -34,4 +34,8 @@ describe('InSight Dashboard - Dashboards - Line Score', function () {
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardLineScoreDataJson);
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

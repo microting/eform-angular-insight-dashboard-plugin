@@ -50,4 +50,8 @@ describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardStackedBarDataJson);
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

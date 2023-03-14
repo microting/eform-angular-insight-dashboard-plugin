@@ -3,7 +3,7 @@ import {DashboardTestItemEditModel} from '../InsightDashboard-DashboardEdit.page
 export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
   {
     firstQuestion: 'Q13',
-    firstQuestionForSelect: '13 - Q13',
+    firstQuestionForSelect: '13 - Q13: ...',
     filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
@@ -15,7 +15,7 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q13',
-    firstQuestionForSelect: '13 - Q13',
+    firstQuestionForSelect: '13 - Q13: ...',
     filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
@@ -27,7 +27,7 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q13',
-    firstQuestionForSelect: '13 - Q13',
+    firstQuestionForSelect: '13 - Q13: ...',
     filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
@@ -39,7 +39,7 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q13',
-    firstQuestionForSelect: '13 - Q13',
+    firstQuestionForSelect: '13 - Q13: ...',
     filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',
@@ -51,7 +51,7 @@ export const dashboardMultiChartItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q13',
-    firstQuestionForSelect: '13 - Q13',
+    firstQuestionForSelect: '13 - Q13: ...',
     filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',

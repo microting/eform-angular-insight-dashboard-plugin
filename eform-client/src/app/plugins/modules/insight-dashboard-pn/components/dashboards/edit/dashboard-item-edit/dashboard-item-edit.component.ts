@@ -21,15 +21,15 @@ import {
   DashboardItemQuestionModel,
   LabelValueExtendedModel,
 } from '../../../../models';
-import { CommonDictionaryModel } from 'src/app/common/models';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { Subscription } from 'rxjs';
+import {CommonDictionaryModel} from 'src/app/common/models';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {Subscription, zip} from 'rxjs';
 import {
   InsightDashboardPnDashboardDictionariesService,
   InsightDashboardPnDashboardItemsService,
 } from '../../../../services';
-import { TranslateService } from '@ngx-translate/core';
-import { InsightDashboardPnCollapseService } from '../../../../services/insight-dashboard-pn-collapse.service';
+import {TranslateService} from '@ngx-translate/core';
+import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
 
 @AutoUnsubscribe()
 @Component({
@@ -62,6 +62,8 @@ export class DashboardItemEditComponent
   filteredQuestions: CommonDictionaryModel[] = [];
   allCharts = [];
   availableCharts = [];
+  periods = [];
+  translatePeriodsSub$: Subscription;
 
   get periodUnits() {
     return DashboardPeriodUnitsEnum;
@@ -119,7 +121,8 @@ export class DashboardItemEditComponent
     private translateService: TranslateService,
     private collapseService: InsightDashboardPnCollapseService,
     private dashboardItemService: InsightDashboardPnDashboardItemsService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.collapseSub$ = this.collapseService.collapse.subscribe((collapsed) => {
@@ -130,6 +133,23 @@ export class DashboardItemEditComponent
         this.dashboardItem.collapsed = true;
       }
     });
+    this.translatePeriodsSub$ = zip(
+      this.translateService.stream(this.periodUnits[this.periodUnits.Week]),
+      this.translateService.stream(this.periodUnits[this.periodUnits.Month]),
+      this.translateService.stream(this.periodUnits[this.periodUnits.Quarter]),
+      this.translateService.stream(this.periodUnits[this.periodUnits.SixMonth]),
+      this.translateService.stream(this.periodUnits[this.periodUnits.Year]),
+      this.translateService.stream(this.periodUnits[this.periodUnits.Total]),
+    ).subscribe(([week, month, quarter, sixMonth, year, total]) => {
+      this.periods = [
+        {id: this.periodUnits.Week, name: week},
+        {id: this.periodUnits.Month, name: month},
+        {id: this.periodUnits.Quarter, name: quarter},
+        {id: this.periodUnits.SixMonth, name: sixMonth},
+        {id: this.periodUnits.Year, name: year},
+        {id: this.periodUnits.Total, name: total}
+      ];
+    });
   }
 
   addNew(position: number) {
@@ -137,7 +157,7 @@ export class DashboardItemEditComponent
   }
 
   copy(model: DashboardItemModel) {
-    model = { ...model, collapsed: false };
+    model = {...model, collapsed: false};
     this.copyItem.emit(model);
   }
 
@@ -169,7 +189,8 @@ export class DashboardItemEditComponent
     }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.dashboardItem) {
@@ -283,82 +304,73 @@ export class DashboardItemEditComponent
   }
 
   private fillInitialChartOptions(period: DashboardPeriodUnitsEnum | null) {
-    setTimeout(() => {
+    zip(
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.Line]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.Pie]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.PieGrid]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBar]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBar]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStacked]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarGrouped]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarStacked]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarGrouped]),
+      this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStackedGrouped]),
+    ).subscribe(([
+                   line,
+                   pie,
+                   pieGrid,
+                   horizontalBar,
+                   verticalBar,
+                   horizontalBarStacked,
+                   horizontalBarGrouped,
+                   verticalBarStacked,
+                   verticalBarGrouped,
+                   horizontalBarStackedGrouped]) => {
       const charts = [
         {
           id: DashboardChartTypesEnum.Line,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[DashboardChartTypesEnum.Line]
-          ),
+          name: line,
         },
         {
           id: DashboardChartTypesEnum.Pie,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[DashboardChartTypesEnum.Pie]
-          ),
+          name: pie,
         },
-        // {
-        //   id: DashboardChartTypesEnum.AdvancedPie,
-        //   name: this.translateService.instant(DashboardChartTypesEnum[DashboardChartTypesEnum.AdvancedPie])
-        // },
         {
           id: DashboardChartTypesEnum.PieGrid,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[DashboardChartTypesEnum.PieGrid]
-          ),
+          name: pieGrid,
         },
         {
           id: DashboardChartTypesEnum.HorizontalBar,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBar]
-          ),
+          name: horizontalBar,
         },
         {
           id: DashboardChartTypesEnum.VerticalBar,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBar]
-          ),
+          name: verticalBar,
         },
         {
           id: DashboardChartTypesEnum.HorizontalBarStacked,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[
-              DashboardChartTypesEnum.HorizontalBarStacked
-            ]
-          ),
+          name: horizontalBarStacked,
         },
         {
           id: DashboardChartTypesEnum.HorizontalBarGrouped,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[
-              DashboardChartTypesEnum.HorizontalBarGrouped
-            ]
-          ),
+          name: horizontalBarGrouped,
         },
         {
           id: DashboardChartTypesEnum.VerticalBarStacked,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarStacked]
-          ),
+          name: verticalBarStacked,
         },
         {
           id: DashboardChartTypesEnum.VerticalBarGrouped,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarGrouped]
-          ),
+          name: verticalBarGrouped,
         },
         {
           id: DashboardChartTypesEnum.HorizontalBarStackedGrouped,
-          name: this.translateService.instant(
-            DashboardChartTypesEnum[
-              DashboardChartTypesEnum.HorizontalBarStackedGrouped
-            ]
-          ),
+          name: horizontalBarStackedGrouped,
         },
       ];
       this.allCharts = [...charts];
       this.setAvailableCharts();
-    }, 1000);
+    });
   }
 
   addToArrayIgnoredValues(checked: boolean, answerId: number) {

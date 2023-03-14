@@ -85,4 +85,8 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await (await dashboardEditPage.dashboardUpdateSaveCancelBtn()).click();
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

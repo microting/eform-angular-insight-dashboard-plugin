@@ -34,4 +34,8 @@ describe('InSight Dashboard - Dashboards - Horizontal Bar', function () {
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardHorizontalBarDataJson);
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

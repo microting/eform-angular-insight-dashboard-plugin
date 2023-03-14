@@ -51,4 +51,8 @@ describe('InSight Dashboard - Dashboards - Stacked Grouped', function () {
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardStackedGroupedDataJson);
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

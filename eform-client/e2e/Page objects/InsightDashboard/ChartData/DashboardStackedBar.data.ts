@@ -27,7 +27,7 @@ export const dashboardStackedBarItems: DashboardTestItemEditModel[] = [
   },
   {
     firstQuestion: 'Q3',
-    firstQuestionForSelect: '2 - Q2',
+    firstQuestionForSelect: '3 - Q3',
     filterQuestionForSelect: '',
     filterQuestion: '',
     filterAnswer: '',

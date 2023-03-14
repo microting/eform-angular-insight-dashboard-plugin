@@ -47,4 +47,8 @@ describe('InSight Dashboard - Dashboards - View', function () {
     await dashboardsViewPage.returnToDashboards();
     await dashboardsViewPage.compareItem(1, item, dashboardConfig);
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

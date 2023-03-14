@@ -26,7 +26,7 @@ export class InsightDashboardPage extends Page {
     return insightDashboardPnDashboardsBtn;
   }
   public async AnswersBtn() {
-    const answersBtn = await $('#insight-dashboard-pn-Answers');
+    const answersBtn = await $('#insight-dashboard-pn-answers');
     await answersBtn.waitForDisplayed({timeout: 30000});
     await answersBtn.waitForClickable({timeout: 20000});
     return answersBtn;

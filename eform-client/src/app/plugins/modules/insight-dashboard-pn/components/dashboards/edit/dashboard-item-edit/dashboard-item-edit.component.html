@@ -48,6 +48,7 @@
             [clearable]="false"
             (ngModelChange)="fieldChanged($event, itemFields.firstQuestionId)"
             [items]="questions"
+            [dropdownPosition]="'bottom'"
           ></mtx-select>
         </mat-form-field>
         <mat-form-field>
@@ -60,6 +61,7 @@
             [disabled]="!dashboardItem.firstQuestionId"
             (ngModelChange)="fieldChanged($event, itemFields.filterQuestionId)"
             [items]="filteredQuestions"
+            [dropdownPosition]="'bottom'"
           ></mtx-select>
         </mat-form-field>
         <mat-form-field>
@@ -72,6 +74,7 @@
             (ngModelChange)="fieldChanged($event, itemFields.filterAnswerId)"
             [disabled]="!dashboardItem.filterQuestionId"
             [items]="filterAnswers"
+            [dropdownPosition]="'bottom'"
           ></mtx-select>
         </mat-form-field>
         <mat-form-field *ngIf="dashboardItem.firstQuestionType !== questionTypes.Text">
@@ -85,14 +88,8 @@
             [clearable]="false"
             [disabled]="!dashboardItem.firstQuestionId"
             (ngModelChange)="fieldChanged($event, itemFields.period)"
-            [items]="[
-                  {id: periodUnits.Week, name: periodUnits[periodUnits.Week] | translate},
-                  {id: periodUnits.Month, name: periodUnits[periodUnits.Month] | translate},
-                  {id: periodUnits.Quarter, name: periodUnits[periodUnits.Quarter] | translate},
-                  {id: periodUnits.SixMonth, name: periodUnits[periodUnits.SixMonth] | translate},
-                  {id: periodUnits.Year, name: periodUnits[periodUnits.Year] | translate},
-                  {id: periodUnits.Total, name: periodUnits[periodUnits.Total] | translate}
-                ]"
+            [items]="periods"
+            [dropdownPosition]="'bottom'"
           ></mtx-select>
         </mat-form-field>
         <mat-checkbox
@@ -161,6 +158,7 @@
             (ngModelChange)="fieldChanged($event, itemFields.chartType)"
             [required]="true"
             [items]="availableCharts"
+            [dropdownPosition]="'bottom'"
           ></mtx-select>
         </mat-form-field>
         <app-dashboard-chart-edit

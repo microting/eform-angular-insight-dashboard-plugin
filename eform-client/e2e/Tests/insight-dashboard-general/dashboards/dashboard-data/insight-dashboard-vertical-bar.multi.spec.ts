@@ -34,4 +34,8 @@ describe('InSight Dashboard - Dashboards - Vertical Bar', function () {
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardVerticalBarDataJson);
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

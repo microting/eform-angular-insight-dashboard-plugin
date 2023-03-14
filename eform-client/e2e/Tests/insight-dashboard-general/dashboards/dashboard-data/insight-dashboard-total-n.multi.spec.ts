@@ -50,4 +50,8 @@ describe('InSight Dashboard - Dashboards - Total N', function () {
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardTotalNDataJson);
   });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
+  });
 });

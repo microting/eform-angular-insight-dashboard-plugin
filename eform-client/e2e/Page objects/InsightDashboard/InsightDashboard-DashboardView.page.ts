@@ -127,7 +127,7 @@ export class InsightDashboardDashboardViewPage extends Page {
               // eslint-disable-next-line max-len
               expect(dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataIndex].rawDataValues[row].amounts[amount],
                 `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`)
-                .equal(+amountValueRows[row][amount].getText());
+                .equal(+(await amountValueRows[row][amount].getText()));
             }
           }
         }

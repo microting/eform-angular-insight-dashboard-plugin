@@ -1,4 +1,6 @@
 import Page from '../Page';
+import {PropertyRowObject} from '../BackendConfiguration/BackendConfigurationProperties.page';
+import {selectValueInNgSelector} from '../../Helpers/helper-functions';
 
 export const configName = 'Test-Set';
 export const dashboardName = 'NewDashboard';
@@ -42,7 +44,7 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   public async dashboardNameInput() {
-    const ele = await $('#dashboardNameCreate > input');
+    const ele = await (await this.dashboardName()).$('input');
     await ele.waitForDisplayed({timeout: 30000});
     await ele.waitForClickable({timeout: 20000});
     return ele;
@@ -97,14 +99,7 @@ export class InsightDashboardDashboardsPage extends Page {
     await this.waitForSpinnerHide();
     await (await this.dashboardName()).addValue(name);
     // Select survey
-    const surveySearchField = await this.getSurveysSearchField();
-    await surveySearchField.addValue(configName);
-    const surveyListChoices = await this.getSurveyListOfChoices();
-    const surveyChoice = surveyListChoices[0];
-    await this.waitForSpinnerHide();
-    await surveyChoice.waitForDisplayed({timeout: 20000});
-    await surveyChoice.waitForClickable({timeout: 20000});
-    await surveyChoice.click();
+    await selectValueInNgSelector(await this.getSurveysSearchField(), configName, true);
     await this.waitForSpinnerHide();
     await (await this.dashboardCreateSaveBtn()).click();
     await this.waitForSpinnerHide();
@@ -146,7 +141,7 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   public async getSurveysSearchField() {
-    const ele = await $('#selectSurveyCreate .ng-input > input');
+    const ele = await $('#selectSurveyCreate');
     await ele.waitForDisplayed({timeout: 30000});
     await ele.waitForClickable({timeout: 20000});
     return ele;
@@ -162,6 +157,14 @@ export class InsightDashboardDashboardsPage extends Page {
 
   async getFirstRowObject(): Promise<DashboardsPageRowObject> {
     return await new DashboardsPageRowObject().getRow(1);
+  }
+
+  public async clearTable() {
+    await browser.pause(2000);
+    const rowCount = await this.rowNum();
+    for (let i = 1; i <= rowCount; i++) {
+      await (await this.getFirstRowObject()).delete();
+    }
   }
 
   async getDashboard(num): Promise<DashboardsPageRowObject> {
@@ -202,5 +205,13 @@ export class DashboardsPageRowObject {
       }
     }
     return this;
+  }
+
+  async delete() {
+    await this.dashboardDeleteBtn.click();
+    await (await dashboardsPage.dashboardDeleteSaveBtn()).waitForClickable();
+    await (await dashboardsPage.dashboardDeleteSaveBtn()).click();
+    await dashboardsPage.waitForSpinnerHide();
+    await (await dashboardsPage.dashboardCreateBtn()).waitForClickable();
   }
 }
