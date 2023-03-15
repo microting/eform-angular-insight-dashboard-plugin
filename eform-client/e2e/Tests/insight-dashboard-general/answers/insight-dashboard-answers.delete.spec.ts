@@ -11,19 +11,9 @@ describe('InSight Dashboard - Answers - Delete', function () {
     await insightDashboardPage.goToAnswers();
   });
   it('should be delete answer', async () => {
-    await (await answersPage.searchMicrotingUIdInput()).setValue(microtingUId);
-    await (await answersPage.searchMicrotingUIdBtn()).click();
-    const spinnerAnimation = await $('#spinner-animation');
-    await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
-    await (await answersPage.deleteByMicrotingUIdBtn()).click();
-    const saveDeleteBtn = await $('#saveDeleteBtn');
-    await saveDeleteBtn.waitForDisplayed({timeout: 20000});
-    await saveDeleteBtn.waitForClickable({ timeout: 20000});
-    await saveDeleteBtn.click();
-    await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
-    await (await answersPage.searchMicrotingUIdInput()).setValue(microtingUId);
-    await (await answersPage.searchMicrotingUIdBtn()).click();
-    await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
+    await answersPage.searchAnswerByMicrotingUId(microtingUId.toString());
+    await answersPage.deleteAnswer();
+    await answersPage.searchAnswerByMicrotingUId(microtingUId.toString());
     expect(await answersPage.rowNum()).eq(19);
   });
 });
