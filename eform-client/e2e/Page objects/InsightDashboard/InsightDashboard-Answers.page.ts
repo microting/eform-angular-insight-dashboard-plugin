@@ -48,9 +48,11 @@ export class InsightDashboardAnswersPage extends Page {
   async deleteAnswer(clickCancel = false) {
     await (await this.deleteByMicrotingUIdBtn()).click();
     if(clickCancel) {
-      await (await this.cancelDeleteBtn());
+      await (await this.cancelDeleteBtn()).waitForDisplayed();
+      await (await this.cancelDeleteBtn()).click();
     } else {
-      await (await this.saveDeleteBtn());
+      await (await this.saveDeleteBtn()).waitForDisplayed();
+      await (await this.saveDeleteBtn()).click();
       await this.waitForSpinnerHide();
     }
   }
