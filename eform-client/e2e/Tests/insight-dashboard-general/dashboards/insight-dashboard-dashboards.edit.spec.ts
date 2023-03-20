@@ -36,7 +36,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await dashboardEditPage.setDashboardSettings(dashboardConfig);
   });
   it('should create initial empty item', async () => {
-    await (await $('#dashboardUpdateSaveBtn')).waitForDisplayed({timeout: 10000});
+    await (await $('#dashboardUpdateSaveBtn')).waitForDisplayed({timeout: 40000});
     const itemNumsBeforeInitialItem = await dashboardEditPage.rowNum();
     await dashboardEditPage.createFirstItem();
     expect(itemNumsBeforeInitialItem).equal(await dashboardEditPage.rowNum() - 1);

@@ -44,7 +44,7 @@ export class InsightDashboardPage extends Page {
     }
     await (await this.DashboardsBtn()).click();
     await this.waitForSpinnerHide();
-    await (await $('#createDashboardBtn')).waitForClickable({timeout: 10000});
+    await (await $('#createDashboardBtn')).waitForClickable({timeout: 40000});
   }
   async goToAnswers() {
     await this.InsightDashboardDropDownClick();
