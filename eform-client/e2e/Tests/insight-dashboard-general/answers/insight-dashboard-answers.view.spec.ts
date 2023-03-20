@@ -11,10 +11,7 @@ describe('InSight Dashboard - Answers - View', function () {
     await insightDashboardPage.goToAnswers();
   });
   it('should be displayed 18 answers values', async () => {
-    await (await answersPage.searchMicrotingUIdInput()).setValue(microtingUId);
-    await (await answersPage.searchMicrotingUIdBtn()).click();
-    const spinnerAnimation = await $('#spinner-animation');
-    await spinnerAnimation.waitForDisplayed({timeout: 20000, reverse: true});
+    await answersPage.searchAnswerByMicrotingUId(microtingUId.toString());
     expect(await answersPage.rowNum()).eq(19);
   });
 });

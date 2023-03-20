@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import {SharedPnModule} from '../shared/shared-pn.module';
 import {EformSharedModule} from 'src/app/common/modules/eform-shared/eform-shared.module';
@@ -87,6 +87,7 @@ import {MatTableModule} from "@angular/material/table";
     MatTooltipModule,
     MatExpansionModule,
     MatTableModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,

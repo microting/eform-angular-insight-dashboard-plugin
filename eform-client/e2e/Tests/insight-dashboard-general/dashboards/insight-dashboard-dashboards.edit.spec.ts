@@ -10,14 +10,15 @@ import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDa
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
-  dateFrom: '2016/01/01',
-  dateTo: '2020/05/14',
+  dateRange: '1/1/2016 - 5/14/2020',
   today: false
 };
 
 const testItem: DashboardTestItemEditModel = {
   firstQuestion: 'Q2',
   filterQuestion: 'Q3',
+  firstQuestionForSelect: '2 - Q2',
+  filterQuestionForSelect: '3 - Q3',
   filterAnswer: 'Meget glad',
   period: 'Måned',
   chartType: 'Linje',
@@ -35,7 +36,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await dashboardEditPage.setDashboardSettings(dashboardConfig);
   });
   it('should create initial empty item', async () => {
-    await (await $('#dashboardUpdateSaveBtn')).waitForDisplayed({timeout: 10000});
+    await (await $('#dashboardUpdateSaveBtn')).waitForDisplayed({timeout: 40000});
     const itemNumsBeforeInitialItem = await dashboardEditPage.rowNum();
     await dashboardEditPage.createFirstItem();
     expect(itemNumsBeforeInitialItem).equal(await dashboardEditPage.rowNum() - 1);
@@ -65,7 +66,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
   it('should save filled item', async () => {
-    await insightDashboardPage.goToDashboards();
+    await insightDashboardPage.goToDashboards(true);
     await dashboardsPage.createDashboard();
     const itemNumsBeforeCreateItem = await dashboardEditPage.rowNum();
     await dashboardEditPage.setDashboardSettings(dashboardConfig);
@@ -83,5 +84,9 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await (await dashboardEditPage.dashboardUpdateSaveCancelBtn()).click();
     await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+  });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
   });
 });

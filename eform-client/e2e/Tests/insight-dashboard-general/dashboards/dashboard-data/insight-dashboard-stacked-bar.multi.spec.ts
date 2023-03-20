@@ -14,8 +14,7 @@ import myEformsPage from '../../../../Page objects/MyEforms.page';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Total',
-  dateFrom: '2016/01/01',
-  dateTo: '2020/05/14',
+  dateRange: '1/1/2016 - 5/14/2020',
   today: true,
 };
 
@@ -50,5 +49,9 @@ describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
   });
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardStackedBarDataJson);
+  });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
   });
 });

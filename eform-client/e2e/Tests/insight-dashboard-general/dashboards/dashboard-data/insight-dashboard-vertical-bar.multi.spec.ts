@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import loginPage from '../../../../Page objects/Login.page';
 import insightDashboardPage from '../../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
@@ -11,8 +10,7 @@ import {
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
-  dateFrom: '2016/01/01',
-  dateTo: '2020/05/14',
+  dateRange: '1/1/2016 - 5/14/2020',
   today: true
 };
 
@@ -35,5 +33,9 @@ describe('InSight Dashboard - Dashboards - Vertical Bar', function () {
   });
   it('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardVerticalBarDataJson);
+  });
+  after(async () => {
+    await insightDashboardPage.goToDashboards();
+    await dashboardsPage.clearTable();
   });
 });

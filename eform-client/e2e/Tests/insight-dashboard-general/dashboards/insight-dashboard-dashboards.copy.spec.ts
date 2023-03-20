@@ -9,11 +9,10 @@ describe('InSight Dashboard - Dashboards - Copy', function () {
     await loginPage.login();
     await insightDashboardPage.goToDashboards();
     await dashboardsPage.createDashboard();
-    await insightDashboardPage.goToDashboards();
+    await insightDashboardPage.goToDashboards(true);
   });
   it('should not copy dashboard', async () => {
     const rowNumsBeforeDelete = await dashboardsPage.rowNum();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     await dashboardsPage.copyDashboard_Cancel(await dashboardsPage.getDashboard(rowNumsBeforeDelete));
     expect(rowNumsBeforeDelete).equal(await dashboardsPage.rowNum());
@@ -22,8 +21,10 @@ describe('InSight Dashboard - Dashboards - Copy', function () {
     await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     const rowNumsBeforeCopy = await dashboardsPage.rowNum();
     await dashboardsPage.copyDashboard(await dashboardsPage.getDashboard(rowNumsBeforeCopy));
-    await insightDashboardPage.goToDashboards();
+    await insightDashboardPage.goToDashboards(true);
     expect(rowNumsBeforeCopy).equal(await dashboardsPage.rowNum() - 1);
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
+  after(async () => {
+    await dashboardsPage.clearTable();
+  })
 });

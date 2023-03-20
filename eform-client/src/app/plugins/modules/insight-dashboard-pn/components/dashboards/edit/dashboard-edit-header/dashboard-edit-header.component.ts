@@ -7,11 +7,13 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { DashboardEditModel, LabelValueExtendedModel } from '../../../../models';
-import { DashboardFieldsEnum } from '../../../../const/enums';
-import { format, parseISO } from 'date-fns';
-import {DateTimeAdapter} from "@danielmoncada/angular-datetime-picker";
-import {AuthStateService} from "src/app/common/store";
+import {DashboardEditModel, LabelValueExtendedModel} from '../../../../models';
+import {DashboardFieldsEnum} from '../../../../const/enums';
+import {format, parse, parseISO, parseJSON,} from 'date-fns';
+import {DateTimeAdapter} from '@danielmoncada/angular-datetime-picker';
+import {AuthStateService} from 'src/app/common/store';
+import {FormControl, FormGroup} from '@angular/forms';
+import * as R from 'ramda';
 
 @Component({
   selector: 'app-dashboard-edit-header',
@@ -23,11 +25,8 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
   @Input() availableLocationsTags: LabelValueExtendedModel[] = [];
   @Output()
   dashboardChanged: EventEmitter<DashboardEditModel> = new EventEmitter<DashboardEditModel>();
-  selectedLocationId: number | null;
-  reportTagId: number | null;
-  selectedLocationTagId: number;
-  selectedLocationTag: { value: number; label: string } = null;
-  selectedDateRange = [];
+  form: FormGroup;
+  private standartDateTimeFormat = `yyyy-MM-dd'T'HH:mm:ss`;
 
   get dashboardFields() {
     return DashboardFieldsEnum;
@@ -37,93 +36,69 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
     dateTimeAdapter: DateTimeAdapter<any>,
     authStateService: AuthStateService) {
     dateTimeAdapter.setLocale(authStateService.currentUserLocale);
+    this.form = new FormGroup({
+      dashboardName: new FormControl(''),
+      dateRange: new FormControl([null, null]), // [dateFrom: Date, dateTo: Date]
+      location: new FormControl(null), // {isTag: boolean; label: string; value: number;}
+      today: new FormControl(false),
+    });
+    this.form.valueChanges.subscribe(value => {
+      const dashboardEditModel = {
+        ...this.dashboardEditModel,
+        dashboardName: value.dashboardName,
+        tagId: value.location && value.location.isTag ? value.location.value : null,
+        tagName: value.location && value.location.isTag ? value.location.label : null,
+        locationId: value.location && !value.location.isTag ? value.location.value : null,
+        locationName: value.location && !value.location.isTag ? value.location.label : null,
+        answerDates: {
+          today: value.today,
+          dateFrom: value.dateRange[0] ? format(value.dateRange[0], this.standartDateTimeFormat) : null,
+          dateTo: value.dateRange[1] ? format(value.dateRange[1], this.standartDateTimeFormat) : null
+        }
+      };
+      if(!R.equals(dashboardEditModel, this.dashboardEditModel)) {
+        this.dashboardChanged.emit(dashboardEditModel);
+      }
+    })
   }
 
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.dashboardEditModel) {
-      const currentValue = changes.dashboardEditModel
-        .currentValue as DashboardEditModel;
-      this.selectedLocationTagId = currentValue.tagId
-        ? currentValue.tagId
-        : currentValue.locationId;
-      this.selectedLocationTag = currentValue.tagId
-        ? { value: currentValue.tagId, label: currentValue.tagName }
-        : {
-            value: currentValue.locationId,
-            label: currentValue.locationName,
-          };
-
-      if (currentValue.answerDates) {
-        if (this.selectedDateRange) {
-          this.selectedDateRange = [
-            currentValue.answerDates.dateFrom
-              ? parseISO(currentValue.answerDates.dateFrom)
-              : null,
-            currentValue.answerDates.dateTo
-              ? parseISO(currentValue.answerDates.dateTo)
-              : null,
-          ];
-        } else {
-          this.selectedDateRange = [
-            currentValue.answerDates.dateFrom,
-            currentValue.answerDates.dateTo,
-          ];
+      const currentValue = changes.dashboardEditModel.currentValue as DashboardEditModel;
+      const dashboardEditModel = {
+        ...this.dashboardEditModel,
+        dashboardName: this.form.value.dashboardName,
+        tagId: this.form.value.location && this.form.value.location.isTag ? this.form.value.location.value : null,
+        tagName: this.form.value.location && this.form.value.location.isTag ? this.form.value.location.label : null,
+        locationId: this.form.value.location && !this.form.value.location.isTag ? this.form.value.location.value : null,
+        locationName: this.form.value.location && !this.form.value.location.isTag ? this.form.value.location.label : null,
+        answerDates: {
+          today: this.form.value.today,
+          dateFrom: this.form.value.dateRange[0] ? format(this.form.value.dateRange[0], this.standartDateTimeFormat) : null,
+          dateTo: this.form.value.dateRange[1] ? format(this.form.value.dateRange[1], this.standartDateTimeFormat) : null
         }
+      };
+      if(!R.equals(dashboardEditModel, this.dashboardEditModel)) {
+        if (currentValue.answerDates && currentValue.answerDates.dateFrom && currentValue.answerDates.dateTo) {
+          this.form.get('dateRange')
+            .setValue([
+              parse(currentValue.answerDates.dateFrom, this.standartDateTimeFormat, new Date()),
+              parse(currentValue.answerDates.dateTo, this.standartDateTimeFormat, new Date())
+            ], {emitEvent: false});
+          this.form.get('today')
+            .setValue(currentValue.answerDates.today || false, {emitEvent: false});
+        }
+        this.form.patchValue({
+          dashboardName: currentValue.dashboardName || '',
+          location: currentValue.locationId
+            ? {isTag: false, label: currentValue.locationName, value: currentValue.locationId}
+            : currentValue.tagId
+              ? {isTag: true, label: currentValue.tagName, value: currentValue.tagId}
+              : null,
+        }, {emitEvent: false});
       }
     }
   }
-
-  fieldChanged(value: any, fieldName: string) {
-    switch (fieldName) {
-      case DashboardFieldsEnum.dashboardName:
-        this.dashboardEditModel.dashboardName = value;
-        break;
-      case DashboardFieldsEnum.dateFrom:
-        this.dashboardEditModel.answerDates.dateFrom = value
-          ? format(value, 'yyyy/MM/dd')
-          : null;
-        break;
-      case DashboardFieldsEnum.dateTo:
-        this.dashboardEditModel.answerDates.dateTo = value
-          ? format(value, 'yyyy/MM/dd')
-          : null;
-        break;
-      case DashboardFieldsEnum.today:
-        this.dashboardEditModel.answerDates.today = value;
-        break;
-      case DashboardFieldsEnum.tagId:
-        this.dashboardEditModel.tagId = value;
-        this.dashboardEditModel.locationId = null;
-        break;
-      case DashboardFieldsEnum.locationId:
-        this.dashboardEditModel.locationId = value;
-        this.dashboardEditModel.tagId = null;
-        break;
-    }
-    this.dashboardChanged.emit(this.dashboardEditModel);
-  }
-
-  onLocationTagSelected(model: any) {
-    if (model.isTag) {
-      this.reportTagId = model.value;
-      this.selectedLocationId = null;
-      this.fieldChanged(model.value, DashboardFieldsEnum.tagId);
-    } else {
-      this.selectedLocationId = model.value;
-      this.reportTagId = null;
-      this.fieldChanged(model.value, DashboardFieldsEnum.locationId);
-    }
-  }
-
-  // clearDateTo() {
-  //   this.selectedDateRange = [this.selectedDateRange[0], null];
-  //   this.fieldChanged(null, DashboardFieldsEnum.dateTo);
-  // }
-  //
-  // clearDateFrom() {
-  //   this.selectedDateRange = [null, this.selectedDateRange[1]];
-  //   this.fieldChanged(null, DashboardFieldsEnum.dateFrom);
-  // }
 }

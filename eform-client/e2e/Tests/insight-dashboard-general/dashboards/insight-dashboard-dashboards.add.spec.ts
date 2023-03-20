@@ -14,17 +14,18 @@ describe('InSight Dashboard - Dashboards - Add', function () {
   it('should create dashboard', async () => {
     await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     await dashboardsPage.createDashboard();
-    await insightDashboardPage.goToDashboards();
-    const dashboardCountAfterCreate = await dashboardsPage.rowNum();
-    const dashboard = await dashboardsPage.getDashboard(dashboardCountAfterCreate);
+    await insightDashboardPage.goToDashboards(true);
+    const dashboard = await dashboardsPage.getLastRowObject();
     expect(dashboard.dashboardName).equal(dashboardName);
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
   it('should not create dashboard', async () => {
     const rowNumsBeforeCreate = await dashboardsPage.rowNum();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
+    await insightDashboardPage.waitForSpinnerHide();
     await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     await dashboardsPage.createDashboard_Cancels();
     expect(rowNumsBeforeCreate).equal(await dashboardsPage.rowNum());
+  });
+  after(async () => {
+    await dashboardsPage.clearTable();
   });
 });
