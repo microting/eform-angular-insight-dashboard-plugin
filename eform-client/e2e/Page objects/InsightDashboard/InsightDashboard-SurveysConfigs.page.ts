@@ -136,7 +136,7 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public async getSurveyListOfChoices() {
-    const ele = await $$('#selectSurveyCreate .ng-option');
+    const ele = await $$('ng-dropdown-panel .ng-option');
     await ele[0].waitForDisplayed({timeout: 30000});
     await ele[0].waitForClickable({timeout: 30000});
     return ele;
