@@ -54,7 +54,7 @@ import {
 import {OwlDateTimeModule} from '@danielmoncada/angular-datetime-picker';
 import {MatButtonModule} from '@angular/material/button';
 import {MtxGridModule} from '@ng-matero/extensions/grid';
-import {MatInputModule} from '@angular/material/input';
+import {MatLegacyInputModule as MatInputModule} from '@angular/material/legacy-input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MtxSelectModule} from '@ng-matero/extensions/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -62,7 +62,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatTableModule} from "@angular/material/table";
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   imports: [

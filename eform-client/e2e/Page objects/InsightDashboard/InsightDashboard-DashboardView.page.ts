@@ -1,7 +1,7 @@
 import Page from '../Page';
 import {expect} from 'chai';
 import {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
-import {format, parse} from 'date-fns';
+import {format, parse, set} from 'date-fns';
 
 export class InsightDashboardDashboardViewPage extends Page {
   constructor() {
@@ -141,8 +141,24 @@ export class InsightDashboardDashboardViewPage extends Page {
     expect(await (await this.filterQuestion(rowNum)).getText()).equal(originalItem.filterQuestion);
     expect(await (await this.filterAnswer(rowNum)).getText()).equal(originalItem.filterAnswer);
 
-    const dateFrom = parse(config.dateRange.split(' - ')[0], 'M/d/yyyy', new Date);
-    const dateTo = parse(config.dateRange.split(' - ')[1], 'M/d/yyyy', new Date);
+    const dateFrom = set(new Date(), {
+      year: config.dateRange.yearFrom,
+      month: config.dateRange.monthFrom - 1, // 0 is January here
+      date: config.dateRange.dayFrom,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    });
+    const dateTo = set(new Date(), {
+      year: config.dateRange.yearTo,
+      month: config.dateRange.monthTo - 1, // 0 is January here
+      date: config.dateRange.dayTo,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    });
 
     expect(await (await $(`#dateFrom${rowNum}`)).getText()).equal(format(dateFrom, 'yyyy/MM/dd'));
     expect(await (await $(`#dateTo${rowNum}`)).getText()).equal(format(dateTo, 'yyyy/MM/dd'));
