@@ -18,33 +18,33 @@
   flex-direction: column;
   width: 100%;
 
-  .mat-table-container {
+  .mat-mdc-table-container {
     overflow: auto;
 
-    &.mat-table-with-data {
+    &.mat-mdc-table-with-data {
       flex: 1;
     }
   }
 
-  .mat-table {
+  .mat-mdc-table {
     &:not(.mat-column-resize-table) {
       min-width: 100%;
       border-collapse: separate;
     }
   }
 
-  .mat-table-sticky-left {
+  .mat-mdc-table-sticky-left {
     border-right-width: 1px;
     border-right-style: solid;
   }
 
-  .mat-table-sticky-right {
+  .mat-mdc-table-sticky-right {
     border-left-width: 1px;
     border-left-style: solid;
   }
 
-  .mat-cell {
-    .mat-icon-button {
+  .mat-mdc-cell {
+    .mat-mdc-icon-button {
       &.expanded {
         .mat-icon {
           transform: rotate(90deg);
@@ -53,25 +53,25 @@
     }
   }
 
-  .mat-row {
+  .mat-mdc-row {
     &.mtx-grid-expansion {
       height: 0;
       overflow: hidden;
 
-      .mat-cell {
+      .mat-mdc-cell {
         padding-top: 0;
         padding-bottom: 0;
       }
 
       &.collapsed {
-        .mat-cell {
+        .mat-mdc-cell {
           border-bottom-width: 0;
         }
       }
     }
 
     &:last-of-type {
-      .mat-cell {
+      .mat-mdc-cell {
         border-bottom-width: 0;
       }
     }
@@ -88,25 +88,25 @@
     display: flex;
     align-items: center;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of paginator that may no longer apply for the MDC version. */
   .mat-paginator-hidden {
     display: none;
   }
 }
 
-.mtx-grid .mat-table:not(.mat-column-resize-table) .mat-header-cell:not(.mtx-grid-checkbox-cell), .mtx-grid .mat-table:not(.mat-column-resize-table) .mat-footer-cell:not(.mtx-grid-checkbox-cell), .mtx-grid .mat-table:not(.mat-column-resize-table) .mat-cell:not(.mtx-grid-checkbox-cell) {
+.mtx-grid .mat-mdc-table:not(.mat-column-resize-table) .mat-mdc-header-cell:not(.mtx-grid-checkbox-cell), .mtx-grid .mat-table:not(.mat-column-resize-table) .mat-mdc-footer-cell:not(.mtx-grid-checkbox-cell), .mtx-grid .mat-table:not(.mat-column-resize-table) .mat-mdc-cell:not(.mtx-grid-checkbox-cell) {
   min-width: 80px;
 }
 
 [dir=rtl] {
   .mtx-grid {
-    .mat-table-sticky-left {
+    .mat-mdc-table-sticky-left {
       border-right-width: 0;
       border-left-width: 1px;
       border-left-style: solid;
     }
 
-    .mat-table-sticky-right {
+    .mat-mdc-table-sticky-right {
       border-left-width: 0;
       border-right-width: 1px;
       border-right-style: solid;
@@ -120,41 +120,41 @@
   }
 
   th {
-    &.mat-header-cell {
+    &.mat-mdc-header-cell {
       text-align: right;
     }
   }
 }
 
-.mtx-grid .mat-header-cell, .mtx-grid .mat-footer-cell, .mtx-grid .mat-cell {
+.mtx-grid .mat-mdc-header-cell, .mtx-grid .mat-mdc-footer-cell, .mtx-grid .mat-mdc-cell {
   padding: 4px 10px;
   box-sizing: border-box;
 }
 
-.mtx-grid .mat-header-cell:first-of-type:not(:only-of-type), .mtx-grid .mat-footer-cell:first-of-type:not(:only-of-type), .mtx-grid .mat-cell:first-of-type:not(:only-of-type) {
+.mtx-grid .mat-mdc-header-cell:first-of-type:not(:only-of-type), .mtx-grid .mat-mdc-footer-cell:first-of-type:not(:only-of-type), .mtx-grid .mat-mdc-cell:first-of-type:not(:only-of-type) {
   padding-left: 24px;
 }
 
-.mtx-grid .mat-header-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell, .mtx-grid .mat-footer-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell, .mtx-grid .mat-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell {
+.mtx-grid .mat-mdc-header-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell, .mtx-grid .mat-mdc-footer-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell, .mtx-grid .mat-mdc-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell {
   padding-left: 10px;
   padding-right: 10px;
 }
 
-[dir=rtl] .mtx-grid .mat-header-cell:first-of-type:not(:only-of-type), [dir=rtl] .mtx-grid .mat-footer-cell:first-of-type:not(:only-of-type), [dir=rtl] .mtx-grid .mat-cell:first-of-type:not(:only-of-type) {
+[dir=rtl] .mtx-grid .mat-mdc-header-cell:first-of-type:not(:only-of-type), [dir=rtl] .mtx-grid .mat-mdc-footer-cell:first-of-type:not(:only-of-type), [dir=rtl] .mtx-grid .mat-mdc-cell:first-of-type:not(:only-of-type) {
   padding-left: 10px;
   padding-right: 24px;
 }
 
-[dir=rtl] .mtx-grid .mat-header-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell, [dir=rtl] .mtx-grid .mat-footer-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell, [dir=rtl] .mtx-grid .mat-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell {
+[dir=rtl] .mtx-grid .mat-mdc-header-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell, [dir=rtl] .mtx-grid .mat-mdc-footer-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell, [dir=rtl] .mtx-grid .mat-mdc-cell:first-of-type:not(:only-of-type).mtx-grid-checkbox-cell {
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.mtx-grid .mat-header-cell:last-of-type:not(:only-of-type), .mtx-grid .mat-footer-cell:last-of-type:not(:only-of-type), .mtx-grid .mat-cell:last-of-type:not(:only-of-type) {
+.mtx-grid .mat-mdc-header-cell:last-of-type:not(:only-of-type), .mtx-grid .mat-mdc-footer-cell:last-of-type:not(:only-of-type), .mtx-grid .mat-mdc-cell:last-of-type:not(:only-of-type) {
   padding-right: 24px;
 }
 
-[dir=rtl] .mtx-grid .mat-header-cell:last-of-type:not(:only-of-type), [dir=rtl] .mtx-grid .mat-footer-cell:last-of-type:not(:only-of-type), [dir=rtl] .mtx-grid .mat-cell:last-of-type:not(:only-of-type) {
+[dir=rtl] .mtx-grid .mat-mdc-header-cell:last-of-type:not(:only-of-type), [dir=rtl] .mtx-grid .mat-mdc-footer-cell:last-of-type:not(:only-of-type), [dir=rtl] .mtx-grid .mat-mdc-cell:last-of-type:not(:only-of-type) {
   padding-left: 24px;
   padding-right: 10px;
 }
@@ -232,16 +232,17 @@
   width: 56px;
   min-width: 56px;
 
-  .mat-checkbox {
+  .mat-mdc-checkbox {
     display: flex;
     margin: 0 10px;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
   .mat-checkbox-inner-container {
     margin-left: 0;
   }
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
 mat-table {
   display: block;
 }
@@ -291,55 +292,55 @@ mat-cell, mat-header-cell, mat-footer-cell {
 }
 
 table {
-  &.mat-table {
+  &.mat-mdc-table {
     border-spacing: 0;
   }
 }
 
 tr {
-  &.mat-header-row {
+  &.mat-mdc-header-row {
     height: 56px;
   }
 }
 
-tr.mat-row, tr.mat-footer-row {
+tr.mat-mdc-row, tr.mat-mdc-footer-row {
   height: 48px;
 }
 
 th {
-  &.mat-header-cell {
+  &.mat-mdc-header-cell {
     text-align: left;
   }
 }
 
-th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+th.mat-mdc-header-cell, td.mat-mdc-cell, td.mat-mdc-footer-cell {
   padding: 0;
   border-bottom-width: 1px;
   border-bottom-style: solid;
 }
 
-th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+th.mat-mdc-header-cell:first-of-type, td.mat-mdc-cell:first-of-type, td.mat-mdc-footer-cell:first-of-type {
   padding-left: 24px;
 }
 
-[dir=rtl] th.mat-header-cell:first-of-type:not(:only-of-type), [dir=rtl] td.mat-cell:first-of-type:not(:only-of-type), [dir=rtl] td.mat-footer-cell:first-of-type:not(:only-of-type) {
+[dir=rtl] th.mat-mdc-header-cell:first-of-type:not(:only-of-type), [dir=rtl] td.mat-mdc-cell:first-of-type:not(:only-of-type), [dir=rtl] td.mat-mdc-footer-cell:first-of-type:not(:only-of-type) {
   padding-left: 0;
   padding-right: 24px;
 }
 
-th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+th.mat-mdc-header-cell:last-of-type, td.mat-mdc-cell:last-of-type, td.mat-mdc-footer-cell:last-of-type {
   padding-right: 24px;
 }
 
-[dir=rtl] th.mat-header-cell:last-of-type:not(:only-of-type), [dir=rtl] td.mat-cell:last-of-type:not(:only-of-type), [dir=rtl] td.mat-footer-cell:last-of-type:not(:only-of-type) {
+[dir=rtl] th.mat-mdc-header-cell:last-of-type:not(:only-of-type), [dir=rtl] td.mat-mdc-cell:last-of-type:not(:only-of-type), [dir=rtl] td.mat-mdc-footer-cell:last-of-type:not(:only-of-type) {
   padding-right: 0;
   padding-left: 24px;
 }
 
-.mat-table-sticky {
+.mat-mdc-table-sticky {
   position: sticky !important;
 }
 
-.mat-table-fixed-layout {
+.mat-mdc-table-fixed-layout {
   table-layout: fixed;
 }
