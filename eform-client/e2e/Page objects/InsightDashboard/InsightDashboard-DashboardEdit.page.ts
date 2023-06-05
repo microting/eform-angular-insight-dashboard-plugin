@@ -1,5 +1,9 @@
 import Page from '../Page';
-import {selectValueInNgSelector, selectValueInNgSelectorWithSeparateValueAndSearchValue} from '../../Helpers/helper-functions';
+import {
+  selectDateRangeOnDatePicker,
+  selectValueInNgSelector,
+  selectValueInNgSelectorWithSeparateValueAndSearchValue
+} from '../../Helpers/helper-functions';
 
 export class InsightDashboardDashboardEditPage extends Page {
   constructor() {
@@ -49,7 +53,7 @@ export class InsightDashboardDashboardEditPage extends Page {
   public async dateRange() {
     const ele = await $('#dateRange');
     await ele.waitForDisplayed({timeout: 30000});
-    await ele.waitForClickable({timeout: 20000});
+    // await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
@@ -149,7 +153,10 @@ export class InsightDashboardDashboardEditPage extends Page {
 
     // Set date from and date to
     if (model.dateRange) {
-      await (await this.dateRange()).addValue(model.dateRange);
+      await (await this.dateRange()).click();
+      await selectDateRangeOnDatePicker(
+        model.dateRange.yearFrom, model.dateRange.monthFrom, model.dateRange.dayFrom,
+        model.dateRange.yearTo, model.dateRange.monthTo, model.dateRange.dayTo);
     }
 
     // Set today
@@ -319,7 +326,14 @@ export interface DashboardTestItemEditModel {
 
 export interface DashboardTestConfigEditModel {
   locationTagName: string;
-  dateRange: string;
+  dateRange: {
+    yearFrom: number,
+    monthFrom: number,
+    dayFrom: number,
+    yearTo: number,
+    monthTo: number,
+    dayTo: number
+  };
   today: boolean;
 }
 

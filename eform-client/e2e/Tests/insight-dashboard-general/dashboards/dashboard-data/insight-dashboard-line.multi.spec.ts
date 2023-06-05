@@ -7,7 +7,14 @@ import dashboardEditPage, {DashboardTestConfigEditModel} from '../../../../Page 
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
-  dateRange: '1/1/2016 - 5/14/2020',
+  dateRange: {
+    yearFrom: 2016,
+    monthFrom: 1,
+    dayFrom: 1,
+    yearTo: 2020,
+    monthTo: 5,
+    dayTo: 14,
+  },
   today: true
 };
 
