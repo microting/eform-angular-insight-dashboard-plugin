@@ -82,7 +82,7 @@ namespace InsightDashboard.Pn.Services.InterviewsExcelService
                                     }
                                     else
                                     {
-                                        worksheet.Cell(rowIndex, col).Value = value;
+                                        worksheet.Cell(rowIndex, col).Value = value.ToString();
                                     }
                                 }
                             }
