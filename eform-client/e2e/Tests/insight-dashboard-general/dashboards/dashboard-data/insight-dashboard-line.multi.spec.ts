@@ -29,7 +29,6 @@ describe('InSight Dashboard - Dashboards - Line', function () {
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
   it('should compare items headers', async () => {
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await dashboardsViewPage.compareHeaders(dashboardLineDataJson);
   });
   it('should compare items percentage', async () => {

@@ -32,7 +32,6 @@ describe('InSight Dashboard - Dashboards - Vertical Bar', function () {
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
   it('should compare items headers', async () => {
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await dashboardsViewPage.compareHeaders(dashboardVerticalBarDataJson);
   });
   it('should compare items percentage', async () => {

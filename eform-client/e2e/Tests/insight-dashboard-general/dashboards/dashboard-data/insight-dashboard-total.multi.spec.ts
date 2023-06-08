@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import loginPage from '../../../../Page objects/Login.page';
 import insightDashboardPage from '../../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
@@ -31,7 +30,6 @@ describe('InSight Dashboard - Dashboards - Total', function () {
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
   it('should compare items headers', async () => {
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await dashboardsViewPage.compareHeaders(dashboardTotalDataJson);
   });
   it('should compare items percentage', async () => {

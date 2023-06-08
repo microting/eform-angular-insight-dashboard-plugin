@@ -49,7 +49,6 @@ describe('InSight Dashboard - Dashboards - Stacked Grouped', function () {
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
   it('should compare items headers', async () => {
-    await (await $('#spinner-animation')).waitForDisplayed({ timeout: 30000, reverse: true });
     await dashboardsViewPage.compareHeaders(dashboardStackedGroupedDataJson);
   });
   it('should compare items percentage', async () => {

@@ -1,7 +1,7 @@
 import Page from '../Page';
 import {expect} from 'chai';
 import {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
-import {format, parse, set} from 'date-fns';
+import {format, set} from 'date-fns';
 
 export class InsightDashboardDashboardViewPage extends Page {
   constructor() {
@@ -61,6 +61,7 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   public async compareHeaders(dataJson: any) {
+    await (await this.returnToDashboards()).waitForClickable();
     // items in dashboard
     for (let itemIndex = 0; itemIndex < await dashboardsViewPage.rowNum(); itemIndex++) {
       // raw data in item

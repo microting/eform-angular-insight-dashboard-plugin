@@ -32,7 +32,6 @@ describe('InSight Dashboard - Dashboards - Line Score', function () {
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
   it('should compare items headers', async () => {
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await dashboardsViewPage.compareHeaders(dashboardLineScoreDataJson);
   });
   it('should compare items average', async () => {
