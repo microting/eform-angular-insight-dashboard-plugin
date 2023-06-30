@@ -11,19 +11,14 @@
     </mat-form-field>
 
     <div class="d-flex need-wrapper align-items-center">
-      <mat-form-field [owlDateTimeTrigger]="dateRangePicker">
+      <mat-form-field formGroupName="dateRange">
         <mat-label>{{ 'Select date range' | translate }}</mat-label>
-        <mat-icon matPrefix>calendar_today</mat-icon>
-        <input
-          matInput
-          name="dateRange"
-          id="dateRange"
-          required
-          formControlName="dateRange"
-          type="text"
-          [owlDateTime]="dateRangePicker"
-          [selectMode]="'range'"
-        >
+        <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-input [rangePicker]="picker" (click)="picker.open()">
+          <input formControlName="dateFrom" matStartDate class="dateFormInput">
+          <input formControlName="dateTo" matEndDate class="dateFormInput">
+        </mat-date-range-input>
+        <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
       <mat-checkbox
         formControlName="today"
@@ -43,9 +38,3 @@
     </mat-form-field>
   </mat-card-content>
 </mat-card>
-
-<owl-date-time
-  [pickerType]="'calendar'"
-  [firstDayOfWeek]="1"
-  #dateRangePicker
-></owl-date-time>

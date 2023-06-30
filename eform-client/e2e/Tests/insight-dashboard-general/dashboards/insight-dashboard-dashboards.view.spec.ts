@@ -41,7 +41,6 @@ describe('InSight Dashboard - Dashboards - View', function () {
     await dashboardEditPage.generateItems([item]);
     await browser.pause(1000);
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await browser.pause(5000);
     await (await $('#firstQuestion1')).waitForDisplayed({timeout: 30000});
     await dashboardsViewPage.returnToDashboards();

@@ -8,8 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {DashboardEditModel, LabelValueExtendedModel} from '../../../../models';
-import {DashboardFieldsEnum} from '../../../../const/enums';
-import {format, parse, parseISO, parseJSON,} from 'date-fns';
+import {set} from 'date-fns';
 import {DateTimeAdapter} from '@danielmoncada/angular-datetime-picker';
 import {AuthStateService} from 'src/app/common/store';
 import {FormControl, FormGroup} from '@angular/forms';
@@ -26,11 +25,6 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
   @Output()
   dashboardChanged: EventEmitter<DashboardEditModel> = new EventEmitter<DashboardEditModel>();
   form: FormGroup;
-  private standartDateTimeFormat = `yyyy-MM-dd'T'HH:mm:ss`;
-
-  get dashboardFields() {
-    return DashboardFieldsEnum;
-  }
 
   constructor(
     dateTimeAdapter: DateTimeAdapter<any>,
@@ -38,11 +32,14 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
     dateTimeAdapter.setLocale(authStateService.currentUserLocale);
     this.form = new FormGroup({
       dashboardName: new FormControl(''),
-      dateRange: new FormControl([null, null]), // [dateFrom: Date, dateTo: Date]
+      dateRange: new FormGroup({
+        dateFrom: new FormControl(null),
+        dateTo: new FormControl(null),
+      }),
       location: new FormControl(null), // {isTag: boolean; label: string; value: number;}
       today: new FormControl(false),
     });
-    this.form.valueChanges.subscribe(value => {
+    this.form.valueChanges/*.pipe(skip(1))*/.subscribe(value => {
       const dashboardEditModel = {
         ...this.dashboardEditModel,
         dashboardName: value.dashboardName,
@@ -52,44 +49,34 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
         locationName: value.location && !value.location.isTag ? value.location.label : null,
         answerDates: {
           today: value.today,
-          dateFrom: value.dateRange[0] ? format(value.dateRange[0], this.standartDateTimeFormat) : null,
-          dateTo: value.dateRange[1] ? format(value.dateRange[1], this.standartDateTimeFormat) : null
+          dateFrom: value.dateRange.dateFrom || null,
+          dateTo: value.dateRange.dateTo || null
         }
       };
-      if(!R.equals(dashboardEditModel, this.dashboardEditModel)) {
+      if (dashboardEditModel.id && !R.equals(dashboardEditModel, this.dashboardEditModel)) {
         this.dashboardChanged.emit(dashboardEditModel);
       }
-    })
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.dashboardEditModel) {
+    if (changes && changes.dashboardEditModel && changes.dashboardEditModel.currentValue.id) {
       const currentValue = changes.dashboardEditModel.currentValue as DashboardEditModel;
-      const dashboardEditModel = {
-        ...this.dashboardEditModel,
-        dashboardName: this.form.value.dashboardName,
-        tagId: this.form.value.location && this.form.value.location.isTag ? this.form.value.location.value : null,
-        tagName: this.form.value.location && this.form.value.location.isTag ? this.form.value.location.label : null,
-        locationId: this.form.value.location && !this.form.value.location.isTag ? this.form.value.location.value : null,
-        locationName: this.form.value.location && !this.form.value.location.isTag ? this.form.value.location.label : null,
-        answerDates: {
-          today: this.form.value.today,
-          dateFrom: this.form.value.dateRange[0] ? format(this.form.value.dateRange[0], this.standartDateTimeFormat) : null,
-          dateTo: this.form.value.dateRange[1] ? format(this.form.value.dateRange[1], this.standartDateTimeFormat) : null
-        }
-      };
-      if(!R.equals(dashboardEditModel, this.dashboardEditModel)) {
-        if (currentValue.answerDates && currentValue.answerDates.dateFrom && currentValue.answerDates.dateTo) {
-          this.form.get('dateRange')
-            .setValue([
-              parse(currentValue.answerDates.dateFrom, this.standartDateTimeFormat, new Date()),
-              parse(currentValue.answerDates.dateTo, this.standartDateTimeFormat, new Date())
-            ], {emitEvent: false});
-          this.form.get('today')
-            .setValue(currentValue.answerDates.today || false, {emitEvent: false});
-        }
+      if (!changes.dashboardEditModel.previousValue.id) {
+        const setDate = (date) => {
+          return set(date, {
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            milliseconds: 0,
+            date: date.getUTCDate(),
+            year: date.getUTCFullYear(),
+            month: date.getUTCMonth(),
+          });
+        };
         this.form.patchValue({
           dashboardName: currentValue.dashboardName || '',
           location: currentValue.locationId
@@ -97,6 +84,11 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
             : currentValue.tagId
               ? {isTag: true, label: currentValue.tagName, value: currentValue.tagId}
               : null,
+          dateRange: {
+            dateFrom: setDate((currentValue.answerDates.dateFrom as Date)) || null,
+            dateTo: setDate((currentValue.answerDates.dateTo as Date)) || null,
+          },
+          today: currentValue.answerDates.today || false,
         }, {emitEvent: false});
       }
     }

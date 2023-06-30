@@ -1,12 +1,9 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {SharedPnModule} from '../shared/shared-pn.module';
 import {EformSharedModule} from 'src/app/common/modules/eform-shared/eform-shared.module';
 import {InsightDashboardPnLayoutComponent} from './layouts';
-import {InsightDashboardPnRoutingModule} from './insight-dashboard-pn-routing.module';
-import {CasesModule} from 'src/app/modules';
+import {InsightDashboardPnRouting} from './insight-dashboard-pn-routing';
 import {
   InsightDashboardPnAnswersService,
   InsightDashboardPnDashboardDictionariesService,
@@ -51,7 +48,6 @@ import {
   SurveysStateService,
   surveysPersistProvider,
 } from './components/surveys/store';
-import {OwlDateTimeModule} from '@danielmoncada/angular-datetime-picker';
 import {MatButtonModule} from '@angular/material/button';
 import {MtxGridModule} from '@ng-matero/extensions/grid';
 import {MatInputModule} from '@angular/material/input';
@@ -62,20 +58,16 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatTableModule} from "@angular/material/table";
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
-    CommonModule,
-    SharedPnModule,
-    InsightDashboardPnRoutingModule,
+    InsightDashboardPnRouting,
     TranslateModule,
     FormsModule,
     EformSharedModule,
-    CasesModule,
     DragulaModule,
     NgxChartsModule,
-    OwlDateTimeModule,
     MatButtonModule,
     MtxGridModule,
     MatInputModule,
@@ -86,8 +78,8 @@ import {MatTableModule} from "@angular/material/table";
     MatIconModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatTableModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,

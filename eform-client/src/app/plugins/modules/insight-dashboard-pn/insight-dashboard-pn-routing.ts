@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { InsightDashboardPnLayoutComponent } from './layouts';
-import { AdminGuard, AuthGuard } from '../../../common/guards';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {InsightDashboardPnLayoutComponent} from './layouts';
+import {AdminGuard, AuthGuard} from '../../../common/guards';
 import {
   AnswerPageComponent,
   DashboardEditComponent,
@@ -56,4 +56,5 @@ export const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class InsightDashboardPnRoutingModule {}
+export class InsightDashboardPnRouting {
+}
