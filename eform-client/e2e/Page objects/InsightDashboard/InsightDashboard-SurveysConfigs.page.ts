@@ -77,40 +77,31 @@ export class InsightDashboardSurveysConfigsPage extends Page {
 
   async createSurveyConfig(configName: string) {
     await (await this.surveyConfigCreateBtn()).click();
-    await this.waitForSpinnerHide();
     const searchField = await surveyConfigsPage.getSurveysSearchField();
     await searchField.addValue(configName);
     const listChoices = await surveyConfigsPage.getSurveyListOfChoices();
     const choice = listChoices[0];
-    await this.waitForSpinnerHide();
     await choice.click();
     await browser.pause(1000);
     await (await this.surveyConfigCreateSaveBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async createSurveyConfig_Cancels() {
     await (await this.surveyConfigCreateBtn()).click();
-    await this.waitForSpinnerHide();
     await (await this.surveyConfigCreateCancelBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
     await rowObject.editSurveyConfigBtn.click();
-    await this.waitForSpinnerHide();
     await (await this.surveyConfigLocationCheckbox(1)).click();
     await (await this.surveyConfigLocationCheckbox(2)).click();
     await browser.pause(1000);
     await (await this.surveyConfigEditSaveBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     await rowObject.editSurveyConfigBtn.click();
-    await this.waitForSpinnerHide();
     await (await this.surveyConfigEditCancelBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
 
@@ -118,14 +109,11 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     await rowObject.surveyConfigDeleteBtn.click();
     await browser.pause(1000);
     await (await this.surveyConfigDeleteSaveBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
     await rowObject.surveyConfigDeleteBtn.click();
-    await this.waitForSpinnerHide();
     await (await this.surveyConfigDeleteCancelBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   public async getSurveysSearchField() {

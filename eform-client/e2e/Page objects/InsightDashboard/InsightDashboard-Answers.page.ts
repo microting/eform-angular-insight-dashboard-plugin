@@ -42,7 +42,6 @@ export class InsightDashboardAnswersPage extends Page {
   public async searchAnswerByMicrotingUId(microtingUId: string) {
     await (await this.searchMicrotingUIdInput()).setValue(microtingUId);
     await (await this.searchMicrotingUIdBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async deleteAnswer(clickCancel = false) {
@@ -53,7 +52,6 @@ export class InsightDashboardAnswersPage extends Page {
     } else {
       await (await this.saveDeleteBtn()).waitForDisplayed();
       await (await this.saveDeleteBtn()).click();
-      await this.waitForSpinnerHide();
     }
   }
 

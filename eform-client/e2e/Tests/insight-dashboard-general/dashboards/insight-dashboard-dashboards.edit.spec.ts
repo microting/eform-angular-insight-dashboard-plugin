@@ -10,7 +10,14 @@ import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDa
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
-  dateRange: '1/1/2016 - 5/14/2020',
+  dateRange: {
+    yearFrom: 2016,
+    monthFrom: 1,
+    dayFrom: 1,
+    yearTo: 2020,
+    monthTo: 5,
+    dayTo: 14
+  },
   today: false
 };
 
@@ -42,7 +49,6 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     expect(itemNumsBeforeInitialItem).equal(await dashboardEditPage.rowNum() - 1);
   });
   it('should delete item', async () => {
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     const itemNumsBeforeRemoveItem = await dashboardEditPage.rowNum();
     const item = await dashboardEditPage.getDashboardItem(itemNumsBeforeRemoveItem);
     await dashboardEditPage.deleteItem(item);
@@ -52,7 +58,6 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     const itemNumsBeforeInitialItem = await dashboardEditPage.rowNum();
     await dashboardEditPage.createFirstItem();
     expect(itemNumsBeforeInitialItem).equal(await dashboardEditPage.rowNum() - 1);
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     const itemNumsBeforeCreateItem = await dashboardEditPage.rowNum();
     const item = await dashboardEditPage.getDashboardItem(itemNumsBeforeCreateItem);
     await dashboardEditPage.createItem(item);
@@ -63,7 +68,6 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     const item = await dashboardEditPage.getDashboardItem(itemNumsBeforeCopyItem);
     await dashboardEditPage.copyItem(item);
     expect(itemNumsBeforeCopyItem).equal(await dashboardEditPage.rowNum() - 1);
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
   it('should save filled item', async () => {
     await insightDashboardPage.goToDashboards(true);
@@ -73,17 +77,12 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await dashboardEditPage.createFirstItem();
     await dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1, testItem);
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await (await dashboardsViewPage.returnToDashboards()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     const dashboardRowNum = await dashboardsPage.rowNum();
     const createdDashboard = await dashboardsPage.getDashboard(dashboardRowNum);
     await createdDashboard.dashboardEditBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     expect(itemNumsBeforeCreateItem).equal(await dashboardEditPage.rowNum() - 1);
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await (await dashboardEditPage.dashboardUpdateSaveCancelBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
   after(async () => {
     await insightDashboardPage.goToDashboards();
