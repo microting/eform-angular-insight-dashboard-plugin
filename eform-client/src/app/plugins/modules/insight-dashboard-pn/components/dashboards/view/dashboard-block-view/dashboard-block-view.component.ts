@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {
   DashboardChartTypesEnum,
   DashboardItemQuestionTypesEnum,
   DashboardPeriodUnitsEnum,
 } from '../../../../const/enums';
-import { DashboardViewModel, DashboardViewItemModel} from '../../../../models';
+import {DashboardViewModel, DashboardViewItemModel} from '../../../../models';
+import {format, set} from 'date-fns';
 
 @Component({
   selector: 'app-dashboard-block-view',
@@ -19,14 +20,44 @@ export class DashboardBlockViewComponent implements OnInit {
   get chartTypes() {
     return DashboardChartTypesEnum;
   }
+
   get periodUnits() {
     return DashboardPeriodUnitsEnum;
   }
+
   get questionType() {
     return DashboardItemQuestionTypesEnum;
   }
 
-  constructor() {}
+  get dateFrom() {
+    if (this.dashboardViewModel && this.dashboardViewModel.answerDates && this.dashboardViewModel.answerDates.dateFrom) {
+      return format(this.setDate(this.dashboardViewModel.answerDates.dateFrom as Date), 'yyyy/MM/dd');
+    }
+    return '--';
+  }
 
-  ngOnInit() {}
+  get dateTo() {
+    if (this.dashboardViewModel && this.dashboardViewModel.answerDates && this.dashboardViewModel.answerDates.dateTo) {
+      return format(this.setDate(this.dashboardViewModel.answerDates.dateTo as Date), 'yyyy/MM/dd');
+    }
+    return '--';
+  }
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+  setDate(date: Date): Date {
+    return set(date, {
+      date: date.getUTCDate(),
+      month: date.getUTCMonth(),
+      year: date.getUTCFullYear(),
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    });
+  }
 }

@@ -9,17 +9,11 @@
           </p>
           <p>
             <strong>{{'Period from' | translate}}: </strong>
-            <span id="dateFrom{{position}}">
-              {{dashboardViewModel.answerDates.dateFrom
-              ? (dashboardViewModel.answerDates.dateFrom | date: 'yyyy/MM/dd')
-              : '--'}}</span>
+            <span id="dateFrom{{position}}">{{dateFrom}}</span>
           </p>
           <p>
             <strong>{{'Period to' | translate}}: </strong>
-            <span id="dateTo{{position}}">
-              {{dashboardViewModel.answerDates.dateTo
-              ? (dashboardViewModel.answerDates.dateTo | date: 'yyyy/MM/dd')
-              : '--'}}</span>
+            <span id="dateTo{{position}}">{{dateTo}}</span>
           </p>
           <p>
             <strong>{{'Dimension' | translate}}: </strong>
