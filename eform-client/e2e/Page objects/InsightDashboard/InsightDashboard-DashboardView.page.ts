@@ -2,7 +2,7 @@ import Page from '../Page';
 import {expect} from 'chai';
 import {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
 import {format, set} from 'date-fns';
-import {customDaLocale} from 'src/app/common/const';
+import {customDaLocale} from '../../../src/app/common/const';
 
 export class InsightDashboardDashboardViewPage extends Page {
   constructor() {
