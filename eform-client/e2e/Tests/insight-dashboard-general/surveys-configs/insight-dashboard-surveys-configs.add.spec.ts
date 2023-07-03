@@ -18,7 +18,6 @@ describe('InSight Dashboard - Survey Config - Add', function () {
   });
   it('Should not create survey config', async () => {
     const rowNumsBeforeCreate = await surveyConfigsPage.rowNum();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 10000});
     await surveyConfigsPage.createSurveyConfig_Cancels();
     expect(rowNumsBeforeCreate).equal(await surveyConfigsPage.rowNum());

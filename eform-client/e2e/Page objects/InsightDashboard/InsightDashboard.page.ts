@@ -34,7 +34,6 @@ export class InsightDashboardPage extends Page {
   async goToSurveysConfigs() {
     await this.InsightDashboardDropDownClick();
     await (await this.SurveysConfigsBtn()).click();
-    await this.waitForSpinnerHide();
   }
   async goToDashboards(dropdownIsOpened = false) {
     // if dropdown is not opened
@@ -43,13 +42,11 @@ export class InsightDashboardPage extends Page {
       await (await this.DashboardsBtn()).waitForClickable();
     }
     await (await this.DashboardsBtn()).click();
-    await this.waitForSpinnerHide();
     await (await $('#createDashboardBtn')).waitForClickable({timeout: 40000});
   }
   async goToAnswers() {
     await this.InsightDashboardDropDownClick();
     await (await this.AnswersBtn()).click();
-    await this.waitForSpinnerHide();
   }
 }
 

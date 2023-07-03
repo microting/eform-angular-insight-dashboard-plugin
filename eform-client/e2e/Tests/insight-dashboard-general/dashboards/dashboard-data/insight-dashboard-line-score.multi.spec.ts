@@ -2,7 +2,9 @@ import loginPage from '../../../../Page objects/Login.page';
 import insightDashboardPage from '../../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
 import dashboardsViewPage from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
-import dashboardEditPage, {DashboardTestConfigEditModel} from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
+import dashboardEditPage, {
+  DashboardTestConfigEditModel
+} from '../../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 import {
   dashboardLineScoreDataJson,
   dashboardLineScoreItems
@@ -10,7 +12,14 @@ import {
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
-  dateRange: '1/1/2016 - 5/14/2020',
+  dateRange: {
+    yearFrom: 2016,
+    monthFrom: 1,
+    dayFrom: 1,
+    yearTo: 2020,
+    monthTo: 5,
+    dayTo: 14
+  },
   today: true
 };
 
@@ -25,7 +34,6 @@ describe('InSight Dashboard - Dashboards - Line Score', function () {
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
   it('should compare items headers', async () => {
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await dashboardsViewPage.compareHeaders(dashboardLineScoreDataJson);
   });
   it('should compare items average', async () => {

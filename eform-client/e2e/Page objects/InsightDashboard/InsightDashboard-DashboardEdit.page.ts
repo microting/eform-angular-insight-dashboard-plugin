@@ -1,5 +1,9 @@
 import Page from '../Page';
-import {selectValueInNgSelector, selectValueInNgSelectorWithSeparateValueAndSearchValue} from '../../Helpers/helper-functions';
+import {
+  selectDateRangeOnDatePicker,
+  selectValueInNgSelector,
+  selectValueInNgSelectorWithSeparateValueAndSearchValue
+} from '../../Helpers/helper-functions';
 
 export class InsightDashboardDashboardEditPage extends Page {
   constructor() {
@@ -47,9 +51,9 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   public async dateRange() {
-    const ele = await $('#dateRange');
+    const ele = await $('mat-date-range-input');
     await ele.waitForDisplayed({timeout: 30000});
-    await ele.waitForClickable({timeout: 20000});
+    // await ele.waitForClickable({timeout: 20000});
     return ele;
   }
 
@@ -145,11 +149,17 @@ export class InsightDashboardDashboardEditPage extends Page {
   }
 
   async setDashboardSettings(model: DashboardTestConfigEditModel) {
-    await this.waitForSpinnerHide();
-
+    await (await this.dateRange()).click();
     // Set date from and date to
     if (model.dateRange) {
-      await (await this.dateRange()).addValue(model.dateRange);
+      await selectDateRangeOnDatePicker(
+        model.dateRange.yearFrom,
+        model.dateRange.monthFrom,
+        model.dateRange.dayFrom,
+        model.dateRange.yearTo,
+        model.dateRange.monthTo,
+        model.dateRange.dayTo,
+      )
     }
 
     // Set today
@@ -158,27 +168,22 @@ export class InsightDashboardDashboardEditPage extends Page {
     }
 
     await selectValueInNgSelector(await this.getLocationTagSearchField(), model.locationTagName)
-    await this.waitForSpinnerHide();
   }
 
   async createFirstItem() {
     await (await this.initialItemCreateBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async createItem(rowObject: InsightDashboardEditRowObject) {
     await (await rowObject.itemCreateBtn).click();
-    await this.waitForSpinnerHide();
   }
 
   async deleteItem(rowObject: InsightDashboardEditRowObject) {
     await (await rowObject.itemDeleteBtn).click();
-    await this.waitForSpinnerHide();
   }
 
   async copyItem(rowObject: InsightDashboardEditRowObject) {
     await (await rowObject.itemCopyBtn).click();
-    await this.waitForSpinnerHide();
   }
 
   async fillItem(rowNum: number, itemObject: DashboardTestItemEditModel) {
@@ -198,7 +203,6 @@ export class InsightDashboardDashboardEditPage extends Page {
     await selectValueInNgSelector(await this.periodSearchField(rowNum), itemObject.period);
     // Select calculate average
     if (itemObject.calculateAverage) {
-      await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
       const ele = await this.calculateAverageCheckbox(rowNum);
       await ele.waitForDisplayed({timeout: 20000});
       await ele.waitForClickable({timeout: 20000});
@@ -319,7 +323,14 @@ export interface DashboardTestItemEditModel {
 
 export interface DashboardTestConfigEditModel {
   locationTagName: string;
-  dateRange: string;
+  dateRange?: {
+    yearFrom: number,
+    monthFrom: number,
+    dayFrom: number,
+    yearTo: number,
+    monthTo: number,
+    dayTo: number,
+  };
   today: boolean;
 }
 

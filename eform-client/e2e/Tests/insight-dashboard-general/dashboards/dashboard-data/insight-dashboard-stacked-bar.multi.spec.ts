@@ -14,7 +14,14 @@ import myEformsPage from '../../../../Page objects/MyEforms.page';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Total',
-  dateRange: '1/1/2016 - 5/14/2020',
+  dateRange: {
+    yearFrom: 2016,
+    monthFrom: 1,
+    dayFrom: 1,
+    yearTo: 2020,
+    monthTo: 5,
+    dayTo: 14
+  },
   today: true,
 };
 
@@ -29,7 +36,7 @@ describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
     if (!site.tags || !site.tags.includes(dashboardConfig.locationTagName)) {
       await sitesPage.createTag([dashboardConfig.locationTagName]);
       for (let i = 1; i < 5; i++) {
-        await (await sitesPage.getSite(i)).edit({ tags: [dashboardConfig.locationTagName] });
+        await (await sitesPage.getSite(i)).edit({tags: [dashboardConfig.locationTagName]});
       }
     }
 
@@ -41,7 +48,6 @@ describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
   });
   it('should compare items headers', async () => {
-    await (await $('#spinner-animation')).waitForDisplayed({ timeout: 30000, reverse: true });
     await dashboardsViewPage.compareHeaders(dashboardStackedBarDataJson);
   });
   it('should compare items percentage', async () => {

@@ -1,7 +1,8 @@
 import Page from '../Page';
 import {expect} from 'chai';
 import {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
-import {format, parse} from 'date-fns';
+import {format, set} from 'date-fns';
+import {customDaLocale} from 'src/app/common/const';
 
 export class InsightDashboardDashboardViewPage extends Page {
   constructor() {
@@ -136,16 +137,32 @@ export class InsightDashboardDashboardViewPage extends Page {
   }
 
   async compareItem(rowNum: number, originalItem: DashboardTestItemEditModel, config: DashboardTestConfigEditModel) {
-    browser.pause(1000);
+    await browser.pause(1000);
     expect(await (await this.firstQuestion(rowNum)).getText()).equal(originalItem.firstQuestion);
     expect(await (await this.filterQuestion(rowNum)).getText()).equal(originalItem.filterQuestion);
     expect(await (await this.filterAnswer(rowNum)).getText()).equal(originalItem.filterAnswer);
 
-    const dateFrom = parse(config.dateRange.split(' - ')[0], 'M/d/yyyy', new Date);
-    const dateTo = parse(config.dateRange.split(' - ')[1], 'M/d/yyyy', new Date);
+    const dateFrom = set(new Date, {
+      year: config.dateRange.yearFrom,
+      month: config.dateRange.monthFrom,
+      date: config.dateRange.dayFrom,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0
+    });
+    const dateTo = set(new Date, {
+      year: config.dateRange.yearTo,
+      month: config.dateRange.monthTo,
+      date: config.dateRange.dayTo,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0
+    });
 
-    expect(await (await $(`#dateFrom${rowNum}`)).getText()).equal(format(dateFrom, 'yyyy/MM/dd'));
-    expect(await (await $(`#dateTo${rowNum}`)).getText()).equal(format(dateTo, 'yyyy/MM/dd'));
+    expect(await (await $(`#dateFrom${rowNum}`)).getText()).equal(format(dateFrom, 'P', {locale: customDaLocale}));
+    expect(await (await $(`#dateTo${rowNum}`)).getText()).equal(format(dateTo, 'P', {locale: customDaLocale}));
   }
 }
 

@@ -20,7 +20,6 @@ describe('InSight Dashboard - Dashboards - Add', function () {
   });
   it('should not create dashboard', async () => {
     const rowNumsBeforeCreate = await dashboardsPage.rowNum();
-    await insightDashboardPage.waitForSpinnerHide();
     await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     await dashboardsPage.createDashboard_Cancels();
     expect(rowNumsBeforeCreate).equal(await dashboardsPage.rowNum());

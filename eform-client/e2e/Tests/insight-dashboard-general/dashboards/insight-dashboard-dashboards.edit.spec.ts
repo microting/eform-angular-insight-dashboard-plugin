@@ -10,7 +10,14 @@ import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDa
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
-  dateRange: '1/1/2016 - 5/14/2020',
+  dateRange: {
+    yearFrom: 2016,
+    monthFrom: 1,
+    dayFrom: 1,
+    yearTo: 2020,
+    monthTo: 5,
+    dayTo: 14
+  },
   today: false
 };
 
@@ -73,17 +80,12 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await dashboardEditPage.createFirstItem();
     await dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1, testItem);
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await (await dashboardsViewPage.returnToDashboards()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     const dashboardRowNum = await dashboardsPage.rowNum();
     const createdDashboard = await dashboardsPage.getDashboard(dashboardRowNum);
     await createdDashboard.dashboardEditBtn.click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     expect(itemNumsBeforeCreateItem).equal(await dashboardEditPage.rowNum() - 1);
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
     await (await dashboardEditPage.dashboardUpdateSaveCancelBtn()).click();
-    await (await $('#spinner-animation')).waitForDisplayed({timeout: 30000, reverse: true});
   });
   after(async () => {
     await insightDashboardPage.goToDashboards();

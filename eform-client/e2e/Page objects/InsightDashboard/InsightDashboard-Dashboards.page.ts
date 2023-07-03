@@ -94,50 +94,36 @@ export class InsightDashboardDashboardsPage extends Page {
 
   async createDashboard(name: string = 'NewDashboard') {
     await (await this.dashboardCreateBtn()).click();
-    await this.waitForSpinnerHide();
     await (await this.dashboardName()).click();
-    await this.waitForSpinnerHide();
     await (await this.dashboardName()).addValue(name);
     // Select survey
     await selectValueInNgSelector(await this.getSurveysSearchField(), configName, true);
-    await this.waitForSpinnerHide();
     await (await this.dashboardCreateSaveBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async createDashboard_Cancels() {
     await (await this.dashboardCreateBtn()).click();
-    await this.waitForSpinnerHide();
     await (await this.dashboardCreateCancelBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async deleteDashboard(rowObject: DashboardsPageRowObject) {
     await rowObject.dashboardDeleteBtn.click();
-    await this.waitForSpinnerHide();
     await (await this.dashboardDeleteSaveBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async deleteDashboard_Cancels(rowObject: DashboardsPageRowObject) {
     await rowObject.dashboardDeleteBtn.click();
-    await this.waitForSpinnerHide();
     await (await this.dashboardDeleteCancelBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async copyDashboard(rowObject: DashboardsPageRowObject) {
     await rowObject.dashboardCopyBtn.click();
-    await this.waitForSpinnerHide();
     await (await this.dashboardCopySaveBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   async copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
     await rowObject.dashboardCopyBtn.click();
-    await this.waitForSpinnerHide();
     await (await this.dashboardCopySaveCancelBtn()).click();
-    await this.waitForSpinnerHide();
   }
 
   public async getSurveysSearchField() {
@@ -211,7 +197,6 @@ export class DashboardsPageRowObject {
     await this.dashboardDeleteBtn.click();
     await (await dashboardsPage.dashboardDeleteSaveBtn()).waitForClickable();
     await (await dashboardsPage.dashboardDeleteSaveBtn()).click();
-    await dashboardsPage.waitForSpinnerHide();
     await (await dashboardsPage.dashboardCreateBtn()).waitForClickable();
   }
 }
