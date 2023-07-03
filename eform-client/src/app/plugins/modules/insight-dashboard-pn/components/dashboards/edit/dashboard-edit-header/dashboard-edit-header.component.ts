@@ -85,8 +85,8 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
               ? {isTag: true, label: currentValue.tagName, value: currentValue.tagId}
               : null,
           dateRange: {
-            dateFrom: setDate((currentValue.answerDates.dateFrom as Date)) || null,
-            dateTo: setDate((currentValue.answerDates.dateTo as Date)) || null,
+            dateFrom: (currentValue.answerDates.dateFrom && setDate((currentValue.answerDates.dateFrom as Date))) || null,
+            dateTo: (currentValue.answerDates.dateTo && setDate((currentValue.answerDates.dateTo as Date))) || null,
           },
           today: currentValue.answerDates.today || false,
         }, {emitEvent: false});

@@ -85,8 +85,10 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
           ...this.dashboardEditModel,
           answerDates: {
             ...this.dashboardEditModel.answerDates,
-            dateFrom: format(this.dashboardEditModel.answerDates.dateFrom as Date, PARSING_DATE_FORMAT),
-            dateTo: format(this.dashboardEditModel.answerDates.dateTo as Date, PARSING_DATE_FORMAT),
+            dateFrom: this.dashboardEditModel.answerDates.dateFrom &&
+              format(this.dashboardEditModel.answerDates.dateFrom as Date, PARSING_DATE_FORMAT),
+            dateTo: this.dashboardEditModel.answerDates.dateTo &&
+              format(this.dashboardEditModel.answerDates.dateTo as Date, PARSING_DATE_FORMAT),
           }
         })
         .subscribe((data) => {
