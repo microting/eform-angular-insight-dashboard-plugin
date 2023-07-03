@@ -1,5 +1,4 @@
 import Page from '../Page';
-import {PropertyRowObject} from '../BackendConfiguration/BackendConfigurationProperties.page';
 import {selectValueInNgSelector} from '../../Helpers/helper-functions';
 
 export const configName = 'Test-Set';
