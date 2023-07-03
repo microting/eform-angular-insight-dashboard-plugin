@@ -47,8 +47,18 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
       field: 'locations',
       formatter: (dashboard: DashboardModel) => dashboard.locationName ? dashboard.locationName : dashboard.tagName
     },
-    {header: this.translateService.stream('Date From'), field: 'dateFrom', type: 'date', typeParameter: {format: 'yyyy/MM/dd'}},
-    {header: this.translateService.stream('Date To'), field: 'dateTo', type: 'date', typeParameter: {format: 'yyyy/MM/dd'}},
+    {
+      header: this.translateService.stream('Date From'),
+      field: 'dateFrom',
+      type: 'date',
+      typeParameter: {format: 'yyyy/MM/dd', timezone: 'UTC'}
+    },
+    {
+      header: this.translateService.stream('Date To'),
+      field: 'dateTo',
+      type: 'date',
+      typeParameter: {format: 'yyyy/MM/dd', timezone: 'UTC'}
+    },
     {
       header: this.translateService.stream('Actions'),
       field: 'actions',

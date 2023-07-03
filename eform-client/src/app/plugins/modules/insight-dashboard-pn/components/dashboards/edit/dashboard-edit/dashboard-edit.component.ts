@@ -15,6 +15,8 @@ import { DragulaService } from 'ng2-dragula';
 import { ToastrService } from 'ngx-toastr';
 import { InsightDashboardPnCollapseService } from '../../../../services/insight-dashboard-pn-collapse.service';
 import { DashboardItemQuestionTypesEnum } from '../../../../const/enums';
+import {format} from 'date-fns';
+import {PARSING_DATE_FORMAT} from 'src/app/common/const';
 
 @AutoUnsubscribe()
 @Component({
@@ -54,7 +56,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
 
     // create rule to disable dragula dnd if items is not collapsed
     this.dragulaService.createGroup(this.dragulaGroupName, {
-      moves: (el, source, handle, sibling) => !el.classList.contains('no-drag'),
+      moves: (el) => !el.classList.contains('no-drag'),
     });
 
     this.collapseSub$ = this.collapseService.collapse.subscribe((data) => {
@@ -79,7 +81,16 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
       );
     } else {
       this.updateDashboardSub$ = this.dashboardsService
-        .update(this.dashboardEditModel)
+        .update({
+          ...this.dashboardEditModel,
+          answerDates: {
+            ...this.dashboardEditModel.answerDates,
+            dateFrom: this.dashboardEditModel.answerDates.dateFrom &&
+              format(this.dashboardEditModel.answerDates.dateFrom as Date, PARSING_DATE_FORMAT),
+            dateTo: this.dashboardEditModel.answerDates.dateTo &&
+              format(this.dashboardEditModel.answerDates.dateTo as Date, PARSING_DATE_FORMAT),
+          }
+        })
         .subscribe((data) => {
           if (data && data.success) {
             this.router
@@ -97,7 +108,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
       .getSingleForEdit(dashboardId)
       .subscribe((data) => {
         if (data && data.success) {
-          this.dashboardEditModel = { ...data.model };
+          this.dashboardEditModel = {...data.model};
         }
         this.getFilterQuestions(data.model.surveyId);
         this.getLocationTags(data.model.surveyId);
@@ -190,7 +201,7 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   }
 
   onDashboardChanged(model: DashboardEditModel) {
-    this.dashboardEditModel = model;
+    this.dashboardEditModel = {...model};
   }
 
   toggleCollapse() {
