@@ -27,11 +27,6 @@ jobs:
     - name: Copy dependencies
       run: |
         cp -av eform-angular-insight-dashboard-plugin/eform-client/src/app/plugins/modules/insight-dashboard-pn eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-settings eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-settings
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-general eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-general
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Page\ objects/InsightDashboard eform-angular-frontend/eform-client/e2e/Page\ objects/InsightDashboard
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2.conf.ts eform-angular-frontend/eform-client/wdio-headless-plugin-step2.conf.ts
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-plugin-step2.conf.ts eform-angular-frontend/eform-client/wdio-plugin-step2.conf.ts
         mkdir -p eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins
         cd eform-angular-frontend/eform-client && ../../eform-angular-insight-dashboard-plugin/testinginstallpn.sh
     - name: Get the version release
@@ -55,6 +50,10 @@ jobs:
   insight-dashboard-test:
     needs: insight-dashboard-build
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test: [a,b,c]
     steps:
     - uses: actions/checkout@v3
       with:
@@ -94,7 +93,7 @@ jobs:
         cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-settings eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-settings
         cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-general eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-general
         cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Page\ objects/InsightDashboard eform-angular-frontend/eform-client/e2e/Page\ objects/InsightDashboard
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2.conf.ts eform-angular-frontend/eform-client/wdio-headless-plugin-step2.conf.ts
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2${{matrix.test}}.conf.ts eform-angular-frontend/eform-client/wdio-headless-plugin-step2${{matrix.test}}.conf.ts
         cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-plugin-step2.conf.ts eform-angular-frontend/eform-client/wdio-plugin-step2.conf.ts
         mkdir -p eform-angular-frontend/eform-client/cypress/e2e/plugins/
         cp -av eform-angular-insight-dashboard-plugin/eform-client/cypress/e2e/plugins/insight-dashboard-pn eform-angular-frontend/eform-client/cypress/e2e/plugins/insight-dashboard-pn
@@ -123,7 +122,7 @@ jobs:
         config-file: cypress.config.ts
         working-directory: eform-angular-frontend/eform-client
     - name: Plugin testing
-      run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin
+      run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin2${{matrix.test}}
     - name: a test
       continue-on-error: true
       uses: cypress-io/github-action@v4
