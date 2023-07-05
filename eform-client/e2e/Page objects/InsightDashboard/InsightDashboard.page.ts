@@ -42,6 +42,7 @@ export class InsightDashboardPage extends Page {
       await (await this.DashboardsBtn()).waitForClickable();
     }
     await (await this.DashboardsBtn()).click();
+    await browser.pause(500);
     await (await $('#createDashboardBtn')).waitForClickable({timeout: 40000});
   }
   async goToAnswers() {
