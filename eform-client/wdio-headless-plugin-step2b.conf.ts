@@ -235,7 +235,8 @@ export const config: Options.Testrunner = {
    * Function to be executed after a test (in Mocha/Jasmine) or a step (in Cucumber) ends.
    * @param {Object} test test details
    */
-  afterTest: function (test, context, { error, result, duration, passed, retries }) {
+  
+  afterTest(test, context, { error, result, duration, passed, retries }) {
     const path = require('path');
 
     // if test passed, ignore, else take and save screenshot.
