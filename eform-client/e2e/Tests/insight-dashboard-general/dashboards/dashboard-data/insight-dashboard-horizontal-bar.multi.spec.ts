@@ -44,6 +44,8 @@ describe('InSight Dashboard - Dashboards - Horizontal Bar', function () {
   });
   after(async () => {
     await insightDashboardPage.goToDashboards();
+    const spinnerAnimation = await $('#spinner-animation');
+    await spinnerAnimation.waitForDisplayed({ timeout: 40000, reverse: true });
     await dashboardsPage.clearTable();
   });
 });
