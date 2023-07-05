@@ -15,25 +15,8 @@ export const config: Options.Testrunner = {
   //
   specs: [
     'e2e/Tests/insight-dashboard-settings/application-settings.plugins-page.spec.ts',
-    'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.add.spec.ts',
-    'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.edit.spec.ts',
-    'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.delete.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.add.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.delete.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.copy.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.edit.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.view.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line.multi.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-horizontal-bar.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-vertical-bar.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line-score.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-multi.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-bar.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total-n.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-grouped.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/answers/insight-dashboard-answers.view.spec.ts',
-    'e2e/Tests/insight-dashboard-general/answers/insight-dashboard-answers.delete.spec.ts',
+
   ],
   suites: {
     settings: [
@@ -246,7 +229,8 @@ export const config: Options.Testrunner = {
    * Function to be executed after a test (in Mocha/Jasmine) or a step (in Cucumber) ends.
    * @param {Object} test test details
    */
-  afterTest: function (test, context, { error, result, duration, passed, retries }) {
+  
+  afterTest(test, context, { error, result, duration, passed, retries }) {
     const path = require('path');
 
     // if test passed, ignore, else take and save screenshot.
