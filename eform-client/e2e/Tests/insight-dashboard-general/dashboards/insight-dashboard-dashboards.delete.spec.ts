@@ -9,11 +9,11 @@ describe('InSight Dashboard - Dashboards - Delete', function () {
     await loginPage.login();
     await insightDashboardPage.goToDashboards();
     await dashboardsPage.createDashboard();
-    await insightDashboardPage.goToDashboards(true);
+    await insightDashboardPage.goToDashboards();
   });
   it('should not delete dashboard', async () => {
     const rowNumsBeforeDelete = await dashboardsPage.rowNum();
-    (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
+    await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     await dashboardsPage.deleteDashboard_Cancels(await dashboardsPage.getDashboard(rowNumsBeforeDelete));
     expect(rowNumsBeforeDelete).equal(await dashboardsPage.rowNum());
   });
@@ -21,7 +21,7 @@ describe('InSight Dashboard - Dashboards - Delete', function () {
     await $('#createDashboardBtn').waitForDisplayed({timeout: 10000});
     const rowNumsBeforeDelete = await dashboardsPage.rowNum();
     await dashboardsPage.deleteDashboard(await dashboardsPage.getDashboard(rowNumsBeforeDelete));
-    await insightDashboardPage.goToDashboards(true);
+    await insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeDelete).equal(await dashboardsPage.rowNum() + 1);
   });
   after(async () => {

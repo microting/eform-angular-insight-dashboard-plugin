@@ -9,7 +9,7 @@ describe('InSight Dashboard - Dashboards - Copy', function () {
     await loginPage.login();
     await insightDashboardPage.goToDashboards();
     await dashboardsPage.createDashboard();
-    await insightDashboardPage.goToDashboards(true);
+    await insightDashboardPage.goToDashboards();
   });
   it('should not copy dashboard', async () => {
     const rowNumsBeforeDelete = await dashboardsPage.rowNum();
@@ -21,7 +21,7 @@ describe('InSight Dashboard - Dashboards - Copy', function () {
     await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     const rowNumsBeforeCopy = await dashboardsPage.rowNum();
     await dashboardsPage.copyDashboard(await dashboardsPage.getDashboard(rowNumsBeforeCopy));
-    await insightDashboardPage.goToDashboards(true);
+    await insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeCopy).equal(await dashboardsPage.rowNum() - 1);
   });
   after(async () => {
