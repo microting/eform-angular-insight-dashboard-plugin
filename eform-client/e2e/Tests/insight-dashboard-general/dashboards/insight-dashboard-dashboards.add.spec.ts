@@ -14,7 +14,7 @@ describe('InSight Dashboard - Dashboards - Add', function () {
   it('should create dashboard', async () => {
     await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     await dashboardsPage.createDashboard();
-    await insightDashboardPage.goToDashboards(true);
+    await insightDashboardPage.goToDashboards();
     const dashboard = await dashboardsPage.getLastRowObject();
     expect(dashboard.dashboardName).equal(dashboardName);
   });

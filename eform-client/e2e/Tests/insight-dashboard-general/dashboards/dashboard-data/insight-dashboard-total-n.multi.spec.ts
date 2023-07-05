@@ -39,9 +39,6 @@ describe('InSight Dashboard - Dashboards - Total N', function () {
         await (await sitesPage.getSite(i)).edit({tags: [dashboardConfig.locationTagName]});
       }
     }
-    
-    const spinnerAnimation = await $('#spinner-animation');
-    await spinnerAnimation.waitForDisplayed({ timeout: 40000, reverse: true });
     // Create dashboard with items
     await insightDashboardPage.goToDashboards();
     await dashboardsPage.createDashboard('Total N');

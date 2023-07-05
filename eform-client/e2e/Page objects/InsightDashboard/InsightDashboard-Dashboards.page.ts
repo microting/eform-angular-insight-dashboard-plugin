@@ -182,10 +182,10 @@ export class DashboardsPageRowObject {
         this.id = +await (await this.row.$('.mat-column-id span')).getText();
         this.dashboardName = await (await this.row.$('.mat-column-dashboardName span')).getText();
         // this.locations = (await (await this.row.$('.mat-column-locations')).getText()).split('\n\n');
-        this.dashboardViewBtn = await this.row.$$('.mat-column-actions button')[0];
-        this.dashboardEditBtn = await this.row.$$('.mat-column-actions button')[1];
-        this.dashboardCopyBtn = await this.row.$$('.mat-column-actions button')[2];
-        this.dashboardDeleteBtn = await this.row.$$('.mat-column-actions button')[3];
+        this.dashboardViewBtn = await this.row.$$('.mat-column-actions button')[0] as WebdriverIO.Element;
+        this.dashboardEditBtn = await this.row.$$('.mat-column-actions button')[1] as WebdriverIO.Element;
+        this.dashboardCopyBtn = await this.row.$$('.mat-column-actions button')[2] as WebdriverIO.Element;
+        this.dashboardDeleteBtn = await this.row.$$('.mat-column-actions button')[3] as WebdriverIO.Element;
       } catch (e) {
       }
     }

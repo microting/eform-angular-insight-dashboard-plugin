@@ -70,7 +70,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     expect(itemNumsBeforeCopyItem).equal(await dashboardEditPage.rowNum() - 1);
   });
   it('should save filled item', async () => {
-    await insightDashboardPage.goToDashboards(true);
+    await insightDashboardPage.goToDashboards();
     await dashboardsPage.createDashboard();
     const itemNumsBeforeCreateItem = await dashboardEditPage.rowNum();
     await dashboardEditPage.setDashboardSettings(dashboardConfig);
