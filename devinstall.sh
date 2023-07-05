@@ -10,6 +10,10 @@ rm -fR Documents/workspace/microting/eform-angular-frontend/eform-client/e2e/Pag
 rm -fR Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2a.conf.ts
 rm -fR Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2b.conf.ts
 rm -fR Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2c.conf.ts
+rm -fR Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2d.conf.ts
+rm -fR Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2e.conf.ts
+rm -fR Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2f.conf.ts
+rm -fR Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2g.conf.ts
 mkdir -p Documents/workspace/microting/eform-angular-frontend/eform-client/cypress/e2e/plugins
 
 cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/src/app/plugins/modules/insight-dashboard-pn Documents/workspace/microting/eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn
@@ -19,6 +23,10 @@ cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/efor
 cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2a.conf.ts Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2a.conf.ts
 cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2b.conf.ts Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2b.conf.ts
 cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2c.conf.ts Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2c.conf.ts
+cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2d.conf.ts Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2d.conf.ts
+cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2e.conf.ts Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2e.conf.ts
+cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2f.conf.ts Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2f.conf.ts
+cp -av Documents/workspace/microting/eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2g.conf.ts Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2g.conf.ts
 
 rm -fR Documents/workspace/microting/eform-angular-frontend/eFormAPI/Plugins/InsightDashboard.Pn
 

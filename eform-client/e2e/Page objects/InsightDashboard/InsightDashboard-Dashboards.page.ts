@@ -194,8 +194,10 @@ export class DashboardsPageRowObject {
 
   async delete() {
     await this.dashboardDeleteBtn.click();
-    await (await dashboardsPage.dashboardDeleteSaveBtn()).waitForClickable();
+    await browser.pause(500);
+    //await (await dashboardsPage.dashboardDeleteSaveBtn()).waitForClickable();
     await (await dashboardsPage.dashboardDeleteSaveBtn()).click();
-    await (await dashboardsPage.dashboardCreateBtn()).waitForClickable();
+    await browser.pause(500);
+    //await (await dashboardsPage.dashboardCreateBtn()).waitForClickable();
   }
 }

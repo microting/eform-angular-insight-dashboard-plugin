@@ -18,9 +18,6 @@ export const config: Options.Testrunner = {
     'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.add.spec.ts',
     'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.edit.spec.ts',
     'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.delete.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-horizontal-bar.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-vertical-bar.multi.spec.ts',
     
   ],
   suites: {

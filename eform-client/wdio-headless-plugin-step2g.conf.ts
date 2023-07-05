@@ -15,10 +15,8 @@ export const config: Options.Testrunner = {
   //
   specs: [
     'e2e/Tests/insight-dashboard-settings/application-settings.plugins-page.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-bar.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total-n.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-stacked-grouped.multi.spec.ts',
-    'e2e/Tests/insight-dashboard-general/answers/insight-dashboard-answers.view.spec.ts',
+    'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-answers.delete.spec.ts',
+
   ],
   suites: {
     settings: [

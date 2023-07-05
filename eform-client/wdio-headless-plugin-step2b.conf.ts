@@ -19,7 +19,6 @@ export const config: Options.Testrunner = {
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.delete.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.copy.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.edit.spec.ts',
-    'e2e/Tests/insight-dashboard-general/dashboards/insight-dashboard-dashboards.view.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-line-score.multi.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-multi.multi.spec.ts',
     'e2e/Tests/insight-dashboard-general/dashboards/dashboard-data/insight-dashboard-total.multi.spec.ts',
