@@ -145,7 +145,7 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   public async clearTable() {
-    await browser.pause(2000);
+    //await browser.pause(2000);
     const rowCount = await this.rowNum();
     for (let i = 1; i <= rowCount; i++) {
       await (await this.getFirstRowObject()).delete();
