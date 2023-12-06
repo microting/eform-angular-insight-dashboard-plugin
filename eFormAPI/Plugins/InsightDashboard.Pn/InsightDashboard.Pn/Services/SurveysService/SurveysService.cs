@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using Microting.eFormApi.BasePn.Infrastructure.Helpers;
+
 namespace InsightDashboard.Pn.Services.SurveysService
 {
     using System;
@@ -35,7 +37,6 @@ namespace InsightDashboard.Pn.Services.SurveysService
     using Microting.eForm.Infrastructure.Constants;
     using Microting.eForm.Infrastructure.Data.Entities;
     using Microting.eFormApi.BasePn.Abstractions;
-    using Microting.eFormApi.BasePn.Infrastructure.Extensions;
     using Microting.eFormApi.BasePn.Infrastructure.Models.API;
     using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
 
@@ -72,58 +73,18 @@ namespace InsightDashboard.Pn.Services.SurveysService
                         .AsNoTracking()
                         .AsQueryable();
 
-                    if (!string.IsNullOrEmpty(requestModel.SearchString))
-                    {
-                        surveysQueryable = surveysQueryable
-                            .Where(x => x.Name.Contains(
-                                requestModel.SearchString,
-                                StringComparison.CurrentCultureIgnoreCase));
-                    }
-
-                    if (!string.IsNullOrEmpty(requestModel.Sort))
-                    {
-                        if (requestModel.IsSortDsc)
-                        {
-                            switch (requestModel.Sort)
-                            {
-                                case nameof(SurveyConfigModel.SurveyName):
-                                    surveysQueryable = surveysQueryable
-                                        .OrderByDescending(x => x.QuestionSet.Name);
-                                    break;
-                                default:
-                                    surveysQueryable = surveysQueryable
-                                        .CustomOrderByDescending(requestModel.Sort);
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            switch (requestModel.Sort)
-                            {
-                                case nameof(SurveyConfigModel.SurveyName):
-                                    surveysQueryable = surveysQueryable
-                                        .OrderBy(x => x.QuestionSet.Name);
-                                    break;
-                                default:
-                                    surveysQueryable = surveysQueryable
-                                        .CustomOrderBy(requestModel.Sort);
-                                    break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        surveysQueryable = surveysQueryable
-                            .OrderBy(x => x.Id);
-                    }
+                    surveysQueryable =
+                        QueryHelper.AddFilterToQuery(surveysQueryable, new[] { "Name" }, requestModel.SearchString);
+                    surveysQueryable =
+                        QueryHelper.AddSortToQuery(surveysQueryable, requestModel);
 
                     result.Total = await surveysQueryable
                         .Select(x => x.Id)
                         .CountAsync();
 
-                    surveysQueryable = surveysQueryable
-                        .Skip(requestModel.Offset)
-                        .Take(requestModel.PageSize);
+
+                    surveysQueryable =
+                        QueryHelper.AddPaginationToQuery(surveysQueryable, requestModel);
 
                     result.Entities = await surveysQueryable
                         .Select(x => new SurveyConfigModel()
@@ -167,14 +128,12 @@ namespace InsightDashboard.Pn.Services.SurveysService
 
                 await surveyConfig.Create(sdkContext);
 
-                foreach (var locationsId in createModel.LocationsIds)
+                foreach (var siteSurveyConfig in createModel.LocationsIds.Select(locationsId => new SiteSurveyConfiguration()
+                         {
+                             SurveyConfigurationId = surveyConfig.Id,
+                             SiteId = locationsId,
+                         }))
                 {
-                    var siteSurveyConfig = new SiteSurveyConfiguration()
-                    {
-                        SurveyConfigurationId = surveyConfig.Id,
-                        SiteId = locationsId,
-                    };
-
                     await siteSurveyConfig.Create(sdkContext);
                 }
 
@@ -246,14 +205,12 @@ namespace InsightDashboard.Pn.Services.SurveysService
                     .Where(x => !siteIds.Contains(x))
                     .ToList();
 
-                foreach (var siteIdForCreate in forCreate)
+                foreach (var siteSurveyConfigurations in forCreate.Select(siteIdForCreate => new SiteSurveyConfiguration()
+                         {
+                             SurveyConfigurationId = surveyConfiguration.Id,
+                             SiteId = siteIdForCreate
+                         }))
                 {
-                    var siteSurveyConfigurations = new SiteSurveyConfiguration()
-                    {
-                        SurveyConfigurationId = surveyConfiguration.Id,
-                        SiteId = siteIdForCreate
-                    };
-
                     await siteSurveyConfigurations.Create(sdkContext);
                 }
 

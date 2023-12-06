@@ -21,7 +21,7 @@ export let SurveyConfigsMethods = {
   Status: 'api/insight-dashboard-pn/survey-configs/status',
   Delete: 'api/insight-dashboard-pn/survey-configs/delete',
 };
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class InsightDashboardPnSurveyConfigsService {
   constructor(private apiBaseService: ApiBaseService) {}
 

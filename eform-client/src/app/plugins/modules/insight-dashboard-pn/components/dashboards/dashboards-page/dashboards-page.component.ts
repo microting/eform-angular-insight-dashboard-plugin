@@ -12,7 +12,6 @@ import {
 } from 'src/app/common/models';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DashboardsStateService} from '../store';
 import {debounceTime} from 'rxjs/operators';
 import {Sort} from '@angular/material/sort';
 import {MtxGridColumn} from '@ng-matero/extensions/grid';
@@ -20,6 +19,14 @@ import {TranslateService} from '@ngx-translate/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Overlay} from '@angular/cdk/overlay';
 import {dialogConfigHelper} from 'src/app/common/helpers';
+import {Store} from '@ngrx/store';
+import {DashboardsStateService} from '../store/dashboards-state.service';
+import {
+  selectDashboardsFiltersName,
+  selectDashboardsPaginationAsPaginationModel,
+  selectDashboardsPaginationIsSortDsc,
+  selectDashboardsPaginationSort
+} from '../../../state/dashboards/dashboards.selector';
 
 @AutoUnsubscribe()
 @Component({
@@ -37,6 +44,10 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   dashboardCopyComponentAfterClosedSub$: Subscription;
   dashboardDeleteComponentAfterClosedSub$: Subscription;
   dashboardCreatedSub$: Subscription;
+  public selectDashboardsPaginationIsSortDsc$ = this.store.select(selectDashboardsPaginationIsSortDsc);
+  public selectDashboardsPaginationSort$ = this.store.select(selectDashboardsPaginationSort);
+  public selectDashboardsPaginationAsPaginationModel$ = this.store.select(selectDashboardsPaginationAsPaginationModel);
+  public selectDashboardsFiltersName$ = this.store.select(selectDashboardsFiltersName);
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -103,10 +114,11 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     private dictionariesService: InsightDashboardPnDashboardDictionariesService,
     private router: Router,
     private route: ActivatedRoute,
-    public dashboardsStateService: DashboardsStateService,
+    private store: Store,
     private translateService: TranslateService,
     private dialog: MatDialog,
     private overlay: Overlay,
+    private dashboardsStateService: DashboardsStateService
   ) {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.dashboardsStateService.updateNameFilter(val);
@@ -163,7 +175,7 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     this.dashboardCreatedSub$ = newDashboardModal.componentInstance.dashboardCreated.subscribe(x => {
       newDashboardModal.close();
       this.navigateToNewDashboard(x);
-    })
+    });
   }
 
   openCopyModal(model: DashboardModel) {
@@ -195,7 +207,6 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
   }
 
   onDashboardDeleted() {
-    this.dashboardsStateService.onDelete();
     this.getDashboardsList();
   }
 }

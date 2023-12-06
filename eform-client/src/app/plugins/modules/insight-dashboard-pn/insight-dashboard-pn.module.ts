@@ -40,14 +40,6 @@ import {
 } from './components';
 import {DragulaModule} from 'ng2-dragula';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {
-  DashboardsStateService,
-  dashboardsPersistProvider,
-} from './components/dashboards/store';
-import {
-  SurveysStateService,
-  surveysPersistProvider,
-} from './components/surveys/store';
 import {MatButtonModule} from '@angular/material/button';
 import {MtxGridModule} from '@ng-matero/extensions/grid';
 import {MatInputModule} from '@angular/material/input';
@@ -59,6 +51,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {StoreModule} from '@ngrx/store';
+import * as dashboardsReducer from './state/dashboards/dashboards.reducer';
+import * as surveysReducer from './state/surveys/surveys.reducer';
 
 @NgModule({
   imports: [
@@ -80,6 +75,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatExpansionModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    StoreModule.forFeature('insightDashboardPn', {
+      dashboardsState: dashboardsReducer.reducer,
+      surveysState: surveysReducer.reducer,
+    }),
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,
@@ -116,10 +115,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     InsightDashboardPnDashboardDictionariesService,
     InsightDashboardPnDashboardItemsService,
     InsightDashboardPnAnswersService,
-    DashboardsStateService,
-    SurveysStateService,
-    dashboardsPersistProvider,
-    surveysPersistProvider,
   ],
 })
 export class InsightDashboardPnModule {

@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { SurveyConfigsListModel, SurveyConfigModel } from '../../../models';
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import {Component, OnDestroy, OnInit,} from '@angular/core';
+import {SurveyConfigsListModel, SurveyConfigModel} from '../../../models';
+import {Subject, Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 import {
   SurveyConfigurationDeleteComponent,
   SurveyConfigurationEditComponent,
@@ -15,15 +15,22 @@ import {
 import {
   CommonDictionaryModel, PaginationModel,
 } from 'src/app/common/models';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { SitesService } from 'src/app/common/services';
-import { SurveysStateService } from '../store';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {SitesService} from 'src/app/common/services';
+import {SurveysStateService} from '../store/surveys-state.service';
 import {Sort} from '@angular/material/sort';
 import {MtxGridColumn} from '@ng-matero/extensions/grid';
 import {TranslateService} from '@ngx-translate/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Overlay} from '@angular/cdk/overlay';
 import {dialogConfigHelper} from 'src/app/common/helpers';
+import {
+  selectSurveysFiltersName,
+  selectSurveysPaginationAsPaginationModel,
+  selectSurveysPaginationIsSortDsc,
+  selectSurveysPaginationSort
+} from '../../../state/surveys/surveys.selector';
+import {Store} from '@ngrx/store';
 
 @AutoUnsubscribe()
 @Component({
@@ -44,6 +51,10 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   surveyConfigurationEditComponentAfterClosedSub$: Subscription;
   surveyConfigurationNewComponentAfterClosedSub$: Subscription;
   surveyConfigurationStatusComponentAfterClosedSub$: Subscription;
+  public selectDashboardsPaginationIsSortDsc$ = this.store.select(selectSurveysPaginationIsSortDsc);
+  public selectDashboardsPaginationSort$ = this.store.select(selectSurveysPaginationSort);
+  public selectDashboardsPaginationAsPaginationModel$ = this.store.select(selectSurveysPaginationAsPaginationModel);
+  public selectDashboardsFiltersName$ = this.store.select(selectSurveysFiltersName);
 
   tableHeaders: MtxGridColumn[] = [
     {header: this.translateService.stream('Id'), field: 'id', sortProp: {id: 'Id'}, sortable: true},
@@ -97,7 +108,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
         },
       ]
     },
-  ]
+  ];
 
   constructor(
     private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
@@ -107,6 +118,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private dialog: MatDialog,
     private overlay: Overlay,
+    private store: Store,
   ) {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.surveysStateService.updateNameFilter(val);
@@ -184,7 +196,8 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
       .afterClosed().subscribe(data => data ? this.getSurveyConfigsList() : undefined);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+  }
 
   onPaginationChanged(paginationModel: PaginationModel) {
     this.surveysStateService.updatePagination(paginationModel);
@@ -192,7 +205,6 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   }
 
   surveyConfigDeleted() {
-    this.surveysStateService.checkOffset();
     this.getSurveyConfigsList();
   }
 }

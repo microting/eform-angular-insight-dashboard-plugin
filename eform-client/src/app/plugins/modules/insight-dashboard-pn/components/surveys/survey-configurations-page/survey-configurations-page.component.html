@@ -18,7 +18,7 @@
           matInput
           type="text"
           (ngModelChange)="onSearchInputChanged($event)"
-          [ngModel]="surveysStateService.getNameFilter() | async"
+          [ngModel]="selectDashboardsFiltersName$ | async"
           id="searchInput"
         />
       </mat-form-field>
@@ -36,14 +36,14 @@
   [showToolbar]="true"
   [showColumnMenuButton]="false"
   [toolbarTemplate]="toolbarTpl"
-  [sortActive]="surveysStateService.getActiveSort() | async"
-  [sortDirection]="surveysStateService.getActiveSortDirection() | async"
+  [sortActive]="selectDashboardsPaginationSort$ | async"
+  [sortDirection]="selectDashboardsPaginationIsSortDsc$ | async"
   (sortChange)="sortTable($event)">
 </mtx-grid>
 
 <ng-template #paginatorTpl>
   <eform-pagination
-    [pagination]="surveysStateService.getPagination() | async"
+    [pagination]="selectDashboardsPaginationAsPaginationModel$ | async"
     (paginationChanged)="onPaginationChanged($event)"
   ></eform-pagination>
 </ng-template>
