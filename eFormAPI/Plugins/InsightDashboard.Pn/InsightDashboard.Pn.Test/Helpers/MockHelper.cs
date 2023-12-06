@@ -24,48 +24,16 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Test.Helpers
 {
-    using eFormCore;
-    using Microting.eForm.Infrastructure;
-    using Moq;
+    using Microting.eFormApi.BasePn.Localization;
     using Services.Common.InsightDashboardLocalizationService;
 
     public static class MockHelper
     {
-        public static Core GetCore()
-        {
-            var coreMock = new Mock<Core>();
-
-            coreMock
-                .Setup(x => x.DbContextHelper.GetDbContext())
-                .Returns(new MicrotingDbContext());
-
-            return coreMock.Object;
-        }
-
-        public static MicrotingDbContext GetMicrotingDbContext()
-        {
-            var coreMock = new Mock<MicrotingDbContext>();
-
-            return coreMock.Object;
-        }
-
         public static IInsightDashboardLocalizationService GetLocalizationService()
         {
-            var localizationServiceMock = new Mock<IInsightDashboardLocalizationService>();
+            var localizationServiceMock = new InsightDashboardLocalizationService(new JsonStringLocalizerFactory());
 
-            localizationServiceMock
-                .Setup(x => x.GetString("TotalPeriod"))
-                .Returns("Samlet periode");
-
-            localizationServiceMock
-                .Setup(x => x.GetString("Total"))
-                .Returns("Total");
-
-            localizationServiceMock
-                .Setup(x => x.GetString("NoData"))
-                .Returns("Ingen data");
-
-            return localizationServiceMock.Object;
+            return localizationServiceMock;
         }
     }
 }
