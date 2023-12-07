@@ -4,6 +4,8 @@ import { DashboardChartTypesEnum } from '../../../../const';
 import { AuthStateService } from 'src/app/common/store';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
+import {Store} from '@ngrx/store';
+import {selectIsDarkMode} from 'src/app/state/auth/auth.selector';
 
 @AutoUnsubscribe()
 @Component({
@@ -13,17 +15,17 @@ import { Subscription } from 'rxjs';
 })
 export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
-  darkTHeme: boolean;
+  darkTheme: boolean;
   getDarkThemeSub$: Subscription;
 
   get chartTypes() {
     return DashboardChartTypesEnum;
   }
 
-  constructor(authStateService: AuthStateService) {
-    this.getDarkThemeSub$ = authStateService.isDarkThemeAsync.subscribe(
+  constructor(store: Store) {
+    this.getDarkThemeSub$ = store.select(selectIsDarkMode).subscribe(
       (isDarkTheme) => {
-        this.darkTHeme = isDarkTheme;
+        this.darkTheme = isDarkTheme;
       }
     );
   }

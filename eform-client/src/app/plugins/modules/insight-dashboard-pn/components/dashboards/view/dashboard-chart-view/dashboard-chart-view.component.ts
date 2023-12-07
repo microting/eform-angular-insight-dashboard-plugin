@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { DashboardChartTypesEnum } from '../../../../const/enums';
+import {Component, Input, OnDestroy} from '@angular/core';
+import {DashboardChartTypesEnum} from '../../../../const/enums';
 import * as domtoimage from 'dom-to-image';
-import { DashboardViewItemModel } from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
-import { AuthStateService } from 'src/app/common/store';
-import { Subscription } from 'rxjs';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
+import {Subscription} from 'rxjs';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {Store} from '@ngrx/store';
+import {selectIsDarkMode} from 'src/app/state/auth/auth.selector';
 
 @AutoUnsubscribe()
 @Component({
@@ -16,7 +17,7 @@ export class DashboardChartViewComponent implements OnDestroy {
   @Input() chartPosition: number;
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
   darkTHeme: boolean;
-  private getDarkThemeSub$: Subscription;
+  getDarkThemeSub$: Subscription;
 
   get chartTypes() {
     return DashboardChartTypesEnum;
@@ -91,11 +92,11 @@ export class DashboardChartViewComponent implements OnDestroy {
     },
   ];
 
-  constructor(authStateService: AuthStateService) {
-    Object.assign(this, { line });
-    Object.assign(this, { multi });
-    Object.assign(this, { pie });
-    this.getDarkThemeSub$ = authStateService.isDarkThemeAsync.subscribe(
+  constructor(store: Store) {
+    Object.assign(this, {line});
+    Object.assign(this, {multi});
+    Object.assign(this, {pie});
+    this.getDarkThemeSub$ = store.select(selectIsDarkMode).subscribe(
       (isDarkTheme) => {
         this.darkTHeme = isDarkTheme;
       }
@@ -153,7 +154,8 @@ export class DashboardChartViewComponent implements OnDestroy {
     return Math.round(c);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+  }
 }
 
 const pie = [

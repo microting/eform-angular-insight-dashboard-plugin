@@ -18,7 +18,7 @@
           matInput
           type="text"
           (ngModelChange)="onSearchInputChanged($event)"
-          [ngModel]="dashboardsStateService.getNameFilter() | async"
+          [ngModel]="selectDashboardsFiltersName$ | async"
           id="searchInput"
         />
       </mat-form-field>
@@ -36,8 +36,8 @@
   [showToolbar]="true"
   [showColumnMenuButton]="false"
   [toolbarTemplate]="toolbarTpl"
-  [sortActive]="dashboardsStateService.getActiveSort() | async"
-  [sortDirection]="dashboardsStateService.getActiveSortDirection() | async"
+  [sortActive]="selectDashboardsPaginationSort$ | async"
+  [sortDirection]="selectDashboardsPaginationIsSortDsc$ | async"
   (sortChange)="sortTable($event)"
   [noResultText]="'No dashboards found' | translate"
 >
@@ -45,7 +45,7 @@
 
 <ng-template #paginatorTpl>
   <eform-pagination
-    [pagination]="dashboardsStateService.getPagination() | async"
+    [pagination]="selectDashboardsPaginationAsPaginationModel$ | async"
     (paginationChanged)="onPaginationChanged($event)"
   ></eform-pagination>
 </ng-template>

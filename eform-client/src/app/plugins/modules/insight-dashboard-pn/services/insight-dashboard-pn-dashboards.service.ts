@@ -24,7 +24,7 @@ export let DashboardMethods = {
   Delete: 'api/insight-dashboard-pn/dashboards/delete',
   ExportDoc: 'api/insight-dashboard-pn/dashboards/export-doc',
 };
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class InsightDashboardPnDashboardsService {
   constructor(private apiBaseService: ApiBaseService) {}
 

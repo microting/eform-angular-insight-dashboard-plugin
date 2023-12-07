@@ -24,7 +24,9 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Infrastructure.Models.Surveys
 {
-    public class SurveyConfigsRequestModel
+    using Microting.eFormApi.BasePn.Infrastructure.Interfaces;
+
+    public class SurveyConfigsRequestModel: ICommonSort, ICommonPagination
     {
         public string SearchString { get; set; }
         public int Offset { get; set; }

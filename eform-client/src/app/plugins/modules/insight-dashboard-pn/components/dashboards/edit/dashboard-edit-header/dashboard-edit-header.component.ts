@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import {DashboardEditModel, LabelValueExtendedModel} from '../../../../models';
 import {set} from 'date-fns';
-import {DateTimeAdapter} from '@danielmoncada/angular-datetime-picker';
 import {AuthStateService} from 'src/app/common/store';
 import {FormControl, FormGroup} from '@angular/forms';
 import * as R from 'ramda';
@@ -27,9 +26,7 @@ export class DashboardEditHeaderComponent implements OnInit, OnChanges {
   form: FormGroup;
 
   constructor(
-    dateTimeAdapter: DateTimeAdapter<any>,
     authStateService: AuthStateService) {
-    dateTimeAdapter.setLocale(authStateService.currentUserLocale);
     this.form = new FormGroup({
       dashboardName: new FormControl(''),
       dateRange: new FormGroup({
