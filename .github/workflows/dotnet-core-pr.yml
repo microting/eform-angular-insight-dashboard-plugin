@@ -68,7 +68,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: 18.18.2
     - name: 'Preparing Frontend checkout'
       uses: actions/checkout@v3
       with:
@@ -165,6 +165,10 @@ jobs:
       run: |
         mysql -u root -h 127.0.0.1 --password=secretpassword -e 'create database `420_SDK`'
         mysql -u root -h 127.0.0.1 --password=secretpassword 420_SDK < eform-angular-insight-dashboard-plugin/420_SDK.sql
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
     - name: Build
       run: dotnet build eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
     - name: Unit Tests
