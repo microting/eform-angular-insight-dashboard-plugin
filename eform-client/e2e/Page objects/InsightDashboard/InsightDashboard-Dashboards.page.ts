@@ -1,4 +1,5 @@
 import Page from '../Page';
+import { $ } from '@wdio/globals';
 import {selectValueInNgSelector} from '../../Helpers/helper-functions';
 
 export const configName = 'Test-Set';

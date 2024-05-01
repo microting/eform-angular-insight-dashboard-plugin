@@ -1,4 +1,5 @@
 import Page from '../Page';
+import { $ } from '@wdio/globals';
 import {expect} from 'chai';
 import {DashboardTestConfigEditModel, DashboardTestItemEditModel} from './InsightDashboard-DashboardEdit.page';
 import {format, parse, set} from 'date-fns';

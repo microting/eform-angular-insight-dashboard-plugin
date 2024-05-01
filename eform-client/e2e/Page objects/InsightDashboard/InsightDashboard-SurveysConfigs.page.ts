@@ -1,5 +1,5 @@
 import Page from '../Page';
-
+import { $ } from '@wdio/globals';
 export const configName = 'Test-Set';
 
 export class InsightDashboardSurveysConfigsPage extends Page {

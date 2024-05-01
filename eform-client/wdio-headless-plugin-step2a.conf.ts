@@ -1,5 +1,5 @@
-//const path = require("path");
 import type { Options } from '@wdio/types'
+import { $ } from '@wdio/globals';
 
 export const config: Options.Testrunner = {
   runner: 'local',
@@ -18,7 +18,6 @@ export const config: Options.Testrunner = {
     'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.add.spec.ts',
     'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.edit.spec.ts',
     'e2e/Tests/insight-dashboard-general/surveys-configs/insight-dashboard-surveys-configs.delete.spec.ts',
-    
   ],
   suites: {
     settings: [
@@ -79,23 +78,23 @@ export const config: Options.Testrunner = {
   // By default WebdriverIO commands are executed in a synchronous way using
   // the wdio-sync package. If you still want to run your Tests in an async way
   // e.g. using promises you can set the sync option to false.
-  sync: true,
+  // sync: true,
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
   logLevel: 'silent',
   //
   // Enables colors for log output.
-  coloredLogs: true,
+  // coloredLogs: true,
   //
   // Warns when a deprecated command is used
-  deprecationWarnings: true,
+  // deprecationWarnings: true,
   //
   // If you only want to run your Tests until a specific amount of Tests have failed use
   // bail (default is 0 - don't bail, run all Tests).
   bail: 0,
   //
   // Saves a screenshot to a given path if a command fails.
-  screenshotPath: './errorShots/',
+  // screenshotPath: './errorShots/',
   //
   // Set a base URL in order to shorten url command calls. If your `url` parameter starts
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
