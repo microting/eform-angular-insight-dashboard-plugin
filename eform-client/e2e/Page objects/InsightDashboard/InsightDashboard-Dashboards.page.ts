@@ -1,6 +1,7 @@
 import Page from '../Page';
 import { $ } from '@wdio/globals';
 import {selectValueInNgSelector} from '../../Helpers/helper-functions';
+import loginPage from "../Login.page";
 
 export const configName = 'Test-Set';
 export const dashboardName = 'NewDashboard';
@@ -146,17 +147,17 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   public async clearTable() {
-    await browser.pause(10000);
+    await browser.pause(1000);
     const rowCount = await this.rowNum();
-    for (let i = 1; i <= rowCount; i++) {
+    for (let i = 0; i < rowCount; i++) {
       await (await this.getFirstRowObject()).delete();
+      await loginPage.waitForSpinnerHide(40000);
     }
   }
 
-  async getDashboard(num): Promise<DashboardsPageRowObject> {
-    await browser.pause(500);
-    const ele = new DashboardsPageRowObject();
-    return await ele.getRow(num);
+  async getDashboard(num: number): Promise<DashboardsPageRowObject> {
+    await browser.pause(1000);
+    return await new DashboardsPageRowObject().getRow(num);
   }
 }
 
@@ -183,14 +184,19 @@ export class DashboardsPageRowObject {
         this.id = +await (await this.row.$('.mat-column-id span')).getText();
         this.dashboardName = await (await this.row.$('.mat-column-dashboardName span')).getText();
         // this.locations = (await (await this.row.$('.mat-column-locations')).getText()).split('\n\n');
-        this.dashboardViewBtn = await this.row.$$('.mat-column-actions button')[0] as WebdriverIO.Element;
-        this.dashboardEditBtn = await this.row.$$('.mat-column-actions button')[1] as WebdriverIO.Element;
-        this.dashboardCopyBtn = await this.row.$$('.mat-column-actions button')[2] as WebdriverIO.Element;
-        this.dashboardDeleteBtn = await this.row.$$('.mat-column-actions button')[3] as WebdriverIO.Element;
+        this.dashboardViewBtn = (await this.row.$$('.mat-column-actions button'))[0];
+        this.dashboardEditBtn = (await this.row.$$('.mat-column-actions button'))[1];
+        this.dashboardCopyBtn = (await this.row.$$('.mat-column-actions button'))[2];
+        this.dashboardDeleteBtn = (await this.row.$$('.mat-column-actions button'))[3];
       } catch (e) {
       }
     }
     return this;
+  }
+
+  async edit() {
+    await this.dashboardDeleteBtn.click();
+    await browser.pause(500);
   }
 
   async delete() {

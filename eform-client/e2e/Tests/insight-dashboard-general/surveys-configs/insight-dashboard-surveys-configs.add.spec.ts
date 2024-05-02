@@ -2,6 +2,7 @@ import {expect} from 'chai';
 import loginPage from '../../../Page objects/Login.page';
 import insightDashboardPage from '../../../Page objects/InsightDashboard/InsightDashboard.page';
 import surveyConfigsPage, {configName} from '../../../Page objects/InsightDashboard/InsightDashboard-SurveysConfigs.page';
+import { $ } from '@wdio/globals';
 
 
 describe('InSight Dashboard - Survey Config - Add', function () {

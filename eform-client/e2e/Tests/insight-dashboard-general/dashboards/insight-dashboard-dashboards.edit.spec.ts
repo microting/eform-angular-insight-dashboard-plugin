@@ -7,6 +7,7 @@ import dashboardEditPage, {
   DashboardTestItemEditModel
 } from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
+import { $ } from '@wdio/globals';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
@@ -78,9 +79,11 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await dashboardEditPage.fillItem(itemNumsBeforeCreateItem + 1, testItem);
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
     await (await dashboardsViewPage.returnToDashboards()).click();
+    await loginPage.waitForSpinnerHide(40000);
     const dashboardRowNum = await dashboardsPage.rowNum();
     const createdDashboard = await dashboardsPage.getDashboard(dashboardRowNum);
     await createdDashboard.dashboardEditBtn.click();
+    await loginPage.waitForSpinnerHide(40000);
     expect(itemNumsBeforeCreateItem).equal(await dashboardEditPage.rowNum() - 1);
     await (await dashboardEditPage.dashboardUpdateSaveCancelBtn()).click();
   });

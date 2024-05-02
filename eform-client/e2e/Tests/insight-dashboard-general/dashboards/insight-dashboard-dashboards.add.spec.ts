@@ -4,6 +4,7 @@ import insightDashboardPage from '../../../Page objects/InsightDashboard/Insight
 import dashboardsPage, {
   dashboardName,
 } from '../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
+import { $ } from '@wdio/globals';
 
 describe('InSight Dashboard - Dashboards - Add', function () {
   before(async () => {

@@ -4,6 +4,7 @@ import pluginPage from '../../Page objects/Plugin.page';
 
 import {expect} from 'chai';
 import pluginsPage from './application-settings.plugins.page';
+import { $ } from '@wdio/globals';
 
 describe('Application settings page - site header section', function () {
   before(async () => {

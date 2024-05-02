@@ -6,6 +6,7 @@ import dashboardEditPage, {
   DashboardTestItemEditModel
 } from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardEdit.page';
 import dashboardsViewPage from '../../../Page objects/InsightDashboard/InsightDashboard-DashboardView.page';
+import { $ } from '@wdio/globals';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',

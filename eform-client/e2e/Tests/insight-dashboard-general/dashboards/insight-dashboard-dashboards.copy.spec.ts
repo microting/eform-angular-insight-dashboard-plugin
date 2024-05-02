@@ -2,6 +2,7 @@ import {expect} from 'chai';
 import loginPage from '../../../Page objects/Login.page';
 import insightDashboardPage from '../../../Page objects/InsightDashboard/InsightDashboard.page';
 import dashboardsPage from '../../../Page objects/InsightDashboard/InsightDashboard-Dashboards.page';
+import { $ } from '@wdio/globals';
 
 describe('InSight Dashboard - Dashboards - Copy', function () {
   before(async () => {

@@ -1,4 +1,5 @@
 import {PageWithNavbarPage} from '../../Page objects/PageWithNavbar.page';
+import { $ } from '@wdio/globals';
 
 class ApplicationSettingsPluginsPage extends PageWithNavbarPage {
     constructor() {
