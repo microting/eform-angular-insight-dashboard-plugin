@@ -74,7 +74,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 18.18.2
+        node-version: 20
     - name: 'Preparing Frontend checkout'
       uses: actions/checkout@v3
       with:
@@ -121,6 +121,7 @@ jobs:
         spec: cypress/e2e/db/*
         config-file: cypress.config.ts
         working-directory: eform-angular-frontend/eform-client
+        command-prefix: "--"
     - name: Plugin testing
       run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin2${{matrix.test}}
     - name: a test
@@ -135,6 +136,7 @@ jobs:
         spec: cypress/e2e/plugins/items-planning-pn/a/*
         config-file: cypress.config.ts
         working-directory: eform-angular-frontend/eform-client
+        command-prefix: "--"
     - name: Stop the newly build Docker container
       run: docker stop my-container
     - name: Get standard output
