@@ -9,6 +9,7 @@ import {
   dashboardLineScoreDataJson,
   dashboardLineScoreItems
 } from '../../../../Page objects/InsightDashboard/ChartData/DashboardLineScore.data';
+import { $ } from '@wdio/globals';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
