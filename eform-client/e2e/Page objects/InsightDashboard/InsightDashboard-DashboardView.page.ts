@@ -64,7 +64,9 @@ export class InsightDashboardDashboardViewPage extends Page {
 
   public async compareHeaders(dataJson: any) {
     // items in dashboard
-    for (let itemIndex = 0; itemIndex < await dashboardsViewPage.rowNum(); itemIndex++) {
+    var rowNum = await dashboardsViewPage.rowNum();
+    //console.log(rowNum);
+    for (let itemIndex = 0; itemIndex < rowNum; itemIndex++) {
       // raw data in item
       for (let rawDataIndex = 0; rawDataIndex < dataJson.items[itemIndex].chartData.rawData.length; rawDataIndex++) {
         const headerArray = await dashboardsViewPage.rawChartDataHeaders(itemIndex, rawDataIndex);

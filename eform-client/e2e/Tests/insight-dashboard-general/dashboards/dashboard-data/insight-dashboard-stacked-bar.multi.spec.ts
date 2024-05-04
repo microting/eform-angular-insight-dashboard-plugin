@@ -11,12 +11,13 @@ import {
 } from '../../../../Page objects/InsightDashboard/ChartData/DashboardStackedBar.data';
 import sitesPage from '../../../../Page objects/Sites.page';
 import myEformsPage from '../../../../Page objects/MyEforms.page';
+import {$} from '@wdio/globals';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Total',
   dateRange: {
     yearFrom: 2016,
-    monthFrom: 1,
+    monthFrom: 0, // January
     dayFrom: 1,
     yearTo: 2020,
     monthTo: 5,
@@ -46,6 +47,9 @@ describe('InSight Dashboard - Dashboards - Stacked Bar', function () {
     await dashboardEditPage.setDashboardSettings(dashboardConfig);
     await dashboardEditPage.generateItems(dashboardStackedBarItems);
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
+    // wait for spinner to dissapear
+    await (await $('#spinner-animation')).waitForDisplayed({ timeout: 40000, reverse: true });
+    await browser.pause(1000);
   });
   it('should compare items headers', async () => {
     await dashboardsViewPage.compareHeaders(dashboardStackedBarDataJson);

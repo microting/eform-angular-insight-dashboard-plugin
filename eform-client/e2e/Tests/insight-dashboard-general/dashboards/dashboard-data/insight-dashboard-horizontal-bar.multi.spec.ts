@@ -15,7 +15,7 @@ const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
   dateRange: {
     yearFrom: 2016,
-    monthFrom: 1,
+    monthFrom: 0, // January
     dayFrom: 1,
     yearTo: 2020,
     monthTo: 5,
@@ -33,6 +33,9 @@ describe('InSight Dashboard - Dashboards - Horizontal Bar', function () {
     await dashboardEditPage.setDashboardSettings(dashboardConfig);
     await dashboardEditPage.generateItems(dashboardHorizontalBarItems);
     await (await dashboardEditPage.dashboardUpdateSaveBtn()).click();
+    // wait for spinner to dissapear
+    await (await $('#spinner-animation')).waitForDisplayed({ timeout: 40000, reverse: true });
+    await browser.pause(1000);
   });
   it('should compare items headers', async () => {
     await dashboardsViewPage.compareHeaders(dashboardHorizontalBarDataJson);

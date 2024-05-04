@@ -42,6 +42,7 @@ using Microting.eFormApi.BasePn.Infrastructure.Models.API;
 using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
 using Microting.InsightDashboardBase.Infrastructure.Data;
 using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
+using Newtonsoft.Json;
 
 namespace InsightDashboard.Pn.Services.DashboardService
 {
