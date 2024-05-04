@@ -9,6 +9,7 @@ import {
   dashboardHorizontalBarDataJson,
   dashboardHorizontalBarItems
 } from '../../../../Page objects/InsightDashboard/ChartData/DashboardHorizontalBar.data';
+import { $ } from '@wdio/globals';
 
 const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
