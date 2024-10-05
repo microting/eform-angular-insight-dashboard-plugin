@@ -33,6 +33,7 @@ namespace InsightDashboard.Pn.Infrastructure.Consts
             public const string TemplateName = "interviews-template";
             public const int StartRow = 2;
             public const int StartCol = 1;
+            public const int ColCount = 6;
         }
     }
 }
