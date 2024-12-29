@@ -43,7 +43,7 @@ jobs:
     - name: Build the tagged Docker image
       run: docker build . -t microtingas/insight-dashboard-container:latest -t microtingas/insight-dashboard-container:1.0.0 --build-arg GITVERSION=1.0.0 --build-arg PLUGINVERSION=1.0.0
     - run: docker save microtingas/insight-dashboard-container:latest -o insight-container.tar
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: insight-container
         path: insight-container.tar
@@ -67,7 +67,7 @@ jobs:
       run: |
         docker pull mariadb:10.8
         docker run --name mariadbtest --network data -e MYSQL_ROOT_PASSWORD=secretpassword -p 3306:3306 -d mariadb:10.8
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with:
         name: insight-container
     - run: docker load -i insight-container.tar
@@ -150,7 +150,7 @@ jobs:
         cat docker_run_log
     - name: Archive screenshot artifacts
       if: ${{ failure() }}s
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: error Screenshots
         path: |
