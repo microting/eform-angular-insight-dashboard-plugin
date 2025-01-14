@@ -22,61 +22,60 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Controllers
+namespace InsightDashboard.Pn.Controllers;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Infrastructure.Models;
+using Infrastructure.Models.Dashboards;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+using Services.DictionaryService;
+
+[Authorize]
+public class DictionaryController : Controller
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Infrastructure.Models;
-    using Infrastructure.Models.Dashboards;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
-    using Services.DictionaryService;
+    private readonly IDictionaryService _dictionaryService;
 
-    [Authorize]
-    public class DictionaryController : Controller
+    public DictionaryController(IDictionaryService dictionaryService)
     {
-        private readonly IDictionaryService _dictionaryService;
+        _dictionaryService = dictionaryService;
+    }
 
-        public DictionaryController(IDictionaryService dictionaryService)
-        {
-            _dictionaryService = dictionaryService;
-        }
+    [HttpGet]
+    [Route("api/insight-dashboard-pn/dictionary/surveys")]
+    public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys()
+    {
+        return await _dictionaryService.GetSurveys();
+    }
 
-        [HttpGet]
-        [Route("api/insight-dashboard-pn/dictionary/surveys")]
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys()
-        {
-            return await _dictionaryService.GetSurveys();
-        }
+    [HttpGet]
+    [Route("api/insight-dashboard-pn/dictionary/locations-tags")]
+    public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags()
+    {
+        return await _dictionaryService.GetTags();
+    }
 
-        [HttpGet]
-        [Route("api/insight-dashboard-pn/dictionary/locations-tags")]
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags()
-        {
-            return await _dictionaryService.GetTags();
-        }
+    [HttpGet]
+    [Route("api/insight-dashboard-pn/dictionary/locations-by-survey/{id}")]
+    public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int id)
+    {
+        return await _dictionaryService.GetLocationsBySurveyId(id);
+    }
 
-        [HttpGet]
-        [Route("api/insight-dashboard-pn/dictionary/locations-by-survey/{id}")]
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int id)
-        {
-            return await _dictionaryService.GetLocationsBySurveyId(id);
-        }
+    [HttpGet]
+    [Route("api/insight-dashboard-pn/dictionary/questions/{surveyId}")]
+    public async Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId)
+    {
+        return await _dictionaryService.GetQuestions(surveyId);
+    }
 
-        [HttpGet]
-        [Route("api/insight-dashboard-pn/dictionary/questions/{surveyId}")]
-        public async Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId)
-        {
-            return await _dictionaryService.GetQuestions(surveyId);
-        }
-
-        [HttpGet]
-        [Route("api/insight-dashboard-pn/dictionary/filter-answers")]
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(DashboardItemAnswerRequestModel requestModel)
-        {
-            return await _dictionaryService.GetFilterAnswers(requestModel);
-        }
+    [HttpGet]
+    [Route("api/insight-dashboard-pn/dictionary/filter-answers")]
+    public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(DashboardItemAnswerRequestModel requestModel)
+    {
+        return await _dictionaryService.GetFilterAnswers(requestModel);
     }
 }

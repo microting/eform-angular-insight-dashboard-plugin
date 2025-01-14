@@ -22,23 +22,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards;
+
+using System.Collections.Generic;
+using RawData;
+
+public class DashboardViewChartDataModel
 {
-    using System.Collections.Generic;
-    using RawData;
+    public List<DashboardViewChartDataSingleModel> Single { get; set; }
+        = new List<DashboardViewChartDataSingleModel>();
 
-    public class DashboardViewChartDataModel
-    {
-        public List<DashboardViewChartDataSingleModel> Single { get; set; }
-            = new List<DashboardViewChartDataSingleModel>();
+    public List<DashboardViewChartDataMultiModel> Multi { get; set; }
+        = new List<DashboardViewChartDataMultiModel>();
 
-        public List<DashboardViewChartDataMultiModel> Multi { get; set; }
-            = new List<DashboardViewChartDataMultiModel>();
+    public List<DashboardViewChartDataMultiStackedModel> MultiStacked { get; set; }
+        = new List<DashboardViewChartDataMultiStackedModel>();
 
-        public List<DashboardViewChartDataMultiStackedModel> MultiStacked { get; set; }
-            = new List<DashboardViewChartDataMultiStackedModel>();
-
-        public List<DashboardViewChartRawDataModel> RawData { get; set; }
-            = new List<DashboardViewChartRawDataModel>();
-    }
+    public List<DashboardViewChartRawDataModel> RawData { get; set; }
+        = new List<DashboardViewChartRawDataModel>();
 }

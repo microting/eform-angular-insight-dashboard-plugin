@@ -22,18 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards;
+
+using System.Collections.Generic;
+
+public class DashboardViewChartDataMultiModel
 {
-    using System.Collections.Generic;
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int AnswersCount { get; set; }
+    public bool IsTag { get; set; }
 
-    public class DashboardViewChartDataMultiModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int AnswersCount { get; set; }
-        public bool IsTag { get; set; }
-
-        public List<DashboardViewChartDataSingleModel> Series { get; set; }
-            = new List<DashboardViewChartDataSingleModel>();
-    }
+    public List<DashboardViewChartDataSingleModel> Series { get; set; }
+        = new List<DashboardViewChartDataSingleModel>();
 }

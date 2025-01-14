@@ -21,16 +21,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace InsightDashboard.Pn.Services.WordService
-{
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+namespace InsightDashboard.Pn.Services.WordService;
 
-    public interface IWordService
-    {
-        Task<OperationDataResult<Stream>> GenerateWordDashboard(int dashboardId, List<IFormFile> files);
-    }
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+
+public interface IWordService
+{
+    Task<OperationDataResult<Stream>> GenerateWordDashboard(int dashboardId, List<IFormFile> files);
 }

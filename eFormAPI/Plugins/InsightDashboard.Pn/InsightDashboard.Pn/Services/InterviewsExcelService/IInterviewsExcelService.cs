@@ -21,14 +21,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace InsightDashboard.Pn.Services.InterviewsExcelService
-{
-    using System.Collections.Generic;
-    using Infrastructure.Models.Export;
+namespace InsightDashboard.Pn.Services.InterviewsExcelService;
 
-    public interface IInterviewsExcelService
-    {
-        bool WriteInterviewsExportToExcelFile(List<InterviewsExportModel> excelModel, string destFile);
-        string CopyTemplateForNewAccount(string templateId);
-    }
+using System.Collections.Generic;
+using Infrastructure.Models.Export;
+
+public interface IInterviewsExcelService
+{
+    bool WriteInterviewsExportToExcelFile(List<InterviewsExportModel> excelModel, string destFile);
+    string CopyTemplateForNewAccount(string templateId);
 }

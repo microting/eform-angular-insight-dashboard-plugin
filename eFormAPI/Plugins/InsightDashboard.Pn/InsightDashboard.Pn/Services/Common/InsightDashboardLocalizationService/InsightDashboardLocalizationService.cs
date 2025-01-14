@@ -22,33 +22,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.Common.InsightDashboardLocalizationService
+namespace InsightDashboard.Pn.Services.Common.InsightDashboardLocalizationService;
+
+using Microsoft.Extensions.Localization;
+using Microting.eFormApi.BasePn.Localization.Abstractions;
+using Pn;
+
+public class InsightDashboardLocalizationService : IInsightDashboardLocalizationService
 {
-    using Microsoft.Extensions.Localization;
-    using Microting.eFormApi.BasePn.Localization.Abstractions;
-    using Pn;
+    private readonly IStringLocalizer _localizer;
 
-    public class InsightDashboardLocalizationService : IInsightDashboardLocalizationService
+    // ReSharper disable once SuggestBaseTypeForParameter
+    public InsightDashboardLocalizationService(IEformLocalizerFactory factory)
     {
-        private readonly IStringLocalizer _localizer;
+        _localizer = factory.Create(typeof(EformInsightDashboardPlugin));
+    }
 
-        // ReSharper disable once SuggestBaseTypeForParameter
-        public InsightDashboardLocalizationService(IEformLocalizerFactory factory)
-        {
-            _localizer = factory.Create(typeof(EformInsightDashboardPlugin));
-        }
+    public string GetString(string key)
+    {
+        var str = _localizer[key];
+        return str.Value;
+    }
 
-        public string GetString(string key)
-        {
-            var str = _localizer[key];
-            return str.Value;
-        }
+    public string GetString(string format, params object[] args)
+    {
+        var message = _localizer[format];
 
-        public string GetString(string format, params object[] args)
-        {
-            var message = _localizer[format];
-
-            return message?.Value == null ? null : string.Format(message.Value, args);
-        }
+        return message?.Value == null ? null : string.Format(message.Value, args);
     }
 }

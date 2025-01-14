@@ -22,12 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards;
+
+public class DashboardItemIgnoredAnswerModel
 {
-    public class DashboardItemIgnoredAnswerModel
-    {
-        public int? Id { get; set; }
-        public int AnswerId { get; set; }
-        public string Name { get; set; }
-    }
+    public int? Id { get; set; }
+    public int AnswerId { get; set; }
+    public string Name { get; set; }
 }

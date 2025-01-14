@@ -22,16 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models
+namespace InsightDashboard.Pn.Infrastructure.Models;
+
+public class QuestionDictionaryModel
 {
-    public class QuestionDictionaryModel
-    {
-        public int? Id { get; set; }
+    public int? Id { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public string Type { get; set; }
+    public string Type { get; set; }
 
-        public string WorkflowState { get; set; }
-    }
+    public string WorkflowState { get; set; }
 }

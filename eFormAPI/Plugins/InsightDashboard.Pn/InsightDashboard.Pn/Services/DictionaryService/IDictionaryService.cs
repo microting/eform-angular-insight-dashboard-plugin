@@ -22,22 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.DictionaryService
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Infrastructure.Models;
-    using Infrastructure.Models.Dashboards;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+namespace InsightDashboard.Pn.Services.DictionaryService;
 
-    public interface IDictionaryService
-    {
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys();
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags();
-        Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId);
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(
-            DashboardItemAnswerRequestModel requestModel);
-        Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int surveyId);
-    }
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Infrastructure.Models;
+using Infrastructure.Models.Dashboards;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+
+public interface IDictionaryService
+{
+    Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys();
+    Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags();
+    Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId);
+    Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(
+        DashboardItemAnswerRequestModel requestModel);
+    Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int surveyId);
 }

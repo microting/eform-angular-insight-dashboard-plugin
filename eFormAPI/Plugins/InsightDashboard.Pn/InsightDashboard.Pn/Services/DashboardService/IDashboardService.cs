@@ -22,25 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.DashboardService
+namespace InsightDashboard.Pn.Services.DashboardService;
+
+using System.Threading.Tasks;
+using Infrastructure.Models.Dashboards;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+
+public interface IDashboardService
 {
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Dashboards;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+    Task<OperationDataResult<DashboardsListModel>> GetAll(DashboardsRequestModel requestModel);
+    Task<OperationDataResult<int>> Create(DashboardCreateModel createModel);
+    Task<OperationResult> Copy(int dashboardId);
+    Task<OperationResult> Update(DashboardEditModel editModel);
+    Task<OperationResult> Remove(int dashboardId);
 
-    public interface IDashboardService
-    {
-        Task<OperationDataResult<DashboardsListModel>> GetAll(DashboardsRequestModel requestModel);
-        Task<OperationDataResult<int>> Create(DashboardCreateModel createModel);
-        Task<OperationResult> Copy(int dashboardId);
-        Task<OperationResult> Update(DashboardEditModel editModel);
-        Task<OperationResult> Remove(int dashboardId);
+    Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
+        int dashboardId,
+        bool onlyTextData,
+        int? dashBoardItemId = null);
 
-        Task<OperationDataResult<DashboardViewModel>> GetSingleForView(
-            int dashboardId,
-            bool onlyTextData,
-            int? dashBoardItemId = null);
-
-        Task<OperationDataResult<DashboardEditModel>> GetSingleForEdit(int dashboardId);
-    }
+    Task<OperationDataResult<DashboardEditModel>> GetSingleForEdit(int dashboardId);
 }

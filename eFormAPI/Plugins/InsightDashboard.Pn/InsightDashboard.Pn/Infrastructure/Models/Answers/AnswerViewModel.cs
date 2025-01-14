@@ -25,19 +25,17 @@ SOFTWARE.
 
 using System;
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Answers
-{
+namespace InsightDashboard.Pn.Infrastructure.Models.Answers;
 
-    using System.Collections.Generic;
-    public class AnswerViewModel
-    {
-        public int Id { get; set; }
-        public int MicrotingUid { get; set; }
-        public int UnitId { get; set; }
-        public DateTime FinishedAt { get; set; }
-        public int AnswerDuration { get; set; }
-        public string SiteName { get; set; }
-        public List<AnswerValuesViewModel> AnswerValues { get; set; }
-            = new List<AnswerValuesViewModel>();
-    }
+using System.Collections.Generic;
+public class AnswerViewModel
+{
+    public int Id { get; set; }
+    public int MicrotingUid { get; set; }
+    public int UnitId { get; set; }
+    public DateTime FinishedAt { get; set; }
+    public int AnswerDuration { get; set; }
+    public string SiteName { get; set; }
+    public List<AnswerValuesViewModel> AnswerValues { get; set; }
+        = new List<AnswerValuesViewModel>();
 }

@@ -22,18 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.SurveysService
-{
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Surveys;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+namespace InsightDashboard.Pn.Services.SurveysService;
 
-    public interface ISurveysService
-    {
-        Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyConfigsRequestModel requestModel);
-        Task<OperationResult> Create(SurveyConfigCreateModel createModel);
-        Task<OperationResult> Update(SurveyConfigUpdateModel updateModel);
-        Task<OperationResult> ChangeStatus(SurveyConfigUpdateStatusModel configUpdateStatusModel);
-        Task<OperationResult> Delete(int id);
-    }
+using System.Threading.Tasks;
+using Infrastructure.Models.Surveys;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+
+public interface ISurveysService
+{
+    Task<OperationDataResult<SurveyConfigsListModel>> Get(SurveyConfigsRequestModel requestModel);
+    Task<OperationResult> Create(SurveyConfigCreateModel createModel);
+    Task<OperationResult> Update(SurveyConfigUpdateModel updateModel);
+    Task<OperationResult> ChangeStatus(SurveyConfigUpdateStatusModel configUpdateStatusModel);
+    Task<OperationResult> Delete(int id);
 }

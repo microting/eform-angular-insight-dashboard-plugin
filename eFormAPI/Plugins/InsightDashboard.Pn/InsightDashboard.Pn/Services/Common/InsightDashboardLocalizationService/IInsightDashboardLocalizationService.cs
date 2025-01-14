@@ -22,11 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.Common.InsightDashboardLocalizationService
+namespace InsightDashboard.Pn.Services.Common.InsightDashboardLocalizationService;
+
+public interface IInsightDashboardLocalizationService
 {
-    public interface IInsightDashboardLocalizationService
-    {
-        string GetString(string key);
-        string GetString(string format, params object[] args);
-    }
+    string GetString(string key);
+    string GetString(string format, params object[] args);
 }

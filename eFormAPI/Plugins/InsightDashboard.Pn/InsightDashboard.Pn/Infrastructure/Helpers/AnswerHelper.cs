@@ -23,108 +23,107 @@ SOFTWARE.
 */
 
 
-namespace InsightDashboard.Pn.Infrastructure.Helpers
+namespace InsightDashboard.Pn.Infrastructure.Helpers;
+
+using System.Linq;
+using Models.Answers;
+using Microsoft.EntityFrameworkCore;
+using Microting.eForm.Infrastructure;
+using Microting.eForm.Infrastructure.Constants;
+using Microting.eForm.Infrastructure.Data.Entities;
+
+public class AnswerHelper
 {
-    using System.Linq;
-    using Models.Answers;
-    using Microsoft.EntityFrameworkCore;
-    using Microting.eForm.Infrastructure;
-    using Microting.eForm.Infrastructure.Constants;
-    using Microting.eForm.Infrastructure.Data.Entities;
-
-    public class AnswerHelper
+    public static IQueryable<AnswerViewModel> GetAnswerQueryByMicrotingUid(int microtingUid,
+        MicrotingDbContext dbContext)
     {
-        public static IQueryable<AnswerViewModel> GetAnswerQueryByMicrotingUid(int microtingUid,
-            MicrotingDbContext dbContext)
-        {
-            var answersQueryable = dbContext.Answers.Join(dbContext.Sites,
-                    answer => answer.SiteId,
-                    site => site.Id,
-                    (newAnswer, site) => new
-                    {
-                        newAnswer.WorkflowState,
-                        newAnswer.MicrotingUid,
-                        newAnswer.UnitId,
-                        newAnswer.FinishedAt,
-                        newAnswer.AnswerDuration,
-                        newAnswer.Id,
-                        site.Name
-                    }).Join(dbContext.Units,
-                    answer => answer.UnitId,
-                    unit => unit.Id,
-                    (answer, unit) => new
-                    {
-                        answer.WorkflowState,
-                        answer.MicrotingUid,
-                        answer.Id,
-                        answer.UnitId,
-                        answer.FinishedAt,
-                        answer.AnswerDuration,
-                        answer.Name,
-                        UnitUid = unit.MicrotingUid
-                    })
-                //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .Where(x => x.MicrotingUid == microtingUid)
-                .AsQueryable()
-                .Select(answers => new AnswerViewModel()
+        var answersQueryable = dbContext.Answers.Join(dbContext.Sites,
+                answer => answer.SiteId,
+                site => site.Id,
+                (newAnswer, site) => new
                 {
-                    Id = answers.Id,
-                    MicrotingUid = (int)answers.MicrotingUid,
-                    UnitId = (int)answers.UnitUid,
-                    FinishedAt = answers.FinishedAt,
-                    AnswerDuration = answers.AnswerDuration,
-                    SiteName = answers.Name,
-                    AnswerValues = dbContext.AnswerValues.Join(dbContext.QuestionTranslations,
-                            value => value.QuestionId,
-                            questionTranslation => questionTranslation.Id,
-                            (value, questionTranslation) => new
-                            {
-                                value.AnswerId,
-                                value.WorkflowState,
-                                value.Value,
-                                value.Id,
-                                value.OptionId,
-                                questionTranslation.Name
-                            })
-                        .Where(answerValues => answerValues.AnswerId == answers.Id)
-                        //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .AsQueryable()
-                        .Select(a => new AnswerValuesViewModel()
+                    newAnswer.WorkflowState,
+                    newAnswer.MicrotingUid,
+                    newAnswer.UnitId,
+                    newAnswer.FinishedAt,
+                    newAnswer.AnswerDuration,
+                    newAnswer.Id,
+                    site.Name
+                }).Join(dbContext.Units,
+                answer => answer.UnitId,
+                unit => unit.Id,
+                (answer, unit) => new
+                {
+                    answer.WorkflowState,
+                    answer.MicrotingUid,
+                    answer.Id,
+                    answer.UnitId,
+                    answer.FinishedAt,
+                    answer.AnswerDuration,
+                    answer.Name,
+                    UnitUid = unit.MicrotingUid
+                })
+            //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.MicrotingUid == microtingUid)
+            .AsQueryable()
+            .Select(answers => new AnswerViewModel()
+            {
+                Id = answers.Id,
+                MicrotingUid = (int)answers.MicrotingUid,
+                UnitId = (int)answers.UnitUid,
+                FinishedAt = answers.FinishedAt,
+                AnswerDuration = answers.AnswerDuration,
+                SiteName = answers.Name,
+                AnswerValues = dbContext.AnswerValues.Join(dbContext.QuestionTranslations,
+                        value => value.QuestionId,
+                        questionTranslation => questionTranslation.Id,
+                        (value, questionTranslation) => new
                         {
-                            Value = a.Value,
-                            Id = a.Id,
-                            Question = a.Name,
-                            Translations = dbContext.OptionTranslations
-                                .Where(x => x.OptionId == a.OptionId)
-                                .AsQueryable()
-                                .Select(translations => new AnswerValueTranslationModel()
-                                {
-                                    Value = translations.Name,
-                                    LanguageId = translations.LanguageId,
-                                    LanguageName = dbContext.Languages
-                                        .FirstOrDefault(x => x.Id == translations.LanguageId).Name
-                                }).ToList()
-                        }).ToList()
-                });
-            return answersQueryable;
-        }
+                            value.AnswerId,
+                            value.WorkflowState,
+                            value.Value,
+                            value.Id,
+                            value.OptionId,
+                            questionTranslation.Name
+                        })
+                    .Where(answerValues => answerValues.AnswerId == answers.Id)
+                    //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .AsQueryable()
+                    .Select(a => new AnswerValuesViewModel()
+                    {
+                        Value = a.Value,
+                        Id = a.Id,
+                        Question = a.Name,
+                        Translations = dbContext.OptionTranslations
+                            .Where(x => x.OptionId == a.OptionId)
+                            .AsQueryable()
+                            .Select(translations => new AnswerValueTranslationModel()
+                            {
+                                Value = translations.Name,
+                                LanguageId = translations.LanguageId,
+                                LanguageName = dbContext.Languages
+                                    .FirstOrDefault(x => x.Id == translations.LanguageId).Name
+                            }).ToList()
+                    }).ToList()
+            });
+        return answersQueryable;
+    }
 
-        public static IQueryable<Answer> GetAnswerQueryByMicrotingUidForDelete(int microtingUid,
-            MicrotingDbContext dbContext)
-        {
-            var answerQuery = dbContext.Answers
-                .Where(x => x.MicrotingUid == microtingUid);
+    public static IQueryable<Answer> GetAnswerQueryByMicrotingUidForDelete(int microtingUid,
+        MicrotingDbContext dbContext)
+    {
+        var answerQuery = dbContext.Answers
+            .Where(x => x.MicrotingUid == microtingUid);
 
-            return answerQuery;
-        }
+        return answerQuery;
+    }
 
-        public static IQueryable<AnswerValue> GetAnswerValuesQueryByAnswerIdForDelete(int answerId,
-            MicrotingDbContext dbContext)
-        {
-            var answersValuesQuery = dbContext.AnswerValues
-                .Where(x => x.AnswerId == answerId);
+    public static IQueryable<AnswerValue> GetAnswerValuesQueryByAnswerIdForDelete(int answerId,
+        MicrotingDbContext dbContext)
+    {
+        var answersValuesQuery = dbContext.AnswerValues
+            .Where(x => x.AnswerId == answerId);
 
-            return answersValuesQuery;
-        }
+        return answersValuesQuery;
     }
 }

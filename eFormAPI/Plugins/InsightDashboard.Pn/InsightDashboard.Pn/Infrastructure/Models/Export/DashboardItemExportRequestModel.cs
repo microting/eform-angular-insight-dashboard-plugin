@@ -21,11 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace InsightDashboard.Pn.Infrastructure.Models.Export
+namespace InsightDashboard.Pn.Infrastructure.Models.Export;
+
+public class DashboardItemExportRequestModel
 {
-    public class DashboardItemExportRequestModel
-    {
-        public int DashboardId { get; set; }
-        public int ItemId { get; set; }
-    }
+    public int DashboardId { get; set; }
+    public int ItemId { get; set; }
 }

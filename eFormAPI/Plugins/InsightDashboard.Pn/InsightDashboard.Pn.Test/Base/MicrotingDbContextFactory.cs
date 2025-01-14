@@ -24,28 +24,27 @@ SOFTWARE.
 
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
-namespace InsightDashboard.Pn.Test.Base
+namespace InsightDashboard.Pn.Test.Base;
+
+using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microting.eForm.Infrastructure;
+
+public class MicrotingDbContextFactory : IDesignTimeDbContextFactory<MicrotingDbContext>
 {
-    using System;
-    using System.Linq;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Design;
-    using Microting.eForm.Infrastructure;
-
-    public class MicrotingDbContextFactory : IDesignTimeDbContextFactory<MicrotingDbContext>
+    public MicrotingDbContext CreateDbContext(string[] args)
     {
-        public MicrotingDbContext CreateDbContext(string[] args)
+        var defaultCs = "Server = localhost; port = 3306; Database = insight-pn; user = root; password=secretpassword; Convert Zero Datetime = true;";
+        var optionsBuilder = new DbContextOptionsBuilder<MicrotingDbContext>();
+        optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, new MariaDbServerVersion(
+            new Version(10, 4, 0)), mySqlOptionsAction: builder =>
         {
-            var defaultCs = "Server = localhost; port = 3306; Database = insight-pn; user = root; password=secretpassword; Convert Zero Datetime = true;";
-            var optionsBuilder = new DbContextOptionsBuilder<MicrotingDbContext>();
-            optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, new MariaDbServerVersion(
-                new Version(10, 4, 0)), mySqlOptionsAction: builder =>
-            {
-                builder.EnableRetryOnFailure();
-            });
-            //optionsBuilder.UseLazyLoadingProxies(true);
+            builder.EnableRetryOnFailure();
+        });
+        //optionsBuilder.UseLazyLoadingProxies(true);
 
-            return new MicrotingDbContext(optionsBuilder.Options);
-        }
+        return new MicrotingDbContext(optionsBuilder.Options);
     }
 }

@@ -22,16 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards.RawData
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards.RawData;
+
+using System.Collections.Generic;
+
+public class DashboardViewChartRawDataModel
 {
-    using System.Collections.Generic;
+    public List<string> RawHeaders { get; set; } // Table headers
+        = new List<string>();
 
-    public class DashboardViewChartRawDataModel
-    {
-        public List<string> RawHeaders { get; set; } // Table headers
-            = new List<string>();
-
-        public List<DashboardViewChartRawDataItemModel> RawDataItems { get; set; }
-            = new List<DashboardViewChartRawDataItemModel>();
-    }
+    public List<DashboardViewChartRawDataItemModel> RawDataItems { get; set; }
+        = new List<DashboardViewChartRawDataItemModel>();
 }

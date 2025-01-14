@@ -24,130 +24,129 @@ SOFTWARE.
 
 
 
-namespace InsightDashboard.Pn.Services.AnswersService
+namespace InsightDashboard.Pn.Services.AnswersService;
+
+using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microting.eForm.Infrastructure.Constants;
+using Common.InsightDashboardLocalizationService;
+using Microsoft.Extensions.Logging;
+using Microting.eFormApi.BasePn.Abstractions;
+using System.Threading.Tasks;
+using Infrastructure.Models.Answers;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using System.Diagnostics;
+using Infrastructure.Helpers;
+
+public class AnswersService : IAnswersService
 {
-    using System;
-    using System.Linq;
-    using Microsoft.EntityFrameworkCore;
-    using Microting.eForm.Infrastructure.Constants;
-    using Common.InsightDashboardLocalizationService;
-    using Microsoft.Extensions.Logging;
-    using Microting.eFormApi.BasePn.Abstractions;
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Answers;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using System.Diagnostics;
-    using Infrastructure.Helpers;
+    private readonly ILogger<AnswersService> _logger;
+    private readonly IInsightDashboardLocalizationService _localizationService;
+    private readonly IEFormCoreService _coreHelper;
 
-    public class AnswersService : IAnswersService
+    public AnswersService(
+        ILogger<AnswersService> logger,
+        IInsightDashboardLocalizationService localizationService,
+        IEFormCoreService coreHelper)
     {
-        private readonly ILogger<AnswersService> _logger;
-        private readonly IInsightDashboardLocalizationService _localizationService;
-        private readonly IEFormCoreService _coreHelper;
+        _logger = logger;
+        _localizationService = localizationService;
+        _coreHelper = coreHelper;
+    }
 
-        public AnswersService(
-            ILogger<AnswersService> logger,
-            IInsightDashboardLocalizationService localizationService,
-            IEFormCoreService coreHelper)
+    public async Task<OperationDataResult<AnswerViewModel>> GetAnswerByMicrotingUid(int microtingUid)
+    {
+        try
         {
-            _logger = logger;
-            _localizationService = localizationService;
-            _coreHelper = coreHelper;
-        }
-
-        public async Task<OperationDataResult<AnswerViewModel>> GetAnswerByMicrotingUid(int microtingUid)
-        {
-            try
+            var core = await _coreHelper.GetCore();
+            AnswerViewModel result;
+            await using (var sdkContext = core.DbContextHelper.GetDbContext())
             {
-                    var core = await _coreHelper.GetCore();
-                AnswerViewModel result;
-                await using (var sdkContext = core.DbContextHelper.GetDbContext())
-                {
-                    var answersQueryable = AnswerHelper.GetAnswerQueryByMicrotingUid(microtingUid, sdkContext);
+                var answersQueryable = AnswerHelper.GetAnswerQueryByMicrotingUid(microtingUid, sdkContext);
 
-                    result = answersQueryable.FirstOrDefault();
-                }
+                result = answersQueryable.FirstOrDefault();
+            }
 
-                if (result == null)
+            if (result == null)
+            {
+                return new OperationDataResult<AnswerViewModel>(
+                    false,
+                    _localizationService.GetString("AnswerNotFound"));
+            }
+
+            if (result.AnswerValues == null)
+            {
+                return new OperationDataResult<AnswerViewModel>(
+                    false,
+                    _localizationService.GetString("AnswerValuesNotFound"));
+            }
+
+            return new OperationDataResult<AnswerViewModel>(true, result);
+        }
+        catch (Exception e)
+        {
+            Trace.TraceError(e.Message);
+            _logger.LogError(e.Message);
+            return new OperationDataResult<AnswerViewModel>(false,
+                _localizationService.GetString("ErrorWhileObtainingGetAnswer"));
+        }
+    }
+
+    public async Task<OperationResult> DeleteAnswerByMicrotingUid(int microtingUid)
+    {
+        try
+        {
+            var core = await _coreHelper.GetCore();
+
+            using (var sdkContext = core.DbContextHelper.GetDbContext())
+            {
+                var answer = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(microtingUid, sdkContext)
+                    .FirstOrDefaultAsync();
+
+                if (answer == null)
                 {
-                    return new OperationDataResult<AnswerViewModel>(
+                    return new OperationResult(
                         false,
                         _localizationService.GetString("AnswerNotFound"));
                 }
 
-                if (result.AnswerValues == null)
+                var answersValues = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(answer.Id, sdkContext)
+                    .ToListAsync();
+
+                if (answer.WorkflowState == Constants.WorkflowStates.Removed)
                 {
-                    return new OperationDataResult<AnswerViewModel>(
+                    return new OperationResult(
+                        false,
+                        _localizationService.GetString("AnswerRemoved"));
+                }
+
+                if (answersValues == null)
+                {
+                    return new OperationResult(
                         false,
                         _localizationService.GetString("AnswerValuesNotFound"));
                 }
 
-                return new OperationDataResult<AnswerViewModel>(true, result);
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-                _logger.LogError(e.Message);
-                return new OperationDataResult<AnswerViewModel>(false,
-                    _localizationService.GetString("ErrorWhileObtainingGetAnswer"));
+                foreach (var answersValue in answersValues)
+                {
+                    await answersValue.Delete(sdkContext);
+                }
+
+                await answer.Delete(sdkContext);
+
+                return new OperationResult(
+                    true,
+                    _localizationService.GetString("AnswerAndAnswerValuesHasBeenRemoved"));
             }
         }
-
-        public async Task<OperationResult> DeleteAnswerByMicrotingUid(int microtingUid)
+        catch (Exception e)
         {
-            try
-            {
-                var core = await _coreHelper.GetCore();
-
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
-                {
-                    var answer = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(microtingUid, sdkContext)
-                        .FirstOrDefaultAsync();
-
-                    if (answer == null)
-                    {
-                        return new OperationResult(
-                            false,
-                            _localizationService.GetString("AnswerNotFound"));
-                    }
-
-                    var answersValues = await AnswerHelper.GetAnswerValuesQueryByAnswerIdForDelete(answer.Id, sdkContext)
-                        .ToListAsync();
-
-                    if (answer.WorkflowState == Constants.WorkflowStates.Removed)
-                    {
-                        return new OperationResult(
-                            false,
-                            _localizationService.GetString("AnswerRemoved"));
-                    }
-
-                    if (answersValues == null)
-                    {
-                        return new OperationResult(
-                            false,
-                            _localizationService.GetString("AnswerValuesNotFound"));
-                    }
-
-                    foreach (var answersValue in answersValues)
-                    {
-                        await answersValue.Delete(sdkContext);
-                    }
-
-                    await answer.Delete(sdkContext);
-
-                    return new OperationResult(
-                        true,
-                        _localizationService.GetString("AnswerAndAnswerValuesHasBeenRemoved"));
-                }
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-                _logger.LogError(e.Message);
-                return new OperationResult(
-                    false,
-                    _localizationService.GetString("ErrorWhileRemovingAnswerAndAnswerValues"));
-            }
+            Trace.TraceError(e.Message);
+            _logger.LogError(e.Message);
+            return new OperationResult(
+                false,
+                _localizationService.GetString("ErrorWhileRemovingAnswerAndAnswerValues"));
         }
     }
 }

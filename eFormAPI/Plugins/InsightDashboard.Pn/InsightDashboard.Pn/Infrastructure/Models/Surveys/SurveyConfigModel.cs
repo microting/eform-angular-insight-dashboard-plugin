@@ -22,19 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Surveys
+namespace InsightDashboard.Pn.Infrastructure.Models.Surveys;
+
+using System.Collections.Generic;
+using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+
+public class SurveyConfigModel
 {
-    using System.Collections.Generic;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+    public int Id { get; set; }
+    public string SurveyName { get; set; }
+    public int SurveyId { get; set; }
+    public bool IsActive { get; set; }
 
-    public class SurveyConfigModel
-    {
-        public int Id { get; set; }
-        public string SurveyName { get; set; }
-        public int SurveyId { get; set; }
-        public bool IsActive { get; set; }
-
-        public List<CommonDictionaryModel> Locations { get; set; }
-            = new List<CommonDictionaryModel>();
-    }
+    public List<CommonDictionaryModel> Locations { get; set; }
+        = new List<CommonDictionaryModel>();
 }

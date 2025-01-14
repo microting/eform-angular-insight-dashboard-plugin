@@ -21,19 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace InsightDashboard.Pn.Infrastructure.Consts
-{
-    public class ExcelConsts
-    {
-        public const string ExcelTemplatesDir = "Templates";
+namespace InsightDashboard.Pn.Infrastructure.Consts;
 
-        public static class Interviews
-        {
-            public const int TemplateSheetNumber = 1;
-            public const string TemplateName = "interviews-template";
-            public const int StartRow = 2;
-            public const int StartCol = 1;
-            public const int ColCount = 6;
-        }
+public class ExcelConsts
+{
+    public const string ExcelTemplatesDir = "Templates";
+
+    public static class Interviews
+    {
+        public const int TemplateSheetNumber = 1;
+        public const string TemplateName = "interviews-template";
+        public const int StartRow = 2;
+        public const int StartCol = 1;
+        public const int ColCount = 6;
     }
 }

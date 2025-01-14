@@ -22,25 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards;
+
+using System.Collections.Generic;
+
+public class DashboardEditModel
 {
-    using System.Collections.Generic;
+    public int Id { get; set; }
+    public string DashboardName { get; set; }
+    public int SurveyId { get; set; }
+    public string SurveyName { get; set; }
+    public string LocationName { get; set; }
+    public int? LocationId { get; set; }
+    public string TagName { get; set; }
+    public int? TagId { get; set; }
 
-    public class DashboardEditModel
-    {
-        public int Id { get; set; }
-        public string DashboardName { get; set; }
-        public int SurveyId { get; set; }
-        public string SurveyName { get; set; }
-        public string LocationName { get; set; }
-        public int? LocationId { get; set; }
-        public string TagName { get; set; }
-        public int? TagId { get; set; }
+    public DashboardEditAnswerDates AnswerDates { get; set; }
+        = new DashboardEditAnswerDates();
 
-        public DashboardEditAnswerDates AnswerDates { get; set; }
-            = new DashboardEditAnswerDates();
-
-        public List<DashboardItemModel> Items { get; set; }
-            = new List<DashboardItemModel>();
-    }
+    public List<DashboardItemModel> Items { get; set; }
+        = new List<DashboardItemModel>();
 }

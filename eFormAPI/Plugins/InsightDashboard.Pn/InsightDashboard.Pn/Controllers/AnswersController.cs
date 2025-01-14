@@ -23,37 +23,35 @@ SOFTWARE.
 */
 
 
-namespace InsightDashboard.Pn.Controllers
+namespace InsightDashboard.Pn.Controllers;
+
+using System.Threading.Tasks;
+using Infrastructure.Models.Answers;
+using Services.AnswersService;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
+[Authorize]
+public class AnswersController : Controller
 {
+    private readonly IAnswersService _answersService;
 
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Answers;
-    using Services.AnswersService;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
-
-    [Authorize]
-    public class AnswersController : Controller
+    public AnswersController(IAnswersService dashboardService)
     {
-        private readonly IAnswersService _answersService;
+        _answersService = dashboardService;
+    }
+    [HttpGet]
+    [Route("api/insight-dashboard-pn/answers/{microtingUid}")]
+    public async Task<OperationDataResult<AnswerViewModel>> GetAnswersByMicrotingUid(int microtingUid)
+    {
+        return await _answersService.GetAnswerByMicrotingUid(microtingUid);
+    }
 
-        public AnswersController(IAnswersService dashboardService)
-        {
-            _answersService = dashboardService;
-        }
-        [HttpGet]
-        [Route("api/insight-dashboard-pn/answers/{microtingUid}")]
-        public async Task<OperationDataResult<AnswerViewModel>> GetAnswersByMicrotingUid(int microtingUid)
-        {
-            return await _answersService.GetAnswerByMicrotingUid(microtingUid);
-        }
-
-        [HttpDelete]
-        [Route("api/insight-dashboard-pn/answers/{microtingUid}")]
-        public async Task<OperationResult> DeleteAnswersByMicrotingUid(int microtingUid)
-        {
-            return await _answersService.DeleteAnswerByMicrotingUid(microtingUid);
-        }
+    [HttpDelete]
+    [Route("api/insight-dashboard-pn/answers/{microtingUid}")]
+    public async Task<OperationResult> DeleteAnswersByMicrotingUid(int microtingUid)
+    {
+        return await _answersService.DeleteAnswerByMicrotingUid(microtingUid);
     }
 }

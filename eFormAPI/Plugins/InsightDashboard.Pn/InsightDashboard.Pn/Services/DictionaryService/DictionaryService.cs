@@ -22,265 +22,264 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.DictionaryService
+namespace InsightDashboard.Pn.Services.DictionaryService;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Common.InsightDashboardLocalizationService;
+using Infrastructure.Extensions;
+using Infrastructure.Helpers;
+using Infrastructure.Models;
+using Infrastructure.Models.Dashboards;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microting.eForm.Infrastructure.Constants;
+using Microting.eFormApi.BasePn.Abstractions;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+
+public class DictionaryService : IDictionaryService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Common.InsightDashboardLocalizationService;
-    using Infrastructure.Extensions;
-    using Infrastructure.Helpers;
-    using Infrastructure.Models;
-    using Infrastructure.Models.Dashboards;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Logging;
-    using Microting.eForm.Infrastructure.Constants;
-    using Microting.eFormApi.BasePn.Abstractions;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.Common;
+    private readonly ILogger<DictionaryService> _logger;
+    private readonly IInsightDashboardLocalizationService _localizationService;
+    private readonly IEFormCoreService _coreHelper;
 
-    public class DictionaryService : IDictionaryService
+    public DictionaryService(
+        ILogger<DictionaryService> logger,
+        IInsightDashboardLocalizationService localizationService,
+        IEFormCoreService coreHelper)
     {
-        private readonly ILogger<DictionaryService> _logger;
-        private readonly IInsightDashboardLocalizationService _localizationService;
-        private readonly IEFormCoreService _coreHelper;
+        _logger = logger;
+        _localizationService = localizationService;
+        _coreHelper = coreHelper;
+    }
 
-        public DictionaryService(
-            ILogger<DictionaryService> logger,
-            IInsightDashboardLocalizationService localizationService,
-            IEFormCoreService coreHelper)
+    public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys()
+    {
+        try
         {
-            _logger = logger;
-            _localizationService = localizationService;
-            _coreHelper = coreHelper;
-        }
-
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetSurveys()
-        {
-            try
+            var core = await _coreHelper.GetCore();
+            using (var sdkContext = core.DbContextHelper.GetDbContext())
             {
-                var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
-                {
-                    var surveys = await sdkContext.QuestionSets
-                        .AsNoTracking()
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Select(x => new CommonDictionaryModel()
-                        {
-                            Id = x.Id,
-                            Name = x.Name,
-                        }).ToListAsync();
-
-                    return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
-                }
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-                _logger.LogError(e.Message);
-                return new OperationDataResult<List<CommonDictionaryModel>>(false,
-                    _localizationService.GetString("ErrorWhileObtainingSurveys"));
-            }
-        }
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags()
-        {
-            try
-            {
-                var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
-                {
-                    var surveys = await sdkContext.Tags
-                        .AsNoTracking()
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Select(x => new CommonDictionaryModel()
-                        {
-                            Id = x.Id,
-                            Name = x.Name,
-                        }).ToListAsync();
-
-                    return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
-                }
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-                _logger.LogError(e.Message);
-                return new OperationDataResult<List<CommonDictionaryModel>>(false,
-                    _localizationService.GetString("ErrorWhileObtainingTags"));
-            }
-        }
-
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int surveyId)
-        {
-            try
-            {
-                var core = await _coreHelper.GetCore();
-                using (var dbContext = core.DbContextHelper.GetDbContext())
-                {
-                    var sites = await dbContext.SiteSurveyConfigurations
-                        .AsNoTracking()
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.Site.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.SurveyConfiguration.QuestionSet.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.SurveyConfiguration.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Where(x => x.SurveyConfiguration.QuestionSetId == surveyId)
-                        .GroupBy(x => new
-                        {
-                            Id = x.SiteId,
-                            x.Site.Name,
-                        })
-                        .Select(x => new CommonDictionaryModel
-                        {
-                            Id = x.Key.Id,
-                            Name = x.Key.Name,
-                        }).ToListAsync();
-
-                    return new OperationDataResult<List<CommonDictionaryModel>>(true, sites);
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, e.Message);
-                return new OperationDataResult<List<CommonDictionaryModel>>(false,
-                    _localizationService.GetString("ErrorWhileObtainingSites"));
-            }
-        }
-
-        public async Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId)
-        {
-            try
-            {
-                var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
-                {
-                    var languages = await sdkContext.Languages.ToListAsync();
-                    var questionsResult = new List<QuestionDictionaryModel>();
-                    foreach (var language in languages)
+                var surveys = await sdkContext.QuestionSets
+                    .AsNoTracking()
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Select(x => new CommonDictionaryModel()
                     {
-                        // TODO take by language
-                        var questions = await sdkContext.Questions
-                            .AsNoTracking()
-                            //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.QuestionSetId == surveyId)
-                            .OrderBy(x => x.QuestionIndex)
-                            .Select(x => new QuestionDictionaryModel()
-                            {
-                                Id = x.Id,
-                                Type = x.GetQuestionType(),
-                                WorkflowState = x.WorkflowState,
-                                Name = x.QuestionTranslationses
-                                    .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                    .Where(qt => qt.Language.Id == language.Id)
-                                    .Select(qt => qt.Name)
-                                    .FirstOrDefault(),
-                            }).ToListAsync();
+                        Id = x.Id,
+                        Name = x.Name,
+                    }).ToListAsync();
 
-                        if (questions.Any())
+                return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
+            }
+        }
+        catch (Exception e)
+        {
+            Trace.TraceError(e.Message);
+            _logger.LogError(e.Message);
+            return new OperationDataResult<List<CommonDictionaryModel>>(false,
+                _localizationService.GetString("ErrorWhileObtainingSurveys"));
+        }
+    }
+    public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetTags()
+    {
+        try
+        {
+            var core = await _coreHelper.GetCore();
+            using (var sdkContext = core.DbContextHelper.GetDbContext())
+            {
+                var surveys = await sdkContext.Tags
+                    .AsNoTracking()
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Select(x => new CommonDictionaryModel()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                    }).ToListAsync();
+
+                return new OperationDataResult<List<CommonDictionaryModel>>(true, surveys);
+            }
+        }
+        catch (Exception e)
+        {
+            Trace.TraceError(e.Message);
+            _logger.LogError(e.Message);
+            return new OperationDataResult<List<CommonDictionaryModel>>(false,
+                _localizationService.GetString("ErrorWhileObtainingTags"));
+        }
+    }
+
+    public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetLocationsBySurveyId(int surveyId)
+    {
+        try
+        {
+            var core = await _coreHelper.GetCore();
+            using (var dbContext = core.DbContextHelper.GetDbContext())
+            {
+                var sites = await dbContext.SiteSurveyConfigurations
+                    .AsNoTracking()
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.Site.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.SurveyConfiguration.QuestionSet.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.SurveyConfiguration.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.SurveyConfiguration.QuestionSetId == surveyId)
+                    .GroupBy(x => new
+                    {
+                        Id = x.SiteId,
+                        x.Site.Name,
+                    })
+                    .Select(x => new CommonDictionaryModel
+                    {
+                        Id = x.Key.Id,
+                        Name = x.Key.Name,
+                    }).ToListAsync();
+
+                return new OperationDataResult<List<CommonDictionaryModel>>(true, sites);
+            }
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, e.Message);
+            return new OperationDataResult<List<CommonDictionaryModel>>(false,
+                _localizationService.GetString("ErrorWhileObtainingSites"));
+        }
+    }
+
+    public async Task<OperationDataResult<List<QuestionDictionaryModel>>> GetQuestions(int surveyId)
+    {
+        try
+        {
+            var core = await _coreHelper.GetCore();
+            using (var sdkContext = core.DbContextHelper.GetDbContext())
+            {
+                var languages = await sdkContext.Languages.ToListAsync();
+                var questionsResult = new List<QuestionDictionaryModel>();
+                foreach (var language in languages)
+                {
+                    // TODO take by language
+                    var questions = await sdkContext.Questions
+                        .AsNoTracking()
+                        //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.QuestionSetId == surveyId)
+                        .OrderBy(x => x.QuestionIndex)
+                        .Select(x => new QuestionDictionaryModel()
                         {
-                            int i = 1;
-                            foreach (var question in questions)
+                            Id = x.Id,
+                            Type = x.GetQuestionType(),
+                            WorkflowState = x.WorkflowState,
+                            Name = x.QuestionTranslationses
+                                .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
+                                .Where(qt => qt.Language.Id == language.Id)
+                                .Select(qt => qt.Name)
+                                .FirstOrDefault(),
+                        }).ToListAsync();
+
+                    if (questions.Any())
+                    {
+                        int i = 1;
+                        foreach (var question in questions)
+                        {
+                            question.Name = $"{i} - {question.Name}";
+                            i += 1;
+                            if (question.WorkflowState == Constants.WorkflowStates.Removed)
                             {
-                                question.Name = $"{i} - {question.Name}";
-                                i += 1;
-                                if (question.WorkflowState == Constants.WorkflowStates.Removed)
-                                {
-                                    var qt = sdkContext.QuestionTranslations.First(x => x.QuestionId == question.Id);
-                                    question.Name = $"{qt.Name} - removed - questionId({question.Id})";
-                                }
+                                var qt = sdkContext.QuestionTranslations.First(x => x.QuestionId == question.Id);
+                                question.Name = $"{qt.Name} - removed - questionId({question.Id})";
                             }
-                            questionsResult.AddRange(questions);
-                            break;
                         }
+                        questionsResult.AddRange(questions);
+                        break;
                     }
-
-                    return new OperationDataResult<List<QuestionDictionaryModel>>(
-                        true,
-                        questionsResult);
                 }
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-                _logger.LogError(e.Message);
-                return new OperationDataResult<List<QuestionDictionaryModel>>(false,
-                    _localizationService.GetString("ErrorWhileObtainingQuestions"));
+
+                return new OperationDataResult<List<QuestionDictionaryModel>>(
+                    true,
+                    questionsResult);
             }
         }
-
-
-        public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(DashboardItemAnswerRequestModel requestModel)
+        catch (Exception e)
         {
-            try
+            Trace.TraceError(e.Message);
+            _logger.LogError(e.Message);
+            return new OperationDataResult<List<QuestionDictionaryModel>>(false,
+                _localizationService.GetString("ErrorWhileObtainingQuestions"));
+        }
+    }
+
+
+    public async Task<OperationDataResult<List<CommonDictionaryModel>>> GetFilterAnswers(DashboardItemAnswerRequestModel requestModel)
+    {
+        try
+        {
+            var core = await _coreHelper.GetCore();
+            using (var sdkContext = core.DbContextHelper.GetDbContext())
             {
-                var core = await _coreHelper.GetCore();
-                using (var sdkContext = core.DbContextHelper.GetDbContext())
+                var languages = await sdkContext.Languages.ToListAsync();
+                var answersResult = new List<CommonDictionaryModel>();
+                bool isSmileyQuestion = false;
+                foreach (var language in languages)
                 {
-                    var languages = await sdkContext.Languages.ToListAsync();
-                    var answersResult = new List<CommonDictionaryModel>();
-                    bool isSmileyQuestion = false;
-                    foreach (var language in languages)
-                    {
-                        isSmileyQuestion = await sdkContext.Questions
-                            .Where(x => x.Id == requestModel.FilterQuestionId)
-                            .Select(x => x.IsSmiley())
-                            .FirstOrDefaultAsync();
+                    isSmileyQuestion = await sdkContext.Questions
+                        .Where(x => x.Id == requestModel.FilterQuestionId)
+                        .Select(x => x.IsSmiley())
+                        .FirstOrDefaultAsync();
 
-                        // TODO take by language
-                        var answers = await sdkContext.Options
-                            .AsNoTracking()
-                            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                            .Where(x => x.QuestionId == requestModel.FilterQuestionId)
-                            .Select(x => new CommonDictionaryModel()
-                            {
-                                Id = x.Id,
-                                Name = x.OptionTranslationses
-                                    .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
-                                    .Where(qt => qt.Language.Id == language.Id)
-                                    .Select(qt => qt.Name)
-                                    .FirstOrDefault(),
-                            }).ToListAsync();
-
-                        if (answers.Any())
+                    // TODO take by language
+                    var answers = await sdkContext.Options
+                        .AsNoTracking()
+                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                        .Where(x => x.QuestionId == requestModel.FilterQuestionId)
+                        .Select(x => new CommonDictionaryModel()
                         {
-                            answersResult.AddRange(answers);
-                            break;
-                        }
-                    }
+                            Id = x.Id,
+                            Name = x.OptionTranslationses
+                                .Where(qt => qt.WorkflowState != Constants.WorkflowStates.Removed)
+                                .Where(qt => qt.Language.Id == language.Id)
+                                .Select(qt => qt.Name)
+                                .FirstOrDefault(),
+                        }).ToListAsync();
 
-                    if (isSmileyQuestion)
+                    if (answers.Any())
                     {
-                        var result = new List<CommonDictionaryModel>();
-
-                        foreach (var dictionaryModel in answersResult)
-                        {
-                            result.Add(new CommonDictionaryModel
-                            {
-                                Id = dictionaryModel.Id,
-                                Name = ChartHelpers.GetSmileyLabel(dictionaryModel.Name),
-                                Description = dictionaryModel.Description,
-                            });
-                        }
-
-                        return new OperationDataResult<List<CommonDictionaryModel>>(
-                            true,
-                            result);
+                        answersResult.AddRange(answers);
+                        break;
                     }
+                }
 
+                if (isSmileyQuestion)
+                {
+                    var result = new List<CommonDictionaryModel>();
+
+                    foreach (var dictionaryModel in answersResult)
+                    {
+                        result.Add(new CommonDictionaryModel
+                        {
+                            Id = dictionaryModel.Id,
+                            Name = ChartHelpers.GetSmileyLabel(dictionaryModel.Name),
+                            Description = dictionaryModel.Description,
+                        });
+                    }
 
                     return new OperationDataResult<List<CommonDictionaryModel>>(
                         true,
-                        answersResult);
+                        result);
                 }
+
+
+                return new OperationDataResult<List<CommonDictionaryModel>>(
+                    true,
+                    answersResult);
             }
-            catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-                _logger.LogError(e.Message);
-                return new OperationDataResult<List<CommonDictionaryModel>>(false,
-                    _localizationService.GetString("ErrorWhileObtainingAnswers"));
-            }
+        }
+        catch (Exception e)
+        {
+            Trace.TraceError(e.Message);
+            _logger.LogError(e.Message);
+            return new OperationDataResult<List<CommonDictionaryModel>>(false,
+                _localizationService.GetString("ErrorWhileObtainingAnswers"));
         }
     }
 }

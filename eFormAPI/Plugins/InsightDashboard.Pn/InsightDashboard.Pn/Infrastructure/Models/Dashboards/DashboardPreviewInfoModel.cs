@@ -22,15 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
-{
-    public class DashboardPreviewInfoModel
-    {
-        public int DashboardId { get; set; }
-        public int? LocationId { get; set; }
-        public int? TagId { get; set; }
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards;
 
-        public DashboardEditAnswerDates AnswerDates { get; set; }
-            = new DashboardEditAnswerDates();
-    }
+public class DashboardPreviewInfoModel
+{
+    public int DashboardId { get; set; }
+    public int? LocationId { get; set; }
+    public int? TagId { get; set; }
+
+    public DashboardEditAnswerDates AnswerDates { get; set; }
+        = new DashboardEditAnswerDates();
 }

@@ -22,15 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Services.Common.InsightDashboardPnSettingsService
-{
-    using System.Threading.Tasks;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-    using Microting.InsightDashboardBase.Infrastructure.Models;
+namespace InsightDashboard.Pn.Services.Common.InsightDashboardPnSettingsService;
 
-    public interface IInsightDashboardPnSettingsService
-    {
-        Task<OperationDataResult<InsightDashboardBaseSettings>> GetSettings();
-        Task<OperationResult> UpdateSettings(InsightDashboardBaseSettings baseSettings);
-    }
+using System.Threading.Tasks;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using Microting.InsightDashboardBase.Infrastructure.Models;
+
+public interface IInsightDashboardPnSettingsService
+{
+    Task<OperationDataResult<InsightDashboardBaseSettings>> GetSettings();
+    Task<OperationResult> UpdateSettings(InsightDashboardBaseSettings baseSettings);
 }

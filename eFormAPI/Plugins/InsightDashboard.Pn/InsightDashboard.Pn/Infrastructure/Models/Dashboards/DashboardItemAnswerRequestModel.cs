@@ -22,10 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards;
+
+public class DashboardItemAnswerRequestModel
 {
-    public class DashboardItemAnswerRequestModel
-    {
-        public int? FilterQuestionId { get; set; }
-    }
+    public int? FilterQuestionId { get; set; }
 }

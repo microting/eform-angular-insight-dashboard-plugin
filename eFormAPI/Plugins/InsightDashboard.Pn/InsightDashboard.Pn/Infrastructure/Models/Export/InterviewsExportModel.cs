@@ -21,18 +21,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace InsightDashboard.Pn.Infrastructure.Models.Export
-{
-    using System;
+namespace InsightDashboard.Pn.Infrastructure.Models.Export;
 
-    public class InterviewsExportModel
-    {
-        public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public string Question { get; set; }
-        public string FilterQuestion { get; set; }
-        public string FilterAnswer { get; set; }
-        public string Tag { get; set; }
-        public string Comments { get; set; }
-    }
+using System;
+
+public class InterviewsExportModel
+{
+    public int Id { get; set; }
+    public DateTime Date { get; set; }
+    public string Question { get; set; }
+    public string FilterQuestion { get; set; }
+    public string FilterAnswer { get; set; }
+    public string Tag { get; set; }
+    public string Comments { get; set; }
 }

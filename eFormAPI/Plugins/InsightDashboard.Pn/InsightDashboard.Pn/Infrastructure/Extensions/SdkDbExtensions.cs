@@ -21,22 +21,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace InsightDashboard.Pn.Infrastructure.Extensions
+namespace InsightDashboard.Pn.Infrastructure.Extensions;
+
+using Microting.eForm.Infrastructure.Data.Entities;
+
+public static class SdkDbExtensions
 {
-    using Microting.eForm.Infrastructure.Data.Entities;
-
-    public static class SdkDbExtensions
+    public static string GetQuestionType(this Question questions)
     {
-        public static string GetQuestionType(this Question questions)
+        var isSmiley = questions.IsSmiley();
+
+        if (isSmiley)
         {
-            var isSmiley = questions.IsSmiley();
-
-            if (isSmiley)
-            {
-                return "smiley";
-            }
-
-            return questions.QuestionType;
+            return "smiley";
         }
+
+        return questions.QuestionType;
     }
 }

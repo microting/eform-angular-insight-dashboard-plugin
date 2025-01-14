@@ -22,62 +22,61 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Test.Helpers
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
-    using Microting.eForm.Infrastructure;
-    using Microting.eForm.Infrastructure.Data.Entities;
+namespace InsightDashboard.Pn.Test.Helpers;
 
-    public static class DatabaseHelper
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microting.eForm.Infrastructure;
+using Microting.eForm.Infrastructure.Data.Entities;
+
+public static class DatabaseHelper
+{
+    public static async Task AddTotalTag(MicrotingDbContext dbContext)
     {
-        public static async Task AddTotalTag(MicrotingDbContext dbContext)
-        {
-            if (!await dbContext.Tags.AnyAsync(
+        if (!await dbContext.Tags.AnyAsync(
                 x => x.Name == "Total"
                      && x.Id == 1))
+        {
+            var tag = new Tag()
             {
-                var tag = new Tag()
-                {
-                    Name = "Total",
-                };
-
-                await tag.Create(dbContext);
-            }
-
-            var locations = new List<SiteTag>()
-            {
-                new SiteTag()
-                {
-                    SiteId = 1,
-                    TagId = 1,
-                },
-                new SiteTag()
-                {
-                    SiteId = 2,
-                    TagId = 1,
-                },
-                new SiteTag()
-                {
-                    SiteId = 3,
-                    TagId = 1,
-                },
-                new SiteTag()
-                {
-                    SiteId = 4,
-                    TagId = 1,
-                },
+                Name = "Total",
             };
 
-            foreach (var siteTag in locations)
+            await tag.Create(dbContext);
+        }
+
+        var locations = new List<SiteTag>()
+        {
+            new SiteTag()
             {
-                if (!await dbContext.SiteTags.AnyAsync(
+                SiteId = 1,
+                TagId = 1,
+            },
+            new SiteTag()
+            {
+                SiteId = 2,
+                TagId = 1,
+            },
+            new SiteTag()
+            {
+                SiteId = 3,
+                TagId = 1,
+            },
+            new SiteTag()
+            {
+                SiteId = 4,
+                TagId = 1,
+            },
+        };
+
+        foreach (var siteTag in locations)
+        {
+            if (!await dbContext.SiteTags.AnyAsync(
                     x => x.SiteId == siteTag.SiteId
                          && x.TagId == siteTag.TagId))
-                {
-                    await siteTag.Create(dbContext);
-                }
+            {
+                await siteTag.Create(dbContext);
             }
         }
     }

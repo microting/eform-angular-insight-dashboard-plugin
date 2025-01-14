@@ -22,35 +22,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards;
+
+using System.Collections.Generic;
+using Microting.InsightDashboardBase.Infrastructure.Enums;
+
+public class DashboardItemViewModel
 {
-    using System.Collections.Generic;
-    using Microting.InsightDashboardBase.Infrastructure.Enums;
+    public int Id { get; set; }
+    public string FirstQuestionName { get; set; }
+    public string FirstQuestionType { get; set; }
+    public string FilterQuestionName { get; set; }
+    public string FilterAnswerName { get; set; }
+    public int FirstQuestionId { get; set; }
+    public int? FilterQuestionId { get; set; }
+    public int? FilterAnswerId { get; set; }
+    public DashboardPeriodUnits Period { get; set; }
+    public DashboardChartTypes ChartType { get; set; }
+    public bool CompareEnabled { get; set; }
+    public bool CalculateAverage { get; set; }
+    public int Position { get; set; }
 
-    public class DashboardItemViewModel
-    {
-        public int Id { get; set; }
-        public string FirstQuestionName { get; set; }
-        public string FirstQuestionType { get; set; }
-        public string FilterQuestionName { get; set; }
-        public string FilterAnswerName { get; set; }
-        public int FirstQuestionId { get; set; }
-        public int? FilterQuestionId { get; set; }
-        public int? FilterAnswerId { get; set; }
-        public DashboardPeriodUnits Period { get; set; }
-        public DashboardChartTypes ChartType { get; set; }
-        public bool CompareEnabled { get; set; }
-        public bool CalculateAverage { get; set; }
-        public int Position { get; set; }
+    public DashboardViewChartDataModel ChartData { get; set; }
+        = new DashboardViewChartDataModel();
+    public List<DashboardItemCompareModel> CompareLocationsTags { get; set; }
+        = new List<DashboardItemCompareModel>();
+    public List<DashboardItemIgnoredAnswerModel> IgnoredAnswerValues { get; set; }
+        = new List<DashboardItemIgnoredAnswerModel>();
 
-        public DashboardViewChartDataModel ChartData { get; set; }
-            = new DashboardViewChartDataModel();
-        public List<DashboardItemCompareModel> CompareLocationsTags { get; set; }
-            = new List<DashboardItemCompareModel>();
-        public List<DashboardItemIgnoredAnswerModel> IgnoredAnswerValues { get; set; }
-            = new List<DashboardItemIgnoredAnswerModel>();
-
-        public List<DashboardItemTextQuestionDataModel> TextQuestionData { get; set; }
-            = new List<DashboardItemTextQuestionDataModel>();
-    }
+    public List<DashboardItemTextQuestionDataModel> TextQuestionData { get; set; }
+        = new List<DashboardItemTextQuestionDataModel>();
 }

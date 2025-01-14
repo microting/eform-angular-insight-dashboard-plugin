@@ -22,17 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Test.Base
-{
-    using NUnit.Framework;
+namespace InsightDashboard.Pn.Test.Base;
 
-    [TestFixture]
-    public class CanaryInAColeMine
+using NUnit.Framework;
+
+[TestFixture]
+public class CanaryInAColeMine
+{
+    [Test]
+    public void CanPeep()
     {
-        [Test]
-        public void CanPeep()
-        {
-            Assert.True(true);
-        }
+        Assert.That(true);
     }
 }

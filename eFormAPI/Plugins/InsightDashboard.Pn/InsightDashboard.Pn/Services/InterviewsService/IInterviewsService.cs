@@ -21,15 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace InsightDashboard.Pn.Services.InterviewsService
-{
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Export;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+namespace InsightDashboard.Pn.Services.InterviewsService;
 
-    public interface IInterviewsService
-    {
-        Task<OperationDataResult<FileStreamModel>> GenerateFile(
-            DashboardItemExportRequestModel requestModel);
-    }
+using System.Threading.Tasks;
+using Infrastructure.Models.Export;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+
+public interface IInterviewsService
+{
+    Task<OperationDataResult<FileStreamModel>> GenerateFile(
+        DashboardItemExportRequestModel requestModel);
 }

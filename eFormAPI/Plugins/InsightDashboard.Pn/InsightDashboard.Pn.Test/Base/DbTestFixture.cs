@@ -22,114 +22,113 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Test.Base
+namespace InsightDashboard.Pn.Test.Base;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
+using Microting.eForm.Infrastructure;
+using NUnit.Framework;
+
+[TestFixture]
+public abstract class DbTestFixture
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Runtime.InteropServices;
-    using Microsoft.EntityFrameworkCore;
-    using Microting.eForm.Infrastructure;
-    using NUnit.Framework;
+    protected MicrotingDbContext DbContext;
+    private string _connectionString;
+    private string _path;
 
-    [TestFixture]
-    public abstract class DbTestFixture
+    private void GetContext(string connectionStr)
     {
-        protected MicrotingDbContext DbContext;
-        private string _connectionString;
-        private string _path;
+        var contextFactory = new MicrotingDbContextFactory();
+        DbContext = contextFactory.CreateDbContext(new[] { connectionStr });
 
-        private void GetContext(string connectionStr)
-        {
-            var contextFactory = new MicrotingDbContextFactory();
-            DbContext = contextFactory.CreateDbContext(new[] { connectionStr });
+        DbContext.Database.Migrate();
+        DbContext.Database.EnsureCreated();
+    }
 
-            DbContext.Database.Migrate();
-            DbContext.Database.EnsureCreated();
-        }
+    [SetUp]
+    public void Setup()
+    {
+        _connectionString = @"Server = localhost; port = 3306; Database = 420_SDK; user = root; password=secretpassword; Convert Zero Datetime = true;";
 
-        [SetUp]
-        public void Setup()
-        {
-            _connectionString = @"Server = localhost; port = 3306; Database = 420_SDK; user = root; password=secretpassword; Convert Zero Datetime = true;";
+        GetContext(_connectionString);
 
-            GetContext(_connectionString);
+        DbContext.Database.SetCommandTimeout(300);
 
-            DbContext.Database.SetCommandTimeout(300);
-
-            try
-            {
-                ClearDb();
-            }
-            catch
-            {
-                DbContext.Database.Migrate();
-            }
-            DoSetup();
-        }
-
-        [TearDown]
-        public void TearDown()
+        try
         {
             ClearDb();
-
-            ClearFile();
-
-            DbContext.Dispose();
         }
-
-        private void ClearDb()
+        catch
         {
-            var modelNames = new List<string>();
-
-            bool firstRunNotDone = true;
-
-            foreach (var modelName in modelNames)
-            {
-                try
-                {
-                    if (firstRunNotDone)
-                    {
-                        DbContext.Database.ExecuteSqlRaw(
-                            $"SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `insight-dashboard-base-tests`.`{modelName}`");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.Message == "Unknown database 'insight-dashboard-base-tests'")
-                    {
-                        firstRunNotDone = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                }
-            }
+            DbContext.Database.Migrate();
         }
+        DoSetup();
+    }
 
-        private void ClearFile()
+    [TearDown]
+    public void TearDown()
+    {
+        ClearDb();
+
+        ClearFile();
+
+        DbContext.Dispose();
+    }
+
+    private void ClearDb()
+    {
+        var modelNames = new List<string>();
+
+        bool firstRunNotDone = true;
+
+        foreach (var modelName in modelNames)
         {
-            _path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-            _path = Path.GetDirectoryName(_path)?.Replace(@"file:\", "");
-
-            string picturePath = _path + @"\output\dataFolder\picture\Deleted";
-
-            DirectoryInfo diPic = new DirectoryInfo(picturePath);
-
             try
             {
-                foreach (FileInfo file in diPic.GetFiles())
+                if (firstRunNotDone)
                 {
-                    file.Delete();
+                    DbContext.Database.ExecuteSqlRaw(
+                        $"SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `insight-dashboard-base-tests`.`{modelName}`");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // ignored
+                if (ex.Message == "Unknown database 'insight-dashboard-base-tests'")
+                {
+                    firstRunNotDone = false;
+                }
+                else
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
-
-        protected virtual void DoSetup() { }
     }
+
+    private void ClearFile()
+    {
+        _path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+        _path = Path.GetDirectoryName(_path)?.Replace(@"file:\", "");
+
+        string picturePath = _path + @"\output\dataFolder\picture\Deleted";
+
+        DirectoryInfo diPic = new DirectoryInfo(picturePath);
+
+        try
+        {
+            foreach (FileInfo file in diPic.GetFiles())
+            {
+                file.Delete();
+            }
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    protected virtual void DoSetup() { }
 }

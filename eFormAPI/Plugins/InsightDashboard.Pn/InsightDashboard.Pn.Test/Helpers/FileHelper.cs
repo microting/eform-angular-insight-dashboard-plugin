@@ -22,26 +22,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Test.Helpers
+namespace InsightDashboard.Pn.Test.Helpers;
+
+using System;
+using System.IO;
+using System.Reflection;
+
+public static class FileHelper
 {
-    using System;
-    using System.IO;
-    using System.Reflection;
-
-    public static class FileHelper
+    public static string ReadFileFromResources(string fileName)
     {
-        public static string ReadFileFromResources(string fileName)
+        var resourceString = $"InsightDashboard.Pn.Test.Data.{fileName}.json";
+        var assembly = Assembly.GetExecutingAssembly();
+        var resourceStream = assembly.GetManifestResourceStream(resourceString);
+        string text;
+        using (var reader = new StreamReader(resourceStream ?? throw new InvalidOperationException($"{nameof(resourceStream)} is null")))
         {
-            var resourceString = $"InsightDashboard.Pn.Test.Data.{fileName}.json";
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceStream = assembly.GetManifestResourceStream(resourceString);
-            string text;
-            using (var reader = new StreamReader(resourceStream ?? throw new InvalidOperationException($"{nameof(resourceStream)} is null")))
-            {
-                text = reader.ReadToEnd();
-            }
-
-            return text;
+            text = reader.ReadToEnd();
         }
+
+        return text;
     }
 }

@@ -22,11 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Surveys
+namespace InsightDashboard.Pn.Infrastructure.Models.Surveys;
+
+public class SurveyConfigUpdateStatusModel
 {
-    public class SurveyConfigUpdateStatusModel
-    {
-        public int Id { get; set; }
-        public bool IsActive { get; set; }
-    }
+    public int Id { get; set; }
+    public bool IsActive { get; set; }
 }

@@ -22,54 +22,53 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Data.Seed
+namespace InsightDashboard.Pn.Infrastructure.Data.Seed;
+
+using System;
+using System.Linq;
+using Data;
+using Microting.eForm.Infrastructure.Constants;
+using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
+using Microting.InsightDashboardBase.Infrastructure.Data;
+
+public class InsightDashboardPluginSeed
 {
-    using System;
-    using System.Linq;
-    using Data;
-    using Microting.eForm.Infrastructure.Constants;
-    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
-    using Microting.InsightDashboardBase.Infrastructure.Data;
-
-    public class InsightDashboardPluginSeed
+    public static void SeedData(InsightDashboardPnDbContext dbContext)
     {
-        public static void SeedData(InsightDashboardPnDbContext dbContext)
+        var configurationSeedData = new InsightDashboardConfigurationSeedData();
+        foreach (var configurationItem in configurationSeedData.Data)
         {
-            var configurationSeedData = new InsightDashboardConfigurationSeedData();
-            foreach (var configurationItem in configurationSeedData.Data)
+            if (!dbContext.PluginConfigurationValues.Any(x => x.Name == configurationItem.Name))
             {
-                if (!dbContext.PluginConfigurationValues.Any(x => x.Name == configurationItem.Name))
+                var newConfigValue = new PluginConfigurationValue()
                 {
-                    var newConfigValue = new PluginConfigurationValue()
-                    {
-                        Name = configurationItem.Name,
-                        Value = configurationItem.Value,
-                        CreatedAt = DateTime.UtcNow,
-                        Version = 1,
-                        WorkflowState = Constants.WorkflowStates.Created,
-                        CreatedByUserId = 1
-                    };
-                    dbContext.PluginConfigurationValues.Add(newConfigValue);
-                    dbContext.SaveChanges();
-                }
+                    Name = configurationItem.Name,
+                    Value = configurationItem.Value,
+                    CreatedAt = DateTime.UtcNow,
+                    Version = 1,
+                    WorkflowState = Constants.WorkflowStates.Created,
+                    CreatedByUserId = 1
+                };
+                dbContext.PluginConfigurationValues.Add(newConfigValue);
+                dbContext.SaveChanges();
             }
-
-            // Seed plugin permissions
-            var newPermissions = InsightDashboardPermissionsSeedData.Data
-                .Where(p => dbContext.PluginPermissions.All(x => x.ClaimName != p.ClaimName))
-                .Select(p => new PluginPermission
-                    {
-                        PermissionName = p.PermissionName,
-                        ClaimName = p.ClaimName,
-                        CreatedAt = DateTime.UtcNow,
-                        Version = 1,
-                        WorkflowState = Constants.WorkflowStates.Created,
-                        CreatedByUserId = 1
-                    }
-                );
-            dbContext.PluginPermissions.AddRange(newPermissions);
-
-            dbContext.SaveChanges();
         }
+
+        // Seed plugin permissions
+        var newPermissions = InsightDashboardPermissionsSeedData.Data
+            .Where(p => dbContext.PluginPermissions.All(x => x.ClaimName != p.ClaimName))
+            .Select(p => new PluginPermission
+                {
+                    PermissionName = p.PermissionName,
+                    ClaimName = p.ClaimName,
+                    CreatedAt = DateTime.UtcNow,
+                    Version = 1,
+                    WorkflowState = Constants.WorkflowStates.Created,
+                    CreatedByUserId = 1
+                }
+            );
+        dbContext.PluginPermissions.AddRange(newPermissions);
+
+        dbContext.SaveChanges();
     }
 }

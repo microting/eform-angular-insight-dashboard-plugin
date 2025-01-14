@@ -22,13 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Answers
+namespace InsightDashboard.Pn.Infrastructure.Models.Answers;
+
+public class AnswerValueTranslationModel
 {
-    public class AnswerValueTranslationModel
-    {
-        public int LanguageId { get; set; }
-        public string Value { set; get; }
-        public string LanguageName { get; set; }
-        public string Question { get; set; }
-    }
+    public int LanguageId { get; set; }
+    public string Value { set; get; }
+    public string LanguageName { get; set; }
+    public string Question { get; set; }
 }

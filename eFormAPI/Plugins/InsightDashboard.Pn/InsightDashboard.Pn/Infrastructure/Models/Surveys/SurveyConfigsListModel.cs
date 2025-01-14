@@ -22,18 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Surveys
+namespace InsightDashboard.Pn.Infrastructure.Models.Surveys;
+
+using System.Collections.Generic;
+
+public class SurveyConfigsListModel
 {
-    using System.Collections.Generic;
+    public int Total { get; set; }
+    public List<SurveyConfigModel> Entities { get; set; }
 
-    public class SurveyConfigsListModel
+    public SurveyConfigsListModel()
     {
-        public int Total { get; set; }
-        public List<SurveyConfigModel> Entities { get; set; }
-
-        public SurveyConfigsListModel()
-        {
-            Entities = new List<SurveyConfigModel>();
-        }
+        Entities = new List<SurveyConfigModel>();
     }
 }

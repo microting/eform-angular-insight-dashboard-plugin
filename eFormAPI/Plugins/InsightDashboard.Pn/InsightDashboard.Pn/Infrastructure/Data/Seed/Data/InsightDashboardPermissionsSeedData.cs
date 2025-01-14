@@ -22,20 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Data.Seed.Data
-{
-    using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
-    using Microting.InsightDashboardBase.Infrastructure.Consts;
+namespace InsightDashboard.Pn.Infrastructure.Data.Seed.Data;
 
-    public static class InsightDashboardPermissionsSeedData
+using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
+using Microting.InsightDashboardBase.Infrastructure.Consts;
+
+public static class InsightDashboardPermissionsSeedData
+{
+    public static PluginPermission[] Data => new []
     {
-        public static PluginPermission[] Data => new []
+        new PluginPermission()
         {
-            new PluginPermission()
-            {
-                PermissionName = "Access Insight Dashboard Plugin",
-                ClaimName = InsightDashboardClaims.AccessInsightDashboardPlugin,
-            },
-        };
-    }
+            PermissionName = "Access Insight Dashboard Plugin",
+            ClaimName = InsightDashboardClaims.AccessInsightDashboardPlugin,
+        },
+    };
 }

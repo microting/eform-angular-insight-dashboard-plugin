@@ -22,57 +22,56 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Test
+namespace InsightDashboard.Pn.Test;
+
+using System;
+using System.Globalization;
+using System.Threading.Tasks;
+using Base;
+using Helpers;
+using Infrastructure.Helpers;
+using NUnit.Framework;
+
+[TestFixture]
+public class ChartDataUTests : DbTestFixture
 {
-    using System;
-    using System.Globalization;
-    using System.Threading.Tasks;
-    using Base;
-    using Helpers;
-    using Infrastructure.Helpers;
-    using NUnit.Framework;
-
-    [TestFixture]
-    public class ChartDataUTests : DbTestFixture
+    /// <summary>
+    /// Raw chart data calculate correct.
+    /// </summary>
+    [Test]
+    public async Task ChartData_Calculate_Correct()
     {
-        /// <summary>
-        /// Raw chart data calculate correct.
-        /// </summary>
-        [Test]
-        public async Task ChartData_Calculate_Correct()
+        // Settings
+        CultureInfo.CurrentCulture = new CultureInfo("da");
+
+        // Add total tag
+        await DatabaseHelper.AddTotalTag(DbContext);
+
+        // Arrange
+        var localizationService = MockHelper.GetLocalizationService();
+        var dashboardViews = DashboardHelpers.GetChartDataDashBoards();
+
+        foreach (var (key, value) in dashboardViews)
         {
-            // Settings
-            CultureInfo.CurrentCulture = new CultureInfo("da");
+            Console.WriteLine($"Check template: {value}");
 
-            // Add total tag
-            await DatabaseHelper.AddTotalTag(DbContext);
-
-            // Arrange
-            var localizationService = MockHelper.GetLocalizationService();
-            var dashboardViews = DashboardHelpers.GetChartDataDashBoards();
-
-            foreach (var (key, value) in dashboardViews)
+            // Act
+            foreach (var itemViewModel in key.Items)
             {
-                Console.WriteLine($"Check template: {value}");
+                var newItemViewModel = DashboardHelpers.CopyDashboardItem(itemViewModel);
+                var dashboardItem = DashboardHelpers.GetDashboardItemFromModel(itemViewModel);
 
-                // Act
-                foreach (var itemViewModel in key.Items)
-                {
-                    var newItemViewModel = DashboardHelpers.CopyDashboardItem(itemViewModel);
-                    var dashboardItem = DashboardHelpers.GetDashboardItemFromModel(itemViewModel);
+                await ChartDataHelpers.CalculateDashboardItem(
+                    newItemViewModel,
+                    DbContext,
+                    dashboardItem,
+                    localizationService,
+                    key.LocationId,
+                    key.TagId,
+                    key.SurveyId,
+                    key.AnswerDates);
 
-                    await ChartDataHelpers.CalculateDashboardItem(
-                        newItemViewModel,
-                        DbContext,
-                        dashboardItem,
-                        localizationService,
-                        key.LocationId,
-                        key.TagId,
-                        key.SurveyId,
-                        key.AnswerDates);
-
-                    DashboardHelpers.CheckData(itemViewModel, newItemViewModel, key, value);
-                }
+                DashboardHelpers.CheckData(itemViewModel, newItemViewModel, key, value);
             }
         }
     }

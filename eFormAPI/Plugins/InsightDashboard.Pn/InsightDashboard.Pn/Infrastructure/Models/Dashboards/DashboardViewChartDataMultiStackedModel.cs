@@ -21,18 +21,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards
+namespace InsightDashboard.Pn.Infrastructure.Models.Dashboards;
+
+using System.Collections.Generic;
+
+public class DashboardViewChartDataMultiStackedModel
 {
-    using System.Collections.Generic;
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public bool IsTag { get; set; }
 
-    public class DashboardViewChartDataMultiStackedModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool IsTag { get; set; }
-
-        public List<DashboardViewChartDataMultiModel> Series { get; set; }
-            = new List<DashboardViewChartDataMultiModel>();
-    }
-
+    public List<DashboardViewChartDataMultiModel> Series { get; set; }
+        = new List<DashboardViewChartDataMultiModel>();
 }

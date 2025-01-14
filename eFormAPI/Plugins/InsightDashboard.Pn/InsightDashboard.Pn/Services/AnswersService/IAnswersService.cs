@@ -23,15 +23,14 @@ SOFTWARE.
 */
 
 
-namespace InsightDashboard.Pn.Services.AnswersService
-{
-    using System.Threading.Tasks;
-    using Infrastructure.Models.Answers;
-    using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+namespace InsightDashboard.Pn.Services.AnswersService;
 
-    public interface IAnswersService
-    {
-        Task<OperationDataResult<AnswerViewModel>> GetAnswerByMicrotingUid(int microtingUid);
-        Task<OperationResult> DeleteAnswerByMicrotingUid(int microtingUid);
-    }
+using System.Threading.Tasks;
+using Infrastructure.Models.Answers;
+using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+
+public interface IAnswersService
+{
+    Task<OperationDataResult<AnswerViewModel>> GetAnswerByMicrotingUid(int microtingUid);
+    Task<OperationResult> DeleteAnswerByMicrotingUid(int microtingUid);
 }

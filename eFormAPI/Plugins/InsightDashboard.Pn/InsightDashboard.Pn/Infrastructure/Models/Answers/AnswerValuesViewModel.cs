@@ -24,15 +24,14 @@ SOFTWARE.
 
 using System;
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Answers
+namespace InsightDashboard.Pn.Infrastructure.Models.Answers;
+
+using System.Collections.Generic;
+public class AnswerValuesViewModel
 {
-    using System.Collections.Generic;
-    public class AnswerValuesViewModel
-    {
-        public int Id { get; set; }
-        public string Value { get; set; }
-        public string Question { get; set; }
-        public List<AnswerValueTranslationModel> Translations { get; set; }
-            = new List<AnswerValueTranslationModel>();
-    }
+    public int Id { get; set; }
+    public string Value { get; set; }
+    public string Question { get; set; }
+    public List<AnswerValueTranslationModel> Translations { get; set; }
+        = new List<AnswerValueTranslationModel>();
 }

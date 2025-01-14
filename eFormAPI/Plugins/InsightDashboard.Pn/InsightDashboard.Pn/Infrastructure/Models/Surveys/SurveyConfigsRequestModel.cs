@@ -22,16 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Infrastructure.Models.Surveys
-{
-    using Microting.eFormApi.BasePn.Infrastructure.Interfaces;
+namespace InsightDashboard.Pn.Infrastructure.Models.Surveys;
 
-    public class SurveyConfigsRequestModel: ICommonSort, ICommonPagination
-    {
-        public string SearchString { get; set; }
-        public int Offset { get; set; }
-        public int PageSize { get; set; }
-        public string Sort { get; set; }
-        public bool IsSortDsc { get; set; }
-    }
+using Microting.eFormApi.BasePn.Infrastructure.Interfaces;
+
+public class SurveyConfigsRequestModel: ICommonSort, ICommonPagination
+{
+    public string SearchString { get; set; }
+    public int Offset { get; set; }
+    public int PageSize { get; set; }
+    public string Sort { get; set; }
+    public bool IsSortDsc { get; set; }
 }

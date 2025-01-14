@@ -22,18 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace InsightDashboard.Pn.Test.Helpers
+namespace InsightDashboard.Pn.Test.Helpers;
+
+using Microting.eFormApi.BasePn.Localization;
+using Services.Common.InsightDashboardLocalizationService;
+
+public static class MockHelper
 {
-    using Microting.eFormApi.BasePn.Localization;
-    using Services.Common.InsightDashboardLocalizationService;
-
-    public static class MockHelper
+    public static IInsightDashboardLocalizationService GetLocalizationService()
     {
-        public static IInsightDashboardLocalizationService GetLocalizationService()
-        {
-            var localizationServiceMock = new InsightDashboardLocalizationService(new JsonStringLocalizerFactory());
+        var localizationServiceMock = new InsightDashboardLocalizationService(new JsonStringLocalizerFactory());
 
-            return localizationServiceMock;
-        }
+        return localizationServiceMock;
     }
 }

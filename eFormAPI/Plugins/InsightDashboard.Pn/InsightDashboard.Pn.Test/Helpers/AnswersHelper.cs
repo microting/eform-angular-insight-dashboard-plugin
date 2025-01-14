@@ -29,43 +29,42 @@ using Microsoft.EntityFrameworkCore;
 using Microting.eForm.Infrastructure;
 using Microting.eForm.Infrastructure.Constants;
 
-namespace InsightDashboard.Pn.Test.Helpers
+namespace InsightDashboard.Pn.Test.Helpers;
+
+public class AnswersHelper
 {
-    public class AnswersHelper
+    public static IQueryable<AnswerViewModel> GetAnswerByMicrotingUid(int microtingUid,
+        MicrotingDbContext dbContext)
     {
-        public static IQueryable<AnswerViewModel> GetAnswerByMicrotingUid(int microtingUid,
-            MicrotingDbContext dbContext)
-        {
-            var answersQueryable = dbContext.Answers
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .Where(x => x.MicrotingUid == microtingUid)
-                .AsNoTracking()
-                .AsQueryable()
-                .Select(answers => new AnswerViewModel()
-                {
-                    MicrotingUid = (int)answers.MicrotingUid,
-                    Id = answers.Id,
-                    AnswerValues = dbContext.AnswerValues
-                        .Where(answerValues => answerValues.AnswerId == answers.Id)
-                        .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                        .AsQueryable()
-                        .Select(a => new AnswerValuesViewModel()
-                        {
-                            Value = a.Value,
-                            Id = a.Id,
-                            Translations = dbContext.OptionTranslations
-                                .Where(x => x.OptionId == a.OptionId)
-                                .AsQueryable()
-                                .Select(translations => new AnswerValueTranslationModel()
-                                {
-                                    Value = translations.Name,
-                                    LanguageId = translations.LanguageId,
-                                    LanguageName = dbContext.Languages
-                                        .FirstOrDefault(x => x.Id == translations.LanguageId).Name
-                                }).ToList()
-                        }).ToList()
-                });
-            return answersQueryable;
-        }
+        var answersQueryable = dbContext.Answers
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.MicrotingUid == microtingUid)
+            .AsNoTracking()
+            .AsQueryable()
+            .Select(answers => new AnswerViewModel()
+            {
+                MicrotingUid = (int)answers.MicrotingUid,
+                Id = answers.Id,
+                AnswerValues = dbContext.AnswerValues
+                    .Where(answerValues => answerValues.AnswerId == answers.Id)
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .AsQueryable()
+                    .Select(a => new AnswerValuesViewModel()
+                    {
+                        Value = a.Value,
+                        Id = a.Id,
+                        Translations = dbContext.OptionTranslations
+                            .Where(x => x.OptionId == a.OptionId)
+                            .AsQueryable()
+                            .Select(translations => new AnswerValueTranslationModel()
+                            {
+                                Value = translations.Name,
+                                LanguageId = translations.LanguageId,
+                                LanguageName = dbContext.Languages
+                                    .FirstOrDefault(x => x.Id == translations.LanguageId).Name
+                            }).ToList()
+                    }).ToList()
+            });
+        return answersQueryable;
     }
 }
