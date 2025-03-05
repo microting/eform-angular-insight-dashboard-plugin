@@ -18,7 +18,7 @@
   <ItemGroup>
     <PackageReference Include="HtmlToOpenXml.dll" Version="3.2.2" />
     <PackageReference Include="Microting.eForm" Version="9.0.20" />
-    <PackageReference Include="Microting.eFormApi.BasePn" Version="9.0.19" />
+    <PackageReference Include="Microting.eFormApi.BasePn" Version="9.0.20" />
     <PackageReference Include="Microting.InsightDashboardBase" Version="8.0.81" />
   </ItemGroup>
 
