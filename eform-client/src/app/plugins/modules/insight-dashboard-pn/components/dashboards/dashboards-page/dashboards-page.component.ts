@@ -73,40 +73,8 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     {
       header: this.translateService.stream('Actions'),
       field: 'actions',
-      type: 'button',
-      buttons: [
-        {
-          type: 'icon',
-          icon: 'visibility',
-          tooltip: this.translateService.stream('View Dashboard'),
-          click: (dashboard: DashboardModel) => this.openViewPage(dashboard),
-          class: 'dashboardViewBtn',
-        },
-        {
-          color: 'accent',
-          type: 'icon',
-          icon: 'edit',
-          tooltip: this.translateService.stream('Edit Dashboard'),
-          click: (dashboard: DashboardModel) => this.openEditPage(dashboard),
-          class: 'dashboardEditBtn',
-        },
-        {
-          color: 'accent',
-          type: 'icon',
-          icon: 'content_copy',
-          tooltip: this.translateService.stream('Copy Dashboard'),
-          click: (dashboard: DashboardModel) => this.openCopyModal(dashboard),
-          class: 'dashboardCopyBtn',
-        },
-        {
-          color: 'warn',
-          type: 'icon',
-          icon: 'delete',
-          tooltip: this.translateService.stream('Delete Dashboard'),
-          click: (dashboard: DashboardModel) => this.openDeleteModal(dashboard),
-          class: 'dashboardDeleteBtn',
-        },
-      ]
+      width: '160px',
+      pinned: 'right',
     },
   ];
 

@@ -118,11 +118,17 @@ export class InsightDashboardDashboardsPage extends Page {
   }
 
   async copyDashboard(rowObject: DashboardsPageRowObject) {
+    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    await rowObject.clickActionsMenu(rowNum);
+    await rowObject.dashboardCopyBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardCopyBtn.click();
     await (await this.dashboardCopySaveBtn()).click();
   }
 
   async copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
+    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    await rowObject.clickActionsMenu(rowNum);
+    await rowObject.dashboardCopyBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardCopyBtn.click();
     await (await this.dashboardCopySaveCancelBtn()).click();
   }
@@ -178,28 +184,43 @@ export class DashboardsPageRowObject {
 
 
   async getRow(rowNum: number): Promise<DashboardsPageRowObject> {
-    this.row = (await $$('tbody > tr'))[rowNum - 1];
+    rowNum = rowNum - 1;
+    this.row = (await $$('tbody > tr'))[rowNum];
     if (this.row) {
       try {
         this.id = +await (await this.row.$('.mat-column-id span')).getText();
         this.dashboardName = await (await this.row.$('.mat-column-dashboardName span')).getText();
         // this.locations = (await (await this.row.$('.mat-column-locations')).getText()).split('\n\n');
-        this.dashboardViewBtn = (await this.row.$$('.mat-column-actions button'))[0];
-        this.dashboardEditBtn = (await this.row.$$('.mat-column-actions button'))[1];
-        this.dashboardCopyBtn = (await this.row.$$('.mat-column-actions button'))[2];
-        this.dashboardDeleteBtn = (await this.row.$$('.mat-column-actions button'))[3];
+        this.dashboardViewBtn = await $(`#dashboardViewBtn-${rowNum}`);
+        this.dashboardEditBtn = await $(`#dashboardEditBtn-${rowNum}`);
+        this.dashboardCopyBtn = await $(`#dashboardCopyBtn-${rowNum}`);
+        this.dashboardDeleteBtn = await $(`#dashboardDeleteBtn-${rowNum}`);
       } catch (e) {
       }
     }
     return this;
   }
 
+  async clickActionsMenu(rowNum: number) {
+    await browser.pause(1000);
+    const actionMenu = await $(`#action-items-${rowNum} #actionMenu`);
+    await actionMenu.waitForClickable({ timeout: 40000 });
+    await actionMenu.click();
+    await browser.pause(1000);
+  }
+
   async edit() {
-    await this.dashboardDeleteBtn.click();
+    const rowNum = this.row ? (await $$('tbody > tr')).indexOf(this.row) : 0;
+    await this.clickActionsMenu(rowNum);
+    await this.dashboardEditBtn.waitForClickable({ timeout: 40000 });
+    await this.dashboardEditBtn.click();
     await browser.pause(500);
   }
 
   async delete() {
+    const rowNum = this.row ? (await $$('tbody > tr')).indexOf(this.row) : 0;
+    await this.clickActionsMenu(rowNum);
+    await this.dashboardDeleteBtn.waitForClickable({ timeout: 40000 });
     await this.dashboardDeleteBtn.click();
     await browser.pause(500);
     //await (await dashboardsPage.dashboardDeleteSaveBtn()).waitForClickable();

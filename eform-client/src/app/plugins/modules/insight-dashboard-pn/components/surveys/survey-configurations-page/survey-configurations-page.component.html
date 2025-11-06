@@ -29,6 +29,7 @@
 <mtx-grid
   [data]="surveyConfigurationsListModel?.entities"
   [columns]="tableHeaders"
+  [cellTemplate]="{ actions: actionsTpl }"
   [showPaginator]="true"
   [paginationTemplate]="paginatorTpl"
   [pageOnFront]="false"
@@ -46,4 +47,49 @@
     [pagination]="selectDashboardsPaginationAsPaginationModel$ | async"
     (paginationChanged)="onPaginationChanged($event)"
   ></eform-pagination>
+</ng-template>
+
+<ng-template #actionsTpl let-row let-i="index">
+  <div class="survey-config-actions" id="action-items-{{i}}">
+    <button id="actionMenu" mat-icon-button [matMenuTriggerFor]="menu" matTooltip="{{ 'Actions' | translate }}">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button
+        mat-menu-item
+        id="editSurveyConfigBtn-{{i}}"
+        (click)="openEditModal(row)"
+      >
+        <mat-icon>edit</mat-icon>
+        <span>{{ 'Edit Survey Config' | translate }}</span>
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="!row.isActive"
+        id="surveyConfigStatus-{{i}}"
+        (click)="openStatusModal(row)"
+      >
+        <mat-icon color="primary">toggle_on</mat-icon>
+        <span>{{ 'Activate Survey config' | translate }}</span>
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="row.isActive"
+        id="surveyConfigStatus-{{i}}"
+        (click)="openStatusModal(row)"
+      >
+        <mat-icon>toggle_off</mat-icon>
+        <span>{{ 'Deactivate Survey config' | translate }}</span>
+      </button>
+      <button
+        mat-menu-item
+        id="surveyConfigDeleteBtn-{{i}}"
+        (click)="openDeleteModal(row)"
+      >
+        <mat-icon color="warn">delete</mat-icon>
+        <span>{{ 'Delete Survey' | translate }}</span>
+      </button>
+    </mat-menu>
+  </div>
 </ng-template>

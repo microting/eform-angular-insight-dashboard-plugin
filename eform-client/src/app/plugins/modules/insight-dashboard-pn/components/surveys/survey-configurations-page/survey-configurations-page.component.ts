@@ -70,43 +70,8 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
     {
       header: this.translateService.stream('Actions'),
       field: 'actions',
-      type: 'button',
-      buttons: [
-        {
-          color: 'accent',
-          type: 'icon',
-          icon: 'edit',
-          tooltip: this.translateService.stream('Edit Survey Config'),
-          click: (surveyConfig: SurveyConfigModel) => this.openEditModal(surveyConfig),
-          class: 'editSurveyConfigBtn',
-        },
-        {
-          color: 'primary',
-          type: 'icon',
-          icon: 'toggle_on',
-          iif: (surveyConfig: SurveyConfigModel) => !surveyConfig.isActive,
-          tooltip: this.translateService.stream('Activate Survey config'),
-          click: (surveyConfig: SurveyConfigModel) => this.openStatusModal(surveyConfig),
-          class: 'surveyConfigStatus',
-        },
-        {
-          color: 'accent',
-          type: 'icon',
-          icon: 'toggle_off',
-          iif: (surveyConfig: SurveyConfigModel) => surveyConfig.isActive,
-          tooltip: this.translateService.stream('Deactivate Survey config'),
-          click: (surveyConfig: SurveyConfigModel) => this.openStatusModal(surveyConfig),
-          class: 'surveyConfigStatus',
-        },
-        {
-          color: 'warn',
-          type: 'icon',
-          icon: 'delete',
-          tooltip: this.translateService.stream('Delete Survey'),
-          click: (surveyConfig: SurveyConfigModel) => this.openDeleteModal(surveyConfig),
-          class: 'surveyConfigDeleteBtn',
-        },
-      ]
+      width: '160px',
+      pinned: 'right',
     },
   ];
 
