@@ -92,6 +92,9 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   async updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
+    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    await rowObject.clickActionsMenu(rowNum);
+    await rowObject.editSurveyConfigBtn.waitForClickable({ timeout: 40000 });
     await rowObject.editSurveyConfigBtn.click();
     await (await this.surveyConfigLocationCheckbox(1)).click();
     await (await this.surveyConfigLocationCheckbox(2)).click();
@@ -100,18 +103,27 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   async updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
+    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    await rowObject.clickActionsMenu(rowNum);
+    await rowObject.editSurveyConfigBtn.waitForClickable({ timeout: 40000 });
     await rowObject.editSurveyConfigBtn.click();
     await (await this.surveyConfigEditCancelBtn()).click();
   }
 
 
   async deleteSurveyConfig(rowObject: SurveysConfigPageRowObject) {
+    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    await rowObject.clickActionsMenu(rowNum);
+    await rowObject.surveyConfigDeleteBtn.waitForClickable({ timeout: 40000 });
     await rowObject.surveyConfigDeleteBtn.click();
     await browser.pause(1000);
     await (await this.surveyConfigDeleteSaveBtn()).click();
   }
 
   async deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
+    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    await rowObject.clickActionsMenu(rowNum);
+    await rowObject.surveyConfigDeleteBtn.waitForClickable({ timeout: 40000 });
     await rowObject.surveyConfigDeleteBtn.click();
     await (await this.surveyConfigDeleteCancelBtn()).click();
   }
@@ -163,18 +175,27 @@ export class SurveysConfigPageRowObject {
   public surveyConfigActivateBtn;
 
   async getRow(rowNum: number): Promise<SurveysConfigPageRowObject> {
-    this.row = (await $$('tbody > tr'))[rowNum - 1];
+    rowNum = rowNum - 1;
+    this.row = (await $$('tbody > tr'))[rowNum];
     if (this.row) {
       try {
         this.id = +await (await this.row.$('.mat-column-id span')).getText();
         this.surveyName = await (await this.row.$('.mat-column-surveyName span')).getText();
         this.locations = (await (await this.row.$('.mat-column-locations')).getText()).split('\n\n');
-        this.editSurveyConfigBtn = await this.row.$$('.mat-column-actions button')[0];
-        this.surveyConfigActivateBtn = await this.row.$$('.mat-column-actions button')[1];
-        this.surveyConfigDeleteBtn = await this.row.$$('.mat-column-actions button')[2];
+        this.editSurveyConfigBtn = await $(`#editSurveyConfigBtn-${rowNum}`);
+        this.surveyConfigActivateBtn = await $(`#surveyConfigStatus-${rowNum}`);
+        this.surveyConfigDeleteBtn = await $(`#surveyConfigDeleteBtn-${rowNum}`);
       } catch (e) {
       }
     }
     return this;
+  }
+
+  async clickActionsMenu(rowNum: number) {
+    await browser.pause(1000);
+    const actionMenu = await $(`#action-items-${rowNum} #actionMenu`);
+    await actionMenu.waitForClickable({ timeout: 40000 });
+    await actionMenu.click();
+    await browser.pause(1000);
   }
 }
