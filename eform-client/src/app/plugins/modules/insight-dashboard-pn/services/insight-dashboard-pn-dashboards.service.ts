@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   OperationDataResult,
@@ -26,7 +26,7 @@ export let DashboardMethods = {
 };
 @Injectable({providedIn: 'root'})
 export class InsightDashboardPnDashboardsService {
-  constructor(private apiBaseService: ApiBaseService) {}
+  private apiBaseService = inject(ApiBaseService);
 
   getAll(
     model: DashboardsRequestModel

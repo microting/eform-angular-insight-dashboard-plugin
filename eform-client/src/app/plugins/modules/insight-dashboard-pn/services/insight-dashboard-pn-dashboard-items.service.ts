@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   DashboardItemExportRequestModel,
@@ -15,7 +15,7 @@ const DashboardItemMethods = {
 };
 @Injectable()
 export class InsightDashboardPnDashboardItemsService {
-  constructor(private apiBaseService: ApiBaseService) {}
+  private apiBaseService = inject(ApiBaseService);
 
   getItemPreview(
     model: DashboardItemPreviewRequestModel

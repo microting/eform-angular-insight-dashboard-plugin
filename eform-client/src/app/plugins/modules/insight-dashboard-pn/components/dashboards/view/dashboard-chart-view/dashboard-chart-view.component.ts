@@ -1,6 +1,6 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, inject, Input, OnDestroy} from '@angular/core';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
-import * as domtoimage from 'dom-to-image';
+import *  as domtoimage from 'dom-to-image';
 import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
 import {Subscription} from 'rxjs';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
@@ -14,6 +14,8 @@ import {selectIsDarkMode} from 'src/app/state/auth/auth.selector';
   styleUrls: ['./dashboard-chart-view.component.scss'],
 })
 export class DashboardChartViewComponent implements OnDestroy {
+  private store = inject(Store);
+
   @Input() chartPosition: number;
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
   darkTHeme: boolean;
@@ -92,11 +94,11 @@ export class DashboardChartViewComponent implements OnDestroy {
     },
   ];
 
-  constructor(store: Store) {
+  constructor() {
     Object.assign(this, {line});
     Object.assign(this, {multi});
     Object.assign(this, {pie});
-    this.getDarkThemeSub$ = store.select(selectIsDarkMode).subscribe(
+    this.getDarkThemeSub$ = this.store.select(selectIsDarkMode).subscribe(
       (isDarkTheme) => {
         this.darkTHeme = isDarkTheme;
       }

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
 import { InsightDashboardPnDashboardItemsService } from '../../../../services';
@@ -14,6 +14,9 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrls: ['./dashboard-interviews-view.component.scss'],
 })
 export class DashboardInterviewsViewComponent implements OnInit, OnDestroy {
+  private translateService = inject(TranslateService);
+  private dashboardItemsService = inject(InsightDashboardPnDashboardItemsService);
+
   @Input() dashboardViewModel: DashboardViewModel = new DashboardViewModel();
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
   exportSub$: Subscription;
@@ -26,11 +29,6 @@ export class DashboardInterviewsViewComponent implements OnInit, OnDestroy {
     {header: this.translateService.stream('Tag'), field: 'locationName'},
     { header: this.translateService.stream('Comments'), field: 'commentary', },
   ]
-
-  constructor(
-    private translateService: TranslateService,
-    private dashboardItemsService: InsightDashboardPnDashboardItemsService
-  ) {}
 
   ngOnInit() {}
 

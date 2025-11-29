@@ -1,7 +1,7 @@
 import {
   Component,
   EventEmitter,
-  Inject,
+  inject,
   OnInit,
 } from '@angular/core';
 import { CommonDictionaryModel } from 'src/app/common/models';
@@ -15,6 +15,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./survey-configuration-edit.component.scss'],
 })
 export class SurveyConfigurationEditComponent implements OnInit {
+  private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);
+  public dialogRef = inject(MatDialogRef<SurveyConfigurationEditComponent>);
+  private model = inject<{surveyConfig: SurveyConfigModel, locations: CommonDictionaryModel[], surveys: CommonDictionaryModel[]}>(MAT_DIALOG_DATA);
+
   locations: CommonDictionaryModel[] = [];
   surveys: CommonDictionaryModel[] = [];
   configUpdated: EventEmitter<void> = new EventEmitter<void>();
@@ -22,22 +26,18 @@ export class SurveyConfigurationEditComponent implements OnInit {
   selectedLocations: number[] = [];
   selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel();
 
-  constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-    public dialogRef: MatDialogRef<SurveyConfigurationEditComponent>,
-    @Inject(MAT_DIALOG_DATA) model: {surveyConfig: SurveyConfigModel, locations: CommonDictionaryModel[], surveys: CommonDictionaryModel[]}
-  ) {
-    this.locations = model.locations;
-    this.surveys = model.surveys;
-    this.selectedSurveyConfig = model.surveyConfig;
+  constructor() {
+    this.locations = this.model.locations;
+    this.surveys = this.model.surveys;
+    this.selectedSurveyConfig = this.model.surveyConfig;
     this.extendedLocations = this.locations.map((x) => {
       return {
         id: x.id,
         name: x.name,
-        isChecked: model.surveyConfig.locations.findIndex((y) => y.id === x.id) > -1,
+        isChecked: this.model.surveyConfig.locations.findIndex((y) => y.id === x.id) > -1,
       };
     });
-    this.selectedLocations = model.surveyConfig.locations.map((x) => x.id);
+    this.selectedLocations = this.model.surveyConfig.locations.map((x) => x.id);
   }
 
   hide(result = false) {

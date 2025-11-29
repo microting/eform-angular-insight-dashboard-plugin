@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {InsightDashboardPnAnswersService} from '../../../services';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Subscription} from 'rxjs';
@@ -15,6 +15,10 @@ import {dialogConfigHelper} from 'src/app/common/helpers';
   styleUrls: ['./answer-page.component.scss'],
 })
 export class AnswerPageComponent implements OnInit, OnDestroy {
+  private answersService = inject(InsightDashboardPnAnswersService);
+  private dialog = inject(MatDialog);
+  private overlay = inject(Overlay);
+
   searchAnswerMicrotingUId: number;
   answer: AnswerModel = new AnswerModel();
   searchAnswerId: string;
@@ -22,13 +26,6 @@ export class AnswerPageComponent implements OnInit, OnDestroy {
   answerSub$: Subscription;
   deleteAnswerSub$: Subscription;
   deleteAnswerModalSub$: Subscription;
-
-  constructor(
-    private answersService: InsightDashboardPnAnswersService,
-    private dialog: MatDialog,
-    private overlay: Overlay,
-  ) {
-  }
 
   ngOnInit(): void {
   }

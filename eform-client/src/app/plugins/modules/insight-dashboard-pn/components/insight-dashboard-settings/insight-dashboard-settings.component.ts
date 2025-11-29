@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { InsightDashboardPnSettingsService } from '../../services';
 import { InsightDashboardBaseSettingsModel } from '../../models';
 
@@ -8,11 +8,9 @@ import { InsightDashboardBaseSettingsModel } from '../../models';
   styleUrls: ['./insight-dashboard-settings.component.scss'],
 })
 export class InsightDashboardSettingsComponent implements OnInit {
-  settingsModel: InsightDashboardBaseSettingsModel = new InsightDashboardBaseSettingsModel();
+  private insightDashboardPnSettingsService = inject(InsightDashboardPnSettingsService);
 
-  constructor(
-    private insightDashboardPnSettingsService: InsightDashboardPnSettingsService
-  ) {}
+  settingsModel: InsightDashboardBaseSettingsModel = new InsightDashboardBaseSettingsModel();
 
   ngOnInit() {
     this.getSettings();

@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  inject,
   OnInit,
 } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
@@ -11,12 +12,9 @@ import {MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./answer-delete-modal.component.scss'],
 })
 export class AnswerDeleteModalComponent implements OnInit {
-  deleteAnswer: EventEmitter<void> = new EventEmitter<void>();
+  public dialogRef = inject(MatDialogRef<AnswerDeleteModalComponent>);
 
-  constructor(
-    public dialogRef: MatDialogRef<AnswerDeleteModalComponent>,
-  ) {
-  }
+  deleteAnswer: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit(): void {
   }

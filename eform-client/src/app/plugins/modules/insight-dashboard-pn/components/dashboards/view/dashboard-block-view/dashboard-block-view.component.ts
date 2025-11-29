@@ -43,9 +43,6 @@ export class DashboardBlockViewComponent implements OnInit {
     return '--';
   }
 
-  constructor() {
-  }
-
   ngOnInit() {
   }
 

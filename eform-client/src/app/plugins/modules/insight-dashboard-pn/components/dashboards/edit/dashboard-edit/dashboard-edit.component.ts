@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
 import {
@@ -25,6 +25,14 @@ import {PARSING_DATE_FORMAT} from 'src/app/common/const';
   styleUrls: ['./dashboard-edit.component.scss'],
 })
 export class DashboardEditComponent implements OnInit, OnDestroy {
+  private dashboardsService = inject(InsightDashboardPnDashboardsService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private dictionaryService = inject(InsightDashboardPnDashboardDictionariesService);
+  private dragulaService = inject(DragulaService);
+  private toastrService = inject(ToastrService);
+  private collapseService = inject(InsightDashboardPnCollapseService);
+
   updateDashboardSub$: Subscription;
   filterQuestionsSub$: Subscription;
   collapseSub$: Subscription;
@@ -37,16 +45,6 @@ export class DashboardEditComponent implements OnInit, OnDestroy {
   isItemsCollapsed = false;
   selectedDashboardId: number;
   dragulaGroupName = 'ITEMS';
-
-  constructor(
-    private dashboardsService: InsightDashboardPnDashboardsService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private dictionaryService: InsightDashboardPnDashboardDictionariesService,
-    private dragulaService: DragulaService,
-    private toastrService: ToastrService,
-    private collapseService: InsightDashboardPnCollapseService
-  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {

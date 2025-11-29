@@ -6,7 +6,5 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-chart-data-edit.component.scss'],
 })
 export class DashboardChartDataEditComponent implements OnInit {
-  constructor() {}
-
   ngOnInit() {}
 }

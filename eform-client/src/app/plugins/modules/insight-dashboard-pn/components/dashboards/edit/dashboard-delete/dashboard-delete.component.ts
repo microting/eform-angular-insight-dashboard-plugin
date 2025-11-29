@@ -1,7 +1,7 @@
 import {
   Component,
   EventEmitter,
-  Inject,
+  inject,
   OnInit
 } from '@angular/core';
 import {DashboardModel} from '../../../../models';
@@ -14,14 +14,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./dashboard-delete.component.scss'],
 })
 export class DashboardDeleteComponent implements OnInit {
-  dashboardDeleted: EventEmitter<void> = new EventEmitter<void>();
+  private dashboardService = inject(InsightDashboardPnDashboardsService);
+  public dialogRef = inject(MatDialogRef<DashboardDeleteComponent>);
+  public dashboard = inject<DashboardModel>(MAT_DIALOG_DATA);
 
-  constructor(
-    private dashboardService: InsightDashboardPnDashboardsService,
-    public dialogRef: MatDialogRef<DashboardDeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public dashboard: DashboardModel = new DashboardModel(),
-  ) {
-  }
+  dashboardDeleted: EventEmitter<void> = new EventEmitter<void>();
 
   hide(result = false) {
     this.dialogRef.close(result);

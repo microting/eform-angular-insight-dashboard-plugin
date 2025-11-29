@@ -1,7 +1,7 @@
 import {
   Component,
   EventEmitter,
-  Inject,
+  inject,
   OnInit,
 } from '@angular/core';
 import { InsightDashboardPnSurveyConfigsService } from '../../../services';
@@ -14,14 +14,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./survey-configuration-status.component.scss'],
 })
 export class SurveyConfigurationStatusComponent implements OnInit {
-  configStatusChanged: EventEmitter<SurveyConfigModel> = new EventEmitter<SurveyConfigModel>();
+  private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);
+  public dialogRef = inject(MatDialogRef<SurveyConfigurationStatusComponent>);
+  public selectedSurveyConfig = inject<SurveyConfigModel>(MAT_DIALOG_DATA);
 
-  constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-    public dialogRef: MatDialogRef<SurveyConfigurationStatusComponent>,
-    @Inject(MAT_DIALOG_DATA) public selectedSurveyConfig: SurveyConfigModel = new SurveyConfigModel(),
-  ) {
-  }
+  configStatusChanged: EventEmitter<SurveyConfigModel> = new EventEmitter<SurveyConfigModel>();
 
   ngOnInit() {}
 
