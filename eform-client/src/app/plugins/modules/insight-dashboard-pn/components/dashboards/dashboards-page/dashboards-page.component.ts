@@ -33,6 +33,7 @@ import {
   selector: 'app-insight-dashboard-dashboards',
   templateUrl: './dashboards-page.component.html',
   styleUrls: ['./dashboards-page.component.scss'],
+  standalone: false,
 })
 export class DashboardsPageComponent implements OnInit, OnDestroy {
   private dictionariesService = inject(InsightDashboardPnDashboardDictionariesService);

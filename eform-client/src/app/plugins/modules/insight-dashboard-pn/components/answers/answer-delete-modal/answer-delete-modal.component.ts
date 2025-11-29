@@ -10,6 +10,7 @@ import {MatDialogRef} from '@angular/material/dialog';
   selector: 'app-answer-delete-modal',
   templateUrl: './answer-delete-modal.component.html',
   styleUrls: ['./answer-delete-modal.component.scss'],
+  standalone: false,
 })
 export class AnswerDeleteModalComponent implements OnInit {
   public dialogRef = inject(MatDialogRef<AnswerDeleteModalComponent>);

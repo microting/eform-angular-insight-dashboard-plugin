@@ -12,6 +12,7 @@ import {selectIsDarkMode} from 'src/app/state/auth/auth.selector';
   selector: 'app-dashboard-chart-data-view',
   templateUrl: './dashboard-chart-data-view.component.html',
   styleUrls: ['./dashboard-chart-data-view.component.scss'],
+  standalone: false,
 })
 export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
   private store = inject(Store);

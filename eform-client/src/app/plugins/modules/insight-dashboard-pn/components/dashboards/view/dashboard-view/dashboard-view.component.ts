@@ -19,6 +19,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   selector: 'app-dashboard-view',
   templateUrl: './dashboard-view.component.html',
   styleUrls: ['./dashboard-view.component.scss'],
+  standalone: false,
 })
 export class DashboardViewComponent implements OnInit, OnDestroy {
   private dashboardsService = inject(InsightDashboardPnDashboardsService);

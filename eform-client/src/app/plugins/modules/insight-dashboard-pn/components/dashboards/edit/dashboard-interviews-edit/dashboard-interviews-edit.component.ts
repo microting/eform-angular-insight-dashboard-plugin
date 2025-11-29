@@ -6,6 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
   selector: 'app-dashboard-interviews-edit',
   templateUrl: './dashboard-interviews-edit.component.html',
   styleUrls: ['./dashboard-interviews-edit.component.scss'],
+  standalone: false,
 })
 export class DashboardInterviewsEditComponent implements OnInit {
   private translateService = inject(TranslateService);

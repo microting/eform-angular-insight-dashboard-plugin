@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
   selector: 'app-answer-values-table',
   templateUrl: './answer-values-table.component.html',
   styleUrls: ['./answer-values-table.component.scss'],
+  standalone: false,
 })
 export class AnswerValuesTableComponent implements OnInit, OnChanges {
   private translateService = inject(TranslateService);

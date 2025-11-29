@@ -16,6 +16,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   selector: 'app-dashboard-new',
   templateUrl: './dashboard-new.component.html',
   styleUrls: ['./dashboard-new.component.scss'],
+  standalone: false,
 })
 export class DashboardNewComponent implements OnInit, OnDestroy {
   private dashboardsService = inject(InsightDashboardPnDashboardsService);

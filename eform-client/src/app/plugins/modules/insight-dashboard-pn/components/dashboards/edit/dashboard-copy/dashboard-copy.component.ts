@@ -12,6 +12,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
   selector: 'app-dashboard-copy',
   templateUrl: './dashboard-copy.component.html',
   styleUrls: ['./dashboard-copy.component.scss'],
+  standalone: false,
 })
 export class DashboardCopyComponent implements OnInit {
   private dashboardService = inject(InsightDashboardPnDashboardsService);

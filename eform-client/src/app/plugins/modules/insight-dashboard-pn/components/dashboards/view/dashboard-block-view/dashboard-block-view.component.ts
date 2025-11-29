@@ -11,6 +11,7 @@ import {format, set} from 'date-fns';
   selector: 'app-dashboard-block-view',
   templateUrl: './dashboard-block-view.component.html',
   styleUrls: ['./dashboard-block-view.component.scss'],
+  standalone: false,
 })
 export class DashboardBlockViewComponent implements OnInit {
   @Input() position: number;

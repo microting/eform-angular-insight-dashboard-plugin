@@ -13,6 +13,7 @@ import {MatCheckboxChange} from '@angular/material/checkbox';
   selector: 'app-survey-configuration-new',
   templateUrl: './survey-configuration-new.component.html',
   styleUrls: ['./survey-configuration-new.component.scss'],
+  standalone: false,
 })
 export class SurveyConfigurationNewComponent implements OnInit {
   private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);

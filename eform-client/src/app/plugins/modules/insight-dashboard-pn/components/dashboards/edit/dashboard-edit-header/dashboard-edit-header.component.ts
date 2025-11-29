@@ -18,6 +18,7 @@ import * as R from 'ramda';
   selector: 'app-dashboard-edit-header',
   templateUrl: './dashboard-edit-header.component.html',
   styleUrls: ['./dashboard-edit-header.component.scss'],
+  standalone: false,
 })
 export class DashboardEditHeaderComponent implements OnInit, OnChanges {
   private authStateService = inject(AuthStateService);

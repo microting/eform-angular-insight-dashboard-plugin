@@ -37,6 +37,7 @@ import {InsightDashboardPnCollapseService} from '../../../../services/insight-da
   selector: 'app-dashboard-item-edit',
   templateUrl: './dashboard-item-edit.component.html',
   styleUrls: ['./dashboard-item-edit.component.scss'],
+  standalone: false,
 })
 export class DashboardItemEditComponent
   implements OnInit, OnDestroy, OnChanges {

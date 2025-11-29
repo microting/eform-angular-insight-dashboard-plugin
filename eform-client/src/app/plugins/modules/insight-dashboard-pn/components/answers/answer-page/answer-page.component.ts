@@ -13,6 +13,7 @@ import {dialogConfigHelper} from 'src/app/common/helpers';
   selector: 'app-answer-page',
   templateUrl: './answer-page.component.html',
   styleUrls: ['./answer-page.component.scss'],
+  standalone: false,
 })
 export class AnswerPageComponent implements OnInit, OnDestroy {
   private answersService = inject(InsightDashboardPnAnswersService);

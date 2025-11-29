@@ -12,6 +12,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   selector: 'app-dashboard-delete',
   templateUrl: './dashboard-delete.component.html',
   styleUrls: ['./dashboard-delete.component.scss'],
+  standalone: false,
 })
 export class DashboardDeleteComponent implements OnInit {
   private dashboardService = inject(InsightDashboardPnDashboardsService);

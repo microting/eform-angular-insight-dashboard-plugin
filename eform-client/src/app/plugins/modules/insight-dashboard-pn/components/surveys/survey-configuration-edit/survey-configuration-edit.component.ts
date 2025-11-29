@@ -13,6 +13,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   selector: 'app-survey-configuration-edit',
   templateUrl: './survey-configuration-edit.component.html',
   styleUrls: ['./survey-configuration-edit.component.scss'],
+  standalone: false,
 })
 export class SurveyConfigurationEditComponent implements OnInit {
   private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);

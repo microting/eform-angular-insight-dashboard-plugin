@@ -11,6 +11,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   selector: 'app-survey-configuration-delete',
   templateUrl: './survey-configuration-delete.component.html',
   styleUrls: ['./survey-configuration-delete.component.scss'],
+  standalone: false,
 })
 export class SurveyConfigurationDeleteComponent {
   private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);

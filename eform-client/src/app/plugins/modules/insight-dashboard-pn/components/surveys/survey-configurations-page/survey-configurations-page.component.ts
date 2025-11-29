@@ -37,6 +37,7 @@ import {Store} from '@ngrx/store';
   selector: 'app-insight-dashboard-surveys',
   templateUrl: './survey-configurations-page.component.html',
   styleUrls: ['./survey-configurations-page.component.scss'],
+  standalone: false,
 })
 export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
   private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);

@@ -23,6 +23,7 @@ import {PARSING_DATE_FORMAT} from 'src/app/common/const';
   selector: 'app-dashboard-edit-configuration',
   templateUrl: './dashboard-edit.component.html',
   styleUrls: ['./dashboard-edit.component.scss'],
+  standalone: false,
 })
 export class DashboardEditComponent implements OnInit, OnDestroy {
   private dashboardsService = inject(InsightDashboardPnDashboardsService);

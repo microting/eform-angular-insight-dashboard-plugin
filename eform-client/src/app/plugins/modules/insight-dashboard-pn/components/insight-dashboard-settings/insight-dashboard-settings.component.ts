@@ -6,6 +6,7 @@ import { InsightDashboardBaseSettingsModel } from '../../models';
   selector: 'app-insight-dashboard-settings',
   templateUrl: './insight-dashboard-settings.component.html',
   styleUrls: ['./insight-dashboard-settings.component.scss'],
+  standalone: false,
 })
 export class InsightDashboardSettingsComponent implements OnInit {
   private insightDashboardPnSettingsService = inject(InsightDashboardPnSettingsService);

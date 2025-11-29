@@ -8,6 +8,7 @@ import {Store} from '@ngrx/store';
 @Component({
   selector: 'app-insight-dashboard-pn-layout',
   template: '<router-outlet></router-outlet>',
+  standalone: false,
 })
 export class InsightDashboardPnLayoutComponent implements AfterContentInit, OnInit, OnDestroy {
   private store = inject(Store);

@@ -13,6 +13,7 @@ import { AuthStateService } from 'src/app/common/store';
   selector: 'app-dashboard-chart-edit',
   templateUrl: './dashboard-chart-edit.component.html',
   styleUrls: ['./dashboard-chart-edit.component.scss'],
+  standalone: false,
 })
 export class DashboardChartEditComponent implements OnChanges {
   public authStateService = inject(AuthStateService);
@@ -62,8 +63,6 @@ export class DashboardChartEditComponent implements OnChanges {
       value: '#0099CC',
     },
   ];
-
-  constructor(public authStateService: AuthStateService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {

@@ -12,6 +12,7 @@ import {TranslateService} from "@ngx-translate/core";
   selector: 'app-dashboard-interviews-view',
   templateUrl: './dashboard-interviews-view.component.html',
   styleUrls: ['./dashboard-interviews-view.component.scss'],
+  standalone: false,
 })
 export class DashboardInterviewsViewComponent implements OnInit, OnDestroy {
   private translateService = inject(TranslateService);
