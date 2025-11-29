@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   OperationDataResult,
@@ -13,7 +13,7 @@ export const InsightDashboardSettingsMethods = {
 
 @Injectable()
 export class InsightDashboardPnSettingsService {
-  constructor(private apiBaseService: ApiBaseService) {}
+  private apiBaseService = inject(ApiBaseService);
 
   getAllSettings(): Observable<OperationDataResult<any>> {
     return this.apiBaseService.get(InsightDashboardSettingsMethods.Settings);

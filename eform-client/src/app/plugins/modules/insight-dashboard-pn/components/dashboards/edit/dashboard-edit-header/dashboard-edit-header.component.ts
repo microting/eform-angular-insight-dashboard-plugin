@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -17,16 +18,18 @@ import * as R from 'ramda';
   selector: 'app-dashboard-edit-header',
   templateUrl: './dashboard-edit-header.component.html',
   styleUrls: ['./dashboard-edit-header.component.scss'],
+  standalone: false,
 })
 export class DashboardEditHeaderComponent implements OnInit, OnChanges {
+  private authStateService = inject(AuthStateService);
+
   @Input() dashboardEditModel: DashboardEditModel = new DashboardEditModel();
   @Input() availableLocationsTags: LabelValueExtendedModel[] = [];
   @Output()
   dashboardChanged: EventEmitter<DashboardEditModel> = new EventEmitter<DashboardEditModel>();
   form: FormGroup;
 
-  constructor(
-    authStateService: AuthStateService) {
+  constructor() {
     this.form = new FormGroup({
       dashboardName: new FormControl(''),
       dateRange: new FormGroup({

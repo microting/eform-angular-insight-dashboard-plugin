@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {MtxGridColumn} from '@ng-matero/extensions/grid';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -6,8 +6,11 @@ import {TranslateService} from '@ngx-translate/core';
   selector: 'app-dashboard-interviews-edit',
   templateUrl: './dashboard-interviews-edit.component.html',
   styleUrls: ['./dashboard-interviews-edit.component.scss'],
+  standalone: false,
 })
 export class DashboardInterviewsEditComponent implements OnInit {
+  private translateService = inject(TranslateService);
+
   tableData = [
     {
       date: new Date(),
@@ -35,9 +38,6 @@ export class DashboardInterviewsEditComponent implements OnInit {
     {header: this.translateService.stream('Tag'), field: 'locationName'},
     {header: this.translateService.stream('Comments'), field: 'commentary'},
   ];
-
-  constructor(private translateService: TranslateService,) {
-  }
 
   ngOnInit() {
   }

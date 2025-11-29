@@ -1,7 +1,7 @@
 import {
   Component,
   EventEmitter,
-  Inject,
+  inject,
 } from '@angular/core';
 import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
 import { InsightDashboardPnSurveyConfigsService } from '../../../services';
@@ -11,15 +11,14 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   selector: 'app-survey-configuration-delete',
   templateUrl: './survey-configuration-delete.component.html',
   styleUrls: ['./survey-configuration-delete.component.scss'],
+  standalone: false,
 })
 export class SurveyConfigurationDeleteComponent {
-  surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
+  private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);
+  public dialogRef = inject(MatDialogRef<SurveyConfigurationDeleteComponent>);
+  public surveyConfig = inject<SurveyConfigModel>(MAT_DIALOG_DATA);
 
-  constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-    public dialogRef: MatDialogRef<SurveyConfigurationDeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public surveyConfig: SurveyConfigModel = new SurveyConfigModel(),
-  ) {}
+  surveyConfigDeleted: EventEmitter<void> = new EventEmitter<void>();
 
   hide(result = false) {
     this.dialogRef.close(result);

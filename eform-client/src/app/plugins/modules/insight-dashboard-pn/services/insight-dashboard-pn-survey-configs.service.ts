@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   OperationDataResult,
@@ -23,7 +23,7 @@ export let SurveyConfigsMethods = {
 };
 @Injectable({providedIn: 'root'})
 export class InsightDashboardPnSurveyConfigsService {
-  constructor(private apiBaseService: ApiBaseService) {}
+  private apiBaseService = inject(ApiBaseService);
 
   getAll(
     model: SurveyConfigsRequestModel

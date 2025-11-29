@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit,} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit,} from '@angular/core';
 import {SurveyConfigsListModel, SurveyConfigModel} from '../../../models';
 import {Subject, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
@@ -37,8 +37,18 @@ import {Store} from '@ngrx/store';
   selector: 'app-insight-dashboard-surveys',
   templateUrl: './survey-configurations-page.component.html',
   styleUrls: ['./survey-configurations-page.component.scss'],
+  standalone: false,
 })
 export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
+  private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);
+  private dictionariesService = inject(InsightDashboardPnDashboardDictionariesService);
+  private sitesService = inject(SitesService);
+  public surveysStateService = inject(SurveysStateService);
+  private translateService = inject(TranslateService);
+  private dialog = inject(MatDialog);
+  private overlay = inject(Overlay);
+  private store = inject(Store);
+
   surveyConfigurationsListModel: SurveyConfigsListModel = new SurveyConfigsListModel();
   availableSurveys: CommonDictionaryModel[] = [];
   locations: CommonDictionaryModel[] = [];
@@ -75,16 +85,7 @@ export class SurveyConfigurationsPageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-    private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-    private sitesService: SitesService,
-    public surveysStateService: SurveysStateService,
-    private translateService: TranslateService,
-    private dialog: MatDialog,
-    private overlay: Overlay,
-    private store: Store,
-  ) {
+  constructor() {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.surveysStateService.updateNameFilter(val);
       this.getSurveyConfigsList();

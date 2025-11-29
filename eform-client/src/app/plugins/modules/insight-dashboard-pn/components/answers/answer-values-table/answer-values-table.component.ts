@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef} from '@angular/core';
+import {Component, inject, Input, OnChanges, OnInit, SimpleChanges, TemplateRef} from '@angular/core';
 import {AnswerModel} from '../../../models/answer';
 import {MtxGridColumn} from '@ng-matero/extensions/grid';
 import {TranslateService} from '@ngx-translate/core';
@@ -7,8 +7,11 @@ import {TranslateService} from '@ngx-translate/core';
   selector: 'app-answer-values-table',
   templateUrl: './answer-values-table.component.html',
   styleUrls: ['./answer-values-table.component.scss'],
+  standalone: false,
 })
 export class AnswerValuesTableComponent implements OnInit, OnChanges {
+  private translateService = inject(TranslateService);
+
   @Input() answerModel: AnswerModel;
   @Input() toolbarTemplate!: TemplateRef<any>;
   answerFullTable = [];
@@ -24,9 +27,6 @@ export class AnswerValuesTableComponent implements OnInit, OnChanges {
     {header: this.translateService.stream('Question'), field: 'question', class: 'answerValueValue'},
     {header: this.translateService.stream('Option'), field: 'option', class: 'answerValueTranslation'},
   ];
-
-  constructor(private translateService: TranslateService) {
-  }
 
   ngOnInit(): void {
   }

@@ -1,7 +1,7 @@
 import {
   Component,
   EventEmitter,
-  Inject,
+  inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -16,19 +16,18 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   selector: 'app-dashboard-new',
   templateUrl: './dashboard-new.component.html',
   styleUrls: ['./dashboard-new.component.scss'],
+  standalone: false,
 })
 export class DashboardNewComponent implements OnInit, OnDestroy {
+  private dashboardsService = inject(InsightDashboardPnDashboardsService);
+  public dialogRef = inject(MatDialogRef<DashboardNewComponent>);
+  public surveys = inject<CommonDictionaryModel[]>(MAT_DIALOG_DATA);
+
   dashboardCreated: EventEmitter<number> = new EventEmitter<number>();
   surveySelected: EventEmitter<number> = new EventEmitter<number>();
   selectedSurveyId: number;
   createDashboard$: Subscription;
   dashboardName: string;
-
-  constructor(
-    private dashboardsService: InsightDashboardPnDashboardsService,
-    public dialogRef: MatDialogRef<DashboardNewComponent>,
-    @Inject(MAT_DIALOG_DATA) public surveys: CommonDictionaryModel[] = [],
-  ) {}
 
   hide() {
     this.dialogRef.close();

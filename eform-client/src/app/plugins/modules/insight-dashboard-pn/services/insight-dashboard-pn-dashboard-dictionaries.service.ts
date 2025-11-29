@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   CommonDictionaryModel,
@@ -21,7 +21,7 @@ const DictionariesMethods = {
 
 @Injectable()
 export class InsightDashboardPnDashboardDictionariesService {
-  constructor(private apiBaseService: ApiBaseService) {}
+  private apiBaseService = inject(ApiBaseService);
 
   getQuestions(
     surveyId: number

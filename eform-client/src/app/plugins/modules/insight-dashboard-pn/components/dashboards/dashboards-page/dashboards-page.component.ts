@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {DashboardModel, DashboardsListModel,} from '../../../models';
 import {Subject, Subscription} from 'rxjs';
 import {
@@ -33,8 +33,18 @@ import {
   selector: 'app-insight-dashboard-dashboards',
   templateUrl: './dashboards-page.component.html',
   styleUrls: ['./dashboards-page.component.scss'],
+  standalone: false,
 })
 export class DashboardsPageComponent implements OnInit, OnDestroy {
+  private dictionariesService = inject(InsightDashboardPnDashboardDictionariesService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private store = inject(Store);
+  private translateService = inject(TranslateService);
+  private dialog = inject(MatDialog);
+  private overlay = inject(Overlay);
+  private dashboardsStateService = inject(DashboardsStateService);
+
   dashboardsListModel: DashboardsListModel = new DashboardsListModel();
   searchSubject = new Subject();
   availableSurveys: CommonDictionaryModel[] = [];
@@ -78,16 +88,7 @@ export class DashboardsPageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(
-    private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private store: Store,
-    private translateService: TranslateService,
-    private dialog: MatDialog,
-    private overlay: Overlay,
-    private dashboardsStateService: DashboardsStateService
-  ) {
+  constructor() {
     this.searchSubject.pipe(debounceTime(500)).subscribe((val: string) => {
       this.dashboardsStateService.updateNameFilter(val);
       this.getDashboardsList();

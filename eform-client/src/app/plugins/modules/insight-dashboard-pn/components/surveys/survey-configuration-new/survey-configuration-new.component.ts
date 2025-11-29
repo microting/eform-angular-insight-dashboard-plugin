@@ -1,7 +1,7 @@
 import {
   Component,
   EventEmitter,
-  Inject,
+  inject,
   OnInit,
 } from '@angular/core';
 import {InsightDashboardPnSurveyConfigsService} from '../../../services';
@@ -13,21 +13,22 @@ import {MatCheckboxChange} from '@angular/material/checkbox';
   selector: 'app-survey-configuration-new',
   templateUrl: './survey-configuration-new.component.html',
   styleUrls: ['./survey-configuration-new.component.scss'],
+  standalone: false,
 })
 export class SurveyConfigurationNewComponent implements OnInit {
+  private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);
+  public dialogRef = inject(MatDialogRef<SurveyConfigurationNewComponent>);
+  private model = inject<{ locations: CommonDictionaryModel[], surveys: CommonDictionaryModel[] }>(MAT_DIALOG_DATA);
+
   locations: CommonDictionaryModel[] = [];
   surveys: CommonDictionaryModel[] = [];
   configCreated: EventEmitter<void> = new EventEmitter<void>();
   selectedSurveyId: number;
   selectedLocations: number[] = [];
 
-  constructor(
-    private surveyConfigsService: InsightDashboardPnSurveyConfigsService,
-    public dialogRef: MatDialogRef<SurveyConfigurationNewComponent>,
-    @Inject(MAT_DIALOG_DATA) model: { locations: CommonDictionaryModel[], surveys: CommonDictionaryModel[] }
-  ) {
-    this.locations = model.locations;
-    this.surveys = model.surveys;
+  constructor() {
+    this.locations = this.model.locations;
+    this.surveys = this.model.surveys;
   }
 
   hide(result = false) {

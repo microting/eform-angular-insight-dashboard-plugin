@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentInit, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {translates} from '../i18n/translates';
 import {Subscription} from 'rxjs';
@@ -8,16 +8,14 @@ import {Store} from '@ngrx/store';
 @Component({
   selector: 'app-insight-dashboard-pn-layout',
   template: '<router-outlet></router-outlet>',
+  standalone: false,
 })
 export class InsightDashboardPnLayoutComponent implements AfterContentInit, OnInit, OnDestroy {
+  private store = inject(Store);
+  private translateService = inject(TranslateService);
+
   private selectCurrentUserLocale$ = this.store.select(selectCurrentUserLocale);
   currentUserLocaleAsyncSub$: Subscription;
-
-  constructor(
-    private store: Store,
-    private translateService: TranslateService,
-  ) {
-  }
 
   ngOnInit(): void {
   }

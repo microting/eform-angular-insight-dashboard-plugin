@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {
   DashboardChartTypesEnum,
   DashboardItemQuestionTypesEnum,
@@ -13,8 +13,11 @@ import { AuthStateService } from 'src/app/common/store';
   selector: 'app-dashboard-chart-edit',
   templateUrl: './dashboard-chart-edit.component.html',
   styleUrls: ['./dashboard-chart-edit.component.scss'],
+  standalone: false,
 })
 export class DashboardChartEditComponent implements OnChanges {
+  public authStateService = inject(AuthStateService);
+
   @Input() chartPosition: number;
   @Input() questionType: DashboardItemQuestionTypesEnum;
   @Input() period: number;
@@ -95,8 +98,6 @@ export class DashboardChartEditComponent implements OnChanges {
       value: '#0099CC',
     },
   ];
-
-  constructor(public authStateService: AuthStateService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {

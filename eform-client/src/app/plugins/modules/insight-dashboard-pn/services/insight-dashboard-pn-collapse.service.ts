@@ -9,8 +9,6 @@ export class InsightDashboardPnCollapseService {
     false
   );
 
-  constructor() {}
-
   updateState(collapsed: boolean): void {
     this.collapse.next(collapsed);
   }

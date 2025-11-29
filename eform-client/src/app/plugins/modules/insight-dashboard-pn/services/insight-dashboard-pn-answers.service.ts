@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OperationDataResult } from 'src/app/common/models';
 import { AnswerModel } from '../models/answer';
@@ -10,7 +10,7 @@ const DashboardAnswersMethods = {
 
 @Injectable()
 export class InsightDashboardPnAnswersService {
-  constructor(private apiBaseService: ApiBaseService) {}
+  private apiBaseService = inject(ApiBaseService);
 
   getAnswer(
     microtingUUID: number

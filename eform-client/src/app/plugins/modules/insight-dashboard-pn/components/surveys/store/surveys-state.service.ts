@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {
   CommonPaginationState,
@@ -21,14 +21,13 @@ import {
 
 @Injectable({providedIn: 'root'})
 export class SurveysStateService {
+  private store = inject(Store);
+  private service = inject(InsightDashboardPnSurveyConfigsService);
 
   currentFilters: { nameFilter: string };
   currentPagination: CommonPaginationState;
 
-  constructor(
-    private store: Store,
-    private service: InsightDashboardPnSurveyConfigsService,
-  ) {
+  constructor() {
     this.store.select(selectSurveysPagination).subscribe(x => this.currentPagination = x);
     this.store.select(selectSurveysFilters).subscribe(x => this.currentFilters = x);
   }

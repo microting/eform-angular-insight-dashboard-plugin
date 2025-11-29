@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {DashboardViewItemModel} from '../../../../models';
 import { DashboardChartTypesEnum } from '../../../../const';
 import { AuthStateService } from 'src/app/common/store';
@@ -12,8 +12,11 @@ import {selectIsDarkMode} from 'src/app/state/auth/auth.selector';
   selector: 'app-dashboard-chart-data-view',
   templateUrl: './dashboard-chart-data-view.component.html',
   styleUrls: ['./dashboard-chart-data-view.component.scss'],
+  standalone: false,
 })
 export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
+  private store = inject(Store);
+
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
   darkTheme: boolean;
   getDarkThemeSub$: Subscription;
@@ -22,8 +25,8 @@ export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
     return DashboardChartTypesEnum;
   }
 
-  constructor(store: Store) {
-    this.getDarkThemeSub$ = store.select(selectIsDarkMode).subscribe(
+  constructor() {
+    this.getDarkThemeSub$ = this.store.select(selectIsDarkMode).subscribe(
       (isDarkTheme) => {
         this.darkTheme = isDarkTheme;
       }

@@ -11,6 +11,7 @@ import {format, set} from 'date-fns';
   selector: 'app-dashboard-block-view',
   templateUrl: './dashboard-block-view.component.html',
   styleUrls: ['./dashboard-block-view.component.scss'],
+  standalone: false,
 })
 export class DashboardBlockViewComponent implements OnInit {
   @Input() position: number;
@@ -41,9 +42,6 @@ export class DashboardBlockViewComponent implements OnInit {
       return format(this.setDate(this.dashboardViewModel.answerDates.dateTo as Date), 'yyyy/MM/dd');
     }
     return '--';
-  }
-
-  constructor() {
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { InsightDashboardPnDashboardsService } from '../../../../services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
@@ -19,21 +19,22 @@ import {DomSanitizer} from '@angular/platform-browser';
   selector: 'app-dashboard-view',
   templateUrl: './dashboard-view.component.html',
   styleUrls: ['./dashboard-view.component.scss'],
+  standalone: false,
 })
 export class DashboardViewComponent implements OnInit, OnDestroy {
+  private dashboardsService = inject(InsightDashboardPnDashboardsService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private iconRegistry = inject(MatIconRegistry);
+  private sanitizer = inject(DomSanitizer);
+
   selectedDashboardId: number;
   getDashboardSub$: Subscription;
   exportToDocSub$: Subscription;
   dashboardViewModel: DashboardViewModel = new DashboardViewModel();
 
-  constructor(
-    private dashboardsService: InsightDashboardPnDashboardsService,
-    private router: Router,
-    private route: ActivatedRoute,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
-  ) {
-    iconRegistry.addSvgIconLiteral('file-word', sanitizer.bypassSecurityTrustHtml(WordIcon));
+  constructor() {
+    this.iconRegistry.addSvgIconLiteral('file-word', this.sanitizer.bypassSecurityTrustHtml(WordIcon));
   }
 
   ngOnInit() {

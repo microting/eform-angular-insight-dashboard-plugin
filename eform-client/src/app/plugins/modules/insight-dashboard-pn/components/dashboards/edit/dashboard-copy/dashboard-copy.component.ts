@@ -1,7 +1,7 @@
 import {
   Component,
   EventEmitter,
-  Inject,
+  inject,
   OnInit,
 } from '@angular/core';
 import {InsightDashboardPnDashboardsService} from '../../../../services';
@@ -12,16 +12,14 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
   selector: 'app-dashboard-copy',
   templateUrl: './dashboard-copy.component.html',
   styleUrls: ['./dashboard-copy.component.scss'],
+  standalone: false,
 })
 export class DashboardCopyComponent implements OnInit {
-  dashboardCopied: EventEmitter<void> = new EventEmitter<void>();
+  private dashboardService = inject(InsightDashboardPnDashboardsService);
+  public dialogRef = inject(MatDialogRef<DashboardCopyComponent>);
+  public dashboard = inject<DashboardModel>(MAT_DIALOG_DATA);
 
-  constructor(
-    private dashboardService: InsightDashboardPnDashboardsService,
-    public dialogRef: MatDialogRef<DashboardCopyComponent>,
-    @Inject(MAT_DIALOG_DATA) public dashboard: DashboardModel = new DashboardModel(),
-  ) {
-  }
+  dashboardCopied: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit() {
   }

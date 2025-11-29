@@ -92,7 +92,7 @@ public class AnswersUTests : DbTestFixture
             await answersValue.Delete(DbContext);
         }
 
-        Assert.That(default, Is.Not.EqualTo(answerBeforeDelete));
+        Assert.That(answerBeforeDelete, Is.Not.Null);
         await answerBeforeDelete.Delete(DbContext);
 
         var answerAfterDelete = await AnswerHelper.GetAnswerQueryByMicrotingUidForDelete(MicrotingUid, DbContext)
@@ -104,7 +104,7 @@ public class AnswersUTests : DbTestFixture
             .ToListAsync();
 
         Assert.That(answersValuesAfterDelete, Is.Empty);
-        Assert.That(default, Is.EqualTo(answerAfterDelete));
+        Assert.That(answerAfterDelete, Is.Null);
 
         answerBeforeDelete.Version = answerForBackup.Version;
         answerBeforeDelete.WorkflowState = answerForBackup.WorkflowState;

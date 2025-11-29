@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -36,9 +37,15 @@ import {InsightDashboardPnCollapseService} from '../../../../services/insight-da
   selector: 'app-dashboard-item-edit',
   templateUrl: './dashboard-item-edit.component.html',
   styleUrls: ['./dashboard-item-edit.component.scss'],
+  standalone: false,
 })
 export class DashboardItemEditComponent
   implements OnInit, OnDestroy, OnChanges {
+  private dictionariesService = inject(InsightDashboardPnDashboardDictionariesService);
+  private translateService = inject(TranslateService);
+  private collapseService = inject(InsightDashboardPnCollapseService);
+  private dashboardItemService = inject(InsightDashboardPnDashboardItemsService);
+
   @Input() dashboardItem: DashboardItemModel = new DashboardItemModel();
   @Input() questions: DashboardItemQuestionModel[] = [];
   @Input() selectedSurveyId = 1;
@@ -114,14 +121,6 @@ export class DashboardItemEditComponent
       }
     }
     return fullName;
-  }
-
-  constructor(
-    private dictionariesService: InsightDashboardPnDashboardDictionariesService,
-    private translateService: TranslateService,
-    private collapseService: InsightDashboardPnCollapseService,
-    private dashboardItemService: InsightDashboardPnDashboardItemsService
-  ) {
   }
 
   ngOnInit() {
