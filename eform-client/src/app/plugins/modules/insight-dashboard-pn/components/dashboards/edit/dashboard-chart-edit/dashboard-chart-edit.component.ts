@@ -26,6 +26,41 @@ export class DashboardChartEditComponent implements OnChanges {
   @Input() answers: CommonDictionaryModel[] = [];
   @Input() chartGeneratedPreviewData: DashboardChartDataModel;
   chartData: any[];
+
+  get chartTypes() {
+    return DashboardChartTypesEnum;
+  }
+
+  view: any[] = [800, 400];
+  multiChartView: any[] = [800, 400];
+
+  colorScheme = {
+    domain: [
+      '#3f51b5',
+      '#ff9800',
+      '#8bc34a',
+      '#00bcd4',
+      '#9e9e9e',
+      '#9c27b0',
+      '#ffc107',
+      '#009688',
+      '#cddc39',
+      '#2196f3',
+    ],
+  };
+
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  legendTitle = 'Legend';
+  legendPosition = 'right';
+  showXAxisLabel = true;
+  tooltipDisabled = false;
+  xAxisLabel = 'Country';
+  showYAxisLabel = true;
+  showGridLines = true;
+  barPadding = 8;
   roundDomains = false;
   animations = true;
   showDataLabel = false;
