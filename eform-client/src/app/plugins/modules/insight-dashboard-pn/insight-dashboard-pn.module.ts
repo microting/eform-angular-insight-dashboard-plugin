@@ -54,6 +54,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {StoreModule} from '@ngrx/store';
 import * as dashboardsReducer from './state/dashboards/dashboards.reducer';
 import * as surveysReducer from './state/surveys/surveys.reducer';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 
 @NgModule({
   imports: [
@@ -79,6 +80,9 @@ import * as surveysReducer from './state/surveys/surveys.reducer';
       dashboardsState: dashboardsReducer.reducer,
       surveysState: surveysReducer.reducer,
     }),
+    MatMenu,
+    MatMenuTrigger,
+    MatMenuItem,
   ],
   declarations: [
     InsightDashboardPnLayoutComponent,

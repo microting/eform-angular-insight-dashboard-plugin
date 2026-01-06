@@ -204,7 +204,6 @@ export class DashboardsPageRowObject {
   async clickActionsMenu(rowNum: number) {
     await browser.pause(1000);
     const actionMenu = await $(`#action-items-${rowNum} #actionMenu`);
-    await actionMenu.waitForClickable({ timeout: 40000 });
     await actionMenu.click();
     await browser.pause(1000);
   }
@@ -220,7 +219,6 @@ export class DashboardsPageRowObject {
   async delete() {
     const rowNum = this.row ? (await $$('tbody > tr')).indexOf(this.row) : 0;
     await this.clickActionsMenu(rowNum);
-    await this.dashboardDeleteBtn.waitForClickable({ timeout: 40000 });
     await this.dashboardDeleteBtn.click();
     await browser.pause(500);
     //await (await dashboardsPage.dashboardDeleteSaveBtn()).waitForClickable();

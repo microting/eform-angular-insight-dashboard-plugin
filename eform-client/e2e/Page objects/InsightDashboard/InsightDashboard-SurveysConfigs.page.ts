@@ -194,7 +194,6 @@ export class SurveysConfigPageRowObject {
   async clickActionsMenu(rowNum: number) {
     await browser.pause(1000);
     const actionMenu = await $(`#action-items-${rowNum} #actionMenu`);
-    await actionMenu.waitForClickable({ timeout: 40000 });
     await actionMenu.click();
     await browser.pause(1000);
   }
