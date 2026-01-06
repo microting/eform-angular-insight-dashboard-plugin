@@ -22,7 +22,6 @@ WORKDIR /app
 COPY --from=build-env /app/eFormAPI.Web/out .
 RUN mkdir -p ./Plugins/InsightDashboard.Pn
 COPY --from=build-env /app/InsightDashboard.Pn/out ./Plugins/InsightDashboard.Pn
-COPY --from=node-env /app/dist wwwroot
-RUN rm connection.json; exit 0
+COPY --from=node-env /app/dist/browser wwwroot
 
 ENTRYPOINT ["dotnet", "eFormAPI.Web.dll"]
