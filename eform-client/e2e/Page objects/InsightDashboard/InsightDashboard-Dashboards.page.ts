@@ -174,6 +174,7 @@ export class DashboardsPageRowObject {
   constructor() {}
 
   public row: WebdriverIO.Element;
+  public rowNum: number;
   public id: number;
   public dashboardName: string;
   public locations;
@@ -185,6 +186,7 @@ export class DashboardsPageRowObject {
 
   async getRow(rowNum: number): Promise<DashboardsPageRowObject> {
     rowNum = rowNum - 1;
+    this.rowNum = rowNum;
     this.row = (await $$('tbody > tr'))[rowNum];
     if (this.row) {
       try {
@@ -216,8 +218,8 @@ export class DashboardsPageRowObject {
   }
 
   async delete() {
-    const rowNum = this.row ? (await $$('tbody > tr')).indexOf(this.row) : 0;
-    await this.clickActionsMenu(rowNum);
+    // const rowNum = this.row ? (await $$('tbody > tr')).indexOf(this.row) : 0;
+    await this.clickActionsMenu(this.rowNum);
     await this.dashboardDeleteBtn.click();
     await browser.pause(500);
     //await (await dashboardsPage.dashboardDeleteSaveBtn()).waitForClickable();
