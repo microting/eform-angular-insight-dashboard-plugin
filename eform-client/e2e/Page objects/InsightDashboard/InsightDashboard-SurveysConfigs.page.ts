@@ -84,6 +84,10 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     await choice.click();
     await browser.pause(1000);
     await (await this.surveyConfigCreateSaveBtn()).click();
+    await $('#spinner-animation').waitForDisplayed({
+      timeout: 90000,
+      reverse: true,
+    });
   }
 
   async createSurveyConfig_Cancels() {
@@ -100,6 +104,10 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     await (await this.surveyConfigLocationCheckbox(2)).click();
     await browser.pause(1000);
     await (await this.surveyConfigEditSaveBtn()).click();
+    await $('#spinner-animation').waitForDisplayed({
+      timeout: 90000,
+      reverse: true,
+    });
   }
 
   async updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {

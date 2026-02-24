@@ -65,7 +65,7 @@ public class SurveysService : ISurveysService
             await core.GetAllQuestionSets();
             await core.GetAllSurveyConfigurations();
             await core.GetAllAnswers();
-            //await AddTextAnswers();
+            // await AddTextAnswers();
             await using (var sdkContext = core.DbContextHelper.GetDbContext())
             {
                 var surveysQueryable = sdkContext.SurveyConfigurations

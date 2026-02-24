@@ -501,20 +501,29 @@ public static class ChartRawDataHelpers
         // by Item
         if (isMulti)
         {
-            var percentageList = new List<decimal>();
-            for (var y = 0; y < singleData.Count; y++)
+            try
             {
-                var dataSingleModel = singleData[y];
-                decimal percentage = Math.Round((decimal)dataSingleModel.DataCount / (decimal)answersCount * 100m, 0, MidpointRounding.AwayFromZero);
-                percentageList.Add(percentage);
-                rawDataList[y].Percents[0] = percentage;
-                rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
-            }
-            // calculate total
-            var lastRow = singleData.Count;
+                var percentageList = new List<decimal>();
+                for (var y = 0; y < singleData.Count; y++)
+                {
+                    var dataSingleModel = singleData[y];
+                    decimal percentage = Math.Round((decimal)dataSingleModel.DataCount / (decimal)answersCount * 100m,
+                        0, MidpointRounding.AwayFromZero);
+                    percentageList.Add(percentage);
+                    rawDataList[y].Percents[0] = percentage;
+                    rawDataList[y].Amounts[0] = dataSingleModel.DataCount;
+                }
 
-            rawDataList[lastRow].Percents[0] = percentageList.Sum(x => x);
-            rawDataList[lastRow].Amounts[0] = answersCount;
+                // calculate total
+                var lastRow = singleData.Count;
+
+                rawDataList[lastRow].Percents[0] = percentageList.Sum(x => x);
+                rawDataList[lastRow].Amounts[0] = answersCount;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
         else
         {
