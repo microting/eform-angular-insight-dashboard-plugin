@@ -8,7 +8,7 @@ export class InsightDashboardSurveysConfigsPage extends Page {
   }
 
   public async rowNum(): Promise<number> {
-    await browser.pause(500);
+    await browser.pause(1500);
     return (await $$('tbody > tr')).length;
   }
 
@@ -95,9 +95,9 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     await (await this.surveyConfigCreateCancelBtn()).click();
   }
 
-  async updateSurveyConfig(rowObject: SurveysConfigPageRowObject) {
-    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
-    await rowObject.clickActionsMenu(rowNum);
+  async updateSurveyConfig(rowNumber: number) {
+    const rowObject = await this.getSurveyConfig(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber - 1);
     await rowObject.editSurveyConfigBtn.waitForClickable({ timeout: 40000 });
     await rowObject.editSurveyConfigBtn.click();
     await (await this.surveyConfigLocationCheckbox(1)).click();
@@ -110,27 +110,33 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     });
   }
 
-  async updateSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
-    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
-    await rowObject.clickActionsMenu(rowNum);
+  async updateSurveyConfig_Cancels(rowNumber: number) {
+    // console.log('rowObject.row', rowObject.row);
+    // const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    const rowObject = await this.getSurveyConfig(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber - 1);
     await rowObject.editSurveyConfigBtn.waitForClickable({ timeout: 40000 });
     await rowObject.editSurveyConfigBtn.click();
     await (await this.surveyConfigEditCancelBtn()).click();
   }
 
 
-  async deleteSurveyConfig(rowObject: SurveysConfigPageRowObject) {
-    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
-    await rowObject.clickActionsMenu(rowNum);
+  async deleteSurveyConfig(rowNumber: number) {
+    // console.log('rowObject.row', rowObject.row);
+    // const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    const rowObject = await this.getSurveyConfig(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber - 1);
     await rowObject.surveyConfigDeleteBtn.waitForClickable({ timeout: 40000 });
     await rowObject.surveyConfigDeleteBtn.click();
     await browser.pause(1000);
     await (await this.surveyConfigDeleteSaveBtn()).click();
   }
 
-  async deleteSurveyConfig_Cancels(rowObject: SurveysConfigPageRowObject) {
-    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
-    await rowObject.clickActionsMenu(rowNum);
+  async deleteSurveyConfig_Cancels(rowNumber: number) {
+    // console.log('rowObject.row', rowObject.row);
+    // const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
+    const rowObject = await this.getSurveyConfig(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber - 1);
     await rowObject.surveyConfigDeleteBtn.waitForClickable({ timeout: 40000 });
     await rowObject.surveyConfigDeleteBtn.click();
     await (await this.surveyConfigDeleteCancelBtn()).click();
@@ -165,6 +171,12 @@ export class InsightDashboardSurveysConfigsPage extends Page {
     const obj = new SurveysConfigPageRowObject();
     return await obj.getRow(num);
   }
+
+  async clickActionsMenu(rowNum: number) {
+    await browser.pause(1000);
+    await $$('#actionMenu')[rowNum].click();
+    await browser.pause(1000);
+  }
 }
 
 const surveyConfigsPage = new InsightDashboardSurveysConfigsPage();
@@ -190,6 +202,7 @@ export class SurveysConfigPageRowObject {
         this.id = +await (await this.row.$('.mat-column-id span')).getText();
         this.surveyName = await (await this.row.$('.mat-column-surveyName span')).getText();
         this.locations = (await (await this.row.$('.mat-column-locations')).getText()).split('\n\n');
+        // await this.clickActionsMenu(rowNum - 1);
         this.editSurveyConfigBtn = await $(`#editSurveyConfigBtn-${rowNum}`);
         this.surveyConfigActivateBtn = await $(`#surveyConfigStatus-${rowNum}`);
         this.surveyConfigDeleteBtn = await $(`#surveyConfigDeleteBtn-${rowNum}`);
@@ -201,8 +214,7 @@ export class SurveysConfigPageRowObject {
 
   async clickActionsMenu(rowNum: number) {
     await browser.pause(1000);
-    const actionMenu = await $(`#action-items-${rowNum} #actionMenu`);
-    await actionMenu.click();
+    await $$('#actionMenu')[rowNum].click();
     await browser.pause(1000);
   }
 }

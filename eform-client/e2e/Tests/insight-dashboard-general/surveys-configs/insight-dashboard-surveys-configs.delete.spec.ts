@@ -14,13 +14,13 @@ describe('InSight Dashboard - Survey Config - Delete', function () {
   it('Should not delete survey config', async () => {
     const rowNumsBeforeDelete = await surveyConfigsPage.rowNum();
     await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 10000});
-    await surveyConfigsPage.deleteSurveyConfig_Cancels(await surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
+    await surveyConfigsPage.deleteSurveyConfig_Cancels(rowNumsBeforeDelete);
     expect(rowNumsBeforeDelete).equal(await surveyConfigsPage.rowNum());
   });
   it('Should delete survey config', async () => {
     const rowNumsBeforeDelete = await surveyConfigsPage.rowNum();
     await (await $('#createSurveyConfigBtn')).waitForDisplayed({timeout: 10000});
-    await surveyConfigsPage.deleteSurveyConfig(await surveyConfigsPage.getSurveyConfig(rowNumsBeforeDelete));
+    await surveyConfigsPage.deleteSurveyConfig(rowNumsBeforeDelete);
     const rowsAfterDelete = await surveyConfigsPage.rowNum();
     expect(rowsAfterDelete).equal(rowNumsBeforeDelete - 1);
   });
