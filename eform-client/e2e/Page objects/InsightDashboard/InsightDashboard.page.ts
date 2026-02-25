@@ -50,7 +50,7 @@ export class InsightDashboardPage extends Page {
     }
     await (await this.DashboardsBtn()).waitForClickable({timeout: 20000});
     await (await this.DashboardsBtn()).click();
-    await browser.pause(3500);
+    await browser.pause(500);
     await (await $('#createDashboardBtn')).waitForClickable({timeout: 30000});
   }
 
