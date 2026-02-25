@@ -109,7 +109,7 @@ export class InsightDashboardDashboardsPage extends Page {
 
   async deleteDashboard(rowNumber: number) {
     const rowObject = await this.getDashboard(rowNumber);
-    await rowObject.clickActionsMenu(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber - 1);
     await rowObject.dashboardDeleteBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardDeleteBtn.click();
     await (await this.dashboardDeleteSaveBtn()).click();
@@ -117,7 +117,7 @@ export class InsightDashboardDashboardsPage extends Page {
 
   async deleteDashboard_Cancels(rowNumber: number) {
     const rowObject = await this.getDashboard(rowNumber);
-    await rowObject.clickActionsMenu(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber - 1);
     await rowObject.dashboardDeleteBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardDeleteBtn.click();
     await (await this.dashboardDeleteCancelBtn()).click();
@@ -125,7 +125,7 @@ export class InsightDashboardDashboardsPage extends Page {
 
   async copyDashboard(rowNumber: number) {
     const rowObject = await this.getDashboard(rowNumber);
-    await rowObject.clickActionsMenu(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber - 1);
     await rowObject.dashboardCopyBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardCopyBtn.click();
     await (await this.dashboardCopySaveBtn()).click();
@@ -133,7 +133,7 @@ export class InsightDashboardDashboardsPage extends Page {
 
   async copyDashboard_Cancel(rowNumber: number) {
     const rowObject = await this.getDashboard(rowNumber);
-    await rowObject.clickActionsMenu(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber - 1);
     await rowObject.dashboardCopyBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardCopyBtn.click();
     await (await this.dashboardCopySaveCancelBtn()).click();
