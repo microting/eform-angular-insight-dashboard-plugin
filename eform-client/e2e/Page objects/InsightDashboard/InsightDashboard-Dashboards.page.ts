@@ -162,7 +162,7 @@ export class InsightDashboardDashboardsPage extends Page {
     await browser.pause(1000);
     const rowCount = await this.rowNum();
     for (let i = 0; i < rowCount; i++) {
-      await (await this.getFirstRowObject()).delete();
+      await (await this.getFirstRowObject()).delete(0);
       await loginPage.waitForSpinnerHide(40000);
     }
   }
@@ -223,7 +223,7 @@ export class DashboardsPageRowObject {
     await browser.pause(500);
   }
 
-  async delete() {
+  async delete(rowNum: number) {
     // const rowNum = this.row ? (await $$('tbody > tr')).indexOf(this.row) : 0;
     await this.clickActionsMenu(this.rowNum);
     await this.dashboardDeleteBtn.click();
