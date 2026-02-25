@@ -107,27 +107,33 @@ export class InsightDashboardDashboardsPage extends Page {
     await (await this.dashboardCreateCancelBtn()).click();
   }
 
-  async deleteDashboard(rowObject: DashboardsPageRowObject) {
+  async deleteDashboard(rowNumber: number) {
+    const rowObject = await this.getDashboard(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber);
+    await rowObject.dashboardDeleteBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardDeleteBtn.click();
     await (await this.dashboardDeleteSaveBtn()).click();
   }
 
-  async deleteDashboard_Cancels(rowObject: DashboardsPageRowObject) {
+  async deleteDashboard_Cancels(rowNumber: number) {
+    const rowObject = await this.getDashboard(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber);
+    await rowObject.dashboardDeleteBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardDeleteBtn.click();
     await (await this.dashboardDeleteCancelBtn()).click();
   }
 
-  async copyDashboard(rowObject: DashboardsPageRowObject) {
-    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
-    await rowObject.clickActionsMenu(rowNum);
+  async copyDashboard(rowNumber: number) {
+    const rowObject = await this.getDashboard(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber);
     await rowObject.dashboardCopyBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardCopyBtn.click();
     await (await this.dashboardCopySaveBtn()).click();
   }
 
-  async copyDashboard_Cancel(rowObject: DashboardsPageRowObject) {
-    const rowNum = rowObject.row ? (await $$('tbody > tr')).indexOf(rowObject.row) : 0;
-    await rowObject.clickActionsMenu(rowNum);
+  async copyDashboard_Cancel(rowNumber: number) {
+    const rowObject = await this.getDashboard(rowNumber);
+    await rowObject.clickActionsMenu(rowNumber);
     await rowObject.dashboardCopyBtn.waitForClickable({ timeout: 40000 });
     await rowObject.dashboardCopyBtn.click();
     await (await this.dashboardCopySaveCancelBtn()).click();
