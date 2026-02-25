@@ -15,13 +15,13 @@ describe('InSight Dashboard - Dashboards - Copy', function () {
   it('should not copy dashboard', async () => {
     const rowNumsBeforeDelete = await dashboardsPage.rowNum();
     await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
-    await dashboardsPage.copyDashboard_Cancel(await dashboardsPage.getDashboard(rowNumsBeforeDelete));
+    await dashboardsPage.copyDashboard_Cancel(rowNumsBeforeDelete);
     expect(rowNumsBeforeDelete).equal(await dashboardsPage.rowNum());
   });
   it('should copy dashboard', async () => {
     await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 10000});
     const rowNumsBeforeCopy = await dashboardsPage.rowNum();
-    await dashboardsPage.copyDashboard(await dashboardsPage.getDashboard(rowNumsBeforeCopy));
+    await dashboardsPage.copyDashboard(rowNumsBeforeCopy);
     await insightDashboardPage.goToDashboards();
     expect(rowNumsBeforeCopy).equal(await dashboardsPage.rowNum() - 1);
   });
