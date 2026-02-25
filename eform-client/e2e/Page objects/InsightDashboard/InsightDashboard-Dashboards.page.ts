@@ -211,7 +211,7 @@ export class DashboardsPageRowObject {
 
   async clickActionsMenu(rowNum: number) {
     await browser.pause(1000);
-    await $$('#actionMenu')[rowNum].click();
+    await (await $$('#actionMenu'))[rowNum].click();
     await browser.pause(1000);
   }
 
