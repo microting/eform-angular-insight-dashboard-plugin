@@ -1,5 +1,6 @@
 import Page from '../Page';
 import { $ } from '@wdio/globals';
+import path from "path";
 
 export class InsightDashboardPage extends Page {
   constructor() {
@@ -51,7 +52,31 @@ export class InsightDashboardPage extends Page {
     await (await this.DashboardsBtn()).waitForClickable({timeout: 20000});
     await (await this.DashboardsBtn()).click();
     await browser.pause(500);
+    await this.takeScreenshot();
     await (await $('#createDashboardBtn')).waitForClickable({timeout: 30000});
+  }
+
+  public async takeScreenshot() {
+    const timestamp = new Date().toLocaleString('iso', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).replace(/[ ]/g, '--').replace(':', '-');
+
+    // get current test title and clean it, to use it as file name
+    const filename = encodeURIComponent(
+      `chrome-${timestamp}`.replace(/[/]/g, '__')
+    ).replace(/%../, '.');
+
+    const filePath = path.resolve('./', `${filename}.png`);
+
+    console.log('Saving screenshot to:', filePath);
+    await browser.saveScreenshot(filePath);
+    console.log('Saved screenshot to:', filePath);
   }
 
   async goToAnswers() {
