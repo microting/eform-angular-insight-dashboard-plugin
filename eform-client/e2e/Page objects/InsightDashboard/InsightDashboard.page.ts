@@ -1,6 +1,7 @@
 import Page from '../Page';
 import { $ } from '@wdio/globals';
 import path from "path";
+import loginPage from "../Login.page";
 
 export class InsightDashboardPage extends Page {
   constructor() {
@@ -46,6 +47,7 @@ export class InsightDashboardPage extends Page {
 
   async goToDashboards() {
     // if dropdown is not opened
+    await loginPage.open('/');
     if (!await (await this.DashboardsBtn()).isDisplayed()) {
       await (await this.InsightDashboardDropDown()).click();
     }
