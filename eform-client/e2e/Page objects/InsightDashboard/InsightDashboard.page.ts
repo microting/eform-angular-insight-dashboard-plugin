@@ -47,15 +47,16 @@ export class InsightDashboardPage extends Page {
 
   async goToDashboards() {
     // if dropdown is not opened
-    await loginPage.open('/');
-    if (!await (await this.DashboardsBtn()).isDisplayed()) {
-      await (await this.InsightDashboardDropDown()).click();
-    }
-    await (await this.DashboardsBtn()).waitForClickable({timeout: 20000});
-    await (await this.DashboardsBtn()).click();
-    await browser.pause(500);
+    await loginPage.open('/plugins/insight-dashboard-pn/dashboards');
+    // await browser.pause(2500);
+    // if (!await (await this.DashboardsBtn()).isDisplayed()) {
+    //   await (await this.InsightDashboardDropDown()).click();
+    // }
+    // await (await this.DashboardsBtn()).waitForClickable({timeout: 20000});
+    // await (await this.DashboardsBtn()).click();
+    await browser.pause(2500);
     await this.takeScreenshot();
-    await (await $('#createDashboardBtn')).waitForClickable({timeout: 30000});
+    await (await $('#createDashboardBtn')).waitForDisplayed({timeout: 30000});
   }
 
   public async takeScreenshot() {

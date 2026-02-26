@@ -82,7 +82,7 @@ describe('InSight Dashboard - Dashboards - Edit', function () {
     await loginPage.waitForSpinnerHide(40000);
     const dashboardRowNum = await dashboardsPage.rowNum();
     const createdDashboard = await dashboardsPage.getDashboard(dashboardRowNum);
-    await createdDashboard.clickActionsMenu(dashboardRowNum);
+    await createdDashboard.clickActionsMenu(dashboardRowNum - 1);
     await createdDashboard.dashboardEditBtn.click();
     await loginPage.waitForSpinnerHide(40000);
     expect(itemNumsBeforeCreateItem).equal(await dashboardEditPage.rowNum() - 1);
