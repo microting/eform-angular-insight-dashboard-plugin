@@ -3,9 +3,6 @@ name: .NET Master
 on:
   push:
     branches: [ master, stable, angular19 ]
-    paths-ignore:
-    - '**.md'
-    - '.github/**'
 
 jobs:
   insight-dashboard-build:
@@ -152,9 +149,9 @@ jobs:
       if: ${{ failure() }}s
       uses: actions/upload-artifact@v4
       with:
-        name: error Screenshots
+        name: error Screenshots ${{matrix.test}}
         path: |
-          /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/errorShots/chrome*.png
+          /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/*.png
   insight-dashboard-test-dotnet:
     runs-on: ubuntu-latest
     steps:
