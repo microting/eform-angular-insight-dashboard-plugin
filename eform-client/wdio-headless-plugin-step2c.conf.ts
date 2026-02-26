@@ -104,11 +104,11 @@ export const config: Options.Testrunner = {
   baseUrl: 'http://localhost:4200',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 3000000,
+  waitforTimeout: 3000,
   //
   // Default timeout in milliseconds for request
   // if Selenium Grid doesn't send response
-  connectionRetryTimeout: 90000,
+  connectionRetryTimeout: 9000,
   //
   // Default request retries count
   connectionRetryCount: 3,
@@ -251,6 +251,7 @@ export const config: Options.Testrunner = {
       day: '2-digit',
       hour: '2-digit',
       minute: '2-digit',
+      second: '2-digit',
       hour12: false
     }).replace(/[ ]/g, '--').replace(':', '-');
 
