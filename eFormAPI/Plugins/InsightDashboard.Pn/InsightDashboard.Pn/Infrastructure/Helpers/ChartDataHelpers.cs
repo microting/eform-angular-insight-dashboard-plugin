@@ -665,7 +665,7 @@ public static class ChartDataHelpers
                 var multiStackedRawData = new List<DashboardViewChartDataMultiStackedModel>();
                 switch (dashboardItem.Period)
                 {
-                    case DashboardPeriodUnits.Week:
+                    case (DashboardPeriodUnits)7: // Day
                         if (isStackedData)
                         {
                             multiStackedData = data
@@ -676,10 +676,10 @@ public static class ChartDataHelpers
                                     Name = x.Key.LocationTagName, // Location or tag name
                                     IsTag = x.Key.IsTag,
                                     Series = x
-                                        .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
+                                        .GroupBy(y => ChartHelpers.GetDayString(y.Finished))
                                         .Select(y => new DashboardViewChartDataMultiModel
                                         {
-                                            Name = y.Key, // Week name
+                                            Name = y.Key, // Day name
                                             AnswersCount = GetAnswersCount(y),
                                             IsTag = x.Key.IsTag,
                                             Series = y
@@ -703,10 +703,10 @@ public static class ChartDataHelpers
                                 }).ToList();
 
                             multiStackedRawData = data
-                                .GroupBy(ms => ChartHelpers.GetWeekString(ms.Finished))
+                                .GroupBy(ms => ChartHelpers.GetDayString(ms.Finished))
                                 .Select(x => new DashboardViewChartDataMultiStackedModel
                                 {
-                                    Name = x.Key, // Week
+                                    Name = x.Key, // Day
                                     Series = x
                                         .GroupBy(ms => new { ms.LocationTagName, ms.IsTag })
                                         .Select(y => new DashboardViewChartDataMultiModel
@@ -751,7 +751,7 @@ public static class ChartDataHelpers
                                         IsTag = x.Key.IsTag,
                                         AnswersCount = GetAnswersCount(x),
                                         Series = x
-                                            .GroupBy(y => ChartHelpers.GetWeekString(y.Finished))
+                                            .GroupBy(y => ChartHelpers.GetDayString(y.Finished))
                                             .Select(y => new DashboardViewChartDataSingleModel
                                             {
                                                 Name = y.Key,
@@ -766,7 +766,7 @@ public static class ChartDataHelpers
                             else
                             {
                                 multiData = data
-                                    .GroupBy(x => ChartHelpers.GetWeekString(x.Finished))
+                                    .GroupBy(x => ChartHelpers.GetDayString(x.Finished))
                                     .Select(x => new DashboardViewChartDataMultiModel
                                     {
                                         Name = x.Key.ToString(),
@@ -792,6 +792,7 @@ public static class ChartDataHelpers
                         }
 
                         break;
+                    case DashboardPeriodUnits.Week:
                     case DashboardPeriodUnits.Month:
                         if (isStackedData)
                         {
@@ -2615,6 +2616,133 @@ public static class ChartDataHelpers
                 var multiStackedRawData = new List<DashboardViewChartDataMultiStackedModel>();
                 switch (dashboardItem.Period)
                 {
+                    case (DashboardPeriodUnits)7: // Day
+                        if (isStackedData)
+                        {
+                            multiStackedData = data
+                                .GroupBy(x => new { x.LocationTagName, x.IsTag })
+                                .Select(x => new DashboardViewChartDataMultiStackedModel
+                                {
+                                    Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
+                                    Name = x.Key.LocationTagName, // Location or tag name
+                                    IsTag = x.Key.IsTag,
+                                    Series = x
+                                        .GroupBy(y => ChartHelpers.GetDayString(y.Finished))
+                                        .Select(y => new DashboardViewChartDataMultiModel
+                                        {
+                                            Name = y.Key, // Day name
+                                            AnswersCount = GetAnswersCount(y),
+                                            IsTag = x.Key.IsTag,
+                                            Series = y
+                                                .GroupBy(g => new { g.Name, g.OptionIndex })
+                                                .Select(i => new DashboardViewChartDataSingleModel
+                                                {
+                                                    Name = isSmiley
+                                                        ? smileyLabels.Single(z => z.Weight == int.Parse(i.Key.Name)).Name
+                                                        : i.Key.Name,
+                                                    OptionIndex = i.Key.OptionIndex,
+                                                    DataCount = i.Count(),
+                                                    Value = isMulti
+                                                        ? GetDataPercentage(i.Count(), GetAnswersCount(y))
+                                                        : GetDataPercentage(i.Count(), y.Count()),
+                                                })
+                                                .OrderBy(f => f.OptionIndex)
+                                                .ToList(),
+                                        })
+                                        .OrderBy(y => y.Name)
+                                        .ToList(),
+                                }).ToList();
+
+                            multiStackedRawData = data
+                                .GroupBy(ms => ChartHelpers.GetDayString(ms.Finished))
+                                .Select(x => new DashboardViewChartDataMultiStackedModel
+                                {
+                                    Name = x.Key, // Day
+                                    Series = x
+                                        .GroupBy(ms => new { ms.LocationTagName, ms.IsTag })
+                                        .Select(y => new DashboardViewChartDataMultiModel
+                                        {
+                                            Id = y.Select(i => i.LocationTagId).FirstOrDefault(),
+                                            Name = y.Key.LocationTagName, // Location
+                                            AnswersCount = GetAnswersCount(y),
+                                            IsTag = y.Key.IsTag,
+                                            Series = y
+                                                .GroupBy(g => new { g.Name, g.OptionIndex })
+                                                .Select(i => new DashboardViewChartDataSingleModel
+                                                {
+                                                    OptionIndex = i.Key.OptionIndex,
+                                                    Name = isSmiley
+                                                        ? smileyLabels.Single(z => z.Weight == int.Parse(i.Key.Name))
+                                                            .Name
+                                                        : i.Key.Name,
+                                                    DataCount = i.Count(),
+                                                    Value = isMulti
+                                                        ? GetDataPercentage(i.Count(), GetAnswersCount(y))
+                                                        : GetDataPercentage(i.Count(), y.Count()),
+                                                })
+                                                .OrderByDescending(
+                                                    t => t.Name.All(char.IsDigit) ? int.Parse(t.Name) : 0)
+                                                .ThenBy(f => f.OptionIndex)
+                                                .ToList(),
+                                        })
+                                        .OrderBy(y => y.Name)
+                                        .ToList(),
+                                }).ToList();
+                        }
+                        else
+                        {
+                            if (isComparedData)
+                            {
+                                multiData = data
+                                    .GroupBy(y => new { y.LocationTagName, y.IsTag })
+                                    .Select(x => new DashboardViewChartDataMultiModel
+                                    {
+                                        Id = x.Select(i => i.LocationTagId).FirstOrDefault(),
+                                        Name = x.Key.LocationTagName, // Location or tag name
+                                        IsTag = x.Key.IsTag,
+                                        AnswersCount = GetAnswersCount(x),
+                                        Series = x
+                                            .GroupBy(y => ChartHelpers.GetDayString(y.Finished))
+                                            .Select(y => new DashboardViewChartDataSingleModel
+                                            {
+                                                Name = y.Key,
+                                                DataCount = y.Count(),
+                                                Value = dashboardItem.CalculateAverage
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : GetDataPercentage(y.Count(), x.Count()),
+                                            })
+                                            .ToList(),
+                                    }).ToList();
+                            }
+                            else
+                            {
+                                multiData = data
+                                    .GroupBy(x => ChartHelpers.GetDayString(x.Finished))
+                                    .Select(x => new DashboardViewChartDataMultiModel
+                                    {
+                                        Name = x.Key.ToString(),
+                                        AnswersCount = GetAnswersCount(x),
+                                        Series = x.GroupBy(g => new { g.Name, g.OptionIndex })
+                                            .Select(y => new DashboardViewChartDataSingleModel
+                                            {
+                                                Name = isSmiley
+                                                    ? smileyLabels.Single(z => z.Weight == int.Parse(y.Key.Name)).Name
+                                                    : y.Key.Name,
+                                                DataCount = y.Count(),
+                                                OptionIndex = y.Key.OptionIndex,
+                                                Value = dashboardItem.CalculateAverage
+                                                    ? GetAverageDataPercentage(y.Average(k => k.Weight))
+                                                    : isMulti
+                                                        ? GetDataPercentage(y.Count(), GetAnswersCount(x))
+                                                        : GetDataPercentage(y.Count(), x.Count()),
+                                            })
+                                            .OrderBy(f => f.OptionIndex)
+                                            .ToList(),
+                                    }).ToList();
+                            }
+                        }
+
+                        break;
                     case DashboardPeriodUnits.Week:
                         if (isStackedData)
                         {

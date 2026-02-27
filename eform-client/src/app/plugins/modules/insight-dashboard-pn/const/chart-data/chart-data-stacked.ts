@@ -3717,3 +3717,235 @@ export const stackedSmileyDataByYear = [
     ]
   }
 ];
+
+export const stackedDataByDay = [
+  {
+    'id': 0,
+    'name': '16_01_05',
+    'answersCount': 3,
+    'isTag': false,
+    'series': [
+      {
+        'name': 'Ja',
+        'value': 67.0,
+        'dataCount': 2,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Nej',
+        'value': 33.0,
+        'dataCount': 1,
+        'optionIndex': 1
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': '16_01_12',
+    'answersCount': 2,
+    'isTag': false,
+    'series': [
+      {
+        'name': 'Ja',
+        'value': 50.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Nej',
+        'value': 50.0,
+        'dataCount': 1,
+        'optionIndex': 1
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': '16_02_03',
+    'answersCount': 4,
+    'isTag': false,
+    'series': [
+      {
+        'name': 'Ja',
+        'value': 75.0,
+        'dataCount': 3,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Nej',
+        'value': 25.0,
+        'dataCount': 1,
+        'optionIndex': 1
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': '16_03_15',
+    'answersCount': 1,
+    'isTag': false,
+    'series': [
+      {
+        'name': 'Ja',
+        'value': 100.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': '16_04_22',
+    'answersCount': 5,
+    'isTag': false,
+    'series': [
+      {
+        'name': 'Ja',
+        'value': 80.0,
+        'dataCount': 4,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Nej',
+        'value': 20.0,
+        'dataCount': 1,
+        'optionIndex': 1
+      }
+    ]
+  }
+];
+
+export const stackedSmileyDataByDay = [
+  {
+    'id': 0,
+    'name': '16_01_05',
+    'answersCount': 8,
+    'isTag': false,
+    'series': [
+      {
+        'name': 'Meget glad',
+        'value': 38.0,
+        'dataCount': 3,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Glad',
+        'value': 50.0,
+        'dataCount': 4,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Neutral',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Sur',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Meget sur',
+        'value': 13.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Ved ikke',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': '16_01_12',
+    'answersCount': 7,
+    'isTag': false,
+    'series': [
+      {
+        'name': 'Meget glad',
+        'value': 50.0,
+        'dataCount': 4,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Glad',
+        'value': 33.0,
+        'dataCount': 2,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Neutral',
+        'value': 17.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Sur',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Meget sur',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Ved ikke',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': '16_02_03',
+    'answersCount': 10,
+    'isTag': false,
+    'series': [
+      {
+        'name': 'Meget glad',
+        'value': 60.0,
+        'dataCount': 6,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Glad',
+        'value': 20.0,
+        'dataCount': 2,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Neutral',
+        'value': 10.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Sur',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Meget sur',
+        'value': 10.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': 'Ved ikke',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      }
+    ]
+  }
+];

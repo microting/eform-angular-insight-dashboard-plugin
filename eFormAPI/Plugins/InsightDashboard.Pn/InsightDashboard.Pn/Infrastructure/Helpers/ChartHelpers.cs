@@ -167,6 +167,11 @@ public static class ChartHelpers
         return result;
     }
 
+    public static string GetDayString(DateTime dateTime)
+    {
+        return $"{dateTime:yy}_{dateTime:MM}_{dateTime:dd}";
+    }
+
     public static string GetWeekString(DateTime dateTime)
     {
         var weekNumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(

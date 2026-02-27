@@ -3147,3 +3147,241 @@ export const lineSmileyDataByYear = [
       ]
     }
   ];
+
+export const lineDataByDay = [
+  {
+    'id': 0,
+    'name': 'Ja',
+    'answersCount': 0,
+    'isTag': false,
+    'series': [
+      {
+        'name': '16_01_05',
+        'value': 67.0,
+        'dataCount': 2,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_01_12',
+        'value': 50.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_02_03',
+        'value': 75.0,
+        'dataCount': 3,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_03_15',
+        'value': 100.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_04_22',
+        'value': 80.0,
+        'dataCount': 4,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': 'Nej',
+    'answersCount': 0,
+    'isTag': false,
+    'series': [
+      {
+        'name': '16_01_05',
+        'value': 33.0,
+        'dataCount': 1,
+        'optionIndex': 1
+      },
+      {
+        'name': '16_01_12',
+        'value': 50.0,
+        'dataCount': 1,
+        'optionIndex': 1
+      },
+      {
+        'name': '16_02_03',
+        'value': 25.0,
+        'dataCount': 1,
+        'optionIndex': 1
+      },
+      {
+        'name': '16_03_15',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 1
+      },
+      {
+        'name': '16_04_22',
+        'value': 20.0,
+        'dataCount': 1,
+        'optionIndex': 1
+      }
+    ]
+  }
+];
+
+export const lineSmileyDataByDay = [
+  {
+    'id': 0,
+    'name': 'Meget glad',
+    'answersCount': 0,
+    'isTag': false,
+    'series': [
+      {
+        'name': '16_01_05',
+        'value': 38.0,
+        'dataCount': 3,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_01_12',
+        'value': 50.0,
+        'dataCount': 4,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_02_03',
+        'value': 60.0,
+        'dataCount': 6,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': 'Glad',
+    'answersCount': 0,
+    'isTag': false,
+    'series': [
+      {
+        'name': '16_01_05',
+        'value': 50.0,
+        'dataCount': 4,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_01_12',
+        'value': 33.0,
+        'dataCount': 2,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_02_03',
+        'value': 20.0,
+        'dataCount': 2,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': 'Neutral',
+    'answersCount': 0,
+    'isTag': false,
+    'series': [
+      {
+        'name': '16_01_05',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_01_12',
+        'value': 17.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_02_03',
+        'value': 10.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': 'Sur',
+    'answersCount': 0,
+    'isTag': false,
+    'series': [
+      {
+        'name': '16_01_05',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_01_12',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_02_03',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': 'Meget sur',
+    'answersCount': 0,
+    'isTag': false,
+    'series': [
+      {
+        'name': '16_01_05',
+        'value': 13.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_01_12',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_02_03',
+        'value': 10.0,
+        'dataCount': 1,
+        'optionIndex': 0
+      }
+    ]
+  },
+  {
+    'id': 0,
+    'name': 'Ved ikke',
+    'answersCount': 0,
+    'isTag': false,
+    'series': [
+      {
+        'name': '16_01_05',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_01_12',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      },
+      {
+        'name': '16_02_03',
+        'value': 0.0,
+        'dataCount': 0,
+        'optionIndex': 0
+      }
+    ]
+  }
+];

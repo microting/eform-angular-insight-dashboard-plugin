@@ -51,6 +51,7 @@ export const da = {
   'VerticalBar': 'Lodret Søjlediagram',
   'VerticalBarStacked':  'Lodret Stablet Søjlediagram',
   'VerticalBarGrouped': 'Lodret Grupperet Søjlediagram',
+  'Day': 'Dag',
   'Week': 'Uge',
   'Month': 'Måned',
   'Quarter': 'Kvartal',
