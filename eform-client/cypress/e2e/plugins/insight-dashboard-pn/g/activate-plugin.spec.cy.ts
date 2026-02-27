@@ -1,14 +1,14 @@
 import loginPage from '../../../Login.page';
 import pluginPage from '../../../Plugin.page';
 
-describe('Enable Backend Config plugin', () => {
+describe('Enable InSight Dashboard plugin', () => {
   beforeEach(() => {
     cy.visit('http://localhost:4200');
     loginPage.login();
     pluginPage.Navbar.goToPluginsPage();
   });
 
-  it('should enabled InSight Dashboard plugin', () => {
+  it('should enable InSight Dashboard plugin', () => {
     const pluginName = 'Microting InSight Dashboard Plugin';
 
     // Open action menu for the plugin
