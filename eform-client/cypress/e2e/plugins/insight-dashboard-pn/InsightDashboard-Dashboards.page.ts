@@ -6,7 +6,7 @@ export const dashboardName = 'NewDashboard';
 class InsightDashboardDashboardsPage {
 
   rowNum(): Cypress.Chainable<number> {
-    return cy.get('tbody > tr').its('length');
+    return cy.get('.mat-mdc-row').its('length');
   }
 
   dashboardCreateBtn() {
@@ -98,11 +98,11 @@ class InsightDashboardDashboardsPage {
 
   getRowDashboardName(rowNum: number): Cypress.Chainable<string> {
     const idx = rowNum - 1;
-    return cy.get('tbody > tr').eq(idx).find('.mat-column-dashboardName span').invoke('text');
+    return cy.get('.mat-mdc-row').eq(idx).find('.mat-column-dashboardName span').invoke('text');
   }
 
   clearTable() {
-    cy.get('tbody > tr').then(($rows) => {
+    cy.get('.mat-mdc-row').then(($rows) => {
       const rowCount = $rows.length;
       for (let i = 0; i < rowCount; i++) {
         // Always delete first row

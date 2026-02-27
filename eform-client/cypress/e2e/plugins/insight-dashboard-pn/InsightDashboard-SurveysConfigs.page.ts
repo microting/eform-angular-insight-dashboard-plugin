@@ -52,7 +52,7 @@ export function selectDateOnDatePicker(year: number, month: number, day: number)
 class InsightDashboardSurveysConfigsPage {
 
   rowNum(): Cypress.Chainable<number> {
-    return cy.get('tbody > tr').its('length');
+    return cy.get('.mat-mdc-row').its('length');
   }
 
   surveyConfigCreateBtn() {
@@ -137,7 +137,7 @@ class InsightDashboardSurveysConfigsPage {
 
   getRowSurveyName(rowNum: number): Cypress.Chainable<string> {
     const idx = rowNum - 1;
-    return cy.get('tbody > tr').eq(idx).find('.mat-column-surveyName span').invoke('text');
+    return cy.get('.mat-mdc-row').eq(idx).find('.mat-column-surveyName span').invoke('text');
   }
 }
 

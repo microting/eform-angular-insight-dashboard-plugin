@@ -35,7 +35,7 @@ class InsightDashboardAnswersPage {
   }
 
   rowNum(): Cypress.Chainable<number> {
-    return cy.get('tbody > tr').its('length');
+    return cy.get('.mat-mdc-row').its('length');
   }
 }
 
