@@ -122,10 +122,9 @@ jobs:
         config-file: cypress.config.ts
         working-directory: eform-angular-frontend/eform-client
         command-prefix: "--"
-    - name: Plugin testing
-      run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin2${{matrix.test}}
-    - name: a test
-      continue-on-error: true
+    - name: Set plugin status
+      run: docker exec -i mariadbtest mysql -u root --password=secretpassword -e 'update 420_Angular.EformPlugins set Status = 2'
+    - name: ${{matrix.test}} test
       uses: cypress-io/github-action@v4
       with:
         start: echo 'hi'
@@ -133,7 +132,7 @@ jobs:
         wait-on-timeout: 120
         browser: chrome
         record: false
-        spec: cypress/e2e/plugins/items-planning-pn/a/*
+        spec: cypress/e2e/plugins/insight-dashboard-pn/${{matrix.test}}/*
         config-file: cypress.config.ts
         working-directory: eform-angular-frontend/eform-client
         command-prefix: "--"
