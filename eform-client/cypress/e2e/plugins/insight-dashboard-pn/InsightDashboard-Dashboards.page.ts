@@ -108,9 +108,9 @@ class InsightDashboardDashboardsPage {
         // Always delete first row
         cy.get(`#action-items-0 #actionMenu`).click();
         cy.get(`#dashboardDeleteBtn-0`).should('be.visible').click();
-        cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/delete').as('deleteDashboard');
+        cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/delete').as(`deleteDashboard${i}`);
         cy.get('#dashboardDeleteSaveBtn').should('be.visible').click();
-        cy.wait('@deleteDashboard', { timeout: 60000 });
+        cy.wait(`@deleteDashboard${i}`, { timeout: 60000 });
       }
     });
   }
