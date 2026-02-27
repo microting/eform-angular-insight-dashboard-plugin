@@ -48,7 +48,7 @@ describe('InSight Dashboard - Dashboards - Total N', () => {
     dashboardsViewPage.compareAmounts(dashboardTotalNDataJson);
   });
 
-  after(() => {
+  afterEach(() => {
     insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });

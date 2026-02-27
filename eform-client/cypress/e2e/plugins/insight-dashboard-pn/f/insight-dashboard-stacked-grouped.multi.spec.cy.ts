@@ -48,7 +48,7 @@ describe('InSight Dashboard - Dashboards - Stacked Grouped', () => {
     dashboardsViewPage.compareAmounts(dashboardStackedGroupedDataJson);
   });
 
-  after(() => {
+  afterEach(() => {
     insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });

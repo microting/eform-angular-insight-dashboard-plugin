@@ -48,7 +48,7 @@ describe('InSight Dashboard - Dashboards - Line', () => {
     dashboardsViewPage.compareAmounts(dashboardLineDataJson);
   });
 
-  after(() => {
+  afterEach(() => {
     insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });

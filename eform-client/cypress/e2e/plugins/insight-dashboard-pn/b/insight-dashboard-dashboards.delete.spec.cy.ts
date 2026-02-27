@@ -28,7 +28,8 @@ describe('InSight Dashboard - Dashboards - Delete', () => {
     });
   });
 
-  after(() => {
+  afterEach(() => {
+    insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });
 });

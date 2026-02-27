@@ -28,7 +28,8 @@ describe('InSight Dashboard - Dashboards - Copy', () => {
     });
   });
 
-  after(() => {
+  afterEach(() => {
+    insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });
 });

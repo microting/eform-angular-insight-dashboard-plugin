@@ -48,7 +48,7 @@ describe('InSight Dashboard - Dashboards - Multi chart', () => {
     dashboardsViewPage.compareAmounts(dashboardMultiChartDataJson);
   });
 
-  after(() => {
+  afterEach(() => {
     insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });

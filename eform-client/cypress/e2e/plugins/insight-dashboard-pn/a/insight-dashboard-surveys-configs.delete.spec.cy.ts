@@ -25,4 +25,8 @@ describe('InSight Dashboard - Survey Config - Delete', () => {
       surveyConfigsPage.rowNum().should('equal', rowNumsBefore - 1);
     });
   });
+
+  afterEach(() => {
+    surveyConfigsPage.clearTable();
+  });
 });

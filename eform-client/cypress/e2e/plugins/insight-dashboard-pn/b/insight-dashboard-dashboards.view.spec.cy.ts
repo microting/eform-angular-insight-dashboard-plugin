@@ -52,7 +52,7 @@ describe('InSight Dashboard - Dashboards - View', () => {
     dashboardsViewPage.compareItem(1, item, dashboardConfig);
   });
 
-  after(() => {
+  afterEach(() => {
     insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });

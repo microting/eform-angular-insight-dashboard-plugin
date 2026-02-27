@@ -23,4 +23,8 @@ describe('InSight Dashboard - Survey Configs - Edit', () => {
       surveyConfigsPage.updateSurveyConfig(rowCount);
     });
   });
+
+  afterEach(() => {
+    surveyConfigsPage.clearTable();
+  });
 });

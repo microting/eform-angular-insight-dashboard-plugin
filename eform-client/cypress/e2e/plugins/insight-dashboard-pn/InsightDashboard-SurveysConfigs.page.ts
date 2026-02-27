@@ -139,6 +139,19 @@ class InsightDashboardSurveysConfigsPage {
     const idx = rowNum - 1;
     return cy.get('.mat-mdc-row').eq(idx).find('.mat-column-surveyName span').invoke('text');
   }
+
+  clearTable() {
+    cy.get('body').then(($body) => {
+      const rowCount = $body.find('.mat-mdc-row').length;
+      for (let i = 0; i < rowCount; i++) {
+        cy.get('#actionMenu').eq(0).click();
+        cy.get('#surveyConfigDeleteBtn-0').should('be.visible').click();
+        cy.intercept('POST', '**/api/insight-dashboard-pn/survey-configs/delete').as(`deleteSurveyConfig${i}`);
+        cy.get('#surveyConfigDeleteSaveBtn').should('be.visible').click();
+        cy.wait(`@deleteSurveyConfig${i}`, { timeout: 60000 });
+      }
+    });
+  }
 }
 
 const surveyConfigsPage = new InsightDashboardSurveysConfigsPage();

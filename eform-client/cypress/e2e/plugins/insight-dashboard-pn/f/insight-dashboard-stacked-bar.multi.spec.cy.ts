@@ -48,7 +48,7 @@ describe('InSight Dashboard - Dashboards - Stacked Bar', () => {
     dashboardsViewPage.compareAmounts(dashboardStackedBarDataJson);
   });
 
-  after(() => {
+  afterEach(() => {
     insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });

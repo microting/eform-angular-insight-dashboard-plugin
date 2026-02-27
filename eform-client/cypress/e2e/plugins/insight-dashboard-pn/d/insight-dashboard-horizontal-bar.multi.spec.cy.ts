@@ -48,7 +48,7 @@ describe('InSight Dashboard - Dashboards - Horizontal Bar', () => {
     dashboardsViewPage.compareAmounts(dashboardHorizontalBarDataJson);
   });
 
-  after(() => {
+  afterEach(() => {
     insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });

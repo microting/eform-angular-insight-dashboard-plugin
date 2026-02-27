@@ -22,4 +22,8 @@ describe('InSight Dashboard - Survey Config - Add', () => {
       surveyConfigsPage.rowNum().should('equal', rowNumsBefore);
     });
   });
+
+  afterEach(() => {
+    surveyConfigsPage.clearTable();
+  });
 });

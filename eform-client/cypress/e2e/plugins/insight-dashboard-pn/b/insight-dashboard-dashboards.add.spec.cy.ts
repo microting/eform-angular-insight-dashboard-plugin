@@ -26,7 +26,8 @@ describe('InSight Dashboard - Dashboards - Add', () => {
     });
   });
 
-  after(() => {
+  afterEach(() => {
+    insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });
 });
