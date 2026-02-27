@@ -169,7 +169,7 @@ public static class ChartHelpers
 
     public static string GetDayString(DateTime dateTime)
     {
-        return $"{dateTime:yy}_{dateTime:MM}_{dateTime:dd}";
+        return $"{dateTime.Year % 100:D2}_{dateTime.Month:D2}_{dateTime.Day:D2}";
     }
 
     public static string GetWeekString(DateTime dateTime)
