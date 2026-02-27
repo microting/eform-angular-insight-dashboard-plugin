@@ -4,5 +4,6 @@ export enum DashboardPeriodUnitsEnum {
   Quarter = 3,
   SixMonth = 4,
   Year = 5,
-  Total = 6
+  Total = 6,
+  Day = 7
 }

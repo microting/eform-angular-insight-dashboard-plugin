@@ -4,11 +4,13 @@ import {
   DashboardPeriodUnitsEnum,
 } from '../const';
 import {
+  lineDataByDay,
   lineDataByMonth,
   lineDataByQuarter,
   lineDataBySixMonth,
   lineDataByWeek,
   lineDataByYear,
+  lineSmileyDataByDay,
   lineSmileyDataByMonth,
   lineSmileyDataByQuarter,
   lineSmileyDataBySixMonth,
@@ -24,11 +26,13 @@ import {
   pieGridSmileyData,
 } from '../const/chart-data/chart-data-single';
 import {
+  stackedDataByDay,
   stackedDataByMonth,
   stackedDataByQuarter,
   stackedDataBySixMonth,
   stackedDataByWeek,
   stackedDataByYear,
+  stackedSmileyDataByDay,
   stackedSmileyDataByMonth,
   stackedSmileyDataByQuarter,
   stackedSmileyDataBySixMonth,
@@ -36,6 +40,7 @@ import {
   stackedSmileyDataByYear,
 } from '../const/chart-data/chart-data-stacked';
 import {
+  stackedGroupedSmileyDataByDay,
   stackedGroupedSmileyDataByMonth,
   stackedGroupedSmileyDataByQuarter,
   stackedGroupedSmileyDataBySixMonth,
@@ -50,6 +55,8 @@ export function getChartData(
 ) {
   if (questionType && period && chartType) {
     switch (period) {
+      case DashboardPeriodUnitsEnum.Day:
+        return getChartDataByDay(chartType, questionType);
       case DashboardPeriodUnitsEnum.Week:
         return getChartDataByWeek(chartType, questionType);
       case DashboardPeriodUnitsEnum.Month:
@@ -65,6 +72,27 @@ export function getChartData(
     }
   } else {
     return [];
+  }
+}
+
+function getChartDataByDay(
+  chartType: DashboardChartTypesEnum,
+  questionType: DashboardItemQuestionTypesEnum
+) {
+  switch (chartType) {
+    case DashboardChartTypesEnum.Line:
+      return questionType !== DashboardItemQuestionTypesEnum.Smiley
+        ? lineDataByDay
+        : lineSmileyDataByDay;
+    case DashboardChartTypesEnum.HorizontalBarStacked:
+    case DashboardChartTypesEnum.HorizontalBarGrouped:
+    case DashboardChartTypesEnum.VerticalBarStacked:
+    case DashboardChartTypesEnum.VerticalBarGrouped:
+      return questionType !== DashboardItemQuestionTypesEnum.Smiley
+        ? stackedDataByDay
+        : stackedSmileyDataByDay;
+    case DashboardChartTypesEnum.HorizontalBarStackedGrouped:
+      return stackedGroupedSmileyDataByDay;
   }
 }
 

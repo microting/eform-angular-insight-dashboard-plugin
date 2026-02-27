@@ -50,6 +50,7 @@ export const enUS = {
   'VerticalBar': 'Vertical Bar',
   'VerticalBarStacked':  'Vertical Bar Stacked',
   'VerticalBarGrouped': 'Vertical Bar Grouped',
+  'Day': 'Day',
   'Week': 'Week',
   'Month': 'Month',
   'Quarter': 'Quarter',
