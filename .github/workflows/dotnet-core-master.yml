@@ -150,12 +150,20 @@ jobs:
       run: |
         cat docker_run_log
     - name: Archive screenshot artifacts
-      if: ${{ failure() }}s
+      if: ${{ failure() }}
       uses: actions/upload-artifact@v4
       with:
-        name: error Screenshots
+        name: error Screenshots ${{matrix.test}}
         path: |
           /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/errorShots/chrome*.png
+    - name: Archive videos
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: cypress-videos-${{matrix.test}}
+        path: |
+          /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/cypress/videos/*.mp4
+        retention-days: 3
   insight-dashboard-test-dotnet:
     runs-on: ubuntu-latest
     steps:
