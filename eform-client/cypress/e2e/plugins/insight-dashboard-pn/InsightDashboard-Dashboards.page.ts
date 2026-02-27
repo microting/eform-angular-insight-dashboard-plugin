@@ -58,7 +58,7 @@ class InsightDashboardDashboardsPage {
 
   deleteDashboard(rowNum: number) {
     const idx = rowNum - 1;
-    cy.get(`#action-items-${idx} #actionMenu`).click();
+    cy.get('#actionMenu').eq(idx).click();
     cy.get(`#dashboardDeleteBtn-${idx}`).should('be.visible').click();
     cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/delete').as('deleteDashboard');
     this.dashboardDeleteSaveBtn().click();
@@ -67,14 +67,14 @@ class InsightDashboardDashboardsPage {
 
   deleteDashboard_Cancels(rowNum: number) {
     const idx = rowNum - 1;
-    cy.get(`#action-items-${idx} #actionMenu`).click();
+    cy.get('#actionMenu').eq(idx).click();
     cy.get(`#dashboardDeleteBtn-${idx}`).should('be.visible').click();
     this.dashboardDeleteCancelBtn().click();
   }
 
   copyDashboard(rowNum: number) {
     const idx = rowNum - 1;
-    cy.get(`#action-items-${idx} #actionMenu`).click();
+    cy.get('#actionMenu').eq(idx).click();
     cy.get(`#dashboardCopyBtn-${idx}`).should('be.visible').click();
     cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/copy').as('copyDashboard');
     this.dashboardCopySaveBtn().click();
@@ -83,14 +83,14 @@ class InsightDashboardDashboardsPage {
 
   copyDashboard_Cancel(rowNum: number) {
     const idx = rowNum - 1;
-    cy.get(`#action-items-${idx} #actionMenu`).click();
+    cy.get('#actionMenu').eq(idx).click();
     cy.get(`#dashboardCopyBtn-${idx}`).should('be.visible').click();
     this.dashboardCopySaveCancelBtn().click();
   }
 
   editDashboard(rowNum: number) {
     const idx = rowNum - 1;
-    cy.get(`#action-items-${idx} #actionMenu`).click();
+    cy.get('#actionMenu').eq(idx).click();
     cy.intercept('GET', '**/api/insight-dashboard-pn/dashboards/edit/*').as('getDashboardEdit');
     cy.get(`#dashboardEditBtn-${idx}`).should('be.visible').click();
     cy.wait('@getDashboardEdit', { timeout: 60000 });
@@ -106,7 +106,7 @@ class InsightDashboardDashboardsPage {
       const rowCount = $rows.length;
       for (let i = 0; i < rowCount; i++) {
         // Always delete first row
-        cy.get(`#action-items-0 #actionMenu`).click();
+        cy.get('#actionMenu').eq(0).click();
         cy.get(`#dashboardDeleteBtn-0`).should('be.visible').click();
         cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/delete').as(`deleteDashboard${i}`);
         cy.get('#dashboardDeleteSaveBtn').should('be.visible').click();
