@@ -116,6 +116,8 @@ jobs:
         config-file: cypress.config.ts
         working-directory: eform-angular-frontend/eform-client
         command-prefix: "--"
+    - name: Plugin testing
+      run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin2${{matrix.test}}
     - name: Set plugin status
       run: docker exec -i mariadbtest mysql -u root --password=secretpassword -e 'update 420_Angular.EformPlugins set Status = 2'
     - name: ${{matrix.test}} test
