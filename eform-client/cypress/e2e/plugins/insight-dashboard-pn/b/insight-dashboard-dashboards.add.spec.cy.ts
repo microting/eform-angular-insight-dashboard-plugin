@@ -3,7 +3,7 @@ import insightDashboardPage from '../InsightDashboard.page';
 import dashboardsPage, {dashboardName} from '../InsightDashboard-Dashboards.page';
 
 describe('InSight Dashboard - Dashboards - Add', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('http://localhost:4200');
     loginPage.login();
     insightDashboardPage.goToDashboards();

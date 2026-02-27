@@ -34,7 +34,7 @@ const testItem: DashboardTestItemEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - Edit', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('http://localhost:4200');
     loginPage.login();
     insightDashboardPage.goToDashboards();
@@ -51,6 +51,7 @@ describe('InSight Dashboard - Dashboards - Edit', () => {
   });
 
   it('should delete item', () => {
+    dashboardEditPage.createFirstItem();
     dashboardEditPage.rowNum().then((itemNumsBefore) => {
       dashboardEditPage.deleteItem(itemNumsBefore);
       dashboardEditPage.rowNum().should('equal', itemNumsBefore - 1);
@@ -69,6 +70,7 @@ describe('InSight Dashboard - Dashboards - Edit', () => {
   });
 
   it('should copy empty item', () => {
+    dashboardEditPage.createFirstItem();
     dashboardEditPage.rowNum().then((itemNumsBefore) => {
       dashboardEditPage.copyItem(itemNumsBefore);
       dashboardEditPage.rowNum().should('equal', itemNumsBefore + 1);
@@ -76,27 +78,22 @@ describe('InSight Dashboard - Dashboards - Edit', () => {
   });
 
   it('should save filled item', () => {
-    insightDashboardPage.goToDashboards();
-    dashboardsPage.createDashboard();
-    dashboardEditPage.rowNum().then((itemNumsBefore) => {
-      dashboardEditPage.setDashboardSettings(dashboardConfig);
-      dashboardEditPage.createFirstItem();
-      dashboardEditPage.fillItem(itemNumsBefore + 1, testItem);
-      cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/update').as('updateDashboard');
-      dashboardEditPage.dashboardUpdateSaveBtn().click();
-      cy.wait('@updateDashboard', { timeout: 60000 });
-      cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards').as('getDashboards');
-      dashboardsViewPage.returnToDashboards().click();
-      cy.wait('@getDashboards', { timeout: 60000 });
-      dashboardsPage.rowNum().then((dashboardRowNum) => {
-        dashboardsPage.editDashboard(dashboardRowNum);
-        dashboardEditPage.rowNum().should('equal', itemNumsBefore + 1);
-        dashboardEditPage.dashboardUpdateSaveCancelBtn().click();
-      });
+    dashboardEditPage.createFirstItem();
+    dashboardEditPage.fillItem(1, testItem);
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/update').as('updateDashboard');
+    dashboardEditPage.dashboardUpdateSaveBtn().click();
+    cy.wait('@updateDashboard', { timeout: 60000 });
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards').as('getDashboards');
+    dashboardsViewPage.returnToDashboards().click();
+    cy.wait('@getDashboards', { timeout: 60000 });
+    dashboardsPage.rowNum().then((dashboardRowNum) => {
+      dashboardsPage.editDashboard(dashboardRowNum);
+      dashboardEditPage.rowNum().should('equal', 1);
+      dashboardEditPage.dashboardUpdateSaveCancelBtn().click();
     });
   });
 
-  after(() => {
+  afterEach(() => {
     insightDashboardPage.goToDashboards();
     dashboardsPage.clearTable();
   });

@@ -3,7 +3,7 @@ import insightDashboardPage from '../InsightDashboard.page';
 import dashboardsPage from '../InsightDashboard-Dashboards.page';
 
 describe('InSight Dashboard - Dashboards - Delete', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('http://localhost:4200');
     loginPage.login();
     insightDashboardPage.goToDashboards();

@@ -3,7 +3,7 @@ import insightDashboardPage from '../InsightDashboard.page';
 import surveyConfigsPage, {configName} from '../InsightDashboard-SurveysConfigs.page';
 
 describe('InSight Dashboard - Survey Config - Delete', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('http://localhost:4200');
     loginPage.login();
     insightDashboardPage.goToSurveysConfigs();

@@ -5,7 +5,7 @@ import answersPage from '../InsightDashboard-Answers.page';
 const microtingUId = 1413005;
 
 describe('InSight Dashboard - Answers - View', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('http://localhost:4200');
     loginPage.login();
     insightDashboardPage.goToAnswers();

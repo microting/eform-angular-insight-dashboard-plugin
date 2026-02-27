@@ -34,7 +34,7 @@ const item: DashboardTestItemEditModel = {
 };
 
 describe('InSight Dashboard - Dashboards - View', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('http://localhost:4200');
     loginPage.login();
     insightDashboardPage.goToDashboards();
