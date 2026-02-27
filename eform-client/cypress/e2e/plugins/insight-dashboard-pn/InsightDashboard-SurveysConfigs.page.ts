@@ -104,6 +104,7 @@ class InsightDashboardSurveysConfigsPage {
   updateSurveyConfig(rowNum: number) {
     const idx = rowNum - 1;
     cy.get('#actionMenu').eq(idx).click();
+    cy.wait(500);
     cy.get(`#editSurveyConfigBtn-${idx}`).should('be.visible').click();
     this.surveyConfigLocationCheckbox(1).click();
     this.surveyConfigLocationCheckbox(2).click();
@@ -115,6 +116,7 @@ class InsightDashboardSurveysConfigsPage {
   updateSurveyConfig_Cancels(rowNum: number) {
     const idx = rowNum - 1;
     cy.get('#actionMenu').eq(idx).click();
+    cy.wait(500);
     cy.get(`#editSurveyConfigBtn-${idx}`).should('be.visible').click();
     this.surveyConfigEditCancelBtn().click();
   }
@@ -122,6 +124,7 @@ class InsightDashboardSurveysConfigsPage {
   deleteSurveyConfig(rowNum: number) {
     const idx = rowNum - 1;
     cy.get('#actionMenu').eq(idx).click();
+    cy.wait(500);
     cy.get(`#surveyConfigDeleteBtn-${idx}`).should('be.visible').click();
     cy.intercept('POST', '**/api/insight-dashboard-pn/survey-configs/delete').as('deleteSurveyConfig');
     this.surveyConfigDeleteSaveBtn().click();
@@ -131,6 +134,7 @@ class InsightDashboardSurveysConfigsPage {
   deleteSurveyConfig_Cancels(rowNum: number) {
     const idx = rowNum - 1;
     cy.get('#actionMenu').eq(idx).click();
+    cy.wait(500);
     cy.get(`#surveyConfigDeleteBtn-${idx}`).should('be.visible').click();
     this.surveyConfigDeleteCancelBtn().click();
   }
@@ -145,6 +149,7 @@ class InsightDashboardSurveysConfigsPage {
       const rowCount = $body.find('.mat-mdc-row').length;
       for (let i = 0; i < rowCount; i++) {
         cy.get('#actionMenu').eq(0).click();
+        cy.wait(500);
         cy.get('#surveyConfigDeleteBtn-0').should('be.visible').click();
         cy.intercept('POST', '**/api/insight-dashboard-pn/survey-configs/delete').as(`deleteSurveyConfig${i}`);
         cy.get('#surveyConfigDeleteSaveBtn').should('be.visible').click();
