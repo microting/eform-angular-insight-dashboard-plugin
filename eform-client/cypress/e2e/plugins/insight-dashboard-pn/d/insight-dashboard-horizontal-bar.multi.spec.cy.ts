@@ -31,9 +31,9 @@ describe('InSight Dashboard - Dashboards - Horizontal Bar', () => {
     dashboardsPage.createDashboard('Horizontal Bar');
     dashboardEditPage.setDashboardSettings(dashboardConfig);
     dashboardEditPage.generateItems(dashboardHorizontalBarItems);
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/update').as('updateDashboard');
     dashboardEditPage.dashboardUpdateSaveBtn().click();
-    cy.get('#spinner-animation').should('not.exist', {timeout: 40000});
-    cy.wait(1000);
+    cy.wait('@updateDashboard', { timeout: 60000 });
   });
 
   it('should compare items headers', () => {
@@ -50,7 +50,6 @@ describe('InSight Dashboard - Dashboards - Horizontal Bar', () => {
 
   after(() => {
     insightDashboardPage.goToDashboards();
-    cy.get('#spinner-animation').should('not.exist', {timeout: 40000});
     dashboardsPage.clearTable();
   });
 });

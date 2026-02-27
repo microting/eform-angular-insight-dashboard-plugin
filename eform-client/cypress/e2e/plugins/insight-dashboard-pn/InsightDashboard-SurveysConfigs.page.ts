@@ -52,7 +52,6 @@ export function selectDateOnDatePicker(year: number, month: number, day: number)
 class InsightDashboardSurveysConfigsPage {
 
   rowNum(): Cypress.Chainable<number> {
-    cy.wait(500);
     return cy.get('tbody > tr').its('length');
   }
 
@@ -92,8 +91,9 @@ class InsightDashboardSurveysConfigsPage {
     this.surveyConfigCreateBtn().click();
     cy.get('#selectSurveyCreate .ng-input > input').should('be.visible').type(name);
     cy.get('ng-dropdown-panel .ng-option').first().should('be.visible').click();
-    cy.wait(1000);
+    cy.intercept('POST', '**/api/insight-dashboard-pn/survey-configs/create').as('createSurveyConfig');
     this.surveyConfigCreateSaveBtn().click();
+    cy.wait('@createSurveyConfig', { timeout: 60000 });
   }
 
   createSurveyConfig_Cancels() {
@@ -104,18 +104,17 @@ class InsightDashboardSurveysConfigsPage {
   updateSurveyConfig(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
     cy.get(`#editSurveyConfigBtn-${idx}`).should('be.visible').click();
     this.surveyConfigLocationCheckbox(1).click();
     this.surveyConfigLocationCheckbox(2).click();
-    cy.wait(1000);
+    cy.intercept('POST', '**/api/insight-dashboard-pn/survey-configs/update').as('updateSurveyConfig');
     this.surveyConfigEditSaveBtn().click();
+    cy.wait('@updateSurveyConfig', { timeout: 60000 });
   }
 
   updateSurveyConfig_Cancels(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
     cy.get(`#editSurveyConfigBtn-${idx}`).should('be.visible').click();
     this.surveyConfigEditCancelBtn().click();
   }
@@ -123,16 +122,15 @@ class InsightDashboardSurveysConfigsPage {
   deleteSurveyConfig(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
     cy.get(`#surveyConfigDeleteBtn-${idx}`).should('be.visible').click();
-    cy.wait(1000);
+    cy.intercept('POST', '**/api/insight-dashboard-pn/survey-configs/delete').as('deleteSurveyConfig');
     this.surveyConfigDeleteSaveBtn().click();
+    cy.wait('@deleteSurveyConfig', { timeout: 60000 });
   }
 
   deleteSurveyConfig_Cancels(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
     cy.get(`#surveyConfigDeleteBtn-${idx}`).should('be.visible').click();
     this.surveyConfigDeleteCancelBtn().click();
   }

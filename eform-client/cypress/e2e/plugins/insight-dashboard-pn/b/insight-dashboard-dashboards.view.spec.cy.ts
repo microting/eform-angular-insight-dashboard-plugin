@@ -44,9 +44,9 @@ describe('InSight Dashboard - Dashboards - View', () => {
 
   it('should observe filled item', () => {
     dashboardEditPage.generateItems([item]);
-    cy.wait(1000);
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/update').as('updateDashboard');
     dashboardEditPage.dashboardUpdateSaveBtn().click();
-    cy.wait(5000);
+    cy.wait('@updateDashboard', { timeout: 60000 });
     cy.get('#firstQuestion1').should('be.visible');
     dashboardsViewPage.returnToDashboards();
     dashboardsViewPage.compareItem(1, item, dashboardConfig);

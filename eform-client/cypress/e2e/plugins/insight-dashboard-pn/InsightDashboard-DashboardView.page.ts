@@ -4,7 +4,6 @@ import {format, parse, set} from 'date-fns';
 class InsightDashboardDashboardViewPage {
 
   rowNum(): Cypress.Chainable<number> {
-    cy.wait(1000);
     return cy.get('#dashboardViewItem').its('length');
   }
 
@@ -85,7 +84,6 @@ class InsightDashboardDashboardViewPage {
   }
 
   compareItem(rowNum: number, originalItem: DashboardTestItemEditModel, config: DashboardTestConfigEditModel) {
-    cy.wait(1000);
     this.firstQuestion(rowNum).invoke('text').should('equal', originalItem.firstQuestion);
     this.filterQuestion(rowNum).invoke('text').should('equal', originalItem.filterQuestion);
     this.filterAnswer(rowNum).invoke('text').should('equal', originalItem.filterAnswer);

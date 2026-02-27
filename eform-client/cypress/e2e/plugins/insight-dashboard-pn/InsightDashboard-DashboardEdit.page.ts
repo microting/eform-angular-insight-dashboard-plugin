@@ -33,7 +33,6 @@ export interface DashboardTestConfigEditModel {
 class InsightDashboardDashboardEditPage {
 
   rowNum(): Cypress.Chainable<number> {
-    cy.wait(500);
     return cy.get('#dashboardItem').its('length');
   }
 

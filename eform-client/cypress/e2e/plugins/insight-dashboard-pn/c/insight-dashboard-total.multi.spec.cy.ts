@@ -31,8 +31,9 @@ describe('InSight Dashboard - Dashboards - Total', () => {
     dashboardsPage.createDashboard('Total');
     dashboardEditPage.setDashboardSettings(dashboardConfig);
     dashboardEditPage.generateItems(dashboardTotalItems);
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/update').as('updateDashboard');
     dashboardEditPage.dashboardUpdateSaveBtn().click();
-    cy.get('#spinner-animation').should('not.exist', {timeout: 50000});
+    cy.wait('@updateDashboard', { timeout: 60000 });
   });
 
   it('should compare items headers', () => {

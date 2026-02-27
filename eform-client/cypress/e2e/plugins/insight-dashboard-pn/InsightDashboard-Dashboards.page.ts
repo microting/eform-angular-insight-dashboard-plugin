@@ -6,7 +6,6 @@ export const dashboardName = 'NewDashboard';
 class InsightDashboardDashboardsPage {
 
   rowNum(): Cypress.Chainable<number> {
-    cy.wait(500);
     return cy.get('tbody > tr').its('length');
   }
 
@@ -47,7 +46,9 @@ class InsightDashboardDashboardsPage {
     this.dashboardNameField().click();
     this.dashboardNameField().type(name);
     selectValueInNgSelector('#selectSurveyCreate', configName, true);
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/create').as('createDashboard');
     this.dashboardCreateSaveBtn().click();
+    cy.wait('@createDashboard', { timeout: 60000 });
   }
 
   createDashboard_Cancels() {
@@ -58,15 +59,15 @@ class InsightDashboardDashboardsPage {
   deleteDashboard(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
     cy.get(`#dashboardDeleteBtn-${idx}`).should('be.visible').click();
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/delete').as('deleteDashboard');
     this.dashboardDeleteSaveBtn().click();
+    cy.wait('@deleteDashboard', { timeout: 60000 });
   }
 
   deleteDashboard_Cancels(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
     cy.get(`#dashboardDeleteBtn-${idx}`).should('be.visible').click();
     this.dashboardDeleteCancelBtn().click();
   }
@@ -74,15 +75,15 @@ class InsightDashboardDashboardsPage {
   copyDashboard(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
     cy.get(`#dashboardCopyBtn-${idx}`).should('be.visible').click();
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/copy').as('copyDashboard');
     this.dashboardCopySaveBtn().click();
+    cy.wait('@copyDashboard', { timeout: 60000 });
   }
 
   copyDashboard_Cancel(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
     cy.get(`#dashboardCopyBtn-${idx}`).should('be.visible').click();
     this.dashboardCopySaveCancelBtn().click();
   }
@@ -90,9 +91,9 @@ class InsightDashboardDashboardsPage {
   editDashboard(rowNum: number) {
     const idx = rowNum - 1;
     cy.get(`#action-items-${idx} #actionMenu`).click();
-    cy.wait(1000);
+    cy.intercept('GET', '**/api/insight-dashboard-pn/dashboards/edit/*').as('getDashboardEdit');
     cy.get(`#dashboardEditBtn-${idx}`).should('be.visible').click();
-    cy.wait(500);
+    cy.wait('@getDashboardEdit', { timeout: 60000 });
   }
 
   getRowDashboardName(rowNum: number): Cypress.Chainable<string> {
@@ -101,17 +102,15 @@ class InsightDashboardDashboardsPage {
   }
 
   clearTable() {
-    cy.wait(1000);
     cy.get('tbody > tr').then(($rows) => {
       const rowCount = $rows.length;
       for (let i = 0; i < rowCount; i++) {
         // Always delete first row
         cy.get(`#action-items-0 #actionMenu`).click();
-        cy.wait(1000);
         cy.get(`#dashboardDeleteBtn-0`).should('be.visible').click();
-        cy.wait(500);
+        cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/delete').as('deleteDashboard');
         cy.get('#dashboardDeleteSaveBtn').should('be.visible').click();
-        cy.wait(500);
+        cy.wait('@deleteDashboard', { timeout: 60000 });
       }
     });
   }

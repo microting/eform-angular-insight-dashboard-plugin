@@ -82,12 +82,14 @@ describe('InSight Dashboard - Dashboards - Edit', () => {
       dashboardEditPage.setDashboardSettings(dashboardConfig);
       dashboardEditPage.createFirstItem();
       dashboardEditPage.fillItem(itemNumsBefore + 1, testItem);
+      cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards/update').as('updateDashboard');
       dashboardEditPage.dashboardUpdateSaveBtn().click();
+      cy.wait('@updateDashboard', { timeout: 60000 });
+      cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards').as('getDashboards');
       dashboardsViewPage.returnToDashboards().click();
-      cy.wait(2000);
+      cy.wait('@getDashboards', { timeout: 60000 });
       dashboardsPage.rowNum().then((dashboardRowNum) => {
         dashboardsPage.editDashboard(dashboardRowNum);
-        cy.wait(2000);
         dashboardEditPage.rowNum().should('equal', itemNumsBefore + 1);
         dashboardEditPage.dashboardUpdateSaveCancelBtn().click();
       });

@@ -17,22 +17,25 @@ class InsightDashboardPage {
   }
 
   goToSurveysConfigs() {
+    cy.intercept('POST', '**/api/insight-dashboard-pn/survey-configs').as('getSurveyConfigs');
     this.surveysConfigsBtn().then(($ele) => {
       if (!$ele.is(':visible')) {
         this.insightDashboardDropDown().click();
       }
     });
     this.surveysConfigsBtn().should('be.visible').click();
+    cy.wait('@getSurveyConfigs', { timeout: 60000 });
   }
 
   goToDashboards() {
+    cy.intercept('POST', '**/api/insight-dashboard-pn/dashboards').as('getDashboards');
     this.dashboardsBtn().then(($ele) => {
       if (!$ele.is(':visible')) {
         this.insightDashboardDropDown().click();
       }
     });
     this.dashboardsBtn().should('be.visible').click();
-    cy.wait(1500);
+    cy.wait('@getDashboards', { timeout: 60000 });
     cy.get('#createDashboardBtn').should('be.visible');
   }
 
