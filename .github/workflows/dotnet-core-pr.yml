@@ -47,7 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        test: [a,b,c]
+        test: [a,b,c,d,e,f,g]
     steps:
     - uses: actions/checkout@v3
       with:
@@ -115,8 +115,9 @@ jobs:
         command-prefix: "--"
     - name: Plugin testing
       run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin2${{matrix.test}}
-    - name: a test
-      continue-on-error: true
+    #- name: Set plugin status
+    #  run: docker exec -i mariadbtest mysql -u root --password=secretpassword -e 'update 420_Angular.EformPlugins set Status = 2'
+    - name: ${{matrix.test}} test
       uses: cypress-io/github-action@v4
       with:
         start: echo 'hi'
@@ -124,7 +125,7 @@ jobs:
         wait-on-timeout: 120
         browser: chrome
         record: false
-        spec: cypress/e2e/plugins/items-planning-pn/a/*
+        spec: cypress/e2e/plugins/insight-dashboard-pn/${{matrix.test}}/*
         config-file: cypress.config.ts
         working-directory: eform-angular-frontend/eform-client
         command-prefix: "--"
@@ -140,12 +141,20 @@ jobs:
       run: |
         cat docker_run_log
     - name: Archive screenshot artifacts
-      if: ${{ failure() }}s
+      if: ${{ failure() }}
       uses: actions/upload-artifact@v4
       with:
         name: error Screenshots ${{matrix.test}}
         path: |
-          /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/*.png
+          /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/chrome*.png
+    - name: Archive videos
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: cypress-videos-${{matrix.test}}
+        path: |
+          /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/cypress/videos/*.mp4
+        retention-days: 3
   insight-dashboard-test-dotnet:
     runs-on: ubuntu-latest
     steps:
