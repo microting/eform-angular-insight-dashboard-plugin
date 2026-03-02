@@ -42,12 +42,12 @@ using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
 public class WordProcessor : IDisposable
 {
     // Define Constants for Page Width and Page Margin
-    private const int PageWidth = 10000;
-    private const int PageHeight = 17000;
-    private const int PageMarginLeft = 1000;
-    private const int PageMarginRight = 1000;
-    private const int PageMarginTop = 1000;
-    private const int PageMarginBottom = 1000;
+    private const int PageWidth = 11906;   // A4 width in twips
+    private const int PageHeight = 16838;  // A4 height in twips
+    private const int PageMarginLeft = 1440;   // 1 inch in twips
+    private const int PageMarginRight = 1440;  // 1 inch in twips
+    private const int PageMarginTop = 1440;    // 1 inch in twips
+    private const int PageMarginBottom = 1440; // 1 inch in twips
     private const double DocumentSizePerPixel = 15;
     private const double EmuPerPixel = 9525;
 
@@ -122,11 +122,10 @@ public class WordProcessor : IDisposable
         var compositeElements = converter.Parse(html);
 
         // Set Page Size and Page Margin so that we can place the image as desired.
-        // Available Width = PageWidth - PageMarginLeft - PageMarginRight (= 17000 - 1000 - 1000 = 15000 for default values)
+        // Available Width = PageWidth - PageMarginLeft - PageMarginRight (= 11906 - 1440 - 1440 = 9026 for A4 with 1-inch margins)
         var sectionProperties = new SectionProperties();
         sectionProperties.AppendChild(new PageSize { Width = PageWidth, Height = PageHeight });
         sectionProperties.AppendChild(new PageMargin { Left = PageMarginLeft, Bottom = PageMarginBottom, Top = PageMarginTop, Right = PageMarginRight });
-        _wordProcessingDocument.MainDocumentPart.Document.Body.AppendChild(sectionProperties);
 
         if (compositeElements[0] is Paragraph p)
         {
@@ -164,7 +163,9 @@ public class WordProcessor : IDisposable
             }
         }
 
+        // Append image content first, then SectionProperties last (required by OpenXML spec)
         _wordProcessingDocument.MainDocumentPart.Document.Body.Append(compositeElements);
+        _wordProcessingDocument.MainDocumentPart.Document.Body.AppendChild(sectionProperties);
     }
 
     /// <summary>
