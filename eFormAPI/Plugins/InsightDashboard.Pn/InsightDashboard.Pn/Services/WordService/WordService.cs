@@ -29,7 +29,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Common.InsightDashboardLocalizationService;
 using DashboardService;
@@ -37,6 +36,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
 using Microting.InsightDashboardBase.Infrastructure.Enums;
+using InsightDashboard.Pn.Infrastructure.Models.Dashboards.RawData;
 
 public class WordService : IWordService
 {
@@ -67,17 +67,9 @@ public class WordService : IWordService
 
             var dashboardView = reportDataResult.Model;
 
-            // Read html and template
-            var resourceString = "InsightDashboard.Pn.Resources.Templates.WordExport.page.html";
+            // Load the template docx
+            var resourceString = "InsightDashboard.Pn.Resources.Templates.WordExport.file.docx";
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceStream = assembly.GetManifestResourceStream(resourceString);
-            string html;
-            using (var reader = new StreamReader(resourceStream ?? throw new InvalidOperationException($"{nameof(resourceStream)} is null")))
-            {
-                html = reader.ReadToEnd();
-            }
-
-            resourceString = "InsightDashboard.Pn.Resources.Templates.WordExport.file.docx";
             var docxFileResourceStream = assembly.GetManifestResourceStream(resourceString);
             if (docxFileResourceStream == null)
             {
@@ -86,306 +78,138 @@ public class WordService : IWordService
             var docxFileStream = new MemoryStream();
             await docxFileResourceStream.CopyToAsync(docxFileStream);
 
-            var word = new WordProcessor(docxFileStream);
-
-            // Add dashboard page
-            html = html.Replace("{%DashboardName%}", dashboardView.DashboardName);
-            html = html.Replace("{%DashboardNameString%}", _localizationService.GetString("Dashboard"));
-
-            html = html.Replace("{%SurveyName%}", dashboardView.SurveyName);
-            html = html.Replace("{%SurveyNameString%}", _localizationService.GetString("Survey"));
-
-            html = html.Replace("{%LocationTag%}", dashboardView.LocationName ?? dashboardView.TagName);
-            html = html.Replace("{%LocationTagString%}", _localizationService.GetString("LocationTag"));
-
-            // Period
-            if (dashboardView.AnswerDates.DateFrom != null)
+            using (var word = new WordProcessor(docxFileStream))
             {
-                var periodFromTemplate = $@"<p><b>{_localizationService.GetString("PeriodFrom")}:</b> {dashboardView.AnswerDates.DateFrom:dd-MM-yyyy}</p>";
-                html = html.Replace("{%PeriodFrom%}", periodFromTemplate);
-            }
-            else
-            {
-                html = html.Replace("{%PeriodFrom%}", string.Empty);
-            }
+                // Dashboard header
+                word.AddLabelValueParagraph(
+                    _localizationService.GetString("Dashboard"),
+                    dashboardView.DashboardName);
 
-            if (dashboardView.AnswerDates.Today)
-            {
-                var periodToTemplate = $@"<p><b>{_localizationService.GetString("PeriodTo")}:</b> {DateTime.Now:dd-MM-yyyy}</p>";
-                html = html.Replace("{%PeriodTo%}", periodToTemplate);
-            }
-            else if (dashboardView.AnswerDates.DateFrom != null)
-            {
-                var periodToTemplate = $@"<p><b>{_localizationService.GetString("PeriodTo")}:</b> {dashboardView.AnswerDates.DateTo:dd-MM-yyyy}</p>";
-                html = html.Replace("{%PeriodTo%}", periodToTemplate);
-            }
-            else
-            {
-                html = html.Replace("{%PeriodTo%}", string.Empty);
-            }
+                word.AddLabelValueParagraph(
+                    _localizationService.GetString("Survey"),
+                    dashboardView.SurveyName);
 
-            var itemsHtml = "";
-            foreach (var dashboardItem in dashboardView.Items)
-            {
-                var isText = dashboardItem.FirstQuestionType == "text";
+                word.AddLabelValueParagraph(
+                    _localizationService.GetString("LocationTag"),
+                    dashboardView.LocationName ?? dashboardView.TagName);
 
-                itemsHtml += @"<div style=""page-break-before:always"">";
-
-                itemsHtml += $@"<p><b>{_localizationService.GetString("Question")}:</b> {dashboardItem.FirstQuestionName}</p>";
-
-                if (!string.IsNullOrEmpty(dashboardItem.FilterQuestionName))
+                // Period
+                if (dashboardView.AnswerDates.DateFrom != null)
                 {
-                    itemsHtml += $@"<p><b>{_localizationService.GetString("FilterQuestion")}:</b> {dashboardItem.FilterQuestionName}</p>";
-                }
-                if (!string.IsNullOrEmpty(dashboardItem.FilterAnswerName))
-                {
-                    itemsHtml += $@"<p><b>{_localizationService.GetString("FilterAnswer")}</b> {dashboardItem.FilterAnswerName}</p>";
+                    word.AddLabelValueParagraph(
+                        _localizationService.GetString("PeriodFrom"),
+                        dashboardView.AnswerDates.DateFrom.Value.ToString("dd-MM-yyyy"));
                 }
 
-                if (isText)
+                if (dashboardView.AnswerDates.Today)
                 {
-                    itemsHtml += @"<br/>";
-                    itemsHtml += @"<table width=""100%"" border=""1"">";
-
-                    // Table header
-                    itemsHtml += @"<tr style=""background-color:#f5f5f5;font-weight:bold"">";
-                    itemsHtml += $@"<td>{_localizationService.GetString("Date")}</td>";
-                    itemsHtml += $@"<td>{_localizationService.GetString("Tag")}</td>";
-                    itemsHtml += $@"<td>{_localizationService.GetString("Comments")}</td>";
-                    itemsHtml += @"</tr>";
-
-                    foreach (var dataModel in dashboardItem.TextQuestionData)
-                    {
-                        itemsHtml += @"<tr>";
-                        itemsHtml += $@"<td>{dataModel.Date:dd-MM-yyyy}</td>";
-                        itemsHtml += $@"<td>{dataModel.LocationName}</td>";
-                        itemsHtml += $@"<td>{dataModel.Commentary}</td>";
-                        itemsHtml += @"</tr>";
-                    }
-                    itemsHtml += @"</table>";
+                    word.AddLabelValueParagraph(
+                        _localizationService.GetString("PeriodTo"),
+                        DateTime.Now.ToString("dd-MM-yyyy"));
                 }
-                else
+                else if (dashboardView.AnswerDates.DateTo != null)
                 {
-                    if (dashboardItem.IgnoredAnswerValues.Any())
-                    {
-                        var ignoredAnswerValuesString = string.Join(
-                            ", ",
-                            dashboardItem.IgnoredAnswerValues
-                                .Select(x => x.Name)
-                                .ToArray());
+                    word.AddLabelValueParagraph(
+                        _localizationService.GetString("PeriodTo"),
+                        dashboardView.AnswerDates.DateTo.Value.ToString("dd-MM-yyyy"));
+                }
 
-                        itemsHtml += $@"<p><b>{_localizationService.GetString("IgnoredValues")}:</b> {ignoredAnswerValuesString}</p>";
+                // Dashboard items
+                foreach (var dashboardItem in dashboardView.Items)
+                {
+                    var isText = dashboardItem.FirstQuestionType == "text";
+
+                    // Page break before each item
+                    word.AddPageBreak();
+
+                    word.AddLabelValueParagraph(
+                        _localizationService.GetString("Question"),
+                        dashboardItem.FirstQuestionName);
+
+                    if (!string.IsNullOrEmpty(dashboardItem.FilterQuestionName))
+                    {
+                        word.AddLabelValueParagraph(
+                            _localizationService.GetString("FilterQuestion"),
+                            dashboardItem.FilterQuestionName);
                     }
 
-                    itemsHtml += $@"<p><img src=""data:image/png;base64,pngBase64String_{dashboardItem.Id}"" width=""650px"" alt=""Image"" /></p>";
-                    var imageFile = files.FirstOrDefault(x => x.FileName == dashboardItem.Id.ToString());
-                    if (imageFile == null)
+                    if (!string.IsNullOrEmpty(dashboardItem.FilterAnswerName))
                     {
-                        throw new InvalidOperationException($"{nameof(imageFile)} is null");
+                        word.AddLabelValueParagraph(
+                            _localizationService.GetString("FilterAnswer"),
+                            dashboardItem.FilterAnswerName);
                     }
 
-                    await using (var memoryStream = new MemoryStream())
+                    if (isText)
                     {
-                        await imageFile.CopyToAsync(memoryStream);
-                        var imageBytes = memoryStream.ToArray();
-                        var base64String = Convert.ToBase64String(imageBytes);
-                        itemsHtml = itemsHtml.Replace($"pngBase64String_{dashboardItem.Id}", base64String);
-                    }
+                        // Text question table
+                        word.AddEmptyParagraph();
 
-                    // using (var image = Image.FromStream(imageFile.OpenReadStream()))
-                    // {
-                    //     await using (var memoryStream = new MemoryStream())
-                    //     {
-                    //         image.Save(memoryStream, image.RawFormat);
-                    //         var imageBytes = memoryStream.ToArray();
-                    //
-                    //         // Convert byte[] to Base64 String
-                    //         var base64String = Convert.ToBase64String(imageBytes);
-                    //         itemsHtml = itemsHtml.Replace($"pngBase64String_{dashboardItem.Id}", base64String);
-                    //     }
-                    // }
-
-                    // Tables
-                    foreach (var rawDataItem in dashboardItem.ChartData.RawData)
-                    {
-                        itemsHtml += @"<table style=""background-color:#fff"" width=""100%"" border=""1"">";
-
-                        // multiStacked data chart with inverted values
-                        if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)
+                        var headers = new List<string>
                         {
-                            // Table header
-                            itemsHtml += @"<tr style=""font-weight:bold"">";
-                            itemsHtml += @"<th></th>";
-                            itemsHtml += @"<th></th>";
+                            _localizationService.GetString("Date"),
+                            _localizationService.GetString("Tag"),
+                            _localizationService.GetString("Comments")
+                        };
 
-                            foreach (var rawHeader in rawDataItem.RawHeaders)
+                        var rows = new List<List<TableCellData>>();
+                        foreach (var dataModel in dashboardItem.TextQuestionData)
+                        {
+                            rows.Add(new List<TableCellData>
                             {
-                                itemsHtml += $@"<th>{rawHeader}</th>";
+                                new() { Text = dataModel.Date.ToString("dd-MM-yyyy") },
+                                new() { Text = dataModel.LocationName },
+                                new() { Text = dataModel.Commentary }
+                            });
+                        }
+
+                        word.AddTable(headers, rows);
+                    }
+                    else
+                    {
+                        // Ignored values
+                        if (dashboardItem.IgnoredAnswerValues.Any())
+                        {
+                            var ignoredAnswerValuesString = string.Join(
+                                ", ",
+                                dashboardItem.IgnoredAnswerValues
+                                    .Select(x => x.Name)
+                                    .ToArray());
+
+                            word.AddLabelValueParagraph(
+                                _localizationService.GetString("IgnoredValues"),
+                                ignoredAnswerValuesString);
+                        }
+
+                        // Chart image
+                        var imageFile = files.FirstOrDefault(x => x.FileName == dashboardItem.Id.ToString());
+                        if (imageFile == null)
+                        {
+                            throw new InvalidOperationException($"{nameof(imageFile)} is null");
+                        }
+
+                        await using (var memoryStream = new MemoryStream())
+                        {
+                            await imageFile.CopyToAsync(memoryStream);
+                            word.AddImage(memoryStream.ToArray());
+                        }
+
+                        // Data tables
+                        foreach (var rawDataItem in dashboardItem.ChartData.RawData)
+                        {
+                            if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)
+                            {
+                                AddGroupedStackedTable(word, rawDataItem);
                             }
-
-                            itemsHtml += @"</tr>";
-
-                            var totalItemNumber = 0;
-                            // Table elements
-                            foreach (var dataModel in rawDataItem.RawDataItems)
+                            else
                             {
-                                // Table percents and average
-                                for (var i = 0; i < dataModel.RawDataValues.Count; i++)
-                                {
-                                    var dataValue = dataModel.RawDataValues[i];
-
-                                    // add row counter
-                                    totalItemNumber++;
-                                    var isEven = totalItemNumber % 2 == 0;
-
-                                    // open
-                                    itemsHtml += @"<tr>";
-
-                                    // add first table text (year/location)
-                                    if (i == 0)
-                                    {
-                                        var rowCount = dataModel.RawDataValues.Count;
-                                        itemsHtml +=
-                                            $@"<td rowspan=""{rowCount}"" style=""background-color:#fff"">{dataModel.RawValueName}</td>";
-                                    }
-
-                                    // location or year name
-                                    itemsHtml +=
-                                        $@"<td {AddStyles(false, isEven)}>{dataValue.ValueName}</td>";
-
-                                    // for percents
-                                    for (var percentIndex = 0;
-                                         percentIndex < dataValue.Percents.Length;
-                                         percentIndex++)
-                                    {
-                                        var valuePercent = dataValue.Percents[percentIndex];
-
-                                        if (percentIndex == dataValue.Percents.Length - 1)
-                                        {
-                                            itemsHtml += $@"<td {AddStyles(true, isEven)}>{valuePercent}%</td>";
-                                        }
-                                        else
-                                        {
-                                            itemsHtml += $@"<td {AddStyles(false, isEven)}>{valuePercent}%</td>";
-                                        }
-                                    }
-
-                                    // for amounts
-                                    for (var amountIndex = 0; amountIndex < dataValue.Amounts.Length; amountIndex++)
-                                    {
-                                        var amountPercent = dataValue.Amounts[amountIndex];
-
-                                        if (amountIndex == dataValue.Amounts.Length - 1)
-                                        {
-                                            itemsHtml += $@"<td {AddStyles(true, isEven)}>{amountPercent}</td>";
-                                        }
-                                        else
-                                        {
-                                            itemsHtml += $@"<td {AddStyles(false, isEven)}>{amountPercent}</td>";
-                                        }
-                                    }
-
-                                    // close
-                                    itemsHtml += @"</tr>";
-                                }
+                                AddStandardTable(word, rawDataItem, dashboardItem.CalculateAverage);
                             }
                         }
-                        else
-                        {
-                            // Other tables for single and multi data
-                            for (int y = 0; y < rawDataItem.RawDataItems.Count; y++)
-                            {
-                                var dataModel = rawDataItem.RawDataItems[y];
-                                // Table header
-                                itemsHtml += @"<tr style=""font-weight:bold"">";
-                                itemsHtml += $@"<td>{dataModel.RawValueName}</td>";
-
-                                foreach (var rawHeader in rawDataItem.RawHeaders)
-                                {
-                                    itemsHtml += $@"<td>{rawHeader}</td>";
-                                }
-
-                                itemsHtml += @"</tr>";
-
-                                // Table percents and average
-                                for (var i = 0; i < dataModel.RawDataValues.Count; i++)
-                                {
-                                    var dataValue = dataModel.RawDataValues[i];
-
-                                    if (i == dataModel.RawDataValues.Count - 1)
-                                    {
-                                        itemsHtml += @"<tr style=""font-weight:bold"">";
-                                    }
-                                    else
-                                    {
-                                        itemsHtml += @"<tr>";
-                                    }
-
-                                    itemsHtml += $@"<td>{dataValue.ValueName}</td>";
-
-                                    foreach (var valuePercent in dataValue.Percents)
-                                    {
-                                        if (dashboardItem.CalculateAverage)
-                                        {
-                                            itemsHtml += $@"<td>{valuePercent}</td>";
-                                        }
-                                        else
-                                        {
-                                            itemsHtml += $@"<td>{valuePercent}%</td>";
-                                        }
-                                    }
-
-                                    itemsHtml += @"</tr>";
-                                }
-
-                                itemsHtml += @"<tr><td></td></tr>";
-
-                                // Table amounts
-                                for (var i = 0; i < dataModel.RawDataValues.Count; i++)
-                                {
-                                    var dataValue = dataModel.RawDataValues[i];
-
-                                    if (i == dataModel.RawDataValues.Count - 1)
-                                    {
-                                        itemsHtml += @"<tr style=""font-weight:bold"">";
-                                    }
-                                    else
-                                    {
-                                        itemsHtml += @"<tr>";
-                                    }
-
-                                    itemsHtml += $@"<td>{dataValue.ValueName}</td>";
-                                    foreach (var valueAmount in dataValue.Amounts)
-                                    {
-                                        itemsHtml += $@"<td>{valueAmount}</td>";
-                                    }
-
-                                    itemsHtml += @"</tr>";
-                                }
-
-                                // Empty table row
-                                if (y < dashboardItem.ChartData.RawData.Count - 1)
-                                {
-                                    itemsHtml += @"<tr style=""font-weight:bold; background-color:#fff"">";
-                                    foreach (var unused in rawDataItem.RawHeaders)
-                                    {
-                                        itemsHtml += $@"<td></td>";
-                                    }
-                                    itemsHtml += @"</tr>";
-                                }
-                            }
-                        }
-                        itemsHtml += @"</table>";
                     }
                 }
+            } // WordProcessor.Dispose() saves and closes the document here
 
-                itemsHtml += @"<div/>";
-            }
-
-            html = html.Replace("{%ItemList%}", itemsHtml);
-
-            word.AddHtml(html);
-            word.Dispose();
             docxFileStream.Position = 0;
             return new OperationDataResult<Stream>(true, docxFileStream);
         }
@@ -399,31 +223,157 @@ public class WordService : IWordService
         }
     }
 
-
-    private static string AddStyles(bool bold, bool grayBackground)
+    /// <summary>
+    /// Adds a grouped/stacked bar chart table.
+    /// </summary>
+    private static void AddGroupedStackedTable(WordProcessor word, DashboardViewChartRawDataModel rawDataItem)
     {
-        var sb = new StringBuilder();
-
-        sb.Append(@"style=""");
-
-        if (grayBackground)
+        // Build headers: empty, empty, then raw headers
+        var headers = new List<string> { "", "" };
+        foreach (var rawHeader in rawDataItem.RawHeaders)
         {
-            sb.Append(@"background-color:#f5f5f5;");
+            headers.Add(rawHeader);
         }
 
-        if (bold)
+        var rows = new List<List<TableCellData>>();
+        var totalItemNumber = 0;
+
+        foreach (var dataModel in rawDataItem.RawDataItems)
         {
-            sb.Append(@"font-weight:bold;");
+            for (var i = 0; i < dataModel.RawDataValues.Count; i++)
+            {
+                var dataValue = dataModel.RawDataValues[i];
+                totalItemNumber++;
+                var isEven = totalItemNumber % 2 == 0;
+
+                var row = new List<TableCellData>();
+
+                // First column: row group name (with row span)
+                if (i == 0)
+                {
+                    row.Add(new TableCellData
+                    {
+                        Text = dataModel.RawValueName,
+                        RowSpan = dataModel.RawDataValues.Count
+                    });
+                }
+                else
+                {
+                    row.Add(new TableCellData
+                    {
+                        Text = "",
+                        RowSpan = -1 // continuation
+                    });
+                }
+
+                // Second column: value name
+                row.Add(new TableCellData
+                {
+                    Text = dataValue.ValueName,
+                    GrayBackground = isEven
+                });
+
+                // Percent columns
+                for (var percentIndex = 0; percentIndex < dataValue.Percents.Length; percentIndex++)
+                {
+                    var isLast = percentIndex == dataValue.Percents.Length - 1;
+                    row.Add(new TableCellData
+                    {
+                        Text = $"{dataValue.Percents[percentIndex]}%",
+                        Bold = isLast,
+                        GrayBackground = isEven
+                    });
+                }
+
+                // Amount columns
+                for (var amountIndex = 0; amountIndex < dataValue.Amounts.Length; amountIndex++)
+                {
+                    var isLast = amountIndex == dataValue.Amounts.Length - 1;
+                    row.Add(new TableCellData
+                    {
+                        Text = $"{dataValue.Amounts[amountIndex]}",
+                        Bold = isLast,
+                        GrayBackground = isEven
+                    });
+                }
+
+                rows.Add(row);
+            }
         }
 
+        word.AddTable(headers, rows);
+    }
 
-        sb.Append(@"""");
-
-        if (bold || grayBackground)
+    /// <summary>
+    /// Adds standard data tables (for single and multi data charts).
+    /// </summary>
+    private static void AddStandardTable(WordProcessor word, DashboardViewChartRawDataModel rawDataItem, bool calculateAverage)
+    {
+        for (int y = 0; y < rawDataItem.RawDataItems.Count; y++)
         {
-            return sb.ToString();
-        }
+            var dataModel = rawDataItem.RawDataItems[y];
 
-        return string.Empty;
+            // Headers: value name + raw headers
+            var headers = new List<string> { dataModel.RawValueName };
+            foreach (var rawHeader in rawDataItem.RawHeaders)
+            {
+                headers.Add(rawHeader);
+            }
+
+            // Percent rows
+            var rows = new List<List<TableCellData>>();
+            for (var i = 0; i < dataModel.RawDataValues.Count; i++)
+            {
+                var dataValue = dataModel.RawDataValues[i];
+                var isLastRow = i == dataModel.RawDataValues.Count - 1;
+
+                var row = new List<TableCellData>
+                {
+                    new() { Text = dataValue.ValueName, Bold = isLastRow }
+                };
+
+                foreach (var valuePercent in dataValue.Percents)
+                {
+                    var displayValue = calculateAverage
+                        ? $"{valuePercent}"
+                        : $"{valuePercent}%";
+
+                    row.Add(new TableCellData { Text = displayValue, Bold = isLastRow });
+                }
+
+                rows.Add(row);
+            }
+
+            // Empty separator row
+            var separatorRow = new List<TableCellData> { new() { Text = "" } };
+            rows.Add(separatorRow);
+
+            // Amount rows
+            for (var i = 0; i < dataModel.RawDataValues.Count; i++)
+            {
+                var dataValue = dataModel.RawDataValues[i];
+                var isLastRow = i == dataModel.RawDataValues.Count - 1;
+
+                var row = new List<TableCellData>
+                {
+                    new() { Text = dataValue.ValueName, Bold = isLastRow }
+                };
+
+                foreach (var valueAmount in dataValue.Amounts)
+                {
+                    row.Add(new TableCellData { Text = $"{valueAmount}", Bold = isLastRow });
+                }
+
+                rows.Add(row);
+            }
+
+            word.AddTable(headers, rows);
+
+            // Empty row between data models
+            if (y < rawDataItem.RawDataItems.Count - 1)
+            {
+                word.AddEmptyParagraph();
+            }
+        }
     }
 }

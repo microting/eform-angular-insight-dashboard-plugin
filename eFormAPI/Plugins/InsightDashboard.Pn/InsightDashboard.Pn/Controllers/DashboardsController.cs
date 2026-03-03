@@ -121,18 +121,16 @@ public class DashboardsController : Controller
             }
             else
             {
-                using (var wordStream = result.Model)
+                await using var wordStream = result.Model;
+                int bytesRead;
+                Response.ContentLength = wordStream.Length;
+                Response.ContentType =
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                while ((bytesRead = wordStream.Read(buffer, 0, buffer.Length)) > 0 &&
+                       !HttpContext.RequestAborted.IsCancellationRequested)
                 {
-                    int bytesRead;
-                    Response.ContentLength = wordStream.Length;
-                    Response.ContentType =
-                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-                    while ((bytesRead = wordStream.Read(buffer, 0, buffer.Length)) > 0 &&
-                           !HttpContext.RequestAborted.IsCancellationRequested)
-                    {
-                        await Response.Body.WriteAsync(buffer, 0, bytesRead);
-                        await Response.Body.FlushAsync();
-                    }
+                    await Response.Body.WriteAsync(buffer, 0, bytesRead);
+                    await Response.Body.FlushAsync();
                 }
             }
         });
