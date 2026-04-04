@@ -228,7 +228,7 @@ jobs:
     - name: Enable plugin
       if: matrix.test != 'a'
       run: |
-        docker exec -i mariadbtest mysql -u root --password=secretpassword -e 'update 420_Angular.EformPlugins set Status = 1'
+        docker exec -i mariadbtest mysql -u root --password=secretpassword -e 'update 420_Angular.EformPlugins set Status = 2'
         docker restart my-container
         sleep 15
     - name: Plugin testing
