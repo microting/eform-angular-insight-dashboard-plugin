@@ -186,7 +186,7 @@ jobs:
     - name: Copy dependencies
       run: |
         cp -av eform-angular-insight-dashboard-plugin/eform-client/src/app/plugins/modules/insight-dashboard-pn eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/playwright eform-angular-frontend/eform-client/playwright
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/playwright/e2e/plugins/insight-dashboard-pn eform-angular-frontend/eform-client/playwright/e2e/plugins/insight-dashboard-pn
         cp -av eform-angular-insight-dashboard-plugin/eform-client/playwright.config.ts eform-angular-frontend/eform-client/playwright.config.ts
         mkdir -p eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins
         cd eform-angular-frontend/eform-client && ../../eform-angular-insight-dashboard-plugin/testinginstallpn.sh
