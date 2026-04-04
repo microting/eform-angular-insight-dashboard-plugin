@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../../../Page objects/Login.page';
+import { LoginPage } from '../../../Page objects/Login.page';
 import { InsightDashboardPage } from '../InsightDashboard.page';
 import { InsightDashboardDashboardsPage } from '../InsightDashboard-Dashboards.page';
 import { InsightDashboardDashboardViewPage } from '../InsightDashboard-DashboardView.page';
