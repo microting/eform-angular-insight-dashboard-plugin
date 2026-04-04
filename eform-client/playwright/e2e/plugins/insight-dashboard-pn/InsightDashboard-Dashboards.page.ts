@@ -56,7 +56,7 @@ export class InsightDashboardDashboardsPage {
     await this.dashboardCreateBtn.click();
     await this.dashboardNameInput.click();
     await this.dashboardNameInput.pressSequentially(name);
-    await selectValueInNgSelector(this.page, '#selectSurveyCreate', configName, false, true);
+    await selectValueInNgSelector(this.page, '#selectSurveyCreate', configName);
     await this.dashboardCreateSaveBtn.click();
   }
 

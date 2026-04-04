@@ -16,7 +16,7 @@ const dashboardConfig: DashboardTestConfigEditModel = {
     monthFrom: 1,
     dayFrom: 1,
     yearTo: 2020,
-    monthTo: 5,
+    monthTo: 6,
     dayTo: 14,
   },
   today: false,

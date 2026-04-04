@@ -13,10 +13,10 @@ const dashboardConfig: DashboardTestConfigEditModel = {
   locationTagName: 'Location 1',
   dateRange: {
     yearFrom: 2016,
-    monthFrom: 0,
+    monthFrom: 1,
     dayFrom: 1,
     yearTo: 2020,
-    monthTo: 5,
+    monthTo: 6,
     dayTo: 14,
   },
   today: true,
