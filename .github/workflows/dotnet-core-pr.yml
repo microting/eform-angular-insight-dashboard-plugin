@@ -146,6 +146,94 @@ jobs:
         name: error Screenshots ${{matrix.test}}
         path: |
           /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/*.png
+  insight-dashboard-playwright-test:
+    needs: insight-dashboard-build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test: [a,b,c]
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: eform-angular-insight-dashboard-plugin
+    - name: Create docker network
+      run: docker network create --driver bridge data
+    - name: Start MariaDB
+      run: |
+        docker pull mariadb:10.8
+        docker run --name mariadbtest --network data -e MYSQL_ROOT_PASSWORD=secretpassword -p 3306:3306 -d mariadb:10.8
+    - uses: actions/download-artifact@v4
+      with:
+        name: insight-container
+    - run: docker load -i insight-container.tar
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 22
+    - name: 'Preparing Frontend checkout'
+      uses: actions/checkout@v3
+      with:
+        repository: microting/eform-angular-frontend
+        ref: stable
+        path: eform-angular-frontend
+    - name: Sleep 15 seconds
+      run: sleep 15
+    - name: Load DB dump
+      run: |
+        mysql -u root -h 127.0.0.1 --password=secretpassword -e 'create database `420_SDK`'
+        mysql -u root -h 127.0.0.1 --password=secretpassword 420_SDK < eform-angular-insight-dashboard-plugin/420_SDK.sql
+    - name: Copy dependencies
+      run: |
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/src/app/plugins/modules/insight-dashboard-pn eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/playwright eform-angular-frontend/eform-client/playwright
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/playwright.config.ts eform-angular-frontend/eform-client/playwright.config.ts
+        mkdir -p eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins
+        cd eform-angular-frontend/eform-client && ../../eform-angular-insight-dashboard-plugin/testinginstallpn.sh
+    - name: yarn install
+      run: cd eform-angular-frontend/eform-client && yarn install
+    - name: npx playwright install
+      run: cd eform-angular-frontend/eform-client && npx playwright install --with-deps chromium
+    - name: Start the newly build Docker container
+      id: docker-run
+      run: docker run --name my-container -p 4200:5000 --network data microtingas/insight-dashboard-container:latest "/ConnectionString=host=mariadbtest;Database=420_Angular;user=root;password=secretpassword;port=3306;Convert Zero Datetime = true;SslMode=none;" > docker_run_log 2>&1 &
+    - name: Sleep 15 seconds
+      run: sleep 15
+    - name: Get standard output
+      run: cat docker_run_log
+    - name: Pretest changes to work with Docker container
+      run: sed -i 's/localhost/mariadbtest/g' eform-angular-frontend/eform-client/e2e/Constants/DatabaseConfigurationConstants.ts
+    - name: DB Configuration
+      uses: cypress-io/github-action@v4
+      with:
+        start: echo 'hi'
+        wait-on: "http://localhost:4200"
+        wait-on-timeout: 120
+        browser: chrome
+        record: false
+        spec: cypress/e2e/db/*
+        config-file: cypress.config.ts
+        working-directory: eform-angular-frontend/eform-client
+        command-prefix: "--"
+    - name: Plugin testing
+      run: cd eform-angular-frontend/eform-client && npx playwright test playwright/e2e/plugins/insight-dashboard-pn/${{matrix.test}}/
+    - name: Stop the newly build Docker container
+      run: docker stop my-container
+    - name: Get standard output
+      run: |
+        cat docker_run_log
+        result=`cat docker_run_log | grep "Now listening on: http://0.0.0.0:5000" -m 1 | wc -l`
+        if [ $result -ne 1 ];then exit 1; fi
+    - name: The job has failed
+      if: ${{ failure() }}
+      run: |
+        cat docker_run_log
+    - name: Archive Playwright report
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report-${{matrix.test}}
+        path: eform-angular-frontend/eform-client/playwright-report/
   insight-dashboard-test-dotnet:
     runs-on: ubuntu-latest
     steps:
