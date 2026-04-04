@@ -225,6 +225,12 @@ jobs:
         config-file: cypress.config.ts
         working-directory: eform-angular-frontend/eform-client
         command-prefix: "--"
+    - name: Enable plugin
+      if: matrix.test != 'a'
+      run: |
+        docker exec -i mariadbtest mysql -u root --password=secretpassword -e 'update 420_Angular.EformPlugins set Status = 1'
+        docker restart my-container
+        sleep 15
     - name: Plugin testing
       run: cd eform-angular-frontend/eform-client && npx playwright test playwright/e2e/plugins/insight-dashboard-pn/${{matrix.test}}/
     - name: Stop the newly build Docker container
