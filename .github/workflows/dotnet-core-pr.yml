@@ -41,7 +41,7 @@ jobs:
       with:
         name: insight-container
         path: insight-container.tar
-  insight-dashboard-test:
+  insight-dashboard-playwright-test:
     needs: insight-dashboard-build
     runs-on: ubuntu-latest
     strategy:
@@ -81,17 +81,15 @@ jobs:
     - name: Copy dependencies
       run: |
         cp -av eform-angular-insight-dashboard-plugin/eform-client/src/app/plugins/modules/insight-dashboard-pn eform-angular-frontend/eform-client/src/app/plugins/modules/insight-dashboard-pn
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-settings eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-settings
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Tests/insight-dashboard-general eform-angular-frontend/eform-client/e2e/Tests/insight-dashboard-general
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/e2e/Page\ objects/InsightDashboard eform-angular-frontend/eform-client/e2e/Page\ objects/InsightDashboard
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-headless-plugin-step2${{matrix.test}}.conf.ts eform-angular-frontend/eform-client/wdio-headless-plugin-step2${{matrix.test}}.conf.ts
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/wdio-plugin-step2.conf.ts eform-angular-frontend/eform-client/wdio-plugin-step2.conf.ts
-        mkdir -p eform-angular-frontend/eform-client/cypress/e2e/plugins/
-        cp -av eform-angular-insight-dashboard-plugin/eform-client/cypress/e2e/plugins/insight-dashboard-pn eform-angular-frontend/eform-client/cypress/e2e/plugins/insight-dashboard-pn
+        mkdir -p eform-angular-frontend/eform-client/playwright/e2e/plugins/
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/playwright/e2e/plugins/insight-dashboard-pn eform-angular-frontend/eform-client/playwright/e2e/plugins/insight-dashboard-pn
+        cp -av eform-angular-insight-dashboard-plugin/eform-client/playwright.config.ts eform-angular-frontend/eform-client/playwright.config.ts
         mkdir -p eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins
         cd eform-angular-frontend/eform-client && ../../eform-angular-insight-dashboard-plugin/testinginstallpn.sh
     - name: yarn install
       run: cd eform-angular-frontend/eform-client && yarn install
+    - name: npx playwright install
+      run: cd eform-angular-frontend/eform-client && npx playwright install --with-deps chromium
     - name: Start the newly build Docker container
       id: docker-run
       run: docker run --name my-container -p 4200:5000 --network data microtingas/insight-dashboard-container:latest "/ConnectionString=host=mariadbtest;Database=420_Angular;user=root;password=secretpassword;port=3306;Convert Zero Datetime = true;SslMode=none;" > docker_run_log 2>&1 &
@@ -100,34 +98,19 @@ jobs:
     - name: Get standard output
       run: cat docker_run_log
     - name: Pretest changes to work with Docker container
-      run: sed -i 's/localhost/mariadbtest/g' eform-angular-frontend/eform-client/e2e/Constants/DatabaseConfigurationConstants.ts    
+      run: sed -i 's/localhost/mariadbtest/g' eform-angular-frontend/eform-client/playwright/e2e/Constants/DatabaseConfigurationConstants.ts
+    - name: Wait for app
+      run: npx wait-on http://localhost:4200 --timeout 120000
     - name: DB Configuration
-      uses: cypress-io/github-action@v4
-      with:
-        start: echo 'hi'
-        wait-on: "http://localhost:4200"
-        wait-on-timeout: 120
-        browser: chrome
-        record: false
-        spec: cypress/e2e/db/*
-        config-file: cypress.config.ts
-        working-directory: eform-angular-frontend/eform-client
-        command-prefix: "--"
+      run: cd eform-angular-frontend/eform-client && npx playwright test playwright/e2e/Tests/database-configuration/
+    - name: Enable plugin
+      if: matrix.test != 'a'
+      run: |
+        docker exec -i mariadbtest mysql -u root --password=secretpassword -e 'update 420_Angular.EformPlugins set Status = 2'
+        docker restart my-container
+        sleep 15
     - name: Plugin testing
-      run: cd eform-angular-frontend/eform-client && npm run testheadlessplugin2${{matrix.test}}
-    - name: a test
-      continue-on-error: true
-      uses: cypress-io/github-action@v4
-      with:
-        start: echo 'hi'
-        wait-on: "http://localhost:4200"
-        wait-on-timeout: 120
-        browser: chrome
-        record: false
-        spec: cypress/e2e/plugins/items-planning-pn/a/*
-        config-file: cypress.config.ts
-        working-directory: eform-angular-frontend/eform-client
-        command-prefix: "--"
+      run: cd eform-angular-frontend/eform-client && npx playwright test playwright/e2e/plugins/insight-dashboard-pn/${{matrix.test}}/
     - name: Stop the newly build Docker container
       run: docker stop my-container
     - name: Get standard output
@@ -139,13 +122,12 @@ jobs:
       if: ${{ failure() }}
       run: |
         cat docker_run_log
-    - name: Archive screenshot artifacts
-      if: ${{ failure() }}s
+    - name: Archive Playwright report
+      if: ${{ failure() }}
       uses: actions/upload-artifact@v4
       with:
-        name: error Screenshots ${{matrix.test}}
-        path: |
-          /home/runner/work/eform-angular-insight-dashboard-plugin/eform-angular-insight-dashboard-plugin/eform-angular-frontend/eform-client/*.png
+        name: playwright-report-${{matrix.test}}
+        path: eform-angular-frontend/eform-client/playwright-report/
   insight-dashboard-test-dotnet:
     runs-on: ubuntu-latest
     steps:
