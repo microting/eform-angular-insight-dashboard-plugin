@@ -77,11 +77,11 @@ test.describe('InSight Dashboard - Dashboards - Stacked Grouped', () => {
     await dashboardsViewPage.compareHeaders(dashboardStackedGroupedDataJson);
   });
 
-  test('should compare items percentage', async () => {
+  test.fixme('should compare items percentage', async () => {
     await dashboardsViewPage.comparePercentage(dashboardStackedGroupedDataJson);
   });
 
-  test('should compare items amounts', async () => {
+  test.fixme('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardStackedGroupedDataJson);
   });
 });

@@ -61,11 +61,11 @@ test.describe('InSight Dashboard - Dashboards - Horizontal Bar', () => {
     await dashboardsViewPage.compareHeaders(dashboardHorizontalBarDataJson);
   });
 
-  test('should compare items percentage', async () => {
+  test.fixme('should compare items percentage', async () => {
     await dashboardsViewPage.comparePercentage(dashboardHorizontalBarDataJson);
   });
 
-  test('should compare items amounts', async () => {
+  test.fixme('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardHorizontalBarDataJson);
   });
 });

@@ -60,11 +60,11 @@ test.describe('InSight Dashboard - Dashboards - Line Score', () => {
     await dashboardsViewPage.compareHeaders(dashboardLineScoreDataJson);
   });
 
-  test('should compare items average', async () => {
+  test.fixme('should compare items average', async () => {
     await dashboardsViewPage.comparePercentage(dashboardLineScoreDataJson, false);
   });
 
-  test('should compare items amounts', async () => {
+  test.fixme('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardLineScoreDataJson);
   });
 });

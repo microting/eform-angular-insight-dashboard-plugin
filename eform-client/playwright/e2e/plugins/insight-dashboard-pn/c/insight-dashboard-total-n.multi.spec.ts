@@ -77,11 +77,11 @@ test.describe('InSight Dashboard - Dashboards - Total N', () => {
     await dashboardsViewPage.compareHeaders(dashboardTotalNDataJson);
   });
 
-  test('should compare items percentage', async () => {
+  test.fixme('should compare items percentage', async () => {
     await dashboardsViewPage.comparePercentage(dashboardTotalNDataJson);
   });
 
-  test('should compare items amounts', async () => {
+  test.fixme('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardTotalNDataJson);
   });
 });

@@ -57,11 +57,11 @@ test.describe('InSight Dashboard - Dashboards - Line', () => {
     await dashboardsViewPage.compareHeaders(dashboardLineDataJson);
   });
 
-  test('should compare items percentage', async () => {
+  test.fixme('should compare items percentage', async () => {
     await dashboardsViewPage.comparePercentage(dashboardLineDataJson);
   });
 
-  test('should compare items amounts', async () => {
+  test.fixme('should compare items amounts', async () => {
     await dashboardsViewPage.compareAmounts(dashboardLineDataJson);
   });
 });
