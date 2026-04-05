@@ -105,7 +105,7 @@ export class InsightDashboardDashboardEditPage {
       await selectValueInNgSelector(this.page, `#editFilterAnswer${rowNum}`, itemObject.filterAnswer);
     }
 
-    await selectValueInNgSelector(this.page, `#editPeriod${rowNum}`, itemObject.period);
+    await this.selectExactValueInNgSelector(`#editPeriod${rowNum}`, itemObject.period);
 
     if (itemObject.calculateAverage) {
       const ele = this.calculateAverageCheckbox(rowNum);
@@ -127,6 +127,22 @@ export class InsightDashboardDashboardEditPage {
     }
 
     await selectValueInNgSelector(this.page, `#editChartType${rowNum}`, itemObject.chartType);
+  }
+
+  async selectExactValueInNgSelector(selector: string, value: string) {
+    const ngSelector = this.page.locator(selector);
+    await ngSelector.waitFor({ state: 'visible', timeout: 40000 });
+    await ngSelector.click();
+    await this.page.waitForTimeout(300);
+    await ngSelector.locator('input').clear();
+    await ngSelector.locator('input').fill(value);
+    await this.page.waitForTimeout(500);
+    const dropdownPanel = this.page.locator('ng-dropdown-panel');
+    await dropdownPanel.waitFor({ state: 'visible', timeout: 40000 });
+    const option = dropdownPanel.locator('.ng-option').filter({ hasText: new RegExp(`^\\s*${value}\\s*$`) }).first();
+    await option.scrollIntoViewIfNeeded();
+    await option.click();
+    await this.page.waitForTimeout(500);
   }
 
   async generateItems(itemsArray: DashboardTestItemEditModel[]) {

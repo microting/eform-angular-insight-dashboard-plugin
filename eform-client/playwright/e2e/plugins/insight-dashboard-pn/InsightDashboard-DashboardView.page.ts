@@ -80,7 +80,7 @@ export class InsightDashboardDashboardViewPage {
             for (let value = 0; value < valueCount; value++) {
               const text = await values.nth(value).textContent();
               expect(
-                `${dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataIndex].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`,
+                `${dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataItemIndex].rawDataValues[row].percents[value]}${addPercentSymbol ? '%' : ''}`,
                 `Percentage is incorrect on ${itemIndex} item, ${row} row, ${value} value`
               ).toBe(text?.trim());
             }
@@ -107,7 +107,7 @@ export class InsightDashboardDashboardViewPage {
             for (let amount = 0; amount < valueCount; amount++) {
               const text = await values.nth(amount).textContent();
               expect(
-                dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataIndex].rawDataValues[row].amounts[amount],
+                dataJson.items[itemIndex].chartData.rawData[rawDataIndex].rawDataItems[rawDataItemIndex].rawDataValues[row].amounts[amount],
                 `Amount is incorrect on ${itemIndex} item, ${row} row, ${amount} value`
               ).toBe(+(text?.trim() ?? '0'));
             }
