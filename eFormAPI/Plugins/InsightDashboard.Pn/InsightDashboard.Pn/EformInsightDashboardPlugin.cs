@@ -93,7 +93,7 @@ public class EformInsightDashboardPlugin : IEformPlugin
 
     public void ConfigureDbContext(IServiceCollection services, string connectionString)
     {
-        services.AddDbContext<InsightDashboardPnDbContext>(o =>
+        services.AddDbContextPool<InsightDashboardPnDbContext>(o =>
             o.UseMySql(connectionString, new MariaDbServerVersion(
                 new Version(10, 4, 0)), mySqlOptionsAction: builder =>
             {
