@@ -28,11 +28,14 @@ namespace InsightDashboard.Pn;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Infrastructure.Data.Seed;
 using Infrastructure.Data.Seed.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microting.eFormApi.BasePn;
@@ -104,7 +107,11 @@ public class EformInsightDashboardPlugin : IEformPlugin
         var contextFactory = new InsightDashboardPnDbContextFactory();
         var context = contextFactory.CreateDbContext(new[] {connectionString});
 
-        context.Database.Migrate();
+        var historyRepo = context.GetService<IHistoryRepository>();
+        if (!historyRepo.Exists() || context.Database.GetPendingMigrations().Any())
+        {
+            context.Database.Migrate();
+        }
 
         // Seed database
         SeedDatabase(connectionString);
