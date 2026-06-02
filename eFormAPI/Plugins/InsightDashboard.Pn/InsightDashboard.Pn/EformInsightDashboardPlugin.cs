@@ -28,6 +28,7 @@ namespace InsightDashboard.Pn;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Infrastructure.Data.Seed;
 using Infrastructure.Data.Seed.Data;
