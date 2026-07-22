@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { selectValueInMtxSelect } from './insight-mtx-select.helper';
 
 export const configName = 'Test-Set';
 export const dashboardName = 'NewDashboard';
@@ -55,21 +56,7 @@ export class InsightDashboardDashboardsPage {
     await this.dashboardCreateBtn.click();
     await this.dashboardNameInput.click();
     await this.dashboardNameInput.pressSequentially(name);
-    // #selectSurveyCreate is a Material mtx-select (wraps ng-select). Drive it
-    // the same way the passing backend-configuration calendar tests do: click
-    // the host, then pick the option straight from the ng-dropdown-panel by
-    // text. The ng-select input-typing helper races this modal's render and the
-    // host detaches mid-click, hanging the beforeAll hook until it times out.
-    const surveySelect = this.page.locator('#selectSurveyCreate');
-    await surveySelect.waitFor({ state: 'visible', timeout: 40000 });
-    await surveySelect.click();
-    const surveyOption = this.page
-      .locator('ng-dropdown-panel .ng-option')
-      .filter({ hasText: configName })
-      .first();
-    await surveyOption.waitFor({ state: 'visible', timeout: 40000 });
-    await surveyOption.scrollIntoViewIfNeeded();
-    await surveyOption.click();
+    await selectValueInMtxSelect(this.page, '#selectSurveyCreate', configName);
     await this.dashboardCreateSaveBtn.click();
   }
 

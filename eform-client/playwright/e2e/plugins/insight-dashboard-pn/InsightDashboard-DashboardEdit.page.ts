@@ -1,9 +1,12 @@
 import { Page } from '@playwright/test';
 import {
-  selectValueInNgSelector,
   selectValueInNgSelectorWithSeparateValueAndSearchValue,
   selectDateRangeOnNewDatePicker,
 } from '../../helper-functions';
+import {
+  selectValueInMtxSelect,
+  selectExactValueInMtxSelect,
+} from './insight-mtx-select.helper';
 
 export class InsightDashboardDashboardEditPage {
   constructor(private page: Page) {}
@@ -73,7 +76,7 @@ export class InsightDashboardDashboardEditPage {
     if (model.today) {
       await this.dashboardRangeToTodayCheckbox.click();
     }
-    await selectValueInNgSelector(this.page, '#selectLocationTag', model.locationTagName);
+    await selectValueInMtxSelect(this.page, '#selectLocationTag', model.locationTagName);
   }
 
   async createFirstItem() {
@@ -102,10 +105,10 @@ export class InsightDashboardDashboardEditPage {
     }
 
     if (itemObject.filterAnswer) {
-      await selectValueInNgSelector(this.page, `#editFilterAnswer${rowNum}`, itemObject.filterAnswer);
+      await selectValueInMtxSelect(this.page, `#editFilterAnswer${rowNum}`, itemObject.filterAnswer);
     }
 
-    await this.selectExactValueInNgSelector(`#editPeriod${rowNum}`, itemObject.period);
+    await selectExactValueInMtxSelect(this.page, `#editPeriod${rowNum}`, itemObject.period);
 
     if (itemObject.calculateAverage) {
       const ele = this.calculateAverageCheckbox(rowNum);
@@ -126,23 +129,7 @@ export class InsightDashboardDashboardEditPage {
       }
     }
 
-    await selectValueInNgSelector(this.page, `#editChartType${rowNum}`, itemObject.chartType);
-  }
-
-  async selectExactValueInNgSelector(selector: string, value: string) {
-    const ngSelector = this.page.locator(selector);
-    await ngSelector.waitFor({ state: 'visible', timeout: 40000 });
-    await ngSelector.click();
-    await this.page.waitForTimeout(300);
-    await ngSelector.locator('input').clear();
-    await ngSelector.locator('input').fill(value);
-    await this.page.waitForTimeout(500);
-    const dropdownPanel = this.page.locator('ng-dropdown-panel');
-    await dropdownPanel.waitFor({ state: 'visible', timeout: 40000 });
-    const option = dropdownPanel.locator('.ng-option').filter({ hasText: new RegExp(`^\\s*${value}\\s*$`) }).first();
-    await option.scrollIntoViewIfNeeded();
-    await option.click();
-    await this.page.waitForTimeout(500);
+    await selectValueInMtxSelect(this.page, `#editChartType${rowNum}`, itemObject.chartType);
   }
 
   async generateItems(itemsArray: DashboardTestItemEditModel[]) {
