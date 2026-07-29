@@ -55,6 +55,8 @@ using Services.DashboardService;
 using Services.DictionaryService;
 using Services.InterviewsExcelService;
 using Services.InterviewsService;
+using Services.RawDataExcelService;
+using Services.RawDataService;
 using Services.SurveysService;
 using Services.WordService;
 
@@ -84,7 +86,9 @@ public class EformInsightDashboardPlugin : IEformPlugin
         services.AddScoped<IDictionaryService, DictionaryService>();
         services.AddScoped<IInterviewsService, InterviewsService>();
         services.AddScoped<IAnswersService, AnswersService>();
+        services.AddScoped<IRawDataService, RawDataService>();
         services.AddTransient<IInterviewsExcelService, InterviewsExcelService>();
+        services.AddTransient<IRawDataExcelService, RawDataExcelService>();
         services.AddTransient<IWordService, WordService>();
     }
 

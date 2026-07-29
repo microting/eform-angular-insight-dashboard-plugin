@@ -170,4 +170,35 @@ export class InsightDashboardDashboardViewPage {
     expect(format(dateFromInTable, 'dd.MM.yyyy')).toBe(format(dateFrom, 'dd.MM.yyyy'));
     expect(format(dateToInTable, 'dd.MM.yyyy')).toBe(format(dateTo, 'dd.MM.yyyy'));
   }
+
+  // ---- Raw data table (appended to InsightDashboardDashboardViewPage) ----
+  // `position` on the item model is 1-based while the existing helpers here take
+  // a 0-based index, hence the +1.
+
+  public rawDataToggle(rowNum: number) {
+    return this.page.locator(`#dashboardRawDataToggle${rowNum + 1}`);
+  }
+
+  public rawDataGrid(rowNum: number) {
+    return this.page.locator(`#dashboardRawData${rowNum + 1}`);
+  }
+
+  public rawDataExportButton(rowNum: number) {
+    return this.page.locator(`#dashboardRawDataExport${rowNum + 1}`);
+  }
+
+  public rawDataRows(rowNum: number) {
+    return this.rawDataGrid(rowNum).locator('tbody tr');
+  }
+
+  public rawDataHeaders(rowNum: number) {
+    return this.rawDataGrid(rowNum).locator('thead th');
+  }
+
+  /** Reads the "— N svar" suffix the toggle shows once data has loaded. */
+  async rawDataAnswerCount(rowNum: number): Promise<number | null> {
+    const text = await this.rawDataToggle(rowNum).textContent();
+    const match = text?.match(/(\d+)/);
+    return match ? Number(match[1]) : null;
+  }
 }
