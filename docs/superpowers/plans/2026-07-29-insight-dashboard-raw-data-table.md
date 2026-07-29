@@ -19,7 +19,7 @@
 - Every new C# file starts with the same MIT license header block used by its neighbours (copy verbatim from `Infrastructure/Models/Dashboards/ChartDataItem.cs`, updating nothing).
 - Controllers: `[Authorize]`, plain `Controller` base class, hardcoded `[Route("api/insight-dashboard-pn/...")]` per action. No `[ApiController]`.
 - Soft deletes: filter `WorkflowState != Constants.WorkflowStates.Removed` on every SDK table touched.
-- Commits go in the **host app** during implementation only if the change belongs to core frontend; plugin code is committed in the **source repo** after `devgetchanges.sh` (Task 9).
+- **Never commit inside `eform-angular-frontend`.** Its `eFormAPI/Plugins/` and `eform-client/src/app/plugins/modules/` trees are working copies; CLAUDE.md forbids committing them there. All plugin commits happen in the plugin source repo after `devgetchanges.sh` (Task 9).
 
 ## Testing approach — read this before Task 1
 
@@ -219,17 +219,11 @@ public class RawDataListModel
 - [ ] **Step 4: Build**
 
 Run: `cd /home/rene/Documents/workspace/microting/eform-angular-frontend/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn && dotnet build -v q --nologo`
-Expected: `Build succeeded. 0 Warning(s) 0 Error(s)`
+Expected: `Build succeeded.` with `0 Error(s)`. One pre-existing CS0618 warning in ChartDataHelpers.cs:4271 is expected on a clean rebuild and is not a regression.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 5: Leave uncommitted**
 
-```bash
-cd /home/rene/Documents/workspace/microting/eform-angular-frontend
-git add eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Infrastructure/Models/RawData
-git commit -m "feat(insight-dashboard): add raw data DTOs"
-```
-
-Note: this commit is in the host app purely to keep the work bisectable during implementation. The authoritative commit happens in the plugin source repo in Task 9.
+**Do not commit here.** Plugin code inside `eform-angular-frontend` is a working copy, and committing it there is forbidden by CLAUDE.md. Leave the change uncommitted; it reaches git in Task 9 via `devgetchanges.sh` and a commit in the plugin source repo.
 
 ---
 
@@ -445,17 +439,13 @@ Add `using System.Collections.Generic;` to the using block — `List<int>` is us
 - [ ] **Step 2: Build**
 
 Run: `cd /home/rene/Documents/workspace/microting/eform-angular-frontend/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn && dotnet build -v q --nologo`
-Expected: `Build succeeded. 0 Warning(s) 0 Error(s)`
+Expected: `Build succeeded.` with `0 Error(s)`. One pre-existing CS0618 warning in ChartDataHelpers.cs:4271 is expected on a clean rebuild and is not a regression.
 
 If the build reports that `DashboardEditAnswerDates` is not found, its namespace is `InsightDashboard.Pn.Infrastructure.Models.Dashboards` — the `using Models.Dashboards;` line above resolves it relative to `InsightDashboard.Pn.Infrastructure`.
 
-- [ ] **Step 3: Commit**
+- [ ] **Step 3: Leave uncommitted**
 
-```bash
-cd /home/rene/Documents/workspace/microting/eform-angular-frontend
-git add eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Infrastructure/Helpers/AnswerFilterHelper.cs
-git commit -m "feat(insight-dashboard): add AnswerFilterHelper mirroring chart answer selection"
-```
+**Do not commit here.** Plugin code inside `eform-angular-frontend` is a working copy, and committing it there is forbidden by CLAUDE.md. Leave the change uncommitted; it reaches git in Task 9 via `devgetchanges.sh` and a commit in the plugin source repo.
 
 ---
 
@@ -807,19 +797,13 @@ public static class RawDataColumnBuilder
 - [ ] **Step 4: Build**
 
 Run: `cd /home/rene/Documents/workspace/microting/eform-angular-frontend/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn && dotnet build -v q --nologo`
-Expected: `Build succeeded. 0 Warning(s) 0 Error(s)`
+Expected: `Build succeeded.` with `0 Error(s)`. One pre-existing CS0618 warning in ChartDataHelpers.cs:4271 is expected on a clean rebuild and is not a regression.
 
 If the collection-expression syntax `=> [ ... ]` on `BuildAnswerColumns` is rejected, replace it with `=> new List<RawDataColumnModel> { ... };` — the rest is unchanged.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 5: Leave uncommitted**
 
-```bash
-cd /home/rene/Documents/workspace/microting/eform-angular-frontend
-git add eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Infrastructure/Helpers/RawDataTranslations.cs \
-        eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Infrastructure/Helpers/RawDataColumnBuilder.cs \
-        eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Infrastructure/Models/RawData/RawDataSchema.cs
-git commit -m "feat(insight-dashboard): add raw data column builder and translation picking"
-```
+**Do not commit here.** Plugin code inside `eform-angular-frontend` is a working copy, and committing it there is forbidden by CLAUDE.md. Leave the change uncommitted; it reaches git in Task 9 via `devgetchanges.sh` and a commit in the plugin source repo.
 
 ---
 
@@ -1205,19 +1189,15 @@ public class RawDataService : IRawDataService
 - [ ] **Step 3: Build**
 
 Run: `cd /home/rene/Documents/workspace/microting/eform-angular-frontend/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn && dotnet build -v q --nologo`
-Expected: `Build succeeded. 0 Warning(s) 0 Error(s)`
+Expected: `Build succeeded.` with `0 Error(s)`. One pre-existing CS0618 warning in ChartDataHelpers.cs:4271 is expected on a clean rebuild and is not a regression.
 
 Two likely compile issues and their fixes:
 - If `.ThenInclude(x => x.IgnoredAnswerValues)` is ambiguous, use the explicit generic form `DashboardService.cs` uses: `.ThenInclude<Dashboard, DashboardItem, List<DashboardItemIgnoredAnswer>>(x => x.IgnoredAnswerValues)` and the matching `List<DashboardItemCompare>` form, adding `using Microting.InsightDashboardBase.Infrastructure.Data.Entities;`.
 - `Site.SiteTags` has no `WorkflowState` filter available if `SiteTag` does not expose it — it derives from `PnBase`, so it does; if the compiler disagrees, drop that `.Where` clause.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 4: Leave uncommitted**
 
-```bash
-cd /home/rene/Documents/workspace/microting/eform-angular-frontend
-git add eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Services/RawDataService
-git commit -m "feat(insight-dashboard): add RawDataService with answer pivot and paging"
-```
+**Do not commit here.** Plugin code inside `eform-angular-frontend` is a working copy, and committing it there is forbidden by CLAUDE.md. Leave the change uncommitted; it reaches git in Task 9 via `devgetchanges.sh` and a commit in the plugin source repo.
 
 ---
 
@@ -1319,15 +1299,9 @@ dotnet build -v q --nologo
 ```
 Expected: a key count that is 2 or 3 higher than before, then `Build succeeded. 0 Warning(s) 0 Error(s)`
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 5: Leave uncommitted**
 
-```bash
-cd /home/rene/Documents/workspace/microting/eform-angular-frontend
-git add eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Controllers/RawDataController.cs \
-        eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/EformInsightDashboardPlugin.cs \
-        eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Resources/localization.json
-git commit -m "feat(insight-dashboard): expose raw data endpoint"
-```
+**Do not commit here.** Plugin code inside `eform-angular-frontend` is a working copy, and committing it there is forbidden by CLAUDE.md. Leave the change uncommitted; it reaches git in Task 9 via `devgetchanges.sh` and a commit in the plugin source repo.
 
 ---
 
@@ -1580,17 +1554,11 @@ In `EformInsightDashboardPlugin.cs`, add `using Services.RawDataExcelService;` a
 - [ ] **Step 5: Build**
 
 Run: `cd /home/rene/Documents/workspace/microting/eform-angular-frontend/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn && dotnet build -v q --nologo`
-Expected: `Build succeeded. 0 Warning(s) 0 Error(s)`
+Expected: `Build succeeded.` with `0 Error(s)`. One pre-existing CS0618 warning in ChartDataHelpers.cs:4271 is expected on a clean rebuild and is not a regression.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 6: Leave uncommitted**
 
-```bash
-cd /home/rene/Documents/workspace/microting/eform-angular-frontend
-git add eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Services/RawDataExcelService \
-        eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/Controllers/RawDataController.cs \
-        eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn/EformInsightDashboardPlugin.cs
-git commit -m "feat(insight-dashboard): add raw data excel export"
-```
+**Do not commit here.** Plugin code inside `eform-angular-frontend` is a working copy, and committing it there is forbidden by CLAUDE.md. Leave the change uncommitted; it reaches git in Task 9 via `devgetchanges.sh` and a commit in the plugin source repo.
 
 ---
 
@@ -2110,13 +2078,9 @@ npx ng build
 ```
 Expected: `Tests: 3 passed`, then a successful Angular build.
 
-- [ ] **Step 11: Commit**
+- [ ] **Step 11: Leave uncommitted**
 
-```bash
-cd /home/rene/Documents/workspace/microting/eform-angular-frontend
-git add eform-client/src/app/plugins/modules/insight-dashboard-pn
-git commit -m "feat(insight-dashboard): add raw data table under each chart"
-```
+**Do not commit here.** Plugin code inside `eform-angular-frontend` is a working copy, and committing it there is forbidden by CLAUDE.md. Leave the change uncommitted; it reaches git in Task 9 via `devgetchanges.sh` and a commit in the plugin source repo.
 
 ---
 
