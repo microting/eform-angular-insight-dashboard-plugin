@@ -54,8 +54,7 @@ public class RawDataService : IRawDataService
     /// </summary>
     public const int ExportRowLimit = 25000;
 
-    private const string NotAnswered = "—";
-    private const string NaOptionName = "na";
+    private const string NotAnswered = RawDataValueResolver.NotAnswered;
 
     private readonly ILogger<RawDataService> _logger;
     private readonly IInsightDashboardLocalizationService _localizationService;
@@ -252,7 +251,7 @@ public class RawDataService : IRawDataService
                         }
 
                         var optionName = meta.OptionNameByOptionId.GetValueOrDefault(answerValue.OptionId);
-                        var skipped = string.Equals(optionName, NaOptionName, StringComparison.OrdinalIgnoreCase);
+                        var skipped = RawDataValueResolver.IsSkipped(optionName);
 
                         if (meta.IsMulti)
                         {
@@ -286,7 +285,8 @@ public class RawDataService : IRawDataService
 
                         row[meta.Field] = skipped
                             ? NotAnswered
-                            : ResolveSingleValue(meta, answerValue.OptionId, answerValue.Value, optionName);
+                            : RawDataValueResolver.ResolveSingleValue(
+                                meta, answerValue.OptionId, answerValue.Value, optionName);
                     }
                 }
 
@@ -301,49 +301,6 @@ public class RawDataService : IRawDataService
             _logger.LogError(e, e.Message);
             return new OperationDataResult<RawDataListModel>(
                 false, _localizationService.GetString("ErrorWhileObtainingRawData"));
-        }
-    }
-
-    /// <summary>
-    /// Resolves one cell. The option's own translated name is only meaningful for
-    /// choice questions: the SDK auto-generates options whose translation IS the
-    /// type keyword - "smiley1".."smiley6", "number", "text", "next", "na"
-    /// (Question.GenerateSmileyOptions / GenerateSpecialQuestionTypes). Preferring
-    /// the option name for every type would therefore render "text" instead of the
-    /// answer, and "smiley1" instead of "Meget glad".
-    ///
-    /// Core.SaveAnswer only overwrites AnswerValue.Value with the option name for
-    /// buttons/list/multi; for every other type Value holds the real answer.
-    /// </summary>
-    private static string ResolveSingleValue(
-        RawDataQuestionMeta meta, int optionId, string value, string optionName)
-    {
-        switch (meta.Kind)
-        {
-            case RawDataColumnKinds.Smiley:
-            {
-                // Label from the weight ladder, matching what the chart plots
-                // (ChartDataHelpers.cs:60-68), not from the "smileyN" translation.
-                var weightValue = meta.WeightValueByOptionId.GetValueOrDefault(optionId);
-                var label = RawDataColumnBuilder.SmileyFallbackLabel(weightValue);
-
-                return string.IsNullOrEmpty(label)
-                    ? weightValue.ToString()
-                    : $"{label} ({weightValue})";
-            }
-
-            case RawDataColumnKinds.Single:
-                // buttons / list - the option translation is the real answer text.
-                return !string.IsNullOrEmpty(optionName) ? optionName : value;
-
-            case RawDataColumnKinds.Number:
-            case RawDataColumnKinds.Text:
-                // Free input lives in Value; an empty Value means the question was skipped.
-                return string.IsNullOrEmpty(value) ? NotAnswered : value;
-
-            default:
-                // picture / info_text carry no answer, only a synthetic "next" option.
-                return string.Empty;
         }
     }
 
