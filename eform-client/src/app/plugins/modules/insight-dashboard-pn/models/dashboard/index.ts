@@ -7,3 +7,4 @@ export * from './dashboard-chart-data.model';
 export * from './dashboard-answer-dates.model';
 export * from './dashboard-item';
 export * from './dashboard-view';
+export * from './raw-data';

@@ -9,6 +9,7 @@ import {
   InsightDashboardPnDashboardDictionariesService,
   InsightDashboardPnDashboardItemsService,
   InsightDashboardPnDashboardsService,
+  InsightDashboardPnRawDataService,
   InsightDashboardPnSettingsService,
   InsightDashboardPnSurveyConfigsService,
 } from './services';
@@ -29,6 +30,7 @@ import {
   DashboardInterviewsViewComponent,
   DashboardItemEditComponent,
   DashboardNewComponent,
+  DashboardRawDataViewComponent,
   DashboardsPageComponent,
   DashboardViewComponent,
   InsightDashboardSettingsComponent,
@@ -111,6 +113,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
     AnswerValuesTableComponent,
     AnswerDeleteModalComponent,
     DashboardInterviewsViewComponent,
+    DashboardRawDataViewComponent,
   ],
   providers: [
     InsightDashboardPnSettingsService,
@@ -119,6 +122,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
     InsightDashboardPnDashboardDictionariesService,
     InsightDashboardPnDashboardItemsService,
     InsightDashboardPnAnswersService,
+    InsightDashboardPnRawDataService,
   ],
 })
 export class InsightDashboardPnModule {

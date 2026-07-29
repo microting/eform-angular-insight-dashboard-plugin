@@ -439,5 +439,33 @@
       "da": "Svar værdier ikke fundet",
       "en-US": "Answer values not found"
     }
+  },
+  {
+    "Key": "ErrorWhileObtainingRawData",
+    "LocalizedValue": {
+      "da": "Der opstod en fejl under hentning af rådata",
+      "en-US": "Error while obtaining raw data"
+    }
+  },
+  {
+    "Key": "RawDataExportTooLarge",
+    "LocalizedValue": {
+      "da": "Eksporten indeholder {0} svar, hvilket overstiger grænsen på {1}. Vælg en kortere periode.",
+      "en-US": "The export contains {0} answers, which exceeds the limit of {1}. Choose a shorter period."
+    }
+  },
+  {
+    "Key": "RawDataNotAvailableForTextQuestions",
+    "LocalizedValue": {
+      "da": "Rådata er ikke tilgængelige for fritekstspørgsmål",
+      "en-US": "Raw data is not available for free-text questions"
+    }
+  },
+  {
+    "Key": "ErrorWhileGeneratingRawDataExport",
+    "LocalizedValue": {
+      "da": "Der opstod en fejl under generering af rådata-eksporten",
+      "en-US": "Error while generating the raw data export"
+    }
   }
 ]

@@ -1,0 +1,52 @@
+<div class="mt-3">
+  <button
+    mat-button
+    color="accent"
+    (click)="toggle()"
+    id="dashboardRawDataToggle{{itemModel.position}}"
+  >
+    <mat-icon>{{ expanded ? 'expand_more' : 'chevron_right' }}</mat-icon>
+    {{ 'Raw data' | translate }}
+    <span *ngIf="expanded && loaded"> &mdash; {{ total }} {{ 'answers' | translate }}</span>
+  </button>
+</div>
+
+<ng-container *ngIf="expanded">
+  <ng-template #toolbarTpl>
+    <button
+      mat-icon-button
+      color="accent"
+      (click)="exportToExcel()"
+      id="dashboardRawDataExport{{itemModel.position}}"
+      [matTooltip]="'Export raw data' | translate"
+    >
+      <mat-icon>download</mat-icon>
+    </button>
+  </ng-template>
+
+  <mtx-grid
+    id="dashboardRawData{{itemModel.position}}"
+    [data]="rows"
+    [columns]="tableHeaders"
+    [loading]="loading"
+    [showPaginator]="true"
+    [paginationTemplate]="paginatorTpl"
+    [pageOnFront]="false"
+    [rowStriped]="true"
+    [showToolbar]="true"
+    [showColumnMenuButton]="true"
+    [toolbarTemplate]="toolbarTpl"
+    [sortActive]="sort"
+    [sortDirection]="sortDirection"
+    (sortChange)="sortTable($event)"
+    [noResultText]="'No raw data found' | translate"
+  >
+  </mtx-grid>
+
+  <ng-template #paginatorTpl>
+    <eform-pagination
+      [pagination]="pagination"
+      (paginationChanged)="onPaginationChanged($event)"
+    ></eform-pagination>
+  </ng-template>
+</ng-container>

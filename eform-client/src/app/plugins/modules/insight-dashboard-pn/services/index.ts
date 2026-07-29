@@ -4,3 +4,4 @@ export * from './insight-dashboard-pn-survey-configs.service';
 export * from './insight-dashboard-pn-dashboard-dictionaries.service';
 export * from './insight-dashboard-pn-dashboard-items.service';
 export * from './insight-dashboard-pn-answers.service';
+export * from './insight-dashboard-pn-raw-data.service';
