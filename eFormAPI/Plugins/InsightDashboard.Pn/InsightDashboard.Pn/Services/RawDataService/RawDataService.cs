@@ -49,18 +49,28 @@ using RawDataExcelService;
 public class RawDataService : IRawDataService
 {
     /// <summary>
-    /// Hard ceiling for the unpaged export. Memory is no longer the binding
-    /// constraint - answers are fetched a batch at a time and streamed straight
-    /// into the sheet - so this bounds file size and request duration rather than
-    /// protecting the heap.
+    /// Hard ceiling for the unpaged export.
+    ///
+    /// Batching removed the memory constraint and keyset paging removed the
+    /// quadratic database cost, so this is no longer protecting the heap. What it
+    /// still bounds is wall-clock time: the whole file is generated before the
+    /// response starts, so a slow export can outlive a reverse proxy's read timeout
+    /// (nginx defaults to 60s). This value is NOT derived from a measurement of a
+    /// cap-sized export in production - raising it further should be, or better,
+    /// the sheet should be written straight to the response body so bytes flow
+    /// while rows are generated and no ceiling is needed.
     /// </summary>
-    public const int ExportRowLimit = 250000;
+    public const int ExportRowLimit = 50000;
+
+    /// <summary>Default answers per round trip during an export.</summary>
+    public const int DefaultExportBatchSize = 2000;
 
     /// <summary>
-    /// Answers fetched per round trip during an export. Peak memory is roughly this
-    /// many rows plus their answer values, however large the export is.
+    /// Answers fetched per round trip. Peak memory is roughly this many rows plus
+    /// their answer values, however large the export is. Settable so tests can
+    /// cross batch boundaries without seeding thousands of answers.
     /// </summary>
-    public const int ExportBatchSize = 2000;
+    public int ExportBatchSize { get; set; } = DefaultExportBatchSize;
 
     private const string NotAnswered = RawDataValueResolver.NotAnswered;
 
@@ -108,13 +118,14 @@ public class RawDataService : IRawDataService
                 Total = await scope.Model.Answers.CountAsync(),
             };
 
-            result.Rows.AddRange(await BuildRows(
-                sdkContext,
-                scope.Model,
+            var page = await ReadAnswerPage(
+                scope.Model.Answers,
                 requestModel.Sort,
                 requestModel.IsSortDsc,
                 requestModel.Offset,
-                requestModel.PageSize));
+                requestModel.PageSize);
+
+            result.Rows.AddRange(await BuildRows(sdkContext, scope.Model, page));
 
             return new OperationDataResult<RawDataListModel>(true, result);
         }
@@ -160,32 +171,47 @@ public class RawDataService : IRawDataService
 
             filePath = _excelService.CreateFilePath();
 
+            var written = 0;
+
             using (var writer = _excelService.CreateWriter(filePath, scope.Model.Schema.Columns))
             {
-                for (var offset = 0; offset < total; offset += ExportBatchSize)
-                {
-                    var rows = await BuildRows(
-                        sdkContext,
-                        scope.Model,
-                        RawDataFields.FinishedAt,
-                        isSortDsc: true,
-                        offset,
-                        ExportBatchSize);
+                DateTime? cursorFinishedAt = null;
+                int? cursorId = null;
 
-                    // Answers removed mid-export would otherwise leave the loop
-                    // spinning to the original total.
-                    if (rows.Count == 0)
+                while (true)
+                {
+                    var answers = await ReadAnswerBatch(
+                        scope.Model.Answers, cursorFinishedAt, cursorId, ExportBatchSize);
+
+                    if (answers.Count == 0)
                     {
                         break;
                     }
 
-                    foreach (var row in rows)
+                    foreach (var row in await BuildRows(sdkContext, scope.Model, answers))
                     {
                         writer.WriteRow(row);
+                        written++;
                     }
+
+                    var last = answers[^1];
+                    cursorFinishedAt = last.FinishedAt;
+                    cursorId = last.Id;
                 }
 
                 writer.Complete();
+            }
+
+            if (written != total)
+            {
+                // Answers added or removed while the export ran. The cursor pins us
+                // to a consistent view, so the file is coherent - but it is not the
+                // count the user was shown, and saying nothing would let a truncated
+                // export pass as complete.
+                _logger.LogWarning(
+                    "Raw data export for dashboard {DashboardId} item {ItemId} wrote {Written} rows "
+                    + "against an expected {Total}; answers changed while the export ran.",
+                    dashboardId, dashboardItemId, written, total);
             }
 
             return new OperationDataResult<string>(true, filePath);
@@ -293,17 +319,25 @@ public class RawDataService : IRawDataService
     /// Materialises one window of answers and pivots their answer values into rows.
     /// Peak memory is bounded by pageSize, which is what makes a large export safe.
     /// </summary>
-    private static async Task<List<Dictionary<string, object>>> BuildRows(
-        MicrotingDbContext sdkContext,
-        RawDataScope scope,
+    /// <summary>Reads one keyset window of answers, newest first.</summary>
+    private static Task<List<AnswerRow>> ReadAnswerBatch(
+        IQueryable<Answer> answers,
+        DateTime? cursorFinishedAt,
+        int? cursorId,
+        int batchSize) =>
+        ProjectAnswers(RawDataPaging.AfterCursor(answers, cursorFinishedAt, cursorId).Take(batchSize));
+
+    /// <summary>Reads one offset window, for the paged endpoint.</summary>
+    private static Task<List<AnswerRow>> ReadAnswerPage(
+        IQueryable<Answer> answers,
         string sort,
         bool isSortDsc,
         int offset,
-        int pageSize)
-    {
-        var answers = await ApplySort(scope.Answers, sort, isSortDsc)
-            .Skip(offset)
-            .Take(pageSize)
+        int pageSize) =>
+        ProjectAnswers(ApplySort(answers, sort, isSortDsc).Skip(offset).Take(pageSize));
+
+    private static Task<List<AnswerRow>> ProjectAnswers(IQueryable<Answer> answers) =>
+        answers
             .Select(x => new AnswerRow
             {
                 Id = x.Id,
@@ -331,6 +365,15 @@ public class RawDataService : IRawDataService
             })
             .ToListAsync();
 
+    /// <summary>
+    /// Pivots one window of answers and their answer values into rows. Peak memory
+    /// is bounded by the window, which is what makes a large export safe.
+    /// </summary>
+    private static async Task<List<Dictionary<string, object>>> BuildRows(
+        MicrotingDbContext sdkContext,
+        RawDataScope scope,
+        List<AnswerRow> answers)
+    {
         var rows = new List<Dictionary<string, object>>(answers.Count);
 
         if (answers.Count == 0)

@@ -62,8 +62,8 @@ public class RawDataExcelService(IHttpContextAccessor httpAccessor) : IRawDataEx
 
     /// <summary>
     /// Streams rows with OpenXmlWriter rather than building a SheetData DOM. The
-    /// DOM approach held every cell of the export in memory at once, which is what
-    /// forced the row cap down to 25 000.
+    /// DOM approach held every cell of the export in memory at once; this holds one
+    /// row, so the size of an export is no longer a memory question.
     /// </summary>
     private sealed class RawDataExcelWriter : IRawDataExcelWriter
     {
@@ -99,7 +99,10 @@ public class RawDataExcelService(IHttpContextAccessor httpAccessor) : IRawDataEx
 
             for (var col = 0; col < _columns.Count; col++)
             {
-                WriteCell(GetCellReference(_rowIndex, col + 1), CellValues.String, _columns[col].Header ?? string.Empty);
+                WriteCell(
+                    GetCellReference(_rowIndex, col + 1),
+                    CellValues.String,
+                    Sanitise(_columns[col].Header) ?? string.Empty);
             }
 
             _writer.WriteEndElement();
@@ -133,7 +136,7 @@ public class RawDataExcelService(IHttpContextAccessor httpAccessor) : IRawDataEx
                         WriteCell(reference, CellValues.String, boolValue ? "true" : "false");
                         break;
                     default:
-                        WriteCell(reference, CellValues.String, Sanitise(value.ToString()));
+                        WriteCell(reference, CellValues.String, Sanitise(value.ToString()) ?? string.Empty);
                         break;
                 }
             }
@@ -150,8 +153,13 @@ public class RawDataExcelService(IHttpContextAccessor httpAccessor) : IRawDataEx
         }
 
         /// <summary>
-        /// Free-text answers can contain control characters that are illegal in
-        /// XML; left in, they produce a workbook Excel refuses to open.
+        /// Strips characters XML 1.0 forbids: C0 controls except tab, newline and
+        /// carriage return, plus the 0xFFFE/0xFFFF non-characters. 0x7F and the C1
+        /// range are legal in XML 1.0 and are kept deliberately.
+        ///
+        /// Well-formed surrogate pairs pass through intact. A lone surrogate would
+        /// not, but MySQL's utf8mb4 validation means one cannot be stored in the
+        /// first place.
         /// </summary>
         private static string Sanitise(string value)
         {
@@ -221,7 +229,15 @@ public class RawDataExcelService(IHttpContextAccessor httpAccessor) : IRawDataEx
                 }
             }
 
-            _document.Dispose();
+            try
+            {
+                _document.Dispose();
+            }
+            catch
+            {
+                // Never let a close failure replace the exception being unwound;
+                // the caller deletes the file either way.
+            }
         }
 
         private static string GetCellReference(uint rowIndex, int colIndex) =>
