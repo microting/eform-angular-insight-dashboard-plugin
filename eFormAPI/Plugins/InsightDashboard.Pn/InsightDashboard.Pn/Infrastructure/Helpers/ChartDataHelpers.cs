@@ -133,7 +133,12 @@ public static class ChartDataHelpers
         }
 
         var answerQueryable = AnswerFilterHelper.BuildFilteredAnswerValues(
-            sdkContext, dashboardItem, dashboardSurveyId, answerDates);
+                sdkContext, dashboardItem, dashboardSurveyId, answerDates)
+            .Include(x => x.Question)
+            .Include(x => x.Option)
+            .Include(x => x.Answer)
+            .Include(x => x.Option.OptionTranslationses)
+            .AsQueryable();
 
         // Question type == Text
         if (dashboardItemModel.FirstQuestionType == Constants.QuestionTypes.Text)
@@ -2247,7 +2252,12 @@ public static class ChartDataHelpers
         }
 
         var answerQueryable = AnswerFilterHelper.BuildFilteredAnswerValues(
-            sdkContext, dashboardItem, dashboardSurveyId, answerDates);
+                sdkContext, dashboardItem, dashboardSurveyId, answerDates)
+            .Include(x => x.Question)
+            .Include(x => x.Option)
+            .Include(x => x.Answer)
+            .Include(x => x.Option.OptionTranslationses)
+            .AsQueryable();
 
         // Question type == Text
         if (dashboardItemModel.FirstQuestionType == Constants.QuestionTypes.Text)

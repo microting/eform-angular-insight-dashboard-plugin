@@ -60,10 +60,11 @@ public static class AnswerFilterHelper
         int dashboardSurveyId,
         DashboardEditAnswerDates answerDates)
     {
-        // Includes are attached at the end, not here: the filter-question step
-        // below closes over this queryable to build a correlated subquery, and a
-        // subquery carrying Includes is a translation hazard. The original code
-        // materialised that step separately, so EF never saw the combination.
+        // No Includes here. The filter-question step below closes over this
+        // queryable to build a correlated subquery, and a subquery carrying
+        // Includes is a translation hazard; BuildAnswerQuery would inherit the
+        // same problem. The chart callers attach their own Includes to the
+        // returned query, exactly as they did before this was extracted.
         var answerQueryable = sdkContext.AnswerValues
             .AsNoTracking()
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
@@ -117,13 +118,7 @@ public static class AnswerFilterHelper
                 .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
         }
 
-        // Kept for parity with the original query shape. Every consumer projects
-        // with Select, so EF ignores these in practice.
-        return answerQueryable
-            .Include(x => x.Question)
-            .Include(x => x.Option)
-            .Include(x => x.Answer)
-            .Include(x => x.Option.OptionTranslationses);
+        return answerQueryable;
     }
 
     /// <summary>
@@ -207,7 +202,7 @@ public static class AnswerFilterHelper
     /// <summary>
     /// Mirrors the isComparedData decision ChartDataHelpers makes.
     /// </summary>
-    public static bool IsComparedData(DashboardItem dashboardItem)
+    private static bool IsComparedData(DashboardItem dashboardItem)
     {
         if (dashboardItem.ChartType != DashboardChartTypes.GroupedStackedBarChart
             && dashboardItem.ChartType != DashboardChartTypes.Line)
