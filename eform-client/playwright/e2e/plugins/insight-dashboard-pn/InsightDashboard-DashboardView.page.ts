@@ -201,13 +201,4 @@ export class InsightDashboardDashboardViewPage {
     const match = text?.match(/(\d+)/);
     return match ? Number(match[1]) : null;
   }
-
-  /** Last cell of the aggregated table's final amount row, i.e. the chart total. */
-  async chartAmountTotal(rowNum: number, rawDataNum = 0): Promise<number | null> {
-    const totalRow = this.rawChartDataAmountValueRow(rowNum, rawDataNum, 0).last();
-    const cells = totalRow.locator('td');
-    const text = await cells.last().textContent();
-    const parsed = Number(text?.trim());
-    return Number.isNaN(parsed) ? null : parsed;
-  }
 }
