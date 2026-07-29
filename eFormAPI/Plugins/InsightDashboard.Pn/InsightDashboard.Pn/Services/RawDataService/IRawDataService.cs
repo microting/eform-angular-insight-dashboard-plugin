@@ -32,5 +32,9 @@ public interface IRawDataService
 {
     Task<OperationDataResult<RawDataListModel>> GetRawData(RawDataRequestModel requestModel);
 
-    Task<OperationDataResult<RawDataListModel>> GetAllRawData(int dashboardId, int dashboardItemId);
+    /// <summary>
+    /// Writes the full, unpaged result to an xlsx file and returns its path. The
+    /// caller streams the file to the client and deletes it afterwards.
+    /// </summary>
+    Task<OperationDataResult<string>> ExportToFile(int dashboardId, int dashboardItemId);
 }

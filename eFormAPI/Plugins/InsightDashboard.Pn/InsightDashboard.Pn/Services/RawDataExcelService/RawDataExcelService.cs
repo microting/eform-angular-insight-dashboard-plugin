@@ -26,7 +26,6 @@ namespace InsightDashboard.Pn.Services.RawDataExcelService;
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Security.Claims;
 using DocumentFormat.OpenXml;
@@ -36,12 +35,6 @@ using Infrastructure.Models.RawData;
 using Microsoft.AspNetCore.Http;
 using Microting.eFormApi.BasePn.Infrastructure.Helpers;
 
-/// <summary>
-/// Writes the raw data table to xlsx. Unlike InterviewsExcelService this does not
-/// copy a template first - that service creates a fresh SpreadsheetDocument over
-/// the copied template anyway, so the copy is dead weight - and the column count
-/// here is decided by the survey rather than a fixed enum.
-/// </summary>
 public class RawDataExcelService(IHttpContextAccessor httpAccessor) : IRawDataExcelService
 {
     public string CreateFilePath()
@@ -55,89 +48,8 @@ public class RawDataExcelService(IHttpContextAccessor httpAccessor) : IRawDataEx
         return Path.Combine(path, $"raw-data-{UserId}-{DateTime.UtcNow.Ticks}.xlsx");
     }
 
-    public bool WriteRawDataToExcelFile(RawDataListModel model, string destFile)
-    {
-        using var spreadsheetDocument =
-            SpreadsheetDocument.Create(destFile, SpreadsheetDocumentType.Workbook);
-
-        var workbookPart = spreadsheetDocument.AddWorkbookPart();
-        workbookPart.Workbook = new Workbook();
-
-        var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-        worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-        var sheets = spreadsheetDocument.WorkbookPart!.Workbook.AppendChild(new Sheets());
-        sheets.Append(new Sheet
-        {
-            Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
-            SheetId = 1,
-            Name = "Raw data",
-        });
-
-        var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
-        var columns = model.Columns;
-
-        // Header row. Columns hidden in the UI are exported too - the export is
-        // the complete record.
-        var headerRow = new Row { RowIndex = 1U };
-        for (var col = 0; col < columns.Count; col++)
-        {
-            headerRow.Append(new Cell
-            {
-                CellReference = GetCellReference(1, col + 1),
-                DataType = CellValues.String,
-                CellValue = new CellValue(columns[col].Header ?? string.Empty),
-            });
-        }
-
-        sheetData!.Append(headerRow);
-
-        var rowIndex = 2;
-        foreach (var modelRow in model.Rows)
-        {
-            var row = new Row { RowIndex = (uint)rowIndex };
-
-            for (var col = 0; col < columns.Count; col++)
-            {
-                var value = modelRow.GetValueOrDefault(columns[col].Field);
-                if (value == null)
-                {
-                    continue;
-                }
-
-                var cell = new Cell { CellReference = GetCellReference(rowIndex, col + 1) };
-
-                switch (value)
-                {
-                    case DateTime dateTime:
-                        cell.DataType = CellValues.String;
-                        cell.CellValue = new CellValue(
-                            dateTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
-                        break;
-                    case int intValue:
-                        cell.DataType = CellValues.Number;
-                        cell.CellValue = new CellValue(intValue.ToString(CultureInfo.InvariantCulture));
-                        break;
-                    case bool boolValue:
-                        cell.DataType = CellValues.String;
-                        cell.CellValue = new CellValue(boolValue ? "true" : "false");
-                        break;
-                    default:
-                        cell.DataType = CellValues.String;
-                        cell.CellValue = new CellValue(value.ToString() ?? string.Empty);
-                        break;
-                }
-
-                row.Append(cell);
-            }
-
-            sheetData.Append(row);
-            rowIndex++;
-        }
-
-        workbookPart.Workbook.Save();
-        return true;
-    }
+    public IRawDataExcelWriter CreateWriter(string destFile, IReadOnlyList<RawDataColumnModel> columns) =>
+        new RawDataExcelWriter(destFile, columns);
 
     private int UserId
     {
@@ -148,20 +60,185 @@ public class RawDataExcelService(IHttpContextAccessor httpAccessor) : IRawDataEx
         }
     }
 
-    private static string GetCellReference(int rowIndex, int colIndex) =>
-        $"{GetColumnName(colIndex)}{rowIndex}";
-
-    private static string GetColumnName(int index)
+    /// <summary>
+    /// Streams rows with OpenXmlWriter rather than building a SheetData DOM. The
+    /// DOM approach held every cell of the export in memory at once, which is what
+    /// forced the row cap down to 25 000.
+    /// </summary>
+    private sealed class RawDataExcelWriter : IRawDataExcelWriter
     {
-        var dividend = index;
-        var columnName = string.Empty;
-        while (dividend > 0)
+        private const string SheetName = "Raw data";
+
+        private readonly IReadOnlyList<RawDataColumnModel> _columns;
+        private readonly SpreadsheetDocument _document;
+        private readonly WorkbookPart _workbookPart;
+        private readonly WorksheetPart _worksheetPart;
+        private readonly OpenXmlWriter _writer;
+
+        private uint _rowIndex = 1;
+        private bool _completed;
+        private bool _disposed;
+
+        public RawDataExcelWriter(string destFile, IReadOnlyList<RawDataColumnModel> columns)
         {
-            var modulo = (dividend - 1) % 26;
-            columnName = Convert.ToChar(65 + modulo) + columnName;
-            dividend = (dividend - modulo) / 26;
+            _columns = columns;
+            _document = SpreadsheetDocument.Create(destFile, SpreadsheetDocumentType.Workbook);
+            _workbookPart = _document.AddWorkbookPart();
+            _worksheetPart = _workbookPart.AddNewPart<WorksheetPart>();
+
+            _writer = OpenXmlWriter.Create(_worksheetPart);
+            _writer.WriteStartElement(new Worksheet());
+            _writer.WriteStartElement(new SheetData());
+
+            WriteHeader();
         }
 
-        return columnName;
+        private void WriteHeader()
+        {
+            _writer.WriteStartElement(new Row { RowIndex = _rowIndex });
+
+            for (var col = 0; col < _columns.Count; col++)
+            {
+                WriteCell(GetCellReference(_rowIndex, col + 1), CellValues.String, _columns[col].Header ?? string.Empty);
+            }
+
+            _writer.WriteEndElement();
+            _rowIndex++;
+        }
+
+        public void WriteRow(Dictionary<string, object> row)
+        {
+            _writer.WriteStartElement(new Row { RowIndex = _rowIndex });
+
+            for (var col = 0; col < _columns.Count; col++)
+            {
+                if (!row.TryGetValue(_columns[col].Field, out var value) || value == null)
+                {
+                    continue;
+                }
+
+                var reference = GetCellReference(_rowIndex, col + 1);
+
+                switch (value)
+                {
+                    case DateTime dateTime:
+                        WriteCell(reference, CellValues.String,
+                            dateTime.ToString("yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture));
+                        break;
+                    case int intValue:
+                        WriteCell(reference, CellValues.Number,
+                            intValue.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                        break;
+                    case bool boolValue:
+                        WriteCell(reference, CellValues.String, boolValue ? "true" : "false");
+                        break;
+                    default:
+                        WriteCell(reference, CellValues.String, Sanitise(value.ToString()));
+                        break;
+                }
+            }
+
+            _writer.WriteEndElement();
+            _rowIndex++;
+        }
+
+        private void WriteCell(string reference, CellValues type, string value)
+        {
+            _writer.WriteStartElement(new Cell { CellReference = reference, DataType = type });
+            _writer.WriteElement(new CellValue(value));
+            _writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Free-text answers can contain control characters that are illegal in
+        /// XML; left in, they produce a workbook Excel refuses to open.
+        /// </summary>
+        private static string Sanitise(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+
+            Span<char> buffer = value.Length <= 256 ? stackalloc char[value.Length] : new char[value.Length];
+            var length = 0;
+
+            foreach (var c in value)
+            {
+                if (c == '\t' || c == '\n' || c == '\r' || (c >= 0x20 && c != 0xFFFE && c != 0xFFFF))
+                {
+                    buffer[length++] = c;
+                }
+            }
+
+            return length == value.Length ? value : new string(buffer[..length]);
+        }
+
+        public void Complete()
+        {
+            if (_completed)
+            {
+                return;
+            }
+
+            _writer.WriteEndElement(); // SheetData
+            _writer.WriteEndElement(); // Worksheet
+            _writer.Close();
+
+            _workbookPart.Workbook = new Workbook();
+            var sheets = _workbookPart.Workbook.AppendChild(new Sheets());
+            sheets.Append(new Sheet
+            {
+                Id = _workbookPart.GetIdOfPart(_worksheetPart),
+                SheetId = 1,
+                Name = SheetName,
+            });
+
+            _workbookPart.Workbook.Save();
+            _completed = true;
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+
+            // On the failure path Complete was never called, so close the writer
+            // without finalising; the caller deletes the partial file.
+            if (!_completed)
+            {
+                try
+                {
+                    _writer.Close();
+                }
+                catch
+                {
+                    // The writer may already be faulted; the file is discarded anyway.
+                }
+            }
+
+            _document.Dispose();
+        }
+
+        private static string GetCellReference(uint rowIndex, int colIndex) =>
+            $"{GetColumnName(colIndex)}{rowIndex}";
+
+        private static string GetColumnName(int index)
+        {
+            var dividend = index;
+            var columnName = string.Empty;
+            while (dividend > 0)
+            {
+                var modulo = (dividend - 1) % 26;
+                columnName = Convert.ToChar(65 + modulo) + columnName;
+                dividend = (dividend - modulo) / 26;
+            }
+
+            return columnName;
+        }
     }
 }
