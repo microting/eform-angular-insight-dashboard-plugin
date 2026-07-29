@@ -27,6 +27,7 @@ namespace InsightDashboard.Pn.Services.RawDataService;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -36,23 +37,40 @@ using Infrastructure.Models.Dashboards;
 using Infrastructure.Models.RawData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microting.eForm.Infrastructure;
 using Microting.eForm.Infrastructure.Constants;
 using Microting.eForm.Infrastructure.Data.Entities;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
 using Microting.InsightDashboardBase.Infrastructure.Data;
 using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
+using RawDataExcelService;
 
 public class RawDataService : IRawDataService
 {
     /// <summary>
-    /// Hard ceiling for the unpaged export. Deliberately well below the point where
-    /// the process would struggle: the export materialises every answer id into an
-    /// IN(...) set, every AnswerValue for those answers, and one dictionary per row.
-    /// Batching the id lookup would let this rise; until then the cap must stay where
-    /// the whole set comfortably fits in memory.
+    /// Hard ceiling for the unpaged export.
+    ///
+    /// Batching removed the memory constraint and keyset paging removed the
+    /// quadratic database cost, so this is no longer protecting the heap. What it
+    /// still bounds is wall-clock time: the whole file is generated before the
+    /// response starts, so a slow export can outlive a reverse proxy's read timeout
+    /// (nginx defaults to 60s). This value is NOT derived from a measurement of a
+    /// cap-sized export in production - raising it further should be, or better,
+    /// the sheet should be written straight to the response body so bytes flow
+    /// while rows are generated and no ceiling is needed.
     /// </summary>
-    public const int ExportRowLimit = 25000;
+    public const int ExportRowLimit = 50000;
+
+    /// <summary>Default answers per round trip during an export.</summary>
+    public const int DefaultExportBatchSize = 2000;
+
+    /// <summary>
+    /// Answers fetched per round trip. Peak memory is roughly this many rows plus
+    /// their answer values, however large the export is. Settable so tests can
+    /// cross batch boundaries without seeding thousands of answers.
+    /// </summary>
+    public int ExportBatchSize { get; set; } = DefaultExportBatchSize;
 
     private const string NotAnswered = RawDataValueResolver.NotAnswered;
 
@@ -61,237 +79,53 @@ public class RawDataService : IRawDataService
     private readonly IEFormCoreService _coreHelper;
     private readonly InsightDashboardPnDbContext _dbContext;
     private readonly IUserService _userService;
+    private readonly IRawDataExcelService _excelService;
 
     public RawDataService(
         ILogger<RawDataService> logger,
         IInsightDashboardLocalizationService localizationService,
         IEFormCoreService coreHelper,
         InsightDashboardPnDbContext dbContext,
-        IUserService userService)
+        IUserService userService,
+        IRawDataExcelService excelService)
     {
         _logger = logger;
         _localizationService = localizationService;
         _coreHelper = coreHelper;
         _dbContext = dbContext;
         _userService = userService;
+        _excelService = excelService;
     }
 
-    public Task<OperationDataResult<RawDataListModel>> GetRawData(RawDataRequestModel requestModel) =>
-        Build(requestModel.DashboardId, requestModel.DashboardItemId, requestModel, applyPaging: true);
-
-    public Task<OperationDataResult<RawDataListModel>> GetAllRawData(int dashboardId, int dashboardItemId) =>
-        Build(dashboardId, dashboardItemId, null, applyPaging: false);
-
-    private async Task<OperationDataResult<RawDataListModel>> Build(
-        int dashboardId,
-        int dashboardItemId,
-        RawDataRequestModel requestModel,
-        bool applyPaging)
+    public async Task<OperationDataResult<RawDataListModel>> GetRawData(RawDataRequestModel requestModel)
     {
         try
         {
-            var dashboard = await _dbContext.Dashboards
-                .Include(x => x.DashboardItems)
-                .ThenInclude<Dashboard, DashboardItem, List<DashboardItemIgnoredAnswer>>(x => x.IgnoredAnswerValues)
-                .Include(x => x.DashboardItems)
-                .ThenInclude<Dashboard, DashboardItem, List<DashboardItemCompare>>(x => x.CompareLocationsTags)
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .FirstOrDefaultAsync(x => x.Id == dashboardId);
-
-            if (dashboard == null)
-            {
-                return new OperationDataResult<RawDataListModel>(
-                    false, _localizationService.GetString("DashboardNotFound"));
-            }
-
-            var dashboardItem = dashboard.DashboardItems
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .FirstOrDefault(x => x.Id == dashboardItemId);
-
-            if (dashboardItem == null)
-            {
-                return new OperationDataResult<RawDataListModel>(
-                    false, _localizationService.GetString("DashboardItemNotFound"));
-            }
-
-            if (dashboard.Today)
-            {
-                var dateTimeNow = DateTime.Now;
-                dashboard.DateTo = new DateTime(
-                    dateTimeNow.Year, dateTimeNow.Month, dateTimeNow.Day, 23, 59, 59);
-            }
-
-            var answerDates = new DashboardEditAnswerDates
-            {
-                Today = dashboard.Today,
-                DateFrom = dashboard.DateFrom,
-                DateTo = dashboard.DateTo,
-            };
-
             var core = await _coreHelper.GetCore();
-            var userLanguage = await _userService.GetCurrentUserLanguage();
-
             await using var sdkContext = core.DbContextHelper.GetDbContext();
 
-            // Text items render the interviews grid, not a chart, and ChartDataHelpers
-            // filters them down a different branch (it applies the location filter
-            // regardless of CompareEnabled). AnswerFilterHelper does not mirror that
-            // branch, so refuse rather than return a set that matches nothing on screen.
-            var firstQuestionType = await sdkContext.Questions
-                .AsNoTracking()
-                .Where(x => x.Id == dashboardItem.FirstQuestionId)
-                .Select(x => x.QuestionType)
-                .FirstOrDefaultAsync();
+            var scope = await ResolveScope(
+                sdkContext, requestModel.DashboardId, requestModel.DashboardItemId);
 
-            if (firstQuestionType == Constants.QuestionTypes.Text)
+            if (!scope.Success)
             {
-                return new OperationDataResult<RawDataListModel>(
-                    false, _localizationService.GetString("RawDataNotAvailableForTextQuestions"));
+                return new OperationDataResult<RawDataListModel>(false, scope.Message);
             }
-
-            var preferredLanguageIds = await RawDataTranslations.GetPreferredLanguageIdsAsync(
-                sdkContext, dashboard.SurveyId, userLanguage.Id);
-
-            var schema = await RawDataColumnBuilder.BuildAsync(
-                sdkContext, dashboard.SurveyId, preferredLanguageIds);
-
-            var answerQuery = AnswerFilterHelper.BuildAnswerQuery(
-                sdkContext,
-                dashboardItem,
-                dashboard.SurveyId,
-                dashboard.LocationId,
-                dashboard.TagId,
-                answerDates);
 
             var result = new RawDataListModel
             {
-                Columns = schema.Columns,
-                Total = await answerQuery.CountAsync(),
+                Columns = scope.Model.Schema.Columns,
+                Total = await scope.Model.Answers.CountAsync(),
             };
 
-            if (!applyPaging && result.Total > ExportRowLimit)
-            {
-                return new OperationDataResult<RawDataListModel>(
-                    false,
-                    string.Format(
-                        _localizationService.GetString("RawDataExportTooLarge"),
-                        result.Total,
-                        ExportRowLimit));
-            }
+            var page = await ReadAnswerPage(
+                scope.Model.Answers,
+                requestModel.Sort,
+                requestModel.IsSortDsc,
+                requestModel.Offset,
+                requestModel.PageSize);
 
-            var ordered = ApplySort(answerQuery, requestModel?.Sort, requestModel?.IsSortDsc ?? true);
-
-            if (applyPaging)
-            {
-                ordered = ordered.Skip(requestModel.Offset).Take(requestModel.PageSize);
-            }
-
-            var answers = await ordered
-                .Select(x => new AnswerRow
-                {
-                    Id = x.Id,
-                    MicrotingUid = x.MicrotingUid,
-                    FinishedAt = x.FinishedAt,
-                    AnswerDuration = x.AnswerDuration,
-                    SiteId = x.SiteId,
-                    SiteName = x.Site.Name,
-                    TagNames = x.Site.SiteTags
-                        .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
-                        .Select(y => y.Tag.Name)
-                        .ToList(),
-                    UnitId = x.UnitId,
-                    UnitMicrotingUid = x.Unit.MicrotingUid,
-                    LanguageId = x.LanguageId,
-                    LanguageName = x.Language.Name,
-                    SurveyConfigurationName = x.SurveyConfiguration.Name,
-                    QuestionSetName = x.QuestionSet.Name,
-                    TimeZone = x.TimeZone,
-                    UtcAdjusted = x.UtcAdjusted,
-                    CreatedAt = x.CreatedAt,
-                    UpdatedAt = x.UpdatedAt,
-                    Version = x.Version,
-                    WorkflowState = x.WorkflowState,
-                })
-                .ToListAsync();
-
-            var answerIds = answers.Select(x => x.Id).ToList();
-
-            var values = await sdkContext.AnswerValues
-                .AsNoTracking()
-                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-                .Where(x => answerIds.Contains(x.AnswerId))
-                .Select(x => new { x.AnswerId, x.QuestionId, x.OptionId, x.Value })
-                .ToListAsync();
-
-            var metaByQuestionId = schema.Questions.ToDictionary(x => x.QuestionId);
-            var valuesByAnswerId = values
-                .GroupBy(x => x.AnswerId)
-                .ToDictionary(x => x.Key, x => x.ToList());
-
-            foreach (var answer in answers)
-            {
-                var row = ToRowDictionary(answer);
-
-                // Every question column starts as "not answered"; real values overwrite it.
-                foreach (var meta in schema.Questions)
-                {
-                    foreach (var field in meta.OptionFields)
-                    {
-                        row[field] = NotAnswered;
-                    }
-                }
-
-                if (valuesByAnswerId.TryGetValue(answer.Id, out var answerValues))
-                {
-                    foreach (var answerValue in answerValues)
-                    {
-                        if (!metaByQuestionId.TryGetValue(answerValue.QuestionId, out var meta))
-                        {
-                            continue;
-                        }
-
-                        var optionName = meta.OptionNameByOptionId.GetValueOrDefault(answerValue.OptionId);
-                        var skipped = RawDataValueResolver.IsSkipped(optionName);
-
-                        if (meta.IsMulti)
-                        {
-                            // A skipped multi question leaves every option column as "not answered".
-                            if (skipped)
-                            {
-                                continue;
-                            }
-
-                            // The option was removed from the survey after this answer was
-                            // given, so it has no column. Leave the question untouched rather
-                            // than blanking its columns, which would assert the respondent
-                            // was offered these options and picked none.
-                            var optionField = meta.OptionFieldByOptionId.GetValueOrDefault(answerValue.OptionId);
-                            if (optionField == null)
-                            {
-                                continue;
-                            }
-
-                            foreach (var field in meta.OptionFields)
-                            {
-                                if (Equals(row[field], NotAnswered))
-                                {
-                                    row[field] = string.Empty;
-                                }
-                            }
-
-                            row[optionField] = optionName;
-                            continue;
-                        }
-
-                        row[meta.Field] = skipped
-                            ? NotAnswered
-                            : RawDataValueResolver.ResolveSingleValue(
-                                meta, answerValue.OptionId, answerValue.Value, optionName);
-                    }
-                }
-
-                result.Rows.Add(row);
-            }
+            result.Rows.AddRange(await BuildRows(sdkContext, scope.Model, page));
 
             return new OperationDataResult<RawDataListModel>(true, result);
         }
@@ -302,6 +136,338 @@ public class RawDataService : IRawDataService
             return new OperationDataResult<RawDataListModel>(
                 false, _localizationService.GetString("ErrorWhileObtainingRawData"));
         }
+    }
+
+    public async Task<OperationDataResult<string>> ExportToFile(int dashboardId, int dashboardItemId)
+    {
+        string filePath = null;
+
+        try
+        {
+            var core = await _coreHelper.GetCore();
+
+            // The context stays open for the whole export: every batch comes from
+            // the same query, so it has to outlive the loop.
+            await using var sdkContext = core.DbContextHelper.GetDbContext();
+
+            var scope = await ResolveScope(sdkContext, dashboardId, dashboardItemId);
+
+            if (!scope.Success)
+            {
+                return new OperationDataResult<string>(false, scope.Message);
+            }
+
+            var total = await scope.Model.Answers.CountAsync();
+
+            if (total > ExportRowLimit)
+            {
+                return new OperationDataResult<string>(
+                    false,
+                    string.Format(
+                        _localizationService.GetString("RawDataExportTooLarge"),
+                        total,
+                        ExportRowLimit));
+            }
+
+            filePath = _excelService.CreateFilePath();
+
+            var written = 0;
+
+            using (var writer = _excelService.CreateWriter(filePath, scope.Model.Schema.Columns))
+            {
+                DateTime? cursorFinishedAt = null;
+                int? cursorId = null;
+
+                while (true)
+                {
+                    var answers = await ReadAnswerBatch(
+                        scope.Model.Answers, cursorFinishedAt, cursorId, ExportBatchSize);
+
+                    if (answers.Count == 0)
+                    {
+                        break;
+                    }
+
+                    foreach (var row in await BuildRows(sdkContext, scope.Model, answers))
+                    {
+                        writer.WriteRow(row);
+                        written++;
+                    }
+
+                    var last = answers[^1];
+                    cursorFinishedAt = last.FinishedAt;
+                    cursorId = last.Id;
+                }
+
+                writer.Complete();
+            }
+
+            if (written != total)
+            {
+                // Answers added or removed while the export ran. The cursor pins us
+                // to a consistent view, so the file is coherent - but it is not the
+                // count the user was shown, and saying nothing would let a truncated
+                // export pass as complete.
+                _logger.LogWarning(
+                    "Raw data export for dashboard {DashboardId} item {ItemId} wrote {Written} rows "
+                    + "against an expected {Total}; answers changed while the export ran.",
+                    dashboardId, dashboardItemId, written, total);
+            }
+
+            return new OperationDataResult<string>(true, filePath);
+        }
+        catch (Exception e)
+        {
+            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            Trace.TraceError(e.Message);
+            _logger.LogError(e, e.Message);
+            return new OperationDataResult<string>(
+                false, _localizationService.GetString("ErrorWhileGeneratingRawDataExport"));
+        }
+    }
+
+    /// <summary>
+    /// Everything a page or an export needs that does not depend on the offset: the
+    /// item's column schema and the query selecting its answers.
+    /// </summary>
+    private async Task<OperationDataResult<RawDataScope>> ResolveScope(
+        MicrotingDbContext sdkContext,
+        int dashboardId,
+        int dashboardItemId)
+    {
+        var dashboard = await _dbContext.Dashboards
+            .Include(x => x.DashboardItems)
+            .ThenInclude<Dashboard, DashboardItem, List<DashboardItemIgnoredAnswer>>(x => x.IgnoredAnswerValues)
+            .Include(x => x.DashboardItems)
+            .ThenInclude<Dashboard, DashboardItem, List<DashboardItemCompare>>(x => x.CompareLocationsTags)
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .FirstOrDefaultAsync(x => x.Id == dashboardId);
+
+        if (dashboard == null)
+        {
+            return new OperationDataResult<RawDataScope>(
+                false, _localizationService.GetString("DashboardNotFound"));
+        }
+
+        var dashboardItem = dashboard.DashboardItems
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .FirstOrDefault(x => x.Id == dashboardItemId);
+
+        if (dashboardItem == null)
+        {
+            return new OperationDataResult<RawDataScope>(
+                false, _localizationService.GetString("DashboardItemNotFound"));
+        }
+
+        if (dashboard.Today)
+        {
+            var dateTimeNow = DateTime.Now;
+            dashboard.DateTo = new DateTime(
+                dateTimeNow.Year, dateTimeNow.Month, dateTimeNow.Day, 23, 59, 59);
+        }
+
+        var answerDates = new DashboardEditAnswerDates
+        {
+            Today = dashboard.Today,
+            DateFrom = dashboard.DateFrom,
+            DateTo = dashboard.DateTo,
+        };
+
+        // Text items render the interviews grid, not a chart, and ChartDataHelpers
+        // filters them down a different branch that AnswerFilterHelper does not
+        // mirror. Refuse rather than return a set matching nothing on screen.
+        var firstQuestionType = await sdkContext.Questions
+            .AsNoTracking()
+            .Where(x => x.Id == dashboardItem.FirstQuestionId)
+            .Select(x => x.QuestionType)
+            .FirstOrDefaultAsync();
+
+        if (firstQuestionType == Constants.QuestionTypes.Text)
+        {
+            return new OperationDataResult<RawDataScope>(
+                false, _localizationService.GetString("RawDataNotAvailableForTextQuestions"));
+        }
+
+        var userLanguage = await _userService.GetCurrentUserLanguage();
+
+        var preferredLanguageIds = await RawDataTranslations.GetPreferredLanguageIdsAsync(
+            sdkContext, dashboard.SurveyId, userLanguage.Id);
+
+        var schema = await RawDataColumnBuilder.BuildAsync(
+            sdkContext, dashboard.SurveyId, preferredLanguageIds);
+
+        var answerQuery = AnswerFilterHelper.BuildAnswerQuery(
+            sdkContext,
+            dashboardItem,
+            dashboard.SurveyId,
+            dashboard.LocationId,
+            dashboard.TagId,
+            answerDates);
+
+        return new OperationDataResult<RawDataScope>(true, new RawDataScope
+        {
+            Schema = schema,
+            Answers = answerQuery,
+        });
+    }
+
+    /// <summary>
+    /// Materialises one window of answers and pivots their answer values into rows.
+    /// Peak memory is bounded by pageSize, which is what makes a large export safe.
+    /// </summary>
+    /// <summary>Reads one keyset window of answers, newest first.</summary>
+    private static Task<List<AnswerRow>> ReadAnswerBatch(
+        IQueryable<Answer> answers,
+        DateTime? cursorFinishedAt,
+        int? cursorId,
+        int batchSize) =>
+        ProjectAnswers(RawDataPaging.AfterCursor(answers, cursorFinishedAt, cursorId).Take(batchSize));
+
+    /// <summary>Reads one offset window, for the paged endpoint.</summary>
+    private static Task<List<AnswerRow>> ReadAnswerPage(
+        IQueryable<Answer> answers,
+        string sort,
+        bool isSortDsc,
+        int offset,
+        int pageSize) =>
+        ProjectAnswers(ApplySort(answers, sort, isSortDsc).Skip(offset).Take(pageSize));
+
+    private static Task<List<AnswerRow>> ProjectAnswers(IQueryable<Answer> answers) =>
+        answers
+            .Select(x => new AnswerRow
+            {
+                Id = x.Id,
+                MicrotingUid = x.MicrotingUid,
+                FinishedAt = x.FinishedAt,
+                AnswerDuration = x.AnswerDuration,
+                SiteId = x.SiteId,
+                SiteName = x.Site.Name,
+                TagNames = x.Site.SiteTags
+                    .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Select(y => y.Tag.Name)
+                    .ToList(),
+                UnitId = x.UnitId,
+                UnitMicrotingUid = x.Unit.MicrotingUid,
+                LanguageId = x.LanguageId,
+                LanguageName = x.Language.Name,
+                SurveyConfigurationName = x.SurveyConfiguration.Name,
+                QuestionSetName = x.QuestionSet.Name,
+                TimeZone = x.TimeZone,
+                UtcAdjusted = x.UtcAdjusted,
+                CreatedAt = x.CreatedAt,
+                UpdatedAt = x.UpdatedAt,
+                Version = x.Version,
+                WorkflowState = x.WorkflowState,
+            })
+            .ToListAsync();
+
+    /// <summary>
+    /// Pivots one window of answers and their answer values into rows. Peak memory
+    /// is bounded by the window, which is what makes a large export safe.
+    /// </summary>
+    private static async Task<List<Dictionary<string, object>>> BuildRows(
+        MicrotingDbContext sdkContext,
+        RawDataScope scope,
+        List<AnswerRow> answers)
+    {
+        var rows = new List<Dictionary<string, object>>(answers.Count);
+
+        if (answers.Count == 0)
+        {
+            return rows;
+        }
+
+        var answerIds = answers.Select(x => x.Id).ToList();
+
+        var values = await sdkContext.AnswerValues
+            .AsNoTracking()
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => answerIds.Contains(x.AnswerId))
+            .Select(x => new { x.AnswerId, x.QuestionId, x.OptionId, x.Value })
+            .ToListAsync();
+
+        var metaByQuestionId = scope.Schema.Questions.ToDictionary(x => x.QuestionId);
+        var valuesByAnswerId = values
+            .GroupBy(x => x.AnswerId)
+            .ToDictionary(x => x.Key, x => x.ToList());
+
+        foreach (var answer in answers)
+        {
+            var row = ToRowDictionary(answer);
+
+            // Every question column starts as "not answered"; real values overwrite it.
+            foreach (var meta in scope.Schema.Questions)
+            {
+                foreach (var field in meta.OptionFields)
+                {
+                    row[field] = NotAnswered;
+                }
+            }
+
+            if (valuesByAnswerId.TryGetValue(answer.Id, out var answerValues))
+            {
+                foreach (var answerValue in answerValues)
+                {
+                    if (!metaByQuestionId.TryGetValue(answerValue.QuestionId, out var meta))
+                    {
+                        continue;
+                    }
+
+                    var optionName = meta.OptionNameByOptionId.GetValueOrDefault(answerValue.OptionId);
+                    var skipped = RawDataValueResolver.IsSkipped(optionName);
+
+                    if (meta.IsMulti)
+                    {
+                        // A skipped multi question leaves every option column as "not answered".
+                        if (skipped)
+                        {
+                            continue;
+                        }
+
+                        // The option was removed from the survey after this answer was
+                        // given, so it has no column. Leave the question untouched rather
+                        // than blanking its columns, which would assert the respondent
+                        // was offered these options and picked none.
+                        var optionField = meta.OptionFieldByOptionId.GetValueOrDefault(answerValue.OptionId);
+                        if (optionField == null)
+                        {
+                            continue;
+                        }
+
+                        foreach (var field in meta.OptionFields)
+                        {
+                            if (Equals(row[field], NotAnswered))
+                            {
+                                row[field] = string.Empty;
+                            }
+                        }
+
+                        row[optionField] = optionName;
+                        continue;
+                    }
+
+                    row[meta.Field] = skipped
+                        ? NotAnswered
+                        : RawDataValueResolver.ResolveSingleValue(
+                            meta, answerValue.OptionId, answerValue.Value, optionName);
+                }
+            }
+
+            rows.Add(row);
+        }
+
+        return rows;
+    }
+
+    private sealed class RawDataScope
+    {
+        public RawDataSchema Schema { get; init; }
+
+        public IQueryable<Answer> Answers { get; init; }
     }
 
     private static Dictionary<string, object> ToRowDictionary(AnswerRow answer) => new()

@@ -24,11 +24,29 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Services.RawDataExcelService;
 
+using System;
+using System.Collections.Generic;
 using Infrastructure.Models.RawData;
+
+/// <summary>
+/// Writes rows to a sheet as they arrive, so the caller never has to hold the
+/// whole export in memory.
+/// </summary>
+public interface IRawDataExcelWriter : IDisposable
+{
+    void WriteRow(Dictionary<string, object> row);
+
+    /// <summary>Closes the sheet and finalises the workbook. Must be called on success.</summary>
+    void Complete();
+}
 
 public interface IRawDataExcelService
 {
     string CreateFilePath();
 
-    bool WriteRawDataToExcelFile(RawDataListModel model, string destFile);
+    /// <summary>
+    /// Opens a workbook and writes the header row. The caller streams data rows
+    /// into the returned writer and calls Complete when done.
+    /// </summary>
+    IRawDataExcelWriter CreateWriter(string destFile, IReadOnlyList<RawDataColumnModel> columns);
 }

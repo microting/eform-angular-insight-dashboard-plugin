@@ -24,37 +24,23 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Controllers;
 
-using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Models.RawData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-using Services.Common.InsightDashboardLocalizationService;
-using Services.RawDataExcelService;
 using Services.RawDataService;
 
 [Authorize]
 public class RawDataController : Controller
 {
     private readonly IRawDataService _rawDataService;
-    private readonly IRawDataExcelService _rawDataExcelService;
-    private readonly IInsightDashboardLocalizationService _localizationService;
-    private readonly ILogger<RawDataController> _logger;
 
-    public RawDataController(
-        IRawDataService rawDataService,
-        IRawDataExcelService rawDataExcelService,
-        IInsightDashboardLocalizationService localizationService,
-        ILogger<RawDataController> logger)
+    public RawDataController(IRawDataService rawDataService)
     {
         _rawDataService = rawDataService;
-        _rawDataExcelService = rawDataExcelService;
-        _localizationService = localizationService;
-        _logger = logger;
     }
 
     [HttpPost]
@@ -75,37 +61,11 @@ public class RawDataController : Controller
     [ProducesResponseType(typeof(string), 400)]
     public async Task ExportRawData([FromQuery] RawDataExportRequestModel requestModel)
     {
-        var dataResult = await _rawDataService.GetAllRawData(
+        // The service writes the file in batches; we only stream and clean up.
+        var exportResult = await _rawDataService.ExportToFile(
             requestModel.DashboardId, requestModel.DashboardItemId);
 
-        string filePath = null;
-        if (dataResult.Success)
-        {
-            // Write before OnStarting registers, so a failure here can still be
-            // reported as a localized 400 rather than surfacing as a bare 500 with
-            // a half-written file orphaned in excel-storage.
-            try
-            {
-                filePath = _rawDataExcelService.CreateFilePath();
-                if (!_rawDataExcelService.WriteRawDataToExcelFile(dataResult.Model, filePath))
-                {
-                    throw new Exception($"Error while writing excel file {filePath}");
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, e.Message);
-
-                if (!string.IsNullOrEmpty(filePath) && System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
-
-                filePath = null;
-                dataResult = new OperationDataResult<RawDataListModel>(
-                    false, _localizationService.GetString("ErrorWhileGeneratingRawDataExport"));
-            }
-        }
+        var filePath = exportResult.Success ? exportResult.Model : null;
 
         const int bufferSize = 4086;
         var buffer = new byte[bufferSize];
@@ -114,9 +74,9 @@ public class RawDataController : Controller
         {
             try
             {
-                if (!dataResult.Success)
+                if (!exportResult.Success)
                 {
-                    var bytes = Encoding.UTF8.GetBytes(dataResult.Message);
+                    var bytes = Encoding.UTF8.GetBytes(exportResult.Message);
                     Response.ContentLength = bytes.Length;
                     Response.ContentType = "text/plain";
                     Response.StatusCode = 400;

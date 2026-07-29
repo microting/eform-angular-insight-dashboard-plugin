@@ -24,6 +24,7 @@ SOFTWARE.
 
 namespace InsightDashboard.Pn.Test;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ using Infrastructure.Helpers;
 using Infrastructure.Models.Dashboards;
 using Microsoft.EntityFrameworkCore;
 using Microting.eForm.Infrastructure.Constants;
+using Microting.eForm.Infrastructure.Data.Entities;
 using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
 using NUnit.Framework;
 
@@ -269,5 +271,175 @@ public class AnswerFilterHelperUTests : DbTestFixture
             Assert.That(both, Is.EqualTo(bySite),
                 "A location must win over a tag rather than intersecting with it.");
         }
+    }
+
+    /// <summary>
+    /// The batching the export depends on: seeking through answers in small windows
+    /// must yield every answer exactly once, in the same order a single unbatched
+    /// read would. This is what Skip/Take could not guarantee cheaply, and it is the
+    /// whole point of the keyset rewrite.
+    /// </summary>
+    [Test]
+    public async Task KeysetPaging_StitchesBatchesIntoTheFullSetExactlyOnce()
+    {
+        var answers = DbContext.Answers
+            .AsNoTracking()
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed);
+
+        var expected = await RawDataPaging.OrderNewestFirst(answers)
+            .Select(x => x.Id)
+            .ToListAsync();
+
+        Assert.That(expected, Is.Not.Empty, "Seed data has no answers to page through.");
+
+        const int batchSize = 3;
+        var stitched = new List<int>();
+        DateTime? cursorFinishedAt = null;
+        int? cursorId = null;
+        var guard = 0;
+
+        while (true)
+        {
+            var batch = await RawDataPaging
+                .AfterCursor(answers, cursorFinishedAt, cursorId)
+                .Take(batchSize)
+                .Select(x => new { x.Id, x.FinishedAt })
+                .ToListAsync();
+
+            if (batch.Count == 0)
+            {
+                break;
+            }
+
+            stitched.AddRange(batch.Select(x => x.Id));
+            cursorFinishedAt = batch[^1].FinishedAt;
+            cursorId = batch[^1].Id;
+
+            Assert.That(++guard, Is.LessThan(expected.Count + 10),
+                "The cursor stopped advancing - paging would loop forever.");
+        }
+
+        Assert.That(stitched, Is.EqualTo(expected),
+            "Stitched batches must equal a single ordered read, in order.");
+        Assert.That(stitched.Distinct().Count(), Is.EqualTo(stitched.Count),
+            "No answer may appear in two batches.");
+    }
+
+    /// <summary>
+    /// Answers sharing a FinishedAt are exactly where paging breaks without a total
+    /// order, so they must not straddle a batch boundary incorrectly.
+    /// </summary>
+    [Test]
+    public async Task KeysetPaging_HandlesAnswersSharingATimestamp()
+    {
+        var duplicated = await DbContext.Answers
+            .AsNoTracking()
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .GroupBy(x => x.FinishedAt)
+            .Where(g => g.Count() > 1)
+            .Select(g => g.Key)
+            .FirstOrDefaultAsync();
+
+        if (duplicated == default)
+        {
+            Assert.Ignore("Seed data has no answers sharing a FinishedAt.");
+        }
+
+        var answers = DbContext.Answers
+            .AsNoTracking()
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.FinishedAt == duplicated);
+
+        var expected = await RawDataPaging.OrderNewestFirst(answers).Select(x => x.Id).ToListAsync();
+
+        var stitched = new List<int>();
+        DateTime? cursorFinishedAt = null;
+        int? cursorId = null;
+
+        while (true)
+        {
+            var batch = await RawDataPaging
+                .AfterCursor(answers, cursorFinishedAt, cursorId)
+                .Take(1)
+                .Select(x => new { x.Id, x.FinishedAt })
+                .ToListAsync();
+
+            if (batch.Count == 0)
+            {
+                break;
+            }
+
+            stitched.Add(batch[0].Id);
+            cursorFinishedAt = batch[0].FinishedAt;
+            cursorId = batch[0].Id;
+        }
+
+        Assert.That(stitched, Is.EqualTo(expected),
+            "One-row batches through a timestamp collision must still cover it exactly once.");
+    }
+
+    /// <summary>
+    /// The seeded database happens to contain no two answers sharing a FinishedAt,
+    /// so the test above skips and the timestamp-collision case - the exact reason
+    /// the Id tie-breaker exists - would go unverified. This pins the predicate
+    /// itself against an in-memory set, where the collision can be constructed.
+    ///
+    /// It deliberately complements rather than replaces the database test: that one
+    /// proves the expression translates to SQL, this one proves it is correct when
+    /// timestamps collide.
+    /// </summary>
+    [Test]
+    public void KeysetPaging_TieBreaksOnIdWhenTimestampsCollide()
+    {
+        var shared = new DateTime(2026, 3, 2, 8, 14, 22);
+
+        var answers = new List<Answer>
+        {
+            new() { Id = 1, FinishedAt = shared },
+            new() { Id = 2, FinishedAt = shared },
+            new() { Id = 3, FinishedAt = shared },
+            new() { Id = 4, FinishedAt = shared.AddMinutes(-1) },
+        }.AsQueryable();
+
+        var expected = new[] { 3, 2, 1, 4 };
+
+        var stitched = new List<int>();
+        DateTime? cursorFinishedAt = null;
+        int? cursorId = null;
+
+        // One row at a time, so every step crosses the collision.
+        for (var i = 0; i < expected.Length + 2; i++)
+        {
+            var batch = RawDataPaging
+                .AfterCursor(answers, cursorFinishedAt, cursorId)
+                .Take(1)
+                .ToList();
+
+            if (batch.Count == 0)
+            {
+                break;
+            }
+
+            stitched.Add(batch[0].Id);
+            cursorFinishedAt = batch[0].FinishedAt;
+            cursorId = batch[0].Id;
+        }
+
+        Assert.That(stitched, Is.EqualTo(expected),
+            "Answers sharing a timestamp must be returned newest-id-first, exactly once each.");
+    }
+
+    [Test]
+    public void KeysetPaging_WithoutACursorStartsAtTheNewest()
+    {
+        var answers = new List<Answer>
+        {
+            new() { Id = 1, FinishedAt = new DateTime(2026, 1, 1) },
+            new() { Id = 2, FinishedAt = new DateTime(2026, 3, 1) },
+        }.AsQueryable();
+
+        var first = RawDataPaging.AfterCursor(answers, null, null).First();
+
+        Assert.That(first.Id, Is.EqualTo(2));
     }
 }
