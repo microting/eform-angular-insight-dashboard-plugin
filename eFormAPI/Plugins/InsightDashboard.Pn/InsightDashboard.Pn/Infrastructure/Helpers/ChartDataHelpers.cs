@@ -132,77 +132,14 @@ public static class ChartDataHelpers
             }
         }
 
-        var answerQueryable = sdkContext.AnswerValues
-            .AsNoTracking()
-            .Include(x => x.Question)
-            .Include(x => x.Option)
-            .Include(x => x.Answer)
-            .Include(x => x.Option.OptionTranslationses)
-            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-            .AsQueryable();
-
-        if (answerDates.Today)
-        {
-            var dateTimeNow = DateTime.Now;
-            answerDates.DateTo = new DateTime(
-                dateTimeNow.Year,
-                dateTimeNow.Month,
-                dateTimeNow.Day,
-                23,
-                59,
-                59);
-        }
-
-        if (answerDates.DateFrom != null)
-        {
-            answerQueryable = answerQueryable
-                .Where(x => x.Answer.FinishedAt >= answerDates.DateFrom);
-        }
-
-        if (answerDates.DateTo != null)
-        {
-            answerQueryable = answerQueryable
-                .Where(x => x.Answer.FinishedAt <= answerDates.DateTo);
-        }
-
-        Console.WriteLine($"Using QuestionSetId {dashboardSurveyId}");
-
-        answerQueryable = answerQueryable
-            .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);
-
-        if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
-        {
-            var answerIds = answerQueryable
-                .Where(y => y.QuestionId == dashboardItem.FilterQuestionId &&
-                            y.OptionId == dashboardItem.FilterAnswerId)
-                .Select(y => y.AnswerId)
-                .ToList();
-
-            answerQueryable = answerQueryable
-                .Where(x => answerIds
-                    .Contains(x.AnswerId))
-                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
-        }
-        else
-        {
-            answerQueryable = answerQueryable
-                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
-        }
+        var answerQueryable = AnswerFilterHelper.BuildFilteredAnswerValues(
+            sdkContext, dashboardItem, dashboardSurveyId, answerDates);
 
         // Question type == Text
         if (dashboardItemModel.FirstQuestionType == Constants.QuestionTypes.Text)
         {
-            if (dashboardLocationId != null)
-            {
-                answerQueryable = answerQueryable
-                    .Where(x => x.Answer.SiteId == dashboardLocationId);
-            }
-            else if (dashboardLocationTagId != null)
-            {
-                answerQueryable = answerQueryable
-                    .Where(x => x.Answer.Site.SiteTags.Any(
-                        y => y.TagId == dashboardLocationTagId));
-            }
+            answerQueryable = AnswerFilterHelper.ApplyLocationFilter(
+                answerQueryable, dashboardLocationId, dashboardLocationTagId);
 
             var textData = await answerQueryable
                 .Select(x => new DashboardItemTextQuestionDataModel
@@ -222,31 +159,16 @@ public static class ChartDataHelpers
             // Question type != Text
             if (!dashboardItem.CompareEnabled)
             {
-                if (dashboardLocationId != null)
-                {
-                    answerQueryable = answerQueryable
-                        .Where(x => x.Answer.SiteId == dashboardLocationId);
-                }
-                else if (dashboardLocationTagId != null)
-                {
-                    answerQueryable = answerQueryable
-                        .Where(x => x.Answer.Site.SiteTags.Any(
-                            y => y.TagId == dashboardLocationTagId));
-                }
+                answerQueryable = AnswerFilterHelper.ApplyLocationFilter(
+                    answerQueryable, dashboardLocationId, dashboardLocationTagId);
             }
 
             var ignoreOptions = new List<Option>();
+            var optionIds = AnswerFilterHelper.GetIgnoredOptionIds(dashboardItem);
 
-            if (dashboardItem.IgnoredAnswerValues
-                .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+            if (optionIds.Length > 0)
             {
-                var optionIds = dashboardItem.IgnoredAnswerValues
-                    .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Select(x => x.AnswerId)
-                    .ToArray();
-
-                answerQueryable = answerQueryable
-                    .Where(x => !optionIds.Contains(x.OptionId));
+                answerQueryable = AnswerFilterHelper.ApplyIgnoredOptions(answerQueryable, optionIds);
 
                 ignoreOptions = await sdkContext.Options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
             }
@@ -2324,75 +2246,14 @@ public static class ChartDataHelpers
             }
         }
 
-        var answerQueryable = sdkContext.AnswerValues
-            .AsNoTracking()
-            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-            .Include(x => x.Question)
-            .Include(x => x.Option)
-            .Include(x => x.Answer)
-            .Include(x => x.Option.OptionTranslationses)
-            .AsQueryable();
-
-        if (answerDates.Today)
-        {
-            var dateTimeNow = DateTime.Now;
-            answerDates.DateTo = new DateTime(
-                dateTimeNow.Year,
-                dateTimeNow.Month,
-                dateTimeNow.Day,
-                23,
-                59,
-                59);
-        }
-
-        if (answerDates.DateFrom != null)
-        {
-            answerQueryable = answerQueryable
-                .Where(x => x.Answer.FinishedAt >= answerDates.DateFrom);
-        }
-
-        if (answerDates.DateTo != null)
-        {
-            answerQueryable = answerQueryable
-                .Where(x => x.Answer.FinishedAt <= answerDates.DateTo);
-        }
-
-        answerQueryable = answerQueryable
-            .Where(x => x.Answer.QuestionSetId == dashboardSurveyId);
-
-        if (dashboardItem.FilterQuestionId != null && dashboardItem.FilterAnswerId != null)
-        {
-            var answerIds = answerQueryable
-                .Where(y => y.QuestionId == dashboardItem.FilterQuestionId &&
-                            y.OptionId == dashboardItem.FilterAnswerId)
-                .Select(y => y.AnswerId)
-                .ToList();
-
-            answerQueryable = answerQueryable
-                .Where(x => answerIds
-                    .Contains(x.AnswerId))
-                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
-        }
-        else
-        {
-            answerQueryable = answerQueryable
-                .Where(x => x.QuestionId == dashboardItem.FirstQuestionId);
-        }
+        var answerQueryable = AnswerFilterHelper.BuildFilteredAnswerValues(
+            sdkContext, dashboardItem, dashboardSurveyId, answerDates);
 
         // Question type == Text
         if (dashboardItemModel.FirstQuestionType == Constants.QuestionTypes.Text)
         {
-            if (dashboardLocationId != null)
-            {
-                answerQueryable = answerQueryable
-                    .Where(x => x.Answer.SiteId == dashboardLocationId);
-            }
-            else if (dashboardLocationTagId != null)
-            {
-                answerQueryable = answerQueryable
-                    .Where(x => x.Answer.Site.SiteTags.Any(
-                        y => y.TagId == dashboardLocationTagId));
-            }
+            answerQueryable = AnswerFilterHelper.ApplyLocationFilter(
+                answerQueryable, dashboardLocationId, dashboardLocationTagId);
 
             var textData = await answerQueryable
                 .Select(x => new DashboardItemTextQuestionDataModel
@@ -2412,31 +2273,16 @@ public static class ChartDataHelpers
             // Question type != Text
             if (!dashboardItem.CompareEnabled)
             {
-                if (dashboardLocationId != null)
-                {
-                    answerQueryable = answerQueryable
-                        .Where(x => x.Answer.SiteId == dashboardLocationId);
-                }
-                else if (dashboardLocationTagId != null)
-                {
-                    answerQueryable = answerQueryable
-                        .Where(x => x.Answer.Site.SiteTags.Any(
-                            y => y.TagId == dashboardLocationTagId));
-                }
+                answerQueryable = AnswerFilterHelper.ApplyLocationFilter(
+                    answerQueryable, dashboardLocationId, dashboardLocationTagId);
             }
 
             var ignoreOptions = new List<Option>();
+            var optionIds = AnswerFilterHelper.GetIgnoredOptionIds(dashboardItem);
 
-            if (dashboardItem.IgnoredAnswerValues
-                .Any(x => x.WorkflowState != Constants.WorkflowStates.Removed))
+            if (optionIds.Length > 0)
             {
-                var optionIds = dashboardItem.IgnoredAnswerValues
-                    .Where(y => y.WorkflowState != Constants.WorkflowStates.Removed)
-                    .Select(x => x.AnswerId)
-                    .ToArray();
-
-                answerQueryable = answerQueryable
-                    .Where(x => !optionIds.Contains(x.OptionId));
+                answerQueryable = AnswerFilterHelper.ApplyIgnoredOptions(answerQueryable, optionIds);
 
                 ignoreOptions = await sdkContext.Options.Where(x => optionIds.Contains(x.Id)).ToListAsync();
             }
