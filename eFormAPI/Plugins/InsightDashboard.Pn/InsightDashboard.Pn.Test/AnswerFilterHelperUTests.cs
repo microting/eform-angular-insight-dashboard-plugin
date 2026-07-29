@@ -33,6 +33,7 @@ using Infrastructure.Helpers;
 using Infrastructure.Models.Dashboards;
 using Microsoft.EntityFrameworkCore;
 using Microting.eForm.Infrastructure.Constants;
+using Microting.eForm.Infrastructure.Data.Entities;
 using Microting.InsightDashboardBase.Infrastructure.Data.Entities;
 using NUnit.Framework;
 
@@ -375,5 +376,70 @@ public class AnswerFilterHelperUTests : DbTestFixture
 
         Assert.That(stitched, Is.EqualTo(expected),
             "One-row batches through a timestamp collision must still cover it exactly once.");
+    }
+
+    /// <summary>
+    /// The seeded database happens to contain no two answers sharing a FinishedAt,
+    /// so the test above skips and the timestamp-collision case - the exact reason
+    /// the Id tie-breaker exists - would go unverified. This pins the predicate
+    /// itself against an in-memory set, where the collision can be constructed.
+    ///
+    /// It deliberately complements rather than replaces the database test: that one
+    /// proves the expression translates to SQL, this one proves it is correct when
+    /// timestamps collide.
+    /// </summary>
+    [Test]
+    public void KeysetPaging_TieBreaksOnIdWhenTimestampsCollide()
+    {
+        var shared = new DateTime(2026, 3, 2, 8, 14, 22);
+
+        var answers = new List<Answer>
+        {
+            new() { Id = 1, FinishedAt = shared },
+            new() { Id = 2, FinishedAt = shared },
+            new() { Id = 3, FinishedAt = shared },
+            new() { Id = 4, FinishedAt = shared.AddMinutes(-1) },
+        }.AsQueryable();
+
+        var expected = new[] { 3, 2, 1, 4 };
+
+        var stitched = new List<int>();
+        DateTime? cursorFinishedAt = null;
+        int? cursorId = null;
+
+        // One row at a time, so every step crosses the collision.
+        for (var i = 0; i < expected.Length + 2; i++)
+        {
+            var batch = RawDataPaging
+                .AfterCursor(answers, cursorFinishedAt, cursorId)
+                .Take(1)
+                .ToList();
+
+            if (batch.Count == 0)
+            {
+                break;
+            }
+
+            stitched.Add(batch[0].Id);
+            cursorFinishedAt = batch[0].FinishedAt;
+            cursorId = batch[0].Id;
+        }
+
+        Assert.That(stitched, Is.EqualTo(expected),
+            "Answers sharing a timestamp must be returned newest-id-first, exactly once each.");
+    }
+
+    [Test]
+    public void KeysetPaging_WithoutACursorStartsAtTheNewest()
+    {
+        var answers = new List<Answer>
+        {
+            new() { Id = 1, FinishedAt = new DateTime(2026, 1, 1) },
+            new() { Id = 2, FinishedAt = new DateTime(2026, 3, 1) },
+        }.AsQueryable();
+
+        var first = RawDataPaging.AfterCursor(answers, null, null).First();
+
+        Assert.That(first.Id, Is.EqualTo(2));
     }
 }
