@@ -197,12 +197,9 @@ public class AnswersUTests : DbTestFixture
         Assert.That(before?.AnswerValues, Is.Not.Empty,
             "The chosen answer must have values, or this proves nothing.");
 
-        // Taken from the lookup's own output rather than from AnswerValues
-        // directly. The lookup inner-joins QuestionTranslations on
-        // value.QuestionId == translation.Id - which is a known defect, see the
-        // note on GetAnswerQueryByMicrotingUid - so a value picked straight from
-        // the table may not be visible to it, and the count assertion below would
-        // then fail for a reason unrelated to workflow state.
+        // Taken from the lookup's own output rather than from AnswerValues directly,
+        // so the value is guaranteed to be one the lookup returns and the count
+        // assertion below can only move because of workflow state.
         var valueId = before.AnswerValues.OrderBy(x => x.Id).First().Id;
 
         var strategy = DbContext.Database.CreateExecutionStrategy();
@@ -236,11 +233,14 @@ public class AnswersUTests : DbTestFixture
     }
 
     /// <summary>
-    /// Picks an answer the detail lookup can actually return. That query inner-joins
-    /// Sites and Units, so an answer with a null UnitId is invisible to it regardless
-    /// of workflow state, and choosing one would make the tests above fail for the
-    /// wrong reason. Ordered so the choice is deterministic rather than left to the
-    /// storage engine.
+    /// Picks an answer the detail lookup can actually return, deterministically
+    /// rather than leaving the choice to the storage engine.
+    ///
+    /// The lookup no longer drops answers without a unit, but these tests still
+    /// require one: AnswerLookup_ReturnsAnswersThatHaveNoUnit removes the unit and
+    /// then asserts on the restore, which is only meaningful if there was a unit
+    /// uid to restore. Hence the Units predicate, including its MicrotingUid being
+    /// set - Unit.MicrotingUid is itself nullable.
     /// </summary>
     private async Task<AnswerSubject> LiveAnswerVisibleToTheLookup() =>
         await DbContext.Answers
@@ -248,7 +248,7 @@ public class AnswersUTests : DbTestFixture
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
             .Where(x => x.MicrotingUid != null)
             .Where(x => x.UnitId != null)
-            .Where(x => DbContext.Units.Any(u => u.Id == x.UnitId))
+            .Where(x => DbContext.Units.Any(u => u.Id == x.UnitId && u.MicrotingUid != null))
             .Where(x => DbContext.Sites.Any(s => s.Id == x.SiteId))
             .Where(x => DbContext.AnswerValues.Any(v =>
                 v.AnswerId == x.Id && v.WorkflowState != Constants.WorkflowStates.Removed))
@@ -282,13 +282,15 @@ public class AnswersUTests : DbTestFixture
         var subject = await LiveAnswerVisibleToTheLookup();
         Assert.That(subject, Is.Not.Null, "Seed data has no answer the lookup can return.");
 
-        var questionId = await DbContext.AnswerValues
+        var value = await DbContext.AnswerValues
             .AsNoTracking()
             .Where(x => x.AnswerId == subject.Id)
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
             .OrderBy(x => x.Id)
-            .Select(x => x.QuestionId)
+            .Select(x => new { x.Id, x.QuestionId })
             .FirstAsync();
+
+        var questionId = value.QuestionId;
 
         // The row the broken join would read, and the language to reuse.
         var displaced = await DbContext.QuestionTranslations
@@ -336,14 +338,19 @@ public class AnswersUTests : DbTestFixture
 
             Assert.That(answer, Is.Not.Null);
 
-            var questions = answer.AnswerValues.Select(x => x.Question).ToList();
+            // Scoped to the one value whose question was displaced. Asserting across
+            // the whole answer would be self-defeating: the displaced translation is
+            // moved onto another real question, and on the seeded data that question
+            // belongs to this same answer, so its name legitimately reappears on a
+            // different row.
+            var displacedValue = answer.AnswerValues.Single(x => x.Id == value.Id);
 
-            Assert.That(questions, Does.Contain(marker),
+            Assert.That(displacedValue.Question, Is.EqualTo(marker),
                 "The question text must come from the translation whose QuestionId "
                 + "matches the value, not from the one whose Id happens to.");
-            Assert.That(questions, Does.Not.Contain(displaced.Name),
-                "The displaced translation describes a different question now and must "
-                + "not be shown.");
+            Assert.That(displacedValue.Question, Is.Not.EqualTo(displaced.Name),
+                "Reading the displaced translation means the lookup is still matching "
+                + "on QuestionTranslation.Id.");
 
             await transaction.RollbackAsync();
         });

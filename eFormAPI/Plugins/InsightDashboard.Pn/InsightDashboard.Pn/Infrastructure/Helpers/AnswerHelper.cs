@@ -45,6 +45,10 @@ public class AnswerHelper
     /// AnswerViewModel nor AnswerValuesViewModel carries WorkflowState, so the
     /// page had no way to say otherwise.
     ///
+    /// The answer's unit is optional, so an answer without one comes back with
+    /// UnitId null instead of being dropped, and the question text is resolved
+    /// through QuestionTranslation.QuestionId.
+    ///
     /// The two ForDelete queries below deliberately stay unfiltered.
     /// AnswersService.DeleteAnswerByMicrotingUid has to be able to fetch an
     /// already-removed answer in order to report that it is already removed.
@@ -83,6 +87,14 @@ public class AnswerHelper
                         // real relationship; taking the first non-removed translation
                         // keeps one row per value, which a corrected join would not
                         // once a question has more than one language.
+                        //
+                        // TODO: lowest Id is insertion order, not a language choice.
+                        // On a multi-language survey this can pair a question in one
+                        // language with an option value in another, on the same row -
+                        // the grid shows the option's language in its own column.
+                        // RawDataTranslations.GetPreferredLanguageIdsAsync already
+                        // resolves this properly (user language, then the survey's,
+                        // then anything live) and should be threaded in here.
                         Question = dbContext.QuestionTranslations
                             .Where(translation => translation.QuestionId == value.QuestionId)
                             .Where(translation =>
