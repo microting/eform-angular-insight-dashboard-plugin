@@ -55,6 +55,7 @@ public class AnswerFilterHelperUTests : DbTestFixture
         var candidate = await DbContext.AnswerValues
             .AsNoTracking()
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed)
             .GroupBy(x => new { x.Answer.QuestionSetId, x.QuestionId })
             .Select(g => new { g.Key.QuestionSetId, g.Key.QuestionId, Count = g.Count() })
             .OrderByDescending(x => x.Count)
@@ -101,6 +102,7 @@ public class AnswerFilterHelperUTests : DbTestFixture
         var scope = DbContext.AnswerValues
             .AsNoTracking()
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed)
             .Where(x => x.Answer.QuestionSetId == survey.Key);
 
         var materialisedIds = await scope
@@ -136,6 +138,7 @@ public class AnswerFilterHelperUTests : DbTestFixture
         var pick = await DbContext.AnswerValues
             .AsNoTracking()
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed)
             .GroupBy(x => new { x.Answer.QuestionSetId, x.QuestionId, x.OptionId })
             .Select(g => new { g.Key.QuestionSetId, g.Key.QuestionId, g.Key.OptionId, Count = g.Count() })
             .OrderByDescending(x => x.Count)
@@ -162,6 +165,7 @@ public class AnswerFilterHelperUTests : DbTestFixture
         var scope = DbContext.AnswerValues
             .AsNoTracking()
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed)
             .Where(x => x.Answer.QuestionSetId == pick.QuestionSetId);
 
         var materialisedIds = await scope
@@ -191,6 +195,7 @@ public class AnswerFilterHelperUTests : DbTestFixture
         var repeated = await DbContext.AnswerValues
             .AsNoTracking()
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed)
             .GroupBy(x => new { x.AnswerId, x.QuestionId })
             .Where(g => g.Count() > 1)
             .Select(g => new { g.Key.AnswerId, g.Key.QuestionId })
@@ -447,15 +452,16 @@ public class AnswerFilterHelperUTests : DbTestFixture
     /// Regression test for the 57-vs-53 discrepancy on a real dashboard.
     ///
     /// Four answers had Answers.WorkflowState='removed' while their AnswerValues
-    /// stayed 'created' - a state the application cannot produce (its delete
-    /// removes the values first), so it arrived via direct SQL. Charts filtered
-    /// only the value's workflow state and counted them; the raw data table also
-    /// filtered the answer's and did not. The two disagreed in production.
+    /// stayed 'created'. Charts filtered only the value's workflow state and
+    /// counted them; the raw data table also filtered the answer's and did not.
+    /// The two disagreed on a real dashboard: 57 against 53.
     ///
-    /// This reproduces that state exactly and asserts both paths now agree. It
-    /// mutates the shared test database, so the change is undone in a finally -
-    /// and deliberately does so with raw SQL rather than PnBase.Delete, because
-    /// Delete would also remove the values and destroy the very state under test.
+    /// How answers reach that state is not established - the delete path removes
+    /// the values first, so a half-completed delete leaves the opposite skew - but
+    /// the state demonstrably exists in real data, and every reader of it has to
+    /// agree. That is what this pins.
+    ///
+    /// This reproduces that state exactly and asserts both paths now agree.
     /// </summary>
     [Test]
     public async Task RemovedAnswerWithLiveValues_IsExcludedFromChartsAndRawDataAlike()
@@ -466,6 +472,7 @@ public class AnswerFilterHelperUTests : DbTestFixture
             .AsNoTracking()
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
             .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed)
+            .OrderBy(x => x.AnswerId)
             .Select(x => new
             {
                 x.AnswerId,
@@ -516,9 +523,23 @@ public class AnswerFilterHelperUTests : DbTestFixture
             chartBefore.OrderBy(x => x), Is.EqualTo(rawBefore.OrderBy(x => x)),
             "Chart and raw data must agree before the answer is touched.");
 
-        try
+        // Everything below runs inside a transaction that is never committed, so
+        // the shared database is unchanged even if this process is killed. A
+        // try/finally restore would not survive that, and DbTestFixture.ClearDb
+        // is a no-op, so nothing else would put the row back.
+        //
+        // The context is configured with MySqlRetryingExecutionStrategy, which
+        // refuses user-initiated transactions unless the whole unit runs through
+        // the strategy - hence the wrapper rather than a bare BeginTransaction.
+        var strategy = DbContext.Database.CreateExecutionStrategy();
+
+        await strategy.ExecuteAsync(async () =>
         {
-            // The exact broken state: answer removed, values untouched.
+            await using var transaction = await DbContext.Database.BeginTransactionAsync();
+
+            // The exact broken state: answer removed, values untouched. Raw SQL
+            // rather than PnBase.Delete, which would remove the values too and
+            // destroy the case under test.
             await DbContext.Database.ExecuteSqlRawAsync(
                 "UPDATE Answers SET WorkflowState = 'removed' WHERE Id = {0}", subject.AnswerId);
 
@@ -546,16 +567,13 @@ public class AnswerFilterHelperUTests : DbTestFixture
 
             Assert.That(chartAfter.Count, Is.EqualTo(chartBefore.Count - 1),
                 "Exactly the one soft-deleted answer should have dropped out.");
-        }
-        finally
-        {
-            await DbContext.Database.ExecuteSqlRawAsync(
-                "UPDATE Answers SET WorkflowState = 'created' WHERE Id = {0}", subject.AnswerId);
-        }
+
+            await transaction.RollbackAsync();
+        });
 
         // The database must be exactly as it was, or later tests inherit the bug.
         var chartRestored = await ChartAnswerIds();
         Assert.That(chartRestored.OrderBy(x => x), Is.EqualTo(chartBefore.OrderBy(x => x)),
-            "Cleanup failed - the shared test database is left modified.");
+            "Rollback failed - the shared test database is left modified.");
     }
 }

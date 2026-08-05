@@ -197,6 +197,10 @@ public static class AnswerFilterHelper
             ? ComparedAnswerIds(answerValues, dashboardItem, dashboardLocationId, dashboardLocationTagId)
             : NonComparedAnswerIds(answerValues, dashboardLocationId, dashboardLocationTagId);
 
+        // The workflow-state clause is redundant - every id in answerIds already
+        // came through WhereAnswerIsLive - but it is a cheap, index-friendly guard
+        // on the outer scan and it keeps this query correct on its own terms if
+        // answerIds is ever built differently. Deliberate, not leftover.
         return sdkContext.Answers
             .AsNoTracking()
             .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
