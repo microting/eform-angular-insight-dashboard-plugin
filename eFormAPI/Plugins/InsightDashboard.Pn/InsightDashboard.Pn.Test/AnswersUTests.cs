@@ -197,13 +197,13 @@ public class AnswersUTests : DbTestFixture
         Assert.That(before?.AnswerValues, Is.Not.Empty,
             "The chosen answer must have values, or this proves nothing.");
 
-        var valueId = await DbContext.AnswerValues
-            .AsNoTracking()
-            .Where(x => x.AnswerId == subject.Id)
-            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-            .OrderBy(x => x.Id)
-            .Select(x => x.Id)
-            .FirstAsync();
+        // Taken from the lookup's own output rather than from AnswerValues
+        // directly. The lookup inner-joins QuestionTranslations on
+        // value.QuestionId == translation.Id - which is a known defect, see the
+        // note on GetAnswerQueryByMicrotingUid - so a value picked straight from
+        // the table may not be visible to it, and the count assertion below would
+        // then fail for a reason unrelated to workflow state.
+        var valueId = before.AnswerValues.OrderBy(x => x.Id).First().Id;
 
         var strategy = DbContext.Database.CreateExecutionStrategy();
 
@@ -252,6 +252,11 @@ public class AnswersUTests : DbTestFixture
             .Where(x => DbContext.Sites.Any(s => s.Id == x.SiteId))
             .Where(x => DbContext.AnswerValues.Any(v =>
                 v.AnswerId == x.Id && v.WorkflowState != Constants.WorkflowStates.Removed))
+            // The lookup matches on MicrotingUid and takes the first row. There is
+            // no unique index on that column, so a shared uid would let a sibling
+            // answer satisfy the query after this one is marked removed, and the
+            // "is null" assertion would fail for the wrong reason.
+            .Where(x => DbContext.Answers.Count(y => y.MicrotingUid == x.MicrotingUid) == 1)
             .OrderBy(x => x.Id)
             .Select(x => new AnswerSubject { Id = x.Id, MicrotingUid = (int)x.MicrotingUid })
             .FirstOrDefaultAsync();
