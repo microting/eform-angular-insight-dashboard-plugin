@@ -261,6 +261,144 @@ public class AnswersUTests : DbTestFixture
             .Select(x => new AnswerSubject { Id = x.Id, MicrotingUid = (int)x.MicrotingUid })
             .FirstOrDefaultAsync();
 
+    /// <summary>
+    /// The lookup used to read the question text by joining AnswerValue.QuestionId
+    /// to QuestionTranslation.Id - two different keys - so the label was whichever
+    /// translation happened to share that number, and values with no such row
+    /// vanished entirely.
+    ///
+    /// The seeded database cannot expose this: every QuestionTranslation there has
+    /// Id equal to its QuestionId, so the wrong join coincidentally agrees with the
+    /// right one. The test therefore builds the divergence itself - it points the
+    /// row whose Id matches the question at a different question, and gives the
+    /// question a translation with a distinctive name. A correct lookup reads the
+    /// distinctive name; the old join reads the displaced row.
+    /// </summary>
+    [Test]
+    public async Task AnswerLookup_ReadsQuestionTextByQuestionIdNotByTranslationId()
+    {
+        const string marker = "CORRECT-JOIN-MARKER";
+
+        var subject = await LiveAnswerVisibleToTheLookup();
+        Assert.That(subject, Is.Not.Null, "Seed data has no answer the lookup can return.");
+
+        var questionId = await DbContext.AnswerValues
+            .AsNoTracking()
+            .Where(x => x.AnswerId == subject.Id)
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .OrderBy(x => x.Id)
+            .Select(x => x.QuestionId)
+            .FirstAsync();
+
+        // The row the broken join would read, and the language to reuse.
+        var displaced = await DbContext.QuestionTranslations
+            .AsNoTracking()
+            .Where(x => x.Id == questionId)
+            .Select(x => new { x.Id, x.LanguageId, x.Name })
+            .FirstOrDefaultAsync();
+
+        Assert.That(displaced, Is.Not.Null,
+            "Expected the seed's Id == QuestionId shape; without it this test cannot "
+            + "distinguish the two joins.");
+
+        // QuestionTranslations.QuestionId is a foreign key, so the displaced row has
+        // to point at a real question - just not this one.
+        var otherQuestionId = await DbContext.Questions
+            .AsNoTracking()
+            .Where(x => x.Id != questionId)
+            .OrderBy(x => x.Id)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
+
+        Assert.That(otherQuestionId, Is.GreaterThan(0),
+            "Need a second question to displace the translation onto.");
+
+        var strategy = DbContext.Database.CreateExecutionStrategy();
+
+        await strategy.ExecuteAsync(async () =>
+        {
+            await using var transaction = await DbContext.Database.BeginTransactionAsync();
+
+            // Break the coincidence: the row whose Id == questionId now describes a
+            // different question, so only a QuestionId match can find the real text.
+            await DbContext.Database.ExecuteSqlRawAsync(
+                "UPDATE QuestionTranslations SET QuestionId = {0} WHERE Id = {1}",
+                otherQuestionId, displaced.Id);
+
+            await DbContext.Database.ExecuteSqlRawAsync(
+                "INSERT INTO QuestionTranslations (Version, WorkflowState, CreatedAt, UpdatedAt, "
+                + "QuestionId, LanguageId, Name) VALUES (1, 'created', NOW(), NOW(), {0}, {1}, {2})",
+                questionId, displaced.LanguageId, marker);
+
+            var answer = await AnswerHelper
+                .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+                .FirstOrDefaultAsync();
+
+            Assert.That(answer, Is.Not.Null);
+
+            var questions = answer.AnswerValues.Select(x => x.Question).ToList();
+
+            Assert.That(questions, Does.Contain(marker),
+                "The question text must come from the translation whose QuestionId "
+                + "matches the value, not from the one whose Id happens to.");
+            Assert.That(questions, Does.Not.Contain(displaced.Name),
+                "The displaced translation describes a different question now and must "
+                + "not be shown.");
+
+            await transaction.RollbackAsync();
+        });
+
+        var afterRollback = await DbContext.QuestionTranslations
+            .AsNoTracking()
+            .Where(x => x.Id == displaced.Id)
+            .Select(x => x.QuestionId)
+            .FirstAsync();
+
+        Assert.That(afterRollback, Is.EqualTo(questionId),
+            "Rollback failed - the shared test database is left modified.");
+    }
+
+    /// <summary>
+    /// Answer.UnitId is nullable, but the lookup inner-joined Units, so an answer
+    /// without a unit was dropped and the endpoint reported it as not found - the
+    /// same message it gives for an answer that genuinely does not exist.
+    /// </summary>
+    [Test]
+    public async Task AnswerLookup_ReturnsAnswersThatHaveNoUnit()
+    {
+        var subject = await LiveAnswerVisibleToTheLookup();
+        Assert.That(subject, Is.Not.Null, "Seed data has no answer the lookup can return.");
+
+        var strategy = DbContext.Database.CreateExecutionStrategy();
+
+        await strategy.ExecuteAsync(async () =>
+        {
+            await using var transaction = await DbContext.Database.BeginTransactionAsync();
+
+            await DbContext.Database.ExecuteSqlRawAsync(
+                "UPDATE Answers SET UnitId = NULL WHERE Id = {0}", subject.Id);
+
+            var answer = await AnswerHelper
+                .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+                .FirstOrDefaultAsync();
+
+            Assert.That(answer, Is.Not.Null,
+                "An answer with no unit must still be returned, not reported as missing.");
+            Assert.That(answer.UnitId, Is.Null, "With no unit there is no unit uid to show.");
+            Assert.That(answer.AnswerValues, Is.Not.Empty,
+                "Its values must still come back.");
+
+            await transaction.RollbackAsync();
+        });
+
+        var restored = await AnswerHelper
+            .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+            .FirstOrDefaultAsync();
+
+        Assert.That(restored?.UnitId, Is.Not.Null,
+            "Rollback failed - the shared test database is left modified.");
+    }
+
     private sealed class AnswerSubject
     {
         public int Id { get; init; }

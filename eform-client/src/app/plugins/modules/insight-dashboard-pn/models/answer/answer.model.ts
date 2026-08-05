@@ -4,7 +4,10 @@ export class AnswerModel {
   finishedAt: string;
   answerDuration: number;
   siteName: string;
-  unitId: number;  answerValues: AnswerValuesModel[] = [];
+  // Null when the answer has no unit. This could not be null before, because such
+  // answers were dropped by an inner join and never reached the client at all.
+  unitId: number | null;
+  answerValues: AnswerValuesModel[] = [];
 }
 
 export class AnswerValuesModel {

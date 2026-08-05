@@ -32,7 +32,12 @@ public class AnswerViewModel
 {
     public int Id { get; set; }
     public int MicrotingUid { get; set; }
-    public int UnitId { get; set; }
+    /// <summary>
+    /// The unit's Microting UID, or null when the answer has no unit. Answer.UnitId
+    /// is nullable, and such answers used to be dropped entirely by an inner join
+    /// rather than shown with the unit blank.
+    /// </summary>
+    public int? UnitId { get; set; }
     public DateTime FinishedAt { get; set; }
     public int AnswerDuration { get; set; }
     public string SiteName { get; set; }
