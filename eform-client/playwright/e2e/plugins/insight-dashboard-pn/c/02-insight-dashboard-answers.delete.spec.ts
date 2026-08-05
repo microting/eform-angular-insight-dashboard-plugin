@@ -28,6 +28,13 @@ test.describe('InSight Dashboard - Answers - Delete', () => {
     await answersPage.searchAnswerByMicrotingUId(microtingUId.toString());
     await answersPage.deleteAnswer();
     await answersPage.searchAnswerByMicrotingUId(microtingUId.toString());
-    expect(await answersPage.rowNum()).toBe(19);
+
+    // A deleted answer must disappear from the lookup. This asserted 0 when the
+    // spec was written; it was changed to 19 three hours after the lookup's
+    // workflow-state filters were commented out, which turned the regression into
+    // the expected result. The filters are back, so this goes back to 0.
+    // mtx-grid renders its empty state as a div outside the table, so no row
+    // remains in tbody.
+    expect(await answersPage.rowNum()).toBe(0);
   });
 });

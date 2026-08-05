@@ -24,7 +24,11 @@ test.describe('InSight Dashboard - Answers - View', () => {
     await page.close();
   });
 
-  test('should be displayed 18 answers values', async () => {
+  // Numbered so this runs before the delete spec. It needs the answer to still
+  // exist: the lookup now hides soft-deleted answers, so viewing one the delete
+  // spec has removed would find nothing. Previously the order did not matter,
+  // because a deleted answer was still returned.
+  test('should display the answer values of a live answer', async () => {
     await answersPage.searchAnswerByMicrotingUId(microtingUId.toString());
     expect(await answersPage.rowNum()).toBe(19);
   });

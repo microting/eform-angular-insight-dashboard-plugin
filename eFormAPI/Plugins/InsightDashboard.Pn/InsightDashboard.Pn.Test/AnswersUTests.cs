@@ -120,4 +120,151 @@ public class AnswersUTests : DbTestFixture
 
         await DbContext.SaveChangesAsync();
     }
+
+    /// <summary>
+    /// The answer detail lookup used to have its workflow-state filters commented
+    /// out, so a soft-deleted answer was still returned and rendered as though it
+    /// were live - AnswerViewModel carries no WorkflowState, so nothing on the page
+    /// marked it. Charts and the raw data table already excluded such answers, which
+    /// left this the last inconsistent reader.
+    ///
+    /// Runs inside a transaction that is never committed, so the shared test
+    /// database is unchanged even if the process dies. MySqlRetryingExecutionStrategy
+    /// refuses user-initiated transactions unless the unit runs through
+    /// CreateExecutionStrategy, hence the wrapper.
+    /// </summary>
+    [Test]
+    public async Task AnswerLookup_ExcludesSoftDeletedAnswer()
+    {
+        var subject = await LiveAnswerVisibleToTheLookup();
+
+        Assert.That(subject, Is.Not.Null,
+            "Seed data has no answer the detail lookup can return.");
+
+        var before = await AnswerHelper
+            .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+            .FirstOrDefaultAsync();
+
+        Assert.That(before, Is.Not.Null,
+            "The chosen answer must be visible to begin with, or this proves nothing.");
+
+        var strategy = DbContext.Database.CreateExecutionStrategy();
+
+        await strategy.ExecuteAsync(async () =>
+        {
+            await using var transaction = await DbContext.Database.BeginTransactionAsync();
+
+            // Raw SQL, not PnBase.Delete: Delete would also remove the values, and
+            // then the answer-side filter alone could not be what excluded it.
+            await DbContext.Database.ExecuteSqlRawAsync(
+                "UPDATE Answers SET WorkflowState = 'removed' WHERE Id = {0}", subject.Id);
+
+            var after = await AnswerHelper
+                .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+                .FirstOrDefaultAsync();
+
+            Assert.That(after, Is.Null,
+                "A soft-deleted answer must not be returned by the detail lookup.");
+
+            await transaction.RollbackAsync();
+        });
+
+        var restored = await AnswerHelper
+            .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+            .FirstOrDefaultAsync();
+
+        Assert.That(restored, Is.Not.Null,
+            "Rollback failed - the shared test database is left modified.");
+    }
+
+    /// <summary>
+    /// The second, independent filter: a live answer must not carry soft-deleted
+    /// values. Separate test because the two filters guard different things and one
+    /// could be re-commented without the other.
+    /// </summary>
+    [Test]
+    public async Task AnswerLookup_ExcludesSoftDeletedValuesOfALiveAnswer()
+    {
+        var subject = await LiveAnswerVisibleToTheLookup();
+
+        Assert.That(subject, Is.Not.Null,
+            "Seed data has no answer the detail lookup can return.");
+
+        var before = await AnswerHelper
+            .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+            .FirstOrDefaultAsync();
+
+        Assert.That(before?.AnswerValues, Is.Not.Empty,
+            "The chosen answer must have values, or this proves nothing.");
+
+        // Taken from the lookup's own output rather than from AnswerValues
+        // directly. The lookup inner-joins QuestionTranslations on
+        // value.QuestionId == translation.Id - which is a known defect, see the
+        // note on GetAnswerQueryByMicrotingUid - so a value picked straight from
+        // the table may not be visible to it, and the count assertion below would
+        // then fail for a reason unrelated to workflow state.
+        var valueId = before.AnswerValues.OrderBy(x => x.Id).First().Id;
+
+        var strategy = DbContext.Database.CreateExecutionStrategy();
+
+        await strategy.ExecuteAsync(async () =>
+        {
+            await using var transaction = await DbContext.Database.BeginTransactionAsync();
+
+            await DbContext.Database.ExecuteSqlRawAsync(
+                "UPDATE AnswerValues SET WorkflowState = 'removed' WHERE Id = {0}", valueId);
+
+            var after = await AnswerHelper
+                .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+                .FirstOrDefaultAsync();
+
+            Assert.That(after, Is.Not.Null,
+                "The answer itself is still live and must still be returned.");
+            Assert.That(after.AnswerValues.Count, Is.EqualTo(before.AnswerValues.Count - 1),
+                "Exactly the soft-deleted value should have dropped out.");
+            Assert.That(after.AnswerValues.Select(x => x.Id), Does.Not.Contain(valueId));
+
+            await transaction.RollbackAsync();
+        });
+
+        var restored = await AnswerHelper
+            .GetAnswerQueryByMicrotingUid(subject.MicrotingUid, DbContext)
+            .FirstOrDefaultAsync();
+
+        Assert.That(restored?.AnswerValues.Count, Is.EqualTo(before.AnswerValues.Count),
+            "Rollback failed - the shared test database is left modified.");
+    }
+
+    /// <summary>
+    /// Picks an answer the detail lookup can actually return. That query inner-joins
+    /// Sites and Units, so an answer with a null UnitId is invisible to it regardless
+    /// of workflow state, and choosing one would make the tests above fail for the
+    /// wrong reason. Ordered so the choice is deterministic rather than left to the
+    /// storage engine.
+    /// </summary>
+    private async Task<AnswerSubject> LiveAnswerVisibleToTheLookup() =>
+        await DbContext.Answers
+            .AsNoTracking()
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.MicrotingUid != null)
+            .Where(x => x.UnitId != null)
+            .Where(x => DbContext.Units.Any(u => u.Id == x.UnitId))
+            .Where(x => DbContext.Sites.Any(s => s.Id == x.SiteId))
+            .Where(x => DbContext.AnswerValues.Any(v =>
+                v.AnswerId == x.Id && v.WorkflowState != Constants.WorkflowStates.Removed))
+            // The lookup matches on MicrotingUid and takes the first row. There is
+            // no unique index on that column, so a shared uid would let a sibling
+            // answer satisfy the query after this one is marked removed, and the
+            // "is null" assertion would fail for the wrong reason.
+            .Where(x => DbContext.Answers.Count(y => y.MicrotingUid == x.MicrotingUid) == 1)
+            .OrderBy(x => x.Id)
+            .Select(x => new AnswerSubject { Id = x.Id, MicrotingUid = (int)x.MicrotingUid })
+            .FirstOrDefaultAsync();
+
+    private sealed class AnswerSubject
+    {
+        public int Id { get; init; }
+
+        public int MicrotingUid { get; init; }
+    }
 }

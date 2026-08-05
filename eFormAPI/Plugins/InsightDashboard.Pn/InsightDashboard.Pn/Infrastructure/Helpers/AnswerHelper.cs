@@ -34,6 +34,21 @@ using Microting.eForm.Infrastructure.Data.Entities;
 
 public class AnswerHelper
 {
+    /// <summary>
+    /// Looks up one answer for display. Soft-deleted answers, and soft-deleted
+    /// values belonging to a live answer, are excluded - the same rule
+    /// AnswerFilterHelper.WhereAnswerIsLive applies to the charts and the raw
+    /// data table.
+    ///
+    /// Both filters were previously commented out, so a deleted answer was still
+    /// returned and rendered as though it were live. Nothing marked it: neither
+    /// AnswerViewModel nor AnswerValuesViewModel carries WorkflowState, so the
+    /// page had no way to say otherwise.
+    ///
+    /// The two ForDelete queries below deliberately stay unfiltered.
+    /// AnswersService.DeleteAnswerByMicrotingUid has to be able to fetch an
+    /// already-removed answer in order to report that it is already removed.
+    /// </summary>
     public static IQueryable<AnswerViewModel> GetAnswerQueryByMicrotingUid(int microtingUid,
         MicrotingDbContext dbContext)
     {
@@ -63,7 +78,7 @@ public class AnswerHelper
                     answer.Name,
                     UnitUid = unit.MicrotingUid
                 })
-            //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
             .Where(x => x.MicrotingUid == microtingUid)
             .AsQueryable()
             .Select(answers => new AnswerViewModel()
@@ -87,7 +102,7 @@ public class AnswerHelper
                             questionTranslation.Name
                         })
                     .Where(answerValues => answerValues.AnswerId == answers.Id)
-                    //.Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .AsQueryable()
                     .Select(a => new AnswerValuesViewModel()
                     {
