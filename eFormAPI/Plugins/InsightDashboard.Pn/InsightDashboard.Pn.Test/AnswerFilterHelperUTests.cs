@@ -442,4 +442,120 @@ public class AnswerFilterHelperUTests : DbTestFixture
 
         Assert.That(first.Id, Is.EqualTo(2));
     }
+
+    /// <summary>
+    /// Regression test for the 57-vs-53 discrepancy on a real dashboard.
+    ///
+    /// Four answers had Answers.WorkflowState='removed' while their AnswerValues
+    /// stayed 'created' - a state the application cannot produce (its delete
+    /// removes the values first), so it arrived via direct SQL. Charts filtered
+    /// only the value's workflow state and counted them; the raw data table also
+    /// filtered the answer's and did not. The two disagreed in production.
+    ///
+    /// This reproduces that state exactly and asserts both paths now agree. It
+    /// mutates the shared test database, so the change is undone in a finally -
+    /// and deliberately does so with raw SQL rather than PnBase.Delete, because
+    /// Delete would also remove the values and destroy the very state under test.
+    /// </summary>
+    [Test]
+    public async Task RemovedAnswerWithLiveValues_IsExcludedFromChartsAndRawDataAlike()
+    {
+        // An answer that is currently selected, together with the question it
+        // answered and the site it came from.
+        var subject = await DbContext.AnswerValues
+            .AsNoTracking()
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed)
+            .Select(x => new
+            {
+                x.AnswerId,
+                x.QuestionId,
+                x.Answer.SiteId,
+                x.Answer.QuestionSetId,
+            })
+            .FirstOrDefaultAsync();
+
+        Assert.That(subject, Is.Not.Null, "Seed data has no live answer to work with.");
+
+        var dashboardItem = new DashboardItem
+        {
+            FirstQuestionId = subject.QuestionId,
+            IgnoredAnswerValues = new List<DashboardItemIgnoredAnswer>(),
+            CompareLocationsTags = new List<DashboardItemCompare>(),
+        };
+
+        // Mirrors how CalculateDashboardItem composes the filter for a
+        // non-compared item: the shared filter, then the dashboard location.
+        async Task<List<int>> ChartAnswerIds() =>
+            await AnswerFilterHelper.ApplyLocationFilter(
+                    AnswerFilterHelper.BuildFilteredAnswerValues(
+                        DbContext, dashboardItem, subject.QuestionSetId, new DashboardEditAnswerDates()),
+                    subject.SiteId,
+                    null)
+                .Select(x => x.AnswerId)
+                .Distinct()
+                .ToListAsync();
+
+        async Task<List<int>> RawDataAnswerIds() =>
+            await AnswerFilterHelper.BuildAnswerQuery(
+                    DbContext,
+                    dashboardItem,
+                    subject.QuestionSetId,
+                    subject.SiteId,
+                    null,
+                    new DashboardEditAnswerDates())
+                .Select(x => x.Id)
+                .ToListAsync();
+
+        var chartBefore = await ChartAnswerIds();
+        var rawBefore = await RawDataAnswerIds();
+
+        Assert.That(chartBefore, Does.Contain(subject.AnswerId),
+            "The chosen answer must start out selected, or the test proves nothing.");
+        Assert.That(
+            chartBefore.OrderBy(x => x), Is.EqualTo(rawBefore.OrderBy(x => x)),
+            "Chart and raw data must agree before the answer is touched.");
+
+        try
+        {
+            // The exact broken state: answer removed, values untouched.
+            await DbContext.Database.ExecuteSqlRawAsync(
+                "UPDATE Answers SET WorkflowState = 'removed' WHERE Id = {0}", subject.AnswerId);
+
+            var liveValues = await DbContext.AnswerValues
+                .AsNoTracking()
+                .Where(x => x.AnswerId == subject.AnswerId)
+                .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+                .CountAsync();
+
+            Assert.That(liveValues, Is.GreaterThan(0),
+                "The answer's values must still be live, otherwise this is an ordinary delete.");
+
+            var chartAfter = await ChartAnswerIds();
+            var rawAfter = await RawDataAnswerIds();
+
+            Assert.That(chartAfter, Does.Not.Contain(subject.AnswerId),
+                "A soft-deleted answer must not feed a chart, even when its values are live.");
+            Assert.That(rawAfter, Does.Not.Contain(subject.AnswerId),
+                "A soft-deleted answer must not appear in the raw data table.");
+
+            Assert.That(
+                chartAfter.OrderBy(x => x), Is.EqualTo(rawAfter.OrderBy(x => x)),
+                "Chart and raw data must still agree once an answer is soft-deleted - "
+                + "this is the invariant that broke and produced 57 against 53.");
+
+            Assert.That(chartAfter.Count, Is.EqualTo(chartBefore.Count - 1),
+                "Exactly the one soft-deleted answer should have dropped out.");
+        }
+        finally
+        {
+            await DbContext.Database.ExecuteSqlRawAsync(
+                "UPDATE Answers SET WorkflowState = 'created' WHERE Id = {0}", subject.AnswerId);
+        }
+
+        // The database must be exactly as it was, or later tests inherit the bug.
+        var chartRestored = await ChartAnswerIds();
+        Assert.That(chartRestored.OrderBy(x => x), Is.EqualTo(chartBefore.OrderBy(x => x)),
+            "Cleanup failed - the shared test database is left modified.");
+    }
 }

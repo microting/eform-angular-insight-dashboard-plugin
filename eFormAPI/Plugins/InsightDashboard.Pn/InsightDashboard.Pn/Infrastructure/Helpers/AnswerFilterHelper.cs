@@ -47,12 +47,23 @@ using Models.Dashboards;
 public static class AnswerFilterHelper
 {
     /// <summary>
-    /// The filter every caller shares: workflow state, date range, survey, the
-    /// optional filter question/answer pair, and the measured question.
+    /// An answer value counts only when NEITHER it NOR the answer owning it has
+    /// been soft-deleted.
     ///
-    /// Note this deliberately does NOT filter Answer.WorkflowState - the charts
-    /// never have, and adding it here would silently change every chart. The raw
-    /// data table applies it separately in BuildAnswerQuery.
+    /// Both halves are needed. Charts historically checked only the value, which
+    /// let an answer whose parent row was marked removed keep contributing to
+    /// every chart while the raw data table excluded it - the two disagreed by
+    /// four answers on a real dashboard. Expressing the rule once, here, means
+    /// there is no longer a place to check one half and forget the other.
+    /// </summary>
+    public static IQueryable<AnswerValue> WhereAnswerIsLive(IQueryable<AnswerValue> answerValues) =>
+        answerValues
+            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
+            .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed);
+
+    /// <summary>
+    /// The filter every caller shares: liveness, date range, survey, the optional
+    /// filter question/answer pair, and the measured question.
     /// </summary>
     public static IQueryable<AnswerValue> BuildFilteredAnswerValues(
         MicrotingDbContext sdkContext,
@@ -65,10 +76,7 @@ public static class AnswerFilterHelper
         // Includes is a translation hazard; BuildAnswerQuery would inherit the
         // same problem. The chart callers attach their own Includes to the
         // returned query, exactly as they did before this was extracted.
-        var answerQueryable = sdkContext.AnswerValues
-            .AsNoTracking()
-            .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
-            .AsQueryable();
+        var answerQueryable = WhereAnswerIsLive(sdkContext.AnswerValues.AsNoTracking());
 
         if (answerDates.Today)
         {
@@ -163,11 +171,8 @@ public static class AnswerFilterHelper
             : answerQueryable.Where(x => !ignoredOptionIds.Contains(x.OptionId));
 
     /// <summary>
-    /// The answers behind one dashboard item, for the raw data table.
-    ///
-    /// Adds Answer.WorkflowState filtering on top of the shared filter. The delete
-    /// path sets that alongside AnswerValue.WorkflowState, so this does not change
-    /// counts in practice.
+    /// The answers behind one dashboard item, for the raw data table. Selects from
+    /// the same shared filter the charts use, so the two cannot disagree.
     /// </summary>
     public static IQueryable<Answer> BuildAnswerQuery(
         MicrotingDbContext sdkContext,
@@ -178,8 +183,7 @@ public static class AnswerFilterHelper
         DashboardEditAnswerDates answerDates)
     {
         var answerValues = BuildFilteredAnswerValues(
-                sdkContext, dashboardItem, dashboardSurveyId, answerDates)
-            .Where(x => x.Answer.WorkflowState != Constants.WorkflowStates.Removed);
+            sdkContext, dashboardItem, dashboardSurveyId, answerDates);
 
         if (!dashboardItem.CompareEnabled)
         {
