@@ -46,8 +46,11 @@ function toRecords(text: string): string[] {
   return records;
 }
 
+/** The byte order mark rides on the very first field of the file. */
 function cells(record: string): string[] {
-  return record.split('\t');
+  const values = record.split('\t');
+  values[0] = values[0].replace(BOM, '');
+  return values;
 }
 
 /**
@@ -194,7 +197,7 @@ test.describe('InSight Dashboard - tab separated CSV export', () => {
       expectRectangular(percents);
       expectRectangular(amounts);
       // Both halves describe the same columns, so they carry the same header.
-      expect(amounts[0]).toBe(percents[0]);
+      expect(cells(amounts[0])).toEqual(cells(percents[0]));
       expect(percents.length).toBeGreaterThan(1);
       expect(amounts.length).toBe(percents.length);
       // Percentages keep the sign the table shows; amounts are bare numbers.
@@ -249,7 +252,6 @@ test.describe('InSight Dashboard - tab separated CSV export', () => {
 
     const file = await download(dashboardsViewPage.rawDataExportCsvButton(0));
     const fileHeaders = cells(file.records[0]);
-    fileHeaders[0] = fileHeaders[0].replace(BOM, '');
 
     expect(fileHeaders).toEqual(onScreenHeaders);
     // Time zone ships hidden behind the column picker and must stay out.
@@ -272,7 +274,6 @@ test.describe('InSight Dashboard - tab separated CSV export', () => {
     const file = await download(button);
 
     const headers = cells(file.records[0]);
-    headers[0] = headers[0].replace(BOM, '');
     expect(headers.length).toBe(3);
     expect(headers[1]).toBe('Tag');
 

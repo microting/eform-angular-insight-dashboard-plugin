@@ -161,6 +161,52 @@ describe('DashboardChartDataViewComponent', () => {
       );
     });
 
+    it('repeats grouped headers that only name one of the two halves', () => {
+      // When the block groups by period, rawHeaders covers the percentages only
+      // and the screen renders a header row narrower than its own body. The file
+      // has to stay rectangular, so the headers are repeated for the amounts.
+      setUp(DashboardChartTypesEnum.HorizontalBarStackedGrouped, [
+        {
+          rawHeaders: ['16_01', '16_05'],
+          rawDataItems: [
+            {
+              rawValueName: 'Location 1',
+              rawDataValues: [
+                {valueName: 'Glad', percents: [82, 74], amounts: [41, 33]},
+              ],
+            },
+          ],
+        },
+      ]);
+      component.exportToCsv();
+
+      expect(exportedTsv()).toBe(
+        `${tsvExport.TSV_BOM}` +
+          '\t\t16_01\t16_05\t16_01\t16_05\r\n' +
+          'Location 1\tGlad\t82%\t74%\t41\t33\r\n'
+      );
+    });
+
+    it('pads grouped headers that match neither half', () => {
+      setUp(DashboardChartTypesEnum.HorizontalBarStackedGrouped, [
+        {
+          rawHeaders: ['16_01', '16_05', '16_09'],
+          rawDataItems: [
+            {
+              rawValueName: 'Location 1',
+              rawDataValues: [
+                {valueName: 'Glad', percents: [82, 74], amounts: [41, 33]},
+              ],
+            },
+          ],
+        },
+      ]);
+      component.exportToCsv();
+
+      const records = exportedTsv().split('\r\n');
+      expect(records[0].split('\t').length).toBe(records[1].split('\t').length);
+    });
+
     it('writes every block, separated by a blank record', () => {
       setUp(DashboardChartTypesEnum.Line, [block(''), block('')]);
       component.exportToCsv();

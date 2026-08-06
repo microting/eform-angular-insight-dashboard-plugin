@@ -84,16 +84,22 @@ export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
 
     for (const block of this.itemModel.chartData.rawData) {
       if (grouped) {
+        const rows = block.rawDataItems.flatMap((dataItem) =>
+          dataItem.rawDataValues.map((dataValue) => [
+            dataItem.rawValueName,
+            dataValue.valueName,
+            ...dataValue.percents.map((percent) => this.formatPercent(percent)),
+            ...dataValue.amounts.map((amount) => String(amount)),
+          ])
+        );
+        // The two leading cells are the group and the value name; the rest are
+        // the percentages and amounts the headers have to cover.
+        const valueWidth = rows.length
+          ? rows[0].length - 2
+          : block.rawHeaders.length;
         sections.push({
-          headers: ['', '', ...block.rawHeaders],
-          rows: block.rawDataItems.flatMap((dataItem) =>
-            dataItem.rawDataValues.map((dataValue) => [
-              dataItem.rawValueName,
-              dataValue.valueName,
-              ...dataValue.percents.map((percent) => this.formatPercent(percent)),
-              ...dataValue.amounts.map((amount) => String(amount)),
-            ])
-          ),
+          headers: ['', '', ...this.groupedHeaders(block.rawHeaders, valueWidth)],
+          rows,
         });
         continue;
       }
@@ -118,6 +124,27 @@ export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
     }
 
     return sections;
+  }
+
+  /**
+   * The stacked grouped chart puts percentages and amounts side by side in one
+   * row, but rawHeaders does not consistently describe both halves: when the
+   * block groups by answer option it names both, when it groups by period it
+   * names one and the screen renders a header row narrower than its own body.
+   *
+   * Size the header row to the data either way. A file whose header row is
+   * narrower than its records is not a table any spreadsheet can read, so this
+   * is one place the export deliberately does not reproduce the screen.
+   */
+  private groupedHeaders(rawHeaders: string[], valueWidth: number): string[] {
+    const headers =
+      rawHeaders.length >= valueWidth
+        ? [...rawHeaders]
+        : [...rawHeaders, ...rawHeaders];
+    while (headers.length < valueWidth) {
+      headers.push('');
+    }
+    return headers.slice(0, valueWidth);
   }
 
   // An average is not a percentage - the table drops the sign for those, and so
