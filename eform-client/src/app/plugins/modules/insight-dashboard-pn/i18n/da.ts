@@ -99,6 +99,7 @@ export const da = {
   'answers': 'svar',
   'No raw data found': 'Ingen rådata fundet',
   'Export raw data': 'Eksportér rådata',
+  'Export to CSV': 'Eksportér til CSV',
   'Id': 'Id',
   'Microting UID': 'Microting UID',
   'Duration': 'Varighed',

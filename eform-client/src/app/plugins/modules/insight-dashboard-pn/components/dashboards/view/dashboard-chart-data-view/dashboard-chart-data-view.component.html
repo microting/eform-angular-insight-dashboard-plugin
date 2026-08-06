@@ -1,4 +1,15 @@
 <!--suppress XmlDuplicatedId -->
+<div class="d-flex justify-content-end" *ngIf="canExport">
+  <button
+    mat-icon-button
+    color="accent"
+    (click)="exportToCsv()"
+    id="dashboardChartDataExportCsv{{itemModel.position}}"
+    [matTooltip]="'Export to CSV' | translate"
+  >
+    <mat-icon>file_download</mat-icon>
+  </button>
+</div>
 <div class="mtx-grid" [ngClass]="{'mt-2': !rawDataIndexFirst}" *ngFor="let rawData of itemModel.chartData.rawData; let rawDataIndex = index; let rawDataIndexFirst = first">
   <div class="mtx-grid-main mtx-grid-layout">
     <div class="mtx-grid-content mtx-grid-layout">

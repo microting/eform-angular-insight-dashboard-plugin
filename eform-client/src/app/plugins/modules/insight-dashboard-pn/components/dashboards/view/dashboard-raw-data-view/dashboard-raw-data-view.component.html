@@ -16,6 +16,16 @@
     <button
       mat-icon-button
       color="accent"
+      (click)="exportToCsv()"
+      [disabled]="!canExport || exportingCsv"
+      id="dashboardRawDataExportCsv{{itemModel.position}}"
+      [matTooltip]="'Export to CSV' | translate"
+    >
+      <mat-icon>file_download</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="accent"
       (click)="exportToExcel()"
       id="dashboardRawDataExport{{itemModel.position}}"
       [matTooltip]="'Export raw data' | translate"

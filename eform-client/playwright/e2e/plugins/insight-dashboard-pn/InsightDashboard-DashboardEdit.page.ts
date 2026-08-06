@@ -132,6 +132,24 @@ export class InsightDashboardDashboardEditPage {
     await selectValueInMtxSelect(this.page, `#editChartType${rowNum}`, itemObject.chartType);
   }
 
+  /**
+   * A text first question hides the period, chart type and ignored-values
+   * controls - the item renders an interviews list rather than a chart - so
+   * filling one stops after the question itself.
+   */
+  async fillTextQuestionItem(
+    rowNum: number,
+    firstQuestion: string,
+    firstQuestionForSelect: string
+  ) {
+    await selectValueInNgSelectorWithSeparateValueAndSearchValue(
+      this.page,
+      `#editFirstQuestion${rowNum}`,
+      firstQuestion,
+      firstQuestionForSelect
+    );
+  }
+
   async generateItems(itemsArray: DashboardTestItemEditModel[]) {
     await this.createFirstItem();
     for (let i = 0; i < itemsArray.length; i++) {

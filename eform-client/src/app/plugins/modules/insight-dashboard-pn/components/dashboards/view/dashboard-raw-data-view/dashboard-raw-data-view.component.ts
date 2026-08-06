@@ -13,6 +13,11 @@ import {
   DashboardViewModel,
   RawDataColumnModel,
 } from '../../../../models';
+import {
+  buildTsv,
+  downloadTsv,
+  tsvFileName,
+} from '../../../../helpers/tsv-export.helper';
 
 @AutoUnsubscribe()
 @Component({
@@ -38,11 +43,18 @@ export class DashboardRawDataViewComponent implements OnChanges, OnDestroy {
   sort = 'finishedAt';
   isSortDsc = true;
 
+  exportingCsv = false;
+
   getRawDataSub$: Subscription;
   exportSub$: Subscription;
+  exportCsvSub$: Subscription;
 
   get sortDirection(): 'asc' | 'desc' {
     return this.isSortDsc ? 'desc' : 'asc';
+  }
+
+  get canExport(): boolean {
+    return this.loaded && this.total > 0;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -145,6 +157,69 @@ export class DashboardRawDataViewComponent implements OnChanges, OnDestroy {
           `${this.dashboardViewModel.dashboardName}_raw_data.xlsx`
         );
       });
+  }
+
+  /**
+   * The grid only holds the page on screen, so the file is built from a second
+   * call asking the same endpoint for every row in the order currently shown.
+   * Unlike the Excel export, this one carries exactly the columns the grid is
+   * showing - the column picker decides what lands in the file.
+   */
+  exportToCsv() {
+    if (!this.canExport || this.exportingCsv) {
+      return;
+    }
+    this.exportingCsv = true;
+    this.exportCsvSub$ = this.rawDataService
+      .getRawData({
+        dashboardId: this.dashboardViewModel.id,
+        dashboardItemId: this.itemModel.id,
+        offset: 0,
+        pageSize: this.total,
+        sort: this.sort,
+        isSortDsc: this.isSortDsc,
+      })
+      .subscribe((data) => {
+        this.exportingCsv = false;
+        if (!data || !data.success || !data.model) {
+          return;
+        }
+        const columns = data.model.columns.filter((column) =>
+          this.isVisible(column.field)
+        );
+        downloadTsv(
+          tsvFileName(
+            this.dashboardViewModel.dashboardName,
+            this.itemModel.position,
+            'raw_data'
+          ),
+          buildTsv([
+            {
+              headers: columns.map((column) => this.headerText(column)),
+              rows: data.model.rows.map((row) =>
+                columns.map((column) => this.cellText(row[column.field]))
+              ),
+            },
+          ])
+        );
+      });
+  }
+
+  private isVisible(field: string): boolean {
+    // mtx-grid toggles `hide` on the very objects handed to it, so this reads
+    // back whatever the user last chose in the column menu.
+    const column = this.tableHeaders.find((header) => header.field === field);
+    return !!column && !column.hide;
+  }
+
+  private headerText(column: RawDataColumnModel): string {
+    return column.kind === 'answer'
+      ? this.translateService.instant(column.header)
+      : column.header;
+  }
+
+  private cellText(value: unknown): string {
+    return value === null || value === undefined ? '' : String(value);
   }
 
   ngOnDestroy(): void {}

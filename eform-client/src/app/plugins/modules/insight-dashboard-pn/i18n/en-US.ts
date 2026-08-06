@@ -88,6 +88,7 @@ export const enUS = {
   'answers': 'answers',
   'No raw data found': 'No raw data found',
   'Export raw data': 'Export raw data',
+  'Export to CSV': 'Export to CSV',
   'Id': 'Id',
   'Microting UID': 'Microting UID',
   'Duration': 'Duration',

@@ -4,6 +4,7 @@ import {of} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {DashboardRawDataViewComponent} from './dashboard-raw-data-view.component';
 import {InsightDashboardPnRawDataService} from '../../../../services';
+import * as tsvExport from '../../../../helpers/tsv-export.helper';
 
 @Pipe({name: 'translate', standalone: false})
 class MockTranslatePipe implements PipeTransform {
@@ -143,5 +144,88 @@ describe('DashboardRawDataViewComponent', () => {
     expect(component.rows.length).toBe(0);
     expect(component.tableHeaders.length).toBe(0);
     expect(component.total).toBe(0);
+  });
+
+  describe('exportToCsv', () => {
+    let downloadSpy: jest.SpyInstance;
+
+    const exportedTsv = (): string => downloadSpy.mock.calls[0][1];
+
+    beforeEach(() => {
+      downloadSpy = jest
+        .spyOn(tsvExport, 'downloadTsv')
+        .mockImplementation(() => {});
+    });
+
+    afterEach(() => downloadSpy.mockRestore());
+
+    it('is not offered before the table has loaded or when it is empty', () => {
+      expect(component.canExport).toBe(false);
+
+      component.toggle();
+      expect(component.canExport).toBe(true);
+
+      component.total = 0;
+      expect(component.canExport).toBe(false);
+    });
+
+    it('asks for every row in the current order, not just the page on screen', () => {
+      component.toggle();
+      component.sortTable({active: 'siteName', direction: 'asc'} as any);
+      rawDataServiceMock.getRawData.mockClear();
+
+      component.exportToCsv();
+
+      expect(rawDataServiceMock.getRawData).toHaveBeenCalledWith({
+        dashboardId: 3,
+        dashboardItemId: 9,
+        offset: 0,
+        pageSize: 2,
+        sort: 'siteName',
+        isSortDsc: false,
+      });
+    });
+
+    it('writes only the columns the grid is showing', () => {
+      component.toggle();
+      // timeZone arrives hidden by default and must stay out of the file.
+      component.exportToCsv();
+
+      expect(exportedTsv()).toBe(
+        `${tsvExport.TSV_BOM}` +
+          'Finished at\t2 – Områder › Kantine\r\n' +
+          '2026-03-02T08:14:22\tKantine\r\n' +
+          '2026-03-03T07:22:11\t\r\n'
+      );
+    });
+
+    it('follows the column picker when a hidden column is revealed', () => {
+      component.toggle();
+      component.tableHeaders.find((c) => c.field === 'timeZone').hide = false;
+
+      component.exportToCsv();
+
+      expect(exportedTsv().split('\r\n')[0]).toBe(
+        `${tsvExport.TSV_BOM}Finished at\tTime zone\t2 – Områder › Kantine`
+      );
+    });
+
+    it('names the file after the dashboard and the item position', () => {
+      component.toggle();
+      component.exportToCsv();
+      expect(downloadSpy.mock.calls[0][0]).toBe('Test_1_raw_data.csv');
+    });
+
+    it('writes nothing when the refetch fails', () => {
+      component.toggle();
+      rawDataServiceMock.getRawData.mockReturnValueOnce(
+        of({success: false, model: null} as any)
+      );
+
+      component.exportToCsv();
+
+      expect(downloadSpy).not.toHaveBeenCalled();
+      expect(component.exportingCsv).toBe(false);
+    });
   });
 });
