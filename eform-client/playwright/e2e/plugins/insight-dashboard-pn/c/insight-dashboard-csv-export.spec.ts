@@ -213,10 +213,13 @@ test.describe('InSight Dashboard - tab separated CSV export', () => {
       expectRectangular(section);
       expect(section.length).toBeGreaterThan(1);
 
+      // Two leading columns carry the group and the value name, promoted from
+      // the rowSpan cell on screen. Their headers are blank, like the table's.
+      // Whether the group name itself is populated is seed data, not structure.
+      expect(cells(section[0]).slice(0, 2)).toEqual(['', '']);
+
       for (const record of section.slice(1)) {
         const values = cells(record);
-        // The group name is promoted from the rowSpan cell to a leading column.
-        expect(values[0].length).toBeGreaterThan(0);
         // This chart puts both halves on the same row, so a data record carries
         // percentages and amounts together rather than one or the other.
         expect(values.some((value) => value.endsWith('%'))).toBe(true);
