@@ -201,4 +201,18 @@ export class InsightDashboardDashboardViewPage {
     const match = text?.match(/(\d+)/);
     return match ? Number(match[1]) : null;
   }
+
+  // ---- Tab separated CSV export, one button per table ----
+
+  public chartDataExportCsvButton(rowNum: number) {
+    return this.page.locator(`#dashboardChartDataExportCsv${rowNum + 1}`);
+  }
+
+  public rawDataExportCsvButton(rowNum: number) {
+    return this.page.locator(`#dashboardRawDataExportCsv${rowNum + 1}`);
+  }
+
+  public interviewsExportCsvButton(rowNum: number) {
+    return this.page.locator(`#dashboardInterviewsExportCsv${rowNum + 1}`);
+  }
 }

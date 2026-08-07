@@ -1,3 +1,15 @@
+<div class="d-flex justify-content-end" *ngIf="canExport">
+  <button
+    mat-icon-button
+    color="accent"
+    (click)="exportToCsv()"
+    id="dashboardInterviewsExportCsv{{itemModel.position}}"
+    [matTooltip]="'Export to CSV' | translate"
+  >
+    <mat-icon>file_download</mat-icon>
+  </button>
+</div>
+
 <mtx-grid
 [data]="itemModel.textQuestionData"
 [columns]="tableHeaders"
@@ -5,11 +17,3 @@
 [pageOnFront]="false"
 [rowStriped]="true"
 ></mtx-grid>
-
-<!--<button mdbBtn-->
-<!--        id="exportInterviewsToCsvBtn"-->
-<!--        class="btn-success btn-icon"-->
-<!--        mdbTooltip="{{ 'Export to CSV' | translate }}"-->
-<!--        (click)="exportToCsv()">-->
-<!--  <fa-icon icon="file-csv" [fixedWidth]="true" size="lg"></fa-icon>-->
-<!--</button>-->

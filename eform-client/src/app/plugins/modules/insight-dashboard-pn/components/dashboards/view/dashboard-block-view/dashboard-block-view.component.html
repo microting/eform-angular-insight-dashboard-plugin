@@ -50,7 +50,10 @@
             [chartPosition]="position"
             [itemModel]="itemModel">
           </app-dashboard-chart-view>
-          <app-dashboard-chart-data-view [itemModel]="itemModel"></app-dashboard-chart-data-view>
+          <app-dashboard-chart-data-view
+            [dashboardViewModel]="dashboardViewModel"
+            [itemModel]="itemModel">
+          </app-dashboard-chart-data-view>
           <app-dashboard-raw-data-view
             [dashboardViewModel]="dashboardViewModel"
             [itemModel]="itemModel">
