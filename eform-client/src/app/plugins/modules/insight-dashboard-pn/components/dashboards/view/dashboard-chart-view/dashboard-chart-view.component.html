@@ -187,7 +187,7 @@
         [legend]="first"
         [animations]="false"
         [showXAxisLabel]="true"
-        [showYAxisLabel]="first"
+        [showYAxisLabel]="true"
         [yAxisLabel]="'Percents' | translate"
         [xAxisLabel]="itemData.name"
         [yScaleMax]="100"></ngx-charts-bar-vertical-stacked>
@@ -195,8 +195,71 @@
   </div>
 </div>
 
+<!--
+  100% stacked vertical bars, one band per location or tag.
+
+  Structurally the same flex row of per-band charts as the grouped chart above,
+  with three differences: bar-vertical-normalized pins each bar to 100% by
+  itself, the band label is an HTML element rather than xAxisLabel so it lines
+  up across bands, and one shared legend sits under the whole row instead of
+  inside the first band's box.
+-->
+<div class="scrollable-y-block mb-2"
+     *ngIf="itemModel.chartType === chartTypes.VerticalBarStackedNormalizedGrouped">
+  <div class="d-inline-flex flex-column insight-dashboard-banded-chart"
+       id="copyableChart{{chartPosition}}"
+       [class.insight-dashboard-banded-chart--light]="!darkTHeme">
+    <div class="insight-dashboard-banded-chart__title" id="bandedChartTitle{{chartPosition}}">
+      {{itemModel.firstQuestionName}}
+    </div>
+    <div class="d-flex">
+      <div
+        [ngStyle]="{'width': multiChartView[0] + 'px' }"
+        *ngFor="let itemData of itemModel.chartData.multiStacked; let first = first;"
+      >
+        <ngx-charts-bar-vertical-normalized
+          [scheme]="colorScheme"
+          [view]="multiChartView"
+          [results]="itemData.series"
+          [customColors]="customColors"
+          [barPadding]="barPadding"
+          [gradient]="false"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="false"
+          [animations]="false"
+          [showXAxisLabel]="false"
+          [showYAxisLabel]="true"
+          [yAxisLabel]="'Percents' | translate"></ngx-charts-bar-vertical-normalized>
+        <div class="insight-dashboard-banded-chart__band-label"
+             id="bandLabel{{chartPosition}}_{{itemData.name}}">
+          {{bandLabel(itemData)}}
+        </div>
+      </div>
+    </div>
+    <ul class="insight-dashboard-banded-chart__legend" id="bandedChartLegend{{chartPosition}}">
+      <li *ngFor="let entry of legendEntries">
+        <span class="insight-dashboard-banded-chart__swatch"
+              [style.background-color]="entry.value"></span>
+        <span>{{entry.name}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
 
 <div class="d-flex flex-row">
+  <button
+    mat-icon-button
+    class="mb-2"
+    *ngIf="itemModel.chartType === chartTypes.VerticalBarStackedNormalizedGrouped"
+    (click)="downloadChart()"
+    id="downloadChart{{chartPosition}}"
+    matTooltip="{{'Download as image' | translate}}"
+    color="accent"
+  >
+    <mat-icon>image</mat-icon>
+  </button>
   <button
     mat-icon-button
     class="mb-2"

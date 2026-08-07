@@ -57,6 +57,8 @@ public static class DashboardHelpers
         result.Add(GetDashboardViewModel(name), name);
         name = "DashboardStackedGrouped.data";
         result.Add(GetDashboardViewModel(name), name);
+        name = "DashboardStackedGroupedNormalized.data";
+        result.Add(GetDashboardViewModel(name), name);
         name = "DashboardTotal.data";
         result.Add(GetDashboardViewModel(name), name);
         name = "DashboardTotalN.data";

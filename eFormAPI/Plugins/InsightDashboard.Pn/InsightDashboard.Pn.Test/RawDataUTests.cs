@@ -193,6 +193,7 @@ public class RawDataUTests : DbTestFixture
 
         var isCompared =
             (dashboardItem.ChartType == Microting.InsightDashboardBase.Infrastructure.Enums.DashboardChartTypes.GroupedStackedBarChart
+             || dashboardItem.ChartType == Microting.InsightDashboardBase.Infrastructure.Enums.DashboardChartTypes.GroupedNormalizedStackedBarChart
              || dashboardItem.ChartType == Microting.InsightDashboardBase.Infrastructure.Enums.DashboardChartTypes.Line)
             && (dashboardItem.CompareEnabled
                 || (dashboardItem.ChartType == Microting.InsightDashboardBase.Infrastructure.Enums.DashboardChartTypes.Line

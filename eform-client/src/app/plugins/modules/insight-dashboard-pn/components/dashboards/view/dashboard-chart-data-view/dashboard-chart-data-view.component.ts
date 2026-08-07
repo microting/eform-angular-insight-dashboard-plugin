@@ -78,7 +78,9 @@ export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
   private buildSections(): TsvSection[] {
     const grouped =
       this.itemModel.chartType ===
-      DashboardChartTypesEnum.HorizontalBarStackedGrouped;
+        DashboardChartTypesEnum.HorizontalBarStackedGrouped ||
+      this.itemModel.chartType ===
+        DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped;
 
     const sections: TsvSection[] = [];
 
@@ -131,16 +133,6 @@ export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
     return sections;
   }
 
-  /**
-   * The stacked grouped chart puts percentages and amounts side by side in one
-   * row, but rawHeaders does not consistently describe both halves: when the
-   * block groups by answer option it names both, when it groups by period it
-   * names one and the screen renders a header row narrower than its own body.
-   *
-   * Size the header row to the data either way. A file whose header row is
-   * narrower than its records is not a table any spreadsheet can read, so this
-   * is one place the export deliberately does not reproduce the screen.
-   */
   /** A short row is padded rather than left ragged, so the section stays a table. */
   private padRow(row: string[], width: number): string[] {
     if (row.length >= width) {
@@ -149,6 +141,16 @@ export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
     return [...row, ...new Array(width - row.length).fill('')];
   }
 
+  /**
+   * The grouped charts put percentages and amounts side by side in one row, but
+   * rawHeaders does not consistently describe both halves: when the block groups
+   * by answer option it names both, when it groups by period it names one and the
+   * screen renders a header row narrower than its own body.
+   *
+   * Size the header row to the data either way. A file whose header row is
+   * narrower than its records is not a table any spreadsheet can read, so this
+   * is one place the export deliberately does not reproduce the screen.
+   */
   private groupedHeaders(rawHeaders: string[], valueWidth: number): string[] {
     const headers =
       rawHeaders.length >= valueWidth

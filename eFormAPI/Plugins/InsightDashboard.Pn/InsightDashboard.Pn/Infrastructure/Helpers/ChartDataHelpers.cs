@@ -94,6 +94,7 @@ public static class ChartDataHelpers
             case DashboardChartTypes.VerticalBarGrouped:
                 break;
             case DashboardChartTypes.GroupedStackedBarChart:
+            case DashboardChartTypes.GroupedNormalizedStackedBarChart:
                 break;
             case 0:
                 if (dashboardItemModel.FirstQuestionType != "text")
@@ -107,7 +108,8 @@ public static class ChartDataHelpers
 
         bool isStackedData;
         if (
-            dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+            (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+             || dashboardItem.ChartType == DashboardChartTypes.GroupedNormalizedStackedBarChart)
             && dashboardItem.CompareEnabled
             && dashboardItem.CalculateAverage == false)
         {
@@ -120,6 +122,7 @@ public static class ChartDataHelpers
 
         var isComparedData = false;
         if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+            || dashboardItem.ChartType == DashboardChartTypes.GroupedNormalizedStackedBarChart
             || dashboardItem.ChartType == DashboardChartTypes.Line)
         {
             if (dashboardItem.CompareEnabled)
@@ -2213,6 +2216,7 @@ public static class ChartDataHelpers
             case DashboardChartTypes.VerticalBarGrouped:
                 break;
             case DashboardChartTypes.GroupedStackedBarChart:
+            case DashboardChartTypes.GroupedNormalizedStackedBarChart:
                 break;
             case 0:
                 if (dashboardItemModel.FirstQuestionType != "text")
@@ -2226,7 +2230,8 @@ public static class ChartDataHelpers
 
         bool isStackedData;
         if (
-            dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+            (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+             || dashboardItem.ChartType == DashboardChartTypes.GroupedNormalizedStackedBarChart)
             && dashboardItem.CompareEnabled
             && dashboardItem.CalculateAverage == false)
         {
@@ -2239,6 +2244,7 @@ public static class ChartDataHelpers
 
         var isComparedData = false;
         if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+            || dashboardItem.ChartType == DashboardChartTypes.GroupedNormalizedStackedBarChart
             || dashboardItem.ChartType == DashboardChartTypes.Line)
         {
             if (dashboardItem.CompareEnabled)

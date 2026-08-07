@@ -1,7 +1,8 @@
 <div
   [ngStyle]="{ width: view[0] + 50 + 'px', height: view[1] + 40 + 'px' }"
   id="copyableChart"
-  *ngIf="dashboardItem.chartType !== chartTypes.HorizontalBarStackedGrouped"
+  *ngIf="dashboardItem.chartType !== chartTypes.HorizontalBarStackedGrouped
+        && dashboardItem.chartType !== chartTypes.VerticalBarStackedNormalizedGrouped"
   [style]="
     'background-color:' + (authStateService.isDarkThemeAsync | async)
       ? ''
@@ -160,7 +161,8 @@
 
 <div
   class="scrollable-y-block mb-2"
-  *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarStackedGrouped"
+  *ngIf="dashboardItem.chartType === chartTypes.HorizontalBarStackedGrouped
+        || dashboardItem.chartType === chartTypes.VerticalBarStackedNormalizedGrouped"
 >
   <div
     class="d-flex"
@@ -183,7 +185,7 @@
         [gradient]="false"
         [xAxis]="true"
         [yAxis]="true"
-        [legend]="last"
+        [legend]="first"
         [animations]="true"
         [showXAxisLabel]="true"
         [showYAxisLabel]="first"

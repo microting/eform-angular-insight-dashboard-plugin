@@ -92,6 +92,7 @@ function getChartDataByDay(
         ? stackedDataByDay
         : stackedSmileyDataByDay;
     case DashboardChartTypesEnum.HorizontalBarStackedGrouped:
+    case DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped:
       return stackedGroupedSmileyDataByDay;
   }
 }
@@ -113,6 +114,7 @@ function getChartDataByWeek(
         ? stackedDataByWeek
         : stackedSmileyDataByWeek;
     case DashboardChartTypesEnum.HorizontalBarStackedGrouped:
+    case DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped:
       return stackedGroupedSmileyDataByWeek;
   }
 }
@@ -134,6 +136,7 @@ function getChartDataByMonth(
         ? stackedDataByMonth
         : stackedSmileyDataByMonth;
     case DashboardChartTypesEnum.HorizontalBarStackedGrouped:
+    case DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped:
       return stackedGroupedSmileyDataByMonth;
   }
 }
@@ -155,6 +158,7 @@ function getChartDataByQuarter(
         ? stackedDataByQuarter
         : stackedSmileyDataByQuarter;
     case DashboardChartTypesEnum.HorizontalBarStackedGrouped:
+    case DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped:
       return stackedGroupedSmileyDataByQuarter;
   }
 }
@@ -176,6 +180,7 @@ function getChartDataBySixMonth(
         ? stackedDataBySixMonth
         : stackedSmileyDataBySixMonth;
     case DashboardChartTypesEnum.HorizontalBarStackedGrouped:
+    case DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped:
       return stackedGroupedSmileyDataBySixMonth;
   }
 }
@@ -197,6 +202,7 @@ function getChartDataByYear(
         ? stackedDataByYear
         : stackedSmileyDataByYear;
     case DashboardChartTypesEnum.HorizontalBarStackedGrouped:
+    case DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped:
       return stackedGroupedSmileyDataByYear;
   }
 }
