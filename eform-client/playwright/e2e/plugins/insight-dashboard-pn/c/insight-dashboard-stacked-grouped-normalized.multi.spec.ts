@@ -88,7 +88,14 @@ test.describe('InSight Dashboard - Dashboards - Stacked Grouped Normalized', () 
       '#copyableChart1 ngx-charts-bar-vertical-normalized'
     );
     await expect(charts.first()).toBeVisible({ timeout: 30000 });
-    expect(await charts.count()).toBeGreaterThan(1);
+
+    // One chart and one label per band. How many bands the seed produces is a
+    // property of the data, not of the chart, so the two counts are compared
+    // against each other rather than against a number.
+    const bands = await charts.count();
+    expect(bands).toBeGreaterThan(0);
+    expect(await page.locator('#copyableChart1 [id^="bandLabel1_"]').count())
+      .toBe(bands);
   });
 
   test('labels each band with its name and period range', async () => {
