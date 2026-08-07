@@ -34,6 +34,8 @@ const dashboardConfig: DashboardTestConfigEditModel = {
  * carrying the period range, one shared legend rather than one per band, and a
  * PNG download whose captured node includes the title.
  */
+// The dashboard view binds [position]="pos + 1", so the first item's element
+// ids end in 1, not 0 - verified against the rendered DOM.
 test.describe('InSight Dashboard - Dashboards - Stacked Grouped Normalized', () => {
   let page: any;
   let insightDashboardPage: InsightDashboardPage;
@@ -83,14 +85,14 @@ test.describe('InSight Dashboard - Dashboards - Stacked Grouped Normalized', () 
     // a missing switch case throws ArgumentOutOfRangeException, and a missing
     // isStackedData clause leaves MultiStacked empty and the row blank.
     const charts = page.locator(
-      '#copyableChart0 ngx-charts-bar-vertical-normalized'
+      '#copyableChart1 ngx-charts-bar-vertical-normalized'
     );
     await expect(charts.first()).toBeVisible({ timeout: 30000 });
     expect(await charts.count()).toBeGreaterThan(1);
   });
 
   test('labels each band with its name and period range', async () => {
-    const labels = page.locator('#copyableChart0 [id^="bandLabel0_"]');
+    const labels = page.locator('#copyableChart1 [id^="bandLabel1_"]');
     await expect(labels.first()).toBeVisible({ timeout: 30000 });
 
     for (const text of await labels.allTextContents()) {
@@ -100,13 +102,13 @@ test.describe('InSight Dashboard - Dashboards - Stacked Grouped Normalized', () 
   });
 
   test('shows one shared legend for the whole chart, not one per band', async () => {
-    const legend = page.locator('#bandedChartLegend0');
+    const legend = page.locator('#bandedChartLegend1');
     await expect(legend).toBeVisible({ timeout: 30000 });
-    expect(await page.locator('#bandedChartLegend0').count()).toBe(1);
+    expect(await page.locator('#bandedChartLegend1').count()).toBe(1);
 
     // ngx-charts' own per-band legend must be off, or each band carries one.
     expect(
-      await page.locator('#copyableChart0 .chart-legend').count()
+      await page.locator('#copyableChart1 .chart-legend').count()
     ).toBe(0);
 
     const entries = legend.locator('li');
@@ -116,7 +118,7 @@ test.describe('InSight Dashboard - Dashboards - Stacked Grouped Normalized', () 
   test('carries the title inside the node the PNG is captured from', async () => {
     // The download renders the captured node, so a title outside it would be
     // missing from the image.
-    const title = page.locator('#copyableChart0 #bandedChartTitle0');
+    const title = page.locator('#copyableChart1 #bandedChartTitle1');
     await expect(title).toBeVisible({ timeout: 30000 });
     expect((await title.textContent())?.trim().length).toBeGreaterThan(0);
   });
@@ -124,7 +126,7 @@ test.describe('InSight Dashboard - Dashboards - Stacked Grouped Normalized', () 
   test('downloads the chart as a PNG', async () => {
     const [download] = await Promise.all([
       page.waitForEvent('download', { timeout: 60000 }),
-      page.locator('#downloadChart0').click(),
+      page.locator('#downloadChart1').click(),
     ]);
 
     expect(download.suggestedFilename()).toMatch(/\.png$/);
