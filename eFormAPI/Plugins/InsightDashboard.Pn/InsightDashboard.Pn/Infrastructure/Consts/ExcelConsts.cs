@@ -23,16 +23,21 @@ SOFTWARE.
 */
 namespace InsightDashboard.Pn.Infrastructure.Consts;
 
+using InsightDashboard.Pn.Infrastructure.Enum.Excel;
+
 public class ExcelConsts
 {
-    public const string ExcelTemplatesDir = "Templates";
-
     public static class Interviews
     {
-        public const int TemplateSheetNumber = 1;
-        public const string TemplateName = "interviews-template";
+        public const int HeaderRow = 1;
         public const int StartRow = 2;
         public const int StartCol = 1;
-        public const int ColCount = 6;
+
+        /// <summary>
+        /// Derived from the enum rather than written out. Hardcoded as 6 against a
+        /// seven member enum, it silently dropped the Comments column - the column
+        /// an interviews export exists for.
+        /// </summary>
+        public static readonly int ColCount = System.Enum.GetValues<InterviewsExport>().Length;
     }
 }

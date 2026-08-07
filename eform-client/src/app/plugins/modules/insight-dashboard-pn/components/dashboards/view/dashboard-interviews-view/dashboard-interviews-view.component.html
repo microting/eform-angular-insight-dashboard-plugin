@@ -8,6 +8,15 @@
   >
     <mat-icon>file_download</mat-icon>
   </button>
+  <button
+    mat-icon-button
+    color="accent"
+    (click)="exportToExcel()"
+    id="dashboardInterviewsExport{{itemModel.position}}"
+    [matTooltip]="'Export interviews' | translate"
+  >
+    <mat-icon>download</mat-icon>
+  </button>
 </div>
 
 <mtx-grid

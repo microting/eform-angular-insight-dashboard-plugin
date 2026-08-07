@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import * as fs from 'fs';
 import { LoginPage } from '../../../Page objects/Login.page';
 import { InsightDashboardPage } from '../InsightDashboard.page';
 import { InsightDashboardDashboardsPage } from '../InsightDashboard-Dashboards.page';
@@ -113,6 +114,30 @@ test.describe('InSight Dashboard - Raw data table', () => {
       // Question columns are labelled "N - question text".
       expect(questionPart.trim()).toMatch(/^\d+\s/);
     }
+  });
+
+  test('downloads a real workbook from the Excel export button', async () => {
+    await ensureExpanded(0);
+
+    // This asserts the bytes, not the click. The export previously answered 500
+    // for every item on every dashboard - RawDataService returned the file path
+    // in Message rather than Model, because OperationDataResult<string> binds a
+    // two-argument call to its (bool, string message) overload - and no test at
+    // any level noticed, because none of them crossed the HTTP boundary.
+    const [download] = await Promise.all([
+      page.waitForEvent('download', { timeout: 60000 }),
+      dashboardsViewPage.rawDataExportButton(0).click(),
+    ]);
+
+    expect(download.suggestedFilename()).toMatch(/\.xlsx$/);
+
+    const savedTo = await download.path();
+    expect(savedTo).not.toBeNull();
+
+    const bytes = fs.readFileSync(savedTo as string);
+    // Every xlsx is a zip container, so the first two bytes are "PK".
+    expect(bytes.subarray(0, 2).toString('latin1')).toBe('PK');
+    expect(bytes.length).toBeGreaterThan(1000);
   });
 
   test('keeps audit columns out of the default view', async () => {

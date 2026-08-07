@@ -29,5 +29,11 @@ using Infrastructure.Models.Export;
 public interface IInterviewsExcelService
 {
     bool WriteInterviewsExportToExcelFile(List<InterviewsExportModel> excelModel, string destFile);
-    string CopyTemplateForNewAccount(string templateId);
+
+    /// <summary>
+    /// Path for a new export file. The writer supplies its own header row, so
+    /// there is no template to copy - the previous copy was truncated by
+    /// SpreadsheetDocument.Create before anything was written to it anyway.
+    /// </summary>
+    string CreateFilePath();
 }

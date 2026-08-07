@@ -4,6 +4,7 @@ import {Observable, of, Subscription} from 'rxjs';
 import {Sort} from '@angular/material/sort';
 import {MtxGridColumn} from '@ng-matero/extensions/grid';
 import {TranslateService} from '@ngx-translate/core';
+import {ToastrService} from 'ngx-toastr';
 import {saveAs} from 'file-saver';
 import {PaginationModel} from 'src/app/common/models';
 import {updateTableSort} from 'src/app/common/helpers';
@@ -29,6 +30,7 @@ import {
 export class DashboardRawDataViewComponent implements OnChanges, OnDestroy {
   private translateService = inject(TranslateService);
   private rawDataService = inject(InsightDashboardPnRawDataService);
+  private toastrService = inject(ToastrService);
 
   @Input() dashboardViewModel: DashboardViewModel = new DashboardViewModel();
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
@@ -170,6 +172,20 @@ export class DashboardRawDataViewComponent implements OnChanges, OnDestroy {
       return;
     }
     this.exportingCsv = true;
+
+    // Snapshot what the grid is showing now. The dashboard can hand us a new
+    // itemModel while the request is in flight, and ngOnChanges empties
+    // tableHeaders - reading it in the callback would then select no columns at
+    // all and quietly download a file of blank lines.
+    const visibleFields = this.tableHeaders
+      .filter((header) => !header.hide)
+      .map((header) => header.field);
+    const fileName = tsvFileName(
+      this.dashboardViewModel.dashboardName,
+      this.itemModel.position,
+      'raw_data'
+    );
+
     this.exportCsvSub$ = this.rawDataService
       .getRawData({
         dashboardId: this.dashboardViewModel.id,
@@ -179,37 +195,38 @@ export class DashboardRawDataViewComponent implements OnChanges, OnDestroy {
         sort: this.sort,
         isSortDsc: this.isSortDsc,
       })
-      .subscribe((data) => {
-        this.exportingCsv = false;
-        if (!data || !data.success || !data.model) {
-          return;
-        }
-        const columns = data.model.columns.filter((column) =>
-          this.isVisible(column.field)
-        );
-        downloadTsv(
-          tsvFileName(
-            this.dashboardViewModel.dashboardName,
-            this.itemModel.position,
-            'raw_data'
-          ),
-          buildTsv([
-            {
-              headers: columns.map((column) => this.headerText(column)),
-              rows: data.model.rows.map((row) =>
-                columns.map((column) => this.cellText(row[column.field]))
-              ),
-            },
-          ])
-        );
+      .subscribe({
+        next: (data) => {
+          this.exportingCsv = false;
+          if (!data || !data.success || !data.model) {
+            // The server refuses a result larger than the export limit, and says
+            // so. Swallowing that left the user with a button that did nothing.
+            if (data && data.message) {
+              this.toastrService.error(data.message, 'Error', {timeOut: 10000});
+            }
+            return;
+          }
+          const columns = data.model.columns.filter((column) =>
+            visibleFields.includes(column.field)
+          );
+          downloadTsv(
+            fileName,
+            buildTsv([
+              {
+                headers: columns.map((column) => this.headerText(column)),
+                rows: data.model.rows.map((row) =>
+                  columns.map((column) => this.cellText(row[column.field]))
+                ),
+              },
+            ])
+          );
+        },
+        // A transport failure never reaches the next handler, and leaving the
+        // flag set disabled the button until the page was reloaded.
+        error: () => {
+          this.exportingCsv = false;
+        },
       });
-  }
-
-  private isVisible(field: string): boolean {
-    // mtx-grid toggles `hide` on the very objects handed to it, so this reads
-    // back whatever the user last chose in the column menu.
-    const column = this.tableHeaders.find((header) => header.field === field);
-    return !!column && !column.hide;
   }
 
   private headerText(column: RawDataColumnModel): string {

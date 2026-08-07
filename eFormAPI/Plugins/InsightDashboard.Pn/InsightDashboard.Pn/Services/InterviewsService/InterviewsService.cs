@@ -97,7 +97,7 @@ public class InterviewsService : IInterviewsService
                 interviews.Add(interviewsExportModel);
             }
 
-            excelFile = _interviewsExcelService.CopyTemplateForNewAccount("interviews-template");
+            excelFile = _interviewsExcelService.CreateFilePath();
             bool writeResult = _interviewsExcelService.WriteInterviewsExportToExcelFile(
                 interviews,
                 excelFile);
