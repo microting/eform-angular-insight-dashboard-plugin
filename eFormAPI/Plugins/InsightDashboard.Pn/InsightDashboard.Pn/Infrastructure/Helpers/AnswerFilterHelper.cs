@@ -213,6 +213,7 @@ public static class AnswerFilterHelper
     private static bool IsComparedData(DashboardItem dashboardItem)
     {
         if (dashboardItem.ChartType != DashboardChartTypes.GroupedStackedBarChart
+            && dashboardItem.ChartType != DashboardChartTypes.GroupedNormalizedStackedBarChart
             && dashboardItem.ChartType != DashboardChartTypes.Line)
         {
             return false;

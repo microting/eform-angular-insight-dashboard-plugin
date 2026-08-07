@@ -16,6 +16,7 @@
       <None Remove="Data\DashboardMultiChart.data.json" />
       <None Remove="Data\DashboardStackedBar.data.json" />
       <None Remove="Data\DashboardStackedGrouped.data.json" />
+      <None Remove="Data\DashboardStackedGroupedNormalized.data.json" />
       <None Remove="Data\DashboardTotal.data.json" />
       <None Remove="Data\DashboardTotalN.data.json" />
       <None Remove="Data\DashboardVerticalBar.data.json" />
@@ -27,6 +28,7 @@
       <EmbeddedResource Include="Data\DashboardHorizontalBar.data.json" />
       <EmbeddedResource Include="Data\DashboardMultiChart.data.json" />
       <EmbeddedResource Include="Data\DashboardStackedGrouped.data.json" />
+      <EmbeddedResource Include="Data\DashboardStackedGroupedNormalized.data.json" />
       <EmbeddedResource Include="Data\DashboardTotal.data.json" />
       <EmbeddedResource Include="Data\DashboardVerticalBar.data.json" />
       <EmbeddedResource Include="Data\DashboardTotalN.data.json" />

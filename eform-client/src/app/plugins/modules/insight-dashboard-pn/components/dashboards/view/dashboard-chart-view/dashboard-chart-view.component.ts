@@ -1,6 +1,7 @@
-import {Component, inject, Input, OnDestroy} from '@angular/core';
+import {Component, inject, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
 import *  as domtoimage from 'dom-to-image';
+import {saveAs} from 'file-saver';
 import {DashboardViewItemModel} from '../../../../models/dashboard/dashboard-view/dashboard-view-item.model';
 import {Subscription} from 'rxjs';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
@@ -14,13 +15,16 @@ import {selectIsDarkMode} from 'src/app/state/auth/auth.selector';
   styleUrls: ['./dashboard-chart-view.component.scss'],
   standalone: false,
 })
-export class DashboardChartViewComponent implements OnDestroy {
+export class DashboardChartViewComponent implements OnChanges, OnDestroy {
   private store = inject(Store);
 
   @Input() chartPosition: number;
   @Input() itemModel: DashboardViewItemModel = new DashboardViewItemModel();
   darkTHeme: boolean;
   getDarkThemeSub$: Subscription;
+
+  /** One entry per answer category present anywhere in the chart. */
+  legendEntries: {name: string; value: string}[] = [];
 
   get chartTypes() {
     return DashboardChartTypesEnum;
@@ -150,6 +154,102 @@ export class DashboardChartViewComponent implements OnDestroy {
           }),
       100
     );
+  }
+
+  /**
+   * Downloads the banded chart as a PNG. The captured node carries the title, so
+   * the title is rendered into the image rather than composited afterwards.
+   */
+  downloadChart() {
+    const scale = 2;
+    const node = document.getElementById(`copyableChart${this.chartPosition}`);
+    if (!node) {
+      return;
+    }
+    const fileName = `${this.itemModel.firstQuestionName || 'chart'}.png`
+      .replace(/[\\/:*?"<>|]/g, '_');
+
+    setTimeout(
+      () =>
+        domtoimage
+          .toBlob(node, {
+            // A real option, unlike the '#FFFFFF' + '!important;' style string
+            // the older charts use, which is not valid CSS and only appears to
+            // work because the per-band elements paint their own background.
+            bgcolor: '#FFFFFF',
+            height: node.offsetHeight * scale,
+            // The bands overflow the scroll container, so the full content width
+            // is what has to be captured.
+            width: node.scrollWidth * scale,
+            style: {
+              transform: 'scale(' + scale + ')',
+              transformOrigin: 'top left',
+              width: node.offsetWidth + 'px',
+              height: node.offsetHeight + 'px',
+            },
+          })
+          .then((blob) => saveAs(blob, fileName))
+          .catch((error) =>
+            console.error('Chart could not be downloaded', error)
+          ),
+      100
+    );
+  }
+
+  /** "Nord (20_2H–22_2H)" - the band's name and the periods it spans. */
+  bandLabel(band: {name: string; series?: {name: string}[]}): string {
+    const periods = band && band.series ? band.series : [];
+    if (!periods.length) {
+      return band ? band.name : '';
+    }
+    const first = periods[0].name;
+    const last = periods[periods.length - 1].name;
+    return first === last
+      ? `${band.name} (${first})`
+      : `${band.name} (${first}–${last})`;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes && changes.itemModel) {
+      this.buildLegendEntries();
+    }
+  }
+
+  /**
+   * The legend is built from the categories actually present, the way ngx-charts
+   * builds its own domain - so answer values the item ignores never appear. It
+   * is the union across every band, because a category can be missing from one
+   * band and present in another.
+   */
+  private buildLegendEntries() {
+    const seen = new Set<string>();
+    const entries: {name: string; value: string}[] = [];
+    const bands =
+      this.itemModel && this.itemModel.chartData
+        ? this.itemModel.chartData.multiStacked || []
+        : [];
+
+    for (const band of bands) {
+      for (const period of band.series || []) {
+        for (const answer of period.series || []) {
+          if (seen.has(answer.name)) {
+            continue;
+          }
+          seen.add(answer.name);
+          const known = this.customColors.find((c) => c.name === answer.name);
+          entries.push({
+            name: answer.name,
+            value: known
+              ? known.value
+              : this.colorScheme.domain[
+                  entries.length % this.colorScheme.domain.length
+                ],
+          });
+        }
+      }
+    }
+
+    this.legendEntries = entries;
   }
 
   percentageFormatting(c) {

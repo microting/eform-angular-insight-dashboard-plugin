@@ -283,9 +283,12 @@ export class DashboardItemEditComponent
       } else {
         this.availableCharts = [
           this.allCharts[DashboardChartTypesEnum.Line - 1],
+          // To the end of the list. This used to name a specific enum member as
+          // the bound, which only worked because slice clamps past the end - it
+          // silently dropped every chart type added after that one.
           ...this.allCharts.slice(
             DashboardChartTypesEnum.HorizontalBarStacked - 1,
-            DashboardChartTypesEnum.HorizontalBarStackedGrouped
+            this.allCharts.length
           ),
         ];
       }
@@ -314,6 +317,8 @@ export class DashboardItemEditComponent
       this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarStacked]),
       this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarGrouped]),
       this.translateService.stream(DashboardChartTypesEnum[DashboardChartTypesEnum.HorizontalBarStackedGrouped]),
+      this.translateService.stream(
+        DashboardChartTypesEnum[DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped]),
     ).subscribe(([
                    line,
                    pie,
@@ -324,7 +329,8 @@ export class DashboardItemEditComponent
                    horizontalBarGrouped,
                    verticalBarStacked,
                    verticalBarGrouped,
-                   horizontalBarStackedGrouped]) => {
+                   horizontalBarStackedGrouped,
+                   verticalBarStackedNormalizedGrouped]) => {
       const charts = [
         {
           id: DashboardChartTypesEnum.Line,
@@ -365,6 +371,10 @@ export class DashboardItemEditComponent
         {
           id: DashboardChartTypesEnum.HorizontalBarStackedGrouped,
           name: horizontalBarStackedGrouped,
+        },
+        {
+          id: DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped,
+          name: verticalBarStackedNormalizedGrouped,
         },
       ];
       this.allCharts = [...charts];

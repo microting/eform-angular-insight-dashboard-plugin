@@ -197,7 +197,8 @@ public class WordService : IWordService
                         // Data tables
                         foreach (var rawDataItem in dashboardItem.ChartData.RawData)
                         {
-                            if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart)
+                            if (dashboardItem.ChartType == DashboardChartTypes.GroupedStackedBarChart
+                                || dashboardItem.ChartType == DashboardChartTypes.GroupedNormalizedStackedBarChart)
                             {
                                 AddGroupedStackedTable(word, rawDataItem);
                             }

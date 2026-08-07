@@ -90,7 +90,9 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
             height: node.offsetHeight * scale,
             width:
               target.chartType ===
-              DashboardChartTypesEnum.HorizontalBarStackedGrouped
+              DashboardChartTypesEnum.HorizontalBarStackedGrouped ||
+            target.chartType ===
+              DashboardChartTypesEnum.VerticalBarStackedNormalizedGrouped
                 ? node.scrollWidth * scale
                 : node.offsetWidth * scale,
             style: {
