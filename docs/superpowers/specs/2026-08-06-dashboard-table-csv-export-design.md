@@ -202,10 +202,15 @@ One new key in `i18n/en-US.ts` and `i18n/da.ts`:
 | Raw data refetch fails or returns `success: false` | no file written, `loading` cleared; the grid's own error surface already covers the request |
 | Dashboard name empty or all-illegal characters | filename falls back to `dashboard_{position}_…` |
 
-There is no row cap on the raw-data CSV. The server-side `.xlsx` export refuses
-above 100 000 rows because it builds an OpenXML document in server memory; the
-CSV is a string built in the browser from a response the same endpoint already
-serves, so the constraint does not transfer.
+The raw-data CSV is capped at the same 50 000 rows the `.xlsx` export refuses
+above, enforced in `GetRawData` before the query runs.
+
+An earlier version of this section said there was no cap, on the grounds that the
+CSV is built in the browser from a response the endpoint already serves. That was
+wrong twice: the `.xlsx` limit is 50 000 rather than the 100 000 stated, and the
+endpoint had only ever been called with UI page sizes — asking it for the whole
+result is precisely what removes the bound its own comment calls "what makes a
+large export safe".
 
 ## Testing
 

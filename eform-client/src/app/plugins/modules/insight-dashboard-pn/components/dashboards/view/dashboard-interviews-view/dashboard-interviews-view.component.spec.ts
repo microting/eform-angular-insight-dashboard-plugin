@@ -53,6 +53,10 @@ describe('DashboardInterviewsViewComponent', () => {
   }));
 
   beforeEach(() => {
+    // jsdom has no object URL support, and file-saver reaches for it.
+    (URL as any).createObjectURL = jest.fn(() => 'blob:stub');
+    (URL as any).revokeObjectURL = jest.fn();
+
     downloadSpy = jest
       .spyOn(tsvExport, 'downloadTsv')
       .mockImplementation(() => {});
@@ -127,6 +131,30 @@ describe('DashboardInterviewsViewComponent', () => {
       setUp([]);
       component.exportToCsv();
       expect(downloadSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('exportToExcel', () => {
+    it('requests the workbook for this dashboard item and saves it', () => {
+      setUp([{date: new Date(2026, 2, 2), locationName: 'A', commentary: 'B'}]);
+
+      component.exportToExcel();
+
+      expect(dashboardItemsServiceMock.exportInterviewsToExcel).toHaveBeenCalledWith({
+        dashboardId: 9,
+        itemId: 4,
+      });
+    });
+
+    it('is reachable from the template', () => {
+      setUp([{date: new Date(2026, 2, 2), locationName: 'A', commentary: 'B'}]);
+
+      // The method existed for years with no caller, which is why the defects
+      // in the workbook it produces were never noticed.
+      const button = fixture.nativeElement.querySelector(
+        '#dashboardInterviewsExport2'
+      );
+      expect(button).not.toBeNull();
     });
   });
 });

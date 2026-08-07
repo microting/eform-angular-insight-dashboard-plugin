@@ -187,10 +187,12 @@ describe('DashboardChartDataViewComponent', () => {
       );
     });
 
-    it('pads grouped headers that match neither half', () => {
+    it('pads grouped headers that cover less than the data', () => {
+      // One header over four value columns: duplication reaches two, so the
+      // remaining two are padded rather than left unnamed-and-missing.
       setUp(DashboardChartTypesEnum.HorizontalBarStackedGrouped, [
         {
-          rawHeaders: ['16_01', '16_05', '16_09'],
+          rawHeaders: ['16_01'],
           rawDataItems: [
             {
               rawValueName: 'Location 1',
@@ -203,8 +205,44 @@ describe('DashboardChartDataViewComponent', () => {
       ]);
       component.exportToCsv();
 
-      const records = exportedTsv().split('\r\n');
-      expect(records[0].split('\t').length).toBe(records[1].split('\t').length);
+      expect(exportedTsv()).toBe(
+        `${tsvExport.TSV_BOM}` +
+          '\t\t16_01\t16_01\t\t\r\n' +
+          'Location 1\tGlad\t82%\t74%\t41\t33\r\n'
+      );
+    });
+
+    it('sizes a grouped section to its widest row, not its first', () => {
+      // The backend sizes each location's array from that location's own option
+      // count, while rawHeaders is fixed from the first location. A narrow first
+      // location must not truncate the wider ones into a ragged file.
+      setUp(DashboardChartTypesEnum.HorizontalBarStackedGrouped, [
+        {
+          rawHeaders: ['16_01', '16_05', '16_09', '16_13'],
+          rawDataItems: [
+            {
+              rawValueName: 'Narrow',
+              rawDataValues: [
+                {valueName: 'Glad', percents: [82], amounts: [41]},
+              ],
+            },
+            {
+              rawValueName: 'Wide',
+              rawDataValues: [
+                {valueName: 'Glad', percents: [61, 39], amounts: [22, 14]},
+              ],
+            },
+          ],
+        },
+      ]);
+      component.exportToCsv();
+
+      const records = exportedTsv().split('\r\n').filter((r) => r.length);
+      const widths = records.map((record) => record.split('\t').length);
+      expect(widths).toEqual([6, 6, 6]);
+      // The short row is padded on the right, keeping its own values in place.
+      expect(records[1]).toBe('Narrow\tGlad\t82%\t41\t\t');
+      expect(records[2]).toBe('Wide\tGlad\t61%\t39%\t22\t14');
     });
 
     it('writes every block, separated by a blank record', () => {

@@ -74,54 +74,77 @@ public class InterviewsExcelService(
         // Get the sheet data to populate
         SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
-        // Get the column count and start from the specified row
-        int colCount = ExcelConsts.Interviews.ColCount; // Assuming `ColCount` is defined
+        int colCount = ExcelConsts.Interviews.ColCount;
+
+        // The header row is written here rather than inherited from a template.
+        // The old code copied an xlsx template and then opened the copy with
+        // SpreadsheetDocument.Create, which truncates it - so the headers, widths
+        // and styles the template existed to supply were destroyed before the
+        // first row was written, and every export arrived unlabelled.
+        Row headerRow = new Row { RowIndex = (uint)ExcelConsts.Interviews.HeaderRow };
+
+        for (var col = ExcelConsts.Interviews.StartCol; col <= colCount; col++)
+        {
+            headerRow.Append(new Cell
+            {
+                CellReference = GetCellReference(ExcelConsts.Interviews.HeaderRow, col),
+                DataType = CellValues.String,
+                CellValue = new CellValue(HeaderFor((InterviewsExport)col)),
+            });
+        }
+
+        sheetData!.Append(headerRow);
+
         int rowIndex = ExcelConsts.Interviews.StartRow;
 
-        // Iterate through each excelModel row
         foreach (var excelRow in excelModel)
         {
             Row row = new Row() { RowIndex = (uint)rowIndex };
 
             for (var col = ExcelConsts.Interviews.StartCol; col <= colCount; col++)
             {
-                var columnIndex = (InterviewsExport)col;
+                var columnName = ((InterviewsExport)col).ToString();
+                var value = excelRow?.GetType().GetProperty(columnName)?.GetValue(excelRow, null);
 
-                if (columnIndex > 0)
+                // A null leaves its cell out entirely. Every cell carries an
+                // absolute reference, so the gap stays where it belongs rather
+                // than shifting later columns under the wrong header.
+                if (value == null)
                 {
-                    var columnName = columnIndex.ToString();
-                    if (!string.IsNullOrEmpty(columnName))
-                    {
-                        var value = excelRow?.GetType().GetProperty(columnName)?.GetValue(excelRow, null);
-
-                        if (value != null)
-                        {
-                            Cell cell = new Cell() { CellReference = GetCellReference(rowIndex, col) };
-
-                            if (value is DateTime dateTime)
-                            {
-                                cell.DataType = CellValues.String;
-                                cell.CellValue = new CellValue(dateTime.ToString(CultureInfo.InvariantCulture));
-                            }
-                            else if (value is decimal decimalValue)
-                            {
-                                cell.DataType = CellValues.Number;
-                                cell.CellValue =
-                                    new CellValue(decimalValue.ToString("0.00", CultureInfo.InvariantCulture));
-                            }
-                            else
-                            {
-                                cell.DataType = CellValues.String;
-                                cell.CellValue = new CellValue(value.ToString());
-                            }
-
-                            row.Append(cell);
-                        }
-                    }
+                    continue;
                 }
+
+                Cell cell = new Cell() { CellReference = GetCellReference(rowIndex, col) };
+
+                switch (value)
+                {
+                    case DateTime dateTime:
+                        cell.DataType = CellValues.String;
+                        // Not InvariantCulture: that renders 03/14/2021, which is
+                        // ambiguous beside dd/MM/yyyy and sorts lexically.
+                        cell.CellValue = new CellValue(
+                            dateTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+                        break;
+                    case int intValue:
+                        cell.DataType = CellValues.Number;
+                        cell.CellValue = new CellValue(
+                            intValue.ToString(CultureInfo.InvariantCulture));
+                        break;
+                    case decimal decimalValue:
+                        cell.DataType = CellValues.Number;
+                        cell.CellValue = new CellValue(
+                            decimalValue.ToString("0.00", CultureInfo.InvariantCulture));
+                        break;
+                    default:
+                        cell.DataType = CellValues.String;
+                        cell.CellValue = new CellValue(value.ToString());
+                        break;
+                }
+
+                row.Append(cell);
             }
 
-            sheetData!.Append(row);
+            sheetData.Append(row);
             rowIndex++;
         }
 
@@ -130,6 +153,15 @@ public class InterviewsExcelService(
 
         return true;
     }
+
+    /// <summary>Column header text. CamelCase enum members become spaced words.</summary>
+    private static string HeaderFor(InterviewsExport column) =>
+        column switch
+        {
+            InterviewsExport.FilterQuestion => "Filter Question",
+            InterviewsExport.FilterAnswer => "Filter Answer",
+            _ => column.ToString(),
+        };
 
     // Helper method to get cell reference like "A1", "B2", etc.
     private string GetCellReference(int rowIndex, int colIndex)
@@ -195,48 +227,17 @@ public class InterviewsExcelService(
     }
 
     /// <summary>
-    /// Copy template file to new excel file
+    /// Path for a new export file, mirroring RawDataExcelService.CreateFilePath.
     /// </summary>
-    /// <param name="templateId">The template identifier.</param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException">userId</exception>
-    public string CopyTemplateForNewAccount(string templateId)
+    public string CreateFilePath()
     {
-        string destFile = null;
-        try
+        var userId = UserId;
+        if (userId <= 0)
         {
-            var userId = UserId;
-            if (userId <= 0)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            var assembly = typeof(EformInsightDashboardPlugin).GetTypeInfo().Assembly;
-            var resourceStream = assembly.GetManifestResourceStream(
-                $"InsightDashboard.Pn.Resources.Templates.{templateId}.xlsx");
-
-            destFile = GetFilePathForUser(userId, templateId);
-            if (File.Exists(destFile))
-            {
-                File.Delete(destFile);
-            }
-
-            using var fileStream = File.Create(destFile!);
-            resourceStream?.Seek(0, SeekOrigin.Begin);
-            resourceStream?.CopyTo(fileStream);
-
-            return destFile;
+            throw new ArgumentNullException(nameof(userId));
         }
-        catch (Exception e)
-        {
-            logger.LogError(e, e.Message);
-            if (File.Exists(destFile))
-            {
-                File.Delete(destFile);
-            }
 
-            return null;
-        }
+        return GetFilePathForUser(userId, "interviews");
     }
 
     #endregion

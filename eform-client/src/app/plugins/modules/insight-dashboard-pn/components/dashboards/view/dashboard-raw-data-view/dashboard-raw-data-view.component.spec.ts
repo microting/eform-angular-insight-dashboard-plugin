@@ -1,9 +1,10 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
-import {of} from 'rxjs';
+import {of, throwError, Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {DashboardRawDataViewComponent} from './dashboard-raw-data-view.component';
 import {InsightDashboardPnRawDataService} from '../../../../services';
+import {ToastrService} from 'ngx-toastr';
 import * as tsvExport from '../../../../helpers/tsv-export.helper';
 
 @Pipe({name: 'translate', standalone: false})
@@ -42,6 +43,8 @@ describe('DashboardRawDataViewComponent', () => {
     },
   };
 
+  const toastrMock = {error: jest.fn()};
+
   const rawDataServiceMock = {
     getRawData: jest.fn(() => of(response)),
     exportToExcel: jest.fn(() => of(new Blob())),
@@ -49,10 +52,12 @@ describe('DashboardRawDataViewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     rawDataServiceMock.getRawData.mockClear();
+    toastrMock.error.mockClear();
     TestBed.configureTestingModule({
       declarations: [DashboardRawDataViewComponent, MockTranslatePipe],
       providers: [
         {provide: InsightDashboardPnRawDataService, useValue: rawDataServiceMock},
+        {provide: ToastrService, useValue: toastrMock},
         {
           provide: TranslateService,
           useValue: {
@@ -226,6 +231,64 @@ describe('DashboardRawDataViewComponent', () => {
 
       expect(downloadSpy).not.toHaveBeenCalled();
       expect(component.exportingCsv).toBe(false);
+    });
+
+    it('surfaces the reason the server refused instead of doing nothing', () => {
+      component.toggle();
+      rawDataServiceMock.getRawData.mockReturnValueOnce(
+        of({
+          success: false,
+          model: null,
+          message: 'Result of 200000 rows exceeds the limit of 50000',
+        } as any)
+      );
+
+      component.exportToCsv();
+
+      expect(toastrMock.error).toHaveBeenCalledWith(
+        'Result of 200000 rows exceeds the limit of 50000',
+        'Error',
+        expect.anything()
+      );
+    });
+
+    it('frees the button when the request fails at transport level', () => {
+      component.toggle();
+      rawDataServiceMock.getRawData.mockReturnValueOnce(
+        throwError(() => new Error('gateway timeout'))
+      );
+
+      component.exportToCsv();
+
+      // Left true, the template disables the button until a page reload.
+      expect(component.exportingCsv).toBe(false);
+      expect(downloadSpy).not.toHaveBeenCalled();
+    });
+
+    it('exports the columns visible at click time, not at response time', () => {
+      component.toggle();
+
+      const responses = new Subject<any>();
+      rawDataServiceMock.getRawData.mockReturnValueOnce(responses.asObservable());
+      component.exportToCsv();
+
+      // The dashboard hands us a new item model while the request is in flight.
+      // Collapsed, ngOnChanges clears the columns without refetching them.
+      component.toggle();
+      component.ngOnChanges({itemModel: {} as any});
+      expect(component.tableHeaders.length).toBe(0);
+
+      responses.next(response);
+      responses.complete();
+
+      // Reading tableHeaders in the callback would have selected no columns and
+      // written a file of blank lines under a perfectly good name.
+      expect(exportedTsv()).toBe(
+        `${tsvExport.TSV_BOM}` +
+          'Finished at\t2 – Områder › Kantine\r\n' +
+          '2026-03-02T08:14:22\tKantine\r\n' +
+          '2026-03-03T07:22:11\t\r\n'
+      );
     });
   });
 });

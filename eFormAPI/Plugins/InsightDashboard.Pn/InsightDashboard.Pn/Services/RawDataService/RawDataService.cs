@@ -101,6 +101,20 @@ public class RawDataService : IRawDataService
     {
         try
         {
+            // Peak memory here is bounded by PageSize, and the browser's CSV export
+            // asks for the whole result in one page. Refuse the same sizes the xlsx
+            // export refuses, before touching the database - otherwise the CSV path
+            // is a way around a limit the Excel path enforces on the same data.
+            if (requestModel.PageSize > ExportRowLimit)
+            {
+                return new OperationDataResult<RawDataListModel>(
+                    false,
+                    string.Format(
+                        _localizationService.GetString("RawDataExportTooLarge"),
+                        requestModel.PageSize,
+                        ExportRowLimit));
+            }
+
             var core = await _coreHelper.GetCore();
             await using var sdkContext = core.DbContextHelper.GetDbContext();
 
@@ -214,7 +228,12 @@ public class RawDataService : IRawDataService
                     dashboardId, dashboardItemId, written, total);
             }
 
-            return new OperationDataResult<string>(true, filePath);
+            // The three-argument constructor is deliberate. OperationDataResult<T>
+            // declares both (bool, string message) and (bool, T model); when T is
+            // itself string the two-argument call binds to the message overload,
+            // which left Model null on every successful export and had the
+            // controller open a FileStream on null.
+            return new OperationDataResult<string>(true, string.Empty, filePath);
         }
         catch (Exception e)
         {

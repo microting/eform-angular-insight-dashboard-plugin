@@ -94,12 +94,17 @@ export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
         );
         // The two leading cells are the group and the value name; the rest are
         // the percentages and amounts the headers have to cover.
+        //
+        // Take the widest row, not the first. The backend sizes each location's
+        // array from that location's own option count while RawHeaders is fixed
+        // from the first location, so a block whose locations offer different
+        // numbers of options produces rows of differing widths.
         const valueWidth = rows.length
-          ? rows[0].length - 2
+          ? Math.max(...rows.map((row) => row.length)) - 2
           : block.rawHeaders.length;
         sections.push({
           headers: ['', '', ...this.groupedHeaders(block.rawHeaders, valueWidth)],
-          rows,
+          rows: rows.map((row) => this.padRow(row, valueWidth + 2)),
         });
         continue;
       }
@@ -136,6 +141,14 @@ export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
    * narrower than its records is not a table any spreadsheet can read, so this
    * is one place the export deliberately does not reproduce the screen.
    */
+  /** A short row is padded rather than left ragged, so the section stays a table. */
+  private padRow(row: string[], width: number): string[] {
+    if (row.length >= width) {
+      return row;
+    }
+    return [...row, ...new Array(width - row.length).fill('')];
+  }
+
   private groupedHeaders(rawHeaders: string[], valueWidth: number): string[] {
     const headers =
       rawHeaders.length >= valueWidth
