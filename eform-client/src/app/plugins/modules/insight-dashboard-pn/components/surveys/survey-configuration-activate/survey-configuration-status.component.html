@@ -4,17 +4,17 @@
 </div>
 <div mat-dialog-actions class="d-flex flex-row justify-content-end">
   <button
-    class="btn-primary"
-    [id]="(selectedSurveyConfig.isActive ? 'surveyConfigDeactivateBtn' : 'surveyConfigActivateBtn')"
-    (click)="changeSurveyConfigStatus()"
-  >
-    {{ (selectedSurveyConfig.isActive ? 'Deactivate' : 'Activate') | translate}}
-  </button>
-  <button
     class="btn-cancel"
     id="surveyConfigDeleteCancelBtn"
     (click)="hide()"
   >
     {{'Cancel' | translate}}
+  </button>
+  <button
+    class="btn-primary"
+    [id]="(selectedSurveyConfig.isActive ? 'surveyConfigDeactivateBtn' : 'surveyConfigActivateBtn')"
+    (click)="changeSurveyConfigStatus()"
+  >
+    {{ (selectedSurveyConfig.isActive ? 'Deactivate' : 'Activate') | translate}}
   </button>
 </div>
