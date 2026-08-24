@@ -22,18 +22,18 @@
 </div>
 <div mat-dialog-actions class="d-flex flex-row justify-content-end">
   <button
+    class="btn-cancel"
+    id="dashboardCreateSaveCancelBtn"
+    (click)="hide()"
+  >
+    {{'Cancel' | translate}}
+  </button>
+  <button
     class="btn-primary"
     id="dashboardCreateSaveBtn"
     (click)="createDashboard()"
     [disabled]="!dashboardName && !selectedSurveyId"
   >
     {{'Save' | translate}}
-  </button>
-  <button
-    class="btn-cancel"
-    id="dashboardCreateSaveCancelBtn"
-    (click)="hide()"
-  >
-    {{'Cancel' | translate}}
   </button>
 </div>

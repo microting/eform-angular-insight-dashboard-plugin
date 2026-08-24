@@ -24,18 +24,18 @@
 </div>
 <div mat-dialog-actions class="d-flex flex-row justify-content-end">
   <button
+    class="btn-cancel"
+    id="surveyConfigEditSaveCancelBtn"
+    (click)="hide()"
+  >
+    {{'Cancel' | translate}}
+  </button>
+  <button
     class="btn-primary"
     (click)="updateConfig()"
     id="surveyConfigEditSaveBtn"
     [disabled]="!selectedSurveyConfig.surveyId && selectedLocations.length < 1"
   >
     {{'Save' | translate}}
-  </button>
-  <button
-    class="btn-cancel"
-    id="surveyConfigEditSaveCancelBtn"
-    (click)="hide()"
-  >
-    {{'Cancel' | translate}}
   </button>
 </div>
