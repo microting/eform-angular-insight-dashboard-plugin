@@ -22,8 +22,7 @@
 </div>
 <div mat-dialog-actions class="d-flex flex-row justify-content-end">
   <button
-    mat-raised-button
-    color="accent"
+    class="btn-primary"
     id="dashboardCreateSaveBtn"
     (click)="createDashboard()"
     [disabled]="!dashboardName && !selectedSurveyId"
@@ -31,7 +30,7 @@
     {{'Save' | translate}}
   </button>
   <button
-    mat-raised-button
+    class="btn-cancel"
     id="dashboardCreateSaveCancelBtn"
     (click)="hide()"
   >
