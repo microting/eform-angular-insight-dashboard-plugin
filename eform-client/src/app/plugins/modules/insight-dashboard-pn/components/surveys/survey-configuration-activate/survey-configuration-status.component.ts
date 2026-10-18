@@ -8,11 +8,14 @@ import { InsightDashboardPnSurveyConfigsService } from '../../../services';
 import { SurveyConfigModel } from '../../../models';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatDialogTitle, MatDialogContent, MatDialogActions} from '@angular/material/dialog';
+
 @Component({
   selector: 'app-survey-configuration-status',
   templateUrl: './survey-configuration-status.component.html',
   styleUrls: ['./survey-configuration-status.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatDialogTitle, MatDialogContent, MatDialogActions],
 })
 export class SurveyConfigurationStatusComponent implements OnInit {
   private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);

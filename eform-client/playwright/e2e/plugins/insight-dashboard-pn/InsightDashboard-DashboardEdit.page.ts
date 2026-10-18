@@ -13,7 +13,7 @@ export class InsightDashboardDashboardEditPage {
 
   async rowNum(): Promise<number> {
     await this.page.waitForTimeout(500);
-    return await this.page.locator('#dashboardItem').count();
+    return await this.page.locator('[id^="dashboardItem"]:not(#dashboardItems)').count();
   }
 
   public get initialItemCreateBtn() {

@@ -9,11 +9,15 @@ import { CommonDictionaryModel } from 'src/app/common/models';
 import { getChartData } from '../../../../helpers/preview-values-generator.helper';
 import { AuthStateService } from 'src/app/common/store';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {NgIf, NgFor, NgStyle, AsyncPipe} from '@angular/common';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+
 @Component({
   selector: 'app-dashboard-chart-edit',
   templateUrl: './dashboard-chart-edit.component.html',
   styleUrls: ['./dashboard-chart-edit.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, NgIf, NgFor, NgStyle, AsyncPipe, NgxChartsModule],
 })
 export class DashboardChartEditComponent implements OnChanges {
   public authStateService = inject(AuthStateService);

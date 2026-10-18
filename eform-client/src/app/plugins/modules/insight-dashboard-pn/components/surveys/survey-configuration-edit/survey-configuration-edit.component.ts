@@ -9,11 +9,19 @@ import { InsightDashboardPnSurveyConfigsService } from '../../../services';
 import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatDialogTitle, MatDialogContent, MatDialogActions} from '@angular/material/dialog';
+import {NgFor} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MtxSelect} from '@ng-matero/extensions/select';
+
 @Component({
   selector: 'app-survey-configuration-edit',
   templateUrl: './survey-configuration-edit.component.html',
   styleUrls: ['./survey-configuration-edit.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatDialogTitle, MatDialogContent, MatDialogActions, NgFor, FormsModule, MatCheckbox, MatFormField, MatLabel, MtxSelect],
 })
 export class SurveyConfigurationEditComponent implements OnInit {
   private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);

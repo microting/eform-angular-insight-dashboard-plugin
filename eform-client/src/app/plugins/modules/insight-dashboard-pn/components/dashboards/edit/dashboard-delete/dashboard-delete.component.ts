@@ -8,11 +8,14 @@ import {DashboardModel} from '../../../../models';
 import {InsightDashboardPnDashboardsService} from '../../../../services';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatDialogTitle, MatDialogContent, MatDialogActions} from '@angular/material/dialog';
+
 @Component({
   selector: 'app-dashboard-delete',
   templateUrl: './dashboard-delete.component.html',
   styleUrls: ['./dashboard-delete.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatDialogTitle, MatDialogContent, MatDialogActions],
 })
 export class DashboardDeleteComponent implements OnInit {
   private dashboardService = inject(InsightDashboardPnDashboardsService);

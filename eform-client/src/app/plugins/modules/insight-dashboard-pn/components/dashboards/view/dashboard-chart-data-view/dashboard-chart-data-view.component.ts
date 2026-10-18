@@ -13,12 +13,18 @@ import {
   tsvFileName,
 } from '../../../../helpers/tsv-export.helper';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {NgIf, NgFor, NgClass, NgStyle} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-chart-data-view',
   templateUrl: './dashboard-chart-data-view.component.html',
   styleUrls: ['./dashboard-chart-data-view.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, NgIf, NgFor, NgClass, NgStyle, MatIcon, MatIconButton, MatTooltip],
 })
 export class DashboardChartDataViewComponent implements OnInit, OnDestroy {
   private store = inject(Store);

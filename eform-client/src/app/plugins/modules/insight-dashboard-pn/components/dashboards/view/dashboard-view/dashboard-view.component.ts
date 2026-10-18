@@ -14,12 +14,22 @@ import {WordIcon} from 'src/app/common/const';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {EformNewSubheaderComponent} from 'src/app/common/modules/eform-shared/components/eform-new-subheader/eform-new-subheader.component';
+import {NgFor} from '@angular/common';
+import {RouterLink} from '@angular/router';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatCard, MatCardContent} from '@angular/material/card';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {DashboardBlockViewComponent} from '../dashboard-block-view/dashboard-block-view.component';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-view',
   templateUrl: './dashboard-view.component.html',
   styleUrls: ['./dashboard-view.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, EformNewSubheaderComponent, NgFor, RouterLink, MatButton, MatIconButton, MatCard, MatCardContent, MatIcon, MatTooltip, DashboardBlockViewComponent],
 })
 export class DashboardViewComponent implements OnInit, OnDestroy {
   private dashboardsService = inject(InsightDashboardPnDashboardsService);
