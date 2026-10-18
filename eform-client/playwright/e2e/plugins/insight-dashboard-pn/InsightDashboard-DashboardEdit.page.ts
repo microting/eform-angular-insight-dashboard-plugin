@@ -84,7 +84,7 @@ export class InsightDashboardDashboardEditPage {
   }
 
   async createItem(rowObject: InsightDashboardEditRowObject) {
-    await rowObject.itemCreateBtn.click();
+    await this.clickHeaderButtonAndWaitForPanel(rowObject, rowObject.itemCreateBtn);
   }
 
   async deleteItem(rowObject: InsightDashboardEditRowObject) {
@@ -92,7 +92,44 @@ export class InsightDashboardDashboardEditPage {
   }
 
   async copyItem(rowObject: InsightDashboardEditRowObject) {
-    await rowObject.itemCopyBtn.click();
+    await this.clickHeaderButtonAndWaitForPanel(rowObject, rowObject.itemCopyBtn);
+  }
+
+  /**
+   * The add/copy buttons sit inside the item's expansion panel header, so the
+   * click also toggles that panel. While it animates, everything below it moves
+   * (by more than a screen when the item is expanded); a dropdown opened on the
+   * next item meanwhile follows its select out of view and can't be clicked.
+   * Wait until the panel has flipped and its height is stable for a few frames.
+   */
+  private async clickHeaderButtonAndWaitForPanel(
+    rowObject: InsightDashboardEditRowObject,
+    button: ReturnType<Page['locator']>
+  ) {
+    const header = this.page.locator('app-dashboard-item-edit mat-expansion-panel-header').nth(rowObject.index);
+    const expandedBefore = await header.getAttribute('aria-expanded');
+    await button.click();
+    await this.page
+      .waitForFunction(
+        ({ index, expandedBefore }) => {
+          const w = window as any;
+          const panel = document.querySelectorAll('app-dashboard-item-edit mat-expansion-panel')[index];
+          const header = panel?.querySelector('mat-expansion-panel-header');
+          if (!panel || !header || header.getAttribute('aria-expanded') === expandedBefore) {
+            w.__itemPanelSettle = undefined;
+            return false;
+          }
+          const height = Math.round(panel.getBoundingClientRect().height);
+          const prev = w.__itemPanelSettle;
+          const stableFrames = prev && prev.panel === panel && prev.height === height ? prev.stableFrames + 1 : 0;
+          w.__itemPanelSettle = { panel, height, stableFrames };
+          return stableFrames >= 5;
+        },
+        { index: rowObject.index, expandedBefore },
+        { polling: 'raf', timeout: 10000 }
+      )
+      // Fallback if the panel doesn't toggle: give it the animation's length.
+      .catch(() => this.page.waitForTimeout(500));
   }
 
   async fillItem(rowNum: number, itemObject: DashboardTestItemEditModel) {
@@ -184,8 +221,11 @@ export class InsightDashboardEditRowObject {
   public itemDeleteBtn: ReturnType<Page['locator']>;
   public itemCopyBtn: ReturnType<Page['locator']>;
 
+  public index: number;
+
   getRow(rowNum: number): InsightDashboardEditRowObject {
     const index = rowNum - 1;
+    this.index = index;
     this.firstQuestion = this.page.locator('#editFirstQuestion').nth(index);
     this.filterQuestion = this.page.locator('#editFilterQuestion').nth(index);
     this.filterAnswer = this.page.locator('#editFilterAnswer').nth(index);
