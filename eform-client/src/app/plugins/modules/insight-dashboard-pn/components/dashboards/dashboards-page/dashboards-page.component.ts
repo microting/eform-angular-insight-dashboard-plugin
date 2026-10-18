@@ -28,12 +28,25 @@ import {
   selectDashboardsPaginationSort
 } from '../../../state/dashboards/dashboards.selector';
 
+import {AsyncPipe} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatIcon} from '@angular/material/icon';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MtxGrid} from '@ng-matero/extensions/grid';
+import {EformNewSubheaderComponent} from 'src/app/common/modules/eform-shared/components/eform-new-subheader/eform-new-subheader.component';
+import {EformPaginationComponent} from 'src/app/common/modules/eform-shared/components/eform-pagination/eform-pagination.component';
+import {TranslatePipe} from '@ngx-translate/core';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-insight-dashboard-dashboards',
   templateUrl: './dashboards-page.component.html',
   styleUrls: ['./dashboards-page.component.scss'],
-  standalone: false,
+  imports: [AsyncPipe, FormsModule, MatButton, MatIconButton, MatFormField, MatLabel, MatInput, MatIcon, MatMenu, MatMenuItem, MatMenuTrigger, MatTooltip, MtxGrid, EformNewSubheaderComponent, EformPaginationComponent, TranslatePipe],
 })
 export class DashboardsPageComponent implements OnInit, OnDestroy {
   private dictionariesService = inject(InsightDashboardPnDashboardDictionariesService);

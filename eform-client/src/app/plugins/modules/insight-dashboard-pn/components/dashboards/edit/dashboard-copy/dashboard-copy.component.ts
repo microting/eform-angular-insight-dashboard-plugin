@@ -8,11 +8,14 @@ import {InsightDashboardPnDashboardsService} from '../../../../services';
 import {DashboardModel} from '../../../../models';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatDialogTitle, MatDialogContent, MatDialogActions} from '@angular/material/dialog';
+
 @Component({
   selector: 'app-dashboard-copy',
   templateUrl: './dashboard-copy.component.html',
   styleUrls: ['./dashboard-copy.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatDialogTitle, MatDialogContent, MatDialogActions],
 })
 export class DashboardCopyComponent implements OnInit {
   private dashboardService = inject(InsightDashboardPnDashboardsService);

@@ -9,11 +9,19 @@ import {CommonDictionaryModel} from 'src/app/common/models';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatDialogTitle, MatDialogContent, MatDialogActions} from '@angular/material/dialog';
+import {NgFor} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MtxSelect} from '@ng-matero/extensions/select';
+
 @Component({
   selector: 'app-survey-configuration-new',
   templateUrl: './survey-configuration-new.component.html',
   styleUrls: ['./survey-configuration-new.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatDialogTitle, MatDialogContent, MatDialogActions, NgFor, FormsModule, MatCheckbox, MatFormField, MatLabel, MtxSelect],
 })
 export class SurveyConfigurationNewComponent implements OnInit {
   private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);

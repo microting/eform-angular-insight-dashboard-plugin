@@ -13,7 +13,7 @@ export class InsightDashboardDashboardEditPage extends Page {
 
   public async rowNum(): Promise<number> {
     await browser.pause(500);
-    return (await $$('#dashboardItem')).length;
+    return (await $$('[id^="dashboardItem"]:not(#dashboardItems)')).length;
   }
 
   public async initialItemCreateBtn() {

@@ -18,12 +18,24 @@ import { DashboardItemQuestionTypesEnum } from '../../../../const/enums';
 import {format} from 'date-fns';
 import {PARSING_DATE_FORMAT} from 'src/app/common/const';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {EformNewSubheaderComponent} from 'src/app/common/modules/eform-shared/components/eform-new-subheader/eform-new-subheader.component';
+import {NgIf, NgFor, NgClass} from '@angular/common';
+import {RouterLink} from '@angular/router';
+import {DragulaModule} from 'ng2-dragula';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatCard, MatCardContent} from '@angular/material/card';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {DashboardEditHeaderComponent} from '../dashboard-edit-header/dashboard-edit-header.component';
+import {DashboardItemEditComponent} from '../dashboard-item-edit/dashboard-item-edit.component';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-edit-configuration',
   templateUrl: './dashboard-edit.component.html',
   styleUrls: ['./dashboard-edit.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, EformNewSubheaderComponent, NgIf, NgFor, NgClass, RouterLink, DragulaModule, MatButton, MatIconButton, MatCard, MatCardContent, MatIcon, MatTooltip, DashboardEditHeaderComponent, DashboardItemEditComponent],
 })
 export class DashboardEditComponent implements OnInit, OnDestroy {
   private dashboardsService = inject(InsightDashboardPnDashboardsService);

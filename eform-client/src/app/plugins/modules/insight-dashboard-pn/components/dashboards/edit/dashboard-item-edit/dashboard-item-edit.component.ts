@@ -32,12 +32,27 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {InsightDashboardPnCollapseService} from '../../../../services/insight-dashboard-pn-collapse.service';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {NgIf, NgFor} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {MatIconButton} from '@angular/material/button';
+import {MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription} from '@angular/material/expansion';
+import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MtxSelect} from '@ng-matero/extensions/select';
+import {DashboardChartEditComponent} from '../dashboard-chart-edit/dashboard-chart-edit.component';
+import {DashboardInterviewsEditComponent} from '../dashboard-interviews-edit/dashboard-interviews-edit.component';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-item-edit',
   templateUrl: './dashboard-item-edit.component.html',
   styleUrls: ['./dashboard-item-edit.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, NgIf, NgFor, FormsModule, MatIconButton, MatAccordion, MatCard, MatCardContent, MatCardTitle, MatCheckbox, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormField, MatLabel, MatInput, MatIcon, MatTooltip, MtxSelect, DashboardChartEditComponent, DashboardInterviewsEditComponent],
 })
 export class DashboardItemEditComponent
   implements OnInit, OnDestroy, OnChanges {

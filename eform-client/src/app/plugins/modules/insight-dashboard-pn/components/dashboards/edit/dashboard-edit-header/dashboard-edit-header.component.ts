@@ -14,11 +14,20 @@ import {AuthStateService} from 'src/app/common/store';
 import {FormControl, FormGroup} from '@angular/forms';
 import * as R from 'ramda';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatCard, MatCardContent} from '@angular/material/card';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatFormField, MatLabel, MatPrefix} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MtxSelect} from '@ng-matero/extensions/select';
+import {MatDatepickerToggle, MatDateRangeInput, MatDateRangePicker, MatStartDate, MatEndDate} from '@angular/material/datepicker';
+
 @Component({
   selector: 'app-dashboard-edit-header',
   templateUrl: './dashboard-edit-header.component.html',
   styleUrls: ['./dashboard-edit-header.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, ReactiveFormsModule, MatCard, MatCardContent, MatCheckbox, MatFormField, MatLabel, MatPrefix, MatInput, MtxSelect, MatDatepickerToggle, MatDateRangeInput, MatDateRangePicker, MatStartDate, MatEndDate],
 })
 export class DashboardEditHeaderComponent implements OnInit, OnChanges {
   private authStateService = inject(AuthStateService);

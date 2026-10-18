@@ -15,12 +15,19 @@ import {
 
 const DATE_FORMAT = 'dd.MM.y HH:mm:ss';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {NgIf} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MtxGrid} from '@ng-matero/extensions/grid';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-interviews-view',
   templateUrl: './dashboard-interviews-view.component.html',
   styleUrls: ['./dashboard-interviews-view.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, NgIf, MatIcon, MatIconButton, MatTooltip, MtxGrid],
 })
 export class DashboardInterviewsViewComponent implements OnInit, OnDestroy {
   private translateService = inject(TranslateService);

@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {EformSharedModule} from 'src/app/common/modules/eform-shared/eform-shared.module';
 import {InsightDashboardPnLayoutComponent} from './layouts';
 import {InsightDashboardPnRouting} from './insight-dashboard-pn-routing';
 import {
@@ -41,52 +39,21 @@ import {
   SurveyConfigurationStatusComponent,
 } from './components';
 import {DragulaModule} from 'ng2-dragula';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {MatButtonModule} from '@angular/material/button';
-import {MtxGridModule} from '@ng-matero/extensions/grid';
-import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MtxSelectModule} from '@ng-matero/extensions/select';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatDatepickerModule} from '@angular/material/datepicker';
 import {StoreModule} from '@ngrx/store';
 import * as dashboardsReducer from './state/dashboards/dashboards.reducer';
 import * as surveysReducer from './state/surveys/surveys.reducer';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 
 @NgModule({
   imports: [
     InsightDashboardPnRouting,
     TranslateModule,
-    FormsModule,
-    EformSharedModule,
-    DragulaModule,
-    NgxChartsModule,
-    MatButtonModule,
-    MtxGridModule,
-    MatInputModule,
     MatDialogModule,
-    MtxSelectModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatExpansionModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
+    DragulaModule,
     StoreModule.forFeature('insightDashboardPn', {
       dashboardsState: dashboardsReducer.reducer,
       surveysState: surveysReducer.reducer,
     }),
-    MatMenu,
-    MatMenuTrigger,
-    MatMenuItem,
-  ],
-  declarations: [
     InsightDashboardPnLayoutComponent,
     InsightDashboardSettingsComponent,
     SurveyConfigurationsPageComponent,
@@ -108,7 +75,6 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
     DashboardInterviewsEditComponent,
     DashboardChartDataEditComponent,
     DashboardChartDataViewComponent,
-    // DashboardInterviewsViewComponent,
     AnswerPageComponent,
     AnswerValuesTableComponent,
     AnswerDeleteModalComponent,

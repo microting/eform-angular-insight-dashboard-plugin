@@ -12,7 +12,7 @@ export class InsightDashboardDashboardViewPage extends Page {
 
   public async rowNum(): Promise<number> {
     await browser.pause(1000);
-    return (await $$('#dashboardViewItem')).length;
+    return (await $$('[id^="dashboardViewItem"]')).length;
   }
 
   public async returnToDashboards() {

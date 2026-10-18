@@ -21,7 +21,7 @@
   <mat-card-content>
     <ng-container *ngFor="let dashboardViewItemModel of dashboardViewModel.items; let pos = index">
       <app-dashboard-block-view
-        id="dashboardViewItem"
+        id="dashboardViewItem{{pos}}"
         [itemModel]="dashboardViewItemModel"
         [dashboardViewModel]="dashboardViewModel"
         [position]="pos + 1"

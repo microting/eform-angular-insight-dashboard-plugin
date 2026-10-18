@@ -1,24 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+import {AuthStateService} from 'src/app/common/store';
+import { commonProviders } from '../../../../testing/common-providers';
 import { DashboardChartEditComponent } from './dashboard-chart-edit.component';
 
-describe('DashboardChartPreviewComponent', () => {
-  let component: DashboardChartEditComponent;
+describe('DashboardChartEditComponent', () => {
   let fixture: ComponentFixture<DashboardChartEditComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardChartEditComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardChartEditComponent],
+      providers: commonProviders([
+        { provide: AuthStateService, useValue: {} },
+      ]),
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(DashboardChartEditComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

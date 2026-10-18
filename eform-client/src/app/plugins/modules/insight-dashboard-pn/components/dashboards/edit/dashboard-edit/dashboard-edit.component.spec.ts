@@ -1,24 +1,27 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+import {InsightDashboardPnDashboardsService} from '../../../../services';
+import {InsightDashboardPnDashboardDictionariesService} from '../../../../services';
+import {DragulaService} from 'ng2-dragula';
+import { commonProviders } from '../../../../testing/common-providers';
 import { DashboardEditComponent } from './dashboard-edit.component';
 
-describe('DashboardEditConfigurationComponent', () => {
-  let component: DashboardEditComponent;
+describe('DashboardEditComponent', () => {
   let fixture: ComponentFixture<DashboardEditComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardEditComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardEditComponent],
+      providers: commonProviders([
+        { provide: InsightDashboardPnDashboardsService, useValue: {} },
+        { provide: InsightDashboardPnDashboardDictionariesService, useValue: {} },
+        { provide: DragulaService, useValue: {} },
+      ]),
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(DashboardEditComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

@@ -20,12 +20,20 @@ import {
   tsvFileName,
 } from '../../../../helpers/tsv-export.helper';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {NgIf} from '@angular/common';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MtxGrid} from '@ng-matero/extensions/grid';
+import {EformPaginationComponent} from 'src/app/common/modules/eform-shared/components/eform-pagination/eform-pagination.component';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-raw-data-view',
   templateUrl: './dashboard-raw-data-view.component.html',
   styleUrls: ['./dashboard-raw-data-view.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, NgIf, MatButton, MatIconButton, MatIcon, MatTooltip, MtxGrid, EformPaginationComponent],
 })
 export class DashboardRawDataViewComponent implements OnChanges, OnDestroy {
   private translateService = inject(TranslateService);

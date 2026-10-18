@@ -2,11 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import {MtxGridColumn} from '@ng-matero/extensions/grid';
 import {TranslateService} from '@ngx-translate/core';
 
+import {MtxGrid} from '@ng-matero/extensions/grid';
+
 @Component({
   selector: 'app-dashboard-interviews-edit',
   templateUrl: './dashboard-interviews-edit.component.html',
   styleUrls: ['./dashboard-interviews-edit.component.scss'],
-  standalone: false,
+  imports: [MtxGrid],
 })
 export class DashboardInterviewsEditComponent implements OnInit {
   private translateService = inject(TranslateService);

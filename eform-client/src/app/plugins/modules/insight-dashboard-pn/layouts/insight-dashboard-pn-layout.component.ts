@@ -5,10 +5,12 @@ import {Subscription} from 'rxjs';
 import {selectCurrentUserLocale} from 'src/app/state/auth/auth.selector';
 import {Store} from '@ngrx/store';
 
+import {RouterOutlet} from '@angular/router';
+
 @Component({
   selector: 'app-insight-dashboard-pn-layout',
   template: '<router-outlet></router-outlet>',
-  standalone: false,
+  imports: [RouterOutlet],
 })
 export class InsightDashboardPnLayoutComponent implements AfterContentInit, OnInit, OnDestroy {
   private store = inject(Store);
