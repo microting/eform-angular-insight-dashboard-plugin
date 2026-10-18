@@ -97,6 +97,8 @@ jobs:
         cp -av eform-angular-insight-dashboard-plugin/eform-client/playwright.config.ts eform-angular-frontend/eform-client/playwright.config.ts
         mkdir -p eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins
         cd eform-angular-frontend/eform-client && ../../eform-angular-insight-dashboard-plugin/testinginstallpn.sh
+    - name: Enable Corepack
+      run: corepack enable
     - name: yarn install
       run: cd eform-angular-frontend/eform-client && yarn install
     - name: npx playwright install
