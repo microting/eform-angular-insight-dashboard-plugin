@@ -1,24 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+import {InsightDashboardPnDashboardsService} from '../../../services';
+import { commonProviders } from '../../../testing/common-providers';
 import { DashboardNewComponent } from './dashboard-new.component';
 
 describe('DashboardNewComponent', () => {
-  let component: DashboardNewComponent;
   let fixture: ComponentFixture<DashboardNewComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardNewComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardNewComponent],
+      providers: commonProviders([
+        { provide: InsightDashboardPnDashboardsService, useValue: {} },
+      ]),
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(DashboardNewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

@@ -1,13 +1,19 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {Pipe, PipeTransform} from '@angular/core';
+import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest';
+
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
+import {TranslatePipe} from '@ngx-translate/core';
 import {of, throwError, Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {DashboardRawDataViewComponent} from './dashboard-raw-data-view.component';
 import {InsightDashboardPnRawDataService} from '../../../../services';
 import {ToastrService} from 'ngx-toastr';
 import * as tsvExport from '../../../../helpers/tsv-export.helper';
+import {captureDownloads} from '../../../../testing/capture-downloads';
 
-@Pipe({name: 'translate', standalone: false})
+
+@Pipe({name: 'translate'})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -43,19 +49,20 @@ describe('DashboardRawDataViewComponent', () => {
     },
   };
 
-  const toastrMock = {error: jest.fn()};
+  const toastrMock = {error: vi.fn()};
 
   const rawDataServiceMock = {
-    getRawData: jest.fn(() => of(response)),
-    exportToExcel: jest.fn(() => of(new Blob())),
+    getRawData: vi.fn(() => of(response)),
+    exportToExcel: vi.fn(() => of(new Blob())),
   };
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     rawDataServiceMock.getRawData.mockClear();
     toastrMock.error.mockClear();
-    TestBed.configureTestingModule({
-      declarations: [DashboardRawDataViewComponent, MockTranslatePipe],
+    await TestBed.configureTestingModule({
+      imports: [DashboardRawDataViewComponent],
       providers: [
+        provideNoopAnimations(),
         {provide: InsightDashboardPnRawDataService, useValue: rawDataServiceMock},
         {provide: ToastrService, useValue: toastrMock},
         {
@@ -67,9 +74,13 @@ describe('DashboardRawDataViewComponent', () => {
           },
         },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
-  }));
+    })
+      .overrideComponent(DashboardRawDataViewComponent, {
+        remove: {imports: [TranslatePipe]},
+        add: {imports: [MockTranslatePipe]},
+      })
+      .compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardRawDataViewComponent);
@@ -152,17 +163,16 @@ describe('DashboardRawDataViewComponent', () => {
   });
 
   describe('exportToCsv', () => {
-    let downloadSpy: jest.SpyInstance;
+    let downloadSpy: ReturnType<typeof captureDownloads>['downloads'];
+  let restoreDownloads: () => void;
 
     const exportedTsv = (): string => downloadSpy.mock.calls[0][1];
 
     beforeEach(() => {
-      downloadSpy = jest
-        .spyOn(tsvExport, 'downloadTsv')
-        .mockImplementation(() => {});
+      ({downloads: downloadSpy, restore: restoreDownloads} = captureDownloads());
     });
 
-    afterEach(() => downloadSpy.mockRestore());
+    afterEach(() => restoreDownloads());
 
     it('is not offered before the table has loaded or when it is empty', () => {
       expect(component.canExport).toBe(false);

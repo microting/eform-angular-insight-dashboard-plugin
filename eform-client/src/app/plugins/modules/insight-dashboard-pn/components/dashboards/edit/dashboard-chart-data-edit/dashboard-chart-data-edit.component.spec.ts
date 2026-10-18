@@ -1,24 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { commonProviders } from '../../../../testing/common-providers';
 import { DashboardChartDataEditComponent } from './dashboard-chart-data-edit.component';
 
 describe('DashboardChartDataEditComponent', () => {
-  let component: DashboardChartDataEditComponent;
   let fixture: ComponentFixture<DashboardChartDataEditComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardChartDataEditComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardChartDataEditComponent],
+      providers: commonProviders([
+      ]),
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(DashboardChartDataEditComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

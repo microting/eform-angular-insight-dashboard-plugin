@@ -1,11 +1,15 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {Pipe, PipeTransform} from '@angular/core';
+import {describe, it, expect, beforeEach, vi} from 'vitest';
+import type {MockInstance} from 'vitest';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
+import {TranslatePipe} from '@ngx-translate/core';
 import {of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {DashboardChartViewComponent} from './dashboard-chart-view.component';
 import {DashboardChartTypesEnum} from '../../../../const/enums';
 
-@Pipe({name: 'translate', standalone: false})
+@Pipe({name: 'translate'})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -35,13 +39,19 @@ describe('DashboardChartViewComponent', () => {
     component.ngOnChanges({itemModel: {} as any});
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardChartViewComponent, MockTranslatePipe],
-      providers: [{provide: Store, useValue: {select: () => of(false)}}],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardChartViewComponent],
+      providers: [
+        provideNoopAnimations(),
+        {provide: Store, useValue: {select: () => of(false)}}],
+    })
+      .overrideComponent(DashboardChartViewComponent, {
+        remove: {imports: [TranslatePipe]},
+        add: {imports: [MockTranslatePipe]},
+      })
+      .compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardChartViewComponent);
