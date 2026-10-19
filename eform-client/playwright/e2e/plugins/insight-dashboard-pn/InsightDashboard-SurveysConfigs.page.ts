@@ -113,7 +113,7 @@ export class InsightDashboardSurveysConfigsPage {
 
   async clickActionsMenu(rowNum: number) {
     await this.page.waitForTimeout(1000);
-    await this.page.locator('#actionMenu').nth(rowNum).click();
+    await this.page.locator('[id^="actionMenu"]').nth(rowNum).click();
     await this.page.waitForTimeout(1000);
   }
 }
@@ -147,7 +147,7 @@ export class SurveysConfigPageRowObject {
 
   async clickActionsMenu(rowNum: number) {
     await this.page.waitForTimeout(1000);
-    await this.page.locator('#actionMenu').nth(rowNum).click();
+    await this.page.locator('[id^="actionMenu"]').nth(rowNum).click();
     await this.page.waitForTimeout(1000);
   }
 }

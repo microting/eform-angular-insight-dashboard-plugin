@@ -11,12 +11,19 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatDialogTitle, MatDialogContent, MatDialogActions} from '@angular/material/dialog';
+import {FormsModule} from '@angular/forms';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MtxSelect} from '@ng-matero/extensions/select';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-new',
   templateUrl: './dashboard-new.component.html',
   styleUrls: ['./dashboard-new.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatDialogTitle, MatDialogContent, MatDialogActions, FormsModule, MatFormField, MatLabel, MatInput, MtxSelect],
 })
 export class DashboardNewComponent implements OnInit, OnDestroy {
   private dashboardsService = inject(InsightDashboardPnDashboardsService);

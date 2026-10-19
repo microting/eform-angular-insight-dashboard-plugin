@@ -8,12 +8,19 @@ import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 import {Store} from '@ngrx/store';
 import {selectIsDarkMode} from 'src/app/state/auth/auth.selector';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {NgIf, NgFor, NgStyle} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-dashboard-chart-view',
   templateUrl: './dashboard-chart-view.component.html',
   styleUrls: ['./dashboard-chart-view.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, NgIf, NgFor, NgStyle, MatIcon, MatIconButton, MatTooltip, NgxChartsModule],
 })
 export class DashboardChartViewComponent implements OnChanges, OnDestroy {
   private store = inject(Store);

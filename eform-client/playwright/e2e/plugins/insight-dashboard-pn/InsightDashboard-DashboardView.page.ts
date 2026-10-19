@@ -8,7 +8,7 @@ export class InsightDashboardDashboardViewPage {
 
   async rowNum(): Promise<number> {
     await this.page.waitForTimeout(1000);
-    return await this.page.locator('#dashboardViewItem').count();
+    return await this.page.locator('[id^="dashboardViewItem"]').count();
   }
 
   public get returnToDashboards() {

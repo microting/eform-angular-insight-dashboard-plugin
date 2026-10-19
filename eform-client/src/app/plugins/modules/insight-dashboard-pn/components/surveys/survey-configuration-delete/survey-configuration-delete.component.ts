@@ -7,11 +7,14 @@ import { SurveyConfigModel } from '../../../models/survey/survey-config.model';
 import { InsightDashboardPnSurveyConfigsService } from '../../../services';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatDialogTitle, MatDialogContent, MatDialogActions} from '@angular/material/dialog';
+
 @Component({
   selector: 'app-survey-configuration-delete',
   templateUrl: './survey-configuration-delete.component.html',
   styleUrls: ['./survey-configuration-delete.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatDialogTitle, MatDialogContent, MatDialogActions],
 })
 export class SurveyConfigurationDeleteComponent {
   private surveyConfigsService = inject(InsightDashboardPnSurveyConfigsService);

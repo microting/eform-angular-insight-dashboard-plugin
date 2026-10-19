@@ -1,24 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+import {InsightDashboardPnSurveyConfigsService} from '../../../services';
+import { commonProviders } from '../../../testing/common-providers';
 import { SurveyConfigurationStatusComponent } from './survey-configuration-status.component';
 
-describe('SurveyConfigurationActivateComponent', () => {
-  let component: SurveyConfigurationStatusComponent;
+describe('SurveyConfigurationStatusComponent', () => {
   let fixture: ComponentFixture<SurveyConfigurationStatusComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [SurveyConfigurationStatusComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SurveyConfigurationStatusComponent],
+      providers: commonProviders([
+        { provide: InsightDashboardPnSurveyConfigsService, useValue: {} },
+      ]),
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(SurveyConfigurationStatusComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

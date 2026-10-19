@@ -6,11 +6,14 @@ import {
 } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatDialogTitle, MatDialogActions} from '@angular/material/dialog';
+
 @Component({
   selector: 'app-answer-delete-modal',
   templateUrl: './answer-delete-modal.component.html',
   styleUrls: ['./answer-delete-modal.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatDialogTitle, MatDialogActions],
 })
 export class AnswerDeleteModalComponent implements OnInit {
   public dialogRef = inject(MatDialogRef<AnswerDeleteModalComponent>);

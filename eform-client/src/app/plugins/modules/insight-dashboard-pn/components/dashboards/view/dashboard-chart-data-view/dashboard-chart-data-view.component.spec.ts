@@ -1,12 +1,18 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {Pipe, PipeTransform} from '@angular/core';
+import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest';
+
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
+import {TranslatePipe} from '@ngx-translate/core';
 import {of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {DashboardChartDataViewComponent} from './dashboard-chart-data-view.component';
 import {DashboardChartTypesEnum} from '../../../../const';
 import * as tsvExport from '../../../../helpers/tsv-export.helper';
+import {captureDownloads} from '../../../../testing/capture-downloads';
 
-@Pipe({name: 'translate', standalone: false})
+
+@Pipe({name: 'translate'})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -16,7 +22,8 @@ class MockTranslatePipe implements PipeTransform {
 describe('DashboardChartDataViewComponent', () => {
   let component: DashboardChartDataViewComponent;
   let fixture: ComponentFixture<DashboardChartDataViewComponent>;
-  let downloadSpy: jest.SpyInstance;
+  let downloadSpy: ReturnType<typeof captureDownloads>['downloads'];
+  let restoreDownloads: () => void;
 
   const block = (rawValueName: string) => ({
     rawHeaders: ['Jan 2020', 'Feb 2020'],
@@ -49,23 +56,27 @@ describe('DashboardChartDataViewComponent', () => {
   const exportedTsv = (): string => downloadSpy.mock.calls[0][1];
   const exportedFileName = (): string => downloadSpy.mock.calls[0][0];
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardChartDataViewComponent, MockTranslatePipe],
-      providers: [{provide: Store, useValue: {select: () => of(false)}}],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardChartDataViewComponent],
+      providers: [
+        provideNoopAnimations(),
+        {provide: Store, useValue: {select: () => of(false)}}],
+    })
+      .overrideComponent(DashboardChartDataViewComponent, {
+        remove: {imports: [TranslatePipe]},
+        add: {imports: [MockTranslatePipe]},
+      })
+      .compileComponents();
+  });
 
   beforeEach(() => {
-    downloadSpy = jest
-      .spyOn(tsvExport, 'downloadTsv')
-      .mockImplementation(() => {});
+    ({downloads: downloadSpy, restore: restoreDownloads} = captureDownloads());
     fixture = TestBed.createComponent(DashboardChartDataViewComponent);
     component = fixture.componentInstance;
   });
 
-  afterEach(() => downloadSpy.mockRestore());
+  afterEach(() => restoreDownloads());
 
   it('should create', () => {
     setUp(DashboardChartTypesEnum.Line, [block('')]);

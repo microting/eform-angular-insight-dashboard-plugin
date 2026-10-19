@@ -8,12 +8,22 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Overlay} from '@angular/cdk/overlay';
 import {dialogConfigHelper} from 'src/app/common/helpers';
 
+import {TranslatePipe} from '@ngx-translate/core';
+import {EformNewSubheaderComponent} from 'src/app/common/modules/eform-shared/components/eform-new-subheader/eform-new-subheader.component';
+import {AnswerValuesTableComponent} from '../answer-values-table/answer-values-table.component';
+import {FormsModule} from '@angular/forms';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+
 @AutoUnsubscribe()
 @Component({
   selector: 'app-answer-page',
   templateUrl: './answer-page.component.html',
   styleUrls: ['./answer-page.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, EformNewSubheaderComponent, AnswerValuesTableComponent, FormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatIconButton, MatTooltip],
 })
 export class AnswerPageComponent implements OnInit, OnDestroy {
   private answersService = inject(InsightDashboardPnAnswersService);

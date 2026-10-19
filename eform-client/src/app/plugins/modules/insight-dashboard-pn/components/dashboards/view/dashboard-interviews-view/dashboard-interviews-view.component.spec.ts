@@ -1,12 +1,18 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {LOCALE_ID, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
+import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest';
+
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
+import {TranslatePipe} from '@ngx-translate/core';
 import {of} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {DashboardInterviewsViewComponent} from './dashboard-interviews-view.component';
 import {InsightDashboardPnDashboardItemsService} from '../../../../services';
 import * as tsvExport from '../../../../helpers/tsv-export.helper';
+import {captureDownloads} from '../../../../testing/capture-downloads';
 
-@Pipe({name: 'translate', standalone: false})
+
+@Pipe({name: 'translate'})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -16,10 +22,11 @@ class MockTranslatePipe implements PipeTransform {
 describe('DashboardInterviewsViewComponent', () => {
   let component: DashboardInterviewsViewComponent;
   let fixture: ComponentFixture<DashboardInterviewsViewComponent>;
-  let downloadSpy: jest.SpyInstance;
+  let downloadSpy: ReturnType<typeof captureDownloads>['downloads'];
+  let restoreDownloads: () => void;
 
   const dashboardItemsServiceMock = {
-    exportInterviewsToExcel: jest.fn(() => of(new Blob())),
+    exportInterviewsToExcel: vi.fn(() => of(new Blob())),
   };
 
   const setUp = (textQuestionData: any[]) => {
@@ -30,10 +37,11 @@ describe('DashboardInterviewsViewComponent', () => {
 
   const exportedTsv = (): string => downloadSpy.mock.calls[0][1];
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardInterviewsViewComponent, MockTranslatePipe],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardInterviewsViewComponent],
       providers: [
+        provideNoopAnimations(),
         {provide: LOCALE_ID, useValue: 'en-US'},
         {
           provide: InsightDashboardPnDashboardItemsService,
@@ -48,23 +56,22 @@ describe('DashboardInterviewsViewComponent', () => {
           },
         },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
-  }));
+    })
+      .overrideComponent(DashboardInterviewsViewComponent, {
+        remove: {imports: [TranslatePipe]},
+        add: {imports: [MockTranslatePipe]},
+      })
+      .compileComponents();
+  });
 
   beforeEach(() => {
-    // jsdom has no object URL support, and file-saver reaches for it.
-    (URL as any).createObjectURL = jest.fn(() => 'blob:stub');
-    (URL as any).revokeObjectURL = jest.fn();
 
-    downloadSpy = jest
-      .spyOn(tsvExport, 'downloadTsv')
-      .mockImplementation(() => {});
+    ({downloads: downloadSpy, restore: restoreDownloads} = captureDownloads());
     fixture = TestBed.createComponent(DashboardInterviewsViewComponent);
     component = fixture.componentInstance;
   });
 
-  afterEach(() => downloadSpy.mockRestore());
+  afterEach(() => restoreDownloads());
 
   it('should create', () => {
     setUp([]);

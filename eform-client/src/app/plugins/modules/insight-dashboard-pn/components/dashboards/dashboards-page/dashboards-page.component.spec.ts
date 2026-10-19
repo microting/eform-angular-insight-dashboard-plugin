@@ -1,24 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+import {InsightDashboardPnDashboardDictionariesService} from '../../../services';
+import {DashboardsStateService} from '../store/dashboards-state.service';
+import { commonProviders } from '../../../testing/common-providers';
 import { DashboardsPageComponent } from './dashboards-page.component';
 
-describe('InsightDashboardDashboardsComponent', () => {
-  let component: DashboardsPageComponent;
+describe('DashboardsPageComponent', () => {
   let fixture: ComponentFixture<DashboardsPageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardsPageComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardsPageComponent],
+      providers: commonProviders([
+        { provide: InsightDashboardPnDashboardDictionariesService, useValue: {} },
+        { provide: DashboardsStateService, useValue: {} },
+      ]),
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(DashboardsPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

@@ -51,11 +51,11 @@
       [dragulaModel]="dashboardEditModel.items"
     >
       <app-dashboard-item-edit
-        *ngFor="let dashboardItem of dashboardEditModel.items"
+        *ngFor="let dashboardItem of dashboardEditModel.items; let i = index"
         [dashboardItem]="dashboardItem"
         [locationsTags]="availableLocationsTags"
         [questions]="questions"
-        id="dashboardItem"
+        id="dashboardItem{{i}}"
         [selectedSurveyId]="dashboardEditModel.surveyId"
         [selectedLocationId]="dashboardEditModel.locationId"
         [selectedTagId]="dashboardEditModel.tagId"
