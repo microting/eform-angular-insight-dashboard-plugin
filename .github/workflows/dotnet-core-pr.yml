@@ -8,11 +8,11 @@ jobs:
   insight-dashboard-build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: eform-angular-insight-dashboard-plugin
     - name: 'Preparing Frontend checkout'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: microting/eform-angular-frontend
@@ -80,7 +80,7 @@ jobs:
       matrix:
         test: [a,b,c]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: eform-angular-insight-dashboard-plugin
     - name: Create docker network
@@ -98,7 +98,7 @@ jobs:
       with:
         node-version: 22
     - name: 'Preparing Frontend checkout'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: microting/eform-angular-frontend
         ref: ${{ github.base_ref }}
@@ -164,7 +164,7 @@ jobs:
   insight-dashboard-test-dotnet:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: eform-angular-insight-dashboard-plugin
     - name: Create docker network
@@ -180,9 +180,9 @@ jobs:
         mysql -u root -h 127.0.0.1 --password=secretpassword -e 'create database `420_SDK`'
         mysql -u root -h 127.0.0.1 --password=secretpassword 420_SDK < eform-angular-insight-dashboard-plugin/420_SDK.sql
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: 11.0.x
     - name: Build
       run: dotnet build eform-angular-insight-dashboard-plugin/eFormAPI/Plugins/InsightDashboard.Pn/InsightDashboard.Pn.sln
     - name: Unit Tests
